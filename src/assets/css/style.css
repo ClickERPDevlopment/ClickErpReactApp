@@ -4007,11 +4007,17 @@ label {
   @apply rotate-90;
 }
 
+/* .app-sidebar {
+  @apply translate-x-[-100%] transition-all duration-300;
+  @apply lg:translate-x-0 !important;
+} */
+
 /* Start Responsive Styles */
 [data-toggled=open] .app-sidebar {
   @apply translate-x-0 transition-all duration-300;
   @apply lg:translate-x-0 !important;
 }
+
 [data-toggled=open] .app-sidebar .main-sidebar-header {
   @apply hidden;
 }

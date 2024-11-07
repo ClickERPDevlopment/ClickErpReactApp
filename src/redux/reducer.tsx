@@ -19,7 +19,7 @@ const initialState = {
    dataNavLayout: "vertical",
    dataHeaderStyles: "light",
    dataVerticalStyle: "overlay",
-   toggled: "",
+   toggled: "close",
    dataNavStyle: "",
    horStyle: "",
    dataPageStyle: "regular",

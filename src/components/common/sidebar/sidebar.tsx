@@ -27,12 +27,15 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: { local_varaiable: any, Them
     closeMenuRecursively(MENUITEMS);
     setMenuitems((arr) => [...arr]);
   }
+ 
 
   useEffect(() => {
 
-    const mainContent = document.querySelector(".main-content") as HTMLElement | null;
+   
+  const mainContent = document.querySelector(".main-content") as HTMLElement | null;
     mainContent?.addEventListener('click', menuClose);
-    window.addEventListener('resize', menuResizeFn);
+    window.addEventListener('resize', menuResizeFn)
+  
   }, []);
 
   // const location = useLocation();
@@ -52,7 +55,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: { local_varaiable: any, Them
     }
   }
   const [MyclassName, setMyClass] = useState("");
-  console.log(MyclassName);
+  console.log(MyclassName)
   function menuClose() {
 
     const theme = store.getState();

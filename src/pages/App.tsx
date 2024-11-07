@@ -11,6 +11,7 @@ import store from '../redux/store';
 import { Provider } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Tabtotop from '../components/common/tabtotop/tabtotop';
+import { ThemeChanger } from '../redux/action';
 
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
 
   useEffect(() => {
     import("preline");
+    const theme = store.getState()
+    if (window.innerWidth <= 992) {
+      ThemeChanger({ ...theme, toggled: "close" });
+    }
 
   }, []);
   return (
