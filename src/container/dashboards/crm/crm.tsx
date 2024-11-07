@@ -7,10 +7,11 @@ import face12 from "../../../assets/images/faces/12.jpg";
 
 const Crm = () => {
   // for User search function
+  // @ts-ignore
   const [Data, setData] = useState(Dealsstatistics);
 
   const userdata: any = [];
-
+  // @ts-ignore
   const myfunction = (idx: any) => {
     let Data;
     for (Data of Dealsstatistics) {

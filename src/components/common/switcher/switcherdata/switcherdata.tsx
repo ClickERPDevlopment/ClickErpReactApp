@@ -737,6 +737,7 @@ const Themeprimarycolor = ({ actionfunction }: { actionfunction: any }) => {
 export default Themeprimarycolor;
 
 //themeBackground
+// @ts-ignore
 export const Themebackgroundcolor = ({ actionfunction }: { actionfunction: any }) => {
     // const theme = store.getState();
     // const [state, updateState] = useState("#FFFFFF");

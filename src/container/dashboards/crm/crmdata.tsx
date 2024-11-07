@@ -1,4 +1,5 @@
 import { Component } from 'react';
+// @ts-ignore
 import ReactApexChart from 'react-apexcharts';
 import face4 from "../../../assets/images/faces/4.jpg";
 import face15 from "../../../assets/images/faces/15.jpg";

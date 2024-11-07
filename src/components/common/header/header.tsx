@@ -61,11 +61,12 @@ const Header = ({ local_varaiable, ThemeChanger }: { local_varaiable: any, Theme
     };
   }, []);
   //
+  // @ts-ignore
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleToggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
+  // const handleToggleDropdown = () => {
+  //   setDropdownOpen(!isDropdownOpen);
+  // };
   const cartProduct = [
     {
       id: 1,

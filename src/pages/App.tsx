@@ -1,6 +1,7 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import Loader from '../components/common/loader/loader';
+// @ts-ignore
 import Footer from '../components/common/footer/footer';
 import Sidebar from '../components/common/sidebar/sidebar';
 import Switcher from '../components/common/switcher/switcher';
@@ -13,6 +14,7 @@ import Tabtotop from '../components/common/tabtotop/tabtotop';
 
 
 function App() {
+  // @ts-ignore
   const [MyclassName, setMyClass] = useState("");
 
   // const Bodyclickk = () => {

@@ -1,7 +1,9 @@
+// @ts-ignore
 import { CSSProperties, FC, Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { connect } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
+// @ts-ignore
 import Themeprimarycolor, * as switcherdata from "./switcherdata/switcherdata";
 import { Link } from 'react-router-dom';
 
@@ -12,6 +14,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: { local_varaiable: any, The
     switcherdata.LocalStorageBackup(ThemeChanger);
 
   }, []);
+  // @ts-ignore
   const customStyles = `${local_varaiable.colorPrimaryRgb != '' ? `--primary-rgb: ${local_varaiable.colorPrimaryRgb}` : ''};
   ${local_varaiable.colorPrimary != '' ? `--primary: ${local_varaiable.colorPrimary}` : ''};
   ${local_varaiable.darkBg != '' ? `--dark-bg: ${local_varaiable.darkBg}` : ''};

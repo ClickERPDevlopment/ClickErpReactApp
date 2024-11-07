@@ -4,12 +4,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { MENUITEMS } from './sidemenu/sidemenu';
 import { ThemeChanger } from '../../../redux/action';
 import store from '../../../redux/store';
-import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
-import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
-import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";
-import logo4 from "../../../assets/images/brand-logos/toggle-dark.png";
-import logo5 from "../../../assets/images/brand-logos/desktop-white.png";
-import logo6 from "../../../assets/images/brand-logos/toggle-white.png";
+// import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
+// import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
+// import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";
+// import logo4 from "../../../assets/images/brand-logos/toggle-dark.png";
+// import logo5 from "../../../assets/images/brand-logos/desktop-white.png";
+// import logo6 from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from 'simplebar-react';
 import Menuloop from '../../ui/menuloop';
 
@@ -52,6 +52,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: { local_varaiable: any, Them
     }
   }
   const [MyclassName, setMyClass] = useState("");
+  console.log(MyclassName);
   function menuClose() {
 
     const theme = store.getState();
