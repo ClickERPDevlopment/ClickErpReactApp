@@ -31,9 +31,6 @@ import togglewhite from "../../../assets/images/brand-logos/toggle-white.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 // import SimpleBar from "simplebar-react";
