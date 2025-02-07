@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import { localStorageKey, useAuth } from "./auth-provider";

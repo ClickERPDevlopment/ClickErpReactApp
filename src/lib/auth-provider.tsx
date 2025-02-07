@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios, { AxiosError } from "axios";
 import React, { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router";
@@ -36,7 +38,7 @@ export default function AuthProvider({
   const [token, setToken] = useState<string | null>(
     localStorage.getItem(localStorageKey.accessTokenKey) || ""
   );
-  const [refreshToken, setRefreshToken] = useState<string | null>(
+  const [, setRefreshToken] = useState<string | null>(
     localStorage.getItem(localStorageKey.refreshTokenKey) || ""
   );
   const navigate = useNavigate();
@@ -54,10 +56,7 @@ export default function AuthProvider({
 
       const response = await axios.post(
         `${api.ProductionRootUrl}/api/production/account/login`,
-        // "https://identity.nextbd.xyz/api/account/login",
-        // "http://localhost:5295/api/account/login",
         authData
-        // { headers: { "content-type": "application/x-www-form-urlencoded" } }
       );
 
       if (response.data) {

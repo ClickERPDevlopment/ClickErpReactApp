@@ -1,3 +1,5 @@
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import useAppClient from "./use-AppClient";
 import useDevEnv from "./use-DevEnv";
 //
@@ -9,7 +11,6 @@ export default function useApiUrl() {
 
   const DevUrl = "http://localhost:40000/api";
   const DevRootUrl = "http://localhost:40000";
-  const LocalIISUrl = "http://localhost:5500/reports/api";
   var ProductionUrl = "";
   var ProductionRootUrl = "";
   // var icclUrl = "http://119.148.62.103:6503/reports/api";
