@@ -2,12 +2,12 @@
 import { Search } from "lucide-react";
 
 import { Link, Outlet } from "react-router";
-import { AppSidebar } from "@/components/app-sidebar";
-import LogoutButton from "@/components/logout-button";
+// import { AppSidebar } from "@/components/app-sidebar";
+// import LogoutButton from "@/components/logout-button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AuthContextType, useAuth } from "@/lib/auth-provider";
+import { SidebarProvider } from "@/components/ui/sidebar";
+// import { AuthContextType, useAuth } from "@/lib/auth-provider";
 import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
 import { HrPayrollMenu } from "@/lib/menu/hr-payroll-menu";
 import { MenuType } from "@/lib/menu/menu-type";
@@ -155,12 +155,12 @@ export function PageSearchDialog() {
 }
 
 export default function AppLayout() {
-  const auth: AuthContextType | null = useAuth();
+  // const auth: AuthContextType | null = useAuth();
   return (
     <SidebarProvider>
-      <AppSidebar />
+      {/* <AppSidebar /> */}
       <main className="w-screen sm:w-full">
-        <nav className="border-b py-2 bg-slate-300">
+        {/* <nav className="border-b py-2 bg-slate-300">
           <div className=" px-5 flex justify-start items-center">
             <div className="flex justify-center items-center gap-5">
               <SidebarTrigger />
@@ -174,7 +174,7 @@ export default function AppLayout() {
               <LogoutButton />
             </div>
           </div>
-        </nav>
+        </nav> */}
         <div className="container">
           <Outlet />
         </div>

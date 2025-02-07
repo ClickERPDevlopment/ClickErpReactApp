@@ -121,8 +121,8 @@ createRoot(document.getElementById("root")!).render(
               <Routes>
                 <Route path="login" element={<Login />} />
                 <Route path="blank-page" element={<BalckPage />} />
-                <Route path={"/"} element={<App />}>
-                  <Route element={<PrivateRoute />}>
+                <Route element={<PrivateRoute />}>
+                  <Route path={"/"} element={<App />}>
                     <Route index element={<Dashboard />} />
                     <Route path="/dashboard" element={<AppLayout />}>
                       <Route index element={<Dashboard />} />
@@ -235,57 +235,58 @@ createRoot(document.getElementById("root")!).render(
                         </Route>
                       </Route>
                     </Route>
-                    <Route path="/win" element={<DesktopLayout />}>
-                      <Route element={<PrivateRoute />}>
-                        <Route path="sweater">
-                          <Route index element={<SweaterDashboard />} />
-                          <Route path="gauge">
-                            <Route index element={<Gauge />} />
-                            <Route
-                              path=":pageAction/:id"
-                              element={<GaugeCrud />}
-                            />
-                          </Route>
-                          <Route path="mc-group">
-                            <Route index element={<McGroup />} />
-                            <Route
-                              path=":pageAction/:id"
-                              element={<McGroupCrud />}
-                            />
-                          </Route>
-                          <Route path="brand-group">
-                            <Route index element={<BrandGroupIndex />} />
-                            <Route
-                              path=":pageAction/:id"
-                              element={<BrandGroupCrud />}
-                            />
-                          </Route>
+                  </Route>
 
-                          <Route path="planning-board-configure">
-                            <Route
-                              index
-                              element={<PlanningBoardConfigureIndex />}
-                            />
-                            <Route
-                              path=":pageAction/:id"
-                              element={<PlanningBoardConfigureCrud />}
-                            />
-                          </Route>
-                          <Route path="date-wise-mc-distribution">
-                            <Route
-                              index
-                              element={<DateWiseMCDistributionIndex />}
-                            />
-                          </Route>
-                          <Route path="plan-strip">
-                            <Route index element={<SwtPlanStripIndex />} />
-                          </Route>
+                  <Route path="/win" element={<DesktopLayout />}>
+                    <Route element={<PrivateRoute />}>
+                      <Route path="sweater">
+                        <Route index element={<SweaterDashboard />} />
+                        <Route path="gauge">
+                          <Route index element={<Gauge />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<GaugeCrud />}
+                          />
+                        </Route>
+                        <Route path="mc-group">
+                          <Route index element={<McGroup />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<McGroupCrud />}
+                          />
+                        </Route>
+                        <Route path="brand-group">
+                          <Route index element={<BrandGroupIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<BrandGroupCrud />}
+                          />
+                        </Route>
+
+                        <Route path="planning-board-configure">
+                          <Route
+                            index
+                            element={<PlanningBoardConfigureIndex />}
+                          />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PlanningBoardConfigureCrud />}
+                          />
+                        </Route>
+                        <Route path="date-wise-mc-distribution">
+                          <Route
+                            index
+                            element={<DateWiseMCDistributionIndex />}
+                          />
+                        </Route>
+                        <Route path="plan-strip">
+                          <Route index element={<SwtPlanStripIndex />} />
                         </Route>
                       </Route>
                     </Route>
                   </Route>
-                  <Route path="*" element={<NoPage />} />
                 </Route>
+                <Route path="*" element={<NoPage />} />
 
                 <Route path="/report" element={<ReportLayout />}>
                   {/* <Route index element={<Home />} /> */}
