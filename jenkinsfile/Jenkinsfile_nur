@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+
+    environment {
+        CI = false
+        IIS_FOLDER_LOCATION = 'D:\\IIS_Publish\\ClcikReportReactApp'
+        CLIENT_NAME = 'NUR'
+    }
+
+    stages {
+        stage('Write env file') {
+            steps {
+                script {
+                   //add file
+                   
+                   def data = "REACT_APP_CLIENT_NAME=${CLIENT_NAME}"
+                   writeFile(file: '.env', text: data)
+               }
+            }
+        }
+        stage('read') {
+           steps {
+               script {
+                   def data = readFile(file: '.env')
+                   println(data)
+               }
+           }
+       }
+       
+        stage('npm version check') {
+           steps {
+               script {
+                   bat 'npm --version'
+               }
+           }
+       }
+       stage('npm install') {
+           steps {
+               script {
+                   bat 'npm install --legacy-peer-deps'
+               }
+           }
+       }
+       stage('build') {
+           steps {
+               script {
+                   bat 'npm run build'
+               }
+           }
+       }
+
+    //     stage('copy webconfig file') {
+    //        steps {
+    //            script {
+    //                 bat "xcopy  /Y /s ${WORKSPACE}\\web.config ${WORKSPACE}\\build"
+    //            }
+    //        }
+    //    }
+
+       stage('copy build file') {
+           steps {
+               script {
+                    bat "xcopy ${WORKSPACE}\\build ${IIS_FOLDER_LOCATION} /O /X /E /H /K /D /Y"
+               }
+           }
+       }
+       
+        
+    
+    }
+}

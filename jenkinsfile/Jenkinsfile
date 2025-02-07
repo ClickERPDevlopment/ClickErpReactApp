@@ -1,0 +1,78 @@
+pipeline {
+    agent any
+ 
+    environment {
+        registryCredentialUp = 'docker_up'
+        
+        registry_react_app = 'clickerp/react-app'
+        dockerfile_react_app = 'Dockerfile'
+        dockerImage_react_app = ''
+    }
+
+    stages {
+        stage('Start') {
+            steps {
+                echo 'Pipeline start.'
+            }
+        }
+        
+        stage('npm install') { 
+            steps {
+                sh 'npm install' 
+            }
+        }
+
+       // stage('Build') { 
+     //    steps {
+      //    sh "npm run build"
+     //      }
+     //   }
+    
+        stage('Building image') {
+            steps{
+                script {
+                    sh "ls"
+                     dockerImage_react_app = docker.build(registry_react_app + ":$BUILD_NUMBER", "-f ${dockerfile_react_app} .")
+                }
+            }
+        }
+    
+        stage('Push to dockerhub') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredentialUp ) {
+                        dockerImage_react_app.push()
+                    }   
+                }
+            }
+        }
+
+        stage('Cleaning up') {
+            steps{
+                sh "docker rmi $registry_react_app:$BUILD_NUMBER"
+            }
+        }
+
+        stage('Tigger CD Pipeline new') {
+            steps{
+                script {
+                    def imageTag = env.BUILD_NUMBER
+                    sh """
+                            curl -X POST "http://localhost:8080/job/react-app-cd-pipeline/buildWithParameters?token=jenkins" \
+                                 --data-urlencode "IMAGE_TAG=${imageTag}" \
+                                 --user jenkins:115f5bd75ec12670df2ae2068c8f3db59f
+                        """
+                }
+            }
+        }
+    }
+ 
+    post {
+        success {
+            echo 'Docker image build and push successful!'
+        }
+        failure {
+            error 'Docker image build or push failed!'
+        }
+    }
+}
