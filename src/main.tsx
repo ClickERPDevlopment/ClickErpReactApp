@@ -70,7 +70,7 @@ import GreyFabricTransferReport from "./reports/store/grey-store/grey-fabric-tra
 import PrivateRoute from "@/components/PrivateRoute";
 import Login from "./app/auth/login/log-in-index";
 import NoPage from "./pages/NoPage";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import ReportLayout from "./reports/report-layout";
 import AccessoriesWoReport from "./reports/merchandising/work-order/acc-wo-bkl-hangtagsticker-rpt/acc-wo-hangtagsticker-rpt";
 import SweaterDashboard from "./app/dashboard/sweater-dashboard";
@@ -119,11 +119,11 @@ createRoot(document.getElementById("root")!).render(
             <React.Suspense>
               <ScrollToTop />
               <Routes>
-                <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
-                  <Route index element={<Home />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="blank-page" element={<BalckPage />} />
+                <Route path="login" element={<Login />} />
+                <Route path="blank-page" element={<BalckPage />} />
+                <Route path={"/"} element={<App />}>
                   <Route element={<PrivateRoute />}>
+                    <Route index element={<Dashboard />} />
                     <Route path="/dashboard" element={<AppLayout />}>
                       <Route index element={<Dashboard />} />
                       <Route

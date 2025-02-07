@@ -1,5 +1,5 @@
 export default function useAppClient() {
-  const currentClient = process.env.REACT_APP_CLIENT_NAME;
+  const currentClient = import.meta.env.VITE_APP_CLIENT_NAME;
 
   const NUR = "NUR";
   const ICCL = "ICCL";

@@ -6,7 +6,7 @@ import useDevEnv from "./use-DevEnv";
 export default function useApiUrl() {
   const { currentEnv, devEnv } = useDevEnv();
   const { NUR, VERSATILE, ICCL, AG, EURO, PRESENTATION } = useAppClient();
-  const clientName = process.env.REACT_APP_CLIENT_NAME;
+  const clientName = import.meta.env.VITE_APP_CLIENT_NAME;
 
   const DevUrl = "http://localhost:40000/api";
   const DevRootUrl = "http://localhost:40000";
@@ -35,7 +35,7 @@ export default function useApiUrl() {
 
   if (currentEnv === devEnv) {
     if (clientName === AG) {
-      if (process.env.REACT_APP_LINUX_NODE_ENV === "production") {
+      if (import.meta.env.VITE_APP_LINUX_NODE_ENV === "production") {
         ProductionUrl = agUrl;
         ProductionRootUrl = agRootUrl;
       } else {
@@ -67,5 +67,8 @@ export default function useApiUrl() {
       ProductionRootUrl = presentationRootUrl;
     }
   }
+
+  ProductionUrl = icclUrl;
+  ProductionRootUrl = icclRootUrl;
   return { ProductionUrl, ProductionRootUrl };
 }
