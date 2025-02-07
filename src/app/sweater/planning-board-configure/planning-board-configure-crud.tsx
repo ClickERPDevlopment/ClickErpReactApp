@@ -4,9 +4,9 @@ import { useParams } from "react-router";
 import {
   GetSwtPlanningBoardDataById,
   planningBoardConfigureType,
-} from "src/actions/Sweater/swt-planning-board-configure-action";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+} from "@/actions/Sweater/swt-planning-board-configure-action";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import PlanningBoardConfigureForm from "./planning-board-configure-form";
 
 export default function PlanningBoardConfigureCrud() {

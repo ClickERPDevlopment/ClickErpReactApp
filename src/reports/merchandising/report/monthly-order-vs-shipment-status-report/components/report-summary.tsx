@@ -1,24 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Item } from "@radix-ui/react-dropdown-menu";
-import moment from "moment";
+import { IDateWiseFabricRequisitionReceive } from "@/reports/production/cuttting/date-wise-fabric-requisition-receive/date-wise-fabric-requisition-receive-type";
 
 function ReportSummary({
   data,
-  firstHeader,
 }: {
   data: IDateWiseFabricRequisitionReceive[];
   firstHeader: string[] | null;
 }) {
   const totalRequired = data.reduce((acc, item) => {
     return acc + item.TOTAL_REQUIRED;
-  }, 0);
-
-  const totalRedy = data.reduce((acc, item) => {
-    return acc + item.READY_QTY;
-  }, 0);
-
-  const totalDayRequisition = data.reduce((acc, item) => {
-    return acc + item.DAY_REQUISITION;
   }, 0);
 
   const totalDayReceive = data.reduce((acc, item) => {

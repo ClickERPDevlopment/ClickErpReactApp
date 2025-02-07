@@ -3,7 +3,7 @@ import {
   Save,
   SwtPlanStripDtlsType,
   SwtPlanStripType,
-} from "src/actions/Sweater/swt-plan-strip-action";
+} from "@/actions/Sweater/swt-plan-strip-action";
 import { create } from "zustand";
 import { StripSerachType } from "./swt-plan-strip-search-from";
 import { AxiosInstance } from "axios";

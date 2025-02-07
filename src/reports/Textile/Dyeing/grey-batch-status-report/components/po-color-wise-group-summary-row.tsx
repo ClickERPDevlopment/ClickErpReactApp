@@ -117,7 +117,7 @@ export default function PoColorWiseGroupSummaryRow({
 
       {/* other rows with in lstGreyRcvSummary total rows */}
       {lstBookingSummary
-        ?.filter((d, i) => i !== 0)
+        ?.filter((_d, i) => i !== 0)
         .map((gRcv, gRcvgIndex) => (
           <tr>
             <td className="border border-black text-xs text-center p-1">
@@ -145,8 +145,8 @@ export default function PoColorWiseGroupSummaryRow({
 
       {/* other rows where grey rcv all rows not yet show. */}
       {lstGreyRcvSummary
-        ?.filter((d, i) => i >= lstBookingSummary.length)
-        .map((gRcv, gRcvIndex) => (
+        ?.filter((_d, i) => i >= lstBookingSummary.length)
+        .map((gRcv) => (
           <tr key={Math.random()}>
             <td className="border border-black text-xs text-center p-1"></td>
             <td className="border border-black text-xs text-center p-1"></td>

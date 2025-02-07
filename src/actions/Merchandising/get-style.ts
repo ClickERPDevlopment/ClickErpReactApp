@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ReactQueryKey } from "src/utility/react-query-key";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import { ReactQueryKey } from "@/utility/react-query-key";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 export function GetAllStyle() {
   const api = useApiUrl();

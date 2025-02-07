@@ -1,4 +1,3 @@
-/* eslint-disable no-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   FinishFabricAllocationSummaryReportDetailsType,
@@ -41,8 +40,8 @@ export default function ReportTable({
   //   return (acc += item.STOCK);
   // }, 0);
 
-  const totaAllocationQty = 0;
-  const totaAllocationBalance = 0;
+  let totaAllocationQty = 0;
+  let totaAllocationBalance = 0;
 
   return (
     <>

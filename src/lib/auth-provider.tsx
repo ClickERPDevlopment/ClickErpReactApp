@@ -3,7 +3,7 @@
 import axios, { AxiosError } from "axios";
 import React, { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 export const localStorageKey = {
   accessTokenKey: "click_api_token",

@@ -8,13 +8,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
-import { AppButton } from "src/components/app-buttom";
-import { GetSimilarMcGroup } from "src/actions/Sweater/swt-mc-group-action";
-import AppDatePicker from "src/components/app-date-picker";
-import AppCombobox from "src/components/app-combobox";
-import { ComboBoxOptionsType } from "src/app-type";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { AppButton } from "@/components/app-buttom";
+import { GetSimilarMcGroup } from "@/actions/Sweater/swt-mc-group-action";
+import AppDatePicker from "@/components/app-date-picker";
+import AppCombobox from "@/components/app-combobox";
+import { ComboBoxOptionsType } from "@/app-type";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 import { TrashIcon } from "@radix-ui/react-icons";
 import {
   TransferOutAddFormType,

@@ -1,18 +1,12 @@
-import { BellIcon, CheckIcon } from "@radix-ui/react-icons";
-
-import { cn } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card";
+} from "@/components/ui/card";
 import { Link } from "react-router";
-
-type CardProps = React.ComponentProps<typeof Card>;
 
 export function ReportCard({
   menu,

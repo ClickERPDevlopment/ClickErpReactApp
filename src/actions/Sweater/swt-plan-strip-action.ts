@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { StripSerachType } from "src/app/sweater/plan-strip/components/swt-plan-strip-search-from";
+import { StripSerachType } from "@/app/sweater/plan-strip/components/swt-plan-strip-search-from";
 import moment from "moment";
 
 export type SwtPlanStripType = {

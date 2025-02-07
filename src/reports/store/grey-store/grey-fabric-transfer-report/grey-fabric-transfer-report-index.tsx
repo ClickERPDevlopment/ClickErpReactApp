@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
-import useApiUrl from "src/hooks/use-ApiUrl";
-import ReportSkeleton from "src/components/report-skeleton";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import ReportSkeleton from "@/components/report-skeleton";
 import moment from "moment";
 import { IGreyFabricTransferReport } from "./grey-fabric-transfer-report-type";
 
@@ -13,7 +13,7 @@ export default function GreyFabricTransferReport() {
 
   const [searchParams] = useSearchParams();
 
-  const id: string | null = "0";
+  let id: string | null = "0";
 
   if (searchParams.get("id")) {
     id = searchParams.get("id");

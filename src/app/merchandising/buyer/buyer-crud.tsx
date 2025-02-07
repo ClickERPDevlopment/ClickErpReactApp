@@ -1,11 +1,11 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import BuyerForm from "./buyer-form";
-import { GetBuyerById, GetBuyer } from "src/actions/Sweater/merch-buyer-action";
-import { GetCountry } from "src/actions/get-country-action";
+import { GetBuyerById, GetBuyer } from "@/actions/Sweater/merch-buyer-action";
+import { GetCountry } from "@/actions/get-country-action";
 export default function BuyerCrud() {
   const { pageAction, id } = useParams();
 

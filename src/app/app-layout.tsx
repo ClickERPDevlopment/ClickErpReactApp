@@ -2,24 +2,18 @@
 import { Search } from "lucide-react";
 
 import { Link, Outlet } from "react-router";
-import { AppSidebar } from "src/components/app-sidebar";
-import LogoutButton from "src/components/logout-button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "src/components/ui/dialog";
-import { Input } from "src/components/ui/input";
-import { SidebarProvider, SidebarTrigger } from "src/components/ui/sidebar";
-import { AuthContextType, useAuth } from "src/lib/auth-provider";
-import { ConfigurationMenu } from "src/lib/menu/configuration-menu";
-import { HrPayrollMenu } from "src/lib/menu/hr-payroll-menu";
-import { MenuType } from "src/lib/menu/menu-type";
-import { ProductionMenu } from "src/lib/menu/production-menu";
-import { MerchandisingMenu } from "src/lib/menu/merchandising-menu";
-import { TextileMenu } from "src/lib/menu/textile-menu";
+import { AppSidebar } from "@/components/app-sidebar";
+import LogoutButton from "@/components/logout-button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AuthContextType, useAuth } from "@/lib/auth-provider";
+import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
+import { HrPayrollMenu } from "@/lib/menu/hr-payroll-menu";
+import { MenuType } from "@/lib/menu/menu-type";
+import { ProductionMenu } from "@/lib/menu/production-menu";
+import { MerchandisingMenu } from "@/lib/menu/merchandising-menu";
+import { TextileMenu } from "@/lib/menu/textile-menu";
 import React from "react";
 
 type searchMenuType = {

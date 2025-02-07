@@ -5,10 +5,10 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { Link } from "react-router";
-import { GetBuyer } from "src/actions/Sweater/merch-buyer-action";
+import { GetBuyer } from "@/actions/Sweater/merch-buyer-action";
 
-import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
-import { Button } from "src/components/ui/button";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -16,29 +16,29 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
+} from "@/components/ui/popover";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
 import { z } from "zod";
 import {
   ColorType,
   GetColor,
-} from "src/actions/Merchandising/merch-color-action";
+} from "@/actions/Merchandising/merch-color-action";
 import { ColorTable } from "./color-table";
-import TableSkeleton from "src/components/table-skeleton";
+import TableSkeleton from "@/components/table-skeleton";
 
 type comboBoxDataType = {
   label: string;

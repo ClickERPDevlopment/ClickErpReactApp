@@ -17,9 +17,9 @@ import {
   Save,
   Update,
   detailsType,
-} from "src/actions/Sweater/swt-planning-board-configure-action";
-import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
-import { Button } from "src/components/ui/button";
+} from "@/actions/Sweater/swt-planning-board-configure-action";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -27,7 +27,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 
 import {
   Select,
@@ -35,7 +35,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "src/components/ui/select";
+} from "@/components/ui/select";
 
 import {
   Table,
@@ -44,21 +44,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 
-import { Input } from "src/components/ui/input";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
-import { ReactQueryKey } from "src/utility/react-query-key";
+import { Input } from "@/components/ui/input";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
+import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
 import { Trash2Icon } from "lucide-react";
 import {
   GetCompany,
   GetMCGroup,
   GetSection,
-} from "src/actions/Sweater/swt-planning-board-configure-action";
-import { useToast } from "src/components/ui/use-toast";
+} from "@/actions/Sweater/swt-planning-board-configure-action";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   PLANNING_BOARD_NAME: z.string(),
@@ -170,7 +170,7 @@ export default function PlanningBoardConfigureForm({
     console.log(data);
 
     mutation.mutate(data, {
-      onSuccess: (response) => {
+      onSuccess: (_response) => {
         //console.log("Mutation successful:", response);
       },
       onError: (error) => {
@@ -222,7 +222,7 @@ export default function PlanningBoardConfigureForm({
     });
   };
   const handleRemove = (index: number) => {
-    const items = detailsData?.filter((d, i) => i !== index);
+    const items = detailsData?.filter((_d, i) => i !== index);
     setdetailsData([...(items || [])]);
   };
 
@@ -301,7 +301,7 @@ export default function PlanningBoardConfigureForm({
               <FormField
                 control={form.control}
                 name="COMPANY_ID"
-                render={({ field }) => (
+                render={() => (
                   <FormItem className="min-w-52">
                     <FormLabel className="font-bold">Company</FormLabel>
                     <Select

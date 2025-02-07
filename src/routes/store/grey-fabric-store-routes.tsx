@@ -1,7 +1,7 @@
-import KnittingBillChallanWiseSummaryReportIndex from "src/reports/store/grey-store/knitting-bill-challan-wise-summary/knitting-bill-challan-wise-summary-index";
-import KnittingBillChallanWiseSummaryView from "src/reports/store/grey-store/knitting-bill-challan-wise-summary/knitting-bill-challan-wise-summary-view";
-import MonthlyKnitProSumOutsideReport from "src/reports/store/grey-store/monthly-knit-pro-sum-outside/monthly-knit-pro-sum-outside-report";
-import MonthlyKnitProSumOutsideView from "src/reports/store/grey-store/monthly-knit-pro-sum-outside/monthly-knit-pro-sum-outside-view";
+import KnittingBillChallanWiseSummaryReportIndex from "@/reports/store/grey-store/knitting-bill-challan-wise-summary/knitting-bill-challan-wise-summary-index";
+import KnittingBillChallanWiseSummaryView from "@/reports/store/grey-store/knitting-bill-challan-wise-summary/knitting-bill-challan-wise-summary-view";
+import MonthlyKnitProSumOutsideReport from "@/reports/store/grey-store/monthly-knit-pro-sum-outside/monthly-knit-pro-sum-outside-report";
+import MonthlyKnitProSumOutsideView from "@/reports/store/grey-store/monthly-knit-pro-sum-outside/monthly-knit-pro-sum-outside-view";
 
 export default function GreyFabricStoreRoute(): {
   path: string;

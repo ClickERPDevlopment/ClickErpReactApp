@@ -1,8 +1,8 @@
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 import { useSearchParams } from "react-router";
 import axios from "axios";
-import ReportSkeleton from "src/components/report-skeleton";
+import ReportSkeleton from "@/components/report-skeleton";
 import DyeingBillChallanWiseSummaryReport from "./dyeing-bill-challan-wise-summary-report";
 import { DyeingBillChallanWiseSummaryType } from "./dyeing-bill-challan-wise-summary-type";
 import React from "react";

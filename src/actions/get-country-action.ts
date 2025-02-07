@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ReactQueryKey } from "src/utility/react-query-key";
-import useApiUrl from "src/hooks/use-ApiUrl";
-import useAxiosInstance from "src/lib/axios-instance";
+import { ReactQueryKey } from "@/utility/react-query-key";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import useAxiosInstance from "@/lib/axios-instance";
 
 export type CountryType = {
   CountryId: number;

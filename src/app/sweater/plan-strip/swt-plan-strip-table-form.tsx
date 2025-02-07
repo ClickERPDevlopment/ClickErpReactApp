@@ -9,17 +9,17 @@ import {
   useForm,
   useWatch,
 } from "react-hook-form";
-import { GetAllSwtGauge } from "src/actions/Sweater/swt-gauge-action";
-import { Button } from "src/components/ui/button";
-import { FormItem } from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
+import { GetAllSwtGauge } from "@/actions/Sweater/swt-gauge-action";
+import { Button } from "@/components/ui/button";
+import { FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "src/components/ui/select";
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -27,22 +27,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 import { z } from "zod";
 import { useSwtPlanStripStore } from "./components/swt-plan-strip-store";
-import { cn } from "src/lib/utils";
-import { AppButton } from "src/components/app-buttom";
+import { cn } from "@/lib/utils";
+import { AppButton } from "@/components/app-buttom";
 import {
   Delete,
   Save,
   SwtPlanStripType,
-} from "src/actions/Sweater/swt-plan-strip-action";
-import useAxiosInstance from "src/lib/axios-instance";
-import { toast } from "src/components/ui/use-toast";
+} from "@/actions/Sweater/swt-plan-strip-action";
+import useAxiosInstance from "@/lib/axios-instance";
+import { toast } from "@/components/ui/use-toast";
 import { PlanStripOptions } from "./components/plan-strip-options-drop-down";
 import moment from "moment";
 import { Trash2Icon } from "lucide-react";
-import { useAppStore } from "src/store/app-store";
+import { useAppStore } from "@/store/app-store";
+import React from "react";
 
 const formSchema = z.object({
   cart: z.array(
@@ -214,7 +215,7 @@ export default function SwtPlanStripForm() {
     if (currentRow.ID === 0) {
       remove(index);
       toast({
-        variant: "success",
+        variant: "default",
         title: "Message",
         description: "Action performed successfully.",
       });
@@ -226,7 +227,7 @@ export default function SwtPlanStripForm() {
         remove(index);
         store.setIsPending(false);
         toast({
-          variant: "success",
+          variant: "default",
           title: "Message",
           description: "Action performed successfully.",
         });
@@ -590,7 +591,7 @@ export default function SwtPlanStripForm() {
                   <TableCell>
                     <AppButton
                       type="button"
-                      variant={"remove"}
+                      variant={"delete"}
                       onClick={() =>
                         handleRemove(
                           index,

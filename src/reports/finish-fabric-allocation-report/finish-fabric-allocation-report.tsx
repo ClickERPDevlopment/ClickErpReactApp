@@ -1,4 +1,3 @@
-/* eslint-disable no-const */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
@@ -22,13 +21,13 @@ export default function FinishFabricAllocationReport() {
 
   const [searchParams] = useSearchParams();
 
-  const buyerId: string | null = "0";
-  const fabricId: string | null = "0";
-  const woId: string | null = "0";
-  const orderRef: string | null = "";
-  const isStockAvl: string | null = "true";
-  const fromDate: string | null = "01-Jan-24";
-  const toDate: string | null = "01-Jan-25";
+  let buyerId: string | null = "0";
+  let fabricId: string | null = "0";
+  let woId: string | null = "0";
+  let orderRef: string | null = "";
+  let isStockAvl: string | null = "true";
+  let fromDate: string | null = "01-Jan-24";
+  let toDate: string | null = "01-Jan-25";
 
   if (searchParams.get("buyerId")) {
     buyerId = searchParams.get("buyerId");

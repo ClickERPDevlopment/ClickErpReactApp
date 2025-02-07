@@ -6,16 +6,17 @@ import moment from "moment";
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { styleWiseFabricConsumptionReport } from "./components/styleWiseFabricConsumptionReport";
 
 export default function StyleWiseFabricConsumptionReport() {
   const [data, setData] = useState<styleWiseFabricConsumptionReport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   //
-  const dtFrom: string | null = "";
-  const dtTo: string | null = "";
-  const buyerId: string | null = "";
-  const styleId: string | null = "";
+  let dtFrom: string | null = "";
+  let dtTo: string | null = "";
+  let buyerId: string | null = "";
+  let styleId: string | null = "";
 
   if (searchParams.get("dtFrom")) {
     dtFrom = searchParams.get("dtFrom");

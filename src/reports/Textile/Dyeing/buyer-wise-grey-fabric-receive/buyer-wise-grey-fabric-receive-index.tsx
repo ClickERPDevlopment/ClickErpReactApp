@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
-import useApiUrl from "src/hooks/use-ApiUrl";
-import ReportSkeleton from "src/components/report-skeleton";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import ReportSkeleton from "@/components/report-skeleton";
 import BuyerWiseGreyFabricReceiveReport from "./buyer-wise-grey-fabric-receive-report";
 import { BuyerWiseGreyFabricReceiveType } from "./buyer-wise-grey-fabric-receive-type";
 

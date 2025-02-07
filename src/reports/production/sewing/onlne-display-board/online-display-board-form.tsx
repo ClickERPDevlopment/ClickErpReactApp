@@ -4,8 +4,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { cn } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -13,7 +13,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -21,18 +21,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
+} from "@/components/ui/popover";
 import { MdOutlineClear } from "react-icons/md";
-import { FloorType } from "src/actions/Configurations/floor-action";
-import useAxiosInstance from "src/lib/axios-instance";
-import { CompanyType } from "src/actions/Configurations/company-action";
+import { FloorType } from "@/actions/Configurations/floor-action";
+import useAxiosInstance from "@/lib/axios-instance";
+import { CompanyType } from "@/actions/Configurations/company-action";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { LineType } from "src/actions/Configurations/line-action";
+import { LineType } from "@/actions/Configurations/line-action";
 import React from "react";
 
 type comboBoxDataType = {
@@ -138,7 +138,7 @@ export default function OnlineDisplayBoardForm() {
     }
   };
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(_data: z.infer<typeof FormSchema>) {
     window.open(
       `/report/production/sewing/online-display-board?factoryid=${selectedFactory}&lineid=${selectedLine}`
     );

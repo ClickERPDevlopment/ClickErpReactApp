@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IImportFabricInspectionInfo } from "@/reports/quality/import-fabric-inspection-info/import-fabric-inspection-info-report-type";
 import { IEmblishmentStatusReport } from "../emblishment-status-report-type";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
@@ -12,23 +11,6 @@ function Report({
   data: IEmblishmentStatusReport[];
   searchParams: { isDate: boolean | undefined; toDate: any; fromDate: any };
 }) {
-  const uniqueKeys: Set<string> = new Set();
-
-  function groupBy(data: IImportFabricInspectionInfo[], keys: string[]) {
-    return data.reduce((result: any, item: any) => {
-      const key = keys.map((k) => item[k]).join("_");
-      uniqueKeys.add(key);
-      if (!result[key]) {
-        result[key] = {
-          items: [],
-        };
-      }
-      result[key].items.push(item);
-
-      return result;
-    });
-  }
-
   //set table header
   const firstHeader = [
     "WO TYPE",

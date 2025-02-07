@@ -1,8 +1,8 @@
 import { ChevronDown } from "lucide-react";
 import moment from "moment";
 import React, { Dispatch, SetStateAction } from "react";
-import { SwtMachineGroupType } from "src/actions/Sweater/swt-mc-group-action";
-import { Button } from "src/components/ui/button";
+import { SwtMachineGroupType } from "@/actions/Sweater/swt-mc-group-action";
+import { Button } from "@/components/ui/button";
 
 import {
   DropdownMenu,
@@ -11,8 +11,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu";
-import { Input } from "src/components/ui/input";
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -21,7 +21,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 import AppDialog from "../../../components/app-dialog";
 import McTransferInForm from "./components/mc-tansfer-in-form";
 import { useSwtMcDistributionStore } from "./store-type/date-wise-mc-distribution-store";

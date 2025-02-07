@@ -142,7 +142,7 @@ export default function YarnChallanWiseGroup({
       {/* other rows with in yarn total rows */}
 
       {yarnIssue
-        ?.filter((d, i) => i !== 0)
+        ?.filter((_d, i) => i !== 0)
         .map((y, yi) => (
           <tr key={Math.random()}>
             <td className="border border-black text-[8px] text-center p-1">
@@ -179,7 +179,7 @@ export default function YarnChallanWiseGroup({
 
       {/* other rows where grey rcv all rows not yet show. */}
       {greyRcv
-        ?.filter((d, i) => i >= yarnIssue.length)
+        ?.filter((_d, i) => i >= yarnIssue.length)
         .map((y) => (
           <tr key={Math.random()}>
             <td className="border border-black text-[8px] text-center p-1"></td>

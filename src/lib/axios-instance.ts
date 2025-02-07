@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import { localStorageKey, useAuth } from "./auth-provider";
 
 let isRefreshing = false; // To track if the token is being refreshed

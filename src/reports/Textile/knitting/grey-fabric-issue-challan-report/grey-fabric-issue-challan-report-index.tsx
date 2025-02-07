@@ -4,8 +4,8 @@ import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
 
 //import ReportTable from "./components/report-table";
-import useApiUrl from "src/hooks/use-ApiUrl";
-import ReportSkeleton from "src/components/report-skeleton";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import ReportSkeleton from "@/components/report-skeleton";
 import { IGreyFabricIssueChallanReport } from "./grey-fabric-issue-challan-report-type";
 import ReportTable from "./components/report-table";
 export interface groupedByStyle {

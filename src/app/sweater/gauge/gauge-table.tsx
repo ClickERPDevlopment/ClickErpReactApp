@@ -19,8 +19,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "src/components/ui/button";
-// import { Checkbox } from "src/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+// import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -29,8 +29,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu";
-import { Input } from "src/components/ui/input";
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -38,12 +38,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
-import { PageAction } from "src/utility/page-actions";
-import { SwtGaugeType } from "src/actions/Sweater/swt-gauge-action";
+} from "@/components/ui/table";
+import { PageAction } from "@/utility/page-actions";
+import { SwtGaugeType } from "@/actions/Sweater/swt-gauge-action";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
-// import { DataTablePagination } from "src/components/DataTablePagination";
+// import { DataTablePagination } from "@/components/DataTablePagination";
 
 export function GaugeTable({ data }: { data: SwtGaugeType[] }) {
   const location = useLocation();

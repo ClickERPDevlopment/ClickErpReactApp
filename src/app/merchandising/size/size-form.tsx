@@ -8,14 +8,14 @@ import { CheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
-import { BuyerType } from "src/actions/Sweater/merch-buyer-action";
+import { BuyerType } from "@/actions/Sweater/merch-buyer-action";
 import {
   Delete,
   Save,
   Update,
-} from "src/actions/Merchandising/merch-size-action";
-import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
-import { Button } from "src/components/ui/button";
+} from "@/actions/Merchandising/merch-size-action";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -23,7 +23,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -31,18 +31,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
-import { ReactQueryKey } from "src/utility/react-query-key";
-import { SizeType } from "src/actions/Merchandising/merch-size-action";
+} from "@/components/ui/popover";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
+import { ReactQueryKey } from "@/utility/react-query-key";
+import { SizeType } from "@/actions/Merchandising/merch-size-action";
 import React from "react";
 import { z } from "zod";
 

@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card";
+} from "@/components/ui/card";
 import DyeingBillChallanWiseSummaryForm from "./dyeing-bill-challan-wise-summary-form";
 
 export default function DyeingBillChallanWiseSummaryView() {

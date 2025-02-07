@@ -4,7 +4,7 @@ import {
   LineLoadingPlanDetailsType,
   LineLoadingPlanOrderStatusType,
   LineLoadingPlanUsedMinutesType,
-} from "src/actions/Sweater/swt-planning-action";
+} from "@/actions/Sweater/swt-planning-action";
 
 export function GetAllUniqueDates(
   data: LineLoadingPlanDetailsType[]

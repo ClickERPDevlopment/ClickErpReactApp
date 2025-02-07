@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router";
 import { PartyWiseYanrIssueAndGreyRcvSummaryType } from "./partyw-yarni-greyr-balance-sum-rpt-type";
 import {
   Table,
@@ -7,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 
 type props = {
   data: PartyWiseYanrIssueAndGreyRcvSummaryType[];

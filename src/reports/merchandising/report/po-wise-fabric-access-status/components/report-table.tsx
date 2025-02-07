@@ -1,3 +1,8 @@
+import {
+  PoWiseFabricAccessoriesStautsReportDto_Accessories,
+  PoWiseFabricAccessoriesStautsReportDto_Fabric,
+} from "../po-wise-f-a-s-type";
+
 function ReportTable({
   lstFabric,
   lstAccessories,

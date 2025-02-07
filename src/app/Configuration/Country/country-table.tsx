@@ -15,7 +15,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -24,8 +24,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu";
-import { Input } from "src/components/ui/input";
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -33,9 +33,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
-import { PageAction } from "src/utility/page-actions";
-import { CountryType } from "src/actions/get-country-action";
+} from "@/components/ui/table";
+import { PageAction } from "@/utility/page-actions";
+import { CountryType } from "@/actions/get-country-action";
 import { useNavigate } from "react-router";
 
 export function CountryTable({ data }: { data: CountryType[] }) {

@@ -1,27 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { CheckIcon } from "lucide-react";
+import React from "react";
 
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
-import { EmployeeType } from "src/actions/Configurations/employee-action";
-import { FloorType } from "src/actions/Configurations/floor-action";
-import { BrandType } from "src/actions/get-brand";
-import { ItemType } from "src/actions/Merchandising/item-type-action";
-import { SwtGaugeType } from "src/actions/Sweater/swt-gauge-action";
+import { EmployeeType } from "@/actions/Configurations/employee-action";
+import { FloorType } from "@/actions/Configurations/floor-action";
+import { BrandType } from "@/actions/get-brand";
+import { ItemType } from "@/actions/Merchandising/item-type-action";
+import { SwtGaugeType } from "@/actions/Sweater/swt-gauge-action";
 import {
   SwtMachineGroupType,
   Delete,
   Save,
   Update,
-} from "src/actions/Sweater/swt-mc-group-action";
-import MultipleSelector from "src/components/app-multi-select-combobox";
-import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
-import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
+} from "@/actions/Sweater/swt-mc-group-action";
+import MultipleSelector from "@/components/app-multi-select-combobox";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -29,7 +31,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -38,17 +40,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
-import { ReactQueryKey } from "src/utility/react-query-key";
+} from "@/components/ui/popover";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
+import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
 
 const gaugeSchema = z.object({
@@ -109,7 +111,6 @@ export default function McGroupForm({
   //--
 
   const [gauges, setGauges] = React.useState<comboBoxDataType[]>();
-  const [openGauge, setOpenGauge] = React.useState(false);
   //--
 
   //--------------------------
@@ -685,7 +686,7 @@ export default function McGroupForm({
                 <FormField
                   control={form.control}
                   name="lstMC_GAUGE"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem className="flex flex-col flex-1">
                       <FormLabel>Gauge</FormLabel>
                       <MultipleSelector

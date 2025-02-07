@@ -1,4 +1,3 @@
-/* eslint-disable no-const */
 import {
   FinishFabricAllocationSummaryReportDetailsType,
   FinishFabricAllocationSummaryReportMasterType,
@@ -28,7 +27,7 @@ export default function FFATable({
     { name: "ALLO. BAL", classes: "" },
   ];
 
-  const totalAllocation = 0;
+  let totalAllocation = 0;
   detailsData.forEach((element) => {
     totalAllocation += element.ALLOCATED_QTY;
   });

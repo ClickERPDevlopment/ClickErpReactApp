@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import "./index.css";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import axios from "axios";
 import moment from "moment";
 import { IOnlineDisplayBoard } from "./online-display-board-type";

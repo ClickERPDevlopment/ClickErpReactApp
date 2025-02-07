@@ -1,10 +1,10 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import SizeForm from "./size-form";
-import { GetSizeById } from "src/actions/Merchandising/merch-size-action";
+import { GetSizeById } from "@/actions/Merchandising/merch-size-action";
 import { GetBuyer } from "@/actions/Sweater/merch-buyer-action";
 
 export default function SizeCrud() {

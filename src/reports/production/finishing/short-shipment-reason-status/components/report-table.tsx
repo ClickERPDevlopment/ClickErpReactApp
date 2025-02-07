@@ -1,4 +1,3 @@
-import { Item } from "@radix-ui/react-dropdown-menu";
 import moment from "moment";
 import { IShortShipmentReasonStatus } from "../short-shipment-reason-status-type";
 export interface IReportTableProps {

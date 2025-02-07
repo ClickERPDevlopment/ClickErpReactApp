@@ -7,17 +7,17 @@ import { AxiosError } from "axios";
 
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
-import { BrandType } from "src/actions/get-brand";
-import { SwtMachineBrandGroupType } from "src/actions/Sweater/swt-mc-brand-group-action";
+import { BrandType } from "@/actions/get-brand";
+import { SwtMachineBrandGroupType } from "@/actions/Sweater/swt-mc-brand-group-action";
 import {
   Delete,
   Save,
   Update,
-} from "src/actions/Sweater/swt-mc-brand-group-action";
-import MultipleSelector from "src/components/app-multi-select-combobox";
-import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
-import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
+} from "@/actions/Sweater/swt-mc-brand-group-action";
+import MultipleSelector from "@/components/app-multi-select-combobox";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -26,13 +26,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
 import { z } from "zod";
-import { companyId, setCompanyId } from "src/utility/local-storage-utils";
+import { companyId, setCompanyId } from "@/utility/local-storage-utils";
 import React from "react";
 
 const gaugeSchema = z.object({

@@ -28,13 +28,13 @@ function ReportGroup({
     }, {});
   }
 
-  export interface IGroup {
+  interface IGroup {
     [key: string]: {
       items: IAccessoriesReceiveReturnChallanGatePassReport[];
     };
   }
 
-  const groupedData: IGroup = {};
+  let groupedData: IGroup = {};
 
   if (data) {
     groupedData = groupBy(data, [

@@ -7,14 +7,14 @@ import { X } from "lucide-react";
 import * as React from "react";
 import { forwardRef, useEffect } from "react";
 
-import { Badge } from "src/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
-import { cn } from "src/lib/utils";
+} from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
 export interface Option {
   value: string;
@@ -25,11 +25,11 @@ export interface Option {
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined;
 }
-export interface GroupOption {
+interface GroupOption {
   [key: string]: Option[];
 }
 
-export interface MultipleSelectorProps {
+interface MultipleSelectorProps {
   value?: Option[];
   defaultOptions?: Option[];
   /** manually controlled options */

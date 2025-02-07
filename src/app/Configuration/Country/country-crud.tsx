@@ -1,9 +1,9 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { GetCountryById } from "src/actions/get-country-action";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+import { GetCountryById } from "@/actions/get-country-action";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import CountryForm from "./country-form";
 
 export default function CountryCrud() {

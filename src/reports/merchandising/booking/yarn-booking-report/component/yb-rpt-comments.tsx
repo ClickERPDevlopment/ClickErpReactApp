@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-const */
 import { useContext } from "react";
 import YarnBookingReportContext from "./yb-rpt-context";
 

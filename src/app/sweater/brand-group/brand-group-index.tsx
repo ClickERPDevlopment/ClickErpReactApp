@@ -1,15 +1,15 @@
 import { Link } from "react-router";
-import TableSkeleton from "src/components/table-skeleton";
-import { Button } from "src/components/ui/button";
-import { PageAction } from "src/utility/page-actions";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
+import TableSkeleton from "@/components/table-skeleton";
+import { Button } from "@/components/ui/button";
+import { PageAction } from "@/utility/page-actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { BrandGroupTable } from "./brand-group-table";
 import {
   GetSwtBrandGroup,
   SwtMachineBrandGroupType,
-} from "src/actions/Sweater/swt-mc-brand-group-action";
-import useAxiosInstance from "src/lib/axios-instance";
+} from "@/actions/Sweater/swt-mc-brand-group-action";
+import useAxiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import React from "react";
 

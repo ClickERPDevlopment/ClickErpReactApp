@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card";
+} from "@/components/ui/card";
 
 export default function GeneralBlockFabricStatusView() {
   return (

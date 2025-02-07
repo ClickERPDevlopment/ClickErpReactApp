@@ -12,10 +12,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
-import { GetAllBuyer } from "src/actions/Merchandising/get-buyer";
-import { GetAllPoBStyled } from "src/actions/Merchandising/get-po";
-import { GetAllStyleByBuyer } from "src/actions/Merchandising/get-style";
-import { Button } from "src/components/ui/button";
+import { GetAllBuyer } from "@/actions/Merchandising/get-buyer";
+import { GetAllPoBStyled } from "@/actions/Merchandising/get-po";
+import { GetAllStyleByBuyer } from "@/actions/Merchandising/get-style";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -23,13 +23,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import { cn } from "src/lib/utils";
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { z } from "zod";
 
 type comboBoxDataType = {

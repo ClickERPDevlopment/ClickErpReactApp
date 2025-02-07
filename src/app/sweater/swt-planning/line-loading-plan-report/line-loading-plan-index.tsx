@@ -5,9 +5,9 @@ import {
   GetLineLoadingPlan,
   LineLoadingPlanSearchType,
   LineLoadingPlanType,
-} from "src/actions/Sweater/swt-planning-action";
-import ReportSkeleton from "src/components/report-skeleton";
-import useAxiosInstance from "src/lib/axios-instance";
+} from "@/actions/Sweater/swt-planning-action";
+import ReportSkeleton from "@/components/report-skeleton";
+import useAxiosInstance from "@/lib/axios-instance";
 import LineLoadingPlanReport from "./line-loading-plan-report";
 import React from "react";
 

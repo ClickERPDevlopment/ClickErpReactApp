@@ -4,9 +4,9 @@ import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { cn } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -14,7 +14,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -23,17 +23,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import { GetAllBuyer } from "src/actions/Merchandising/get-buyer";
-import { GetAllStyleByBuyer } from "src/actions/Merchandising/get-style";
-import { GetAllFabric } from "src/actions/get-material";
+} from "@/components/ui/popover";
+import { GetAllBuyer } from "@/actions/Merchandising/get-buyer";
+import { GetAllStyleByBuyer } from "@/actions/Merchandising/get-style";
+import { GetAllFabric } from "@/actions/get-material";
 import { MdOutlineClear } from "react-icons/md";
-import { GetFabricWorkOrderByBuyer } from "src/actions/get-fabric-work-order";
+import { GetFabricWorkOrderByBuyer } from "@/actions/get-fabric-work-order";
 import React from "react";
 
 type comboBoxDataType = {

@@ -1,7 +1,7 @@
 import {
   FinishFabricAllocationSummaryReportDetailsType,
   FinishFabricAllocationSummaryReportMasterType,
-} from "src/reports/finish-fabric-allocation-summary-report/finish-fabric-allocation-summary-report-type";
+} from "@/reports/finish-fabric-allocation-summary-report/finish-fabric-allocation-summary-report-type";
 
 export default function ReportTableRow({
   masterData,

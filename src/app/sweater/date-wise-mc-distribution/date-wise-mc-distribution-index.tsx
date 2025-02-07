@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import DateWiseMCDistributionTable from "./date-wise-mc-distribution-table";
-import { Form } from "src/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,9 +8,9 @@ import moment from "moment";
 import {
   GetDateWiseMcDistribution,
   Save,
-} from "src/actions/Sweater/swt-date-wise-mc-distribution-action";
-import useAxiosInstance from "src/lib/axios-instance";
-import { SwtMachineGroupType } from "src/actions/Sweater/swt-mc-group-action";
+} from "@/actions/Sweater/swt-date-wise-mc-distribution-action";
+import useAxiosInstance from "@/lib/axios-instance";
+import { SwtMachineGroupType } from "@/actions/Sweater/swt-mc-group-action";
 import {
   Table,
   TableBody,
@@ -18,15 +18,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
-import { AppButton } from "src/components/app-buttom";
-import { useToast } from "src/components/ui/use-toast";
-import { GetAllBrand } from "src/actions/get-brand";
-import { GetAllSwtGauge } from "src/actions/Sweater/swt-gauge-action";
+} from "@/components/ui/table";
+import { AppButton } from "@/components/app-buttom";
+import { useToast } from "@/components/ui/use-toast";
+import { GetAllBrand } from "@/actions/get-brand";
+import { GetAllSwtGauge } from "@/actions/Sweater/swt-gauge-action";
 import { AxiosError } from "axios";
 import AppDatePicker from "../../../components/app-date-picker";
-import AppCombobox from "src/components/app-combobox";
-import { ComboBoxOptionsType } from "src/app-type";
+import AppCombobox from "@/components/app-combobox";
+import { ComboBoxOptionsType } from "@/app-type";
 import { useSwtMcDistributionStore } from "./store-type/date-wise-mc-distribution-store";
 import React from "react";
 

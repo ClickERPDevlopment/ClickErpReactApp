@@ -2,15 +2,15 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import BrandGroupForm from "./brand-group-form";
-import { GetAllBrand } from "src/actions/get-brand";
+import { GetAllBrand } from "@/actions/get-brand";
 import {
   GetSwtBrandGroupById,
   SwtMachineBrandGroupType,
-} from "src/actions/Sweater/swt-mc-brand-group-action";
-import useAxiosInstance from "src/lib/axios-instance";
+} from "@/actions/Sweater/swt-mc-brand-group-action";
+import useAxiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import React from "react";
 

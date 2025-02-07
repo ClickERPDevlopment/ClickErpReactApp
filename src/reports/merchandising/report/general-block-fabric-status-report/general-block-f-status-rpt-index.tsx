@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 
-import TableSkeleton from "src/components/table-skeleton";
-import { ReactQueryKey } from "src/utility/react-query-key";
-import { useToast } from "src/components/ui/use-toast";
+import TableSkeleton from "@/components/table-skeleton";
+import { ReactQueryKey } from "@/utility/react-query-key";
+import { useToast } from "@/components/ui/use-toast";
 
 import { GetReportData } from "./components/get-report-data";
 import GeneralBlockFabricStatusReport from "./components/1general-block-f-status-rpt";

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useAuth } from "src/lib/auth-provider";
+import { useAuth } from "@/lib/auth-provider";
 import { Button } from "./ui/button";
 
 export default function LogoutButton() {

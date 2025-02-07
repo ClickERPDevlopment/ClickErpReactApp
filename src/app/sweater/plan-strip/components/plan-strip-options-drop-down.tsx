@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 
-import { Button } from "src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { useSwtPlanStripStore } from "./swt-plan-strip-store";
 
 export function PlanStripOptions() {

@@ -12,10 +12,10 @@ import {
   Delete,
   Save,
   Update,
-} from "src/actions/Sweater/swt-gauge-action";
-import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
-import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
+} from "@/actions/Sweater/swt-gauge-action";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -24,12 +24,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
-import { ReactQueryKey } from "src/utility/react-query-key";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
+import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
 
 const formSchema = z.object({

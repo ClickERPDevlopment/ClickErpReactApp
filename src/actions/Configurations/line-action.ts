@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { ReactQueryKey } from "src/utility/react-query-key";
-import useAxiosInstance from "src/lib/axios-instance";
+import { ReactQueryKey } from "@/utility/react-query-key";
+import useAxiosInstance from "@/lib/axios-instance";
 
 export type LineType = {
   Id: number;

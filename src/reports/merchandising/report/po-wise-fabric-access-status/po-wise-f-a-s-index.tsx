@@ -6,6 +6,10 @@ import useApiUrl from "../../../../hooks/use-ApiUrl";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import POwiseFabricAndAccessoriesStatusReportGenerate from "./components/po-wise-f-a-s-report";
+import {
+  PoWiseFabricAccessoriesStautsReportDto,
+  SearchData,
+} from "./po-wise-f-a-s-type";
 
 export default function POwiseFabricAndAccessoriesStatusReport() {
   const [data, setData] = useState<PoWiseFabricAccessoriesStautsReportDto>();

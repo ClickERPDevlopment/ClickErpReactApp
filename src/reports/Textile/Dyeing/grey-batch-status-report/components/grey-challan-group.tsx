@@ -67,7 +67,7 @@ export default function GreyRcvChallanGroup({ greyRcvDtls }: props) {
 
       {/* other row */}
       {greyRcvDtls
-        .filter((x, i) => i !== 0)
+        .filter((_x, i) => i !== 0)
         .map((dtls) => (
           <tr key={Math.random()}>
             <td className="border border-black text-xs text-center p-1">

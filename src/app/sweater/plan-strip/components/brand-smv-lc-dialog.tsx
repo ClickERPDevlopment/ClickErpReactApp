@@ -1,9 +1,9 @@
-import { Button } from "src/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 import { BrandSmvLcDialogForm } from "./brand-smv-lc-dialog-form";
 import { BrandSmvLcDialogTable } from "./brand-smv-lc-dialog-table";
 import { useSwtPlanStripStore } from "./swt-plan-strip-store";
-import { AppButton } from "src/components/app-buttom";
+import { AppButton } from "@/components/app-buttom";
 
 export function BrandSmvLcDialog() {
   const store = useSwtPlanStripStore();

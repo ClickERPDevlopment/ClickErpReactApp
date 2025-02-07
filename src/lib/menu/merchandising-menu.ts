@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Home, Inbox, Settings } from "lucide-react";
 import { MenuType } from "./menu-type";
 
 export const MerchandisingMenu: MenuType[] = [

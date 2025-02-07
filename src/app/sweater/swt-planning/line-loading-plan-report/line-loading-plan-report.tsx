@@ -5,9 +5,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 import "./components/line-loading-plan-report.css";
-import { LineLoadingPlanType } from "src/actions/Sweater/swt-planning-action";
+import { LineLoadingPlanType } from "@/actions/Sweater/swt-planning-action";
 import {
   GetAllUniqueDates,
   GetAllUniqueFloor,

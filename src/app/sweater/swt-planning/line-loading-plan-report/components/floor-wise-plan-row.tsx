@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "src/components/ui/table";
+import { TableCell, TableRow } from "@/components/ui/table";
 import {
   GetAllUniqueRows,
   GetOrderQtyByRow,
@@ -11,7 +11,7 @@ import {
 import {
   LineLoadingPlanDetailsType,
   LineLoadingPlanType,
-} from "src/actions/Sweater/swt-planning-action";
+} from "@/actions/Sweater/swt-planning-action";
 
 export interface porps {
   data: LineLoadingPlanType;

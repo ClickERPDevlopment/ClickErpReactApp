@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import moment from "moment";
 import jsPDF from "jspdf";
 import { IShipmentDelayReport } from "./import-fabric-inspection-report-pdf-type";

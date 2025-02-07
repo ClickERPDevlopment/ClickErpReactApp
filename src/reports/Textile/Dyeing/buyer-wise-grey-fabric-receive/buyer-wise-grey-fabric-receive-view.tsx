@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card";
+} from "@/components/ui/card";
 
 import BuyerWiseGreyFabricReceiveViewForm from "./buyer-wise-grey-fabric-receive-form";
 

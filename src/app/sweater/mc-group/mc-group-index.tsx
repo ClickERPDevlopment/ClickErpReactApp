@@ -1,10 +1,10 @@
 import { Link } from "react-router";
-import TableSkeleton from "src/components/table-skeleton";
-import { Button } from "src/components/ui/button";
-import { PageAction } from "src/utility/page-actions";
+import TableSkeleton from "@/components/table-skeleton";
+import { Button } from "@/components/ui/button";
+import { PageAction } from "@/utility/page-actions";
 import { McGroupTable } from "./mc-group-table";
-import { GetSwtMachineGroup } from "src/actions/Sweater/swt-mc-group-action";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
+import { GetSwtMachineGroup } from "@/actions/Sweater/swt-mc-group-action";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 export default function Gauge() {

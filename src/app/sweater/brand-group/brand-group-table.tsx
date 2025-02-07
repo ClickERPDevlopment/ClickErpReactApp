@@ -13,7 +13,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -22,8 +22,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu";
-import { Input } from "src/components/ui/input";
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -31,12 +31,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
-import { PageAction } from "src/utility/page-actions";
+} from "@/components/ui/table";
+import { PageAction } from "@/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
 
-// import { DataTablePagination } from "src/components/DataTablePagination";
-import { SwtMachineBrandGroupType } from "src/actions/Sweater/swt-mc-brand-group-action";
+// import { DataTablePagination } from "@/components/DataTablePagination";
+import { SwtMachineBrandGroupType } from "@/actions/Sweater/swt-mc-brand-group-action";
 
 export function BrandGroupTable({
   data,

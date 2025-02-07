@@ -1,11 +1,11 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
-import { GetBuyer } from "src/actions/Sweater/merch-buyer-action";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
+import { GetBuyer } from "@/actions/Sweater/merch-buyer-action";
 import ColorForm from "./color-form";
-import { GetColorById } from "src/actions/Merchandising/merch-color-action";
+import { GetColorById } from "@/actions/Merchandising/merch-color-action";
 
 export default function ColorCrud() {
   const { pageAction, id } = useParams();

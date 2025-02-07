@@ -1,3 +1,5 @@
+import { GeneralBlockFabricStatusReportType } from "../general-block-f-status-rpt-type";
+
 function ReportRow({ data }: { data: GeneralBlockFabricStatusReportType }) {
   return (
     <tr>

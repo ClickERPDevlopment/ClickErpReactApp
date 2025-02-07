@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Button } from "src/components/ui/button";
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
-export interface CustomDialogProps {
+interface CustomDialogProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode; // Pass any component as children

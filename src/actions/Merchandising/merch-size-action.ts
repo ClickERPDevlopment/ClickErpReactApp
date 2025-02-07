@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { ReactQueryKey } from "src/utility/react-query-key";
-import useAxiosInstance from "src/lib/axios-instance";
+import { ReactQueryKey } from "@/utility/react-query-key";
+import useAxiosInstance from "@/lib/axios-instance";
 import { AxiosInstance } from "axios";
 
 export type SizeType = {
@@ -63,7 +63,7 @@ export function GetSizeById(id: number) {
 }
 
 export async function Save(SizeType: SizeType, axios: AxiosInstance) {
-  const { SIZENAME, DISPLAY_NAME, BUYERID } = SizeType;
+  const { SIZENAME, BUYERID } = SizeType;
 
   if (!SIZENAME) {
     throw new Error("Name is required");
@@ -86,7 +86,7 @@ export async function Save(SizeType: SizeType, axios: AxiosInstance) {
 }
 
 export async function Update(ColorType: SizeType, axios: AxiosInstance) {
-  const { SIZENAME, DISPLAY_NAME, BUYERID } = ColorType;
+  const { SIZENAME, BUYERID } = ColorType;
 
   if (!SIZENAME) {
     throw new Error("Name is required");

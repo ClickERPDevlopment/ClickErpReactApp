@@ -1,5 +1,7 @@
+import { iaccWorkOrder } from "../../components/iaccWorkOrder";
+
 function GetSizeQty({ data }: { data: iaccWorkOrder[] }) {
-  const qty: number = 0;
+  let qty: number = 0;
   data?.forEach((element) => {
     qty += element.WORK_ORDER_QTY;
   });
@@ -8,7 +10,7 @@ function GetSizeQty({ data }: { data: iaccWorkOrder[] }) {
 }
 
 function GetTotalAmount({ data }: { data: iaccWorkOrder[] }) {
-  const qty: number = 0;
+  let qty: number = 0;
   data?.forEach((element) => {
     qty += element.WORK_ORDER_QTY * element.SUPPLIER_RATE_PER_PCS;
   });

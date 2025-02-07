@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
-import TableSkeleton from "src/components/table-skeleton";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import TableSkeleton from "@/components/table-skeleton";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import ReportPDF from "./components/report-pdf";
 import { IShipmentDelayReport } from "./import-fabric-inspection-report-type";
 

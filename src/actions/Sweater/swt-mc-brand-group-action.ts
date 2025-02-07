@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { CompanyType } from "../Configurations/company-action";
-import { companyId } from "src/utility/local-storage-utils";
+import { companyId } from "@/utility/local-storage-utils";
 
 export type SwtMachineBrandGroupType = {
   ID: number;

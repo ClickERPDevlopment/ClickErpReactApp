@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
-import ReportSkeleton from "src/components/report-skeleton";
+import ReportSkeleton from "@/components/report-skeleton";
 import { IMonthlyYarnCosting } from "./monthly-yarn-costing-report-type";
 
 function MonthlyYarnCostingReport() {

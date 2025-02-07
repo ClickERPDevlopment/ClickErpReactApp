@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useEffect, useState } from "react";
 import {
   outsideYIssueGRcvStatus_GreyRcv,
@@ -27,10 +28,10 @@ export default function ReportTotal({
   const [total, setTotal] = useState<totalType>();
 
   useEffect(() => {
-    const issueQty = 0;
-    const returnQty = 0;
-    const grey = 0;
-    const loseYQty = 0;
+    let issueQty = 0;
+    let returnQty = 0;
+    let grey = 0;
+    let loseYQty = 0;
 
     yarnIssue.forEach((element) => {
       issueQty += element.QUANTITY;

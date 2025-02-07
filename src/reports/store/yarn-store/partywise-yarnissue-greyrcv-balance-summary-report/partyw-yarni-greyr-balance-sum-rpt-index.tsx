@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { Suspense } from "react";
 import { useSearchParams } from "react-router";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import { PartyWiseYanrIssueAndGreyRcvSummaryType } from "./partyw-yarni-greyr-balance-sum-rpt-type";
-import ReportSkeleton from "src/components/report-skeleton";
+import ReportSkeleton from "@/components/report-skeleton";
 const PartyWiseYanrIssueAndGreyRcvSumReport = React.lazy(
   () => import("./partyw-yarni-greyr-balance-sum-rpt")
 );

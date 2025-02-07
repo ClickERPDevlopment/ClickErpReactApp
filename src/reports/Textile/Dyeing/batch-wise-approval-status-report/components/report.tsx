@@ -4,35 +4,6 @@ import ReportHeader from "./report-header";
 import { IBatchWiseApprovalStatus } from "../batch-wise-approval-status-report-type";
 
 function Report({ data }: { data: IBatchWiseApprovalStatus[] }) {
-  const uniqueKeys: Set<string> = new Set();
-
-  function groupBy(data: IBatchWiseApprovalStatus[], keys: string[]) {
-    return data.reduce((result: any, item: any) => {
-      const key = keys.map((k) => item[k]).join("_");
-      uniqueKeys.add(key);
-      if (!result[key]) {
-        result[key] = {
-          items: [],
-        };
-      }
-      result[key].items.push(item);
-
-      return result;
-    }, {});
-  }
-
-  interface GroupedByBuyer {
-    [key: string]: {
-      items: IBatchWiseApprovalStatus[];
-    };
-  }
-
-  const groupedByBuyer: GroupedByBuyer = {};
-
-  if (data) {
-    groupedByBuyer = groupBy(data, ["BATCH_ID", "FABRIC_ID"]);
-  }
-
   //set table header
   const firstHeader = [
     "Batch No.",

@@ -1,3 +1,4 @@
+import { GeneralBlockFabricStatusReportType } from "../general-block-f-status-rpt-type";
 import ReportRow from "./2report-row";
 import ReportTotal from "./3report-total";
 

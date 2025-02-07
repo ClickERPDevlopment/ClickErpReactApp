@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { SwtDateWiseMCDistributionType } from "src/actions/Sweater/swt-date-wise-mc-distribution-action";
+import { SwtDateWiseMCDistributionType } from "@/actions/Sweater/swt-date-wise-mc-distribution-action";
 
 export type storeType = {
   data: SwtDateWiseMCDistributionType[];

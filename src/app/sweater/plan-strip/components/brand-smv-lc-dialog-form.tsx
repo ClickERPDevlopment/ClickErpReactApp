@@ -2,8 +2,8 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { cn } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -11,7 +11,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -19,23 +19,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
+} from "@/components/ui/popover";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "src/components/ui/input";
-import { ComboBoxOptionsType } from "src/app-type";
+import { Input } from "@/components/ui/input";
+import { ComboBoxOptionsType } from "@/app-type";
 import { useSwtPlanStripStore } from "./swt-plan-strip-store";
-import { SwtPlanStripDtlsType } from "src/actions/Sweater/swt-plan-strip-action";
+import { SwtPlanStripDtlsType } from "@/actions/Sweater/swt-plan-strip-action";
 import {
   GetSwtBrandGroup,
   GetSwtBrandGroupById,
-} from "src/actions/Sweater/swt-mc-brand-group-action";
-import useAxiosInstance from "src/lib/axios-instance";
+} from "@/actions/Sweater/swt-mc-brand-group-action";
+import useAxiosInstance from "@/lib/axios-instance";
 import React from "react";
 import { GetAllLearningCurve } from "@/actions/Configurations/learning-curve-action";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,10 +7,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "src/components/ui/card";
-import { Input } from "src/components/ui/input";
-import { Label } from "src/components/ui/label";
-import { AuthContextType, useAuth } from "src/lib/auth-provider";
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AuthContextType, useAuth } from "@/lib/auth-provider";
 
 export default function LoginForm() {
   const [input, setInput] = React.useState({

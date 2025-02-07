@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
 import { ArrowUpDown } from "lucide-react";
 import {
   Sidebar,
@@ -10,20 +12,21 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubItem,
-} from "src/components/ui/sidebar";
+} from "@/components/ui/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
 import { Link } from "react-router";
-import { cn } from "src/lib/utils";
-import { MenuType } from "src/lib/menu/menu-type";
-import { ConfigurationMenu } from "src/lib/menu/configuration-menu";
-import { SweaterMenu } from "src/lib/menu/sweater-menu";
-import { ProductionMenu } from "src/lib/menu/production-menu";
-import { HrPayrollMenu } from "src/lib/menu/hr-payroll-menu";
-import { TextileMenu } from "src/lib/menu/textile-menu";
+import { cn } from "@/lib/utils";
+import { MenuType } from "@/lib/menu/menu-type";
+import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
+import { SweaterMenu } from "@/lib/menu/sweater-menu";
+import { ProductionMenu } from "@/lib/menu/production-menu";
+import { MerchandisingMenu } from "@/lib/menu/merchandising-menu";
+import { HrPayrollMenu } from "@/lib/menu/hr-payroll-menu";
+import { TextileMenu } from "@/lib/menu/textile-menu";
 
 export function GetMenuComponent({ item }: { item: MenuType }) {
   if (!item.submenu) {
@@ -106,6 +109,8 @@ export function AppSidebar() {
       return { menu: HrPayrollMenu, moduleTitle: "Hr-Payroll" };
     } else if (pathname.includes("/dashboard/sweater")) {
       return { menu: SweaterMenu, moduleTitle: "Sweater" };
+    } else if (pathname.includes("/dashboard/merchandising")) {
+      return { menu: MerchandisingMenu, moduleTitle: "Merchandising" };
     } else {
       return { menu: [], moduleTitle: "Application" };
     }
@@ -122,7 +127,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menu.map((item) => (
+              {menu.map((item: any) => (
                 <GetMenuComponent key={item.title} item={item} />
               ))}
             </SidebarMenu>

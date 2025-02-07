@@ -5,8 +5,7 @@ import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
-import { BuyerType } from "src/actions/Sweater/merch-buyer-action";
-import { Button } from "src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -14,7 +13,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -22,25 +21,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { z } from "zod";
-import moment from "moment";
-import { GetCompany } from "src/actions/Sweater/swt-planning-board-configure-action";
-import { CompanyType } from "src/actions/Configurations/company-action";
+import { GetCompany } from "@/actions/Sweater/swt-planning-board-configure-action";
+import { CompanyType } from "@/actions/Configurations/company-action";
 import {
   Table,
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 import React from "react";
 
 const formSchema = z.object({
@@ -69,13 +66,12 @@ export default function BuyerForm() {
   const [factory, setFactory] = React.useState<comboBoxDataType[]>();
   const [openFactory, setOpenFactory] = React.useState(false);
 
-  const { data: factoryData, isError, error } = GetCompany<CompanyType>();
+  const { data: factoryData } = GetCompany<CompanyType>();
 
   //--
   //--------------------------
   const location = useLocation();
   const navigator = useNavigate();
-  const axios = useAxiosInstance();
   //--------------------------
 
   React.useEffect(() => {
@@ -94,31 +90,8 @@ export default function BuyerForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(_values: z.infer<typeof formSchema>) {
     // console.log("form-value", values);
-
-    const data: BuyerType = {
-      Id: values.Id,
-      NAME: values.NAME,
-      CODE: values.CODE,
-      DISPLAY_NAME: values.DISPLAY_NAME,
-      CONTACT: values.CONTACT,
-      EMAIL: values.EMAIL,
-      COMMISSION: Number(values.COMMISSION),
-      MAINBUYERID: values.MAINBUYERID,
-      COUNTRYID: values.COUNTRYID,
-      ADDRESS: values.ADDRESS,
-      BUNDLENOSTARTFROMZERO: values.BUNDLENOSTARTFROMZERO ? "1" : "0",
-      ISACTIVE: values.ISACTIVE ? "1" : "0",
-      Country: null,
-      REMARKS: null,
-      CREATEBY: "",
-      CREATEDATE: moment().format("YYYY-MM-DD"),
-      UPDATEBY: null,
-      UPDATEDATE: moment().format("YYYY-MM-DD"),
-      IS_LOCAL: "",
-      OUTSIDE_CHALLAN_BUYER_NAME: "",
-    };
   }
 
   return (

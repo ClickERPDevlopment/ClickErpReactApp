@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-const */
 import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
 import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
@@ -12,7 +11,7 @@ function getSizeWiseQty(
   data: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined,
   sizeName: string
 ) {
-  const qty = 0;
+  let qty = 0;
   data?.forEach((element) => {
     if (element.SIZENAME === sizeName) qty += element.QTY;
   });
@@ -22,7 +21,7 @@ function getSizeWiseQty(
 function getTotalQty(
   data: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
 ) {
-  const qty = 0;
+  let qty = 0;
   data?.forEach((element) => {
     qty += element.QTY;
   });

@@ -1,11 +1,11 @@
 import { Link } from "react-router";
-import TableSkeleton from "src/components/table-skeleton";
-import { Button } from "src/components/ui/button";
-import { PageAction } from "src/utility/page-actions";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
+import TableSkeleton from "@/components/table-skeleton";
+import { Button } from "@/components/ui/button";
+import { PageAction } from "@/utility/page-actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { BuyerTable } from "./buyer-table";
-import { GetBuyer } from "src/actions/Sweater/merch-buyer-action";
+import { GetBuyer } from "@/actions/Sweater/merch-buyer-action";
 
 export default function Buyer() {
   const { data: buyer, isError, error } = GetBuyer();

@@ -1,4 +1,4 @@
-import { AppButton } from "src/components/app-buttom";
+import { AppButton } from "@/components/app-buttom";
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "src/components/ui/table";
+} from "@/components/ui/table";
 import { Trash2 } from "lucide-react";
 import { useSwtPlanStripStore } from "./swt-plan-strip-store";
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Report from "./component/report";
 import axios from "axios";
-import useApiUrl from "src/hooks/use-ApiUrl";
-import TableSkeleton from "src/components/table-skeleton";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import TableSkeleton from "@/components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import { useSearchParams } from "react-router";
 import { MonthlyKnitProSummOutsideType } from "./component/monthly-knit-pro-sum-outside-type";

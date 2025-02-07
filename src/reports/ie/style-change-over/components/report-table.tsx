@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-const */
 import { iaccWorkOrder } from "@/reports/merchandising/work-order/components/iaccWorkOrder";
 
 function ReportTable({
@@ -80,7 +79,7 @@ function ReportTable({
     };
   }
 
-  const groupedData: GroupedData = {};
+  let groupedData: GroupedData = {};
 
   if (data) {
     groupedData = groupBy(data, [

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-const */
 import { IStyleChangeOver } from "../style-change-over-type";
 import ReportHeader from "./report-header";
 import ReportRow from "./report-row";
@@ -22,13 +21,13 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
     }, {});
   }
 
-  export interface GroupedByEntryDate {
+  interface GroupedByEntryDate {
     [key: string]: {
       items: IStyleChangeOver[];
     };
   }
 
-  const groupedByEntryDate: GroupedByEntryDate = {};
+  let groupedByEntryDate: GroupedByEntryDate = {};
 
   if (data) {
     groupedByEntryDate = groupBy(data, ["ENTRY_DATE"]);

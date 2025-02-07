@@ -1,9 +1,9 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { GetSwtGaugeById } from "src/actions/Sweater/swt-gauge-action";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+import { GetSwtGaugeById } from "@/actions/Sweater/swt-gauge-action";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import GaugeForm from "./gauge-form";
 
 export default function GaugeCrud() {

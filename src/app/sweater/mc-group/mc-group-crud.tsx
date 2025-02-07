@@ -1,15 +1,15 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useParams } from "react-router";
-import { GetSwtMachineGroupById } from "src/actions/Sweater/swt-mc-group-action";
-import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
-import { PageAction } from "src/utility/page-actions";
+import { GetSwtMachineGroupById } from "@/actions/Sweater/swt-mc-group-action";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { PageAction } from "@/utility/page-actions";
 import McGroupForm from "./mc-group-form";
-import { GetAllFloor } from "src/actions/Configurations/floor-action";
-import { GetAllEmployee } from "src/actions/Configurations/employee-action";
-import { GetAllItemType } from "src/actions/Merchandising/item-type-action";
-import { GetAllBrand } from "src/actions/get-brand";
-import { GetAllSwtGauge } from "src/actions/Sweater/swt-gauge-action";
+import { GetAllFloor } from "@/actions/Configurations/floor-action";
+import { GetAllEmployee } from "@/actions/Configurations/employee-action";
+import { GetAllItemType } from "@/actions/Merchandising/item-type-action";
+import { GetAllBrand } from "@/actions/get-brand";
+import { GetAllSwtGauge } from "@/actions/Sweater/swt-gauge-action";
 
 export default function McGroupCrud() {
   const { pageAction, id } = useParams();

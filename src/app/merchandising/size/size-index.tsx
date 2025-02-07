@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { Link } from "react-router";
-import { GetBuyer } from "src/actions/Sweater/merch-buyer-action";
+import { GetBuyer } from "@/actions/Sweater/merch-buyer-action";
 import {
   Command,
   CommandEmpty,
@@ -13,24 +13,24 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import useAxiosInstance from "src/lib/axios-instance";
-import { cn } from "src/lib/utils";
-import { PageAction } from "src/utility/page-actions";
+} from "@/components/ui/popover";
+import useAxiosInstance from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { PageAction } from "@/utility/page-actions";
 import { z } from "zod";
-import { GetSize, SizeType } from "src/actions/Merchandising/merch-size-action";
+import { GetSize, SizeType } from "@/actions/Merchandising/merch-size-action";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { SizeTable } from "./size-table";

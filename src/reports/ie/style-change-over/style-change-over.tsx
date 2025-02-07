@@ -16,12 +16,12 @@ function StyleChangeOverReport() {
 
   const [searchParams] = useSearchParams();
 
-  const buyerId = 0;
-  const styleId = 0;
-  const floorId = 0;
-  const lineId = 0;
-  const fromDate = "01-Jun-0001";
-  const toDate = "06-Oct-2025";
+  let buyerId = 0;
+  let styleId = 0;
+  let floorId = 0;
+  let lineId = 0;
+  let fromDate = "01-Jun-0001";
+  let toDate = "06-Oct-2025";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));

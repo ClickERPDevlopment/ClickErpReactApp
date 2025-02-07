@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
-import { formatDate } from "date-fns";
-import TableSkeleton from "src/components/table-skeleton";
-import useApiUrl from "src/hooks/use-ApiUrl";
+import TableSkeleton from "@/components/table-skeleton";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import { IMonthlyOrderVsShipmentStatusReport } from "./monthly-order-vs-shipment-status-report-type";
 
 function MonthlyOrderVsShipmentStatusReport() {
   const [data, setData] = useState<IMonthlyOrderVsShipmentStatusReport[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();

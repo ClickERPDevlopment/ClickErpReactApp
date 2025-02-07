@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-
+import React from "react";
 import { MdOutlineClear } from "react-icons/md";
-import { Button } from "src/components/ui/button";
-import { Calendar } from "src/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover";
-import { cn } from "src/lib/utils";
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
-export interface props {
+interface props {
   form: any;
   name: string;
   title: string;

@@ -1,4 +1,3 @@
-/* eslint-disable no-const */
 import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
 import KittingDyeingAdvicePartsGroup from "./2kda-parts-group";
 
@@ -9,7 +8,7 @@ type prams = {
 function gatAllparts(
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
 ) {
-  const partsList: string[] = [];
+  let partsList: string[] = [];
   if (lstKda) {
     lstKda.forEach((element) => {
       if (!partsList.includes(element.FABRIC_PART)) {
@@ -32,7 +31,7 @@ function gatAllparts(
 function getGrandTotal(
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
 ) {
-  const qty = 0;
+  let qty = 0;
   lstKda?.forEach((element) => {
     qty += element.QTY;
   });

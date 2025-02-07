@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import useApiUrl from "../../../../../hooks/use-ApiUrl";
 import Skeleton from "react-loading-skeleton";
+import {
+  YarnBookingReportDto_MasterData,
+  YarnBookingReportDto_SpecialTreatment,
+} from "./yb-rpt-type";
 
 type params = {
   masterData: YarnBookingReportDto_MasterData;

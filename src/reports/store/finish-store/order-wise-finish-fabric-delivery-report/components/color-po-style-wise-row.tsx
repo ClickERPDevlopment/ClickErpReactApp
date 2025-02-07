@@ -109,7 +109,7 @@ export default function ColorPoStyleWiseRow({
 
       {/* other rows with in lstGreyRcvSummary total rows */}
       {lstAllocation
-        ?.filter((d, i) => i !== 0)
+        ?.filter((_d, i) => i !== 0)
         .map((booking, index) => (
           <tr>
             <td className="border border-black text-xs text-center p-1">
@@ -145,7 +145,7 @@ export default function ColorPoStyleWiseRow({
       {/* endother rows with in lstGreyRcvSummary total rows */}
 
       {lstBooking
-        ?.filter((d, i) => i >= lstAllocation.length)
+        ?.filter((_d, i) => i >= lstAllocation.length)
         .map((booking) => (
           <tr>
             <td className="border border-black text-xs text-center p-1"></td>

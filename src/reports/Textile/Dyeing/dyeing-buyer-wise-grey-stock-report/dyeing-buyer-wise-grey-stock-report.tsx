@@ -1,7 +1,7 @@
-import useApiUrl from "src/hooks/use-ApiUrl";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ReportSkeleton from "src/components/report-skeleton";
+import ReportSkeleton from "@/components/report-skeleton";
 import DyeingBuyerWiseGreyStockReportDesign from "./dyeing-buyer-wise-grey-stock-report-design";
 import { DyeingBuyerWiseGreyStockReportType } from "./dyeing-buyer-wise-grey-stock-report-type";
 import React from "react";

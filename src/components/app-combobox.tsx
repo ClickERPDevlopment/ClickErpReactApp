@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+import React from "react";
 import {
   FormControl,
   FormField,
@@ -9,7 +9,7 @@ import {
 } from "./ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
-import { cn } from "src/lib/utils";
+import { cn } from "@/lib/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import {
   Command,
@@ -23,7 +23,7 @@ import { CheckIcon } from "lucide-react";
 import { MdOutlineClear } from "react-icons/md";
 import { ComboBoxOptionsType } from "@/app-type";
 
-export interface props {
+interface props {
   form: any;
   options: ComboBoxOptionsType[] | undefined;
   name: string;

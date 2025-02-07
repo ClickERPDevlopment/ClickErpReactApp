@@ -79,11 +79,6 @@ function ReportTable({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-  let header;
-  if (sizeHeader && secondHeader) {
-    header = firstHeader?.concat(sizeHeader).concat(secondHeader);
-  }
-
   return (
     <div className="text-sm mt-3">
       <div className="flex items-center font-semibold">
@@ -120,7 +115,7 @@ function ReportTable({
           </tr>
         </thead>
         <tbody>
-          {uniqueKeysArray?.map((key, index) => {
+          {uniqueKeysArray?.map((key, _index) => {
             const current = groupedData[key];
             return (
               <tr key={key}>
