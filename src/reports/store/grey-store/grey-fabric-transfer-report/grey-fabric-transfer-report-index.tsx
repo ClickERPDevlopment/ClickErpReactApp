@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import ReportSkeleton from "src/components/report-skeleton";
@@ -10,7 +10,7 @@ export default function GreyFabricTransferReport() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var id: string | null = "0";
 

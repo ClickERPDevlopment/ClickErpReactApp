@@ -12,7 +12,7 @@ function DateWiseFabricRequisitionReceiveReport() {
   const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var buyerId = 0;
   var styleId = 0;
@@ -41,8 +41,6 @@ function DateWiseFabricRequisitionReceiveReport() {
   useEffect(() => {
     document.title = "Date Wise Fabric Requisition Receive Report";
   }, []);
-
-
 
   // `${api.ProductionUrl}/production/FinishFabricStore/FabricRequisitionAndReceiveReport?dtFrom=${fromDate}&dtTo=${toDate}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}`
 

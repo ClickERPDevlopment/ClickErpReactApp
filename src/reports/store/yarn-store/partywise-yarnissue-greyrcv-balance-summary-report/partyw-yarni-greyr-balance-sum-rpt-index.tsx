@@ -24,7 +24,7 @@ export default function PartyWiseYanrIssueAndGreyRcvSummaryIndex() {
   const [data, setData] = React.useState<
     PartyWiseYanrIssueAndGreyRcvSummaryType[]
   >([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = React.useState(false);
 
   var qParams: queryParamsType = {

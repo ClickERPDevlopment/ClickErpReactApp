@@ -26,7 +26,7 @@ export default function GreyBatchStatusReport() {
     GreyBatchStatusReportBatchDetailsDto[]
   >([]);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
   var fromDate: string | null = "";

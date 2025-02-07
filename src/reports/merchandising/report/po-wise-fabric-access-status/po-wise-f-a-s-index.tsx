@@ -10,7 +10,7 @@ import POwiseFabricAndAccessoriesStatusReportGenerate from "./components/po-wise
 export default function POwiseFabricAndAccessoriesStatusReport() {
   const [data, setData] = useState<PoWiseFabricAccessoriesStautsReportDto>();
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   //
   var searchData: SearchData = {
     dtPlacementFrom: "",

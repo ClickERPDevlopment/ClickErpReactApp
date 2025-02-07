@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import axios from "axios";
 import moment from "moment";
 
@@ -11,7 +11,7 @@ import Skeleton from "react-loading-skeleton";
 export default function DailyKnittingUpdateReport() {
   const [data, setData] = useState<DailyKnittingUpdate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   //
   var fromDate: string | null = "";
   var toDate: string | null = "";

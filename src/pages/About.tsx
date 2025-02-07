@@ -2,7 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router";
 
 const About = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   // console.log(searchParams.get('value'));
   // console.log(searchParams.get('a'));
   // console.log(searchParams.get('b'));

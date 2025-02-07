@@ -12,7 +12,7 @@ function BlockAccessoriesReport() {
   const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var id: number = 325;
   var currency: string = "..";

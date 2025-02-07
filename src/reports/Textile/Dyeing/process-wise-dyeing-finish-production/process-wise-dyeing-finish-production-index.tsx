@@ -15,7 +15,7 @@ function ProcessWiseDyeingFinishProductionReport() {
   const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var fromDate = "01-Sep-2024";
   var toDate = "01-Oct-2024";

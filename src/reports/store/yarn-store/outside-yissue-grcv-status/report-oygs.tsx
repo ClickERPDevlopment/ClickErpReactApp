@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 import Loader from "../../../../components/loader";
 import {
@@ -67,7 +67,8 @@ export default function Report({
           poId,
           partyId,
           yarnChallan,
-          isBalanceZeroNotShow, styleIds,
+          isBalanceZeroNotShow,
+          styleIds,
           poIds,
         }).then((r) => setYarnSendData(r));
 
@@ -80,7 +81,8 @@ export default function Report({
           poId,
           partyId,
           yarnChallan,
-          isBalanceZeroNotShow, styleIds,
+          isBalanceZeroNotShow,
+          styleIds,
           poIds,
         }).then((r) => setGreyRcvData(r));
 
@@ -93,7 +95,8 @@ export default function Report({
           poId,
           partyId,
           yarnChallan,
-          isBalanceZeroNotShow, styleIds,
+          isBalanceZeroNotShow,
+          styleIds,
           poIds,
         }).then((r) => setLYarnRcvData(r));
 

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+/* eslint-disable no-var */
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
 
 //import ReportTable from "./components/report-table";
@@ -12,7 +13,7 @@ export default function GreyFabricIssueChallanReport() {
   const [data, setData] = useState<IGreyFabricIssueChallanReport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var buyerId: string | null = "1";
   var poId: string | null = "0";

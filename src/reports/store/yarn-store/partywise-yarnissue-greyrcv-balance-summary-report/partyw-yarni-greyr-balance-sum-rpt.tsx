@@ -17,7 +17,7 @@ type props = {
 };
 
 export default function PartyWiseYanrIssueAndGreyRcvSummary({ data }: props) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = React.useState(false);
 
   return (

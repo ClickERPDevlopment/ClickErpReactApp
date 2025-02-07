@@ -14,7 +14,7 @@ function ShipmentDelayReportPDF() {
   const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var workorderId = 0;
   var buyerId = 0;
@@ -137,10 +137,10 @@ function ShipmentDelayReportPDF() {
     // Define column widths dynamically for full page width
     const columnCount = headers[0].length;
     const columnWidth = tableWidth / columnCount;
-   
-    // Starting Y position for the table 
-    let yPosition = 30;  
-      
+
+    // Starting Y position for the table
+    let yPosition = 30;
+
     // Function to check if a page break is needed and add a new page
     const checkPageOverflow = () => {
       if (yPosition > doc.internal.pageSize.height - margin) {

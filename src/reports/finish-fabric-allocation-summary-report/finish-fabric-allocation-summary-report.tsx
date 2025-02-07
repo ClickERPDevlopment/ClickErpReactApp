@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
 
 import useApiUrl from "../../hooks/use-ApiUrl";
@@ -20,7 +20,7 @@ export default function FinishFabricAllocationSummaryReport() {
   >([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var buyerId: string | null = "0";
   var fabricId: string | null = "0";

@@ -8,7 +8,7 @@ import ReportSkeleton from "../../../../components/report-skeleton";
 export default function YarnBookingReportIndex() {
   const [data, setData] = useState<YarnBookingReportDto>();
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const api = useApiUrl();
 

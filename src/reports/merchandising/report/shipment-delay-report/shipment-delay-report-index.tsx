@@ -14,7 +14,7 @@ function ShipmentDelayReport() {
   const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var workorderId = 0;
   var buyerId = 0;

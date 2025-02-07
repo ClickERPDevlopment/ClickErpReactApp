@@ -1,12 +1,12 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 import Loader from "../../../../components/loader";
 import Report from "./report-oygs";
 
 export default function OutSideYIssueGrcvStatusReport() {
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   var fromDate: string | null = "";
   var toDate: string | null = "";

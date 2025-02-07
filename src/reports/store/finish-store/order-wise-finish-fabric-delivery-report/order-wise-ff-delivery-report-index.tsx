@@ -18,7 +18,7 @@ export default function OrderWiseFinishFabricDeliveryReport() {
     OrderWiseFFDeliveryBookingDto[]
   >([]);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
   var buyerId: string | null = "";

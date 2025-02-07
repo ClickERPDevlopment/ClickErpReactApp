@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import axios from "axios";
 import moment from "moment";
 
@@ -10,7 +10,7 @@ import Skeleton from "react-loading-skeleton";
 export default function StyleWiseFabricConsumptionReport() {
   const [data, setData] = useState<styleWiseFabricConsumptionReport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   //
   var dtFrom: string | null = "";
   var dtTo: string | null = "";
