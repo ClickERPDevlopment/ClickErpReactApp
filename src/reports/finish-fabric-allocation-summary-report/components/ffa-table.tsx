@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable no-const */
 import {
   FinishFabricAllocationSummaryReportDetailsType,
   FinishFabricAllocationSummaryReportMasterType,
@@ -28,7 +28,7 @@ export default function FFATable({
     { name: "ALLO. BAL", classes: "" },
   ];
 
-  var totalAllocation = 0;
+  const totalAllocation = 0;
   detailsData.forEach((element) => {
     totalAllocation += element.ALLOCATED_QTY;
   });

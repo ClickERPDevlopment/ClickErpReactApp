@@ -1,7 +1,6 @@
-import React from "react";
-
+import { iaccWorkOrder } from "../../components/iaccWorkOrder";
 export function GetTotalAmount({ data }: { data: iaccWorkOrder[] }) {
-  var qty: number = 0;
+  let qty: number = 0;
   data?.forEach((element) => {
     qty += element.WORK_ORDER_QTY * element.SUPPLIER_RATE_PER_PCS;
   });

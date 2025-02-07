@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -69,21 +72,21 @@ const formSchema = z.object({
   WEEK_START_FROM: z.string(),
 });
 
-interface ISection {
+export interface ISection {
   Id: number;
   Name: string;
 }
 
-interface IFactory {
+export interface IFactory {
   ID: number;
   NAME: string;
 }
 
-interface IWeekend {
+export interface IWeekend {
   name: string;
 }
 
-interface IWeekendStartFrom {
+export interface IWeekendStartFrom {
   name: string;
 }
 
@@ -571,8 +574,8 @@ export default function PlanningBoardConfigureForm({
                   {pageAction === PageAction.add
                     ? "Save"
                     : pageAction === PageAction.edit
-                      ? "Update"
-                      : "Delete"}
+                    ? "Update"
+                    : "Delete"}
                 </Button>
                 <Button
                   type="reset"

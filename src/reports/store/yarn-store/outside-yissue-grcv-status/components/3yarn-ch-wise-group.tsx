@@ -1,8 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import React from "react";
-import ReportTotal from "./report-total";
 
-interface props {
+import ReportTotal from "./report-total";
+import {
+  outsideYIssueGRcvStatus_GreyRcv,
+  outsideYIssueGRcvStatus_LoseyarnRcv,
+  outsideYIssueGRcvStatus_YarnIssue,
+} from "./outsideYIssueGRcvS-Interfaces";
+
+export interface props {
   yarnIssue: outsideYIssueGRcvStatus_YarnIssue[];
   greyRcv: outsideYIssueGRcvStatus_GreyRcv[];
   loseYanRcv: outsideYIssueGRcvStatus_LoseyarnRcv[];
@@ -52,10 +58,10 @@ export default function YarnChallanWiseGroup({
   }
 
   const getGreyRcvBalanceQty = () => {
-    let yarnQty: any = getTotalYarnIssueQty();
-    let yarnReturnQty: any = getTotalYarnReturnQty();
-    let greyQty: any = getTotalGreyFabricRcvQty();
-    let loseYarn: any = getLoseYarnQty();
+    const yarnQty: any = getTotalYarnIssueQty();
+    const yarnReturnQty: any = getTotalYarnReturnQty();
+    const greyQty: any = getTotalGreyFabricRcvQty();
+    const loseYarn: any = getLoseYarnQty();
 
     return (yarnQty - greyQty - loseYarn - yarnReturnQty).toFixed(2);
   };
@@ -174,7 +180,7 @@ export default function YarnChallanWiseGroup({
       {/* other rows where grey rcv all rows not yet show. */}
       {greyRcv
         ?.filter((d, i) => i >= yarnIssue.length)
-        .map((y, yi) => (
+        .map((y) => (
           <tr key={Math.random()}>
             <td className="border border-black text-[8px] text-center p-1"></td>
             <td className="border border-black text-[8px] text-center p-1"></td>

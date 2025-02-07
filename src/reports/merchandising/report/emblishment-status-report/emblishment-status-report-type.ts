@@ -1,4 +1,4 @@
-interface IEmblishmentStatusReport {
+export interface IEmblishmentStatusReport {
   COMPANY_NAME: string;
   PONO: string;
   BUYER_NAME: string;

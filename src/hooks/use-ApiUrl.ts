@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import useAppClient from "./use-AppClient";
 import useDevEnv from "./use-DevEnv";
@@ -11,28 +10,28 @@ export default function useApiUrl() {
 
   const DevUrl = "http://localhost:40000/api";
   const DevRootUrl = "http://localhost:40000";
-  var ProductionUrl = "";
-  var ProductionRootUrl = "";
-  // var icclUrl = "http://119.148.62.103:6503/reports/api";
-  // var versatileUrl = "http://103.192.156.110:6503/reports/api";
+  let ProductionUrl = "";
+  let ProductionRootUrl = "";
+  // const icclUrl = "http://119.148.62.103:6503/reports/api";
+  // const versatileUrl = "http://103.192.156.110:6503/reports/api";
 
-  var icclUrl = "http://119.148.62.103:6503/api";
-  var icclRootUrl = "http://119.148.62.103:6503";
+  const icclUrl = "http://119.148.62.103:6503/api";
+  const icclRootUrl = "http://119.148.62.103:6503";
 
-  var versatileUrl = "http://103.192.156.110:6503/api";
-  var versatileRootUrl = "http://103.192.156.110:6503";
+  const versatileUrl = "http://103.192.156.110:6503/api";
+  const versatileRootUrl = "http://103.192.156.110:6503";
 
-  var presentationUrl = "http://localhost:6001/api";
-  var presentationRootUrl = "http://localhost:6001";
+  const presentationUrl = "http://localhost:6001/api";
+  const presentationRootUrl = "http://localhost:6001";
 
-  var agUrl = "http://103.95.98.115:6307/api";
-  var agRootUrl = "http://103.95.98.115:6307";
+  const agUrl = "http://103.95.98.115:6307/api";
+  const agRootUrl = "http://103.95.98.115:6307";
 
-  var nurUrl = "http://163.47.147.34:6007/api";
-  var nurRootUrl = "http://163.47.147.34:6007";
+  const nurUrl = "http://163.47.147.34:6007/api";
+  const nurRootUrl = "http://163.47.147.34:6007";
 
-  var euroUrl = "http://192.168.1.155:6001/api";
-  var euroRootUrl = "http://192.168.1.155:6001";
+  const euroUrl = "http://192.168.1.155:6001/api";
+  const euroRootUrl = "http://192.168.1.155:6001";
 
   if (currentEnv === devEnv) {
     if (clientName === AG) {

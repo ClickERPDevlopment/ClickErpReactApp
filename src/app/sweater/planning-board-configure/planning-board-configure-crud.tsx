@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import React from "react";
+
 import { useParams } from "react-router";
 import {
   GetSwtPlanningBoardDataById,

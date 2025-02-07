@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface Result<T> {
+export interface Result<T> {
   success: boolean;
   data?: T;
   error?: string;

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import {
-  CaretSortIcon,
+  // CaretSortIcon,
   ChevronDownIcon,
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
@@ -20,7 +20,7 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
+// import { Checkbox } from "src/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -43,7 +43,7 @@ import { PageAction } from "src/utility/page-actions";
 import { SwtGaugeType } from "src/actions/Sweater/swt-gauge-action";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
-import { DataTablePagination } from "src/components/DataTablePagination";
+// import { DataTablePagination } from "src/components/DataTablePagination";
 
 export function GaugeTable({ data }: { data: SwtGaugeType[] }) {
   const location = useLocation();
@@ -252,7 +252,7 @@ export function GaugeTable({ data }: { data: SwtGaugeType[] }) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <DataTablePagination table={table} />
+        {/* <DataTablePagination table={table} /> */}
       </div>
     </div>
   );

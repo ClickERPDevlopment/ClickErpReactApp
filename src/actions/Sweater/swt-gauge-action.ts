@@ -48,7 +48,7 @@ export async function Save(SwtGaugetype: SwtGaugeType, axios: AxiosInstance) {
     throw new Error("SwtGauge name must be at least 2 character.");
   }
 
-  var response = await axios.post("/production/SwtGauge", SwtGaugetype);
+  const response = await axios.post("/production/SwtGauge", SwtGaugetype);
 
   if (!response) {
     throw new Error("This SwtGaugetype already exist.");
@@ -67,7 +67,7 @@ export async function Update(SwtGaugetype: SwtGaugeType, axios: AxiosInstance) {
     throw new Error("SwtGauge name must be at least 2 character.");
   }
 
-  var response = await axios.put(
+  const response = await axios.put(
     "/production/SwtGauge/" + SwtGaugetype.ID,
     SwtGaugetype
   );

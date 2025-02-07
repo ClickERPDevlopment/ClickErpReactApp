@@ -34,9 +34,8 @@ import {
 } from "src/components/ui/table";
 import { PageAction } from "src/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
+import { BuyerType } from "@/actions/Sweater/merch-buyer-action";
 
-import { DataTablePagination } from "src/components/DataTablePagination";
-import { BuyerType } from "src/actions/Sweater/merch-buyer-action";
 export function BuyerTable({ data }: { data: BuyerType[] }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -107,11 +106,11 @@ export function BuyerTable({ data }: { data: BuyerType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/buyer/${PageAction.view}/${buyer.Id}`
-                    )
+                        `/win/merchandising/buyer/${PageAction.view}/${buyer.Id}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/buyer/${PageAction.view}/${buyer.Id}`
-                    )
+                        `/dashboard/merchandising/buyer/${PageAction.view}/${buyer.Id}`
+                      )
                 }
               >
                 View Buyer
@@ -120,11 +119,11 @@ export function BuyerTable({ data }: { data: BuyerType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/buyer/${PageAction.edit}/${buyer.Id}`
-                    )
+                        `/win/merchandising/buyer/${PageAction.edit}/${buyer.Id}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/buyer/${PageAction.edit}/${buyer.Id}`
-                    )
+                        `/dashboard/merchandising/buyer/${PageAction.edit}/${buyer.Id}`
+                      )
                 }
               >
                 Edit Buyer
@@ -132,12 +131,8 @@ export function BuyerTable({ data }: { data: BuyerType[] }) {
               <DropdownMenuItem
                 onClick={() =>
                   location.pathname.includes("win/")
-                    ? navigate(
-                      `/win/merchandising/buyer/gl/${buyer.Id}`
-                    )
-                    : navigate(
-                      `/dashboard/merchandising/buyer/gl/${buyer.Id}`
-                    )
+                    ? navigate(`/win/merchandising/buyer/gl/${buyer.Id}`)
+                    : navigate(`/dashboard/merchandising/buyer/gl/${buyer.Id}`)
                 }
               >
                 Buyer G/L
@@ -146,11 +141,11 @@ export function BuyerTable({ data }: { data: BuyerType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/buyer/${PageAction.delete}/${buyer.Id}`
-                    )
+                        `/win/merchandising/buyer/${PageAction.delete}/${buyer.Id}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/buyer/${PageAction.delete}/${buyer.Id}`
-                    )
+                        `/dashboard/merchandising/buyer/${PageAction.delete}/${buyer.Id}`
+                      )
                 }
               >
                 Delete Buyer
@@ -186,9 +181,7 @@ export function BuyerTable({ data }: { data: BuyerType[] }) {
       <div className="flex items-center py-4 gap-1">
         <Input
           placeholder="Filter name..."
-          value={
-            (table.getColumn("NAME")?.getFilterValue() as string) ?? ""
-          }
+          value={(table.getColumn("NAME")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("NAME")?.setFilterValue(event.target.value)
           }
@@ -232,9 +225,9 @@ export function BuyerTable({ data }: { data: BuyerType[] }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

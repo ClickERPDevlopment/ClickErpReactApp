@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-const */
+import { useContext } from "react";
 import YarnBookingReportContext from "./yb-rpt-context";
 
 export default function YarnBookingReportComments() {
-  var data = useContext(YarnBookingReportContext);
+  const data = useContext(YarnBookingReportContext);
 
   return (
     <table className="my-5 w-full">
@@ -13,7 +15,7 @@ export default function YarnBookingReportComments() {
         </tr>
       </thead>
       <tbody>
-        {data?.lstComments?.map((comm, index) => (
+        {data?.lstComments?.map((comm: any, index: number) => (
           <tr key={Math.random()}>
             <td className="border border-black text-center text-sm">
               {index + 1}

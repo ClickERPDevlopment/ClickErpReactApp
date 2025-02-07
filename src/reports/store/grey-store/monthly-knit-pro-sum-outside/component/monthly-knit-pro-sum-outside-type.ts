@@ -1,4 +1,4 @@
-type MonthlyKnitProSummOutsideType = {
+export type MonthlyKnitProSummOutsideType = {
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
   RCV_CHALLAN_DATE: Date;

@@ -1,24 +1,23 @@
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "react-router";
 
 import Loader from "../../../../components/loader";
 import Report from "./report-oygs";
 
 export default function OutSideYIssueGrcvStatusReport() {
-  const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
-  var fromDate: string | null = "";
-  var toDate: string | null = "";
-  var isDateWise: string | null = "";
-  var buyerId: string | null = "";
-  var styleId: string | null = "";
-  var poId: string | null = "";
-  var partyId: string | null = "";
-  var yarnChallan: string | null = "";
-  var isBalanceZeroNotShow: string | null = "";
-  var styleIds: string | null = "";
-  var poIds: string | null = "";
+  let fromDate: string | null = "";
+  let toDate: string | null = "";
+  let isDateWise: string | null = "";
+  let buyerId: string | null = "";
+  let styleId: string | null = "";
+  let poId: string | null = "";
+  let partyId: string | null = "";
+  let yarnChallan: string | null = "";
+  let isBalanceZeroNotShow: string | null = "";
+  let styleIds: string | null = "";
+  let poIds: string | null = "";
 
   if (searchParams.get("fromDate")) {
     fromDate = searchParams.get("fromDate");

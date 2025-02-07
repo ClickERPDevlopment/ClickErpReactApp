@@ -1,10 +1,14 @@
-import React from "react";
 import GreyRcvChallanGroup from "./grey-challan-group";
 import BatchTable from "./batch-table";
 import GreyRcvTotalRow from "./grey-rcv-total";
 import PoColorWiseGroupSummaryTable from "./po-color-wise-group-summary";
+import {
+  GreyBatchStatusReportBatchDetailsDto,
+  GreyBatchStatusReportGreyRcvDtlsDto,
+  GreyBatchStatusReportGreyRcvSummaryDto,
+} from "./Interfaces";
 
-interface props {
+export interface props {
   lstBookingSummary: GreyBatchStatusReportGreyRcvSummaryDto[];
   lstGreyRcvSummary: GreyBatchStatusReportGreyRcvSummaryDto[];
   greyRcvDtls: GreyBatchStatusReportGreyRcvDtlsDto[];
@@ -17,7 +21,7 @@ export default function POColorWiseGroup({
   greyRcvDtls,
   batchDtls,
 }: props) {
-  var greyChallanIds: number[] = [];
+  const greyChallanIds: number[] = [];
 
   greyRcvDtls?.forEach((e) => {
     if (!greyChallanIds.includes(e.RCV_CHALLAN_ID)) {

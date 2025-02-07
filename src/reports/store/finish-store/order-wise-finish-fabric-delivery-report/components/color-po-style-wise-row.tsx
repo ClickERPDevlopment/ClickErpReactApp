@@ -1,6 +1,10 @@
 import moment from "moment";
-import React from "react";
-interface props {
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
+
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
 }
@@ -142,7 +146,7 @@ export default function ColorPoStyleWiseRow({
 
       {lstBooking
         ?.filter((d, i) => i >= lstAllocation.length)
-        .map((booking, gRcvgIndex) => (
+        .map((booking) => (
           <tr>
             <td className="border border-black text-xs text-center p-1"></td>
             <td className="border border-black text-xs text-center p-1"></td>

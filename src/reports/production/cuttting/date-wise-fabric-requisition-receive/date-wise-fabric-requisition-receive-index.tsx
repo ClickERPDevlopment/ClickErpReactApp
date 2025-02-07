@@ -1,24 +1,23 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { IDateWiseFabricRequisitionReceive } from "./date-wise-fabric-requisition-receive-type";
 
 function DateWiseFabricRequisitionReceiveReport() {
   const [data, setData] = useState<IDateWiseFabricRequisitionReceive[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var buyerId = 0;
-  var styleId = 0;
-  var poId = 0;
-  var fromDate = "01-Jun-2022";
-  var toDate = "06-Oct-2030";
+  let buyerId = 0;
+  let styleId = 0;
+  let poId = 0;
+  let fromDate = "01-Jun-2022";
+  let toDate = "06-Oct-2030";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));
@@ -64,7 +63,7 @@ function DateWiseFabricRequisitionReceiveReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

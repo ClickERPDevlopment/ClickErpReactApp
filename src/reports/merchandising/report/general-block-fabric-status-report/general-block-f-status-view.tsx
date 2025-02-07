@@ -1,4 +1,3 @@
-import React from "react";
 import { GeneralBlockFabricStatusForm } from "./general-block-f-status-form";
 import {
   Card,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 import moment from "moment";
@@ -7,19 +7,20 @@ import useApiUrl from "../../../../hooks/use-ApiUrl";
 import DailyKnittingUpdateTotal from "./components/daily-knitting-update-total";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { DailyKnittingUpdate } from "./components/dailyKnittingUpdateInterface";
 
 export default function DailyKnittingUpdateReport() {
   const [data, setData] = useState<DailyKnittingUpdate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   //
-  var fromDate: string | null = "";
-  var toDate: string | null = "";
-  var isDateWise: string | null = "";
-  var buyerId: string | null = "";
-  var poId: string | null = "";
-  var partyIds: string | null = "";
-  var isBalanceZeroNotShow: string | null = "";
+  let fromDate: string | null = "";
+  let toDate: string | null = "";
+  let isDateWise: string | null = "";
+  let buyerId: string | null = "";
+  let poId: string | null = "";
+  let partyIds: string | null = "";
+  let isBalanceZeroNotShow: string | null = "";
 
   if (searchParams.get("fromDate")) {
     fromDate = searchParams.get("fromDate");
@@ -68,7 +69,7 @@ export default function DailyKnittingUpdateReport() {
           )
           .then((res) => {
             if (res.data) {
-              var result = res.data;
+              const result = res.data;
               if (result.IsError) {
                 console.log("Error found: ", result.ErrorMessage);
                 setData([]);
@@ -83,7 +84,7 @@ export default function DailyKnittingUpdateReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error) {
+      } catch {
         setIsLoading(false);
       }
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import { DailyKnittingUpdate } from "./dailyKnittingUpdateInterface";
 
 function Get_KP_QTY(productionData: DailyKnittingUpdate[]) {
   let sum = 0;
@@ -36,13 +36,13 @@ function Get_TODAY_PRODUCTION_QTY(productionData: DailyKnittingUpdate[]) {
   return Math.round(sum);
 }
 
-function Get_TOTAL_PRODUCTION_QTY(productionData: DailyKnittingUpdate[]) {
-  let sum = 0;
-  productionData.forEach((d) => {
-    sum += d.TOTAL_PRODUCTION_QTY;
-  });
-  return Math.round(sum);
-}
+// function Get_TOTAL_PRODUCTION_QTY(productionData: DailyKnittingUpdate[]) {
+//   let sum = 0;
+//   productionData.forEach((d) => {
+//     sum += d.TOTAL_PRODUCTION_QTY;
+//   });
+//   return Math.round(sum);
+// }
 
 function Get_GREY_DELIVERY_QTY(productionData: DailyKnittingUpdate[]) {
   let sum = 0;

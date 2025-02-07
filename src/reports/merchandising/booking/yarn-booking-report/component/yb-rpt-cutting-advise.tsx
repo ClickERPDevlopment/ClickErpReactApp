@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import { useContext } from "react";
 import YarnBookingReportContext from "./yb-rpt-context";
+import {
+  YarnBookingReportDto_CuttingAdviceQuantity,
+  YarnBookingReportDto_TechnicalSheet,
+} from "./yb-rpt-type";
 
 function getSizeMeasurement(
   lstCuttingTech: YarnBookingReportDto_TechnicalSheet[],
   partsName: string,
   sizeName: string
 ) {
-  var misurement = "0";
-  var res = lstCuttingTech.filter(
+  let misurement = "0";
+  const res = lstCuttingTech.filter(
     (c) => c.SPE_NAME === partsName && c.SIZENAME === sizeName
   );
 
@@ -21,7 +26,7 @@ function getCuttingAdviseTotalQtyBySize(
   YarnBookCutA: YarnBookingReportDto_CuttingAdviceQuantity[],
   colorName: string
 ) {
-  var qty = 0;
+  let qty = 0;
   if (YarnBookCutA) {
     YarnBookCutA.forEach((element) => {
       if (element.COLORNAME === colorName) qty += element.QTY;
@@ -32,7 +37,7 @@ function getCuttingAdviseTotalQtyBySize(
 function getCuttingAdviseTotalQty(
   YarnBookCutA: YarnBookingReportDto_CuttingAdviceQuantity[]
 ) {
-  var qty = 0;
+  let qty = 0;
   if (YarnBookCutA) {
     YarnBookCutA.forEach((element) => {
       qty += element.QTY;
@@ -43,7 +48,7 @@ function getCuttingAdviseTotalQty(
 
 export default function YarnBookingCuttingAdvise() {
   const data = useContext(YarnBookingReportContext);
-  var sizeArrayLength = data?.sizeNameList?.length;
+  const sizeArrayLength = data?.sizeNameList?.length;
   // console.log("sizes", data?.sizeNameList);
   // return JSON
   return (

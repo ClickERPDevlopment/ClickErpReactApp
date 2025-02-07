@@ -1,62 +1,75 @@
-import React from 'react'
-import ReportTable from './report-table';
-import moment from 'moment';
-import ReportFooter from './report-footer';
-import ReportHeader from './report-header';
-import ReportGroup from './report-group';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import ReportFooter from "./report-footer";
+import ReportHeader from "./report-header";
+import ReportGroup from "./report-group";
+import { IShortShipmentReasonStatus } from "../short-shipment-reason-status-type";
 
 function Report({ data }: { data: IShortShipmentReasonStatus[] }) {
+  const uniqueKeys: Set<string> = new Set();
 
-    var uniqueKeys: Set<string> = new Set();
-
-    function groupBy(data: IShortShipmentReasonStatus[], keys: string[]) {
-        return data.reduce((result: any, item: any) => {
-            const key = keys.map(k => item[k]).join('_');
-            uniqueKeys.add(key);
-            if (!result[key]) {
-                result[key] = {
-                    items: []
-                };
-            }
-            result[key].items.push(item);
-
-            return result;
-        }, {});
-    }
-
-    interface GroupedByBuyer {
-        [key: string]: {
-            items: IShortShipmentReasonStatus[];
+  function groupBy(data: IShortShipmentReasonStatus[], keys: string[]) {
+    return data.reduce((result: any, item: any) => {
+      const key = keys.map((k) => item[k]).join("_");
+      uniqueKeys.add(key);
+      if (!result[key]) {
+        result[key] = {
+          items: [],
         };
-    }
+      }
+      result[key].items.push(item);
 
-    var groupedByBuyer: GroupedByBuyer = {};
+      return result;
+    }, {});
+  }
 
-    if (data) {
-        groupedByBuyer = groupBy(data, ['BUYER_NAME']);
-    }
+  interface GroupedByBuyer {
+    [key: string]: {
+      items: IShortShipmentReasonStatus[];
+    };
+  }
 
-    var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  let groupedByBuyer: GroupedByBuyer = {};
 
-    //set table header 
-    var firstHeader = ["STYLE", "PO", "ORDER QTY", "CUTTING QTY", "SEWING QTY", "SHIPMENT QTY", "SHORT/ACCESS QTY", "SHIPMENT DATE", "SHORT SHIPMENT REASON", "AFFECTED QTY", "DETAILS"];
+  if (data) {
+    groupedByBuyer = groupBy(data, ["BUYER_NAME"]);
+  }
 
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-    return (
-        <div className='container'>
-            <div className='p-2'>
-                <ReportHeader />
+  //set table header
+  const firstHeader = [
+    "STYLE",
+    "PO",
+    "ORDER QTY",
+    "CUTTING QTY",
+    "SEWING QTY",
+    "SHIPMENT QTY",
+    "SHORT/ACCESS QTY",
+    "SHIPMENT DATE",
+    "SHORT SHIPMENT REASON",
+    "AFFECTED QTY",
+    "DETAILS",
+  ];
 
-                {uniqueKeysArray?.map((key) => (
-                    <ReportGroup key={key} data={groupedByBuyer[key].items} firstHeader={firstHeader}></ReportGroup>
-                ))}
-                <div className='p-5'></div>
-                <div>
-                    <ReportFooter></ReportFooter>
-                </div>
-            </div>
+  return (
+    <div className="container">
+      <div className="p-2">
+        <ReportHeader />
+
+        {uniqueKeysArray?.map((key) => (
+          <ReportGroup
+            key={key}
+            data={groupedByBuyer[key].items}
+            firstHeader={firstHeader}
+          ></ReportGroup>
+        ))}
+        <div className="p-5"></div>
+        <div>
+          <ReportFooter></ReportFooter>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default Report
+export default Report;

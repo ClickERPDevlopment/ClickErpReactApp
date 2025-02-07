@@ -27,7 +27,7 @@ export default function PartyWiseYanrIssueAndGreyRcvSummaryIndex() {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = React.useState(false);
 
-  var qParams: queryParamsType = {
+  const qParams: queryParamsType = {
     companyId: searchParams.get("companyId"),
     partyId: searchParams.get("partyId"),
     isOpmWise: searchParams.get("isOpmWise"),
@@ -74,7 +74,7 @@ export default function PartyWiseYanrIssueAndGreyRcvSummaryIndex() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

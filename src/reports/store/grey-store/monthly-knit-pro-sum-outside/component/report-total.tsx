@@ -1,4 +1,4 @@
-import React from "react";
+import { MonthlyKnitProSummOutsideType } from "./monthly-knit-pro-sum-outside-type";
 
 export default function ReportTotal({
   data,

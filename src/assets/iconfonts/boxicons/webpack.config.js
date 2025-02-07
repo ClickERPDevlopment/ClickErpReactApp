@@ -1,40 +1,41 @@
-const path = require('path');
-const webpack = require('webpack');
-const WrapperPlugin = require('wrapper-webpack-plugin');
-const packageJson = require('./package.json');
+const path = require("path");
+const webpack = require("webpack");
+const WrapperPlugin = require("wrapper-webpack-plugin");
+const packageJson = require("./package.json");
 
 module.exports = {
   entry: `${__dirname}/src/index.js`,
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    library: 'BoxIconElement',
-    libraryTarget: 'umd',
-    filename: 'boxicons.js',
+    path: path.resolve(__dirname, "dist"),
+    library: "BoxIconElement",
+    libraryTarget: "umd",
+    filename: "boxicons.js",
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
           babelrc: false,
-          presets: [
-              ['env', { modules: false, targets: { uglify: true } }],
-          ],
+          presets: [["env", { modules: false, targets: { uglify: true } }]],
           plugins: [
-            ['babel-plugin-transform-builtin-classes', {
-              globals: ['Array', 'Error', 'HTMLElement'],
-            }],
+            [
+              "babel-plugin-transform-builtin-classes",
+              {
+                globals: ["Array", "Error", "HTMLElement"],
+              },
+            ],
           ],
         },
       },
       {
         test: /\.css$/,
         use: [
-            { loader: 'to-string-loader' },
+          { loader: "to-string-loader" },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               camelCase: true,
             },
@@ -45,14 +46,14 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'BUILD.DATA': {
+      "BUILD.DATA": {
         VERSION: JSON.stringify(packageJson.version),
       },
     }),
     new WrapperPlugin({
       test: /boxicons\.js$/,
-      header: getWrapper('header'),
-      footer: getWrapper('footer'),
+      header: getWrapper("header"),
+      footer: getWrapper("footer"),
     }),
   ],
 };
@@ -100,11 +101,11 @@ function getWrapper(type) {
             return;
         }
         
-        var _WEB_COMPONENTS_REQUESTED = WINDOW[STRING_WEB_COMPONENTS_REQUESTED] = getCallbackQueue();
+        const _WEB_COMPONENTS_REQUESTED = WINDOW[STRING_WEB_COMPONENTS_REQUESTED] = getCallbackQueue();
         _WEB_COMPONENTS_REQUESTED.then(init);
         
-        var WEB_COMPONENTS_POLYFILL = WINDOW.WEB_COMPONENTS_POLYFILL || "/" + "/" + DEFAULT_CDN_PREFIX + "/webcomponentsjs/2.0.2/webcomponents-bundle.js";
-        var ES6_CORE_POLYFILL = WINDOW.ES6_CORE_POLYFILL || "/" + "/" + DEFAULT_CDN_PREFIX + "/core-js/2.5.3/core.min.js";
+        const WEB_COMPONENTS_POLYFILL = WINDOW.WEB_COMPONENTS_POLYFILL || "/" + "/" + DEFAULT_CDN_PREFIX + "/webcomponentsjs/2.0.2/webcomponents-bundle.js";
+        const ES6_CORE_POLYFILL = WINDOW.ES6_CORE_POLYFILL || "/" + "/" + DEFAULT_CDN_PREFIX + "/core-js/2.5.3/core.min.js";
         
         if (!("Promise" in WINDOW)) {
             loadScript(ES6_CORE_POLYFILL)
@@ -125,7 +126,7 @@ function getWrapper(type) {
     }
     
     function getCallbackQueue() {
-        var callbacks = [];
+        const callbacks = [];
         callbacks.isDone = false;
         callbacks.exec = function () {
             callbacks.splice(0).forEach(function (callback) {
@@ -144,8 +145,8 @@ function getWrapper(type) {
     }
     
     function loadScript (url) {
-        var callbacks = getCallbackQueue();
-        var script = DOCUMENT.createElement("script")
+        const callbacks = getCallbackQueue();
+        const script = DOCUMENT.createElement("script")
         
         script.type = "text/javascript";
 
@@ -173,17 +174,16 @@ function getWrapper(type) {
 
 })(
     "cdnjs.cloudflare.com/ajax/libs",
-    "AWAITING_WEB_COMPONENTS_POLYFILL",  // Global wait queue var name
+    "AWAITING_WEB_COMPONENTS_POLYFILL",  // Global wait queue const name
     window,
     document,
     function () {
 ____SPLIT_HERE____
     }
-);`.split('____SPLIT_HERE____');
+);`.split("____SPLIT_HERE____");
 
   getWrapper.header = templatePieces[0];
   getWrapper.footer = templatePieces[1];
 
   return getWrapper[type];
 }
-

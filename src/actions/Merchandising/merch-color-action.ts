@@ -19,7 +19,6 @@ export type ColorType = {
   COLOR_COMMERCIAL_NAME?: string | null;
 };
 
-
 export function GetColor() {
   const axios = useAxiosInstance();
 
@@ -64,10 +63,7 @@ export function GetColorById(id: number) {
   return query;
 }
 
-export async function Save(
-  ColorType: ColorType,
-  axios: AxiosInstance
-) {
+export async function Save(ColorType: ColorType, axios: AxiosInstance) {
   const { COLORNAME, COLOR_DISPLAY_NAME, BUYERID } = ColorType;
 
   if (!COLORNAME) {
@@ -81,10 +77,7 @@ export async function Save(
     throw new Error("Buyer is required");
   }
 
-  var response = await axios.post(
-    "/production/Color",
-    ColorType
-  );
+  const response = await axios.post("/production/Color", ColorType);
 
   if (!response) {
     throw new Error("This color already exist.");
@@ -93,10 +86,7 @@ export async function Save(
   return response.data;
 }
 
-export async function Update(
-  ColorType: ColorType,
-  axios: AxiosInstance
-) {
+export async function Update(ColorType: ColorType, axios: AxiosInstance) {
   const { COLORNAME, COLOR_DISPLAY_NAME, BUYERID } = ColorType;
 
   if (!COLORNAME) {
@@ -110,7 +100,7 @@ export async function Update(
     throw new Error("Buyer is required");
   }
 
-  var response = await axios.put(
+  const response = await axios.put(
     "/production/Color/" + ColorType.ID,
     ColorType
   );

@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useToast } from "src/components/ui/use-toast";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 import useApiUrl from "src/hooks/use-ApiUrl";
@@ -13,7 +14,7 @@ export default function BuyerWiseDyeingMonthlySummaryReportIndex() {
   const [data, setData] = useState<BuyerWiseDyeingMonthlySummaryReportType[]>();
   const [isLoading, setIsLoading] = useState(true);
 
-  var rptSearchParams: {
+  const rptSearchParams: {
     fromDate: string | null;
     toDate: string | null;
     buyerId: string | null;
@@ -36,7 +37,7 @@ export default function BuyerWiseDyeingMonthlySummaryReportIndex() {
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
-      var res = await axios.get<BuyerWiseDyeingMonthlySummaryReportType[]>(
+      const res = await axios.get<BuyerWiseDyeingMonthlySummaryReportType[]>(
         `${api.ProductionUrl}/production/DyeingReport/GetBuyerwiseDyeingMonthlySummaryreport?fromDate=${rptSearchParams.fromDate}&toDate=${rptSearchParams.toDate}&buyerId=${rptSearchParams.buyerId}`
       );
       setData(res.data);

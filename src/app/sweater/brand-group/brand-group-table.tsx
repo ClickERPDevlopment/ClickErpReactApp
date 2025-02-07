@@ -35,7 +35,7 @@ import {
 import { PageAction } from "src/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
 
-import { DataTablePagination } from "src/components/DataTablePagination";
+// import { DataTablePagination } from "src/components/DataTablePagination";
 import { SwtMachineBrandGroupType } from "src/actions/Sweater/swt-mc-brand-group-action";
 
 export function BrandGroupTable({
@@ -242,7 +242,7 @@ export function BrandGroupTable({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <DataTablePagination table={table} />
+        {/* <DataTablePagination table={table} /> */}
       </div>
     </div>
   );

@@ -1,16 +1,15 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios, { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { IShortShipmentReasonStatus } from "./short-shipment-reason-status-type";
 
 function ShortShipmentReasonStatusReport() {
   // State management
   const [data, setData] = useState<IShortShipmentReasonStatus[]>([]);
-  const [gmtSizes, setGMTSizes] = useState<any[]>([]);
-  const [detailsData, setDetailsData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

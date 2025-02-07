@@ -1,14 +1,17 @@
-import React from "react";
 import POWiseGroup from "./po-wise-group";
 import ColorWiseTotalRow from "./color-wise-total";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
 
-interface props {
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
 }
 
 export default function ColorWiseGroup({ lstAllocation, lstBooking }: props) {
-  var poIds: number[] = [];
+  const poIds: number[] = [];
 
   lstAllocation?.forEach((e) => {
     if (!poIds.includes(e.PO_ID)) {

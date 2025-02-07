@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import YarnBookingReportContext from "../yb-rpt-context";
+/* eslint-disable no-const */
+import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
 import KittingDyeingAdvicePartsGroup from "./2kda-parts-group";
 
 type prams = {
@@ -9,7 +9,7 @@ type prams = {
 function gatAllparts(
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
 ) {
-  var partsList: string[] = [];
+  const partsList: string[] = [];
   if (lstKda) {
     lstKda.forEach((element) => {
       if (!partsList.includes(element.FABRIC_PART)) {
@@ -32,7 +32,7 @@ function gatAllparts(
 function getGrandTotal(
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
 ) {
-  var qty = 0;
+  const qty = 0;
   lstKda?.forEach((element) => {
     qty += element.QTY;
   });

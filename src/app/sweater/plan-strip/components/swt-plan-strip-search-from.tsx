@@ -3,8 +3,6 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import { AxiosError } from "axios";
 import { format } from "date-fns";
 import { CalendarIcon, CheckIcon } from "lucide-react";
-import moment from "moment";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { GetAllBuyer } from "src/actions/Merchandising/get-buyer";
@@ -25,7 +23,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -41,8 +38,7 @@ import useAxiosInstance from "src/lib/axios-instance";
 import { cn } from "src/lib/utils";
 import { z } from "zod";
 import { useSwtPlanStripStore } from "./swt-plan-strip-store";
-import { BrandSmvLcDialogForm } from "./brand-smv-lc-dialog-form";
-import AppDialog from "../../../../components/app-dialog";
+import React from "react";
 
 type comboBoxDataType = {
   label: string;
@@ -76,7 +72,7 @@ export default function SwtPlanStripSearchForm() {
   const [styles, setStyles] = React.useState<comboBoxDataType[]>();
   const [openStyle, setOpenStyle] = React.useState(false);
   //--
-  const [selectedPo, setSelectedPo] = React.useState<number>();
+  const [, setSelectedPo] = React.useState<number>();
   const [pos, setPos] = React.useState<comboBoxDataType[]>();
   const [openPo, setOpenPo] = React.useState(false);
   //--
@@ -86,7 +82,7 @@ export default function SwtPlanStripSearchForm() {
   const { data: lstPo } = GetAllPoBStyled(selectedStyle?.valueOf() || 0);
 
   React.useEffect(() => {
-    let _: comboBoxDataType[] = [];
+    const _: comboBoxDataType[] = [];
     lstBuyer?.forEach((ele) => {
       _.push({ label: ele.NAME, value: ele.Id.toString() });
     });
@@ -94,7 +90,7 @@ export default function SwtPlanStripSearchForm() {
   }, [lstBuyer]);
 
   React.useEffect(() => {
-    let _: comboBoxDataType[] = [];
+    const _: comboBoxDataType[] = [];
     lstStyle?.forEach((ele) => {
       _.push({ label: ele.Styleno, value: ele.Id.toString() });
     });
@@ -102,7 +98,7 @@ export default function SwtPlanStripSearchForm() {
   }, [lstStyle]);
 
   React.useEffect(() => {
-    let _: comboBoxDataType[] = [];
+    const _: comboBoxDataType[] = [];
     lstPo?.forEach((ele) => {
       _.push({ label: ele.Pono, value: ele.Id.toString() });
     });

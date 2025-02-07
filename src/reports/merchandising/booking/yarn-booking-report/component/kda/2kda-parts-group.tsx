@@ -1,13 +1,16 @@
-import React, { useContext } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-const */
+import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
 import KittingDyeingAdviceColorGroup from "./3ksa-color-grou";
+import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
 
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
 };
 
 function getAllColors(lstKda: YarnBookingReportDto_KnittingDyeingAdvice[]) {
-  var colorList: string[] = [];
+  const colorList: string[] = [];
   if (lstKda) {
     lstKda.forEach((element) => {
       if (!colorList.includes(element.COLORNAME)) {
@@ -19,9 +22,9 @@ function getAllColors(lstKda: YarnBookingReportDto_KnittingDyeingAdvice[]) {
 }
 
 export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
-  var data = useContext(YarnBookingReportContext);
-  var colorList = getAllColors(lstKda!);
-  var length = data?.knittingSizeNameList.length;
+  const data = useContext(YarnBookingReportContext);
+  const colorList = getAllColors(lstKda!);
+  const length = data?.knittingSizeNameList.length;
   if (lstKda)
     return (
       <>
@@ -34,7 +37,7 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
           <tr>
             <th className="border border-black">SL</th>
             <th className="border border-black">Color & Color Code</th>
-            {data?.knittingSizeNameList.map((size) => (
+            {data?.knittingSizeNameList.map((size: any) => (
               <th className="border border-black">{size}</th>
             ))}
             <th className="border border-black">TOTAL (KG)</th>

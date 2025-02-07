@@ -1,14 +1,16 @@
-import React from "react";
 import PoColorWiseGroupSummary from "./po-color-wise-group-summary";
-import { PocketKnife } from "lucide-react";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
 
-interface props {
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
 }
 
 export default function POColorSummary({ lstAllocation, lstBooking }: props) {
-  var poColorIds: string[] = [];
+  const poColorIds: string[] = [];
 
   lstAllocation?.forEach((element) => {
     if (!poColorIds.includes(element.PO_ID + "_" + element.COLOR_ID)) {

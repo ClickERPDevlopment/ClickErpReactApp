@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Table from "./components/grey-challan-group";
+import {
+  GreyBatchStatusReportBatchDetailsDto,
+  GreyBatchStatusReportGreyRcvDtlsDto,
+  GreyBatchStatusReportGreyRcvSummaryDto,
+} from "./components/Interfaces";
 import POColorWiseGroup from "./components/po-color-wise-group";
 
-interface props {
+export interface props {
   lstBookingSummary: GreyBatchStatusReportGreyRcvSummaryDto[];
   lstGreyRcvSummary: GreyBatchStatusReportGreyRcvSummaryDto[];
   greyRcvDtls: GreyBatchStatusReportGreyRcvDtlsDto[];
@@ -15,7 +18,7 @@ export default function Report({
   greyRcvDtls,
   batchDtls,
 }: props) {
-  var poColorIds: string[] = [];
+  const poColorIds: string[] = [];
 
   greyRcvDtls?.forEach((element) => {
     if (!poColorIds.includes(element.PO_ID + "_" + element.GMT_COLOR_ID)) {

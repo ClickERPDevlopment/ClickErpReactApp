@@ -3,7 +3,7 @@ import { CaretSortIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { CheckIcon } from "lucide-react";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
@@ -203,7 +203,7 @@ export default function McGroupForm({
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // console.log("form-value", values);
-    var data: SwtMachineGroupType = {
+    const data: SwtMachineGroupType = {
       ID: values.ID,
       GROUP_NAME: values.GROUP_NAME,
       CODE: values.CODE,

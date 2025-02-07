@@ -1,14 +1,17 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios, { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { IAccessoriesReceiveStatusByChallanNoReport } from "./accessories-receive-status-by-challan-no-report-type";
 
 function AccessoriesReceiveStatusByChallanNoReport() {
   // State management
-  const [data, setData] = useState<IAccessoriesReceiveStatusByChallanNoReport[]>([]);
+  const [data, setData] = useState<
+    IAccessoriesReceiveStatusByChallanNoReport[]
+  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -48,10 +51,7 @@ function AccessoriesReceiveStatusByChallanNoReport() {
       } catch (error) {
         const err = error as AxiosError;
         setErrorMessage(err?.response?.data as string);
-        console.error(
-          "Error fetching data:",
-          err.response?.data
-        );
+        console.error("Error fetching data:", err.response?.data);
       } finally {
         setIsLoading(false);
       }

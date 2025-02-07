@@ -6,9 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "src/components/ui/card";
-import React from "react";
-import OnlineDisplayBoardForm from "./online-display-board-form";
 
+import OnlineDisplayBoardForm from "./online-display-board-form";
 
 export default function OnlineDisplayBoardView() {
   return (

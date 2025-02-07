@@ -1,9 +1,9 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import React from "react";
+
 import { useParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
 import { PageAction } from "src/utility/page-actions";
-import { GetBuyerById, GetBuyer } from "src/actions/Sweater/merch-buyer-action";
+import { GetBuyer } from "src/actions/Sweater/merch-buyer-action";
 import ColorForm from "./color-form";
 import { GetColorById } from "src/actions/Merchandising/merch-color-action";
 
@@ -12,11 +12,7 @@ export default function ColorCrud() {
 
   const { data: buyerData } = GetBuyer();
 
-  const {
-    data: color,
-    isError,
-    error,
-  } = GetColorById(Number(id));
+  const { data: color, isError, error } = GetColorById(Number(id));
 
   if (!pageAction) {
     return (
@@ -51,9 +47,7 @@ export default function ColorCrud() {
   if (pageAction === PageAction.view) {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-2 mb-10 ">
-        <h1 className="font-bold text-xl text-left w-full mb-2">
-          Color
-        </h1>
+        <h1 className="font-bold text-xl text-left w-full mb-2">Color</h1>
         <ColorForm
           data={color}
           lstBuyer={buyerData}
@@ -64,9 +58,7 @@ export default function ColorCrud() {
   } else if (pageAction === PageAction.add) {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-2 mb-10">
-        <h1 className="font-bold text-xl text-left w-full mb-2">
-          New Color
-        </h1>
+        <h1 className="font-bold text-xl text-left w-full mb-2">New Color</h1>
         <ColorForm
           data={undefined}
           lstBuyer={buyerData}

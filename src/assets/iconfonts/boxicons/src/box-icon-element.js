@@ -1,15 +1,14 @@
 /* global BUILD */
-import animationsCss from '../css/animations.css';
-import transformationsCss from '../css/transformations.css';
-
+import animationsCss from "../css/animations.css";
+import transformationsCss from "../css/transformations.css";
 
 //= ======================================================
 const GLOBAL = window;
 const CACHE = {}; // iconName: Promise()
-const CSS_CLASS_PREFIX = 'bx-';
+const CSS_CLASS_PREFIX = "bx-";
 const CSS_CLASS_PREFIX_ROTATE = `${CSS_CLASS_PREFIX}rotate-`;
 const CSS_CLASS_PREFIX_FLIP = `${CSS_CLASS_PREFIX}flip-`;
-const TEMPLATE = document.createElement('template');
+const TEMPLATE = document.createElement("template");
 const usingShadyCss = () => !!GLOBAL.ShadyCSS;
 
 TEMPLATE.innerHTML = `
@@ -73,50 +72,50 @@ ${transformationsCss}
 </style>
 <div id="icon"></div>`;
 
-
 /**
  * A Custom Element for displaying icon
  */
 export class BoxIconElement extends HTMLElement {
   static get cdnUrl() {
-      // BUILD.DATA.VERSION is injected by webpack during a build.
-      // Value is same as package.json#version property.
+    // BUILD.DATA.VERSION is injected by webpack during a build.
+    // Value is same as package.json#version property.
     return `//unpkg.com/boxicons@${BUILD.DATA.VERSION}/svg`;
   }
-    /**
-     * The html tag name to be use
-     * @type {String}
-     */
-  static get tagName() { return 'box-icon'; }
+  /**
+   * The html tag name to be use
+   * @type {String}
+   */
+  static get tagName() {
+    return "box-icon";
+  }
 
   static get observedAttributes() {
     return [
-      'type',
-      'name',
-      'color',
-      'size',
-      'rotate',
-      'flip',
-      'animation',
-      'border',
-      'pull'
+      "type",
+      "name",
+      "color",
+      "size",
+      "rotate",
+      "flip",
+      "animation",
+      "border",
+      "pull",
     ];
   }
 
-    /**
-     * Returns a promise that should resolve with a string - the svg source.
-     *
-     * @param {String} iconName
-     *  The icon name (file name) to the icon that should be loaded.
-     *
-     * @return {Promise<String, Error>}
-     */
-  static getIconSvg(iconName,type) {
-    var iconUrl = `${this.cdnUrl}/regular/bx-${iconName}.svg`;
-    if(type==='solid'){
+  /**
+   * Returns a promise that should resolve with a string - the svg source.
+   *
+   * @param {String} iconName
+   *  The icon name (file name) to the icon that should be loaded.
+   *
+   * @return {Promise<String, Error>}
+   */
+  static getIconSvg(iconName, type) {
+    const iconUrl = `${this.cdnUrl}/regular/bx-${iconName}.svg`;
+    if (type === "solid") {
       iconUrl = `${this.cdnUrl}/solid/bxs-${iconName}.svg`;
-    }
-    else if(type==='logo'){
+    } else if (type === "logo") {
       iconUrl = `${this.cdnUrl}/logos/bxl-${iconName}.svg`;
     }
     if (iconUrl && CACHE[iconUrl]) {
@@ -124,7 +123,7 @@ export class BoxIconElement extends HTMLElement {
     }
     CACHE[iconUrl] = new Promise((resolve, reject) => {
       const request = new XMLHttpRequest();
-      request.addEventListener('load', function () {
+      request.addEventListener("load", function () {
         if (this.status < 200 || this.status >= 300) {
           reject(new Error(`${this.status} ${this.responseText}`));
           return;
@@ -133,17 +132,17 @@ export class BoxIconElement extends HTMLElement {
       });
       request.onerror = reject;
       request.onabort = reject;
-      request.open('GET', iconUrl);
+      request.open("GET", iconUrl);
       request.send();
     });
     return CACHE[iconUrl];
   }
 
-    /**
-     * Define (register) the custom element
-     *
-     * @param {String} [tagName=this.tagName]
-     */
+  /**
+   * Define (register) the custom element
+   *
+   * @param {String} [tagName=this.tagName]
+   */
   static define(tagName) {
     tagName = tagName || this.tagName;
     if (usingShadyCss()) {
@@ -155,14 +154,14 @@ export class BoxIconElement extends HTMLElement {
   constructor() {
     super();
 
-    this.$ui = this.attachShadow({ mode: 'open' });
+    this.$ui = this.attachShadow({ mode: "open" });
     this.$ui.appendChild(this.ownerDocument.importNode(TEMPLATE.content, true));
     if (usingShadyCss()) {
-        GLOBAL.ShadyCSS.styleElement(this);
+      GLOBAL.ShadyCSS.styleElement(this);
     }
     this._state = {
-      $iconHolder: this.$ui.getElementById('icon'),
-      type: this.getAttribute('type')
+      $iconHolder: this.$ui.getElementById("icon"),
+      type: this.getAttribute("type"),
     };
   }
 
@@ -170,20 +169,19 @@ export class BoxIconElement extends HTMLElement {
     const $iconHolder = this._state.$iconHolder;
 
     switch (attr) {
-
-      case 'type':
+      case "type":
         handleTypeChange(this, oldVal, newVal);
         break;
-      case 'name':
+      case "name":
         handleNameChange(this, oldVal, newVal);
         break;
-      case 'color':
-        $iconHolder.style.fill = newVal || '';
+      case "color":
+        $iconHolder.style.fill = newVal || "";
         break;
-      case 'size':
+      case "size":
         handleSizeChange(this, oldVal, newVal);
         break;
-      case 'rotate':
+      case "rotate":
         if (oldVal) {
           $iconHolder.classList.remove(`${CSS_CLASS_PREFIX_ROTATE}${oldVal}`);
         }
@@ -191,7 +189,7 @@ export class BoxIconElement extends HTMLElement {
           $iconHolder.classList.add(`${CSS_CLASS_PREFIX_ROTATE}${newVal}`);
         }
         break;
-      case 'flip':
+      case "flip":
         if (oldVal) {
           $iconHolder.classList.remove(`${CSS_CLASS_PREFIX_FLIP}${oldVal}`);
         }
@@ -199,7 +197,7 @@ export class BoxIconElement extends HTMLElement {
           $iconHolder.classList.add(`${CSS_CLASS_PREFIX_FLIP}${newVal}`);
         }
         break;
-      case 'animation':
+      case "animation":
         if (oldVal) {
           $iconHolder.classList.remove(`${CSS_CLASS_PREFIX}${oldVal}`);
         }
@@ -211,46 +209,47 @@ export class BoxIconElement extends HTMLElement {
   }
 
   connectedCallback() {
-      if (usingShadyCss()) {
-        GLOBAL.ShadyCSS.styleElement(this);
-      }
+    if (usingShadyCss()) {
+      GLOBAL.ShadyCSS.styleElement(this);
+    }
   }
 }
 function handleTypeChange(inst, oldVal, newVal) {
   const state = inst._state;
-  state.$iconHolder.textContent = '';
+  state.$iconHolder.textContent = "";
   if (state.type) {
     state.type = null;
   }
 
-  if (newVal && (newVal==='solid' || newVal==='logo')) {
+  if (newVal && (newVal === "solid" || newVal === "logo")) {
     state.type = newVal;
+  } else {
+    state.type = "regular";
   }
-  else{
-    state.type = 'regular';
-  } 
-  if(state.currentName!== undefined){
-    inst.constructor.getIconSvg(state.currentName,state.type)
-        .then((iconData) => {
-          if (state.type === newVal) {
-            state.$iconHolder.innerHTML = iconData;
-          }
-        })
-        .catch((error) => {
-          console.error(`Failed to load icon: ${state.currentName + "\n"}${error}`); //eslint-disable-line
-        });}
+  if (state.currentName !== undefined) {
+    inst.constructor
+      .getIconSvg(state.currentName, state.type)
+      .then((iconData) => {
+        if (state.type === newVal) {
+          state.$iconHolder.innerHTML = iconData;
+        }
+      })
+      .catch((error) => {
+        console.error(
+          `Failed to load icon: ${state.currentName + "\n"}${error}`
+        ); //eslint-disable-line
+      });
+  }
 }
 function handleNameChange(inst, oldVal, newVal) {
   const state = inst._state;
   state.currentName = newVal;
-  state.$iconHolder.textContent = '';
+  state.$iconHolder.textContent = "";
 
   if (newVal) {
-      
-    
-    
-    if(state.type!== undefined){
-    inst.constructor.getIconSvg(newVal,state.type)
+    if (state.type !== undefined) {
+      inst.constructor
+        .getIconSvg(newVal, state.type)
         .then((iconData) => {
           if (state.currentName === newVal) {
             state.$iconHolder.innerHTML = iconData;
@@ -258,7 +257,8 @@ function handleNameChange(inst, oldVal, newVal) {
         })
         .catch((error) => {
           console.error(`Failed to load icon: ${newVal + "\n"}${error}`); //eslint-disable-line
-        });}
+        });
+    }
   }
 }
 
@@ -266,12 +266,12 @@ function handleSizeChange(inst, oldVal, newVal) {
   const state = inst._state;
 
   if (state.size) {
-    state.$iconHolder.style.width = state.$iconHolder.style.height = '';
+    state.$iconHolder.style.width = state.$iconHolder.style.height = "";
     state.size = state.sizeType = null;
   }
 
-    // If the size is not one of the short-hand ones, then it must be a
-    // css size unit - add it directly to the icon holder.
+  // If the size is not one of the short-hand ones, then it must be a
+  // css size unit - add it directly to the icon holder.
   if (newVal && !/^(xs|sm|md|lg)$/.test(state.size)) {
     state.size = newVal.trim();
     state.$iconHolder.style.width = state.$iconHolder.style.height = state.size;

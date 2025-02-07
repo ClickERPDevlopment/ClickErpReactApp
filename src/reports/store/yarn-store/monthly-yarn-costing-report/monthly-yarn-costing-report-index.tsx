@@ -1,25 +1,21 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
-import TableSkeleton from "../../../../components/table-skeleton";
-import Skeleton from "react-loading-skeleton";
-import { formatDate } from "date-fns";
 import ReportSkeleton from "src/components/report-skeleton";
+import { IMonthlyYarnCosting } from "./monthly-yarn-costing-report-type";
 
 function MonthlyYarnCostingReport() {
   const [data, setData] = useState<IMonthlyYarnCosting[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var knittingHouseId = 0;
+  let knittingHouseId = 0;
 
-  var fromDate = "01-Sep-2024";
-  var toDate = "1-Oct-2024";
+  let fromDate = "01-Sep-2024";
+  let toDate = "1-Oct-2024";
 
   if (searchParams.get("knittingHouseId")) {
     knittingHouseId = Number(searchParams.get("knittingHouseId"));
@@ -61,7 +57,7 @@ function MonthlyYarnCostingReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

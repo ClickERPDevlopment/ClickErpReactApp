@@ -1,7 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import moment from "moment";
 import React, { Dispatch, SetStateAction } from "react";
-import { SwtDateWiseMCDistributionType } from "src/actions/Sweater/swt-date-wise-mc-distribution-action";
 import { SwtMachineGroupType } from "src/actions/Sweater/swt-mc-group-action";
 import { Button } from "src/components/ui/button";
 
@@ -25,17 +24,12 @@ import {
 } from "src/components/ui/table";
 import AppDialog from "../../../components/app-dialog";
 import McTransferInForm from "./components/mc-tansfer-in-form";
-import { transferInFormType } from "./store-type/date-wise-mc-distribution-types";
 import { useSwtMcDistributionStore } from "./store-type/date-wise-mc-distribution-store";
 import McTransferOutForm from "./components/mc-tansfer-out-form";
 
 export default function DateWiseMCDistributionTable(props: {
   datesArray: Date[];
   lstMcGroup: SwtMachineGroupType[];
-  // lstSwtDateWiseMCDistribution: SwtDateWiseMCDistributionType[];
-  // setLstSwtDateWiseMCDistribution: Dispatch<
-  //   SetStateAction<SwtDateWiseMCDistributionType[] | undefined>
-  // >;
   handleMcDistributionChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     date: Date,

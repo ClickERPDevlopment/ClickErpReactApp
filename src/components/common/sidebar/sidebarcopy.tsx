@@ -12,7 +12,7 @@
 // import logo6 from "../../../assets/images/brand-logos/toggle-white.png";
 // import RSC from "react-scrollbars-custom";
 // import Menuloop from './menuloop';
-// interface SidebarProps { }
+// export interface SidebarProps { }
 // const history: any = [];
 // const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
 //   const [menuitems, setMenuitems] = useState<any>(MENUITEMS);
@@ -248,7 +248,6 @@
 //   //   window.addEventListener('resize', menuResizeFn);
 //   //   // console.log("aaa")
 //   // }, []);
-
 
 //   const WindowPreSize = [window.innerWidth]
 
@@ -627,8 +626,6 @@
 
 // }
 
-
-
 // function setAncestorsActive(MENUITEMS, targetObject) {
 //   let html = document.documentElement;
 //   const parent = findParent(MENUITEMS, targetObject);
@@ -656,7 +653,7 @@
 //           }
 //       }
 //   })
-    
+
 // }
 //  function findParent( targetObject) {
 //   // for (const item of MENUITEMS) {
@@ -727,7 +724,7 @@
 //                           </span>
 //                         </Link>
 //                         : ""}
-//                          {levelone.type === "empty" ? 
+//                          {levelone.type === "empty" ?
 //                         <Link to="#" className='side-menu__item'>
 //                           {levelone.icon}
 //                           <span className="side-menu__label">
@@ -742,10 +739,10 @@
 //                           </span>
 //                         </Link>
 //                         : ""}
-//                         {levelone.type === "sub" ? 
+//                         {levelone.type === "sub" ?
 //                          <Menuloop MENUITEMS={levelone} level={level + 1 } togglesidemenu={togglesidemenu} />
 //                         : ''}
-                       
+
 //                       {/* {levelone.type === "link" ?
 //                     <Link to="#" className={`side-menu__item ${levelone.selected ? 'active' : ''}`}>
 //                      {levelone.icon}

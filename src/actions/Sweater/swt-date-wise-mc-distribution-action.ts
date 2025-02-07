@@ -43,7 +43,7 @@ export async function Save(
       throw new Error("Please input date-wise m/c distribution is required");
     }
 
-    var response = await axios.post(
+    const response = await axios.post(
       "/production/SwtDateWiseMCDistribution",
       lstDateWiseMCDistributionType
     );
@@ -70,7 +70,7 @@ export async function Save(
 //     throw new Error("SwtGauge name must be at least 2 character.");
 //   }
 
-//   var response = await axios.put(
+//   const response = await axios.put(
 //     "/production/SwtGauge/" + SwtGaugetype.ID,
 //     SwtGaugetype
 //   );

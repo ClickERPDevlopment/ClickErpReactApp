@@ -1,4 +1,3 @@
-import React from "react";
 export default function ProductionDashboard() {
   return (
     <div className="flex justify-center items-center mt-10">

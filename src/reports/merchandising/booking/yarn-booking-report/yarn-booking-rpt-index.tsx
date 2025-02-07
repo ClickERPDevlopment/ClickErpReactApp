@@ -1,9 +1,10 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import YarnBookingReport from "./yarn-booking-rpt";
 import ReportSkeleton from "../../../../components/report-skeleton";
+import { YarnBookingReportDto } from "./component/yb-rpt-type";
 
 export default function YarnBookingReportIndex() {
   const [data, setData] = useState<YarnBookingReportDto>();
@@ -12,10 +13,10 @@ export default function YarnBookingReportIndex() {
 
   const api = useApiUrl();
 
-  var buyerId: string | null = "";
-  var poId: string | null = "";
-  var poNo: string | null = "";
-  var styleId: string | null = "";
+  let buyerId: string | null = "";
+  let poId: string | null = "";
+  let poNo: string | null = "";
+  let styleId: string | null = "";
 
   if (searchParams.get("buyerId")) {
     buyerId = searchParams.get("buyerId");
@@ -50,7 +51,7 @@ export default function YarnBookingReportIndex() {
           )
           .then((res) => {
             if (res.data) {
-              var result = res.data;
+              const result = res.data;
               setData(result);
             } else {
               console.log(res);
@@ -59,7 +60,7 @@ export default function YarnBookingReportIndex() {
           .catch((m) => console.log("error ", m));
 
         setIsLoading(false);
-      } catch (error) {
+      } catch {
         setIsLoading(false);
       }
     }

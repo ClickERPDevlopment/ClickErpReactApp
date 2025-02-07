@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
 import YarnBookingMasterInfo from "./component/yb-rpt-master-info";
 import YarnBookingCuttingAdvise from "./component/yb-rpt-cutting-advise";
 import YarnBookingReportContext from "./component/yb-rpt-context";
 import KittingDyeingAdvice from "./component/kda/knitting-dyeing-advice";
 import YarnBookingReportComments from "./component/yb-rpt-comments";
+import {
+  YarnBookingReportDto,
+  YarnBookingReportDto_Color,
+  YarnBookingReportDto_KnittingDyeingAdvice,
+  YarnBookingReportDto_Size,
+} from "./component/yb-rpt-type";
 type params = {
   data: YarnBookingReportDto;
 };
 
 function getAllSizes(lstSize: YarnBookingReportDto_Size[]) {
-  var SizeNameList: string[] = [];
+  const SizeNameList: string[] = [];
   lstSize.forEach((element) => {
     if (!SizeNameList.includes(element.SIZENAME)) {
       SizeNameList.push(element.SIZENAME);
@@ -19,7 +24,7 @@ function getAllSizes(lstSize: YarnBookingReportDto_Size[]) {
 }
 
 function getAllColors(lstSize: YarnBookingReportDto_Color[]) {
-  var SizeNameList: string[] = [];
+  const SizeNameList: string[] = [];
   lstSize.forEach((element) => {
     if (!SizeNameList.includes(element.COLORNAME)) {
       SizeNameList.push(element.COLORNAME);
@@ -31,7 +36,7 @@ function getAllColors(lstSize: YarnBookingReportDto_Color[]) {
 function getAllKnittingSizes(
   lstSize: YarnBookingReportDto_KnittingDyeingAdvice[]
 ) {
-  var SizeNameList: string[] = [];
+  const SizeNameList: string[] = [];
   lstSize.forEach((element) => {
     if (!SizeNameList.includes(element.SIZENAME)) {
       SizeNameList.push(element.SIZENAME);

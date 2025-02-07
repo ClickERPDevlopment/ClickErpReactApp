@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import useApiUrl from "../../../../hooks/use-ApiUrl";
@@ -12,7 +12,7 @@ export default function POwiseFabricAndAccessoriesStatusReport() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   //
-  var searchData: SearchData = {
+  const searchData: SearchData = {
     dtPlacementFrom: "",
     dtPlacementTo: "",
     buyerId: "",
@@ -53,7 +53,7 @@ export default function POwiseFabricAndAccessoriesStatusReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error) {
+      } catch {
         setIsLoading(false);
       }
     }

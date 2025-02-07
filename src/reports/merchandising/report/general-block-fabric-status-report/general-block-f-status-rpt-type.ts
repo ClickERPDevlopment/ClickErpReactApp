@@ -1,4 +1,4 @@
-type GeneralBlockFabricStatusReportType = {
+export type GeneralBlockFabricStatusReportType = {
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
   WORK_ORDER_NO: string;

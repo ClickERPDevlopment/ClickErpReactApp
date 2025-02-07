@@ -50,7 +50,7 @@ export async function Save(
     throw new Error("Please add machine brands.");
   }
 
-  var response = await axios.post("/production/SwtBrandGroup", data);
+  const response = await axios.post("/production/SwtBrandGroup", data);
 
   if (!response) {
     throw new Error("This is group already exist.");
@@ -75,7 +75,10 @@ export async function Update(
     throw new Error("Please add machine brands.");
   }
 
-  var response = await axios.put("/production/SwtBrandGroup/" + data.ID, data);
+  const response = await axios.put(
+    "/production/SwtBrandGroup/" + data.ID,
+    data
+  );
 
   if (!response) {
     throw new Error("This SwtMachineBrandGroupType already exist.");

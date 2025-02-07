@@ -18,7 +18,6 @@ export type SizeType = {
   DISPLAY_NAME?: string;
 };
 
-
 export function GetSize() {
   const axios = useAxiosInstance();
 
@@ -63,10 +62,7 @@ export function GetSizeById(id: number) {
   return query;
 }
 
-export async function Save(
-  SizeType: SizeType,
-  axios: AxiosInstance
-) {
+export async function Save(SizeType: SizeType, axios: AxiosInstance) {
   const { SIZENAME, DISPLAY_NAME, BUYERID } = SizeType;
 
   if (!SIZENAME) {
@@ -80,10 +76,7 @@ export async function Save(
     throw new Error("Buyer is required");
   }
 
-  var response = await axios.post(
-    "/production/Size",
-    SizeType
-  );
+  const response = await axios.post("/production/Size", SizeType);
 
   if (!response) {
     throw new Error("This size already exist.");
@@ -92,10 +85,7 @@ export async function Save(
   return response.data;
 }
 
-export async function Update(
-  ColorType: SizeType,
-  axios: AxiosInstance
-) {
+export async function Update(ColorType: SizeType, axios: AxiosInstance) {
   const { SIZENAME, DISPLAY_NAME, BUYERID } = ColorType;
 
   if (!SIZENAME) {
@@ -109,7 +99,7 @@ export async function Update(
     throw new Error("Buyer is required");
   }
 
-  var response = await axios.put(
+  const response = await axios.put(
     "/production/Size/" + ColorType.ID,
     ColorType
   );

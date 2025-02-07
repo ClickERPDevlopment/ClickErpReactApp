@@ -35,20 +35,8 @@ import {
 import { PageAction } from "src/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
 import { SwtMachineGroupType } from "src/actions/Sweater/swt-mc-group-action";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "src/components/ui/select";
-import { DataTablePagination } from "src/components/DataTablePagination";
+
+// import { DataTablePagination } from "src/components/DataTablePagination";
 
 export function McGroupTable({ data }: { data: SwtMachineGroupType[] }) {
   const location = useLocation();
@@ -285,7 +273,7 @@ export function McGroupTable({ data }: { data: SwtMachineGroupType[] }) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <DataTablePagination table={table} />
+        {/* <DataTablePagination table={table} /> */}
       </div>
     </div>
   );

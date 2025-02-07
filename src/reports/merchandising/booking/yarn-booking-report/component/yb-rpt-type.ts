@@ -1,4 +1,4 @@
-type YarnBookingReportDto = {
+export type YarnBookingReportDto = {
   knittingSizeNameList: string[];
   sizeNameList: string[];
   colorNameList: string[];
@@ -19,13 +19,13 @@ type YarnBookingReportDto = {
   lstVerificationStatus: YarnBookingReportDto_VerficationStatus[];
 };
 
-type YarnBookingReportDto_StyleList = {
+export type YarnBookingReportDto_StyleList = {
   STYLEID: number;
   STYLENO: string;
   STYLENAME: string;
 };
 
-type YarnBookingReportDto_MasterData = {
+export type YarnBookingReportDto_MasterData = {
   COMPANY_NAME: string;
   PONO: string;
   STYLENAME: string;
@@ -47,27 +47,27 @@ type YarnBookingReportDto_MasterData = {
   REVISED_NO: string;
 };
 
-type YarnBookingReportDto_StyleImage = {
+export type YarnBookingReportDto_StyleImage = {
   IMAGE: string;
 };
 
-type YarnBookingReportDto_Size = {
+export type YarnBookingReportDto_Size = {
   SIZEID: number;
   SIZENAME: string;
   SORTINGNO: number;
 };
 
-type YarnBookingReportDto_Color = {
+export type YarnBookingReportDto_Color = {
   COLORID: number;
   COLORNAME: string;
 };
 
-type YarnBookingReportDto_Parts = {
+export type YarnBookingReportDto_Parts = {
   ID: number;
   NAME: string;
 };
 
-type YarnBookingReportDto_TechnicalSheet = {
+export type YarnBookingReportDto_TechnicalSheet = {
   TECHNICALSHEETNO: string;
   SPECID: number;
   SPE_NAME: string;
@@ -78,7 +78,7 @@ type YarnBookingReportDto_TechnicalSheet = {
   SERIAL_: string;
 };
 
-type YarnBookingReportDto_CuttingAdviceQuantity = {
+export type YarnBookingReportDto_CuttingAdviceQuantity = {
   BUYERID: number;
   BUYER: string;
   STYLEID: number;
@@ -91,7 +91,7 @@ type YarnBookingReportDto_CuttingAdviceQuantity = {
   QTY: number;
 };
 
-type YarnBookingReportDto_ConsumptionPerPcs = {
+export type YarnBookingReportDto_ConsumptionPerPcs = {
   COLOR_GROUP_ID: number;
   GROUP_NAME: string;
   GMT_SIZE_ID: number;
@@ -101,7 +101,7 @@ type YarnBookingReportDto_ConsumptionPerPcs = {
   CG_SORTING_NO: number;
 };
 
-type YarnBookingReportDto_KnittingDyeingAdvice = {
+export type YarnBookingReportDto_KnittingDyeingAdvice = {
   MATERIAL_ID: number;
   MTL_NAME: string;
   COLORNAME: string;
@@ -113,7 +113,7 @@ type YarnBookingReportDto_KnittingDyeingAdvice = {
   FABRIC_PART: string;
 };
 
-type YarnBookingReportDto_LycraBooking = {
+export type YarnBookingReportDto_LycraBooking = {
   MATERIAL_ID: number;
   MTL_NAME: string;
   GMT_COLOR_ID: number;
@@ -124,7 +124,7 @@ type YarnBookingReportDto_LycraBooking = {
   QTY: number;
 };
 
-type YarnBookingReportDto_Comments = {
+export type YarnBookingReportDto_Comments = {
   MASTER_ID: number;
   BOMNO: string;
   BUYER_ID: number;
@@ -134,24 +134,24 @@ type YarnBookingReportDto_Comments = {
   COMMENTS: string;
 };
 
-type YarnBookingReportDto_SpecialTreatment = {
+export type YarnBookingReportDto_SpecialTreatment = {
   ID: number;
   MASTER_ID: number;
   SPECIAL_TREATM_ID: number;
   TREATMENT: string;
 };
 
-type YarnBookingReportDto_FabricList = {
+export type YarnBookingReportDto_FabricList = {
   COM_BOM_PARENTS_MTL_ID: number;
   FABRIC: string;
 };
 
-type YarnBookingReportDto_Revice = {
+export type YarnBookingReportDto_Revice = {
   REVICE_NO: number;
   REVICE_REASON: string;
 };
 
-type YarnBookingReportDto_VerficationStatus = {
+export type YarnBookingReportDto_VerficationStatus = {
   VER_ID: number;
   DEPARTMENT_NAME: string;
   USER_FULL_NAME: string;

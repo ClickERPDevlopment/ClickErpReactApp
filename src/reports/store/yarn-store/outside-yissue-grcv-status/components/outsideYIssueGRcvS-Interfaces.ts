@@ -1,4 +1,4 @@
-interface outsideYIssueGRcvStatus_YarnIssue {
+export interface outsideYIssueGRcvStatus_YarnIssue {
   COMPANY_ID: number;
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
@@ -22,7 +22,7 @@ interface outsideYIssueGRcvStatus_YarnIssue {
   RETURN_QUANTITY: number;
 }
 
-interface outsideYIssueGRcvStatus_GreyRcv {
+export interface outsideYIssueGRcvStatus_GreyRcv {
   YARN_CHALLAN_ID: number;
   RCV_CHALLAN: string;
   RCV_CHALLAN_DATE: Date;
@@ -33,7 +33,7 @@ interface outsideYIssueGRcvStatus_GreyRcv {
   RCV_CHALLAN_DATE_year: string;
 }
 
-interface outsideYIssueGRcvStatus_LoseyarnRcv {
+export interface outsideYIssueGRcvStatus_LoseyarnRcv {
   YARN_CHALLAN_ID: number;
   QUANTITY: number;
 }

@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import moment from "moment";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useNavigate } from "react-router";
@@ -105,7 +105,7 @@ export default function CountryForm({
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    var data: CountryType = {
+    const data: CountryType = {
       CountryId: values?.CountryId,
       Name: values?.Name,
       Phonecode: values?.Phonecode,

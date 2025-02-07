@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-const */
+import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
 import KittingDyeingAdviceYarnGroup from "./1kda-yarn-group";
+import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
 
 function getAllYarn(lstKda: YarnBookingReportDto_KnittingDyeingAdvice[]) {
-  var yarnList: string[] = [];
+  const yarnList: string[] = [];
   if (lstKda) {
     lstKda.forEach((element) => {
       if (!yarnList.includes(element.MTL_NAME)) {
@@ -16,6 +19,7 @@ function getAllYarn(lstKda: YarnBookingReportDto_KnittingDyeingAdvice[]) {
 
 export default function KittingDyeingAdvice() {
   const data = useContext(YarnBookingReportContext);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const yarnList = getAllYarn(data?.lstKnittingDyeingAdvice!);
   // return JSON.stringify(data?.lstKnittingDyeingAdvice!);
   return (
@@ -27,7 +31,7 @@ export default function KittingDyeingAdvice() {
         {yarnList?.map((y) => (
           <KittingDyeingAdviceYarnGroup
             lstKda={data?.lstKnittingDyeingAdvice?.filter(
-              (f) => f.MTL_NAME === y
+              (f: any) => f.MTL_NAME === y
             )}
           />
         ))}

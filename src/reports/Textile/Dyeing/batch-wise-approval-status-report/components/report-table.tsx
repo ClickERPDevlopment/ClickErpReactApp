@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import React from "react";
+import { IBatchWiseApprovalStatus } from "../batch-wise-approval-status-report-type";
 
 function ReportTable({
   data,
-  header,
 }: {
   data: IBatchWiseApprovalStatus[];
   header: string[] | null;
 }) {
-  var uniqueKeys: Set<string> = new Set();
+  const uniqueKeys: Set<string> = new Set();
 
   function groupBy(data: IBatchWiseApprovalStatus[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
@@ -84,15 +84,15 @@ function ReportTable({
     };
   }
 
-  var groupedData: GroupedData = {};
+  let groupedData: GroupedData = {};
 
   if (data) {
     groupedData = groupBy(data, ["BATCH_ID", "FABRIC_ID"]);
   }
 
-  var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-  var firstHeader = [
+  const firstHeader = [
     "Batch No.",
     " Batch QTY Fabric wise  (Kg)",
     "Buyer",

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { CheckIcon } from "lucide-react";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
@@ -15,7 +16,6 @@ import {
 } from "src/actions/Merchandising/merch-size-action";
 import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
 import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -42,16 +42,9 @@ import useAxiosInstance from "src/lib/axios-instance";
 import { cn } from "src/lib/utils";
 import { PageAction } from "src/utility/page-actions";
 import { ReactQueryKey } from "src/utility/react-query-key";
-import { number, z } from "zod";
-import { CountryType } from "src/actions/get-country-action";
-import moment from "moment";
-import { ColorType } from "src/actions/Merchandising/merch-color-action";
 import { SizeType } from "src/actions/Merchandising/merch-size-action";
-
-const gaugeSchema = z.object({
-  value: z.string(),
-  label: z.string(),
-});
+import React from "react";
+import { z } from "zod";
 
 const formSchema = z.object({
   ID: z.number().default(0),
@@ -72,17 +65,10 @@ type comboBoxDataType = {
   value: string;
 };
 
-export default function SizeForm({
-  data,
-  lstBuyer,
-  pageAction,
-}: NewType) {
+export default function SizeForm({ data, lstBuyer, pageAction }: NewType) {
   //--
   const [mainBuyers, setMainBuyers] = React.useState<comboBoxDataType[]>();
   const [openMainBuyer, setOpenMainBuyer] = React.useState(false);
-
-  const [country, setCountry] = React.useState<comboBoxDataType[]>();
-  const [openCountry, setOpenCountry] = React.useState(false);
 
   //--
   //--------------------------
@@ -93,13 +79,12 @@ export default function SizeForm({
   //--------------------------
 
   React.useEffect(() => {
-    let _: comboBoxDataType[] = [];
+    const _: comboBoxDataType[] = [];
     //---
     lstBuyer?.forEach((ele) => {
       _.push({ label: ele.NAME, value: ele.Id.toString() });
     });
     setMainBuyers([..._]);
-
   }, [lstBuyer]);
 
   const mutation = useMutation({
@@ -144,13 +129,13 @@ export default function SizeForm({
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // console.log("form-value", values);
-    var data: SizeType = {
+    const data: SizeType = {
       ID: values.ID,
       BUYERID: values.BUYERID,
       SIZENAME: values.SIZENAME,
       SORTINGNO: Number(values.SORTINGNO),
       DISPLAY_NAME: values.DISPLAY_NAME,
-      CREATEDATE: new Date()
+      CREATEDATE: new Date(),
     };
     mutation.mutate(data);
   }
@@ -201,7 +186,10 @@ export default function SizeForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col flex-1">
                       <FormLabel>Buyer</FormLabel>
-                      <Popover open={openMainBuyer} onOpenChange={setOpenMainBuyer}>
+                      <Popover
+                        open={openMainBuyer}
+                        onOpenChange={setOpenMainBuyer}
+                      >
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
@@ -214,7 +202,10 @@ export default function SizeForm({
                               )}
                             >
                               {field.value
-                                ? mainBuyers?.find((buyer) => Number(buyer.value) === field.value)?.label
+                                ? mainBuyers?.find(
+                                    (buyer) =>
+                                      Number(buyer.value) === field.value
+                                  )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -222,7 +213,10 @@ export default function SizeForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-0">
                           <Command>
-                            <CommandInput placeholder="Search floor..." className="h-9" />
+                            <CommandInput
+                              placeholder="Search floor..."
+                              className="h-9"
+                            />
                             <CommandList>
                               <CommandEmpty>No buyer found.</CommandEmpty>
                               <CommandGroup>
@@ -231,7 +225,10 @@ export default function SizeForm({
                                     value={buyer.label}
                                     key={buyer.value}
                                     onSelect={() => {
-                                      form.setValue("BUYERID", Number(buyer.value));
+                                      form.setValue(
+                                        "BUYERID",
+                                        Number(buyer.value)
+                                      );
                                       setOpenMainBuyer(false);
                                     }}
                                   >
@@ -327,8 +324,8 @@ export default function SizeForm({
                 {pageAction === PageAction.add
                   ? "Save"
                   : pageAction === PageAction.edit
-                    ? "Update"
-                    : "Delete"}
+                  ? "Update"
+                  : "Delete"}
               </Button>
               <Button
                 type="reset"
@@ -362,7 +359,7 @@ export default function SizeForm({
             </Button>
           </div>
         </form>
-      </Form >
+      </Form>
     </>
   );
 }

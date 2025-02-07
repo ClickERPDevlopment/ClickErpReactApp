@@ -1,4 +1,4 @@
-interface IImportFabricInspectionInfo {
+export interface IImportFabricInspectionInfo {
   ID: number;
   ENTRY_DATE: Date;
   ENTRY_NO: string;

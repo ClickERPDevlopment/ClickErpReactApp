@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable prefer-const */
+import { GreyBatchStatusReportGreyRcvSummaryDto } from "./Interfaces";
 import PoColorWiseGroupSummaryRow from "./po-color-wise-group-summary-row";
 type props = {
   lstBookingSummary: GreyBatchStatusReportGreyRcvSummaryDto[];

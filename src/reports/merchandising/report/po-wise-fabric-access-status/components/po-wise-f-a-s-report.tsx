@@ -1,16 +1,21 @@
-import React from "react";
-import { string } from "zod";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ReportTable from "./report-table";
 import moment from "moment";
+import {
+  PoWiseFabricAccessoriesStautsReportDto,
+  PoWiseFabricAccessoriesStautsReportDto_Accessories,
+  PoWiseFabricAccessoriesStautsReportDto_Fabric,
+  SearchData,
+} from "../po-wise-f-a-s-type";
 
 function POwiseFabricAndAccessoriesStatusReportGenerate({
   data,
-  searchData,
 }: {
   data: PoWiseFabricAccessoriesStautsReportDto | undefined;
   searchData: SearchData;
 }) {
-  var uniqueKeys: Set<string> = new Set();
+  const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
     data:
@@ -47,8 +52,8 @@ function POwiseFabricAndAccessoriesStatusReportGenerate({
     };
   }
 
-  var groupedFabric: GroupedFabric = {};
-  var groupedAccessories: GroupedAccessories = {};
+  let groupedFabric: GroupedFabric = {};
+  let groupedAccessories: GroupedAccessories = {};
   if (data) {
     groupedFabric = groupBy(data.lstFabric, ["BUYER", "STYLE", "PONO"]);
     groupedAccessories = groupBy(data.lstAccessories, [
@@ -58,7 +63,7 @@ function POwiseFabricAndAccessoriesStatusReportGenerate({
     ]);
   }
 
-  var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
   return (
     <div className="container">

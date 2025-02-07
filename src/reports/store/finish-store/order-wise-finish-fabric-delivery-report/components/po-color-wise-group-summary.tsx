@@ -1,5 +1,9 @@
-import React from "react";
+/* eslint-disable prefer-const */
 import PoColorWiseGroupSummaryRow from "./po-color-wise-group-summary-row";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
 type props = {
   lstBookingSummary: OrderWiseFFDeliveryBookingDto[];
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];

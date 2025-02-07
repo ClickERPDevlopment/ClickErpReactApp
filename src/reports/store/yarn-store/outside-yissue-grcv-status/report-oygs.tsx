@@ -1,18 +1,21 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 
-import Loader from "../../../../components/loader";
 import {
   OutSideYIssueGRcv_YarnIssue,
   OutSideYIssueGRcv_GreyRcv,
   OutSideYIssueGRcv_GreyRcv_LoseYarnRcv,
 } from "./Service/outside-yissue-grcv-service";
-import Skeleton from "react-loading-skeleton";
 import Table from "./components/1table";
 import TableSkeleton from "../../../../components/table-skeleton";
 import ReportHeaderSkeleton from "../../../../components/report-heading-skeleton";
+import {
+  outsideYIssueGRcvStatus_GreyRcv,
+  outsideYIssueGRcvStatus_LoseyarnRcv,
+  outsideYIssueGRcvStatus_YarnIssue,
+} from "./components/outsideYIssueGRcvS-Interfaces";
 
-interface props {
+export interface props {
   fromDate: string;
   toDate: string;
   isDateWise: string;

@@ -1,15 +1,19 @@
-import React from "react";
 import PartyWiseGroup from "./2party-wise-group";
+import {
+  outsideYIssueGRcvStatus_GreyRcv,
+  outsideYIssueGRcvStatus_LoseyarnRcv,
+  outsideYIssueGRcvStatus_YarnIssue,
+} from "./outsideYIssueGRcvS-Interfaces";
 import ReportTotal from "./report-total";
 
-interface props {
+export interface props {
   yarnIssue: outsideYIssueGRcvStatus_YarnIssue[];
   greyRcv: outsideYIssueGRcvStatus_GreyRcv[];
   loseYanRcv: outsideYIssueGRcvStatus_LoseyarnRcv[];
 }
 
 export default function Table({ yarnIssue, greyRcv, loseYanRcv }: props) {
-  var parties: string[] = [];
+  const parties: string[] = [];
 
   console.log("yarnIssue new :::", yarnIssue);
 
@@ -20,7 +24,7 @@ export default function Table({ yarnIssue, greyRcv, loseYanRcv }: props) {
   });
 
   function getChallanByParty(partyName: string) {
-    var yCs: number[] = [];
+    const yCs: number[] = [];
 
     yarnIssue?.forEach((element) => {
       if (element.KNITTING_HOUSE === partyName) {

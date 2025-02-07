@@ -1,11 +1,7 @@
-"use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -20,7 +16,6 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -57,42 +52,42 @@ export function CountryTable({ data }: { data: CountryType[] }) {
     {
       accessorKey: "Name",
       header: "Name",
-      cell: ({ row }) => (
+      cell: ({ row }: any) => (
         <div className="capitalize">{row.getValue("Name")}</div>
       ),
     },
     {
       accessorKey: "Phonecode",
       header: "Phone-code",
-      cell: ({ row }) => (
+      cell: ({ row }: any) => (
         <div className="capitalize">{row.getValue("Phonecode")}</div>
       ),
     },
     {
       accessorKey: "ISO_CODE_2",
       header: "ISO Code 2",
-      cell: ({ row }) => (
+      cell: ({ row }: any) => (
         <div className="capitalize">{row.getValue("ISO_CODE_2")}</div>
       ),
     },
     {
       accessorKey: "ISO_CODE_3",
       header: "ISO Code 3",
-      cell: ({ row }) => (
+      cell: ({ row }: any) => (
         <div className="capitalize">{row.getValue("ISO_CODE_3")}</div>
       ),
     },
     {
       accessorKey: "Region",
       header: "Region",
-      cell: ({ row }) => (
+      cell: ({ row }: any) => (
         <div className="capitalize">{row.getValue("Region")}</div>
       ),
     },
     {
       accessorKey: "Status",
       header: "Status",
-      cell: ({ row }) => (
+      cell: ({ row }: any) => (
         <div className="capitalize">
           {row.getValue("Status") === 1 ? "Active" : "Not Active"}
         </div>
@@ -102,7 +97,7 @@ export function CountryTable({ data }: { data: CountryType[] }) {
     {
       id: "actions",
       enableHiding: false,
-      cell: ({ row }) => {
+      cell: ({ row }: any) => {
         const country = row.original;
 
         return (

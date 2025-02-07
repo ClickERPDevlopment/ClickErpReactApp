@@ -25,12 +25,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "src/components/ui/popover";
-import React from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "src/components/ui/input";
 import { ComboBoxOptionsType } from "src/app-type";
-import { GetAllBrand } from "src/actions/get-brand";
-import { GetAllLearningCurve } from "src/actions/Configurations/learning-curve-action";
 import { useSwtPlanStripStore } from "./swt-plan-strip-store";
 import { SwtPlanStripDtlsType } from "src/actions/Sweater/swt-plan-strip-action";
 import {
@@ -38,6 +36,8 @@ import {
   GetSwtBrandGroupById,
 } from "src/actions/Sweater/swt-mc-brand-group-action";
 import useAxiosInstance from "src/lib/axios-instance";
+import React from "react";
+import { GetAllLearningCurve } from "@/actions/Configurations/learning-curve-action";
 
 const FormSchema = z.object({
   brandId: z.coerce.number().gte(1, "Please select a brand."),
@@ -117,7 +117,7 @@ export function BrandSmvLcDialogForm() {
       (d) => d
     );
 
-    var brands = await GetSwtBrandGroupById(axios, formData.brandId);
+    const brands = await GetSwtBrandGroupById(axios, formData.brandId);
 
     brands.lstBrands?.forEach((element) => {
       tempData.push({

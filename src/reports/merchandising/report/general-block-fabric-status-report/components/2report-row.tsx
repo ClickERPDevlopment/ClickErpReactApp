@@ -1,5 +1,3 @@
-import React from "react";
-
 function ReportRow({ data }: { data: GeneralBlockFabricStatusReportType }) {
   return (
     <tr>

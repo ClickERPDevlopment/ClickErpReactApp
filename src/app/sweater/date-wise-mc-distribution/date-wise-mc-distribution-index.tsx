@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import DateWiseMCDistributionTable from "./date-wise-mc-distribution-table";
 import { Form } from "src/components/ui/form";
 import { z } from "zod";
@@ -28,6 +28,7 @@ import AppDatePicker from "../../../components/app-date-picker";
 import AppCombobox from "src/components/app-combobox";
 import { ComboBoxOptionsType } from "src/app-type";
 import { useSwtMcDistributionStore } from "./store-type/date-wise-mc-distribution-store";
+import React from "react";
 
 const FormSchema = z.object({
   fromDate: z.date().optional().default(new Date()),
@@ -57,7 +58,7 @@ export default function DateWiseMCDistributionIndex() {
   const { data: lstGauge } = GetAllSwtGauge();
 
   React.useEffect(() => {
-    let _: ComboBoxOptionsType[] = [];
+    const _: ComboBoxOptionsType[] = [];
     lstBrand?.forEach((ele) => {
       _.push({ label: ele.BRAND_NAME, value: ele.BRAND_ID.toString() });
     });
@@ -65,7 +66,7 @@ export default function DateWiseMCDistributionIndex() {
   }, [lstBrand]);
 
   React.useEffect(() => {
-    let _: ComboBoxOptionsType[] = [];
+    const _: ComboBoxOptionsType[] = [];
     lstGauge?.forEach((ele) => {
       _.push({ label: ele.GAUGE, value: ele.ID.toString() });
     });

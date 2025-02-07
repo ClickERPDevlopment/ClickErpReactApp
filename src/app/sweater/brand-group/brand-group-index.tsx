@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 import TableSkeleton from "src/components/table-skeleton";
 import { Button } from "src/components/ui/button";
@@ -12,6 +11,7 @@ import {
 } from "src/actions/Sweater/swt-mc-brand-group-action";
 import useAxiosInstance from "src/lib/axios-instance";
 import { AxiosError } from "axios";
+import React from "react";
 
 export default function BrandGroupIndex() {
   const [data, setData] = React.useState<SwtMachineBrandGroupType[]>([]);

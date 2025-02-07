@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 
@@ -8,9 +9,10 @@ import AccReportHeader from "../components/acc-report-header";
 import AccReportFooter from "../components/acc-report-footer";
 import AccReportTableGroup from "./components/acc-report-table-group";
 import Loader from "../../../../components/loader";
+import { iaccWorkOrder } from "../components/iaccWorkOrder";
 
 function getSeasons(data: iaccWorkOrder[]) {
-  var array: String[] = [];
+  const array: string[] = [];
 
   data?.forEach((element) => {
     if (element.SESSIONNO != null) {
@@ -25,15 +27,13 @@ function getSeasons(data: iaccWorkOrder[]) {
 
 export default function FinishFabricAllocationReport() {
   const [data, setData] = useState<iaccWorkOrder[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var id: number = 325;
-  var currency: string = "TK";
-  var cmbReportFormat: string = "";
+  let id: number = 325;
+  let currency: string = "TK";
+  let cmbReportFormat: string = "";
 
   if (searchParams.get("id")) {
     id = Number(searchParams.get("id"));
@@ -66,7 +66,7 @@ export default function FinishFabricAllocationReport() {
           )
           .then((res) => {
             if (res.data) {
-              var result = res.data;
+              const result = res.data;
               // console.log("response: ", r.data);
               if (result.IsError) {
                 console.log("Error found: ", result.ErrorMessage);

@@ -1,4 +1,4 @@
-type OrderWiseFFDeliveryAllocationDto = {
+export type OrderWiseFFDeliveryAllocationDto = {
   BUYER_ID: number;
   BUYER: string;
   PO_ID: number;
@@ -21,7 +21,7 @@ type OrderWiseFFDeliveryAllocationDto = {
   FABRIC: string;
 };
 
-type OrderWiseFFDeliveryBookingDto = {
+export type OrderWiseFFDeliveryBookingDto = {
   PO_ID: number;
   STYLE_ID: number;
   COLOR_ID: number;

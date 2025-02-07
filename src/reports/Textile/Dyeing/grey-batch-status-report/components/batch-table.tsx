@@ -1,7 +1,8 @@
 import moment from "moment";
-import React from "react";
+import { GreyBatchStatusReportBatchDetailsDto } from "./Interfaces";
+
 //up
-interface props {
+export interface props {
   batchDtls: GreyBatchStatusReportBatchDetailsDto[];
 }
 

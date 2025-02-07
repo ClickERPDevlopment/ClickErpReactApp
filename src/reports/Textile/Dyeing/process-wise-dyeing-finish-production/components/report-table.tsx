@@ -1,19 +1,28 @@
-import { Item } from '@radix-ui/react-dropdown-menu';
-import moment from 'moment';
-import React from 'react'
-import ReportSubgroup from './report-subgroup';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import moment from "moment";
 
-function ReportTable({ data, firstHeader }: { data: IProcessWiseDyeingFinishProductionReport[], firstHeader: string[] | null }) {
+import ReportSubgroup from "./report-subgroup";
+import { IProcessWiseDyeingFinishProductionReport } from "../process-wise-dyeing-finish-production-report-type";
 
-  var uniqueKeys: Set<string> = new Set();
+function ReportTable({
+  data,
+  firstHeader,
+}: {
+  data: IProcessWiseDyeingFinishProductionReport[];
+  firstHeader: string[] | null;
+}) {
+  const uniqueKeys: Set<string> = new Set();
 
-  function groupBy(data: IProcessWiseDyeingFinishProductionReport[], keys: string[]) {
+  function groupBy(
+    data: IProcessWiseDyeingFinishProductionReport[],
+    keys: string[]
+  ) {
     return data.reduce((result: any, item: any) => {
-      const key = keys.map(k => item[k]).join('_');
+      const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
       if (!result[key]) {
         result[key] = {
-          items: []
+          items: [],
         };
       }
 
@@ -29,26 +38,43 @@ function ReportTable({ data, firstHeader }: { data: IProcessWiseDyeingFinishProd
     };
   }
 
-  var groupedByMCType: GroupedByMCType = {};
+  let groupedByMCType: GroupedByMCType = {};
 
   if (data) {
-    groupedByMCType = groupBy(data, ['MC_TYPE']);
+    groupedByMCType = groupBy(data, ["MC_TYPE"]);
   }
 
-  var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
   console.log(uniqueKeysArray);
 
-  const machineType = ["DYEING", "SLITTING", "STENTER", "HEAT SEET", "COMPACTING OPEN", "SQUEEZER", "FLAT DRYER", "COMPACTING TUBE"];
+  const machineType = [
+    "DYEING",
+    "SLITTING",
+    "STENTER",
+    "HEAT SEET",
+    "COMPACTING OPEN",
+    "SQUEEZER",
+    "FLAT DRYER",
+    "COMPACTING TUBE",
+  ];
 
   return (
     <>
-      <tr className='text-center'>
-        <td className='border border-gray-300 p-1 text-nowrap'>{moment(data[0].PRO_DATE).format("DD-MMM-YY")}</td>
-        {machineType?.map((key, index) => <ReportSubgroup key={key} data={groupedByMCType[key]?.items} firstHeader={firstHeader}></ReportSubgroup>)}
+      <tr className="text-center">
+        <td className="border border-gray-300 p-1 text-nowrap">
+          {moment(data[0].PRO_DATE).format("DD-MMM-YY")}
+        </td>
+        {machineType?.map((key) => (
+          <ReportSubgroup
+            key={key}
+            data={groupedByMCType[key]?.items}
+            firstHeader={firstHeader}
+          ></ReportSubgroup>
+        ))}
       </tr>
     </>
-  )
+  );
 }
 
-export default ReportTable
+export default ReportTable;

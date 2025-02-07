@@ -1,6 +1,8 @@
-import React from "react";
-
-interface props {
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
 }
@@ -10,12 +12,12 @@ export default function ColorWiseTotalRow({
   lstBooking,
 }: props) {
   function getAllocationToal(): number {
-    var qty = 0;
+    let qty = 0;
     lstAllocation.forEach((x) => (qty += x.ALLOCATED_QTY_KG));
     return qty;
   }
   function getBoolingToal(): number {
-    var qty = 0;
+    let qty = 0;
     lstBooking.forEach((x) => (qty += x.REQUIRED_QTY));
     return qty;
   }

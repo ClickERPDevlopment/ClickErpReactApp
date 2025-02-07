@@ -1,4 +1,4 @@
- type IMonthlyOrderVsShipmentStatusReport = {
+export type IMonthlyOrderVsShipmentStatusReport = {
   ORDER_DATE: string | null;
   ORDER_QTY: number | null;
   ORDER_MIN: number | null;

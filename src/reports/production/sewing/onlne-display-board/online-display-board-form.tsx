@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,11 +28,12 @@ import {
   PopoverTrigger,
 } from "src/components/ui/popover";
 import { MdOutlineClear } from "react-icons/md";
-import { FloorType, GetAllFloor } from "src/actions/Configurations/floor-action";
+import { FloorType } from "src/actions/Configurations/floor-action";
 import useAxiosInstance from "src/lib/axios-instance";
 import { CompanyType } from "src/actions/Configurations/company-action";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { LineType } from "src/actions/Configurations/line-action";
+import React from "react";
 
 type comboBoxDataType = {
   label: string;
@@ -64,14 +66,13 @@ const FormSchema = z.object({
 export default function OnlineDisplayBoardForm() {
   const [selectedLine, setSelectedLine] = useState<number>(0);
   const [selectedFactory, setSelectedFactory] = useState<number>(0);
-  const [selectedFloor, setSelectedFloor] = useState<number>(0);
+  const [, setSelectedFloor] = useState<number>(0);
   const [factory, setFactory] = useState<comboBoxDataType[]>();
   const [floor, setFloor] = useState<comboBoxDataType[]>();
   const [line, setLine] = useState<comboBoxDataType[]>();
   const [openFactory, setOpenFactory] = React.useState(false);
   const [openFloor, setOpenFloor] = React.useState(false);
   const [openLine, setOpenLine] = React.useState(false);
-
 
   useEffect(() => {
     loadAllCompany();
@@ -90,14 +91,16 @@ export default function OnlineDisplayBoardForm() {
       const factoryData = await response?.data;
       const _factory: comboBoxDataType[] = [];
       factoryData?.forEach((element: CompanyType) => {
-        _factory.push({ label: element.NAME || "", value: element?.ID?.toString() });
+        _factory.push({
+          label: element.NAME || "",
+          value: element?.ID?.toString(),
+        });
       });
       setFactory([..._factory]);
-    }
-    catch (error) {
+    } catch {
       setFactory([]);
     }
-  }
+  };
 
   const loadUnitByFactory = async (factoryId: number) => {
     if (factoryId === 0) return;
@@ -112,11 +115,10 @@ export default function OnlineDisplayBoardForm() {
         _unit.push({ label: element.Unitname, value: element?.Id?.toString() });
       });
       setFloor([..._unit]);
-    }
-    catch (error) {
+    } catch {
       setFloor([]);
     }
-  }
+  };
 
   const loadLineByUnit = async (unitId: number) => {
     if (unitId === 0) return;
@@ -131,11 +133,10 @@ export default function OnlineDisplayBoardForm() {
         _line.push({ label: element.Linename, value: element?.Id?.toString() });
       });
       setLine([..._line]);
-    }
-    catch (error) {
+    } catch {
       setLine([]);
     }
-  }
+  };
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     window.open(
@@ -146,7 +147,6 @@ export default function OnlineDisplayBoardForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-
         {/* Factory==================================================================================== */}
         <div className="flex justify-between items-end">
           <FormField
@@ -169,8 +169,8 @@ export default function OnlineDisplayBoardForm() {
                       >
                         {field.value
                           ? factory?.find(
-                            (factory) => Number(factory.value) === field.value
-                          )?.label
+                              (factory) => Number(factory.value) === field.value
+                            )?.label
                           : "Select a factory"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -191,7 +191,10 @@ export default function OnlineDisplayBoardForm() {
                               key={factory.value}
                               onSelect={() => {
                                 loadUnitByFactory(Number(factory.value));
-                                form.setValue("factoryId", Number(factory.value));
+                                form.setValue(
+                                  "factoryId",
+                                  Number(factory.value)
+                                );
                                 setSelectedFactory(Number(factory.value));
                                 setOpenFactory(false);
                               }}
@@ -251,8 +254,8 @@ export default function OnlineDisplayBoardForm() {
                       >
                         {field.value
                           ? floor?.find(
-                            (floor) => Number(floor.value) === field.value
-                          )?.label
+                              (floor) => Number(floor.value) === field.value
+                            )?.label
                           : "Select a floor"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -311,8 +314,6 @@ export default function OnlineDisplayBoardForm() {
           </Button>
         </div>
 
-
-
         {/* Line==================================================================================== */}
         <div className="flex justify-between items-end">
           <FormField
@@ -335,8 +336,8 @@ export default function OnlineDisplayBoardForm() {
                       >
                         {field.value
                           ? line?.find(
-                            (line) => Number(line.value) === field.value
-                          )?.label
+                              (line) => Number(line.value) === field.value
+                            )?.label
                           : "Select a floor"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -393,10 +394,6 @@ export default function OnlineDisplayBoardForm() {
             <MdOutlineClear className="rounded text-slate-600 m-0" />
           </Button>
         </div>
-
-
-
-
 
         <Button type="submit" className="w-full">
           Show

@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import ReportTable from "./report-table";
-import moment from "moment";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import axios from "axios";
 import useApiUrl from "../../../../../hooks/use-ApiUrl";
+import { iaccWorkOrder } from "../../components/iaccWorkOrder";
 
 function Report({ data }: { data: iaccWorkOrder[] }) {
-  var api = useApiUrl();
+  const api = useApiUrl();
 
   // data.forEach(element => {
   //     if(element.GMT_SIZE_NAME==null||element.GMT_SIZE_NAME=="")
@@ -16,7 +17,7 @@ function Report({ data }: { data: iaccWorkOrder[] }) {
   //     }
   // });
 
-  var uniqueKeys: Set<string> = new Set();
+  const uniqueKeys: Set<string> = new Set();
 
   function groupBy(data: iaccWorkOrder[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
@@ -39,23 +40,23 @@ function Report({ data }: { data: iaccWorkOrder[] }) {
     };
   }
 
-  var groupedByBuyer: GroupedByBuyer = {};
+  let groupedByBuyer: GroupedByBuyer = {};
 
   if (data) {
     groupedByBuyer = groupBy(data, ["BUYER_NAME", "BRAND_NAME"]);
   }
 
-  var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
   //set table header
-  var firstHeader = [
+  const firstHeader = [
     "ART. NO",
     "ORDER NO",
     "PRODUCT DEPT.",
     "ITEM",
     "MTL COLOR",
   ];
-  var secondHeader = [
+  const secondHeader = [
     "TTL",
     "UOM",
     "RATE",
@@ -64,15 +65,13 @@ function Report({ data }: { data: iaccWorkOrder[] }) {
     "QUALITY",
   ];
 
-  var uniqueSizes: Set<string> = new Set();
+  const uniqueSizes: Set<string> = new Set();
 
   data.forEach((item) => {
     if (item.GMT_SIZE_NAME != null) uniqueSizes.add(item.GMT_SIZE_NAME);
   });
 
-  var sizeHeader = Array.from(uniqueSizes);
-
-  var header = firstHeader.concat(sizeHeader).concat(secondHeader);
+  const sizeHeader = Array.from(uniqueSizes);
 
   const [image, setImage] = useState<string | null>(data[0]?.IMAGE_NAME);
   const [error, setError] = useState<string | null>(null);

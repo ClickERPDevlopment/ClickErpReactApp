@@ -1,4 +1,3 @@
-import React from "react";
 import { DyeingBillChallanWiseSummaryType } from "./dyeing-bill-challan-wise-summary-type";
 import moment from "moment";
 

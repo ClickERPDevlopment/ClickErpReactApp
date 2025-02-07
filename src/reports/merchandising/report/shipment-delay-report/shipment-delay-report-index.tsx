@@ -1,28 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
-import { formatDate } from "date-fns";
 import TableSkeleton from "src/components/table-skeleton";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import ReportPDF from "./components/report-pdf";
+import { IShipmentDelayReport } from "./import-fabric-inspection-report-type";
 
 function ShipmentDelayReport() {
   const [data, setData] = useState<IShipmentDelayReport[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var workorderId = 0;
-  var buyerId = 0;
-  var challanId = 0;
-  var isBlockFabric = 0;
+  let buyerId = 0;
 
-  var fromDate = "01-Jan-01";
-  var toDate = "01-Jan-40";
+  let fromDate = "01-Jan-01";
+  let toDate = "01-Jan-40";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));
@@ -64,7 +60,7 @@ function ShipmentDelayReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

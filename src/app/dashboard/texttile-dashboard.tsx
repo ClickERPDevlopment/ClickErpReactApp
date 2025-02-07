@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function TextileDashboard() {
   return (
     <div className="flex justify-center items-center mt-10">

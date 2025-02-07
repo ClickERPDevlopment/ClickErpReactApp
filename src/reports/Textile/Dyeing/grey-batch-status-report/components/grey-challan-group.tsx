@@ -1,14 +1,13 @@
-import React from "react";
-import POColorWiseGroup from "./po-color-wise-group";
 import GreyRcvTotalRow from "./grey-rcv-total";
 import moment from "moment";
+import { GreyBatchStatusReportGreyRcvDtlsDto } from "./Interfaces";
 
-interface props {
+export interface props {
   greyRcvDtls: GreyBatchStatusReportGreyRcvDtlsDto[];
 }
 
 export default function GreyRcvChallanGroup({ greyRcvDtls }: props) {
-  var poIds: number[] = [];
+  const poIds: number[] = [];
 
   greyRcvDtls?.forEach((element) => {
     if (!poIds.includes(element.PO_ID)) {

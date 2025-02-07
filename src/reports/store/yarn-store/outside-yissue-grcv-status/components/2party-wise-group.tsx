@@ -1,7 +1,11 @@
-import React from "react";
 import YarnChallanWiseGroup from "./3yarn-ch-wise-group";
+import {
+  outsideYIssueGRcvStatus_GreyRcv,
+  outsideYIssueGRcvStatus_LoseyarnRcv,
+  outsideYIssueGRcvStatus_YarnIssue,
+} from "./outsideYIssueGRcvS-Interfaces";
 
-interface props {
+export interface props {
   yarnIssue: outsideYIssueGRcvStatus_YarnIssue[];
   greyRcv: outsideYIssueGRcvStatus_GreyRcv[];
   loseYanRcv: outsideYIssueGRcvStatus_LoseyarnRcv[];
@@ -12,24 +16,13 @@ export default function PartyWiseGroup({
   greyRcv,
   loseYanRcv,
 }: props) {
-  var yarnChallanIds: number[] = [];
+  const yarnChallanIds: number[] = [];
 
   yarnIssue?.forEach((element) => {
     if (!yarnChallanIds.includes(element.YARN_CHALLAN_ID)) {
       yarnChallanIds.push(element.YARN_CHALLAN_ID);
     }
   });
-
-  function getChallanByParty(partyName: string) {
-    var yCs: number[] = [];
-
-    yarnIssue?.forEach((element) => {
-      if (element.KNITTING_HOUSE === partyName) {
-        yCs.push(element.YARN_CHALLAN_ID);
-      }
-    });
-    return yCs;
-  }
 
   console.log("mtls: ", yarnChallanIds);
 

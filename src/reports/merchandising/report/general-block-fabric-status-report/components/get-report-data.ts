@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios, { AxiosError } from "axios";
 import useApiUrl from "../../../../../hooks/use-ApiUrl";
 

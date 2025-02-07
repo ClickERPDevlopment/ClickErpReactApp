@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -11,10 +11,7 @@ import {
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
 import { AppButton } from "src/components/app-buttom";
-import {
-  GetSimilarMcGroup,
-  GetSwtMachineGroupById,
-} from "src/actions/Sweater/swt-mc-group-action";
+import { GetSimilarMcGroup } from "src/actions/Sweater/swt-mc-group-action";
 import AppDatePicker from "src/components/app-date-picker";
 import AppCombobox from "src/components/app-combobox";
 import { ComboBoxOptionsType } from "src/app-type";
@@ -34,8 +31,9 @@ import {
   TransferInAddFormType,
 } from "../store-type/date-wise-mc-distribution-types";
 import { useSwtMcDistributionStore } from "../store-type/date-wise-mc-distribution-store";
+import React from "react";
 
-interface Props {
+export interface Props {
   selectedMcGroupId: number | undefined;
   firstDate: Date;
   lastDate: Date;
@@ -50,7 +48,6 @@ export default function McTransferInForm({
   const [mcGroups, setMcGroups] = React.useState<ComboBoxOptionsType[]>();
 
   const { data: lstMcGroup } = GetSimilarMcGroup(selectedMcGroupId!);
-  const { data: mcg } = GetSwtMachineGroupById(selectedMcGroupId!);
 
   React.useEffect(() => {
     const lsMcG: ComboBoxOptionsType[] = [];

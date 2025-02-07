@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+
 import { KnittingBillChallanWiseSummaryType } from "./knitting-bill-challan-wise-summary-type";
 
 export default function KnittingBillChallanWiseSummaryReport({

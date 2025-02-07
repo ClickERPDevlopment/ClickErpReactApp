@@ -1,21 +1,21 @@
-import { useToast } from "src/components/ui/use-toast";
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import ReportSkeleton from "src/components/report-skeleton";
 import BuyerWiseGreyFabricReceiveReport from "./buyer-wise-grey-fabric-receive-report";
+import { BuyerWiseGreyFabricReceiveType } from "./buyer-wise-grey-fabric-receive-type";
 
 export default function BuyerWiseGreyFabricReceiveIndex() {
   const [searchParams] = useSearchParams();
-  const { toast } = useToast();
   const api = useApiUrl();
 
   const [data, setData] = useState<BuyerWiseGreyFabricReceiveType[]>();
 
   const [isLoading, setIsLoading] = useState(true);
 
-  var rptSearchParams: {
+  const rptSearchParams: {
     fromDate: string | null;
     toDate: string | null;
     buyerId: string | null;
@@ -42,7 +42,7 @@ export default function BuyerWiseGreyFabricReceiveIndex() {
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
-      var res = await axios.get<BuyerWiseGreyFabricReceiveType[]>(
+      const res = await axios.get<BuyerWiseGreyFabricReceiveType[]>(
         // `${api.ProductionUrl}/production/DyeingReport/GetBuyerWiseGreyFabricReceiveReport?fromDate=1-Oct-2024&toDate=30-Oct-2024&buyerId=0&supplierId=0`
         `${api.ProductionUrl}/production/DyeingReport/GetBuyerWiseGreyFabricReceiveReport?fromDate=${rptSearchParams.fromDate}&toDate=${rptSearchParams.toDate}&buyerId=${rptSearchParams.buyerId}&supplierId=${rptSearchParams.supplierId}`
       );

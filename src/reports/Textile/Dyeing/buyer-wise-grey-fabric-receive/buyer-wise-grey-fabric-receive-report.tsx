@@ -1,6 +1,5 @@
 import moment from "moment";
-import React from "react";
-import { number } from "zod";
+import { BuyerWiseGreyFabricReceiveType } from "./buyer-wise-grey-fabric-receive-type";
 
 export default function BuyerWiseGreyFabricReceiveReport({
   data,

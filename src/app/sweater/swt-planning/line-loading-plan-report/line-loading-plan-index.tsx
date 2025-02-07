@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+
 import { useSearchParams } from "react-router";
 import {
   GetLineLoadingPlan,
@@ -9,6 +9,7 @@ import {
 import ReportSkeleton from "src/components/report-skeleton";
 import useAxiosInstance from "src/lib/axios-instance";
 import LineLoadingPlanReport from "./line-loading-plan-report";
+import React from "react";
 
 const formData: LineLoadingPlanSearchType = {
   companyId: 2,

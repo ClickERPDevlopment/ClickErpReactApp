@@ -1,24 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
-import { formatDate } from "date-fns";
 import TableSkeleton from "src/components/table-skeleton";
 import useApiUrl from "src/hooks/use-ApiUrl";
+import { IProcessWiseDyeingFinishProductionReport } from "./process-wise-dyeing-finish-production-report-type";
 
 function ProcessWiseDyeingFinishProductionReport() {
   const [data, setData] = useState<IProcessWiseDyeingFinishProductionReport[]>(
     []
   );
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var fromDate = "01-Sep-2024";
-  var toDate = "01-Oct-2024";
+  let fromDate = "01-Sep-2024";
+  let toDate = "01-Oct-2024";
 
   if (searchParams.get("fromDate")) {
     fromDate = String(searchParams.get("fromDate"));
@@ -56,7 +56,7 @@ function ProcessWiseDyeingFinishProductionReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

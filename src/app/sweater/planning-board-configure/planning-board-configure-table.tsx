@@ -1,11 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -20,7 +16,6 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,

@@ -35,8 +35,6 @@ import {
 import { PageAction } from "src/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
 
-import { DataTablePagination } from "src/components/DataTablePagination";
-import { ColorType } from "src/actions/Merchandising/merch-color-action";
 import { SizeType } from "src/actions/Merchandising/merch-size-action";
 
 export function SizeTable({ data }: { data: SizeType[] }) {
@@ -97,11 +95,11 @@ export function SizeTable({ data }: { data: SizeType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/size/${PageAction.view}/${color.ID}`
-                    )
+                        `/win/merchandising/size/${PageAction.view}/${color.ID}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/size/${PageAction.view}/${color.ID}`
-                    )
+                        `/dashboard/merchandising/size/${PageAction.view}/${color.ID}`
+                      )
                 }
               >
                 View Size
@@ -110,11 +108,11 @@ export function SizeTable({ data }: { data: SizeType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/size/${PageAction.edit}/${color.ID}`
-                    )
+                        `/win/merchandising/size/${PageAction.edit}/${color.ID}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/size/${PageAction.edit}/${color.ID}`
-                    )
+                        `/dashboard/merchandising/size/${PageAction.edit}/${color.ID}`
+                      )
                 }
               >
                 Edit Size
@@ -123,11 +121,11 @@ export function SizeTable({ data }: { data: SizeType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/size/${PageAction.delete}/${color.ID}`
-                    )
+                        `/win/merchandising/size/${PageAction.delete}/${color.ID}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/size/${PageAction.delete}/${color.ID}`
-                    )
+                        `/dashboard/merchandising/size/${PageAction.delete}/${color.ID}`
+                      )
                 }
               >
                 Delete Size
@@ -209,9 +207,9 @@ export function SizeTable({ data }: { data: SizeType[] }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

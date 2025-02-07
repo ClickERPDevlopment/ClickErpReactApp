@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
@@ -14,7 +13,7 @@ export default function GeneralBlockFabricStatusReportIndex() {
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
   //
-  var rptSearch: {
+  const rptSearch: {
     buyerId: string | null;
     styleId: string | null;
     fabricId: string | null;
@@ -46,7 +45,7 @@ export default function GeneralBlockFabricStatusReportIndex() {
     );
   }
 
-  const { data, error, isError, isLoading, isLoadingError } = useQuery({
+  const { data, error, isLoading, isLoadingError } = useQuery({
     queryKey: [
       ReactQueryKey.generalBlockFabricStatus,
       rptSearch.buyerId,

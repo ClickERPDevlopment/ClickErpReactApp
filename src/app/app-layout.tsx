@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Search } from "lucide-react";
-import React from "react";
+
 import { Link, Outlet } from "react-router";
 import { AppSidebar } from "src/components/app-sidebar";
 import LogoutButton from "src/components/logout-button";
@@ -20,6 +20,7 @@ import { MenuType } from "src/lib/menu/menu-type";
 import { ProductionMenu } from "src/lib/menu/production-menu";
 import { MerchandisingMenu } from "src/lib/menu/merchandising-menu";
 import { TextileMenu } from "src/lib/menu/textile-menu";
+import React from "react";
 
 type searchMenuType = {
   label: string;

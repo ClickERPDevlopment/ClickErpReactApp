@@ -1,4 +1,3 @@
-import React from "react";
 import ReportRow from "./2report-row";
 import ReportTotal from "./3report-total";
 

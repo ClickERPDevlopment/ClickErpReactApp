@@ -161,7 +161,7 @@ export function GetSwtPlanningBoardDataById<T>(id: number) {
 }
 
 export async function Save(data: any, axios: AxiosInstance) {
-  var response = await axios.post("/production/SwtPlanningBoardConfig", data);
+  const response = await axios.post("/production/SwtPlanningBoardConfig", data);
 
   if (!response) {
     throw new Error("This planning board already exist.");
@@ -171,7 +171,7 @@ export async function Save(data: any, axios: AxiosInstance) {
 }
 
 export async function Update(data: any, axios: AxiosInstance) {
-  var response = await axios.put(
+  const response = await axios.put(
     "/production/SwtPlanningBoardConfig/" + data.ID,
     data
   );

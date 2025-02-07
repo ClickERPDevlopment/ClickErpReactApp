@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 import TableSkeleton from "src/components/table-skeleton";
 import { Button } from "src/components/ui/button";

@@ -1,4 +1,3 @@
-import React from "react";
 import { AppButton } from "src/components/app-buttom";
 import {
   Table,

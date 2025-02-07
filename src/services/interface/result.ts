@@ -1,5 +1,5 @@
-export default interface IResult<T> {
-    success: boolean;
-    data?: T;
-    error?: string;
+export interface IResult<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
 }

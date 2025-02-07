@@ -1,38 +1,31 @@
-import React from 'react'
-import moment from 'moment'
+import moment from "moment";
 
-interface ReportHeaderProps {
-    companyName?: string
-    companyAddress?: string
-    reportTitle?: string
+export interface ReportHeaderProps {
+  companyName?: string;
+  companyAddress?: string;
+  reportTitle?: string;
 }
 
 const ReportHeader: React.FC<ReportHeaderProps> = ({
-    companyName = 'International Classic Composite Ltd.',
-    companyAddress = '568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.',
-    reportTitle = 'Accessories Receive Return Challan/Gate Pass Report',
+  companyName = "International Classic Composite Ltd.",
+  companyAddress = "568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.",
+  reportTitle = "Accessories Receive Return Challan/Gate Pass Report",
 }) => {
-    return (
-        <header className="report-header">
-            <div className="container">
-                <p className="text-sm font-bold text-left w-full">
-                    {moment().format('DD-MMM-YYYY')}
-                </p>
+  return (
+    <header className="report-header">
+      <div className="container">
+        <p className="text-sm font-bold text-left w-full">
+          {moment().format("DD-MMM-YYYY")}
+        </p>
 
-                <h1 className="text-2xl font-bold text-center">
-                    {companyName}
-                </h1>
+        <h1 className="text-2xl font-bold text-center">{companyName}</h1>
 
-                <h4 className="text-base font-bold text-center">
-                    {companyAddress}
-                </h4>
+        <h4 className="text-base font-bold text-center">{companyAddress}</h4>
 
-                <h3 className="text-xl font-bold text-center mt-2">
-                    {reportTitle}
-                </h3>
-            </div>
-        </header>
-    )
-}
+        <h3 className="text-xl font-bold text-center mt-2">{reportTitle}</h3>
+      </div>
+    </header>
+  );
+};
 
-export default ReportHeader
+export default ReportHeader;

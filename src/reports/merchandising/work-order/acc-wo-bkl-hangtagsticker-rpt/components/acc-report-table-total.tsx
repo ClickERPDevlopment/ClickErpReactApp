@@ -1,34 +1,12 @@
-import React from "react";
+import { iaccWorkOrder } from "../../components/iaccWorkOrder";
 
 export function GetTotalAmount({ data }: { data: iaccWorkOrder[] }) {
-  var qty: number = 0;
+  let qty: number = 0;
   data?.forEach((element) => {
     qty += element.WORK_ORDER_QTY * element.SUPPLIER_RATE_PER_PCS;
   });
 
   return <>{qty?.toFixed(2)}</>;
-}
-
-function GetQtyBySize(data: iaccWorkOrder[], sizeName: string) {
-  var qty: number = 0;
-  data
-    ?.filter(
-      (ele) => ele.GMT_SIZE_NAME.toUpperCase() === sizeName.toUpperCase()
-    )
-    ?.forEach((element) => {
-      qty += element.WORK_ORDER_QTY;
-    });
-
-  return qty?.toFixed(2);
-}
-
-function GetTotalQty({ data }: { data: iaccWorkOrder[] }) {
-  var qty: number = 0;
-  data?.forEach((element) => {
-    qty += element.WORK_ORDER_QTY;
-  });
-
-  return qty?.toFixed(2);
 }
 
 export default function AccReportTableTotal({

@@ -36,7 +36,6 @@ export type BuyerType = {
   MAINBUYERID: number;
 };
 
-
 export function GetBuyer() {
   const axios = useAxiosInstance();
 
@@ -66,10 +65,7 @@ export function GetBuyerById(id: number) {
   return query;
 }
 
-export async function Save(
-  BuyerType: BuyerType,
-  axios: AxiosInstance
-) {
+export async function Save(BuyerType: BuyerType, axios: AxiosInstance) {
   const { NAME, CODE, DISPLAY_NAME } = BuyerType;
 
   if (!NAME) {
@@ -93,10 +89,7 @@ export async function Save(
     throw new Error("Display Name must be at least 2 character.");
   }
 
-  var response = await axios.post(
-    "/production/Buyer",
-    BuyerType
-  );
+  const response = await axios.post("/production/Buyer", BuyerType);
 
   if (!response) {
     throw new Error("This Buyer already exist.");
@@ -105,10 +98,7 @@ export async function Save(
   return response.data;
 }
 
-export async function Update(
-  BuyerType: BuyerType,
-  axios: AxiosInstance
-) {
+export async function Update(BuyerType: BuyerType, axios: AxiosInstance) {
   const { NAME, CODE, DISPLAY_NAME } = BuyerType;
 
   if (!NAME) {
@@ -132,7 +122,7 @@ export async function Update(
     throw new Error("Display Name must be at least 2 character.");
   }
 
-  var response = await axios.put(
+  const response = await axios.put(
     "/production/Buyer/" + BuyerType.Id,
     BuyerType
   );

@@ -1,5 +1,8 @@
-import React, { useContext } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-const */
+import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
+import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
 
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
@@ -9,7 +12,7 @@ function getSizeWiseQty(
   data: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined,
   sizeName: string
 ) {
-  var qty = 0;
+  const qty = 0;
   data?.forEach((element) => {
     if (element.SIZENAME === sizeName) qty += element.QTY;
   });
@@ -19,7 +22,7 @@ function getSizeWiseQty(
 function getTotalQty(
   data: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
 ) {
-  var qty = 0;
+  const qty = 0;
   data?.forEach((element) => {
     qty += element.QTY;
   });
@@ -28,19 +31,19 @@ function getTotalQty(
 }
 
 export default function KittingDyeingAdviceColorGroup({ lstKda }: prams) {
-  var sizeList = useContext(YarnBookingReportContext)?.knittingSizeNameList;
+  const sizeList = useContext(YarnBookingReportContext)?.knittingSizeNameList;
   if (lstKda)
     return (
       <>
         <td className="text-center border border-black">
           {lstKda[0].COLORNAME}
         </td>
-        {sizeList?.map((s) => (
+        {sizeList?.map((s: any) => (
           <td className="text-center border border-black">
             {getSizeWiseQty(lstKda, s)}
           </td>
         ))}
-        {lstKda?.map((c, index) => (
+        {lstKda?.map(() => (
           <></>
         ))}
         <td className="text-center border border-black">

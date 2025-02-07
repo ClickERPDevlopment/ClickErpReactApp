@@ -1,7 +1,5 @@
-import React from "react";
-
 function GetSizeQty({ data }: { data: iaccWorkOrder[] }) {
-  var qty: number = 0;
+  const qty: number = 0;
   data?.forEach((element) => {
     qty += element.WORK_ORDER_QTY;
   });
@@ -10,7 +8,7 @@ function GetSizeQty({ data }: { data: iaccWorkOrder[] }) {
 }
 
 function GetTotalAmount({ data }: { data: iaccWorkOrder[] }) {
-  var qty: number = 0;
+  const qty: number = 0;
   data?.forEach((element) => {
     qty += element.WORK_ORDER_QTY * element.SUPPLIER_RATE_PER_PCS;
   });

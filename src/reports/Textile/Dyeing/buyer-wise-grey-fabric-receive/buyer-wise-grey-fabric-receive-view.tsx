@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "src/components/ui/card";
-import React from "react";
+
 import BuyerWiseGreyFabricReceiveViewForm from "./buyer-wise-grey-fabric-receive-form";
 
 export default function BuyerWiseGreyFabricReceiveView() {

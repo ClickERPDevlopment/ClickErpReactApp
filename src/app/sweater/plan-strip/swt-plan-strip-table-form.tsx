@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-restricted-globals */
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+
 import {
   Control,
   Controller,
@@ -28,7 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from "src/components/ui/table";
-import { date, z } from "zod";
+import { z } from "zod";
 import { useSwtPlanStripStore } from "./components/swt-plan-strip-store";
 import { cn } from "src/lib/utils";
 import { AppButton } from "src/components/app-buttom";
@@ -39,7 +39,6 @@ import {
 } from "src/actions/Sweater/swt-plan-strip-action";
 import useAxiosInstance from "src/lib/axios-instance";
 import { toast } from "src/components/ui/use-toast";
-import { AxiosError } from "axios";
 import { PlanStripOptions } from "./components/plan-strip-options-drop-down";
 import moment from "moment";
 import { Trash2Icon } from "lucide-react";
@@ -118,7 +117,6 @@ export default function SwtPlanStripForm() {
     handleSubmit,
     setValue,
     getValues,
-    reset,
     watch,
     formState: { errors },
   } = useForm<formType>({

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import {
@@ -7,6 +8,11 @@ import {
 } from "./data-service/grey-batch-status-service";
 import Report from "./report-gbsr";
 import ReportSkeleton from "../../../../components/report-skeleton";
+import {
+  GreyBatchStatusReportBatchDetailsDto,
+  GreyBatchStatusReportGreyRcvDtlsDto,
+  GreyBatchStatusReportGreyRcvSummaryDto,
+} from "./components/Interfaces";
 
 export default function GreyBatchStatusReport() {
   const [msg, setMsg] = useState<any>();
@@ -29,18 +35,18 @@ export default function GreyBatchStatusReport() {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  var fromDate: string | null = "";
-  var toDate: string | null = "";
-  var isDateWise: string | null = "";
-  var buyerId: string | null = "";
-  var styleId: string | null = "";
-  var colorId: string | null = "";
-  var seasonId: string | null = "";
-  var poId: string | null = "";
-  var partyId: string | null = "";
-  var isBalanceZeroNotShow: string | null = "";
-  var isGreyStock: string | null = "false";
-  var isReprocessStock: string | null = "false";
+  let fromDate: string | null = "";
+  let toDate: string | null = "";
+  let isDateWise: string | null = "";
+  let buyerId: string | null = "";
+  let styleId: string | null = "";
+  let colorId: string | null = "";
+  let seasonId: string | null = "";
+  let poId: string | null = "";
+  let partyId: string | null = "";
+  let isBalanceZeroNotShow: string | null = "";
+  let isGreyStock: string | null = "false";
+  let isReprocessStock: string | null = "false";
 
   if (searchParams.get("fromDate")) {
     fromDate = searchParams.get("fromDate");

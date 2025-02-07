@@ -1,71 +1,92 @@
-import React from 'react'
-import ReportTable from './report-table';
-import moment from 'moment';
-import ReportFooter from './report-footer';
-import ReportHeader from './report-header';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import ReportTable from "./report-table";
+import ReportFooter from "./report-footer";
+import ReportHeader from "./report-header";
+import { iaccWorkOrder } from "../../components/iaccWorkOrder";
 
-function Report({ data, searchParams }: { data: iaccWorkOrder[], searchParams: { currency: string } }) {
+function Report({
+  data,
+  searchParams,
+}: {
+  data: iaccWorkOrder[];
+  searchParams: { currency: string };
+}) {
+  const uniqueKeys: Set<string> = new Set();
 
-    var uniqueKeys: Set<string> = new Set();
-
-    function groupBy(data: iaccWorkOrder[], keys: string[]) {
-        return data.reduce((result: any, item: any) => {
-            const key = keys.map(k => item[k]).join('_');
-            uniqueKeys.add(key);
-            if (!result[key]) {
-                result[key] = {
-                    items: []
-                };
-            }
-            result[key].items.push(item);
-
-            return result;
-        }, {});
-    }
-
-    interface GroupedByBuyer {
-        [key: string]: {
-            items: iaccWorkOrder[];
+  function groupBy(data: iaccWorkOrder[], keys: string[]) {
+    return data.reduce((result: any, item: any) => {
+      const key = keys.map((k) => item[k]).join("_");
+      uniqueKeys.add(key);
+      if (!result[key]) {
+        result[key] = {
+          items: [],
         };
-    }
+      }
+      result[key].items.push(item);
 
-    var groupedByBuyer: GroupedByBuyer = {};
+      return result;
+    }, {});
+  }
 
-    if (data) {
-        groupedByBuyer = groupBy(data, ['BUYER_NAME']);
-    }
+  interface GroupedByBuyer {
+    [key: string]: {
+      items: iaccWorkOrder[];
+    };
+  }
 
-    var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  let groupedByBuyer: GroupedByBuyer = {};
 
-    //set table header 
-    var firstHeader = ["STYLE NO.", "COLOR", "MTL COLOR", "REF/SWATCH", "MTL SIZE", "ITEM NAME", "UOM", "ITEM REF."];
-    var secondHeader = ["TTL QTY", "RATE", "AMOUNT"];
+  if (data) {
+    groupedByBuyer = groupBy(data, ["BUYER_NAME"]);
+  }
 
-    var uniqueSizes: Set<string> = new Set();
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-    data.forEach(item => {
-        if (item.GMT_SIZE_NAME != null) uniqueSizes.add(item.GMT_SIZE_NAME);
-    })
+  //set table header
+  const firstHeader = [
+    "STYLE NO.",
+    "COLOR",
+    "MTL COLOR",
+    "REF/SWATCH",
+    "MTL SIZE",
+    "ITEM NAME",
+    "UOM",
+    "ITEM REF.",
+  ];
+  const secondHeader = ["TTL QTY", "RATE", "AMOUNT"];
 
-    var sizeHeader = Array.from(uniqueSizes);
+  const uniqueSizes: Set<string> = new Set();
 
-    var header = firstHeader.concat(sizeHeader).concat(secondHeader);
+  data.forEach((item) => {
+    if (item.GMT_SIZE_NAME != null) uniqueSizes.add(item.GMT_SIZE_NAME);
+  });
 
-    return (
-        <div className='container'>
-            <div className='p-2'>
-                <ReportHeader searchParams={{ currency: searchParams.currency }} masterData={data[0]} />
+  const sizeHeader = Array.from(uniqueSizes);
 
-                {uniqueKeysArray?.map((key) => (
-                    <ReportTable key={key} data={groupedByBuyer[key].items} firstHeader={firstHeader} sizeHeader={sizeHeader} secondHeader={secondHeader}></ReportTable>
-                ))}
+  return (
+    <div className="container">
+      <div className="p-2">
+        <ReportHeader
+          searchParams={{ currency: searchParams.currency }}
+          masterData={data[0]}
+        />
 
-                <div>
-                    <ReportFooter masterData={data[0]}></ReportFooter>
-                </div>
-            </div>
+        {uniqueKeysArray?.map((key) => (
+          <ReportTable
+            key={key}
+            data={groupedByBuyer[key].items}
+            firstHeader={firstHeader}
+            sizeHeader={sizeHeader}
+            secondHeader={secondHeader}
+          ></ReportTable>
+        ))}
+
+        <div>
+          <ReportFooter masterData={data[0]}></ReportFooter>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default Report
+export default Report;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useApiUrl from "../../../../../hooks/use-ApiUrl";
 import Skeleton from "react-loading-skeleton";
 
@@ -34,7 +34,7 @@ export default function YarnBookingMasterInfo({
     fetchImage();
   }, [masterData?.STYLEID]);
 
-  var specialTreatment = "";
+  let specialTreatment = "";
   lstSpecialTreatment.forEach((element) => {
     specialTreatment += element.TREATMENT;
   });

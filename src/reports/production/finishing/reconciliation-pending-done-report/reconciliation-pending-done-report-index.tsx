@@ -1,13 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "src/components/table-skeleton";
 import useApiUrl from "src/hooks/use-ApiUrl";
+import { IReconsiliationPendingDoneReport } from "./reconciliation-pending-done-report";
 
 // Types
-interface SearchParamsType {
+export interface SearchParamsType {
   isDate?: boolean;
   buyerId?: number;
   styleId?: number;

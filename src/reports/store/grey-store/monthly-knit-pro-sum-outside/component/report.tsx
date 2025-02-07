@@ -1,6 +1,7 @@
 import moment from "moment";
-import React from "react";
+
 import ReportTotal from "./report-total";
+import { MonthlyKnitProSummOutsideType } from "./monthly-knit-pro-sum-outside-type";
 
 export default function Report({
   data,

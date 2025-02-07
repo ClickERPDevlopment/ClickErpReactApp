@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-const */
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
 
@@ -8,7 +10,6 @@ import {
   FinishFabricAllocationSummaryReportDetailsType,
   FinishFabricAllocationSummaryReportMasterType,
 } from "./finish-fabric-allocation-summary-report-type";
-import FFATable from "./components/ffa-table";
 import ReportTable from "./components/report-table";
 
 export default function FinishFabricAllocationSummaryReport() {
@@ -22,13 +23,13 @@ export default function FinishFabricAllocationSummaryReport() {
 
   const [searchParams] = useSearchParams();
 
-  var buyerId: string | null = "0";
-  var fabricId: string | null = "0";
-  var woId: string | null = "0";
-  var orderRef: string | null = "";
-  var isStockAvl: string | null = "true";
-  var fromDate: string | null = "01-Jan-24";
-  var toDate: string | null = "01-Jan-25";
+  const buyerId: string | null = "0";
+  const fabricId: string | null = "0";
+  const woId: string | null = "0";
+  const orderRef: string | null = "";
+  const isStockAvl: string | null = "true";
+  const fromDate: string | null = "01-Jan-24";
+  const toDate: string | null = "01-Jan-25";
 
   if (searchParams.get("buyerId")) {
     buyerId = searchParams.get("buyerId");
@@ -88,7 +89,7 @@ export default function FinishFabricAllocationSummaryReport() {
   console.log("Mydate", masterData);
   // return (<ReportSkeleton />);
 
-  var uniqueKeys: Set<string> = new Set();
+  const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
     data: FinishFabricAllocationSummaryReportMasterType[],
@@ -114,13 +115,13 @@ export default function FinishFabricAllocationSummaryReport() {
     };
   }
 
-  var groupedByBuyerStyle: groupedByBuyerStyle = {};
+  const groupedByBuyerStyle: groupedByBuyerStyle = {};
 
   if (masterData) {
     groupedByBuyerStyle = groupBy(masterData, ["BUYER", "WORK_ORDER_NO"]);
   }
 
-  var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
   if (isLoading) {
     return <ReportSkeleton />;

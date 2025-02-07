@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
 import ColorWiseGroup from "./components/color-wise-group";
-import PoColorWiseGroupSummary from "./components/po-color-wise-group-summary";
 import POColorSummary from "./components/po-color-summary";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "./order-wise-ff-delivery-type";
 
-interface props {
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstAllocationSummary: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
@@ -16,7 +18,7 @@ export default function Report({
   lstBooking,
   lstBookingSummary,
 }: props) {
-  var colorIds: number[] = [];
+  const colorIds: number[] = [];
 
   lstAllocation?.forEach((element) => {
     if (!colorIds.includes(element.COLOR_ID)) {

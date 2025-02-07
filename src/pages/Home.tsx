@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useApiUrl from "../hooks/use-ApiUrl";
 import { Link } from "react-router";
-import React from "react";
 
 const Home = () => {
   const { currentClient } = useAppClient();

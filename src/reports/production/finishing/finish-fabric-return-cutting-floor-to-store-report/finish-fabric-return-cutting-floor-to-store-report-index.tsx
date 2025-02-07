@@ -1,14 +1,18 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios, { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { IFinishFabricReturnCuttingFloorToStoreReport } from "./finish-fabric-return-cutting-floor-to-store-report-type";
+import { ICompany } from "./company-info-type";
 
 function FinishFabricReturnCuttingFloorToStoreReport() {
   // State management
-  const [data, setData] = useState<IFinishFabricReturnCuttingFloorToStoreReport[]>([]);
+  const [data, setData] = useState<
+    IFinishFabricReturnCuttingFloorToStoreReport[]
+  >([]);
   const [companyInfo, setCompanyInfo] = useState<ICompany>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -30,8 +34,6 @@ function FinishFabricReturnCuttingFloorToStoreReport() {
     document.title = "Report";
   }, []);
 
-
-
   const fetchCompanyInfo = async (companyId: number) => {
     try {
       setIsLoading(true);
@@ -44,11 +46,7 @@ function FinishFabricReturnCuttingFloorToStoreReport() {
     } catch (error) {
       const err = error as AxiosError;
       setErrorMessage(err?.response?.data as string);
-      console.error(
-        "Error fetching data:",
-        err.response?.data
-      );
-    } finally {
+      console.error("Error fetching data:", err.response?.data);
     }
   };
 
@@ -64,7 +62,7 @@ function FinishFabricReturnCuttingFloorToStoreReport() {
           buyerId,
           styleId,
           poId,
-          companyId
+          companyId,
         };
 
         const response = await axios.get(url, { params });
@@ -75,10 +73,7 @@ function FinishFabricReturnCuttingFloorToStoreReport() {
       } catch (error) {
         const err = error as AxiosError;
         setErrorMessage(err?.response?.data as string);
-        console.error(
-          "Error fetching data:",
-          err.response?.data
-        );
+        console.error("Error fetching data:", err.response?.data);
       } finally {
         setIsLoading(false);
       }
@@ -104,7 +99,11 @@ function FinishFabricReturnCuttingFloorToStoreReport() {
               </h1>
             </div>
           ) : (
-            <Report companyInfo = {companyInfo} searchParams={{ fromDate: fromDate, toDate: toDate }} data={data} />
+            <Report
+              companyInfo={companyInfo}
+              searchParams={{ fromDate: fromDate, toDate: toDate }}
+              data={data}
+            />
           )}
         </div>
       )}

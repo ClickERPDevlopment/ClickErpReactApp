@@ -1,6 +1,6 @@
-import React from "react";
+import { GreyBatchStatusReportGreyRcvDtlsDto } from "./Interfaces";
 
-interface props {
+export interface props {
   greyRcvDtls: GreyBatchStatusReportGreyRcvDtlsDto[];
   title: string;
 }

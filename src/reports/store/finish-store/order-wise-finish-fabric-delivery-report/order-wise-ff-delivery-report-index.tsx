@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { GetOrderWiseFFAllocationData } from "./owffdr-data";
 import Report from "./report-owffdr";
 import ReportSkeleton from "../../../../components/report-skeleton";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "./order-wise-ff-delivery-type";
 
 export default function OrderWiseFinishFabricDeliveryReport() {
   const [allocation, setAllocation] = useState<
@@ -21,11 +26,11 @@ export default function OrderWiseFinishFabricDeliveryReport() {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  var buyerId: string | null = "";
-  var styleId: string | null = "";
-  var poId: string | null = "";
-  var seasonId: string | null = "";
-  var colorId: string | null = "";
+  let buyerId: string | null = "";
+  let styleId: string | null = "";
+  let poId: string | null = "";
+  let seasonId: string | null = "";
+  let colorId: string | null = "";
 
   if (searchParams.get("buyerId")) {
     buyerId = searchParams.get("buyerId");

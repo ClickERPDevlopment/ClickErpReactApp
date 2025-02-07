@@ -1,7 +1,6 @@
-import React from "react";
 import { useSearchParams } from "react-router";
 
-interface params {
+export interface params {
   a: string;
   b: string;
   c: number;

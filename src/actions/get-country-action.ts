@@ -65,7 +65,7 @@ export async function Save(countrytype: CountryType) {
     throw new Error("Country name must be at least 2 character.");
   }
 
-  var response = await axios.post(
+  const response = await axios.post(
     api.ProductionUrl + "/production/country",
     countrytype
   );
@@ -88,7 +88,7 @@ export async function Update(countrytype: CountryType) {
     throw new Error("Country name must be at least 2 character.");
   }
 
-  var response = await axios.put(
+  const response = await axios.put(
     api.ProductionUrl + "/production/country/" + countrytype.CountryId,
     countrytype
   );

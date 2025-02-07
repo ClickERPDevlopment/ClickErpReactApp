@@ -1,23 +1,18 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import React from "react";
+
 import { useParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";
 import { PageAction } from "src/utility/page-actions";
-import { GetBuyerById, GetBuyer } from "src/actions/Sweater/merch-buyer-action";
-import { GetColorById } from "src/actions/Merchandising/merch-color-action";
 import SizeForm from "./size-form";
 import { GetSizeById } from "src/actions/Merchandising/merch-size-action";
+import { GetBuyer } from "@/actions/Sweater/merch-buyer-action";
 
 export default function SizeCrud() {
   const { pageAction, id } = useParams();
 
   const { data: buyerData } = GetBuyer();
 
-  const {
-    data: color,
-    isError,
-    error,
-  } = GetSizeById(Number(id));
+  const { data: color, isError, error } = GetSizeById(Number(id));
 
   if (!pageAction) {
     return (
@@ -52,9 +47,7 @@ export default function SizeCrud() {
   if (pageAction === PageAction.view) {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-2 mb-10 ">
-        <h1 className="font-bold text-xl text-left w-full mb-2">
-          Color
-        </h1>
+        <h1 className="font-bold text-xl text-left w-full mb-2">Color</h1>
         <SizeForm
           data={color}
           lstBuyer={buyerData}
@@ -65,9 +58,7 @@ export default function SizeCrud() {
   } else if (pageAction === PageAction.add) {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-2 mb-10">
-        <h1 className="font-bold text-xl text-left w-full mb-2">
-          New Size
-        </h1>
+        <h1 className="font-bold text-xl text-left w-full mb-2">New Size</h1>
         <SizeForm
           data={undefined}
           lstBuyer={buyerData}
@@ -78,9 +69,7 @@ export default function SizeCrud() {
   } else if (pageAction === PageAction.edit) {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-2 mb-10">
-        <h1 className="font-bold text-xl text-left w-full mb-2">
-          Update Size
-        </h1>
+        <h1 className="font-bold text-xl text-left w-full mb-2">Update Size</h1>
         <SizeForm
           data={color}
           lstBuyer={buyerData}

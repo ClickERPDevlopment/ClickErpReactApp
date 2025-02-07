@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import ReportSkeleton from "src/components/report-skeleton";
 import moment from "moment";
+import { IGreyFabricTransferReport } from "./grey-fabric-transfer-report-type";
 
 export default function GreyFabricTransferReport() {
   const [data, setData] = useState<IGreyFabricTransferReport[]>([]);
@@ -12,7 +13,7 @@ export default function GreyFabricTransferReport() {
 
   const [searchParams] = useSearchParams();
 
-  var id: string | null = "0";
+  const id: string | null = "0";
 
   if (searchParams.get("id")) {
     id = searchParams.get("id");

@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 
-interface params {
+export interface params {
   buyerId: string | null;
   styleId: string | null;
   poId: string | null;
@@ -13,7 +14,7 @@ interface params {
 export async function GetOrderWiseFFAllocationData(params: params) {
   const api = useApiUrl();
 
-  var data = await axios
+  const data = await axios
     .get(
       `${api.ProductionUrl}/production/FinishFabricStore/OrderWiseFinishFabricDeliveryReport?` +
         `buyerId=${params.buyerId}&` +
@@ -24,7 +25,7 @@ export async function GetOrderWiseFFAllocationData(params: params) {
     )
     .then((res) => {
       if (res.data) {
-        var result = res.data;
+        const result = res.data;
         if (result.IsError) {
           console.log("Error found: ", result.ErrorMessage);
         } else {

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
@@ -89,7 +90,7 @@ export default function GaugeForm({
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    var data: SwtGaugeType = {
+    const data: SwtGaugeType = {
       ID: values?.ID,
       GAUGE: values?.GAUGE,
       IsActive: values?.IsActive,
@@ -182,8 +183,8 @@ export default function GaugeForm({
                 {pageAction === PageAction.add
                   ? "Save"
                   : pageAction === PageAction.edit
-                    ? "Update"
-                    : "Delete"}
+                  ? "Update"
+                  : "Delete"}
               </Button>
               <Button
                 type="reset"

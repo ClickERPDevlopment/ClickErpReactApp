@@ -1,7 +1,8 @@
+import { GreyBatchStatusReportBatchDetailsDto } from "@/reports/Textile/Dyeing/grey-batch-status-report/components/Interfaces";
 import moment from "moment";
-import React from "react";
+
 //up
-interface props {
+export interface props {
   batchDtls: GreyBatchStatusReportBatchDetailsDto[];
 }
 

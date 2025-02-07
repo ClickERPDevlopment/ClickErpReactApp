@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 
 import useApiUrl from "../../../../../hooks/use-ApiUrl";
 
-interface params {
+export interface params {
   fromDate: string | null;
   toDate: string | null;
   isDateWise: string | null;
@@ -20,7 +21,7 @@ interface params {
 export async function GreyBatchStatus_GreyRcvDetails(params: params) {
   const api = useApiUrl();
 
-  var data = await axios
+  const data = await axios
     .get(
       `${api.ProductionUrl}/production/dyeingreport/GreyBatchStatus_GreyRcvDetails?` +
         `fromDate=${params.fromDate}&` +
@@ -38,7 +39,7 @@ export async function GreyBatchStatus_GreyRcvDetails(params: params) {
     )
     .then((res) => {
       if (res.data) {
-        var result = res.data;
+        const result = res.data;
         if (result.IsError) {
           console.log("Error found: ", result.ErrorMessage);
           throw new Error(result.ErrorMessage);
@@ -57,7 +58,7 @@ export async function GreyBatchStatus_GreyRcvDetails(params: params) {
 export async function GreyBatchStatus_BatchDetails(params: params) {
   const api = useApiUrl();
 
-  var data = await axios
+  const data = await axios
     .get(
       `${api.ProductionUrl}/production/dyeingreport/GreyBatchStatus_BatchDetails?` +
         `fromDate=${params.fromDate}&` +
@@ -75,7 +76,7 @@ export async function GreyBatchStatus_BatchDetails(params: params) {
     )
     .then((res) => {
       if (res.data) {
-        var result = res.data;
+        const result = res.data;
         if (result.IsError) {
           console.log("Error found: ", result.ErrorMessage);
           throw new Error(result.ErrorMessage);

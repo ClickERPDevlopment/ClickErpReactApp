@@ -1,4 +1,4 @@
-type styleWiseFabricConsumptionReport = {
+export type styleWiseFabricConsumptionReport = {
   BUYER_ID: number;
   BUYER: string;
   STYLE_ID: number;

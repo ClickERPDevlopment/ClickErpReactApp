@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+import { DyeingBuyerWiseGreyStockReportType } from "./dyeing-buyer-wise-grey-stock-report-type";
 
 export default function DyeingBuyerWiseGreyStockReportDesign({
   data,

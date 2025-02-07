@@ -1,10 +1,11 @@
 import useApiUrl from "src/hooks/use-ApiUrl";
-import React from "react";
+
 import { useSearchParams } from "react-router";
 import axios from "axios";
 import ReportSkeleton from "src/components/report-skeleton";
 import DyeingBillChallanWiseSummaryReport from "./dyeing-bill-challan-wise-summary-report";
 import { DyeingBillChallanWiseSummaryType } from "./dyeing-bill-challan-wise-summary-type";
+import React from "react";
 
 export default function DyeingBillChallanWiseSummaryIndex() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -12,8 +13,8 @@ export default function DyeingBillChallanWiseSummaryIndex() {
   const api = useApiUrl();
   const [searchParams] = useSearchParams();
 
-  var poId: string | null = "";
-  var styleId: string | null = "";
+  let poId: string | null = "";
+  let styleId: string | null = "";
 
   if (searchParams.get("poId")) {
     poId = searchParams.get("poId");

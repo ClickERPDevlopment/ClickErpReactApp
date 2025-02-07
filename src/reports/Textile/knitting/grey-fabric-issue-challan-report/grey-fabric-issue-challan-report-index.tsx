@@ -1,4 +1,4 @@
-/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios, { AxiosError } from "axios";
@@ -8,21 +8,25 @@ import useApiUrl from "src/hooks/use-ApiUrl";
 import ReportSkeleton from "src/components/report-skeleton";
 import { IGreyFabricIssueChallanReport } from "./grey-fabric-issue-challan-report-type";
 import ReportTable from "./components/report-table";
-
+export interface groupedByStyle {
+  [key: string]: {
+    items: IGreyFabricIssueChallanReport[];
+  };
+}
 export default function GreyFabricIssueChallanReport() {
   const [data, setData] = useState<IGreyFabricIssueChallanReport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var buyerId: string | null = "1";
-  var poId: string | null = "0";
-  var fabricId: string | null = "0";
-  var woId: string | null = "0";
-  var orderRef: string | null = "";
-  var isStockAvl: string | null = "true";
-  var fromDate: string | null = "01-Jan-24";
-  var toDate: string | null = "01-Jan-25";
+  let buyerId: string | null = "1";
+  let poId: string | null = "0";
+  let fabricId: string | null = "0";
+  let woId: string | null = "0";
+  let orderRef: string | null = "";
+  let isStockAvl: string | null = "true";
+  let fromDate: string | null = "01-Jan-24";
+  let toDate: string | null = "01-Jan-25";
 
   if (searchParams.get("buyerId")) {
     buyerId = searchParams.get("buyerId");
@@ -81,7 +85,7 @@ export default function GreyFabricIssueChallanReport() {
   // return (<ReportSkeleton />);
   //
 
-  var uniqueKeys: Set<string> = new Set();
+  const uniqueKeys: Set<string> = new Set();
 
   function groupBy(data: IGreyFabricIssueChallanReport[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
@@ -98,19 +102,13 @@ export default function GreyFabricIssueChallanReport() {
     }, {});
   }
 
-  interface groupedByStyle {
-    [key: string]: {
-      items: IGreyFabricIssueChallanReport[];
-    };
-  }
-
-  var groupedByStyle: groupedByStyle = {};
+  let groupedByStyle: groupedByStyle = {};
 
   if (data) {
     groupedByStyle = groupBy(data, ["STYLE"]);
   }
 
-  var uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
   if (isLoading) {
     return <ReportSkeleton />;

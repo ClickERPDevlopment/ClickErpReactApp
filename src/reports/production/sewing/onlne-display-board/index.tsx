@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import "./index.css";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import axios from "axios";
-import { interval } from "date-fns";
 import moment from "moment";
+import { IOnlineDisplayBoard } from "./online-display-board-type";
 
 function OnlineDisplayBoard() {
   const [data, setData] = useState<IOnlineDisplayBoard[]>([]);
 
   const [searchParams] = useSearchParams();
 
-  var factoryid = 0;
-  var lineid = 0;
+  let factoryid = 0;
+  let lineid = 0;
 
   if (searchParams.get("factoryid")) {
     factoryid = Number(searchParams.get("factoryid"));
@@ -43,7 +43,9 @@ function OnlineDisplayBoard() {
           }
         })
         .catch((m) => console.log(m));
-    } catch (error: any) {}
+    } catch {
+      console.log();
+    }
   };
 
   useEffect(() => {

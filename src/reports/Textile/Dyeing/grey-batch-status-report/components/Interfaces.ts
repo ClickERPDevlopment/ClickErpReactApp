@@ -1,4 +1,4 @@
-interface GreyBatchStatusReportGreyRcvDtlsDto {
+export interface GreyBatchStatusReportGreyRcvDtlsDto {
   INTER_COMPANY_ID: number;
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
@@ -25,19 +25,19 @@ interface GreyBatchStatusReportGreyRcvDtlsDto {
   SEASON: string;
 }
 
-interface GreyBatchStatusReportBatchDetailsDto {
+export interface GreyBatchStatusReportBatchDetailsDto {
   BATCH_DATE: string;
   BATCH_NO: string;
   PO_ID: number;
   GMT_COLOR_ID: number;
   GMT_COLOR: string;
   QUANTITY: number;
-  FABRIC: String;
+  FABRIC: string;
   FIN_DIA: string;
   FIN_REQ_SHAPE: string;
 }
 
-type GreyBatchStatusReportGreyRcvSummaryDto = {
+export type GreyBatchStatusReportGreyRcvSummaryDto = {
   PO_ID: string;
   PONO: string;
   STYLE_ID: string;

@@ -1,18 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { CheckIcon } from "lucide-react";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
 import { BuyerType } from "src/actions/Sweater/merch-buyer-action";
-import {
-  Delete,
-  Save,
-  Update,
-} from "src/actions/Sweater/merch-buyer-action";
+import { Delete, Save, Update } from "src/actions/Sweater/merch-buyer-action";
 import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
 import { Button } from "src/components/ui/button";
 import { Checkbox } from "src/components/ui/checkbox";
@@ -45,11 +42,7 @@ import { ReactQueryKey } from "src/utility/react-query-key";
 import { z } from "zod";
 import { CountryType } from "src/actions/get-country-action";
 import moment from "moment";
-
-const gaugeSchema = z.object({
-  value: z.string(),
-  label: z.string(),
-});
+import React from "react";
 
 const formSchema = z.object({
   Id: z.number().default(0),
@@ -112,7 +105,6 @@ export default function BuyerForm({
       _.push({ label: ele.Name, value: ele.CountryId.toString() });
     });
     setCountry([..._]);
-
   }, [lstCountry, lstMainBuyer]);
 
   const mutation = useMutation({
@@ -165,7 +157,7 @@ export default function BuyerForm({
   function onSubmit(values: z.infer<typeof formSchema>) {
     // console.log("form-value", values);
 
-    var data: BuyerType = {
+    const data: BuyerType = {
       Id: values.Id,
       NAME: values.NAME,
       CODE: values.CODE,
@@ -310,7 +302,10 @@ export default function BuyerForm({
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>Is Active?</FormLabel>
@@ -325,7 +320,10 @@ export default function BuyerForm({
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>Bundle No Start From Zero?</FormLabel>
@@ -359,7 +357,10 @@ export default function BuyerForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col flex-1">
                       <FormLabel>Main Buyer</FormLabel>
-                      <Popover open={openMainBuyer} onOpenChange={setOpenMainBuyer}>
+                      <Popover
+                        open={openMainBuyer}
+                        onOpenChange={setOpenMainBuyer}
+                      >
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
@@ -372,7 +373,10 @@ export default function BuyerForm({
                               )}
                             >
                               {field.value
-                                ? mainBuyers?.find((buyer) => Number(buyer.value) === field.value)?.label
+                                ? mainBuyers?.find(
+                                    (buyer) =>
+                                      Number(buyer.value) === field.value
+                                  )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -380,7 +384,10 @@ export default function BuyerForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-0">
                           <Command>
-                            <CommandInput placeholder="Search floor..." className="h-9" />
+                            <CommandInput
+                              placeholder="Search floor..."
+                              className="h-9"
+                            />
                             <CommandList>
                               <CommandEmpty>No buyer found.</CommandEmpty>
                               <CommandGroup>
@@ -389,7 +396,10 @@ export default function BuyerForm({
                                     value={buyer.label}
                                     key={buyer.value}
                                     onSelect={() => {
-                                      form.setValue("MAINBUYERID", Number(buyer.value));
+                                      form.setValue(
+                                        "MAINBUYERID",
+                                        Number(buyer.value)
+                                      );
                                       setOpenMainBuyer(false);
                                     }}
                                   >
@@ -444,7 +454,10 @@ export default function BuyerForm({
                               )}
                             >
                               {field.value
-                                ? country?.find((country) => Number(country.value) === field.value)?.label
+                                ? country?.find(
+                                    (country) =>
+                                      Number(country.value) === field.value
+                                  )?.label
                                 : "Select a Country"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -452,7 +465,10 @@ export default function BuyerForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-0">
                           <Command>
-                            <CommandInput placeholder="Search Country..." className="h-9" />
+                            <CommandInput
+                              placeholder="Search Country..."
+                              className="h-9"
+                            />
                             <CommandList>
                               <CommandEmpty>No country found.</CommandEmpty>
                               <CommandGroup>
@@ -461,7 +477,10 @@ export default function BuyerForm({
                                     value={country.label}
                                     key={country.value}
                                     onSelect={() => {
-                                      form.setValue("COUNTRYID", Number(country.value));
+                                      form.setValue(
+                                        "COUNTRYID",
+                                        Number(country.value)
+                                      );
                                       setOpenCountry(false);
                                     }}
                                   >
@@ -509,7 +528,6 @@ export default function BuyerForm({
                   </FormItem>
                 )}
               />
-
             </div>
           </div>
 
@@ -529,8 +547,8 @@ export default function BuyerForm({
                 {pageAction === PageAction.add
                   ? "Save"
                   : pageAction === PageAction.edit
-                    ? "Update"
-                    : "Delete"}
+                  ? "Update"
+                  : "Delete"}
               </Button>
               <Button
                 type="reset"
@@ -564,7 +582,7 @@ export default function BuyerForm({
             </Button>
           </div>
         </form>
-      </Form >
+      </Form>
     </>
   );
 }

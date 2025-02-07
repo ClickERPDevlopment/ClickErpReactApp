@@ -1,4 +1,7 @@
-import React from "react";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
 type props = {
   lstBookingSummary: OrderWiseFFDeliveryBookingDto[];
   lstGreyRcvSummary: OrderWiseFFDeliveryAllocationDto[];
@@ -144,7 +147,7 @@ export default function PoColorWiseGroupSummaryRow({
       {/* other rows where grey rcv all rows not yet show. */}
       {lstGreyRcvSummary
         ?.filter((d, i) => i >= lstBookingSummary.length)
-        .map((gRcv, gRcvIndex) => (
+        .map((gRcv) => (
           <tr>
             <td className="border border-black text-xs text-center p-1"></td>
             <td className="border border-black text-xs text-center p-1"></td>

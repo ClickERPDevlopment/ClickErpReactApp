@@ -35,7 +35,6 @@ import {
 import { PageAction } from "src/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
 
-import { DataTablePagination } from "src/components/DataTablePagination";
 import { ColorType } from "src/actions/Merchandising/merch-color-action";
 
 export function ColorTable({ data }: { data: ColorType[] }) {
@@ -96,11 +95,11 @@ export function ColorTable({ data }: { data: ColorType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/color/${PageAction.view}/${color.ID}`
-                    )
+                        `/win/merchandising/color/${PageAction.view}/${color.ID}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/color/${PageAction.view}/${color.ID}`
-                    )
+                        `/dashboard/merchandising/color/${PageAction.view}/${color.ID}`
+                      )
                 }
               >
                 View Color
@@ -109,11 +108,11 @@ export function ColorTable({ data }: { data: ColorType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/color/${PageAction.edit}/${color.ID}`
-                    )
+                        `/win/merchandising/color/${PageAction.edit}/${color.ID}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/color/${PageAction.edit}/${color.ID}`
-                    )
+                        `/dashboard/merchandising/color/${PageAction.edit}/${color.ID}`
+                      )
                 }
               >
                 Edit Color
@@ -122,11 +121,11 @@ export function ColorTable({ data }: { data: ColorType[] }) {
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/color/${PageAction.delete}/${color.ID}`
-                    )
+                        `/win/merchandising/color/${PageAction.delete}/${color.ID}`
+                      )
                     : navigate(
-                      `/dashboard/merchandising/color/${PageAction.delete}/${color.ID}`
-                    )
+                        `/dashboard/merchandising/color/${PageAction.delete}/${color.ID}`
+                      )
                 }
               >
                 Delete Color
@@ -208,9 +207,9 @@ export function ColorTable({ data }: { data: ColorType[] }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

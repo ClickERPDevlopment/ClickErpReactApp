@@ -1,6 +1,5 @@
 import moment from "moment";
-import React from "react";
-import { number } from "zod";
+import { BuyerWiseDyeingMonthlySummaryReportType } from "./buyer-wise-dyeing-monthly-summ-rpt-type";
 
 export default function BuyerWiseDyeingMonthlySummaryReport({
   data,

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { BrandType } from "src/actions/get-brand";
@@ -31,6 +33,7 @@ import { cn } from "src/lib/utils";
 import { PageAction } from "src/utility/page-actions";
 import { z } from "zod";
 import { companyId, setCompanyId } from "src/utility/local-storage-utils";
+import React from "react";
 
 const gaugeSchema = z.object({
   value: z.string(),
@@ -70,7 +73,7 @@ export default function BrandGroupForm({ data, pageAction, lstBrand }: props) {
     setCompanyId(2);
 
     //---
-    let _: comboBoxDataType[] = [];
+    const _: comboBoxDataType[] = [];
     lstBrand?.forEach((ele) => {
       _.push({ label: ele.BRAND_NAME, value: ele.BRAND_ID.toString() });
     });
@@ -116,7 +119,7 @@ export default function BrandGroupForm({ data, pageAction, lstBrand }: props) {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // console.log("form-value", values);
-    var data: SwtMachineBrandGroupType = {
+    const data: SwtMachineBrandGroupType = {
       ID: values.ID,
       GROUP_NAME: values.GROUP_NAME,
       IS_ACTIVE: values.IS_ACTIVE,

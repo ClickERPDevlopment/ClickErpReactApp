@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router";
-import React from "react";
 
 const Blogs = () => {
   const [searchParams] = useSearchParams();

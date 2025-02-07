@@ -1,21 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
 import { CheckIcon } from "lucide-react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
-import { Link, useLocation, useNavigate } from "react-router";
-import { BuyerType, GetBuyer } from "src/actions/Sweater/merch-buyer-action";
-import {
-  Delete,
-  Save,
-  Update,
-} from "src/actions/Sweater/merch-buyer-action";
+import { Link } from "react-router";
+import { GetBuyer } from "src/actions/Sweater/merch-buyer-action";
+
 import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
 import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -29,10 +22,8 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -41,14 +32,13 @@ import {
 import useAxiosInstance from "src/lib/axios-instance";
 import { cn } from "src/lib/utils";
 import { PageAction } from "src/utility/page-actions";
-import { ReactQueryKey } from "src/utility/react-query-key";
 import { z } from "zod";
-import { CountryType } from "src/actions/get-country-action";
-import moment from "moment";
-import { ColorType, GetColor, GetColorByBuyer } from "src/actions/Merchandising/merch-color-action";
+import {
+  ColorType,
+  GetColor,
+} from "src/actions/Merchandising/merch-color-action";
 import { ColorTable } from "./color-table";
 import TableSkeleton from "src/components/table-skeleton";
-
 
 type comboBoxDataType = {
   label: string;
@@ -69,8 +59,6 @@ export default function Color() {
 
   const axios = useAxiosInstance();
 
-
-
   useEffect(() => {
     let _: comboBoxDataType[] = [];
     //---
@@ -80,10 +68,8 @@ export default function Color() {
     setBuyers([..._]);
     _ = [];
     //---
-    setColors(colorData)
-
+    setColors(colorData);
   }, [buyerData, colorData]);
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -103,12 +89,12 @@ export default function Color() {
   }
 
   const handleBuyerChange = async (buyerId: string) => {
-
     if (buyerId !== "") {
-      const response = (await axios.get("/production/Color/GetColorByBuyer?buyerId=" + buyerId)).data.Data
+      const response = (
+        await axios.get("/production/Color/GetColorByBuyer?buyerId=" + buyerId)
+      ).data.Data;
       setColors(response);
     }
-
   };
 
   return (
@@ -130,17 +116,17 @@ export default function Color() {
             <div className="w-full sm:w-5/12 flex flex-col gap-2">
               {/*Buyer Dropdown */}
               <Form {...form}>
-                <form
-                  className="space-y-8 lg:w-8/12 w-full"
-                >
+                <form className="space-y-8 lg:w-8/12 w-full">
                   <div className="flex justify-between items-end">
-
                     <FormField
                       control={form.control}
                       name="BUYERID"
                       render={({ field }) => (
                         <FormItem className="flex flex-col flex-1">
-                          <Popover open={openMainBuyer} onOpenChange={setOpenMainBuyer}>
+                          <Popover
+                            open={openMainBuyer}
+                            onOpenChange={setOpenMainBuyer}
+                          >
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
@@ -153,7 +139,10 @@ export default function Color() {
                                   )}
                                 >
                                   {field.value
-                                    ? buyers?.find((buyer) => Number(buyer.value) === field.value)?.label
+                                    ? buyers?.find(
+                                        (buyer) =>
+                                          Number(buyer.value) === field.value
+                                      )?.label
                                     : "Select a buyer"}
                                   <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
@@ -161,7 +150,10 @@ export default function Color() {
                             </PopoverTrigger>
                             <PopoverContent className="w-full p-0">
                               <Command>
-                                <CommandInput placeholder="Search floor..." className="h-9" />
+                                <CommandInput
+                                  placeholder="Search floor..."
+                                  className="h-9"
+                                />
                                 <CommandList>
                                   <CommandEmpty>No buyer found.</CommandEmpty>
                                   <CommandGroup>
@@ -170,7 +162,10 @@ export default function Color() {
                                         value={buyer.label}
                                         key={buyer.value}
                                         onSelect={() => {
-                                          form.setValue("BUYERID", Number(buyer.value));
+                                          form.setValue(
+                                            "BUYERID",
+                                            Number(buyer.value)
+                                          );
                                           handleBuyerChange(buyer.value);
                                           setOpenMainBuyer(false);
                                         }}
@@ -204,7 +199,6 @@ export default function Color() {
                       <MdOutlineClear className="rounded text-slate-600 m-0" />
                     </Button>
                   </div>
-
                 </form>
               </Form>
             </div>

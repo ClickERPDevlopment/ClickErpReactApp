@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-const */
 import {
   FinishFabricAllocatinReportDetailsType,
   FinishFabricAllocatinReportMasterType,
@@ -33,18 +34,18 @@ export default function FFATable({
     // { name: "ALLO. BAL", classes: "" },
   ];
 
-  var totalAllocation = 0;
+  const totalAllocation = 0;
   detailsData.forEach((element) => {
     totalAllocation += element.ALLOCATED_QTY;
   });
 
-  var totalReqQty = detailsData.reduce((acc, item) => {
-    return acc += item.REQUIRED_QTY;
-  }, 0)
+  // const totalReqQty = detailsData.reduce((acc, item) => {
+  //   return (acc += item.REQUIRED_QTY);
+  // }, 0);
 
-  var totalAllocationBalance = detailsData.reduce((acc, item) => {
-    return acc += (item.ALLOCATED_QTY - item.REQUIRED_QTY);
-  }, 0)
+  // const totalAllocationBalance = detailsData.reduce((acc, item) => {
+  //   return (acc += item.ALLOCATED_QTY - item.REQUIRED_QTY);
+  // }, 0);
 
   //   console.log(masterData.MTL_COLOR, JSON.stringify(detailsData));
 
@@ -80,7 +81,9 @@ export default function FFATable({
         <tr>
           <td className="border text-center text-xs">{masterData.SUPPLIER}</td>
           <td className="border text-center text-xs">
-            {masterData.PINO ? masterData.WORK_ORDER_NO + "|" + masterData.PINO : masterData.WORK_ORDER_NO}
+            {masterData.PINO
+              ? masterData.WORK_ORDER_NO + "|" + masterData.PINO
+              : masterData.WORK_ORDER_NO}
           </td>
           <td className="border text-center text-xs">
             {masterData.ORDER_REFERENCE}
@@ -93,20 +96,29 @@ export default function FFATable({
           <td className="border text-center text-xs">
             {masterData.RECEIVE_QTY}
           </td>
-          {
-            Number(masterData.RECEIVE_QTY - masterData.WO_QTY) < 0 ? <td className={`border text-center text-xs text-red-500`}
-            >
-              {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
-            </td> : <td className={`border text-center text-xs`}
-            >
+          {Number(masterData.RECEIVE_QTY - masterData.WO_QTY) < 0 ? (
+            <td className={`border text-center text-xs text-red-500`}>
               {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
             </td>
-          }
+          ) : (
+            <td className={`border text-center text-xs`}>
+              {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
+            </td>
+          )}
 
           <td className="border text-center text-xs">{totalAllocation}</td>
-          <td className="border text-center text-xs">{(totalAllocation - masterData.RECEIVE_QTY).toFixed(2)}</td>
+          <td className="border text-center text-xs">
+            {(totalAllocation - masterData.RECEIVE_QTY).toFixed(2)}
+          </td>
           <td className="border text-center text-xs">{masterData.UOM}</td>
-          <td className="border text-center text-xs">{Number(masterData.CONSUMPTION_PER_DZN) == 0 ? "0" : (Math.abs(totalAllocation - masterData.RECEIVE_QTY) / (Number(masterData.CONSUMPTION_PER_DZN) / 12)).toFixed(2)}</td>
+          <td className="border text-center text-xs">
+            {Number(masterData.CONSUMPTION_PER_DZN) == 0
+              ? "0"
+              : (
+                  Math.abs(totalAllocation - masterData.RECEIVE_QTY) /
+                  (Number(masterData.CONSUMPTION_PER_DZN) / 12)
+                ).toFixed(2)}
+          </td>
           {/* only render first row of details data */}
           <td className="border text-center text-xs">
             {detailsData[0]?.STYLENO}

@@ -1,4 +1,4 @@
-import React from "react";
+import { GeneralBlockFabricStatusReportType } from "../general-block-f-status-rpt-type";
 
 function ReportTotal({ data }: { data: GeneralBlockFabricStatusReportType[] }) {
   return (

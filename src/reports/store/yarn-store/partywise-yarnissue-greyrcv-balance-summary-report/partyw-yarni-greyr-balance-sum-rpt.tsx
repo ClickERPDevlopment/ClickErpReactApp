@@ -1,7 +1,4 @@
-import axios from "axios";
-import React from "react";
 import { useSearchParams } from "react-router";
-import useApiUrl from "src/hooks/use-ApiUrl";
 import { PartyWiseYanrIssueAndGreyRcvSummaryType } from "./partyw-yarni-greyr-balance-sum-rpt-type";
 import {
   Table,
@@ -17,9 +14,6 @@ type props = {
 };
 
 export default function PartyWiseYanrIssueAndGreyRcvSummary({ data }: props) {
-  const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = React.useState(false);
-
   return (
     <div>
       <div className="mb-5">

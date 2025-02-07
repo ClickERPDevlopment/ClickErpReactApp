@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  outsideYIssueGRcvStatus_GreyRcv,
+  outsideYIssueGRcvStatus_LoseyarnRcv,
+  outsideYIssueGRcvStatus_YarnIssue,
+} from "./outsideYIssueGRcvS-Interfaces";
 
-interface props {
+export interface props {
   yarnIssue: outsideYIssueGRcvStatus_YarnIssue[];
   greyRcv: outsideYIssueGRcvStatus_GreyRcv[];
   loseYanRcv: outsideYIssueGRcvStatus_LoseyarnRcv[];
@@ -22,10 +27,10 @@ export default function ReportTotal({
   const [total, setTotal] = useState<totalType>();
 
   useEffect(() => {
-    var issueQty = 0;
-    var returnQty = 0;
-    var grey = 0;
-    var loseYQty = 0;
+    const issueQty = 0;
+    const returnQty = 0;
+    const grey = 0;
+    const loseYQty = 0;
 
     yarnIssue.forEach((element) => {
       issueQty += element.QUANTITY;

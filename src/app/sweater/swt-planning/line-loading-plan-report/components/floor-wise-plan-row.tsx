@@ -1,4 +1,3 @@
-import React from "react";
 import { TableCell, TableRow } from "src/components/ui/table";
 import {
   GetAllUniqueRows,
@@ -14,13 +13,13 @@ import {
   LineLoadingPlanType,
 } from "src/actions/Sweater/swt-planning-action";
 
-interface porps {
+export interface porps {
   data: LineLoadingPlanType;
   details: LineLoadingPlanDetailsType[] | undefined;
   dates: string[] | undefined;
 }
 export default function FloorWisePlanRow({ data, dates, details }: porps) {
-  var rows = GetAllUniqueRows(details!);
+  const rows = GetAllUniqueRows(details!);
   return (
     <>
       {rows.map((row) => (

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Report from "./component/report";
 import axios from "axios";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import TableSkeleton from "src/components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import { useSearchParams } from "react-router";
+import { MonthlyKnitProSummOutsideType } from "./component/monthly-knit-pro-sum-outside-type";
 
 export default function MonthlyKnitProSumOutsideReport() {
   const api = useApiUrl();
@@ -12,9 +13,9 @@ export default function MonthlyKnitProSumOutsideReport() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<MonthlyKnitProSummOutsideType[]>([]);
 
-  var fromDate: string | null = "";
-  var toDate: string | null = "";
-  var partyId: string | null = "";
+  let fromDate: string | null = "";
+  let toDate: string | null = "";
+  let partyId: string | null = "";
 
   if (searchParams.get("fromDate")) {
     fromDate = searchParams.get("fromDate");

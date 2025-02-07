@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { CheckIcon } from "lucide-react";
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router";
@@ -15,7 +16,6 @@ import {
 } from "src/actions/Merchandising/merch-color-action";
 import { Alert, AlertTitle, AlertDescription } from "src/components/ui/alert";
 import { Button } from "src/components/ui/button";
-import { Checkbox } from "src/components/ui/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -43,14 +43,9 @@ import { cn } from "src/lib/utils";
 import { PageAction } from "src/utility/page-actions";
 import { ReactQueryKey } from "src/utility/react-query-key";
 import { z } from "zod";
-import { CountryType } from "src/actions/get-country-action";
 import moment from "moment";
 import { ColorType } from "src/actions/Merchandising/merch-color-action";
-
-const gaugeSchema = z.object({
-  value: z.string(),
-  label: z.string(),
-});
+import React from "react";
 
 const formSchema = z.object({
   ID: z.number().default(0),
@@ -71,17 +66,10 @@ type comboBoxDataType = {
   value: string;
 };
 
-export default function ColorForm({
-  data,
-  lstBuyer,
-  pageAction,
-}: NewType) {
+export default function ColorForm({ data, lstBuyer, pageAction }: NewType) {
   //--
   const [mainBuyers, setMainBuyers] = React.useState<comboBoxDataType[]>();
   const [openMainBuyer, setOpenMainBuyer] = React.useState(false);
-
-  const [country, setCountry] = React.useState<comboBoxDataType[]>();
-  const [openCountry, setOpenCountry] = React.useState(false);
 
   //--
   //--------------------------
@@ -92,13 +80,12 @@ export default function ColorForm({
   //--------------------------
 
   React.useEffect(() => {
-    let _: comboBoxDataType[] = [];
+    const _: comboBoxDataType[] = [];
     //---
     lstBuyer?.forEach((ele) => {
       _.push({ label: ele.NAME, value: ele.Id.toString() });
     });
     setMainBuyers([..._]);
-
   }, [lstBuyer]);
 
   const mutation = useMutation({
@@ -135,7 +122,9 @@ export default function ColorForm({
       ID: data?.ID ? data.ID : 0,
       BUYERID: data?.BUYERID ? data.BUYERID : 0,
       COLORNAME: data?.COLORNAME ? data.COLORNAME : "",
-      COLOR_DISPLAY_NAME: data?.COLOR_DISPLAY_NAME ? data.COLOR_DISPLAY_NAME : "",
+      COLOR_DISPLAY_NAME: data?.COLOR_DISPLAY_NAME
+        ? data.COLOR_DISPLAY_NAME
+        : "",
       COLOR_DESCRIPTION: data?.COLOR_DESCRIPTION ? data.COLOR_DESCRIPTION : "",
     },
   });
@@ -144,12 +133,14 @@ export default function ColorForm({
   function onSubmit(values: z.infer<typeof formSchema>) {
     // console.log("form-value", values);
 
-    var data: ColorType = {
+    const data: ColorType = {
       ID: values.ID,
       BUYERID: values.BUYERID,
       COLORNAME: values.COLORNAME,
       COLOR_DISPLAY_NAME: values.COLOR_DISPLAY_NAME,
-      COLOR_DESCRIPTION: values.COLOR_DESCRIPTION ? values.COLOR_DESCRIPTION : null,
+      COLOR_DESCRIPTION: values.COLOR_DESCRIPTION
+        ? values.COLOR_DESCRIPTION
+        : null,
       CREATEDATE: moment().format("YYYY-MM-DD"),
     };
     mutation.mutate(data);
@@ -201,7 +192,10 @@ export default function ColorForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-col flex-1">
                       <FormLabel>Buyer</FormLabel>
-                      <Popover open={openMainBuyer} onOpenChange={setOpenMainBuyer}>
+                      <Popover
+                        open={openMainBuyer}
+                        onOpenChange={setOpenMainBuyer}
+                      >
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
@@ -214,7 +208,10 @@ export default function ColorForm({
                               )}
                             >
                               {field.value
-                                ? mainBuyers?.find((buyer) => Number(buyer.value) === field.value)?.label
+                                ? mainBuyers?.find(
+                                    (buyer) =>
+                                      Number(buyer.value) === field.value
+                                  )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -222,7 +219,10 @@ export default function ColorForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-0">
                           <Command>
-                            <CommandInput placeholder="Search floor..." className="h-9" />
+                            <CommandInput
+                              placeholder="Search floor..."
+                              className="h-9"
+                            />
                             <CommandList>
                               <CommandEmpty>No buyer found.</CommandEmpty>
                               <CommandGroup>
@@ -231,7 +231,10 @@ export default function ColorForm({
                                     value={buyer.label}
                                     key={buyer.value}
                                     onSelect={() => {
-                                      form.setValue("BUYERID", Number(buyer.value));
+                                      form.setValue(
+                                        "BUYERID",
+                                        Number(buyer.value)
+                                      );
                                       setOpenMainBuyer(false);
                                     }}
                                   >
@@ -327,8 +330,8 @@ export default function ColorForm({
                 {pageAction === PageAction.add
                   ? "Save"
                   : pageAction === PageAction.edit
-                    ? "Update"
-                    : "Delete"}
+                  ? "Update"
+                  : "Delete"}
               </Button>
               <Button
                 type="reset"
@@ -362,7 +365,7 @@ export default function ColorForm({
             </Button>
           </div>
         </form>
-      </Form >
+      </Form>
     </>
   );
 }

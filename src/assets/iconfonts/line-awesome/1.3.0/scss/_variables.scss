@@ -7,7 +7,7 @@ $la-version: 1.3.0 !default;
 $la-li-width: (20em / 14) !default;
 
 @function la-content($la-var) {
-  @return unquote("\"#{ $la-var }\"");
+  @return unquote("\"#{ $la-const }\"");
 }
 
 $la-css-prefix: la;

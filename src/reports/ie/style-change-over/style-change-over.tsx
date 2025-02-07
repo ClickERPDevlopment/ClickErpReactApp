@@ -1,25 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-const */
 import useApiUrl from "../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { IStyleChangeOver } from "./style-change-over-type";
 
 function StyleChangeOverReport() {
   const [data, setData] = useState<IStyleChangeOver[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var buyerId = 0;
-  var styleId = 0;
-  var floorId = 0;
-  var lineId = 0;
-  var fromDate = "01-Jun-0001";
-  var toDate = "06-Oct-2025";
+  const buyerId = 0;
+  const styleId = 0;
+  const floorId = 0;
+  const lineId = 0;
+  const fromDate = "01-Jun-0001";
+  const toDate = "06-Oct-2025";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));
@@ -68,7 +70,7 @@ function StyleChangeOverReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

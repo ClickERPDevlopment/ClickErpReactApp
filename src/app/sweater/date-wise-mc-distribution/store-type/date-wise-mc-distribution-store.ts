@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 import { SwtDateWiseMCDistributionType } from "src/actions/Sweater/swt-date-wise-mc-distribution-action";
 
-type storeType = {
+export type storeType = {
   data: SwtDateWiseMCDistributionType[];
   setData: (formData: SwtDateWiseMCDistributionType[] | undefined) => void;
 

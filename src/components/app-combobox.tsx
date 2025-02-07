@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+
 import {
   FormControl,
   FormField,
@@ -23,7 +23,7 @@ import { CheckIcon } from "lucide-react";
 import { MdOutlineClear } from "react-icons/md";
 import { ComboBoxOptionsType } from "@/app-type";
 
-interface props {
+export interface props {
   form: any;
   options: ComboBoxOptionsType[] | undefined;
   name: string;

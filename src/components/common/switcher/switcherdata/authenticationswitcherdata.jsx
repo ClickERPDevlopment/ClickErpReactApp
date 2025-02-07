@@ -254,7 +254,7 @@ export const Defaultmenu = (actionfunction) => {
     });
     localStorage.removeItem("ynexnavstyles");
     localStorage.setItem("ynexverticalstyles", "default");
-    var icon =document.getElementById("switcher-default-menu");
+    const icon =document.getElementById("switcher-default-menu");
     if(icon){
         icon.checked=true
     }
@@ -319,7 +319,7 @@ export const iconOverayFn = (actionfunction) => {
     });
     localStorage.setItem("ynexverticalstyles", "overlay");
     localStorage.removeItem("ynexnavstyles");
-    var icon =document.getElementById("switcher-icon-overlay") ;
+    const icon =document.getElementById("switcher-icon-overlay") ;
     if(icon){
         icon.checked=true
     }
@@ -802,7 +802,7 @@ export const Reset = (actionfunction) => {
         }
     });
     localStorage.clear();
-    var icon =document.getElementById("switcher-default-menu");
+    const icon =document.getElementById("switcher-default-menu");
     if(icon){
         icon.checked=true
     }
@@ -834,7 +834,7 @@ export const Reset1 = (actionfunction) => {
         }
     });
     localStorage.clear();
-    var icon =document.getElementById("switcher-default-menu");
+    const icon =document.getElementById("switcher-default-menu");
     if(icon){
         icon.checked=true
     }

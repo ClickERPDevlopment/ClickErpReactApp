@@ -9,7 +9,7 @@ import {
 export function GetAllUniqueDates(
   data: LineLoadingPlanDetailsType[]
 ): string[] {
-  var tempData = Array.from(new Set(data.map((x) => x.PLAN_DATE)));
+  const tempData = Array.from(new Set(data.map((x) => x.PLAN_DATE)));
 
   tempData.sort(function (a, b) {
     return new Date(a!).getTime() - new Date(b!).getTime();
@@ -21,18 +21,18 @@ export function GetAllUniqueDates(
 export function GetAllUniqueFloor(
   data: LineLoadingPlanDetailsType[]
 ): string[] {
-  var tempData = Array.from(new Set(data.map((x) => x.FLOOR_NO)));
+  const tempData = Array.from(new Set(data.map((x) => x.FLOOR_NO)));
   return tempData.filter(
     (FLOOR_NO): FLOOR_NO is string => FLOOR_NO !== undefined
   );
 }
 
 export function GetAllUniqueRows(data: LineLoadingPlanDetailsType[]) {
-  var lstDetails: LineLoadingPlanDetailsType[] = [];
-  var tempKey: string[] = [];
+  const lstDetails: LineLoadingPlanDetailsType[] = [];
+  const tempKey: string[] = [];
 
   data?.forEach((element) => {
-    var key = generateUniqueKey(element);
+    const key = generateUniqueKey(element);
     if (!tempKey.includes(key)) {
       tempKey.push(key);
       lstDetails.push(element);
@@ -62,7 +62,7 @@ export function GetOrderQtyByRow(
   row: LineLoadingPlanDetailsType,
   data: LineLoadingPlanOrderStatusType[]
 ): number | undefined {
-  var orderQty = data.find(
+  const orderQty = data.find(
     (x) =>
       x.BUYER_ID === row.BUYER_ID &&
       x.STYLE_ID === row.STYLE_ID &&
@@ -77,7 +77,7 @@ export function GetProductionQtyByRow(
   row: LineLoadingPlanDetailsType,
   data: LineLoadingPlanOrderStatusType[]
 ): number | undefined {
-  var SEW_QTY = data.find(
+  const SEW_QTY = data.find(
     (x) =>
       x.BUYER_ID === row.BUYER_ID &&
       x.STYLE_ID === row.STYLE_ID &&
@@ -92,8 +92,8 @@ export function GetProductionBalanceQtyByRow(
   row: LineLoadingPlanDetailsType,
   data: LineLoadingPlanOrderStatusType[]
 ): number | undefined {
-  var orderQty = GetOrderQtyByRow(row, data);
-  var SEW_QTY = GetProductionQtyByRow(row, data);
+  const orderQty = GetOrderQtyByRow(row, data);
+  const SEW_QTY = GetProductionQtyByRow(row, data);
 
   return (orderQty ? orderQty : 0) - (SEW_QTY ? SEW_QTY : 0);
 }

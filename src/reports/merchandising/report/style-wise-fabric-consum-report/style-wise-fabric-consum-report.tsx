@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 import moment from "moment";
@@ -12,10 +12,10 @@ export default function StyleWiseFabricConsumptionReport() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   //
-  var dtFrom: string | null = "";
-  var dtTo: string | null = "";
-  var buyerId: string | null = "";
-  var styleId: string | null = "";
+  const dtFrom: string | null = "";
+  const dtTo: string | null = "";
+  const buyerId: string | null = "";
+  const styleId: string | null = "";
 
   if (searchParams.get("dtFrom")) {
     dtFrom = searchParams.get("dtFrom");
@@ -52,7 +52,7 @@ export default function StyleWiseFabricConsumptionReport() {
           )
           .then((res) => {
             if (res.data) {
-              var result = res.data;
+              const result = res.data;
               if (result.IsError) {
                 console.log("Error found: ", result.ErrorMessage);
                 setData([]);
@@ -67,7 +67,7 @@ export default function StyleWiseFabricConsumptionReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error) {
+      } catch {
         setIsLoading(false);
       }
     }

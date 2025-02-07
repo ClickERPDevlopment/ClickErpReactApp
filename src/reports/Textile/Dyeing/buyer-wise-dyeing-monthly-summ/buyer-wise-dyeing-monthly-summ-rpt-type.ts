@@ -1,4 +1,4 @@
-type BuyerWiseDyeingMonthlySummaryReportType = {
+export type BuyerWiseDyeingMonthlySummaryReportType = {
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
   BATCH_DATE: Date;

@@ -1,24 +1,23 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { IStyleWiseAvgEfficiencyReport } from "./style-wise-avg-efficiency-report-type";
 
 function StyleWiseAvgEfficiencyReport() {
   const [data, setData] = useState<IStyleWiseAvgEfficiencyReport[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var buyerId = 0;
-  var styleId = 0;
-  var poId = 0;
-  var fromDate = "01-Dec-2024";
-  var toDate = "30-Dec-2024";
+  let buyerId = 0;
+  let styleId = 0;
+  let poId = 0;
+  let fromDate = "01-Dec-2024";
+  let toDate = "30-Dec-2024";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));
@@ -64,7 +63,7 @@ function StyleWiseAvgEfficiencyReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

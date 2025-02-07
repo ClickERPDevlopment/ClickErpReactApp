@@ -1,4 +1,5 @@
-import React from "react";
+import { GreyBatchStatusReportGreyRcvSummaryDto } from "./Interfaces";
+
 type props = {
   lstBookingSummary: GreyBatchStatusReportGreyRcvSummaryDto[];
   lstGreyRcvSummary: GreyBatchStatusReportGreyRcvSummaryDto[];

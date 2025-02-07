@@ -1,4 +1,4 @@
-interface IGarmentsDispatchDetailsReportDto {
+export interface IGarmentsDispatchDetailsReportDto {
   REJECTDATE: Date;
   REPORT_NO: string;
   BUYERNAME: string;

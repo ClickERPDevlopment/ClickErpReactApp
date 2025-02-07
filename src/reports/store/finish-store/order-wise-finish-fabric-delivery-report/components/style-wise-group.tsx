@@ -1,14 +1,16 @@
-import React from "react";
-import ColorPoStyleWiseRow from "./color-po-style-wise-row";
 import FabricPartWiseGroup from "./fabric-part-wise-group";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
 
-interface props {
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
 }
 
 export default function StyleWiseGroup({ lstAllocation, lstBooking }: props) {
-  var colorIds: number[] = [];
+  const colorIds: number[] = [];
 
   lstAllocation?.forEach((e) => {
     if (!colorIds.includes(e.COLOR_ID)) {

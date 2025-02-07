@@ -1,13 +1,16 @@
-import React from "react";
 import StyleWiseGroup from "./style-wise-group";
+import {
+  OrderWiseFFDeliveryAllocationDto,
+  OrderWiseFFDeliveryBookingDto,
+} from "../order-wise-ff-delivery-type";
 
-interface props {
+export interface props {
   lstAllocation: OrderWiseFFDeliveryAllocationDto[];
   lstBooking: OrderWiseFFDeliveryBookingDto[];
 }
 
 export default function POWiseGroup({ lstAllocation, lstBooking }: props) {
-  var styleIds: number[] = [];
+  const styleIds: number[] = [];
 
   lstAllocation?.forEach((e) => {
     if (!styleIds.includes(e.STYLE_ID)) {

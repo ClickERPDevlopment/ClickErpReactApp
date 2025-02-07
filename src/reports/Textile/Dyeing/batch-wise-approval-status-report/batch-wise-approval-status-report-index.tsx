@@ -1,31 +1,25 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { boolean } from "zod";
+import { IBatchWiseApprovalStatus } from "./batch-wise-approval-status-report-type";
 
 function BatchWiseApprovalStatusReport() {
   const [data, setData] = useState<IBatchWiseApprovalStatus[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var id: number = 325;
-  var currency: string = "TK";
-  var cmbReportFormat: string = "";
-
-  var buyerId = 0;
-  var styleId = 0;
-  var batchId = 0;
-  var fromDate = "01-Jun-0001";
-  var toDate = "06-Oct-2025";
-  var isApproved = "false";
-  var isNotApproved = "false";
+  let buyerId = 0;
+  let styleId = 0;
+  let batchId = 0;
+  let fromDate = "01-Jun-0001";
+  let toDate = "06-Oct-2025";
+  let isApproved = "false";
+  let isNotApproved = "false";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));
@@ -89,7 +83,7 @@ function BatchWiseApprovalStatusReport() {
         //   .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

@@ -1,4 +1,4 @@
-interface IShipmentDelayReport {
+export interface IShipmentDelayReport {
   PO_NO: string;
   BUYER_ID: number;
   BUYER_NAME: string;

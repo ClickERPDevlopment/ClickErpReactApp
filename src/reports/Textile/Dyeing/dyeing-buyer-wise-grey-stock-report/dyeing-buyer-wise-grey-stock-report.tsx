@@ -1,8 +1,10 @@
 import useApiUrl from "src/hooks/use-ApiUrl";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import ReportSkeleton from "src/components/report-skeleton";
 import DyeingBuyerWiseGreyStockReportDesign from "./dyeing-buyer-wise-grey-stock-report-design";
+import { DyeingBuyerWiseGreyStockReportType } from "./dyeing-buyer-wise-grey-stock-report-type";
+import React from "react";
 
 export default function DyeingBuyerWiseGreyStockReport() {
   const api = useApiUrl();
@@ -13,7 +15,7 @@ export default function DyeingBuyerWiseGreyStockReport() {
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
-      var res = await axios.get<DyeingBuyerWiseGreyStockReportType[]>(
+      const res = await axios.get<DyeingBuyerWiseGreyStockReportType[]>(
         `${api.ProductionUrl}/production/DyeingReport/GetBuyerWiseGreyStockReport`
       );
 

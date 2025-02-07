@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import React from "react";
+
 import { useParams } from "react-router";
 import { GetSwtGaugeById } from "src/actions/Sweater/swt-gauge-action";
 import { Alert, AlertDescription, AlertTitle } from "src/components/ui/alert";

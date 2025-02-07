@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 
@@ -9,7 +10,7 @@ import AccReportFooter from "../components/acc-report-footer";
 import AccReportTableGroup from "./components/acc-report-table-group";
 
 function getSeasons(data: any) {
-  var array: any = [];
+  const array: any = [];
 
   data?.forEach((element: any) => {
     if (element.SESSIONNO != null) {
@@ -24,15 +25,13 @@ function getSeasons(data: any) {
 
 export default function AccessoriesWoReport() {
   const [data, setData] = useState<any>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var id: string | null = "325";
-  var currency: string | null = "TK";
-  var cmbReportFormat: string | null = "";
+  let id: string | null = "325";
+  let currency: string | null = "TK";
+  let cmbReportFormat: string | null = "";
 
   if (searchParams.get("id")) {
     id = searchParams.get("id");
@@ -65,7 +64,7 @@ export default function AccessoriesWoReport() {
           )
           .then((res) => {
             if (res.data) {
-              var result = res.data;
+              const result = res.data;
               // console.log("response: ", r.data);
               if (result.IsError) {
                 console.log("Error found: ", result.ErrorMessage);

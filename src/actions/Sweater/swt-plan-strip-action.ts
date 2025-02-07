@@ -87,7 +87,7 @@ export async function Save(formData: SwtPlanStripType[], axios: AxiosInstance) {
         `${element.BUYER} || ${element.STYLE} || ${element.PO}. Please add Brand and Learning curve details.`
       );
   });
-  var response = await axios.post("/production/SwtPlanStrip", formData);
+  const response = await axios.post("/production/SwtPlanStrip", formData);
   if (!response || response.status !== 204) {
     console.log(response.data);
     throw new Error("Some error happend. Please try agian.");
@@ -99,7 +99,7 @@ export async function Delete(id: number, axios: AxiosInstance) {
     throw new Error("Please select a strip.");
   }
 
-  var response = await axios.delete(`/production/SwtPlanStrip/${id}`);
+  const response = await axios.delete(`/production/SwtPlanStrip/${id}`);
 
   if (!response || response.status !== 204) {
     console.log(response.data);

@@ -1,22 +1,21 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
+import { iaccWorkOrder } from "../components/iaccWorkOrder";
 
 function StarcoStickerReport() {
   const [data, setData] = useState<iaccWorkOrder[]>([]);
-  const [gmtSizes, setGMTSizes] = useState([]);
-  const [detailsData, setDetailsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
-  var id: number = 325;
-  var currency: string = "TK";
-  var cmbReportFormat: string = "";
+  let id: number = 325;
+  let currency: string = "TK";
+  let cmbReportFormat: string = "";
 
   if (searchParams.get("id")) {
     id = Number(searchParams.get("id"));
@@ -65,7 +64,7 @@ function StarcoStickerReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }

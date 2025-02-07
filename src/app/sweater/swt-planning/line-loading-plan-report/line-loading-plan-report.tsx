@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -12,7 +11,6 @@ import { LineLoadingPlanType } from "src/actions/Sweater/swt-planning-action";
 import {
   GetAllUniqueDates,
   GetAllUniqueFloor,
-  GetAllUniqueRows,
   GetBalanceMcByDate,
   GetRowPlanQtyByDate,
   GetTotalAvlMinByDate,
@@ -20,12 +18,11 @@ import {
 } from "./components/actions";
 import FloorWisePlanRow from "./components/floor-wise-plan-row";
 
-interface props {
+export interface props {
   data: LineLoadingPlanType;
 }
 export default function LineLoadingPlanReport({ data }: props) {
-  var dates = GetAllUniqueDates(data.lstLineLoadingPlanDetailsDto!);
-  var rows = GetAllUniqueRows(data.lstLineLoadingPlanDetailsDto!);
+  const dates = GetAllUniqueDates(data.lstLineLoadingPlanDetailsDto!);
   const floors = GetAllUniqueFloor(data.lstLineLoadingPlanDetailsDto!);
 
   return (

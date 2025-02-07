@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
@@ -15,10 +16,10 @@ function MonthlyOrderVsShipmentStatusReport() {
 
   const [searchParams] = useSearchParams();
 
-  var buyerId = 0;
+  let buyerId = 0;
 
-  var fromDate = "01-Sep-2000";
-  var toDate = "1-Oct-2030";
+  let fromDate = "01-Sep-2000";
+  let toDate = "1-Oct-2030";
 
   if (searchParams.get("buyerId")) {
     buyerId = Number(searchParams.get("buyerId"));
@@ -60,7 +61,7 @@ function MonthlyOrderVsShipmentStatusReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }
