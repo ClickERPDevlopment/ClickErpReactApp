@@ -1,4 +1,4 @@
-export interface DailyKnittingUpdate {
+interface DailyKnittingUpdate {
   PROGRAM_DATE: string;
   PROGRAM_NO: string;
   BUYER: string;

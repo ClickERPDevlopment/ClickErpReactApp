@@ -27,4 +27,7 @@ export const ReactQueryKey = {
   floor: "floor",
   ItemType: "ItemType",
   LearningCurve: "LearningCurve",
+  Buyer: "Buyer",
+  Color: "Color",
+  Size: "Size",
 };

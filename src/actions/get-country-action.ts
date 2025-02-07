@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { ReactQueryKey } from "src/utility/react-query-key";
 import useApiUrl from "src/hooks/use-ApiUrl";
 import useAxiosInstance from "src/lib/axios-instance";
@@ -53,58 +54,58 @@ export function GetCountryById(id: number) {
   return query;
 }
 
-// export async function Save(countrytype: CountryType) {
-//   const api = useApiUrl();
-//   const { Name: NAME } = countrytype;
+export async function Save(countrytype: CountryType) {
+  const api = useApiUrl();
+  const { Name: NAME } = countrytype;
 
-//   if (!NAME) {
-//     throw new Error("Name is required");
-//   }
-//   if (NAME.length < 2) {
-//     throw new Error("Country name must be at least 2 character.");
-//   }
+  if (!NAME) {
+    throw new Error("Name is required");
+  }
+  if (NAME.length < 2) {
+    throw new Error("Country name must be at least 2 character.");
+  }
 
-//   const response = await axios.post(
-//     api.ProductionUrl + "/production/country",
-//     countrytype
-//   );
+  var response = await axios.post(
+    api.ProductionUrl + "/production/country",
+    countrytype
+  );
 
-//   if (!response) {
-//     throw new Error("This countrytype already exist.");
-//   }
+  if (!response) {
+    throw new Error("This countrytype already exist.");
+  }
 
-//   return response.data;
-// }
+  return response.data;
+}
 
-// export async function Update(countrytype: CountryType) {
-//   const api = useApiUrl();
-//   const { Name: NAME } = countrytype;
+export async function Update(countrytype: CountryType) {
+  const api = useApiUrl();
+  const { Name: NAME } = countrytype;
 
-//   if (!NAME) {
-//     throw new Error("Name is required");
-//   }
-//   if (NAME.length < 2) {
-//     throw new Error("Country name must be at least 2 character.");
-//   }
+  if (!NAME) {
+    throw new Error("Name is required");
+  }
+  if (NAME.length < 2) {
+    throw new Error("Country name must be at least 2 character.");
+  }
 
-//   var response = await axios.put(
-//     api.ProductionUrl + "/production/country/" + countrytype.CountryId,
-//     countrytype
-//   );
+  var response = await axios.put(
+    api.ProductionUrl + "/production/country/" + countrytype.CountryId,
+    countrytype
+  );
 
-//   if (!response) {
-//     throw new Error("This countrytype already exist.");
-//   }
+  if (!response) {
+    throw new Error("This countrytype already exist.");
+  }
 
-//   return response.data;
-// }
+  return response.data;
+}
 
-// export async function Delete(id: number) {
-//   const api = useApiUrl();
+export async function Delete(id: number) {
+  const api = useApiUrl();
 
-//   if (Number(id) <= 0) {
-//     throw new Error("Country not selected.");
-//   }
+  if (Number(id) <= 0) {
+    throw new Error("Country not selected.");
+  }
 
-//   await axios.delete(api.ProductionUrl + "/production/country/" + id);
-// }
+  await axios.delete(api.ProductionUrl + "/production/country/" + id);
+}

@@ -95,7 +95,7 @@ export async function Save(
     throw new Error("Mc-Group name must be at least 2 character.");
   }
 
-  const response = await axios.post(
+  var response = await axios.post(
     "/production/SwtMachineGroup",
     SwtMachineGroupType
   );
@@ -120,7 +120,7 @@ export async function Update(
     throw new Error("SwtMachineGroup name must be at least 2 character.");
   }
 
-  const response = await axios.put(
+  var response = await axios.put(
     "/production/SwtMachineGroup/" + SwtMachineGroupType.ID,
     SwtMachineGroupType
   );

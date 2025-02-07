@@ -1,6 +1,4 @@
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { DailyKnittingUpdate } from "./dailyKnittingUpdateInterface";
+import React from "react";
 
 function Get_KP_QTY(productionData: DailyKnittingUpdate[]) {
   let sum = 0;
@@ -38,13 +36,13 @@ function Get_TODAY_PRODUCTION_QTY(productionData: DailyKnittingUpdate[]) {
   return Math.round(sum);
 }
 
-// function Get_TOTAL_PRODUCTION_QTY(productionData: DailyKnittingUpdate[]) {
-//   let sum = 0;
-//   productionData.forEach((d) => {
-//     sum += d.TOTAL_PRODUCTION_QTY;
-//   });
-//   return Math.round(sum);
-// }
+function Get_TOTAL_PRODUCTION_QTY(productionData: DailyKnittingUpdate[]) {
+  let sum = 0;
+  productionData.forEach((d) => {
+    sum += d.TOTAL_PRODUCTION_QTY;
+  });
+  return Math.round(sum);
+}
 
 function Get_GREY_DELIVERY_QTY(productionData: DailyKnittingUpdate[]) {
   let sum = 0;

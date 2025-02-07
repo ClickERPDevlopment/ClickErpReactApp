@@ -1,19 +1,17 @@
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router";
 import axios from "axios";
 import moment from "moment";
 
 import useApiUrl from "../../../../hooks/use-ApiUrl";
+import DailyKnittingUpdateTotal from "./components/daily-knitting-update-total";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { DailyKnittingUpdate } from "./components/dailyKnittingUpdateInterface";
 
 export default function DailyKnittingUpdateReport() {
   const [data, setData] = useState<DailyKnittingUpdate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   //
   var fromDate: string | null = "";
   var toDate: string | null = "";

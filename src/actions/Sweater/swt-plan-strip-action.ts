@@ -77,19 +77,32 @@ export async function GetAllPlanStrips(
 }
 
 export async function Save(formData: SwtPlanStripType[], axios: AxiosInstance) {
-  try {
-    if (formData.length <= 0) {
-      throw new Error("Please input date-wise m/c distribution is required");
-    }
+  if (formData.length <= 0) {
+    throw new Error("No strip to be saved. Strips are required.");
+  }
 
-    var response = await axios.post("/production/SwtPlanStrip", formData);
-
-    if (!response || response.status !== 204) {
-      console.log(response.data);
-      throw new Error("Some error happend. Please try agian.");
-    }
-  } catch (error) {
-    console.log(error);
+  formData.forEach((element) => {
+    if (element.lstSwtPlanStripDetails.length <= 0)
+      throw new Error(
+        `${element.BUYER} || ${element.STYLE} || ${element.PO}. Please add Brand and Learning curve details.`
+      );
+  });
+  var response = await axios.post("/production/SwtPlanStrip", formData);
+  if (!response || response.status !== 204) {
+    console.log(response.data);
     throw new Error("Some error happend. Please try agian.");
+  }
+}
+
+export async function Delete(id: number, axios: AxiosInstance) {
+  if (id <= 0) {
+    throw new Error("Please select a strip.");
+  }
+
+  var response = await axios.delete(`/production/SwtPlanStrip/${id}`);
+
+  if (!response || response.status !== 204) {
+    console.log(response.data);
+    throw new Error(JSON.stringify(response.data));
   }
 }

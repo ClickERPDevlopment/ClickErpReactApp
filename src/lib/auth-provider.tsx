@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios, { AxiosError } from "axios";
 import React, { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router";
@@ -38,7 +36,7 @@ export default function AuthProvider({
   const [token, setToken] = useState<string | null>(
     localStorage.getItem(localStorageKey.accessTokenKey) || ""
   );
-  const [, setRefreshToken] = useState<string | null>(
+  const [refreshToken, setRefreshToken] = useState<string | null>(
     localStorage.getItem(localStorageKey.refreshTokenKey) || ""
   );
   const navigate = useNavigate();

@@ -36,6 +36,13 @@ export const SweaterMenu: MenuType[] = [
         isOpen: false,
         submenu: null,
       },
+      {
+        title: "Brand Group",
+        url: "/dashboard/sweater/brand-group",
+        icon: Inbox,
+        isOpen: false,
+        submenu: null,
+      },
     ],
   },
   {

@@ -1,3 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
+import { ReactQueryKey } from "src/utility/react-query-key";
+import useAxiosInstance from "src/lib/axios-instance";
 import { AxiosInstance } from "axios";
 import { SwtMachineGroupType } from "./swt-mc-group-action";
 
@@ -40,7 +43,7 @@ export async function Save(
       throw new Error("Please input date-wise m/c distribution is required");
     }
 
-    const response = await axios.post(
+    var response = await axios.post(
       "/production/SwtDateWiseMCDistribution",
       lstDateWiseMCDistributionType
     );
