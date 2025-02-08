@@ -1,18 +1,18 @@
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { boolean } from "zod";
+import { IKnittingProgramReport } from "./knitting-program-report-type";
 
 function KnittingProgramReport() {
   const [data, setData] = useState<IKnittingProgramReport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  var id: number = 1852;
+  let id: number = 1852;
 
   if (searchParams.get("id")) {
     id = Number(searchParams.get("id"));
@@ -43,7 +43,7 @@ function KnittingProgramReport() {
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch (error: any) {
+      } catch {
         setIsLoading(false);
         //console.log(error.message);
       }
