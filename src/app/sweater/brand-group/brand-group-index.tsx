@@ -12,6 +12,7 @@ import {
 import useAxiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import React from "react";
+import AppPageContainer from "@/components/app-page-container";
 
 export default function BrandGroupIndex() {
   const [data, setData] = React.useState<SwtMachineBrandGroupType[]>([]);

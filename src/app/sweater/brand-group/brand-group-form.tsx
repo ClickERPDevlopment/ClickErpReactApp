@@ -34,6 +34,7 @@ import { PageAction } from "@/utility/page-actions";
 import { z } from "zod";
 import { companyId, setCompanyId } from "@/utility/local-storage-utils";
 import React from "react";
+import AppPageContainer from "@/components/app-page-container";
 
 const gaugeSchema = z.object({
   value: z.string(),
@@ -143,7 +144,7 @@ export default function BrandGroupForm({ data, pageAction, lstBrand }: props) {
   }
 
   return (
-    <>
+    <AppPageContainer>
       <Alert
         variant="destructive"
         className={mutation.isError ? "visible" : "hidden"}
@@ -223,6 +224,7 @@ export default function BrandGroupForm({ data, pageAction, lstBrand }: props) {
                           form.setValue("lstBrands", v);
                         }}
                         badgeClassName="bg-white text-gray-500 border border-gray-400 hover:bg-gray-200"
+                        className="bg-white"
                       />
                       <FormMessage />
                     </FormItem>
@@ -285,6 +287,6 @@ export default function BrandGroupForm({ data, pageAction, lstBrand }: props) {
           </div>
         </form>
       </Form>
-    </>
+    </AppPageContainer>
   );
 }

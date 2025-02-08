@@ -37,6 +37,7 @@ import { useLocation, useNavigate } from "react-router";
 
 // import { DataTablePagination } from "@/components/DataTablePagination";
 import { SwtMachineBrandGroupType } from "@/actions/Sweater/swt-mc-brand-group-action";
+import AppPageContainer from "@/components/app-page-container";
 
 export function BrandGroupTable({
   data,
@@ -152,7 +153,7 @@ export function BrandGroupTable({
   });
 
   return (
-    <div className="w-full">
+    <AppPageContainer>
       <div className="flex items-center py-4 gap-1">
         <Input
           placeholder="Filter name..."
@@ -244,6 +245,6 @@ export function BrandGroupTable({
       <div className="flex items-center justify-end space-x-2 py-4">
         {/* <DataTablePagination table={table} /> */}
       </div>
-    </div>
+    </AppPageContainer>
   );
 }

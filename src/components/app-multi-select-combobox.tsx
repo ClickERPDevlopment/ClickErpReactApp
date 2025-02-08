@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 // export default function AppMultiSelectCombobox() {
 //   return <div>AppMultiSelectCombobox</div>;
 // }
@@ -464,14 +465,16 @@ const MultipleSelector = React.forwardRef<
               "px-3 py-2": selected.length !== 0,
               "cursor-text": !disabled && selected.length !== 0,
             },
+            "bg-white",
             className
           )}
           onClick={() => {
             if (disabled) return;
             inputRef?.current?.focus();
           }}
+          style={{ backgroundColor: "white" }}
         >
-          <div className="relative flex flex-wrap gap-1">
+          <div className="relative flex flex-wrap gap-1 bg-white">
             {selected.map((option) => {
               return (
                 <Badge
@@ -561,10 +564,10 @@ const MultipleSelector = React.forwardRef<
             </button>
           </div>
         </div>
-        <div className="relative">
+        <div className="relative bg-white">
           {open && (
             <CommandList
-              className="absolute top-1 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in"
+              className="absolute top-1 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in bg-white"
               onMouseLeave={() => {
                 setOnScrollbar(false);
               }}

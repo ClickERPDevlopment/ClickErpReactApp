@@ -12244,7 +12244,7 @@ hr {
 }
 .table th,
 .table td {
-  @apply p-[0.75rem] align-middle leading-[1.462] text-[0.813rem] font-medium text-start;
+  @apply p-[0.15rem] align-middle leading-[1.462] text-[0.813rem] font-medium text-center;
 }
 .table thead tr th {
   @apply font-semibold text-[0.85rem];
