@@ -55,7 +55,7 @@ pipeline {
     //                 bat "xcopy  /Y /s ${WORKSPACE}\\web.config ${WORKSPACE}\\build"
     //            }
     //        }
-    //    }//
+    //    }
 
        stage('copy build file') {
            steps {
