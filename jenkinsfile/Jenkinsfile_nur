@@ -13,7 +13,7 @@ pipeline {
                 script {
                    //add file
                    
-                   def data = "REACT_APP_CLIENT_NAME=${CLIENT_NAME}"
+                   def data = "VITE_APP_CLIENT_NAME=${CLIENT_NAME}"
                    writeFile(file: '.env', text: data)
                }
             }
@@ -60,7 +60,7 @@ pipeline {
        stage('copy build file') {
            steps {
                script {
-                    bat "xcopy ${WORKSPACE}\\build ${IIS_FOLDER_LOCATION} /O /X /E /H /K /D /Y"
+                    bat "xcopy ${WORKSPACE}\\dist ${IIS_FOLDER_LOCATION} /O /X /E /H /K /D /Y"
                }
            }
        }
