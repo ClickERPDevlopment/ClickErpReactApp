@@ -1,30 +1,20 @@
-// import { SweaterMenu } from "@/lib/menu/sweater-menu";
+import { MenuItem } from "@/components/common/sidebar/sidemenu/sidemenu";
 
-export type MenuItem = {
-  menutitle?: string;
-  icon?: JSX.Element;
-  type?: "sub" | "link" | "empty";
-  Name?: string;
-  active: boolean;
-  selected: boolean;
-  dirchange: boolean;
-  title?: string;
-  badge?: string;
-  badgetxt?: string;
-  class?: string;
-  path?: string;
-  children?: MenuItem[];
-};
-
-// export const MENUITEMS: MenuItem[] = SweaterMenu;
-
-export const MENUITEMS: MenuItem[] = [
+export const SweaterMenu: MenuItem[] = [
+  // {
+  //   title: "Home",
+  //   url: "/dashboard",
+  //   icon: Home,
+  //   isOpen: false,
+  //   submenu: null,
+  // },
   {
     menutitle: "MAIN",
     active: false,
     selected: false,
     dirchange: false,
   },
+
   {
     icon: <i className="side-menu__icon bx bx-home"></i>,
     type: "sub",
@@ -55,6 +45,7 @@ export const MENUITEMS: MenuItem[] = [
     selected: false,
     dirchange: false,
   },
+
   {
     title: "Basic Setup",
     icon: <i className="bx bx-layer side-menu__icon"></i>,
@@ -66,7 +57,7 @@ export const MENUITEMS: MenuItem[] = [
       {
         path: "/dashboard/sweater/gauge",
         title: "Gauge",
-        type: "link",
+        type: "empty",
         active: false,
         selected: false,
         dirchange: false,
@@ -74,15 +65,15 @@ export const MENUITEMS: MenuItem[] = [
       {
         path: "/dashboard/sweater/mc-group",
         title: "M/C Group Setup",
-        type: "link",
+        type: "empty",
         active: false,
         selected: false,
         dirchange: false,
       },
       {
         path: "/dashboard/sweater/planning-board-configure",
-        title: "Planning Board Config.",
-        type: "link",
+        title: "Planning Board Configure",
+        type: "empty",
         active: false,
         selected: false,
         dirchange: false,
@@ -90,36 +81,39 @@ export const MENUITEMS: MenuItem[] = [
       {
         path: "/dashboard/sweater/brand-group",
         title: "Brand Group",
-        type: "link",
+        type: "empty",
         active: false,
         selected: false,
         dirchange: false,
       },
-      // {
-      //   title: "Nested-2",
-      //   type: "sub",
-      //   selected: false,
-      //   dirchange: false,
-      //   active: false,
-      //   children: [
-      //     {
-      //       path: "#",
-      //       title: "Nested-2.1",
-      //       type: "empty",
-      //       active: false,
-      //       selected: false,
-      //       dirchange: false,
-      //     },
-      //     {
-      //       path: "#",
-      //       title: "Nested-2.2",
-      //       type: "empty",
-      //       active: false,
-      //       selected: false,
-      //       dirchange: false,
-      //     },
-      //   ],
-      // },
     ],
   },
+  // {
+  //   menutitle: "Date-wise m/c distribution",
+  //   active: false,
+  //   selected: false,
+  //   dirchange: false,
+  // },
+
+  // {
+  //   title: "Date-wise m/c distribution",
+  //   url: "/dashboard/sweater/date-wise-mc-distribution",
+  //   icon: Inbox,
+  //   isOpen: false,
+  //   submenu: null,
+  // },
+  // {
+  //   title: "Plan Strip",
+  //   url: "/dashboard/sweater/plan-strip",
+  //   icon: Inbox,
+  //   isOpen: false,
+  //   submenu: null,
+  // },
+  // {
+  //   title: "Line Loading Plan",
+  //   url: "/report/sweater/swt-planning/line-loading-plan?companyId=2&boardId=10&isFromDate=true&fromDate=1-jan-2023&toDate=1-jan-2029&buyerId=0&styleId=0&poId=0&floorId=0&machineGroupId=0",
+  //   icon: Inbox,
+  //   isOpen: false,
+  //   submenu: null,
+  // },
 ];

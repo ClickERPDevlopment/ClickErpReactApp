@@ -48,11 +48,12 @@ export function ModuleCard({ module }: { module: ModuleType }) {
   return (
     <Link
       to={module.page}
-      className="flex flex-col justify-center items-center cursor-pointer p-2 w-32 border border-slate-50
-                 rounded-lg  hover:border hover:border-slate-300"
+      className="flex flex-col justify-center items-center cursor-pointer p-2 w-32 h-28 border-slate-200
+                 hover:border hover:border-slate-400 border-2 rounded hover:bg-slate-200"
+      style={{ borderRadius: "5%" }}
     >
       <img src={module.icon} alt="Module Icon" width={60} height={60} />
-      <h1>{module.name}</h1>
+      <h1 className="text-sm">{module.name}</h1>
     </Link>
   );
 }
