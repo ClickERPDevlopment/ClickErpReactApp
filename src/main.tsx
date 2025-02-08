@@ -107,6 +107,7 @@ import Color from "./app/merchandising/color/color-index";
 import Size from "./app/merchandising/size/size-index";
 import SizeCrud from "./app/merchandising/size/size-crud";
 import { Toaster } from "@/components/ui/toaster.tsx";
+import KnittingProgramReport from "./reports/Textile/knitting/knitting-program-report/knitting-program-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -423,6 +424,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="grey-fabric-challan-report"
                         element={<GreyFabricChallanReport />}
+                      />
+                      <Route
+                        path="knitting-program-report"
+                        element={<KnittingProgramReport />}
                       />
                     </Route>
                     <Route path="dyeing">
