@@ -293,39 +293,39 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
     }
   };
 
-  const ToggleDark = () => {
-    ThemeChanger({
-      ...local_varaiable,
-      class: local_varaiable.class == "dark" ? "light" : "dark",
-      dataHeaderStyles: local_varaiable.class == "dark" ? "light" : "dark",
-      dataMenuStyles:
-        local_varaiable.dataNavLayout == "horizontal"
-          ? local_varaiable.class == "dark"
-            ? "light"
-            : "dark"
-          : "dark",
-    });
-    const theme = store.getState();
+  // const ToggleDark = () => {
+  //   ThemeChanger({
+  //     ...local_varaiable,
+  //     class: local_varaiable.class == "dark" ? "light" : "dark",
+  //     dataHeaderStyles: local_varaiable.class == "dark" ? "light" : "dark",
+  //     dataMenuStyles:
+  //       local_varaiable.dataNavLayout == "horizontal"
+  //         ? local_varaiable.class == "dark"
+  //           ? "light"
+  //           : "dark"
+  //         : "dark",
+  //   });
+  //   const theme = store.getState();
 
-    if (theme.class != "dark") {
-      ThemeChanger({
-        ...theme,
-        bodyBg: "",
-        Light: "",
-        darkBg: "",
-        inputBorder: "",
-      });
-      localStorage.setItem("ynexlighttheme", "light");
-      localStorage.removeItem("ynexdarktheme");
-      localStorage.removeItem("ynexMenu");
-      localStorage.removeItem("ynexHeader");
-    } else {
-      localStorage.setItem("ynexdarktheme", "dark");
-      localStorage.removeItem("ynexlighttheme");
-      localStorage.removeItem("ynexMenu");
-      localStorage.removeItem("ynexHeader");
-    }
-  };
+  //   if (theme.class != "dark") {
+  //     ThemeChanger({
+  //       ...theme,
+  //       bodyBg: "",
+  //       Light: "",
+  //       darkBg: "",
+  //       inputBorder: "",
+  //     });
+  //     localStorage.setItem("ynexlighttheme", "light");
+  //     localStorage.removeItem("ynexdarktheme");
+  //     localStorage.removeItem("ynexMenu");
+  //     localStorage.removeItem("ynexHeader");
+  //   } else {
+  //     localStorage.setItem("ynexdarktheme", "dark");
+  //     localStorage.removeItem("ynexlighttheme");
+  //     localStorage.removeItem("ynexMenu");
+  //     localStorage.removeItem("ynexHeader");
+  //   }
+  // };
 
   return (
     <Fragment>
