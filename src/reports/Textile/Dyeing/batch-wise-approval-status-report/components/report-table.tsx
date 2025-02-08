@@ -171,7 +171,7 @@ function ReportTable({
               </td>
               <td
                 className={`border border-gray-300 p-1 text-center ${
-                  !groupedData[key].APPROVAL_DATE ? "bg-red-500" : ""
+                  !groupedData[key].APPROVAL_DATE ? "bg-red" : ""
                 }`}
               >
                 {groupedData[key].APPROVAL_DATE}

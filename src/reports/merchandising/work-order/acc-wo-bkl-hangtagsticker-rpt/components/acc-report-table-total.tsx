@@ -31,9 +31,7 @@ export default function AccReportTableTotal({
             .reduce((p, c) => p + c.WORK_ORDER_QTY, 0)}
         </td>
       ))}
-      <td colSpan={gmtSizes.length} className="font-bold text-center border">
-        {/* <GetTotalQty data={data} />
-         */}
+      <td className="font-bold text-center border">
         {data.reduce((p, c) => p + c.WORK_ORDER_QTY, 0)}
       </td>
       <td className="font-bold text-center border"></td>

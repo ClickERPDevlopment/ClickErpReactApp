@@ -12236,6 +12236,9 @@ hr {
 .table {
   @apply text-defaulttextcolor rounded-md mb-0 text-start;
 }
+table thead{
+  @apply bg-emerald-200;
+}
 .table tr {
   @apply dark:border-defaultborder/10;
 }
@@ -13799,4 +13802,7 @@ input[type=color i]::-webkit-color-swatch {
   @apply w-0;
 }
 
+h1{
+  @apply text-base
+}
 /*# sourceMappingURL=style.css.map */

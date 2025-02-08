@@ -95,7 +95,7 @@ export default function AccessoriesWoReport() {
   } else {
     return (
       <>
-        <div className="m-3 inline-block print:overflow-visible">
+        <div className="m-3 inline-block print:overflow-visible w-full p-2">
           {/* heading */}
           <div className="">
             <h3 className="text-center text-slate-700 m-1 font-bold text-2xl">
@@ -122,7 +122,7 @@ export default function AccessoriesWoReport() {
           {/* end Report Header */}
 
           {/* table */}
-          <div className="min-w-[100%]">
+          <div className="min-w-[100%] ">
             <AccReportTableGroup data={data} />
           </div>
           {/* end table */}

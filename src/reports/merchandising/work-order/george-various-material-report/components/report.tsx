@@ -65,7 +65,7 @@ function Report({
 
   return (
     <div className="container">
-      <div className="border border-gray-300 p-2">
+      <div className="p-2">
         <ReportHeader
           searchParams={{ currency: searchParams.currency }}
           masterData={data[0]}
