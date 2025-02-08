@@ -12,24 +12,24 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
     switcherdata.LocalStorageBackup(ThemeChanger);
   }, [0]);
 
-  // const customStyles = `${
-  //   local_varaiable.colorPrimaryRgb != ""
-  //     ? `--primary-rgb: ${local_varaiable.colorPrimaryRgb}`
-  //     : ""
-  // };
-  // ${
-  //   local_varaiable.colorPrimary != ""
-  //     ? `--primary: ${local_varaiable.colorPrimary}`
-  //     : ""
-  // };
-  // ${local_varaiable.darkBg != "" ? `--dark-bg: ${local_varaiable.darkBg}` : ""};
-  // ${local_varaiable.bodyBg != "" ? `--body-bg: ${local_varaiable.bodyBg}` : ""};
-  // ${
-  //   local_varaiable.inputBorder != ""
-  //     ? `--input-border: ${local_varaiable.inputBorder}`
-  //     : ""
-  // };
-  // ${local_varaiable.Light != "" ? `--light: ${local_varaiable.Light}` : ""};`;
+  const customStyles: any = `${
+    local_varaiable.colorPrimaryRgb != ""
+      ? `--primary-rgb: ${local_varaiable.colorPrimaryRgb}`
+      : ""
+  };
+  ${
+    local_varaiable.colorPrimary != ""
+      ? `--primary: ${local_varaiable.colorPrimary}`
+      : ""
+  };
+  ${local_varaiable.darkBg != "" ? `--dark-bg: ${local_varaiable.darkBg}` : ""};
+  ${local_varaiable.bodyBg != "" ? `--body-bg: ${local_varaiable.bodyBg}` : ""};
+  ${
+    local_varaiable.inputBorder != ""
+      ? `--input-border: ${local_varaiable.inputBorder}`
+      : ""
+  };
+  ${local_varaiable.Light != "" ? `--light: ${local_varaiable.Light}` : ""};`;
 
   return (
     <Fragment>
@@ -52,7 +52,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
           bg-img={local_varaiable.bgImg}
           icon-text={local_varaiable.iconText}
           //Styles
-          // style={customStyles}
+          style={customStyles}
         ></html>
       </Helmet>
       <div

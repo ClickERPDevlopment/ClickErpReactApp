@@ -509,7 +509,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                   </div>
                 </div>
               </div> */}
-              <div
+              {/* <div
                 className="header-element header-theme-mode hidden !items-center sm:block !py-[1rem] md:!px-[0.65rem] px-2"
                 onClick={() => ToggleDark()}
               >
@@ -530,7 +530,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                 >
                   <i className="bx bx-sun header-link-icon"></i>
                 </Link>
-              </div>
+              </div> */}
               {/* <div className="header-element cart-dropdown hs-dropdown ti-dropdown md:!block !hidden py-[1rem] md:px-[0.65rem] px-2 [--placement:bottom-right] rtl:[--placement:bottom-left]">
                 <button
                   id="dropdown-cart"
@@ -971,12 +971,12 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                       </span>
                     </div>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-neutral-50 pt-4 rounded-md mt-[-5px]">
+                  <DropdownMenuContent className="bg-neutral-50 pt-4 rounded-md mt-[-5px] dark:bg-slate-900 dark:border-neutral-700">
                     <div className="hs-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end">
                       <ul className="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -985,7 +985,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                         </li>
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -997,7 +997,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                         </li>
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -1006,7 +1006,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                         </li>
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -1015,7 +1015,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                         </li>
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -1024,7 +1024,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                         </li>
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -1033,7 +1033,7 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                         </li>
                         <li>
                           <Link
-                            className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
+                            className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex dark:text-gray-300"
                             to="#"
                           >
                             <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
@@ -1140,17 +1140,17 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
                   </ul>
                 </div> */}
               </div>
-              <div className="header-element md:px-[0.48rem]">
+              {/* <div className="header-element md:px-[0.48rem]">
                 <button
                   aria-label="button"
                   type="button"
                   className="hs-dropdown-toggle switcher-icon inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium  align-middle transition-all text-xs dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
                   data-hs-overlay="#hs-overlay-switcher"
                 >
-                  {/* animate-spin-slow */}
                   <i className="bx bx-cog header-link-icon "></i>
                 </button>
-              </div>
+              </div> */}
+              {/* animate-spin-slow */}
             </div>
           </div>
         </nav>

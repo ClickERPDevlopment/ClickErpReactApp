@@ -28,6 +28,7 @@ const Landingswitcher = ({ local_varaiable, ThemeChanger }) => {
         });
     };
   }, []);
+  
   const customStyles = `${local_varaiable.colorPrimaryRgb != '' ? `--primary-rgb: ${local_varaiable.colorPrimaryRgb}` : ''};
   ${local_varaiable.colorPrimary != '' ? `--primary: ${local_varaiable.colorPrimary}` : ''};
   ${local_varaiable.darkBg != '' ? `--dark-bg: ${local_varaiable.darkBg}` : ''};
