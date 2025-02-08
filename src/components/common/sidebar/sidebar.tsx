@@ -4,7 +4,8 @@
 import { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation } from "react-router";
-import { MENUITEMS } from "./sidemenu/sidemenu";
+import { MenuItem } from "./sidemenu/sidemenu";
+// import { MENUITEMS } from "./sidemenu/sidemenu";
 import { ThemeChanger } from "../../../redux/action";
 import store from "../../../redux/store";
 import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
@@ -15,9 +16,38 @@ import logo5 from "../../../assets/images/brand-logos/desktop-white.png";
 import logo6 from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from "simplebar-react";
 import Menuloop from "../../ui/menuloop";
+import { CommonMenu, SweaterMenu } from "@/lib/menu/sweater-menu";
 
 const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
-  const [menuitems, setMenuitems] = useState(MENUITEMS);
+  // const [menuitems, setMenuitems] = useState(MENUITEMS);
+
+  //new =================================================================
+  const location = useLocation();
+  console.log("lll", location);
+  const [menuitems, setMenuitems] = useState<MenuItem[]>([]);
+
+  useEffect(() => {
+    const menus = location.pathname.includes("/dashboard/configuration")
+      ? CommonMenu
+      : location.pathname.includes("/dashboard/production")
+      ? CommonMenu
+      : location.pathname.includes("/dashboard/textile")
+      ? CommonMenu
+      : location.pathname.includes("/dashboard/hr-payroll")
+      ? CommonMenu
+      : location.pathname === "/dashboard/sweater" ||
+        location.pathname.includes("/dashboard/sweater")
+      ? SweaterMenu
+      : location.pathname.includes("/dashboard/merchandising")
+      ? CommonMenu
+      : location.pathname.includes("/dashboard/inventory")
+      ? CommonMenu
+      : [];
+
+    setMenuitems([...menus]);
+  }, [location.pathname]);
+
+  //end-new =================================================================
 
   function closeMenuFn() {
     const closeMenuRecursively = (items: any) => {
@@ -26,7 +56,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
         closeMenuRecursively(item.children);
       });
     };
-    closeMenuRecursively(MENUITEMS);
+    closeMenuRecursively(menuitems);
     setMenuitems((arr) => [...arr]);
   }
 
@@ -37,7 +67,6 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
   }, []);
 
   // const location = useLocation();
-  const location = useLocation();
 
   function Onhover() {
     const theme = store.getState();
@@ -422,7 +451,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
         setSubmenuRecursively(item.children);
       });
     };
-    setSubmenuRecursively(MENUITEMS);
+    setSubmenuRecursively(menuitems);
   }
   const [previousUrl, setPreviousUrl] = useState("/");
 
@@ -739,7 +768,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
             </div>
 
             <ul className="main-menu" onClick={() => Sideclick()}>
-              {MENUITEMS.map((levelone: any) => (
+              {menuitems.map((levelone: any) => (
                 <Fragment key={Math.random()}>
                   <li
                     className={`${

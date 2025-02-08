@@ -1,5 +1,3 @@
-// import { SweaterMenu } from "@/lib/menu/sweater-menu";
-
 export type MenuItem = {
   menutitle?: string;
   icon?: JSX.Element;
@@ -15,8 +13,6 @@ export type MenuItem = {
   path?: string;
   children?: MenuItem[];
 };
-
-// export const MENUITEMS: MenuItem[] = SweaterMenu;
 
 export const MENUITEMS: MenuItem[] = [
   {
@@ -56,7 +52,7 @@ export const MENUITEMS: MenuItem[] = [
     dirchange: false,
   },
   {
-    title: "Basic Setup",
+    title: "Nested Menu",
     icon: <i className="bx bx-layer side-menu__icon"></i>,
     type: "sub",
     selected: false,
@@ -64,62 +60,38 @@ export const MENUITEMS: MenuItem[] = [
     active: false,
     children: [
       {
-        path: "/dashboard/sweater/gauge",
-        title: "Gauge",
-        type: "link",
+        path: "#",
+        title: "Nested-1",
+        type: "empty",
         active: false,
         selected: false,
         dirchange: false,
       },
       {
-        path: "/dashboard/sweater/mc-group",
-        title: "M/C Group Setup",
-        type: "link",
-        active: false,
+        title: "Nested-2",
+        type: "sub",
         selected: false,
         dirchange: false,
-      },
-      {
-        path: "/dashboard/sweater/planning-board-configure",
-        title: "Planning Board Config.",
-        type: "link",
         active: false,
-        selected: false,
-        dirchange: false,
+        children: [
+          {
+            path: "#",
+            title: "Nested-2.1",
+            type: "empty",
+            active: false,
+            selected: false,
+            dirchange: false,
+          },
+          {
+            path: "#",
+            title: "Nested-2.2",
+            type: "empty",
+            active: false,
+            selected: false,
+            dirchange: false,
+          },
+        ],
       },
-      {
-        path: "/dashboard/sweater/brand-group",
-        title: "Brand Group",
-        type: "link",
-        active: false,
-        selected: false,
-        dirchange: false,
-      },
-      // {
-      //   title: "Nested-2",
-      //   type: "sub",
-      //   selected: false,
-      //   dirchange: false,
-      //   active: false,
-      //   children: [
-      //     {
-      //       path: "#",
-      //       title: "Nested-2.1",
-      //       type: "empty",
-      //       active: false,
-      //       selected: false,
-      //       dirchange: false,
-      //     },
-      //     {
-      //       path: "#",
-      //       title: "Nested-2.2",
-      //       type: "empty",
-      //       active: false,
-      //       selected: false,
-      //       dirchange: false,
-      //     },
-      //   ],
-      // },
     ],
   },
 ];
