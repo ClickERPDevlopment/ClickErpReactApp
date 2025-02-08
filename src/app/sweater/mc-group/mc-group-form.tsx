@@ -52,6 +52,7 @@ import { cn } from "@/lib/utils";
 import { PageAction } from "@/utility/page-actions";
 import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
+import AppPageContainer from "@/components/app-page-container";
 
 const gaugeSchema = z.object({
   value: z.string(),
@@ -238,7 +239,7 @@ export default function McGroupForm({
   }
 
   return (
-    <>
+    <AppPageContainer>
       <Alert
         variant="destructive"
         className={mutation.isError ? "visible" : "hidden"}
@@ -757,6 +758,6 @@ export default function McGroupForm({
           </div>
         </form>
       </Form>
-    </>
+    </AppPageContainer>
   );
 }

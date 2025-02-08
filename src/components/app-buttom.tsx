@@ -25,8 +25,8 @@ const buttonVariants = cva(
         clear:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground w-24",
         search:
-          "border border-input border-green-500 bg-background bg-green-200 shadow-sm hover:bg-green-100 hover:text-accent-foreground w-20",
-        add: "border border-input border-green-500 bg-background bg-green-200 shadow-sm hover:bg-green-100 hover:text-accent-foreground w-20",
+          "border border-input border-green-500 bg-background bg-green-200 shadow-sm hover:bg-green-100 hover:text-accent-foreground w-20 border-slate-300",
+        add: "border border-input border-green-500 bg-background bg-green-200 shadow-sm hover:bg-green-100 hover:text-accent-foreground w-20 border-slate-300",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",

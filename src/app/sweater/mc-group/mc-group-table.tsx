@@ -35,6 +35,7 @@ import {
 import { PageAction } from "@/utility/page-actions";
 import { useLocation, useNavigate } from "react-router";
 import { SwtMachineGroupType } from "@/actions/Sweater/swt-mc-group-action";
+import AppPageContainer from "@/components/app-page-container";
 
 // import { DataTablePagination } from "@/components/DataTablePagination";
 
@@ -183,7 +184,7 @@ export function McGroupTable({ data }: { data: SwtMachineGroupType[] }) {
   });
 
   return (
-    <div className="w-full">
+    <AppPageContainer>
       <div className="flex items-center py-4 gap-1">
         <Input
           placeholder="Filter name..."
@@ -275,6 +276,6 @@ export function McGroupTable({ data }: { data: SwtMachineGroupType[] }) {
       <div className="flex items-center justify-end space-x-2 py-4">
         {/* <DataTablePagination table={table} /> */}
       </div>
-    </div>
+    </AppPageContainer>
   );
 }
