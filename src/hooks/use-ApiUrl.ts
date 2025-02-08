@@ -68,7 +68,7 @@ export default function useApiUrl() {
     }
   }
 
-  ProductionUrl = icclUrl;
-  ProductionRootUrl = icclRootUrl;
+  // ProductionUrl = icclUrl;
+  // ProductionRootUrl = icclRootUrl;
   return { ProductionUrl, ProductionRootUrl };
 }
