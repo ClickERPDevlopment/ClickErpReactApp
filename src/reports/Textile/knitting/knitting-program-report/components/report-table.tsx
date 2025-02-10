@@ -1,11 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
 import { IKnittingProgramReport } from "../knitting-program-report-type";
 
-function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
+function ReportTable({
+  data
+}: {
+  data: IKnittingProgramReport[];
+}) {
+
+
+
   function groupBy(data: IKnittingProgramReport[], part: string) {
     return data.reduce((result: any, item: any) => {
+
       if (item.FABRIC_PART === part) {
+
         const key = item.FINISH_DIA;
 
         if (!result[key]) {
@@ -21,9 +29,12 @@ function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
     }, {});
   }
 
+
   function groupByYarnColor(data: IKnittingProgramReport[], part: string) {
     return data.reduce((result: any, item: IKnittingProgramReport) => {
+
       if (item.FABRIC_PART === part) {
+
         const key = item.YARN_COLOR;
 
         if (!result[key]) {
@@ -53,10 +64,6 @@ function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
     };
   }
 
-  let collarData: GroupedData = {};
-  let cuffData: GroupedData = {};
-  let collarYarnColorData: GroupedYarnColorData = {};
-  let cuffYarnColorData: GroupedYarnColorData = {};
   let buyer: string = "";
   let style: string = "";
   let PO: string = "";
@@ -66,78 +73,74 @@ function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
   let uniqueFabricType: string[] = [];
   let color: string = "";
   let sl: string = "";
-  let collarTotal: number = 0;
-  let cuffTotal: number = 0;
+  let fabricParts: string[] = [];
 
   if (data) {
-    collarData = groupBy(data, "COLLAR");
-    cuffData = groupBy(data, "CUFF");
 
-    collarYarnColorData = groupByYarnColor(data, "COLLAR");
-    cuffYarnColorData = groupByYarnColor(data, "CUFF");
-
-    const uniqueBuyers = Array.from(new Set(data.map((item) => item.BUYER)));
+    const uniqueBuyers = Array.from(new Set(data.map(item => item.BUYER)));
     buyer = uniqueBuyers.join(", ");
 
-    const uniqueStyle = Array.from(new Set(data.map((item) => item.STYLENO)));
+    const uniqueStyle = Array.from(new Set(data.map(item => item.STYLENO)));
     style = uniqueStyle.join(", ");
 
-    const uniquePO = Array.from(new Set(data.map((item) => item.PONO)));
+    const uniquePO = Array.from(new Set(data.map(item => item.PONO)));
     PO = uniquePO.join(", ");
 
-    const uniqueYarn = Array.from(new Set(data.map((item) => item.YARN)));
+    const uniqueYarn = Array.from(new Set(data.map(item => item.YARN)));
     yarn = uniqueYarn.join(", ");
 
-    const uniqueLot = Array.from(
-      new Set(data.map((item) => item.YARN_LOT_NUMBER))
-    );
+    const uniqueLot = Array.from(new Set(data.map(item => item.YARN_LOT_NUMBER)));
     lot = uniqueLot.join(", ");
 
-    programYarnQty = data.reduce((acc, item) => (acc += item.QUANTITY), 0);
+    programYarnQty = data.reduce((acc, item) => acc += item.QUANTITY, 0)
 
-    uniqueFabricType = Array.from(new Set(data.map((item) => item.FABRIC)));
+    uniqueFabricType = Array.from(new Set(data.map(item => item.FABRIC)));
 
-    const uniqueFabricColor = Array.from(
-      new Set(data.map((item) => item.COLORNAME))
-    );
+    const uniqueFabricColor = Array.from(new Set(data.map(item => item.COLORNAME)));
     color = uniqueFabricColor.join(", ");
 
-    const uniqueSL = Array.from(
-      new Set(data.map((item) => item.STITCH_LENGTH))
-    );
+    const uniqueSL = Array.from(new Set(data.map(item => item.STITCH_LENGTH)));
     sl = uniqueSL.join(", ");
 
-    collarTotal = data.reduce((acc, item) => {
-      if (item.FABRIC_PART === "COLLAR") {
-        return (acc += item.PICES);
-      } else return (acc += 0);
-    }, 0);
-    cuffTotal = data.reduce((acc, item) => {
-      if (item.FABRIC_PART === "CUFF") {
-        return (acc += item.PICES);
-      } else return (acc += 0);
-    }, 0);
+    fabricParts = Array.from(new Set(data.map(item => item.FABRIC_PART)));
   }
 
+  const groupedData: Record<string, GroupedData> = {};
+  fabricParts.forEach(part => {
+    groupedData[part] = groupBy(data, part);
+  })
+
+  const totalData: Record<string, number> = {};
+  fabricParts.forEach(part => {
+    totalData[part] = data.reduce((acc, item) => { if (item.FABRIC_PART == part) { return acc + item.PICES } else { return acc } }, 0)
+  })
+
+  const groupedByYarnColor: Record<string, GroupedYarnColorData> = {};
+  fabricParts.forEach(part => {
+    groupedByYarnColor[part] = groupByYarnColor(data, part);
+  })
+
+  const totalDataByYarnColor: Record<string, number> = {};
+  fabricParts.forEach(part => {
+    totalDataByYarnColor[part] = data.reduce((acc, item) => { if (item.FABRIC_PART == part) { return acc + 0 } else { return acc } }, 0)
+  })
   return (
     <div className="text-sm mt-3">
-      <div className="flex items-center font-semibold"></div>
+      <div className="flex items-center font-semibold">
+      </div>
       <div className="grid grid-cols-2 gap-2">
-        <div>
+        <div >
           <table className="border-collapse border border-gray-300  w-[100%] font-bold">
-            <thead></thead>
+            <thead>
+            </thead>
             <tbody>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">Factory Name</td>
-                <td className="border border-gray-300 p-1">
-                  {data[0]?.KNIT_HOUSE}
-                </td>
+                <td className="border border-gray-300 p-1">{data[0]?.KNIT_HOUSE}</td>
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">Address</td>
-                <td className="border border-gray-300 p-1">
-                  {data[0]?.KNIT_HOUSE_ADDRESS}
-                </td>
+                <td className="border border-gray-300 p-1">{data[0]?.KNIT_HOUSE_ADDRESS}</td>
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">Attn.</td>
@@ -145,89 +148,47 @@ function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">Program Date</td>
-                <td className="border border-gray-300 p-1">
-                  {moment(data[0]?.KNITTING_PROG_DATE).format("DD-MMM-YY")}
-                </td>
+                <td className="border border-gray-300 p-1">{moment(data[0]?.KNITTING_PROG_DATE).format("DD-MMM-YY")}</td>
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">Program No</td>
-                <td className="border border-gray-300 p-1">
-                  {data[0]?.KNITTING_PROGRAM_NO}
-                </td>
+                <td className="border border-gray-300 p-1">{data[0]?.KNITTING_PROGRAM_NO}</td>
               </tr>
             </tbody>
           </table>
 
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <table className="border-collapse border border-gray-300  w-[100%] mt-2">
+          <div className="flex gap-1">
+            {
+              fabricParts.map(part => <table className="border-collapse border border-gray-300  w-[100%] mt-2">
                 <thead>
-                  <tr>
-                    <th colSpan={2} className="border border-gray-300 p-1">
-                      COLLAR
-                    </th>
+                  <tr className="bg-white">
+                    <th colSpan={2} className="border border-gray-300 p-1">{part}</th>
                   </tr>
-                  <tr>
+                  <tr className="bg-white">
                     <th className="border border-gray-300 p-1">SIZE</th>
                     <th className="border border-gray-300 p-1">PCS QTY</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(collarData).map(([key, value]) => (
+                  {Object.entries(groupedData[part]).map(([key, value]) => (
                     <tr key={key} className="text-start">
-                      <td className="border border-gray-300 p-1">
-                        {value.FINISH_DIA}
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        {value.PICES}
-                      </td>
+                      <td className="border border-gray-300 p-1">{value.FINISH_DIA}</td>
+                      <td className="border border-gray-300 p-1">{value.PICES}</td>
                     </tr>
                   ))}
                   <tr className="text-start font-bold">
                     <td className="border border-gray-300 p-1">Total</td>
-                    <td className="border border-gray-300 p-1">
-                      {collarTotal}
-                    </td>
+                    <td className="border border-gray-300 p-1">{totalData[part]}</td>
                   </tr>
                 </tbody>
-              </table>
-            </div>
-            <div>
-              <table className="border-collapse border border-gray-300  w-[100%] mt-2">
-                <thead>
-                  <tr>
-                    <th colSpan={2} className="border border-gray-300 p-1">
-                      CUFF
-                    </th>
-                  </tr>
-                  <tr>
-                    <th className="border border-gray-300 p-1">SIZE</th>
-                    <th className="border border-gray-300 p-1">PCS QTY</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(cuffData).map(([key, value]) => (
-                    <tr key={key} className="text-start">
-                      <td className="border border-gray-300 p-1">
-                        {value.FINISH_DIA}
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        {value.PICES}
-                      </td>
-                    </tr>
-                  ))}
-                  <tr className="text-start font-bold">
-                    <td className="border border-gray-300 p-1">Total</td>
-                    <td className="border border-gray-300 p-1">{cuffTotal}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              </table>)
+            }
           </div>
         </div>
         <div>
           <table className="border-collapse border border-gray-300  w-[100%] font-bold">
-            <thead></thead>
+            <thead>
+            </thead>
             <tbody>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">Buyer</td>
@@ -250,24 +211,13 @@ function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
                 <td className="border border-gray-300 p-1">{lot}</td>
               </tr>
               <tr className={`text-start`}>
-                <td className="border border-gray-300 p-1">
-                  Program Yarn Qty(kg)
-                </td>
-                <td className="border border-gray-300 p-1">
-                  {programYarnQty.toFixed(2)}
-                </td>
+                <td className="border border-gray-300 p-1">Program Yarn Qty(kg)</td>
+                <td className="border border-gray-300 p-1">{programYarnQty.toFixed(2)}</td>
               </tr>
               {uniqueFabricType.length > 0 && (
                 <tr className="text-start">
-                  <td
-                    rowSpan={uniqueFabricType.length}
-                    className="border border-gray-300 p-1"
-                  >
-                    Fabric Type
-                  </td>
-                  <td className="border border-gray-300 p-1">
-                    {uniqueFabricType[0]}
-                  </td>
+                  <td rowSpan={uniqueFabricType.length} className="border border-gray-300 p-1">Fabric Type</td>
+                  <td className="border border-gray-300 p-1">{uniqueFabricType[0]}</td>
                 </tr>
               )}
               {uniqueFabricType.slice(1).map((item, index) => (
@@ -281,76 +231,41 @@ function ReportTable({ data }: { data: IKnittingProgramReport[] }) {
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">S/L={sl}</td>
-                <td className="border border-gray-300 p-1">
-                  CPI=<br></br>Needle Ratio=
-                </td>
+                <td className="border border-gray-300 p-1">CPI=</td>
+              </tr>
+              <tr className={`text-start`}>
+                <td className="border border-gray-300 p-1">PLY=</td>
+                <td className="border border-gray-300 p-1">CPI=</td>
               </tr>
             </tbody>
           </table>
 
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <table className="border-collapse border border-gray-300  w-[100%] mt-2">
+          <div className="flex gap-1">
+            {
+              fabricParts.map(part => <table className="border-collapse border border-gray-300  w-[100%] mt-2">
                 <thead>
-                  <tr>
-                    <th colSpan={2} className="border border-gray-300 p-1">
-                      COLLAR
-                    </th>
+                  <tr className="bg-white">
+                    <th colSpan={2} className="border border-gray-300 p-1">{part}</th>
                   </tr>
-                  <tr>
+                  <tr className="bg-white">
                     <th className="border border-gray-300 p-1">Yarn Color</th>
                     <th className="border border-gray-300 p-1">Tipping M.</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(collarYarnColorData).map(([key, value]) => (
+                  {Object.entries(groupedByYarnColor[part]).map(([key, value]) => (
                     <tr key={key} className="text-start">
-                      <td className="border border-gray-300 p-1">
-                        {value.YARN_COLOR}
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        {value.PICES}
-                      </td>
+                      <td className="border border-gray-300 p-1">{value.YARN_COLOR}</td>
+                      <td className="border border-gray-300 p-1">{value.PICES}</td>
                     </tr>
                   ))}
                   <tr className="text-start font-bold">
                     <td className="border border-gray-300 p-1">Total</td>
-                    <td className="border border-gray-300 p-1">0</td>
+                    <td className="border border-gray-300 p-1">{totalDataByYarnColor[part]}</td>
                   </tr>
                 </tbody>
-              </table>
-            </div>
-            <div>
-              <table className="border-collapse border border-gray-300  w-[100%] mt-2">
-                <thead>
-                  <tr>
-                    <th colSpan={2} className="border border-gray-300 p-1">
-                      CUFF
-                    </th>
-                  </tr>
-                  <tr>
-                    <th className="border border-gray-300 p-1">Yarn Color</th>
-                    <th className="border border-gray-300 p-1">Tipping M.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(cuffYarnColorData).map(([key, value]) => (
-                    <tr key={key} className="text-start">
-                      <td className="border border-gray-300 p-1">
-                        {value.YARN_COLOR}
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        {value.PICES}
-                      </td>
-                    </tr>
-                  ))}
-                  <tr className="text-start font-bold">
-                    <td className="border border-gray-300 p-1">Total</td>
-                    <td className="border border-gray-300 p-1">0</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              </table>)
+            }
           </div>
         </div>
       </div>
