@@ -67,7 +67,7 @@ function OnlineDisplayBoard() {
               </td>
               <td className="line_name">{data[0]?.LINENAME}</td>
               <td colSpan={4} className="first_row">
-                Time: {moment().format(":mm A")}
+                Time: {moment().format("hh:mm A")}
               </td>
             </tr>
 
