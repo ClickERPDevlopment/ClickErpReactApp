@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import ScrollToTop from "./components/ui/scrolltotop.tsx";
 import React from "react";
 
-//=======================
+//=========================
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Dashboard from "./app/dashboard/dashboard";
