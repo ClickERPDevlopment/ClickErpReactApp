@@ -235,7 +235,7 @@ function ReportTable({
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">PLY=</td>
-                <td className="border border-gray-300 p-1">CPI=</td>
+                <td className="border border-gray-300 p-1">Needle Ratio=</td>
               </tr>
             </tbody>
           </table>
