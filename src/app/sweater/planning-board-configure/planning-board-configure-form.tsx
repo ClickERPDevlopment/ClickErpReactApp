@@ -59,6 +59,7 @@ import {
   GetSection,
 } from "@/actions/Sweater/swt-planning-board-configure-action";
 import { useToast } from "@/components/ui/use-toast";
+import AppPageContainer from "@/components/app-page-container";
 
 const formSchema = z.object({
   PLANNING_BOARD_NAME: z.string(),
@@ -268,7 +269,7 @@ export default function PlanningBoardConfigureForm({
   });
 
   return (
-    <>
+    <AppPageContainer>
       <div className="w-full p-1">
         <Alert
           variant="destructive"
@@ -283,15 +284,19 @@ export default function PlanningBoardConfigureForm({
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
             className=""
           >
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <FormField
                 control={form.control}
                 name="PLANNING_BOARD_NAME"
                 render={({ field }) => (
-                  <FormItem className="w-52">
+                  <FormItem className="w-52" style={{ minWidth: "200px" }}>
                     <FormLabel className="font-bold">Name</FormLabel>
                     <FormControl onChange={handleInputChange}>
-                      <Input placeholder="" {...field} />
+                      <Input
+                        placeholder=""
+                        {...field}
+                        className="form-control"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -547,6 +552,7 @@ export default function PlanningBoardConfigureForm({
                             size={15}
                             className=" hover:text-red-500"
                             onClick={() => handleRemove(index)}
+                            style={{ color: "red" }}
                           />
                         </div>
                       </TableCell>
@@ -615,6 +621,6 @@ export default function PlanningBoardConfigureForm({
           </form>
         </Form>
       </div>
-    </>
+    </AppPageContainer>
   );
 }

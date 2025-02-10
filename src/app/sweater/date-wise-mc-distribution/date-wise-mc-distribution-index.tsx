@@ -29,6 +29,7 @@ import AppCombobox from "@/components/app-combobox";
 import { ComboBoxOptionsType } from "@/app-type";
 import { useSwtMcDistributionStore } from "./store-type/date-wise-mc-distribution-store";
 import React from "react";
+import AppPageContainer from "@/components/app-page-container";
 
 const FormSchema = z.object({
   fromDate: z.date().optional().default(new Date()),
@@ -184,119 +185,123 @@ export default function DateWiseMCDistributionIndex() {
 
   return (
     <div className="container">
-      <div className="flex justify-between items-center mt-2">
+      <div className="flex justify-between items-center my-2">
         <h1 className="font-bold text-xl">Date-wise M/C Distribution</h1>
         <AppButton variant={"save"} onClick={handleSave} isPending={isProgress}>
           Save
         </AppButton>
       </div>
-
-      <div>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="my-5 w-full flex flex-row flex-wrap gap-3 justify-start items-end"
-          >
-            {/* from-date====================================================================== */}
-            <div className="flex justify-between items-end">
-              <AppDatePicker form={form} name={"fromDate"} title={"From"} />
-            </div>
-
-            {/* to-date========================================================================= */}
-            <div className="flex">
-              <AppDatePicker form={form} name={"toDate"} title={"To"} />
-            </div>
-
-            {/* brand============================================================================ */}
-            <div>
-              <AppCombobox
-                form={form}
-                name={"MC_BRAND_ID"}
-                options={brands}
-                title={"Brand"}
-              />
-            </div>
-            {/* end-brand============== */}
-
-            {/* gauge=========================================================================== */}
-            <div className="flex w-48">
-              <AppCombobox
-                form={form}
-                name={"MC_GAUGE_ID"}
-                options={gauges}
-                title={"Gauge"}
-              />
-            </div>
-            {/* end-gauge============== */}
-
-            <AppButton
-              type="submit"
-              className="w-20"
-              variant={"search"}
-              isPending={isPending}
-            >
-              Search
-            </AppButton>
-          </form>
-        </Form>
-      </div>
-
-      {store.data ? (
-        <>
-          <DateWiseMCDistributionTable
-            datesArray={lstDate}
-            lstMcGroup={lstMcGroup}
-            // lstSwtDateWiseMCDistribution={data}
-            // setLstSwtDateWiseMCDistribution={setData}
-            handleMcDistributionChange={handleMcDistributionChange}
-            handleInputMcQtyFromMcGroup={handleInputMcQtyFromMcGroup}
-            handleInputMcQtyFromMcGroup_All={handleInputMcQtyFromMcGroup_All}
-          />
-        </>
-      ) : (
+      <AppPageContainer>
         <div>
-          <div className="mt-5">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-green-300">
-                  <TableHead className="bg-green-300 border border-gray-400 text-gray-700 text-center font-bold">
-                    MC Group/Date
-                  </TableHead>
-                  <TableHead className="bg-green-300 border border-gray-400 text-gray-700 min-w-16 text-center font-bold">
-                    Date
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="border border-gray-400 text-gray-700 text-center">
-                    ...
-                  </TableCell>
-                  <TableCell className="border border-gray-400 text-gray-700 text-center">
-                    ...
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="border border-gray-400 text-gray-700 text-center">
-                    ...
-                  </TableCell>
-                  <TableCell className="border border-gray-400 text-gray-700 text-center">
-                    ...
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="border border-gray-400 text-gray-700 text-center">
-                    ...
-                  </TableCell>
-                  <TableCell className="border border-gray-400 text-gray-700 text-center">
-                    ...
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="my-5 w-full flex flex-row flex-wrap gap-3 justify-start items-end"
+            >
+              {/* from-date====================================================================== */}
+              <div className="flex justify-between items-end">
+                <AppDatePicker form={form} name={"fromDate"} title={"From"} />
+              </div>
+
+              {/* to-date========================================================================= */}
+              <div className="flex">
+                <AppDatePicker form={form} name={"toDate"} title={"To"} />
+              </div>
+
+              {/* brand============================================================================ */}
+              <div>
+                <AppCombobox
+                  form={form}
+                  name={"MC_BRAND_ID"}
+                  options={brands}
+                  title={"Brand"}
+                />
+              </div>
+              {/* end-brand============== */}
+
+              {/* gauge=========================================================================== */}
+              <div
+                className="flex w-48"
+                style={{ minWidth: "250px", overflow: "visible" }}
+              >
+                <AppCombobox
+                  form={form}
+                  name={"MC_GAUGE_ID"}
+                  options={gauges}
+                  title={"Gauge"}
+                />
+              </div>
+              {/* end-gauge============== */}
+
+              <AppButton
+                type="submit"
+                className="w-20"
+                variant={"search"}
+                isPending={isPending}
+              >
+                Search
+              </AppButton>
+            </form>
+          </Form>
         </div>
-      )}
+
+        {store.data ? (
+          <>
+            <DateWiseMCDistributionTable
+              datesArray={lstDate}
+              lstMcGroup={lstMcGroup}
+              // lstSwtDateWiseMCDistribution={data}
+              // setLstSwtDateWiseMCDistribution={setData}
+              handleMcDistributionChange={handleMcDistributionChange}
+              handleInputMcQtyFromMcGroup={handleInputMcQtyFromMcGroup}
+              handleInputMcQtyFromMcGroup_All={handleInputMcQtyFromMcGroup_All}
+            />
+          </>
+        ) : (
+          <div>
+            <div className="mt-5">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-green-300">
+                    <TableHead className="bg-green-300 border border-gray-400 text-gray-700 text-center font-bold">
+                      MC Group/Date
+                    </TableHead>
+                    <TableHead className="bg-green-300 border border-gray-400 text-gray-700 min-w-16 text-center font-bold">
+                      Date
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className="border border-gray-400 text-gray-700 text-center">
+                      ...
+                    </TableCell>
+                    <TableCell className="border border-gray-400 text-gray-700 text-center">
+                      ...
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="border border-gray-400 text-gray-700 text-center">
+                      ...
+                    </TableCell>
+                    <TableCell className="border border-gray-400 text-gray-700 text-center">
+                      ...
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="border border-gray-400 text-gray-700 text-center">
+                      ...
+                    </TableCell>
+                    <TableCell className="border border-gray-400 text-gray-700 text-center">
+                      ...
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        )}
+      </AppPageContainer>
     </div>
   );
 }

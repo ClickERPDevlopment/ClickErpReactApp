@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-success text-primary-foreground shadow hover:bg-primary/90 text-white",
-        save: "bg-primary text-primary-foreground shadow hover:bg-primary/90 w-24",
+        save: "bg-success text-primary-foreground shadow hover:bg-primary/90 w-24 text-white",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 border border-slate-300",
         delete:

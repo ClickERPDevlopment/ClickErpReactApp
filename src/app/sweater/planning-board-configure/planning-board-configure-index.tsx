@@ -10,6 +10,7 @@ import {
   GetSwtPlanningBoardData,
   planningBoardConfigureType,
 } from "@/actions/Sweater/swt-planning-board-configure-action";
+import AppPageContainer from "@/components/app-page-container";
 
 function PlanningBoardConfigureIndex() {
   const {
@@ -40,13 +41,15 @@ function PlanningBoardConfigureIndex() {
           </Link>
         </div>
       </div>
-      <div className="mt-3">
-        {swtPlanningBoardData ? (
-          <PlanningBoardConfigureTable data={swtPlanningBoardData} />
-        ) : (
-          <TableSkeleton />
-        )}
-      </div>
+      <AppPageContainer>
+        <div className="mt-3">
+          {swtPlanningBoardData ? (
+            <PlanningBoardConfigureTable data={swtPlanningBoardData} />
+          ) : (
+            <TableSkeleton />
+          )}
+        </div>
+      </AppPageContainer>
     </div>
   );
 }
