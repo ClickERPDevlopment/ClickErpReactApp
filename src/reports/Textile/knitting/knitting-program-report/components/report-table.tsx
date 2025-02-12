@@ -22,7 +22,6 @@ function ReportTable({
             PICES: 0,
           };
         }
-
         result[key].PICES += item.PICES;
       }
       return result;
@@ -40,11 +39,11 @@ function ReportTable({
         if (!result[key]) {
           result[key] = {
             YARN_COLOR: item.YARN_COLOR,
-            PICES: 0,
+            STRIPE_MEASUREMENT_CM: new Set(),
           };
         }
 
-        result[key].PICES += 0;
+        if (item.STRIPE_MEASUREMENT_CM && item.STRIPE_MEASUREMENT_CM !== "") result[key].STRIPE_MEASUREMENT_CM.add(item.STRIPE_MEASUREMENT_CM);
       }
       return result;
     }, {});
@@ -60,7 +59,7 @@ function ReportTable({
   interface GroupedYarnColorData {
     [key: string]: {
       YARN_COLOR: string;
-      PICES: number;
+      STRIPE_MEASUREMENT_CM: Set<string>;
     };
   }
 
@@ -120,10 +119,9 @@ function ReportTable({
     groupedByYarnColor[part] = groupByYarnColor(data, part);
   })
 
-  const totalDataByYarnColor: Record<string, number> = {};
-  fabricParts.forEach(part => {
-    totalDataByYarnColor[part] = data.reduce((acc, item) => { if (item.FABRIC_PART == part) { return acc + 0 } else { return acc } }, 0)
-  })
+  console.log(groupedByYarnColor);
+
+
   return (
     <div className="text-sm mt-3">
       <div className="flex items-center font-semibold">
@@ -256,13 +254,9 @@ function ReportTable({
                   {Object.entries(groupedByYarnColor[part]).map(([key, value]) => (
                     <tr key={key} className="text-start">
                       <td className="border border-gray-300 p-1">{value.YARN_COLOR}</td>
-                      <td className="border border-gray-300 p-1">{value.PICES}</td>
+                      <td className="border border-gray-300 p-1">{Array.from(value.STRIPE_MEASUREMENT_CM).join(", ")}</td>
                     </tr>
                   ))}
-                  <tr className="text-start font-bold">
-                    <td className="border border-gray-300 p-1">Total</td>
-                    <td className="border border-gray-300 p-1">{totalDataByYarnColor[part]}</td>
-                  </tr>
                 </tbody>
               </table>)
             }

@@ -16,6 +16,7 @@ export default function OutSideYIssueGrcvStatusReport() {
   let partyId: string | null = "";
   let yarnChallan: string | null = "";
   let isBalanceZeroNotShow: string | null = "";
+  let isCHDateWiseView: string | null = "";
   let styleIds: string | null = "";
   let poIds: string | null = "";
 
@@ -46,7 +47,9 @@ export default function OutSideYIssueGrcvStatusReport() {
   if (searchParams.get("isBalanceZeroNotShow")) {
     isBalanceZeroNotShow = searchParams.get("isBalanceZeroNotShow");
   }
-
+  if (searchParams.get("isCHDateWiseView")) {
+    isCHDateWiseView = searchParams.get("isCHDateWiseView");
+  }
   if (searchParams.get("styleIds")) {
     styleIds = searchParams.get("styleIds");
   }
@@ -82,6 +85,7 @@ export default function OutSideYIssueGrcvStatusReport() {
         partyId={partyId!}
         yarnChallan={yarnChallan!}
         isBalanceZeroNotShow={isBalanceZeroNotShow!}
+        isCHDateWiseView={isCHDateWiseView!}
         styleIds={styleIds!}
         poIds={poIds!}
       />

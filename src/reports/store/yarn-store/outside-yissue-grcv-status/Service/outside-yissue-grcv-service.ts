@@ -13,6 +13,7 @@ export interface params {
   partyId: string | null;
   yarnChallan: string | null;
   isBalanceZeroNotShow: string | null;
+  isCHDateWiseView: string | null;
   styleIds: string | null;
   poIds: string | null;
 }
@@ -23,17 +24,18 @@ export async function OutSideYIssueGRcv_YarnIssue(params: params) {
   const data = await axios
     .get(
       `${api.ProductionUrl}/production/yarnstorereport/OutsideYarnSendAndFRcvStatus_ysend?` +
-        `fromDate=${params.fromDate}&` +
-        `toDate=${params.toDate}&` +
-        `isDateWise=${params.isDateWise}&` +
-        `buyerId=${params.buyerId}&` +
-        `poId=${params.poId}&` +
-        `partyId=${params.partyId}&` +
-        `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
-        `styleId=${params.styleId}&` +
-        `yarnChallan=${params.yarnChallan}&` +
-        `styleIds=${params.styleIds}&` +
-        `poIds=${params.poIds}`
+      `fromDate=${params.fromDate}&` +
+      `toDate=${params.toDate}&` +
+      `isDateWise=${params.isDateWise}&` +
+      `buyerId=${params.buyerId}&` +
+      `poId=${params.poId}&` +
+      `partyId=${params.partyId}&` +
+      `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
+      `isCHDateWiseView=${params.isCHDateWiseView}&` +
+      `styleId=${params.styleId}&` +
+      `yarnChallan=${params.yarnChallan}&` +
+      `styleIds=${params.styleIds}&` +
+      `poIds=${params.poIds}`
     )
     .then((res) => {
       if (res.data) {
@@ -58,17 +60,17 @@ export async function OutSideYIssueGRcv_GreyRcv(params: params) {
   const data = await axios
     .get(
       `${api.ProductionUrl}/production/yarnstorereport/OutsideYarnSendAndFRcvStatus_greyRcv?` +
-        `fromDate=${params.fromDate}&` +
-        `toDate=${params.toDate}&` +
-        `isDateWise=${params.isDateWise}&` +
-        `buyerId=${params.buyerId}&` +
-        `poId=${params.poId}&` +
-        `partyId=${params.partyId}&` +
-        `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
-        `styleId=${params.styleId}&` +
-        `yarnChallan=${params.yarnChallan}&` +
-        `styleIds=${params.styleIds}&` +
-        `poIds=${params.poIds}`
+      `fromDate=${params.fromDate}&` +
+      `toDate=${params.toDate}&` +
+      `isDateWise=${params.isDateWise}&` +
+      `buyerId=${params.buyerId}&` +
+      `poId=${params.poId}&` +
+      `partyId=${params.partyId}&` +
+      `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
+      `styleId=${params.styleId}&` +
+      `yarnChallan=${params.yarnChallan}&` +
+      `styleIds=${params.styleIds}&` +
+      `poIds=${params.poIds}`
     )
     .then((res) => {
       if (res.data) {
@@ -93,17 +95,17 @@ export async function OutSideYIssueGRcv_GreyRcv_LoseYarnRcv(params: params) {
   const data = await axios
     .get(
       `${api.ProductionUrl}/production/yarnstorereport/OutsideYarnSendAndFRcvStatus_loseYarnRcv?` +
-        `fromDate=${params.fromDate}&` +
-        `toDate=${params.toDate}&` +
-        `isDateWise=${params.isDateWise}&` +
-        `buyerId=${params.buyerId}&` +
-        `poId=${params.poId}&` +
-        `partyId=${params.partyId}&` +
-        `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
-        `styleId=${params.styleId}&` +
-        `yarnChallan=${params.yarnChallan}&` +
-        `styleIds=${params.styleIds}&` +
-        `poIds=${params.poIds}`
+      `fromDate=${params.fromDate}&` +
+      `toDate=${params.toDate}&` +
+      `isDateWise=${params.isDateWise}&` +
+      `buyerId=${params.buyerId}&` +
+      `poId=${params.poId}&` +
+      `partyId=${params.partyId}&` +
+      `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
+      `styleId=${params.styleId}&` +
+      `yarnChallan=${params.yarnChallan}&` +
+      `styleIds=${params.styleIds}&` +
+      `poIds=${params.poIds}`
     )
     .then((res) => {
       if (res.data) {

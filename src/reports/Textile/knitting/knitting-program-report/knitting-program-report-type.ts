@@ -38,4 +38,5 @@ export type IKnittingProgramReport = {
   KNITTING_ADVICE: string;
   PREPARED_BY: string;
   FABRIC_PART: string;
+  STRIPE_MEASUREMENT_CM: string;
 };

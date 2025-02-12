@@ -25,6 +25,7 @@ export interface props {
   partyId: string;
   yarnChallan: string;
   isBalanceZeroNotShow: string;
+  isCHDateWiseView: string;
   styleIds: string;
   poIds: string;
 }
@@ -39,6 +40,7 @@ export default function Report({
   partyId,
   yarnChallan,
   isBalanceZeroNotShow,
+  isCHDateWiseView,
   styleIds,
   poIds,
 }: props) {
@@ -71,6 +73,7 @@ export default function Report({
           partyId,
           yarnChallan,
           isBalanceZeroNotShow,
+          isCHDateWiseView,
           styleIds,
           poIds,
         }).then((r) => setYarnSendData(r));
@@ -85,6 +88,7 @@ export default function Report({
           partyId,
           yarnChallan,
           isBalanceZeroNotShow,
+          isCHDateWiseView,
           styleIds,
           poIds,
         }).then((r) => setGreyRcvData(r));
@@ -99,6 +103,7 @@ export default function Report({
           partyId,
           yarnChallan,
           isBalanceZeroNotShow,
+          isCHDateWiseView,
           styleIds,
           poIds,
         }).then((r) => setLYarnRcvData(r));
