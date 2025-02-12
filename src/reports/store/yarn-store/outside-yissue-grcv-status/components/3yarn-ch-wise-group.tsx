@@ -104,7 +104,7 @@ export default function YarnChallanWiseGroup({
           {yarnIssue[0]?.YARN_LOT_NO}
         </td>
         <td className="border border-black text-[8px] text-center p-1">
-          {yarnIssue[0]?.QUANTITY}
+          {yarnIssue[0]?.QUANTITY.toFixed(3)}
         </td>
         <td className="border border-black text-[8px] text-center p-1">
           {yarnIssue[0]?.RETURN_QUANTITY}
@@ -155,7 +155,7 @@ export default function YarnChallanWiseGroup({
               {y?.YARN_LOT_NO}
             </td>
             <td className="border border-black text-[8px] text-center p-1">
-              {y?.QUANTITY}
+              {y?.QUANTITY.toFixed(3)}
             </td>
             <td className="border border-black text-[8px] text-center p-1">
               {y?.RETURN_QUANTITY}
@@ -164,8 +164,8 @@ export default function YarnChallanWiseGroup({
               {greyRcv[yi + 1] == null
                 ? ""
                 : moment(greyRcv[yi + 1]?.RCV_CHALLAN_DATE).format(
-                    "DD-MMM-YYYY"
-                  )}
+                  "DD-MMM-YYYY"
+                )}
             </td>
             <td className="border border-black text-[8px] text-center p-1">
               {greyRcv[yi + 1]?.RCV_CHALLAN}
