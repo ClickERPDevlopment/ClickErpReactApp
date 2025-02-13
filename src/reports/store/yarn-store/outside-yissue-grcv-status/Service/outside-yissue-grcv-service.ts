@@ -67,6 +67,7 @@ export async function OutSideYIssueGRcv_GreyRcv(params: params) {
       `poId=${params.poId}&` +
       `partyId=${params.partyId}&` +
       `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
+      `isCHDateWiseView=${params.isCHDateWiseView}&` +
       `styleId=${params.styleId}&` +
       `yarnChallan=${params.yarnChallan}&` +
       `styleIds=${params.styleIds}&` +
@@ -102,6 +103,7 @@ export async function OutSideYIssueGRcv_GreyRcv_LoseYarnRcv(params: params) {
       `poId=${params.poId}&` +
       `partyId=${params.partyId}&` +
       `isBalanceZeroNotShow=${params.isBalanceZeroNotShow}&` +
+      `isCHDateWiseView=${params.isCHDateWiseView}&` +
       `styleId=${params.styleId}&` +
       `yarnChallan=${params.yarnChallan}&` +
       `styleIds=${params.styleIds}&` +
