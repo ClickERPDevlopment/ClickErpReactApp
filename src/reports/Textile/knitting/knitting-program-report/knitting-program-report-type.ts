@@ -39,4 +39,7 @@ export type IKnittingProgramReport = {
   PREPARED_BY: string;
   FABRIC_PART: string;
   STRIPE_MEASUREMENT_CM: string;
+  CPI: string;
+  PLY: string;
+  NEEDLE_RATIO: string;
 };

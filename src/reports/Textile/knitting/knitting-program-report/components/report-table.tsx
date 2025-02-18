@@ -7,8 +7,6 @@ function ReportTable({
   data: IKnittingProgramReport[];
 }) {
 
-
-
   function groupBy(data: IKnittingProgramReport[], part: string) {
     return data.reduce((result: any, item: any) => {
 
@@ -121,7 +119,6 @@ function ReportTable({
 
   console.log(groupedByYarnColor);
 
-
   return (
     <div className="text-sm mt-3">
       <div className="flex items-center font-semibold">
@@ -229,11 +226,11 @@ function ReportTable({
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">S/L={sl}</td>
-                <td className="border border-gray-300 p-1">CPI=</td>
+                <td className="border border-gray-300 p-1">CPI={data[0]?.CPI}</td>
               </tr>
               <tr className={`text-start`}>
-                <td className="border border-gray-300 p-1">PLY=</td>
-                <td className="border border-gray-300 p-1">Needle Ratio=</td>
+                <td className="border border-gray-300 p-1">PLY={data[0]?.PLY}</td>
+                <td className="border border-gray-300 p-1">Needle Ratio={data[0]?.NEEDLE_RATIO}</td>
               </tr>
             </tbody>
           </table>
