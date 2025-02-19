@@ -17,5 +17,8 @@ export interface IAccessoriesReceiveStatusByChallanNoReport {
   PONO: string;
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
-  COMPANY_REMARKS: string;
+  SUB_PO: string;
+  MRR_NO: string;
+  DESCRIPTION_1: string;
+  DESCRIPTION_2: string;
 }

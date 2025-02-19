@@ -23,10 +23,12 @@ function ReportGroup({
           <ReportTable data={data} />
 
           <tr className="text-center font-bold">
-            <td className="border border-gray-300 p-1" colSpan={8}>
+            <td className="border border-gray-300 p-1" colSpan={10}>
               Total
             </td>
             <td className="border border-gray-300 p-1">{totalRcvQty}</td>
+            <td className="border border-gray-300 p-1"></td>
+            <td className="border border-gray-300 p-1"></td>
           </tr>
         </tbody>
       </table>

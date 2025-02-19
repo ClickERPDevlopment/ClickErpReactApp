@@ -24,13 +24,17 @@ function Report({
   const firstHeader = [
     "BUYER",
     "PO",
+    "SUB PO",
     "STYLE",
     "CHALLAN NO",
+    "MRR NO",
     "CHALLAN DATE",
     "ITEM",
     "COLOR",
     "SIZE",
     "RECEIVE",
+    "DESCRIPTION 1",
+    "DESCRIPTION 2",
   ];
 
   return (
