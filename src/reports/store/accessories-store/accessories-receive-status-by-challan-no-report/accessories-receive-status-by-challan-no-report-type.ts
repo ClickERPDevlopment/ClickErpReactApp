@@ -21,4 +21,5 @@ export interface IAccessoriesReceiveStatusByChallanNoReport {
   MRR_NO: string;
   DESCRIPTION_1: string;
   DESCRIPTION_2: string;
+  UOM: string;
 }

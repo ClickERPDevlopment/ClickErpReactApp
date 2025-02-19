@@ -23,8 +23,8 @@ function AccessoriesReceiveStatusByChallanNoReport() {
   const buyerId = Number(searchParams.get("buyerId")) || 0;
   const styleId = Number(searchParams.get("styleId")) || 0;
   const poId = Number(searchParams.get("poId")) || 0;
-  const dtFrom = searchParams.get("dtFrom") || "01-Jan-00";
-  const dtTo = searchParams.get("dtTo") || "01-Jan-26";
+  const dtFrom = searchParams.get("dtFrom") || "01-Jan-25";
+  const dtTo = searchParams.get("dtTo") || "01-Feb-25";
   // Set document title
   useEffect(() => {
     document.title = "Report";
