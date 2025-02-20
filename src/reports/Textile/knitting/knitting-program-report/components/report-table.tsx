@@ -7,8 +7,6 @@ function ReportTable({
   data: IKnittingProgramReport[];
 }) {
 
-
-
   function groupBy(data: IKnittingProgramReport[], part: string) {
     return data.reduce((result: any, item: any) => {
 
@@ -28,7 +26,6 @@ function ReportTable({
     }, {});
   }
 
-
   function groupByYarnColor(data: IKnittingProgramReport[], part: string) {
     return data.reduce((result: any, item: IKnittingProgramReport) => {
 
@@ -39,11 +36,14 @@ function ReportTable({
         if (!result[key]) {
           result[key] = {
             YARN_COLOR: item.YARN_COLOR,
-            STRIPE_MEASUREMENT_CM: new Set(),
+            STRIPE_MEASUREMENT_CM: [],
           };
         }
 
-        if (item.STRIPE_MEASUREMENT_CM && item.STRIPE_MEASUREMENT_CM !== "") result[key].STRIPE_MEASUREMENT_CM.add(item.STRIPE_MEASUREMENT_CM);
+        if (item.STRIPE_MEASUREMENT_CM && item.STRIPE_MEASUREMENT_CM !== "") {
+          result[key].STRIPE_MEASUREMENT_CM.push(item.STRIPE_MEASUREMENT_CM);
+        }
+
       }
       return result;
     }, {});
@@ -59,7 +59,7 @@ function ReportTable({
   interface GroupedYarnColorData {
     [key: string]: {
       YARN_COLOR: string;
-      STRIPE_MEASUREMENT_CM: Set<string>;
+      STRIPE_MEASUREMENT_CM: [];
     };
   }
 
@@ -118,9 +118,6 @@ function ReportTable({
   fabricParts.forEach(part => {
     groupedByYarnColor[part] = groupByYarnColor(data, part);
   })
-
-  console.log(groupedByYarnColor);
-
 
   return (
     <div className="text-sm mt-3">
@@ -182,6 +179,9 @@ function ReportTable({
               </table>)
             }
           </div>
+          <div>
+            <p className="mt-3">Knitting Advice: {data[0]?.KNITTING_ADVICE}</p>
+          </div>
         </div>
         <div>
           <table className="border-collapse border border-gray-300  w-[100%] font-bold">
@@ -229,11 +229,11 @@ function ReportTable({
               </tr>
               <tr className={`text-start`}>
                 <td className="border border-gray-300 p-1">S/L={sl}</td>
-                <td className="border border-gray-300 p-1">CPI=</td>
+                <td className="border border-gray-300 p-1">CPI={data[0]?.CPI}</td>
               </tr>
               <tr className={`text-start`}>
-                <td className="border border-gray-300 p-1">PLY=</td>
-                <td className="border border-gray-300 p-1">Needle Ratio=</td>
+                <td className="border border-gray-300 p-1">PLY={data[0]?.PLY}</td>
+                <td className="border border-gray-300 p-1">Needle Ratio={data[0]?.NEEDLE_RATIO}</td>
               </tr>
             </tbody>
           </table>
@@ -254,7 +254,7 @@ function ReportTable({
                   {Object.entries(groupedByYarnColor[part]).map(([key, value]) => (
                     <tr key={key} className="text-start">
                       <td className="border border-gray-300 p-1">{value.YARN_COLOR}</td>
-                      <td className="border border-gray-300 p-1">{Array.from(value.STRIPE_MEASUREMENT_CM).join(", ")}</td>
+                      <td className="border border-gray-300 p-1">{value.STRIPE_MEASUREMENT_CM.join(", ")}</td>
                     </tr>
                   ))}
                 </tbody>

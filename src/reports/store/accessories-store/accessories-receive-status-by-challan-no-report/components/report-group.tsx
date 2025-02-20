@@ -11,22 +11,24 @@ function ReportGroup({
 
   return (
     <div className="mb-2 mt-2">
-      <table className="border-collapse border border-gray-300  w-[100%]">
+      <table className="border-collapse border text-sm border-gray-300  w-[100%]">
         <thead>
           <tr className="bg-lime-200 text-center">
             {firstHeader?.map((item) => (
-              <th className="border border-gray-300 p-1">{item}</th>
+              <th className="border border-gray-300">{item}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           <ReportTable data={data} />
-
           <tr className="text-center font-bold">
-            <td className="border border-gray-300 p-1" colSpan={8}>
+            <td className="border border-gray-300" colSpan={10}>
               Total
             </td>
-            <td className="border border-gray-300 p-1">{totalRcvQty}</td>
+            <td className="border border-gray-300">{totalRcvQty}</td>
+            <td className="border border-gray-300"></td>
+            <td className="border border-gray-300"></td>
+            <td className="border border-gray-300"></td>
           </tr>
         </tbody>
       </table>

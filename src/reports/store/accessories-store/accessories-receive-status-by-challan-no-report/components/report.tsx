@@ -24,17 +24,22 @@ function Report({
   const firstHeader = [
     "BUYER",
     "PO",
+    "SUB PO",
     "STYLE",
     "CHALLAN NO",
+    "MRR NO",
     "CHALLAN DATE",
     "ITEM",
     "COLOR",
     "SIZE",
     "RECEIVE",
+    "UOM",
+    "DESCRIPTION 1",
+    "DESCRIPTION 2",
   ];
 
   return (
-    <div className="container text-sm">
+    <div className="text-sm">
       <div className="p-2">
         <ReportHeader
           dtFrom={dtFrom}
