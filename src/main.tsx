@@ -108,6 +108,7 @@ import Size from "./app/merchandising/size/size-index";
 import SizeCrud from "./app/merchandising/size/size-crud";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import KnittingProgramReport from "./reports/Textile/knitting/knitting-program-report/knitting-program-report-index.tsx";
+import CreateDateWisePoSummaryReport from "./reports/merchandising/report/create-date-wise-po-summary-report/create-date-wise-po-summary-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -412,6 +413,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="emblishment-status-report"
                       element={<EmblishmentStatusReport />}
+                    ></Route>
+                    <Route
+                      path="create-date-wise-po-summary-report"
+                      element={<CreateDateWisePoSummaryReport />}
                     ></Route>
                   </Route>
 
