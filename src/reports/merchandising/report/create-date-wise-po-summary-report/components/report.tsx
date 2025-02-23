@@ -38,7 +38,6 @@ function Report({
     <div className="px-10 text-sm">
       <div className="p-2">
         <ReportHeader
-          data={data[0]}
           searchParams={{
             toDate: searchParams?.toDate,
             fromDate: searchParams?.fromDate,
@@ -70,7 +69,11 @@ function Report({
                 <td className="border border-gray-300">
                   {item.QTY}
                 </td>
-                <td className="border border-gray-300">{moment(item.SHIP_DATE).format("DD-MMM-YY")}</td>
+                {moment(item.SHIP_DATE).format("DD-MMM-YY") !== "01-Jan-01" ?
+                  <td className="border border-gray-300">
+                    {moment(item.SHIP_DATE).format("DD-MMM-YY")}
+                  </td> : <td className="border border-gray-300"></td>
+                }
                 <td className="border border-gray-300">{moment(item.ORDERPLACEMENTMONTH).format("MMM-YY")}</td>
                 <td className="border border-gray-300">
                   {item.CM.toFixed(3)}
