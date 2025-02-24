@@ -14,19 +14,24 @@ function ReportFooter({ data }: { data: IFabricReceiveReturnChallanGatePassRepor
           </td>
           <td className="w-[25%] border-0">
           </td>
+          <td className="w-[25%] border-0">
+          </td>
         </tr>
         <tr className="text-center">
           <td className="w-[25%] border-0">
-            <span className="border-t px-5 pb-1">Prepared By</span>
+            <span className="border-t px-5 pb-1 text-nowrap">Prepared By</span>
           </td>
           <td className="w-[25%] border-0">
-            <span className="border-t px-5 pb-1">Store Officer</span>
+            <span className="border-t px-5 pb-1 text-nowrap">Receiver</span>
           </td>
           <td className="w-[25%] border-0">
-            <span className="border-t px-5 pb-1">Store Incharge</span>
+            <span className="border-t px-5 pb-1 text-nowrap">Store Officer</span>
           </td>
           <td className="w-[25%] border-0">
-            <span className="border-t px-5 pb-1">Authorize By</span>
+            <span className="border-t px-5 pb-1 text-nowrap">Store Incharge</span>
+          </td>
+          <td className="w-[25%] border-0">
+            <span className="border-t px-5 pb-1 text-nowrap">Authorize By</span>
           </td>
         </tr>
       </table>
