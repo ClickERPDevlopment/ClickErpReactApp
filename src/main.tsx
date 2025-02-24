@@ -109,6 +109,7 @@ import SizeCrud from "./app/merchandising/size/size-crud";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import KnittingProgramReport from "./reports/Textile/knitting/knitting-program-report/knitting-program-report-index.tsx";
 import CreateDateWisePoSummaryReport from "./reports/merchandising/report/create-date-wise-po-summary-report/create-date-wise-po-summary-report-index.tsx";
+import SubcontractBatchWiseFabricDeliveryReport from "./reports/Textile/Dyeing/subcontract-batch-wise-fabric-delivery-report/subcontract-batch-wise-fabric-delivery-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -467,6 +468,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="process-wise-dyeing-finish-production-rpt"
                         element={<ProcessWiseDyeingFinishProductionReport />}
+                      />
+                      <Route
+                        path="subcontract-batch-wise-fabric-delivery-report"
+                        element={<SubcontractBatchWiseFabricDeliveryReport />}
                       />
                     </Route>
                   </Route>
