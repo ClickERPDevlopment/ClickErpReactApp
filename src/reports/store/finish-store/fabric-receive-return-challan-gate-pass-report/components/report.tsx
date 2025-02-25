@@ -38,7 +38,9 @@ function Report({
           companyAddress={data[0]?.COMPANY_ADDRESS}
         />
         <ReportGroup data={data} firstHeader={firstHeader}></ReportGroup>
-        <div className="p-5"></div>
+        <p className="pt-2">Remarks: {data[0]?.REMARKS}</p>
+        <div className="p-5">
+        </div>
         <div>
           <ReportFooter data={data}></ReportFooter>
         </div>
