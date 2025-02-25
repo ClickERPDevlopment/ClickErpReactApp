@@ -31,7 +31,7 @@ function ReportFooter({ data }: { data: IFabricReceiveReturnChallanGatePassRepor
             <span className="border-t px-5 pb-1 text-nowrap">Store Incharge</span>
           </td>
           <td className="w-[25%] border-0">
-            <span className="border-t px-5 pb-1 text-nowrap">Authorize By</span>
+            <span className="border-t px-5 pb-1 text-nowrap">Authorized By</span>
           </td>
         </tr>
       </table>

@@ -24,8 +24,8 @@ function Report({
     "UOM",
     "Received QTY",
     "Received Roll",
-    "Retune QTY",
-    "Retune Roll",
+    "Return QTY",
+    "Return Roll",
   ];
 
   console.log(data);

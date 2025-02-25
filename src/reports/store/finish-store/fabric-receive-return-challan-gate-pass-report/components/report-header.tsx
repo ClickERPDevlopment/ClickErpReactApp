@@ -8,8 +8,8 @@ export interface ReportHeaderProps {
 
 const ReportHeader: React.FC<ReportHeaderProps> = ({
   companyName = "International Classic Composite Ltd.",
-  companyAddress = "568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.",
-  reportTitle = "Fabric Receive Return Challan Gate Pass Report",
+  companyAddress = "568 & 584, Naojour, Kodda, Jaydebpur, Gazipur.",
+  reportTitle = "Fabric Receive Return/Challan Gate Pass Report",
 }) => {
 
   return (
