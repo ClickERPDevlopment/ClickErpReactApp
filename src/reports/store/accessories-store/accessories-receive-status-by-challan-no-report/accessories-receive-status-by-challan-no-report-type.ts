@@ -7,6 +7,7 @@ export interface IAccessoriesReceiveStatusByChallanNoReport {
   PO_ID: number;
   PURCHASE_ORDER_NO: string;
   RECEIVE_DATE: Date;
+  CHALLAN_DATE: Date;
   RECEIVE_QTY: number;
   COMPANY_NO: number;
   ITEM_NAME: string;
