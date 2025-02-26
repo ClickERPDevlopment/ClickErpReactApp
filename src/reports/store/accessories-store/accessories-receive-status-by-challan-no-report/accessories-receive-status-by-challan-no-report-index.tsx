@@ -25,7 +25,7 @@ function AccessoriesReceiveStatusByChallanNoReport() {
   const poId = Number(searchParams.get("poId")) || 0;
   const dtFrom = searchParams.get("dtFrom") || "01-Jan-25";
   const dtTo = searchParams.get("dtTo") || "01-Feb-25";
-  console.log(buyerId, styleId, poId, dtFrom, dtTo);
+  // console.log(buyerId, styleId, poId, dtFrom, dtTo);
   // Set document title
   useEffect(() => {
     document.title = "Report";
@@ -60,7 +60,7 @@ function AccessoriesReceiveStatusByChallanNoReport() {
     fetchShortShipmentData();
   }, [api.ProductionUrl, buyerId, styleId, poId, dtFrom, dtTo]);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
