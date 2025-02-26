@@ -25,6 +25,7 @@ function AccessoriesReceiveStatusByChallanNoReport() {
   const poId = Number(searchParams.get("poId")) || 0;
   const dtFrom = searchParams.get("dtFrom") || "01-Jan-25";
   const dtTo = searchParams.get("dtTo") || "01-Feb-25";
+  const challanNo = searchParams.get("challanNo") || "";
   // console.log(buyerId, styleId, poId, dtFrom, dtTo);
   // Set document title
   useEffect(() => {
@@ -42,6 +43,7 @@ function AccessoriesReceiveStatusByChallanNoReport() {
           poId,
           dtFrom,
           dtTo,
+          challanNo,
         };
 
         const response = await axios.get(url, { params });
