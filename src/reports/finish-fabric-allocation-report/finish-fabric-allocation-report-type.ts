@@ -41,4 +41,5 @@ export type FinishFabricAllocatinReportDetailsType = {
   ALLOCATED_QTY: number;
   REQUIRED_QTY: number;
   ALLOCATION_BALANCE: number;
+  RET_QTY: number;
 };

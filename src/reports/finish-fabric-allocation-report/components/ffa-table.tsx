@@ -19,6 +19,7 @@ export default function FFATable({
     { name: "MATERIAL COLOR", classes: "" },
     { name: "WO QTY", classes: "" },
     { name: "RCV QTY", classes: "" },
+    { name: "RET QTY", classes: "" },
     { name: "RCV BAL", classes: "" },
     // { name: "STOCK QTY", classes: "min-w-[60px]" } /*Rcv-Allocation*/,
     { name: "ALLO. QTY", classes: "" },
@@ -38,9 +39,9 @@ export default function FFATable({
     totalAllocation += element.ALLOCATED_QTY;
   });
 
-  // const totalReqQty = detailsData.reduce((acc, item) => {
-  //   return (acc += item.REQUIRED_QTY);
-  // }, 0);
+  const totalRetQty = detailsData.reduce((acc, item) => {
+    return (acc += item.RET_QTY);
+  }, 0);
 
   // const totalAllocationBalance = detailsData.reduce((acc, item) => {
   //   return (acc += item.ALLOCATED_QTY - item.REQUIRED_QTY);
@@ -60,7 +61,7 @@ export default function FFATable({
           <th colSpan={2} className="text-left px-2 text-sm">
             {/* Style: {masterData.STYLENO} */}
           </th>
-          <th colSpan={8} className="text-left"></th>
+          <th colSpan={9} className="text-left"></th>
           <th colSpan={3} className="text-center border text-sm rounded-tr">
             ALLOCATION DETAILS
           </th>
@@ -95,13 +96,16 @@ export default function FFATable({
           <td className="border text-center text-xs">
             {masterData.RECEIVE_QTY}
           </td>
+          <td className="border text-center text-xs">
+            {totalRetQty.toFixed(2)}
+          </td>
           {Number(masterData.RECEIVE_QTY - masterData.WO_QTY) < 0 ? (
             <td className={`border text-center text-xs text-red-500`}>
-              {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
+              {(masterData.RECEIVE_QTY - totalRetQty - masterData.WO_QTY).toFixed(2)}
             </td>
           ) : (
             <td className={`border text-center text-xs`}>
-              {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
+              {(masterData.RECEIVE_QTY - totalRetQty - masterData.WO_QTY).toFixed(2)}
             </td>
           )}
 
@@ -114,9 +118,9 @@ export default function FFATable({
             {Number(masterData.CONSUMPTION_PER_DZN) == 0
               ? "0"
               : (
-                  Math.abs(totalAllocation - masterData.RECEIVE_QTY) /
-                  (Number(masterData.CONSUMPTION_PER_DZN) / 12)
-                ).toFixed(2)}
+                Math.abs(totalAllocation - masterData.RECEIVE_QTY) /
+                (Number(masterData.CONSUMPTION_PER_DZN) / 12)
+              ).toFixed(2)}
           </td>
           {/* only render first row of details data */}
           <td className="border text-center text-xs">
@@ -156,6 +160,7 @@ export default function FFATable({
               <td className="border text-center"></td>
               <td className="border text-center"></td>
               <td className="border text-center"></td>
+              <td className="border text-center"></td>
               <td className="border text-center text-xs">{dtls?.STYLENO}</td>
               <td className="border text-center text-xs">{dtls?.PONO}</td>
               {/* <td className="border text-center text-xs">
@@ -174,18 +179,18 @@ export default function FFATable({
 
         {/* total allocation qty */}
         <tr key={Math.random()}>
-          <td className="border text-right font-bold text-xs" colSpan={14}>
+          <td className="border text-right font-bold text-xs" colSpan={15}>
             TOTAL
           </td>
           {/* <td className="border text-center text-xs">{totalReqQty?.toFixed(2)}</td> */}
           <td className="border text-center font-bold text-xs">
-            {totalAllocation}
+            {totalAllocation?.toFixed(2)}
           </td>
           {/* <td className="border text-center text-xs">{isNaN(totalAllocation - totalReqQty) ? "0" : (totalAllocation - totalReqQty).toFixed(2)}</td> */}
         </tr>
         {/* total allocation qty */}
         <tr className="h-7">
-          <td colSpan={15}></td>
+          <td colSpan={16}></td>
         </tr>
       </tbody>
     </>
