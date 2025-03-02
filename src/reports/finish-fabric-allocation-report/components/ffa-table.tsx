@@ -39,10 +39,6 @@ export default function FFATable({
     totalAllocation += element.ALLOCATED_QTY;
   });
 
-  const totalRetQty = detailsData.reduce((acc, item) => {
-    return (acc += item.RET_QTY);
-  }, 0);
-
   // const totalAllocationBalance = detailsData.reduce((acc, item) => {
   //   return (acc += item.ALLOCATED_QTY - item.REQUIRED_QTY);
   // }, 0);
@@ -97,15 +93,15 @@ export default function FFATable({
             {masterData.RECEIVE_QTY}
           </td>
           <td className="border text-center text-xs">
-            {totalRetQty.toFixed(2)}
+            {masterData.RET_QTY}
           </td>
           {Number(masterData.RECEIVE_QTY - masterData.WO_QTY) < 0 ? (
             <td className={`border text-center text-xs text-red-500`}>
-              {(masterData.RECEIVE_QTY - totalRetQty - masterData.WO_QTY).toFixed(2)}
+              {(masterData.RECEIVE_QTY - masterData.RET_QTY - masterData.WO_QTY).toFixed(2)}
             </td>
           ) : (
             <td className={`border text-center text-xs`}>
-              {(masterData.RECEIVE_QTY - totalRetQty - masterData.WO_QTY).toFixed(2)}
+              {(masterData.RECEIVE_QTY - masterData.RET_QTY - masterData.WO_QTY).toFixed(2)}
             </td>
           )}
 
@@ -133,6 +129,7 @@ export default function FFATable({
           <td className="border text-center text-xs">
             {detailsData[0]?.ALLOCATED_QTY}
           </td>
+
           {/* <td className="border text-center text-xs">
             {
               isNaN(detailsData[0]?.ALLOCATED_QTY - detailsData[0]?.REQUIRED_QTY)

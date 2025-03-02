@@ -17,13 +17,13 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
           <td className="border border-gray-300">{item.MRR_NO}</td>
           {
             moment(item?.CHALLAN_DATE).format("DD-MMM-YY") !== "01-Jan-01" ?
-              <td className="border border-gray-300">
+              <td className="border border-gray-300 text-nowrap">
                 {moment(item.CHALLAN_DATE).format("DD-MMM-YY")}
               </td> :
               <td className="border border-gray-300">
               </td>
           }
-          <td className="border border-gray-300">
+          <td className="border border-gray-300 text-nowrap">
             {moment(item.RECEIVE_DATE).format("DD-MMM-YY")}
           </td>
           <td className="border border-gray-300">{item.ITEM_NAME}</td>
