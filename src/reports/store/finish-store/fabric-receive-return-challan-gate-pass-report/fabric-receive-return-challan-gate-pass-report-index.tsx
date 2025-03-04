@@ -5,12 +5,12 @@ import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { IAccessoriesReceiveStatusByChallanNoReport } from "./accessories-receive-status-by-challan-no-report-type";
+import { IFabricReceiveReturnChallanGatePassReport } from "./fabric-receive-return-challan-gate-pass-report-type";
 
-function AccessoriesReceiveStatusByChallanNoReport() {
+function FabricReceiveReturnChallanGatePassReport() {
   // State management
   const [data, setData] = useState<
-    IAccessoriesReceiveStatusByChallanNoReport[]
+    IFabricReceiveReturnChallanGatePassReport[]
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -20,13 +20,9 @@ function AccessoriesReceiveStatusByChallanNoReport() {
   const api = useApiUrl();
 
   // Extract and parse URL parameters
-  const buyerId = Number(searchParams.get("buyerId")) || 0;
-  const styleId = Number(searchParams.get("styleId")) || 0;
-  const poId = Number(searchParams.get("poId")) || 0;
-  const dtFrom = searchParams.get("dtFrom") || "01-Jan-25";
-  const dtTo = searchParams.get("dtTo") || "01-Feb-25";
-  const challanNo = searchParams.get("challanNo") || "";
-  // console.log(buyerId, styleId, poId, dtFrom, dtTo);
+
+  const companyId = Number(searchParams.get("companyId")) || 0;
+  const id = Number(searchParams.get("id")) || 0;
   // Set document title
   useEffect(() => {
     document.title = "Report";
@@ -36,14 +32,10 @@ function AccessoriesReceiveStatusByChallanNoReport() {
     const fetchShortShipmentData = async () => {
       try {
         setIsLoading(true);
-        const url = `${api.ProductionUrl}/production/AccessoriesStoreReport/AccessoriesReceiveStatusByChallanNoReport`;
+        const url = `${api.ProductionUrl}/production/FinishFabricStore/FabricReceiveReturnChallanGatePassReport`;
         const params = {
-          buyerId,
-          styleId,
-          poId,
-          dtFrom,
-          dtTo,
-          challanNo,
+          id,
+          companyId
         };
 
         const response = await axios.get(url, { params });
@@ -60,9 +52,9 @@ function AccessoriesReceiveStatusByChallanNoReport() {
       }
     };
     fetchShortShipmentData();
-  }, [api.ProductionUrl, buyerId, styleId, poId, dtFrom, dtTo]);
+  }, [api.ProductionUrl, id, companyId]);
 
-  // console.log(data);
+  console.log(data);
 
   return (
     <>
@@ -82,11 +74,11 @@ function AccessoriesReceiveStatusByChallanNoReport() {
               </h1>
             </div>
           ) : (
-            <Report dtFrom={dtFrom} dtTo={dtTo} data={data} />
+            <Report data={data} />
           )}
         </div>
       )}
     </>
   );
 }
-export default AccessoriesReceiveStatusByChallanNoReport;
+export default FabricReceiveReturnChallanGatePassReport;

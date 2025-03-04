@@ -1,7 +1,7 @@
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import ReportGroup from "./report-group";
-import { IAccessoriesReceiveStatusByChallanNoReport } from "../accessories-receive-status-by-challan-no-report-type";
+import { ISubcontractBatchWiseFabricDeliveryReport } from "../subcontract-batch-wise-fabric-delivery-report-type";
 
 export interface ReportHeaderProps {
   companyName?: string;
@@ -16,28 +16,27 @@ function Report({
   dtFrom,
   dtTo,
 }: {
-  data: IAccessoriesReceiveStatusByChallanNoReport[];
+  data: ISubcontractBatchWiseFabricDeliveryReport[];
   dtFrom: string;
   dtTo: string;
 }) {
   //set table header
   const firstHeader = [
-    "BUYER",
-    "PO",
-    "SUB PO",
-    "STYLE",
-    "CHALLAN NO",
-    "MRR NO",
-    "CHALLAN DATE",
-    "RCV DATE",
-    "ITEM",
-    "COLOR",
-    "SIZE",
-    "RCV",
-    "UOM",
-    "DESCRIPTION 1",
-    "DESCRIPTION 2",
+    "Dyeing Date",
+    "Order",
+    "Color",
+    "Fabric",
+    "GSM",
+    "Batch No",
+    "Batch Qty",
+    "Delivery Date",
+    "Delivery Challan",
+    "Grey Weight",
+    "Finish Qty",
+    "P/Loss",
   ];
+
+  console.log(data);
 
   return (
     <div className="text-sm">

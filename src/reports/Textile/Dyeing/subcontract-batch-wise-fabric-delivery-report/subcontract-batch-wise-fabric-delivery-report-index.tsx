@@ -5,12 +5,12 @@ import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { IAccessoriesReceiveStatusByChallanNoReport } from "./accessories-receive-status-by-challan-no-report-type";
+import { ISubcontractBatchWiseFabricDeliveryReport } from "./subcontract-batch-wise-fabric-delivery-report-type";
 
-function AccessoriesReceiveStatusByChallanNoReport() {
+function SubcontractBatchWiseFabricDeliveryReport() {
   // State management
   const [data, setData] = useState<
-    IAccessoriesReceiveStatusByChallanNoReport[]
+    ISubcontractBatchWiseFabricDeliveryReport[]
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -20,13 +20,13 @@ function AccessoriesReceiveStatusByChallanNoReport() {
   const api = useApiUrl();
 
   // Extract and parse URL parameters
-  const buyerId = Number(searchParams.get("buyerId")) || 0;
-  const styleId = Number(searchParams.get("styleId")) || 0;
-  const poId = Number(searchParams.get("poId")) || 0;
-  const dtFrom = searchParams.get("dtFrom") || "01-Jan-25";
-  const dtTo = searchParams.get("dtTo") || "01-Feb-25";
-  const challanNo = searchParams.get("challanNo") || "";
-  // console.log(buyerId, styleId, poId, dtFrom, dtTo);
+  const fromDate = searchParams.get("fromDate") || "01-Jan-25";
+  const toDate = searchParams.get("toDate") || "01-Feb-25";
+  const partyId = Number(searchParams.get("partyId")) || 0;
+  const order = searchParams.get("order") || "";
+  const colorId = Number(searchParams.get("colorId")) || 0;
+  const batchId = Number(searchParams.get("batchId")) || 0;
+  const companyId = Number(searchParams.get("companyId")) || 1;
   // Set document title
   useEffect(() => {
     document.title = "Report";
@@ -36,14 +36,15 @@ function AccessoriesReceiveStatusByChallanNoReport() {
     const fetchShortShipmentData = async () => {
       try {
         setIsLoading(true);
-        const url = `${api.ProductionUrl}/production/AccessoriesStoreReport/AccessoriesReceiveStatusByChallanNoReport`;
+        const url = `${api.ProductionUrl}/production/DyeingReport/SubcontractBatchWiseFabricDeliveryReport`;
         const params = {
-          buyerId,
-          styleId,
-          poId,
-          dtFrom,
-          dtTo,
-          challanNo,
+          fromDate,
+          toDate,
+          partyId,
+          order,
+          colorId,
+          batchId,
+          companyId
         };
 
         const response = await axios.get(url, { params });
@@ -60,9 +61,9 @@ function AccessoriesReceiveStatusByChallanNoReport() {
       }
     };
     fetchShortShipmentData();
-  }, [api.ProductionUrl, buyerId, styleId, poId, dtFrom, dtTo]);
+  }, [api.ProductionUrl, fromDate, toDate, partyId, order, colorId, batchId, companyId]);
 
-  // console.log(data);
+  console.log(data);
 
   return (
     <>
@@ -82,11 +83,11 @@ function AccessoriesReceiveStatusByChallanNoReport() {
               </h1>
             </div>
           ) : (
-            <Report dtFrom={dtFrom} dtTo={dtTo} data={data} />
+            <Report dtFrom={fromDate} dtTo={toDate} data={data} />
           )}
         </div>
       )}
     </>
   );
 }
-export default AccessoriesReceiveStatusByChallanNoReport;
+export default SubcontractBatchWiseFabricDeliveryReport;
