@@ -40,7 +40,7 @@ export default function YarnBookingMasterInfo({
 
   let specialTreatment = "";
   lstSpecialTreatment.forEach((element) => {
-    specialTreatment += element.TREATMENT;
+    specialTreatment += ", " + element.TREATMENT;
   });
 
   return (
