@@ -40,7 +40,8 @@ export default function YarnBookingMasterInfo({
 
   let specialTreatment = "";
   lstSpecialTreatment.forEach((element) => {
-    specialTreatment += element.TREATMENT;
+    specialTreatment +=
+      specialTreatment == "" ? element.TREATMENT : ", " + element.TREATMENT;
   });
 
   return (
@@ -48,7 +49,7 @@ export default function YarnBookingMasterInfo({
       <div className="flex gap-24 mt-3">
         <ul className="basis-4/12">
           <li className="flex">
-            <label className="w-28 font-bold font-bold">Order/Job No.</label>
+            <label className="w-28 font-bold">Order/Job No.</label>
             <span>:{masterData?.PONO}</span>
           </li>
           <li className="flex">
@@ -87,7 +88,7 @@ export default function YarnBookingMasterInfo({
         </div>
       </div>
       <div className="flex gap-5 mt-4 ">
-        {masterData?.IS_OPEN_DIA ? (
+        {masterData?.IS_OPEN_DIA == "1" ? (
           <div className="w-auto p-1 border-2 border-black">
             <h4>OPEN FINISH</h4>
           </div>
@@ -97,7 +98,6 @@ export default function YarnBookingMasterInfo({
 
         {specialTreatment ? (
           <div className="w-auto border-2 border-black p-1">
-            {" "}
             <h4>{specialTreatment}</h4>{" "}
           </div>
         ) : (
