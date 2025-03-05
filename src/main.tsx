@@ -110,6 +110,8 @@ import { Toaster } from "@/components/ui/toaster.tsx";
 import KnittingProgramReport from "./reports/Textile/knitting/knitting-program-report/knitting-program-report-index.tsx";
 import CreateDateWisePoSummaryReport from "./reports/merchandising/report/create-date-wise-po-summary-report/create-date-wise-po-summary-report-index.tsx";
 import SubcontractBatchWiseFabricDeliveryReport from "./reports/Textile/Dyeing/subcontract-batch-wise-fabric-delivery-report/subcontract-batch-wise-fabric-delivery-report-index.tsx";
+import CompensationClaimIndex from "./app/merchandising/compensation-claim/compensation-claim-index.tsx";
+import CompensationClaimCrud from "./app/merchandising/compensation-claim/compensation-claim-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -172,6 +174,14 @@ createRoot(document.getElementById("root")!).render(
                             path=":pageAction/:id"
                             element={<SizeCrud />}
                           />
+                        </Route>
+                        <Route path="compensation-claim">
+                          <Route index element={<CompensationClaimIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<CompensationClaimCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
                         </Route>
                       </Route>
                       <Route path="textile" element={<TextileDashboard />} />

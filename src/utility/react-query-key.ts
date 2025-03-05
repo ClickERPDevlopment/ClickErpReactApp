@@ -30,4 +30,6 @@ export const ReactQueryKey = {
   Buyer: "Buyer",
   Color: "Color",
   Size: "Size",
+  CompensationClaim: "CompensationClaim",
+  ClaimId: "ClaimId",
 };
