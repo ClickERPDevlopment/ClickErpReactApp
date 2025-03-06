@@ -708,7 +708,7 @@ export default function CompensationClaimForm({
                       />
                     </div>
 
-                    <Dialog open={isOpenMaterial}>
+                    <Dialog open={isOpenMaterial} onOpenChange={setIsOpenMaterial}>
                       <DialogTrigger asChild>
                         <Button onClick={() => setIsOpenMaterial(true)} variant="outline" className="mt-auto mb-0.5">Add</Button>
                       </DialogTrigger>
@@ -1019,7 +1019,7 @@ export default function CompensationClaimForm({
                         )}
                       />
                     </div>
-                    <Dialog open={isOpenDamageDtls}>
+                    <Dialog open={isOpenDamageDtls} onOpenChange={setIsOpenDamageDtls}>
                       <DialogTrigger asChild>
                         <Button onClick={() => setIsOpenDamageDtls(true)} variant="outline" className="mt-auto mb-0.5">Add</Button>
                       </DialogTrigger>
@@ -1095,7 +1095,7 @@ export default function CompensationClaimForm({
                         )}
                       />
                     </div>
-                    <Dialog open={isOpenActionTaken}>
+                    <Dialog open={isOpenActionTaken} onOpenChange={setIsOpenActionTaken}>
                       <DialogTrigger asChild>
                         <Button onClick={() => setIsOpenActionTaken(true)} variant="outline" className="mt-auto mb-0.5">Add</Button>
                       </DialogTrigger>
