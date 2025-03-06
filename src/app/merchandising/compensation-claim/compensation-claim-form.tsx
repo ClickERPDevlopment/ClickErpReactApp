@@ -453,6 +453,9 @@ export default function CompensationClaimForm({
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
 
+
+  console.log("sss", material);
+
   return (
     <AppPageContainer>
       <div className="w-full p-1">
@@ -538,11 +541,20 @@ export default function CompensationClaimForm({
                           <SelectValue placeholder="" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem key="Type1" value="Type1">
-                            Type1
+                          <SelectItem key="Knitting" value="Knitting">
+                            Knitting
                           </SelectItem>
-                          <SelectItem key="Type2" value="Type2">
-                            Type2
+                          <SelectItem key="Dyeing" value="Dyeing">
+                            Dyeing
+                          </SelectItem>
+                          <SelectItem key="Garments" value="Garments">
+                            Garments
+                          </SelectItem>
+                          <SelectItem key="Yarn" value="Yarn">
+                            Yarn
+                          </SelectItem>
+                          <SelectItem key="Accessories" value="Accessories">
+                            Accessories
                           </SelectItem>
                         </SelectContent>
                       </Select>
