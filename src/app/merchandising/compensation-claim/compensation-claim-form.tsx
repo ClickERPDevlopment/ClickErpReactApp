@@ -48,7 +48,7 @@ import { cn } from "@/lib/utils";
 import { PageAction } from "@/utility/page-actions";
 import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
-import { Trash2Icon } from "lucide-react";
+import { SquarePlus, Trash2Icon } from "lucide-react";
 
 import AppPageContainer from "@/components/app-page-container";
 import { GetSupplier } from "@/actions/get-supplier";
@@ -453,9 +453,6 @@ export default function CompensationClaimForm({
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
 
-
-  console.log(masterData);
-
   return (
     <AppPageContainer>
       <div className="w-full p-1">
@@ -710,7 +707,13 @@ export default function CompensationClaimForm({
 
                     <Dialog open={isOpenMaterial} onOpenChange={setIsOpenMaterial}>
                       <DialogTrigger asChild>
-                        <Button onClick={() => setIsOpenMaterial(true)} variant="outline" className="mt-auto mb-0.5">Add</Button>
+                        <Button
+                          onClick={() => setIsOpenMaterial(true)}
+                          variant="outline"
+                          className="h-10 w-10 flex items-center justify-center mt-auto shadow-none"
+                        >
+                          <SquarePlus className="w-5 h-5" />
+                        </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[500px] bg-white">
                         <DialogHeader>
@@ -1021,7 +1024,13 @@ export default function CompensationClaimForm({
                     </div>
                     <Dialog open={isOpenDamageDtls} onOpenChange={setIsOpenDamageDtls}>
                       <DialogTrigger asChild>
-                        <Button onClick={() => setIsOpenDamageDtls(true)} variant="outline" className="mt-auto mb-0.5">Add</Button>
+                        <Button
+                          onClick={() => setIsOpenDamageDtls(true)}
+                          variant="outline"
+                          className="h-10 w-10 flex items-center justify-center mt-auto shadow-none"
+                        >
+                          <SquarePlus className="w-5 h-5" />
+                        </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[500px] bg-white">
                         <DialogHeader>
@@ -1097,7 +1106,13 @@ export default function CompensationClaimForm({
                     </div>
                     <Dialog open={isOpenActionTaken} onOpenChange={setIsOpenActionTaken}>
                       <DialogTrigger asChild>
-                        <Button onClick={() => setIsOpenActionTaken(true)} variant="outline" className="mt-auto mb-0.5">Add</Button>
+                        <Button
+                          onClick={() => setIsOpenActionTaken(true)}
+                          variant="outline"
+                          className="h-10 w-10 flex items-center justify-center mt-auto shadow-none"
+                        >
+                          <SquarePlus className="w-5 h-5" />
+                        </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[500px] bg-white">
                         <DialogHeader>
