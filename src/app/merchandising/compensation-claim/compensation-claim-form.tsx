@@ -95,25 +95,6 @@ const orderFormSchema = z.object({
   PO_NO: z.string(),
 });
 
-export interface ISection {
-  Id: number;
-  Name: string;
-}
-
-export interface IFactory {
-  ID: number;
-  NAME: string;
-}
-
-export interface IWeekend {
-  name: string;
-}
-
-export interface IWeekendStartFrom {
-  name: string;
-}
-
-
 interface IMaterialGroup {
   ID: number;
   CODE: string;
@@ -203,8 +184,8 @@ export default function CompensationClaimForm({
   }
 
   const [style, setStyle] = useState<IStyle[]>([]);
-  const getStyle = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/Style/GetAllStyle");
+  const getStyleByBuyer = async (id: number = 0) => {
+    const response = await axios.get(api.ProductionUrl + "/production/Style/GetAllStyleByBuyer?buyerId=" + id);
     setStyle(response?.data);
   }
 
@@ -252,7 +233,6 @@ export default function CompensationClaimForm({
     getMaterialSubGroup();
     getMaterial();
     getBuyerData();
-    getStyle();
   }, []);
 
 
@@ -472,8 +452,6 @@ export default function CompensationClaimForm({
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
-
-  console.log(data);
 
   return (
     <AppPageContainer>
@@ -1153,7 +1131,6 @@ export default function CompensationClaimForm({
                   onClick={() => handleAdd()}
                   className="mt-1 mb-1"
                 >
-                  {/* <ArrowBigDown size={18} className="me-1" /> */}
                   Add
                 </Button>
                 <div className="mb-5 min-h-60 p-0.5 border rounded-md">
@@ -1323,7 +1300,7 @@ export default function CompensationClaimForm({
                                     {buyerData?.map((buyer) => (
                                       <CommandItem
                                         value={buyer?.NAME}
-                                        key={buyer?.Id}
+                                        key={Number(buyer?.Id)}
                                         onSelect={() => {
                                           field.onChange(Number(buyer?.Id));
                                           setOrderDetails((prev) => ({
@@ -1331,9 +1308,11 @@ export default function CompensationClaimForm({
                                             BUYER_ID: Number(buyer?.Id),
                                             BUYER_NAME: buyer?.NAME,
                                           }));
+                                          getStyleByBuyer(Number(buyer?.Id));
                                           setOpenBuyer(false);
                                         }}
                                       >
+
                                         {buyer?.NAME}
                                         <CheckIcon
                                           className={cn(
