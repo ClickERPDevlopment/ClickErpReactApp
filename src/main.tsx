@@ -296,6 +296,39 @@ createRoot(document.getElementById("root")!).render(
                           <Route index element={<SwtPlanStripIndex />} />
                         </Route>
                       </Route>
+                      <Route path="merchandising">
+                        <Route index element={<MerchandisingDashboard />} />
+                        <Route path="buyer">
+                          <Route index element={<Buyer />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<BuyerCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="color">
+                          <Route index element={<Color />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<ColorCrud />}
+                          />
+                        </Route>
+                        <Route path="size">
+                          <Route index element={<Size />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<SizeCrud />}
+                          />
+                        </Route>
+                        <Route path="compensation-claim">
+                          <Route index element={<CompensationClaimIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<CompensationClaimCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                      </Route>
                     </Route>
                   </Route>
                 </Route>
