@@ -42,13 +42,16 @@ export default function ReportTableRow({
         <td className="border text-center text-xs">
           {masterData?.RECEIVE_QTY}
         </td>
-        {Number(masterData.RECEIVE_QTY - masterData.WO_QTY) < 0 ? (
+        <td className="border text-center text-xs">
+          {masterData?.RET_QTY}
+        </td>
+        {Number(masterData?.RECEIVE_QTY - masterData?.RET_QTY - masterData.WO_QTY) < 0 ? (
           <td className={`border text-center text-xs text-red-500`}>
-            {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
+            {(masterData?.RECEIVE_QTY - masterData?.RET_QTY - masterData.WO_QTY).toFixed(2)}
           </td>
         ) : (
           <td className={`border text-center text-xs`}>
-            {(masterData.RECEIVE_QTY - masterData.WO_QTY).toFixed(2)}
+            {(masterData?.RECEIVE_QTY - masterData?.RET_QTY - masterData.WO_QTY).toFixed(2)}
           </td>
         )}
         {/* <td className="border text-center text-xs">{masterData?.STOCK}</td> */}
@@ -65,9 +68,9 @@ export default function ReportTableRow({
           {Number(masterData.CONSUMPTION_PER_DZN) == 0
             ? "0"
             : (
-                Math.abs(totalAllocationQty - masterData.RECEIVE_QTY) /
-                (Number(masterData.CONSUMPTION_PER_DZN) / 12)
-              ).toFixed(2)}
+              Math.abs(totalAllocationQty - masterData.RECEIVE_QTY) /
+              (Number(masterData.CONSUMPTION_PER_DZN) / 12)
+            ).toFixed(2)}
         </td>
       </tr>
     </>

@@ -21,6 +21,7 @@ export type FinishFabricAllocationSummaryReportMasterType = {
   CONSUMPTION_PER_DZN: number;
   UOM_ID: number;
   UOM: string;
+  RET_QTY: number;
 };
 
 export type FinishFabricAllocationSummaryReportDetailsType = {

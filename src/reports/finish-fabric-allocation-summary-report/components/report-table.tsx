@@ -20,6 +20,7 @@ export default function ReportTable({
     { name: "MATERIAL COLOR", classes: "" },
     { name: "WO QTY", classes: "" },
     { name: "RCV QTY", classes: "" },
+    { name: "RET QTY", classes: "" },
     { name: "RCV BAL", classes: "" },
     // { name: "STOCK QTY", classes: "min-w-[60px]" } /*Rcv-Allocation*/,
     { name: "ALLO. QTY", classes: "" },
@@ -34,6 +35,10 @@ export default function ReportTable({
 
   const totalRcvQty = masterData.reduce((acc, item) => {
     return (acc += item.RECEIVE_QTY);
+  }, 0);
+
+  const totalRetQty = masterData.reduce((acc, item) => {
+    return (acc += item.RET_QTY);
   }, 0);
 
   // const totalStockQty = masterData.reduce((acc, item) => {
@@ -95,7 +100,10 @@ export default function ReportTable({
               {totalRcvQty?.toFixed(2)}
             </td>
             <td className="border text-center text-xs font-semibold">
-              {(totalRcvQty - totalWoQty).toFixed(2)}
+              {totalRetQty?.toFixed(2)}
+            </td>
+            <td className="border text-center text-xs font-semibold">
+              {(totalRcvQty -totalRetQty - totalWoQty).toFixed(2)}
             </td>
             {/* <td className="border text-center text-xs" >{totalStockQty?.toFixed(2)}</td> */}
 
