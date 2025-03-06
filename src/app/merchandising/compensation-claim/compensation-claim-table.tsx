@@ -71,10 +71,10 @@ export function CompensationClaimTable({
       ),
     },
     {
-      accessorKey: "COMPENSATION_ON",
-      header: "compensation On",
+      accessorKey: "COMPENSATION_TYPE",
+      header: "compensation Type",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("COMPENSATION_ON")}</div>
+        <div className="capitalize">{row.getValue("COMPENSATION_TYPE")}</div>
       ),
     },
     {

@@ -16,9 +16,6 @@ export default function CompensationClaimCrud() {
 
   const { data: claimId } = getClaimId<string>();
 
-  console.log(claimId);
-
-
   if (!pageAction) {
     return (
       <Alert variant="destructive">

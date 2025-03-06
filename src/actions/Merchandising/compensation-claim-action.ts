@@ -70,7 +70,7 @@ export interface CompensationClaimMasterType {
     ID: number;
     CLAIM_ID?: string;
     CLAIM_DATE?: Date; // Use string because DateTime should be serialized as ISO string
-    COMPENSATION_ON?: string;
+    COMPENSATION_TYPE?: string;
     RELATED_SUPPLIER_ID: number;
     RELATED_SUPPLIER_NAME: string;
     SUPPLIER_NAME?: string;
@@ -150,7 +150,7 @@ export function getClaimId<T>() {
         (await axios.get("/production/CompensationClaim/GenerateClaimId")).data;
 
     const query = useQuery({
-        queryKey: [ReactQueryKey.ClaimId],
+        queryKey: ["ClaimId"],
         queryFn: getData,
     });
 

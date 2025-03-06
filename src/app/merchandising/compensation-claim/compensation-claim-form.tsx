@@ -79,7 +79,7 @@ const formSchema = z.object({
 const masterFormSchema = z.object({
   CLAIM_ID: z.string(),
   CLAIM_DATE: z.date(),
-  COMPENSATION_ON: z.string(),
+  COMPENSATION_TYPE: z.string(),
   RELATED_SUPPLIER_ID: z.number().default(0),
   RELATED_SUPPLIER_NAME: z.string(),
   REPORTED_BY: z.string(),
@@ -345,7 +345,7 @@ export default function CompensationClaimForm({
     ID: data ? data.ID : 0,
     CLAIM_ID: data ? data.CLAIM_ID : claimId,
     CLAIM_DATE: data?.CLAIM_DATE ? new Date(data.CLAIM_DATE) : new Date(),
-    COMPENSATION_ON: data ? data.COMPENSATION_ON : "",
+    COMPENSATION_TYPE: data ? data.COMPENSATION_TYPE : "",
     RELATED_SUPPLIER_ID: data ? data.RELATED_SUPPLIER_ID : 0,
     RELATED_SUPPLIER_NAME: data ? data.RELATED_SUPPLIER_NAME : "",
     REPORTED_BY: data ? data.REPORTED_BY : "",
@@ -453,7 +453,7 @@ export default function CompensationClaimForm({
     defaultValues: {
       CLAIM_ID: data?.CLAIM_ID || claimId,
       CLAIM_DATE: data?.CLAIM_DATE ? new Date(data.CLAIM_DATE) : new Date(),
-      COMPENSATION_ON: data?.COMPENSATION_ON || "",
+      COMPENSATION_TYPE: data?.COMPENSATION_TYPE || "",
       RELATED_SUPPLIER_ID: data?.RELATED_SUPPLIER_ID || 0,
       RELATED_SUPPLIER_NAME: data?.RELATED_SUPPLIER_NAME || "",
       REPORTED_BY: data?.REPORTED_BY || "",
@@ -472,6 +472,8 @@ export default function CompensationClaimForm({
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
+
+  console.log(data);
 
   return (
     <AppPageContainer>
@@ -531,6 +533,37 @@ export default function CompensationClaimForm({
                         />
                       </FormControl>
                       <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={masterForm.control}
+                  name="COMPENSATION_TYPE"
+                  render={() => (
+                    <FormItem className="min-w-52">
+                      <FormLabel className="font-bold"> Compensation Type</FormLabel>
+                      <Select
+                        value={masterData?.COMPENSATION_TYPE?.toString()}
+                        onValueChange={(value) => {
+                          setMasterData((prev) => ({
+                            ...prev,
+                            COMPENSATION_TYPE: value,
+                          }));
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem key="Type1" value="Type1">
+                            Type1
+                          </SelectItem>
+                          <SelectItem key="Type2" value="Type2">
+                            Type2
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
                     </FormItem>
                   )}
                 />
@@ -647,44 +680,7 @@ export default function CompensationClaimForm({
                 className=""
               >
                 <div className="flex flex-wrap gap-2">
-                  <FormField
-                    control={form.control}
-                    name="MATERIAL_SUB_GROUP_ID"
-                    render={() => (
-                      <FormItem className="min-w-52">
-                        <FormLabel className="font-bold">Type</FormLabel>
-                        <Select
-                          value={claimDetails?.MATERIAL_SUB_GROUP_ID?.toString()}
-                          onValueChange={(value) => {
-                            const selectedMaterialSubGroup = material?.find(
-                              (data) => data.ID.toString() === value
-                            );
-                            if (selectedMaterialSubGroup) {
-                              setClaimDetails((prev) => ({
-                                ...prev,
-                                MATERIAL_SUB_GROUP_ID: Number(selectedMaterialSubGroup.ID),
-                                MATERIAL_SUB_GROUP_NAME: selectedMaterialSubGroup.NAME,
-                              }));
-                            }
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {materialSubGroup?.map((data) => (
-                              <SelectItem
-                                key={data.ID}
-                                value={data.ID.toString()}
-                              >
-                                {data.NAME}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
-                  />
+
 
                   <FormField
                     control={form.control}
@@ -1051,8 +1047,7 @@ export default function CompensationClaimForm({
                               control={form.control}
                               name="DAMAGE_DETAILS"
                               render={({ field }) => (
-                                <FormItem className="w-52" style={{ minWidth: "200px" }}>
-                                  {/* <FormLabel className="font-bold">Damage Details</FormLabel> */}
+                                <FormItem className="w-full">
                                   <FormControl onChange={handleInputChange}>
                                     <Textarea
                                       placeholder="Enter damage details..."
@@ -1128,13 +1123,12 @@ export default function CompensationClaimForm({
                               control={form.control}
                               name="ACTION_TAKEN"
                               render={({ field }) => (
-                                <FormItem className="w-52" style={{ minWidth: "200px" }}>
-                                  {/* <FormLabel className="font-bold">Damage Details</FormLabel> */}
+                                <FormItem className="w-full">
                                   <FormControl onChange={handleInputChange}>
                                     <Textarea
                                       placeholder="Enter damage details..."
                                       {...field}
-                                      className="form-control"
+                                      className="form-control w-full"
                                     />
                                   </FormControl>
                                   <FormMessage />
@@ -1172,9 +1166,6 @@ export default function CompensationClaimForm({
                         <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
                           Material Name
                         </TableHead>
-                        <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
-                          Reason Name
-                        </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
                           Quantity Damaged
                         </TableHead>
@@ -1201,9 +1192,6 @@ export default function CompensationClaimForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
                             {item?.MATERIAL_NAME}
-                          </TableCell>
-                          <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
-                            {item?.TYPE_NAME}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4  text-center">
                             {item.QUANTITY_DAMAGED}
@@ -1399,7 +1387,7 @@ export default function CompensationClaimForm({
                                       (style) =>
                                         Number(style.Id) === field.value
                                     )?.Styleno
-                                    : "Select a supplier"}
+                                    : "Select a style"}
                                   <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                               </FormControl>
