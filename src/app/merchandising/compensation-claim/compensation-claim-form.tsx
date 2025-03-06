@@ -453,6 +453,9 @@ export default function CompensationClaimForm({
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
 
+
+  console.log(masterData);
+
   return (
     <AppPageContainer>
       <div className="w-full p-1">
@@ -498,7 +501,7 @@ export default function CompensationClaimForm({
                   render={({ field }) => (
                     <FormItem className="w-52" style={{ minWidth: "200px" }}>
                       <FormLabel className="font-bold">Claim Date</FormLabel>
-                      <FormControl onChange={handleMasterInputChange}>
+                      <FormControl>
                         <Input
                           placeholder=""
                           type="date"
@@ -506,6 +509,10 @@ export default function CompensationClaimForm({
                           onChange={(e) => {
                             const newDate = e.target.value ? new Date(e.target.value) : null;
                             field.onChange(newDate);
+                            setMasterData((prev) => ({
+                              ...prev,
+                              CLAIM_DATE: new Date(e.target.value),
+                            }));
                           }}
                           className="form-control"
                         />
