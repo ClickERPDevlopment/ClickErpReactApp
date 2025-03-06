@@ -69,7 +69,7 @@ export type planningBoardConfigureType = {
 export interface CompensationClaimMasterType {
     ID: number;
     CLAIM_ID?: string;
-    CLAIM_DATE?: Date; 
+    CLAIM_DATE?: Date;
     COMPENSATION_TYPE?: string;
     RELATED_SUPPLIER_ID: number;
     RELATED_SUPPLIER_NAME: string;
@@ -122,7 +122,7 @@ export function GetCompensationClaim<T>() {
     const query = useQuery({
         queryKey: ["CompensationClaimData"],
         queryFn: getData,
-        staleTime: 1000 * 10,
+        staleTime: 0,
     });
     return query;
 }
@@ -151,6 +151,7 @@ export function getClaimId<T>() {
     const query = useQuery({
         queryKey: ["ClaimId"],
         queryFn: getData,
+        staleTime: 0,
     });
 
     return query;
