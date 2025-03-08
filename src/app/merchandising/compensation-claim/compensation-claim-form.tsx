@@ -79,9 +79,9 @@ const formSchema = z.object({
 const masterFormSchema = z.object({
   CLAIM_ID: z.string(),
   CLAIM_DATE: z.date(),
-  COMPENSATION_TYPE: z.string(),
-  RELATED_SUPPLIER_ID: z.number().default(0),
-  RELATED_SUPPLIER_NAME: z.string(),
+  COMPENSATION_TYPE: z.string().min(1),
+  RELATED_SUPPLIER_ID: z.number().min(1),
+  RELATED_SUPPLIER_NAME: z.string().min(1),
   REPORTED_BY: z.string(),
   ADDITIONAL_NOTES: z.string(),
 });
@@ -228,6 +228,15 @@ export default function CompensationClaimForm({
     setMaterial(response?.data);
   }
 
+  const getUOMById = async (id: number = 0) => {
+    const response = await axios.get(api.ProductionUrl + "/production/UOM/" + id);
+
+    setClaimDetails((prev) => ({
+      ...prev,
+      UOM: response?.data?.NAME,
+    }));
+  }
+
   useEffect(() => {
     getMaterialGroup();
     getMaterialSubGroup();
@@ -241,8 +250,6 @@ export default function CompensationClaimForm({
     const data = masterData;
     data.ClaimDetails = detailsData || [];
     data.RelatedOrders = orderInfo || [];
-
-    console.log(data)
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
@@ -453,9 +460,6 @@ export default function CompensationClaimForm({
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
 
-
-  console.log("sss", material);
-
   return (
     <AppPageContainer>
       <div className="w-full p-1">
@@ -646,6 +650,24 @@ export default function CompensationClaimForm({
                   render={({ field }) => (
                     <FormItem className="w-52" style={{ minWidth: "200px" }}>
                       <FormLabel className="font-bold">Reported By</FormLabel>
+                      <FormControl onChange={handleMasterInputChange}>
+                        <Input
+                          placeholder=""
+                          {...field}
+                          className="form-control"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={masterForm.control}
+                  name="ADDITIONAL_NOTES"
+                  render={({ field }) => (
+                    <FormItem className="w-52" style={{ minWidth: "200px" }}>
+                      <FormLabel className="font-bold">Additional Note</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
                         <Input
                           placeholder=""
@@ -945,11 +967,11 @@ export default function CompensationClaimForm({
                                                       (data) => data.ID === item.ID
                                                     );
                                                     if (selectedMaterial) {
+                                                      getUOMById(Number(selectedMaterial.UOM));
                                                       setClaimDetails((prev) => ({
                                                         ...prev,
                                                         MATERIAL_ID: Number(selectedMaterial.ID),
                                                         MATERIAL_NAME: selectedMaterial.NAME,
-                                                        UOM: selectedMaterial?.UOM?.toString(),
                                                       }));
                                                     }
                                                     setOpenMaterial(false);
