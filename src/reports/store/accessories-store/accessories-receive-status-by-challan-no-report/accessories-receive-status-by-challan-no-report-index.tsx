@@ -74,7 +74,7 @@ function AccessoriesReceiveStatusByChallanNoReport() {
           <TableSkeleton />
         </div>
       ) : (
-        <div className="overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+        <div>
           {errorMessage ? (
             <div className="text-center mt-20">
               <h1 className="font-bold text-2xl text-red-600">

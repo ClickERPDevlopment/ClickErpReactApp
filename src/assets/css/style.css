@@ -10653,11 +10653,19 @@ body {
 }
 
 ::-webkit-scrollbar {
-  @apply w-[0px] h-[5px] bg-gray-100;
+  @apply w-[0px] h-[20px] bg-gray-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply w-[0px] h-[2px] bg-gray-300;
+  @apply w-[0px] h-[20px] bg-gray-300;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  @apply w-[10px] h-[30px] bg-gray-100;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  @apply w-[10px] h-[30px] bg-gray-300;
 }
 
 .dark ::-webkit-scrollbar {

@@ -79,9 +79,9 @@ const formSchema = z.object({
 const masterFormSchema = z.object({
   CLAIM_ID: z.string(),
   CLAIM_DATE: z.date(),
-  COMPENSATION_TYPE: z.string().min(1),
-  RELATED_SUPPLIER_ID: z.number().min(1),
-  RELATED_SUPPLIER_NAME: z.string().min(1),
+  COMPENSATION_TYPE: z.string().min(1, "Compensation type is required"),
+  RELATED_SUPPLIER_ID: z.number().min(1, "Supplier is required"),
+  RELATED_SUPPLIER_NAME: z.string().min(1, "Supplier name is required"),
   REPORTED_BY: z.string(),
   ADDITIONAL_NOTES: z.string(),
 });
@@ -250,6 +250,13 @@ export default function CompensationClaimForm({
     const data = masterData;
     data.ClaimDetails = detailsData || [];
     data.RelatedOrders = orderInfo || [];
+
+    const validationResult = masterFormSchema.safeParse(masterData);
+
+    if (!validationResult.success) {
+      console.error("Validation failed:", validationResult.error.format());
+      return;
+    }
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
@@ -661,7 +668,6 @@ export default function CompensationClaimForm({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={masterForm.control}
                   name="ADDITIONAL_NOTES"

@@ -40,7 +40,7 @@ function Report({
   ];
 
   return (
-    <div className="text-sm">
+    <div className="custom-scroll text-sm relative overflow-auto h-[100vh] bg-white">
       <div className="p-2">
         <ReportHeader
           dtFrom={dtFrom}

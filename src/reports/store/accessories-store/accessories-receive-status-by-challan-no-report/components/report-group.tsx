@@ -12,7 +12,7 @@ function ReportGroup({
   return (
     <div className="mb-2 mt-2">
       <table className="border-collapse border text-sm border-gray-300  w-[100%]">
-        <thead className="bg-lime-200 sticky top-0 z-10 print:static">
+        <thead className="bg-lime-200 sticky top-0 z-50 print:static">
           <tr className="bg-lime-200 text-center">
             {firstHeader?.map((item) => (
               <th className="border border-gray-300">{item}</th>
