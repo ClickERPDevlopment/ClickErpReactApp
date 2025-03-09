@@ -17,7 +17,7 @@ function ReportFooter({ data }: { data: IAccessoriesIssueReturnChallanReport[] }
             <span className="border-t px-5 pb-1">Prepared By</span>
           </td>
           <td className="w-[25%] border-0">
-            <span className="border-t px-5 pb-1">Recived By</span>
+            <span className="border-t px-5 pb-1">Received By</span>
           </td>
         </tr>
       </table>
