@@ -112,6 +112,7 @@ import CreateDateWisePoSummaryReport from "./reports/merchandising/report/create
 import SubcontractBatchWiseFabricDeliveryReport from "./reports/Textile/Dyeing/subcontract-batch-wise-fabric-delivery-report/subcontract-batch-wise-fabric-delivery-report-index.tsx";
 import CompensationClaimIndex from "./app/merchandising/compensation-claim/compensation-claim-index.tsx";
 import CompensationClaimCrud from "./app/merchandising/compensation-claim/compensation-claim-crud.tsx";
+import AccessoriesIssueReturnChallanReport from "./reports/store/accessories-store/accessories-issue-return-challan-report/accessories-issue-return-challan-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -525,6 +526,12 @@ createRoot(document.getElementById("root")!).render(
                         path="accessories-receive-return-challan-gatepass-report"
                         element={
                           <AccessoriesReceiveReturnChallanGatePassReport />
+                        }
+                      />
+                      <Route
+                        path="accessories-issue-return-challan-report"
+                        element={
+                          <AccessoriesIssueReturnChallanReport />
                         }
                       />
                       <Route
