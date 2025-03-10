@@ -1629,7 +1629,7 @@ export default function CompensationClaimForm({
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={`http://119.148.62.103:6502/report/merchandising/compensation-claim-report?id=${masterData.ID}`}
+              href={`/report/merchandising/compensation-claim-report?id=${masterData.ID}`}
               className="px-4 py-2 bg-blue font-semibold text-white rounded-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             >
               Show Report
