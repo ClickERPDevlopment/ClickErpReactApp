@@ -28,11 +28,11 @@ function CompensationClaimIndex() {
   return (
     <div className="pt-5">
       <div className="flex items-center justify-between border-b pb-0">
-        <div className="font-bold text-2xl">Compnesation Claim</div>
+        <div className="font-bold text-2xl">Compensation Claim</div>
         <div>
           <Link to={`${PageAction.add}/0`}>
             <Button className="mb-2" role="button">
-              New Compnesation Claim
+              New Compensation Claim
             </Button>
           </Link>
         </div>

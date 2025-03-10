@@ -755,7 +755,7 @@ export default function CompensationClaimForm({
                           <SquarePlus className="w-5 h-5" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[500px] bg-white">
+                      <DialogContent className="sm:max-w-[700px] bg-white">
                         <DialogHeader>
                           <DialogTitle>Add Material</DialogTitle>
                           <DialogDescription>
@@ -928,7 +928,6 @@ export default function CompensationClaimForm({
                               </Button>
                             </div>
                             <div className="mt-1"></div>
-
                             {/* ===============================Material================================ */}
                             <div className="flex justify-between items-end">
                               <FormField
