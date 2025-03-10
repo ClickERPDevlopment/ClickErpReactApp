@@ -187,12 +187,12 @@ export function CompensationClaimTable({
           placeholder="Filter name..."
           value={
             (table
-              .getColumn("PLANNING_BOARD_NAME")
+              .getColumn("CLAIM_ID")
               ?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
             table
-              .getColumn("PLANNING_BOARD_NAME")
+              .getColumn("CLAIM_ID")
               ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
