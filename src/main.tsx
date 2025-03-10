@@ -113,6 +113,7 @@ import SubcontractBatchWiseFabricDeliveryReport from "./reports/Textile/Dyeing/s
 import CompensationClaimIndex from "./app/merchandising/compensation-claim/compensation-claim-index.tsx";
 import CompensationClaimCrud from "./app/merchandising/compensation-claim/compensation-claim-crud.tsx";
 import AccessoriesIssueReturnChallanReport from "./reports/store/accessories-store/accessories-issue-return-challan-report/accessories-issue-return-challan-report-index.tsx";
+import CompensationClaimReport from "./reports/merchandising/report/compensation-claim-report/compensation-claim-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -462,6 +463,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="create-date-wise-po-summary-report"
                       element={<CreateDateWisePoSummaryReport />}
+                    ></Route>
+                    <Route
+                      path="compensation-claim-report"
+                      element={<CompensationClaimReport />}
                     ></Route>
                   </Route>
 
