@@ -34,6 +34,6 @@ export function GetSupplierById(id: number) {
 }
 
 type Supplier = {
-  ID: string;
-  NAME: string;
+  Id: string;
+  Name: string;
 };

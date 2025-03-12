@@ -233,7 +233,7 @@ export default function CompensationClaimForm({
 
     setClaimDetails((prev) => ({
       ...prev,
-      UOM: response?.data?.NAME,
+      UOM: response?.data?.Name,
     }));
   }
 
@@ -595,8 +595,8 @@ export default function CompensationClaimForm({
                                 {field.value
                                   ? supplierData?.find(
                                     (supplier) =>
-                                      Number(supplier.ID) === field.value
-                                  )?.NAME
+                                      Number(supplier.Id) === field.value
+                                  )?.Name
                                   : "Select a supplier"}
                                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
@@ -610,23 +610,23 @@ export default function CompensationClaimForm({
                                 <CommandGroup>
                                   {supplierData?.map((supplier) => (
                                     <CommandItem
-                                      value={supplier.NAME}
-                                      key={supplier.ID}
+                                      value={supplier.Name}
+                                      key={supplier.Id}
                                       onSelect={() => {
-                                        field.onChange(Number(supplier.ID));
+                                        field.onChange(Number(supplier.Id));
                                         setMasterData((prev) => ({
                                           ...prev,
-                                          RELATED_SUPPLIER_ID: Number(supplier.ID),
-                                          RELATED_SUPPLIER_NAME: supplier.NAME,
+                                          RELATED_SUPPLIER_ID: Number(supplier.Id),
+                                          RELATED_SUPPLIER_NAME: supplier.Name,
                                         }));
                                         setOpenSupplier(false);
                                       }}
                                     >
-                                      {supplier.NAME}
+                                      {supplier.Name}
                                       <CheckIcon
                                         className={cn(
                                           "ml-auto h-4 w-4",
-                                          Number(supplier.ID) === field.value
+                                          Number(supplier.Id) === field.value
                                             ? "opacity-100"
                                             : "opacity-0"
                                         )}

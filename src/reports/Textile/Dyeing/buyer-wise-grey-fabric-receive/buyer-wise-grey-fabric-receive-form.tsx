@@ -73,7 +73,7 @@ export default function BuyerWiseGreyFabricReceiveViewForm() {
   useEffect(() => {
     const _: comboBoxDataType[] = [];
     suppliersData?.forEach((element) => {
-      _.push({ label: element.NAME, value: element.ID });
+      _.push({ label: element.Name, value: element.Id });
     });
 
     setSuppliers([..._]);
@@ -236,8 +236,8 @@ export default function BuyerWiseGreyFabricReceiveViewForm() {
                       >
                         {field.value
                           ? buyers?.find(
-                              (buyer) => Number(buyer.value) === field.value
-                            )?.label
+                            (buyer) => Number(buyer.value) === field.value
+                          )?.label
                           : "Select a buyer"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -317,9 +317,9 @@ export default function BuyerWiseGreyFabricReceiveViewForm() {
                       >
                         {field.value
                           ? suppliers?.find(
-                              (supplier) =>
-                                Number(supplier.value) === Number(field.value)
-                            )?.label
+                            (supplier) =>
+                              Number(supplier.value) === Number(field.value)
+                          )?.label
                           : "Select a supplier"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
