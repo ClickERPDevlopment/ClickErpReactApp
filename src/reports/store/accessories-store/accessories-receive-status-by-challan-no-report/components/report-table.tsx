@@ -14,7 +14,7 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
           <td className="border border-gray-300">{item.SUB_PO}</td>
           <td className="border border-gray-300">{item.STYLENO}</td>
           <td className="border border-gray-300">{item.PURCHASE_ORDER_NO}</td>
-          <td className="border border-gray-300">{item.MRR_NO}</td>
+          <td className="border border-gray-300">{item.MRR_NO || item.ALLOCATION_NO || item.RET_NO}</td>
           {
             moment(item?.CHALLAN_DATE).format("DD-MMM-YY") !== "01-Jan-01" ?
               <td className="border border-gray-300 text-nowrap">

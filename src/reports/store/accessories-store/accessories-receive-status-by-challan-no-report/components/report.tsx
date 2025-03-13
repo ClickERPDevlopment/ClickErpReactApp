@@ -27,7 +27,7 @@ function Report({
     "SUB PO",
     "STYLE",
     "CHALLAN NO",
-    "MRR NO",
+    "MRR/ALLO./RET. NO.",
     "CHALLAN DATE",
     "RCV DATE",
     "ITEM",
@@ -40,7 +40,7 @@ function Report({
   ];
 
   return (
-    <div className="custom-scroll text-sm relative overflow-auto h-[100vh] bg-white">
+    <div className="custom-scroll text-sm relative overflow-auto h-[100vh] bg-white print:h-[100%]">
       <div className="p-2">
         <ReportHeader
           dtFrom={dtFrom}

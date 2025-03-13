@@ -23,4 +23,6 @@ export interface IAccessoriesReceiveStatusByChallanNoReport {
   DESCRIPTION_1: string;
   DESCRIPTION_2: string;
   UOM: string;
+  ALLOCATION_NO: string;
+  RET_NO: string;
 }
