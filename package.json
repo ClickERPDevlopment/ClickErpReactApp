@@ -56,6 +56,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.1.5",
+    "react-signalr": "^0.2.24",
     "redux-thunk": "^3.1.0",
     "simplebar-react": "^3.3.0",
     "sonner": "^1.7.4",

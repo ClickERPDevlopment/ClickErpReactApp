@@ -114,6 +114,7 @@ import CompensationClaimIndex from "./app/merchandising/compensation-claim/compe
 import CompensationClaimCrud from "./app/merchandising/compensation-claim/compensation-claim-crud.tsx";
 import AccessoriesIssueReturnChallanReport from "./reports/store/accessories-store/accessories-issue-return-challan-report/accessories-issue-return-challan-report-index.tsx";
 import CompensationClaimReport from "./reports/merchandising/report/compensation-claim-report/compensation-claim-report-index.tsx";
+import Notifications from "./pages/notifications.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -127,6 +128,7 @@ createRoot(document.getElementById("root")!).render(
               <ScrollToTop />
               <Routes>
                 <Route path="login" element={<Login />} />
+                <Route path="notifications" element={<Notifications />} />
                 <Route path="blank-page" element={<BalckPage />} />
                 <Route element={<PrivateRoute />}>
                   <Route path={"/"} element={<App />}>
@@ -535,9 +537,7 @@ createRoot(document.getElementById("root")!).render(
                       />
                       <Route
                         path="accessories-issue-return-challan-report"
-                        element={
-                          <AccessoriesIssueReturnChallanReport />
-                        }
+                        element={<AccessoriesIssueReturnChallanReport />}
                       />
                       <Route
                         path="monthly-yarn-costing-report"
