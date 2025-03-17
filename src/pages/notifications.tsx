@@ -21,11 +21,13 @@ export default function Notifications() {
       connection.start().then(() => {
         connection
           .invoke("GetConnectionId")
-          .then((connectionId) => console.log("connectionId: ", connectionId));
+          .then((connectionId: string) =>
+            console.log("connectionId: ", connectionId)
+          );
         console.log("connected");
 
         //---------------
-        connection.on("UserConnected", (message) => {
+        connection.on("UserConnected", (message: string) => {
           console.log("message: ", message);
         });
       });
