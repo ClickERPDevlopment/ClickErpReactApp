@@ -5,10 +5,10 @@ import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { GeneralAndOTHoursProductionReportType } from "./general-and-ot-hours-production-report-type";
+import { GeneralAndOTHoursProductionLineWiseReportType } from "./general-and-ot-hours-production-line-wise-report-type";
 
-function GeneralAndOTHoursProductionReport() {
-  const [data, setData] = useState<GeneralAndOTHoursProductionReportType[]>([]);
+function GeneralAndOTHoursProductionLineWiseReport() {
+  const [data, setData] = useState<GeneralAndOTHoursProductionLineWiseReportType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
@@ -44,8 +44,7 @@ function GeneralAndOTHoursProductionReport() {
         setIsLoading(true);
         await axios
           .get(
-            //`${api.ProductionUrl}/production/FinishFabricStore/FabricRequisitionAndReceiveReport`
-            `${api.ProductionUrl}/production/GmtSewingReport/GeneralAndOTHoursProductionReport?dtFrom=${dtFrom}&dtTo=${dtTo}&floorId=${floorId}&companyId=${companyId}`
+            `${api.ProductionUrl}/production/GmtSewingReport/GeneralAndOTHoursProductionLineWiseReport?dtFrom=${dtFrom}&dtTo=${dtTo}&floorId=${floorId}&companyId=${companyId}`
           )
           .then((res) => {
             //console.log(res);
@@ -83,4 +82,4 @@ function GeneralAndOTHoursProductionReport() {
     </>
   );
 }
-export default GeneralAndOTHoursProductionReport;
+export default GeneralAndOTHoursProductionLineWiseReport;

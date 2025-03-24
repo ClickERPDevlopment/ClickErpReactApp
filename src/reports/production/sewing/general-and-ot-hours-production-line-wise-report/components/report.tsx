@@ -1,22 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import moment from "moment";
-import { GeneralAndOTHoursProductionReportType } from "../general-and-ot-hours-production-report-type";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
+import { GeneralAndOTHoursProductionLineWiseReportType } from "../general-and-ot-hours-production-line-wise-report-type";
 
 function Report({
   data,
   searchParams,
 }: {
-  data: GeneralAndOTHoursProductionReportType[];
+  data: GeneralAndOTHoursProductionLineWiseReportType[];
   searchParams: { dtTo: any; dtFrom: any };
 }) {
 
 
   //set table header
   const firstHeader = [
-    "Date",
-    "Floor",
+    "Line",
     "0-8 Hours",
     "9-10 Hours",
     "10+ Hours",
@@ -56,17 +54,14 @@ function Report({
           <tbody>
             {data?.map((item, index) => (
               <tr key={index} className="text-center">
-                <td className="border border-gray-300 p-1">
-                  {moment(item.SEWINGDATE).format("DD-MM-YYYY")}
-                </td>
-                <td className="border border-gray-300 p-1">{item.UNITNAME}</td>
+                <td className="border border-gray-300 p-1">{item.LINENAME}</td>
                 <td className="border border-gray-300 p-1">{item.FIRST_EIGHT_HOUR}</td>
                 <td className="border border-gray-300 p-1">{item.NINE_TEN_HOUR}</td>
                 <td className="border border-gray-300 p-1">{item.GREATER_TEN_HOUR}</td>
               </tr>
             ))}
             <tr className="text-center  bg-yellow-200">
-              <td className="border border-gray-300 p-1 font-bold" colSpan={2}>
+              <td className="border border-gray-300 p-1 font-bold" colSpan={1}>
                 Total
               </td>
               <td className="border border-gray-300 p-1 font-bold">
