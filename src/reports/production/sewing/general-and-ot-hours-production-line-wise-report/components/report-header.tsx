@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import { GeneralAndOTHoursProductionReportType } from "../general-and-ot-hours-production-report-type";
+import { GeneralAndOTHoursProductionLineWiseReportType } from "../general-and-ot-hours-production-line-wise-report-type";
 function ReportHeader({
   searchParams,
   data,
 }: {
   searchParams: { toDate: any; fromDate: any };
-  data: GeneralAndOTHoursProductionReportType;
+  data: GeneralAndOTHoursProductionLineWiseReportType;
 }) {
   return (
     <div className="w-[100%]">
