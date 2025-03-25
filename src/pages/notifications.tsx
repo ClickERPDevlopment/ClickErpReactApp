@@ -14,7 +14,7 @@ export default function Notifications() {
 
   React.useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("http://119.148.62.103:6503/notificationhub", {
+      .withUrl("http://localhost:40000/notificationhub", {
         withCredentials: false,
       })
       .withAutomaticReconnect()
