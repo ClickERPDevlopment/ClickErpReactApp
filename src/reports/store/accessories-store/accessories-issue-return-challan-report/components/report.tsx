@@ -29,7 +29,7 @@ function Report({
   ];
 
   return (
-    <div className="custom-scroll text-sm relative overflow-auto h-[100vh] bg-white">
+    <div className="custom-scroll text-sm relative overflow-auto h-[100vh] bg-white print:h-[100%]">
       <div className="p-2">
         <ReportHeader companyName={data[0]?.COMPANY_NAME} companyAddress={data[0]?.COMPANY_ADDRESS}
         />

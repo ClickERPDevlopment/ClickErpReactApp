@@ -115,6 +115,8 @@ import CompensationClaimCrud from "./app/merchandising/compensation-claim/compen
 import AccessoriesIssueReturnChallanReport from "./reports/store/accessories-store/accessories-issue-return-challan-report/accessories-issue-return-challan-report-index.tsx";
 import CompensationClaimReport from "./reports/merchandising/report/compensation-claim-report/compensation-claim-report-index.tsx";
 import Notifications from "./pages/notifications.tsx";
+import GeneralAndOTHoursProductionReport from "./reports/production/sewing/general-and-ot-hours-production-report/general-and-ot-hours-production-report-index.tsx";
+import GeneralAndOTHoursProductionLineWiseReport from "./reports/production/sewing/general-and-ot-hours-production-line-wise-report/general-and-ot-hours-production-line-wise-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -381,6 +383,14 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="style-wise-avg-efficiency-report"
                         element={<StyleWiseAvgEfficiencyReport />}
+                      />
+                      <Route
+                        path="general-and-ot-hours-production-report"
+                        element={<GeneralAndOTHoursProductionReport />}
+                      />
+                      <Route
+                        path="general-and-ot-hours-production-line-wise-report"
+                        element={<GeneralAndOTHoursProductionLineWiseReport />}
                       />
                       <Route
                         path="online-display-board"
