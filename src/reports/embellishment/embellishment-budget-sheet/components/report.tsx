@@ -15,6 +15,7 @@ function Report({
     "Materails Name",
     "Required Qty.",
     "MOU",
+    "Color",
     "Price (Tk)",
     "Total (Tk)",
   ];
@@ -107,6 +108,7 @@ function Report({
                 </td>
                 <td className="border border-gray-300 p-1">{item.REQ_QUANTITY.toFixed(2)}</td>
                 <td className="border border-gray-300 p-1">{item.UOM}</td>
+                <td className="border border-gray-300 p-1">{item.COLOR_NAME}</td>
                 <td className="border border-gray-300 p-1">{item.RATE}</td>
                 <td className="border border-gray-300 p-1">
                   {item.AMOUNT_BDT.toFixed(2)}
@@ -118,6 +120,7 @@ function Report({
               <td className="border border-gray-300 p-1">
                 {totalReqQty.toFixed(2)}
               </td>
+              <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1">
@@ -137,6 +140,7 @@ function Report({
                 </td>
                 <td className="border border-gray-300 p-1">{item.REQUIRED_MAN_POWER.toFixed(2)}</td>
                 <td className="border border-gray-300 p-1"></td>
+                <td className="border border-gray-300 p-1"></td>
                 <td className="border border-gray-300 p-1">{item.OVER_HEAD_COST}</td>
                 <td className="border border-gray-300 p-1">
                   {(item.OVER_HEAD_COST * item.REQUIRED_MAN_POWER).toFixed(2)}
@@ -148,6 +152,7 @@ function Report({
               <td className="border border-gray-300 p-1">
                 {totalReqManPower.toFixed(2)}
               </td>
+              <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1">
