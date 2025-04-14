@@ -117,6 +117,7 @@ import CompensationClaimReport from "./reports/merchandising/report/compensation
 import Notifications from "./pages/notifications.tsx";
 import GeneralAndOTHoursProductionReport from "./reports/production/sewing/general-and-ot-hours-production-report/general-and-ot-hours-production-report-index.tsx";
 import GeneralAndOTHoursProductionLineWiseReport from "./reports/production/sewing/general-and-ot-hours-production-line-wise-report/general-and-ot-hours-production-line-wise-report-index.tsx";
+import EmblishmentBudgetSheet from "./reports/embellishment/embellishment-budget-sheet/embellishment-budget-sheet-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -598,6 +599,13 @@ createRoot(document.getElementById("root")!).render(
                         />
                       ))}
                     </Route>
+                  </Route>
+
+                  <Route path="embellishment">
+                    <Route
+                      path="embellishment-budget-sheet"
+                      element={<EmblishmentBudgetSheet />}
+                    />
                   </Route>
 
                   <Route path="ie">
