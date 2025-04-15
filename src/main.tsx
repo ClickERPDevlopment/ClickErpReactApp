@@ -118,6 +118,7 @@ import Notifications from "./pages/notifications.tsx";
 import GeneralAndOTHoursProductionReport from "./reports/production/sewing/general-and-ot-hours-production-report/general-and-ot-hours-production-report-index.tsx";
 import GeneralAndOTHoursProductionLineWiseReport from "./reports/production/sewing/general-and-ot-hours-production-line-wise-report/general-and-ot-hours-production-line-wise-report-index.tsx";
 import EmblishmentBudgetSheet from "./reports/embellishment/embellishment-budget-sheet/embellishment-budget-sheet-index.tsx";
+import YarnDeliveryChallanGatePassReport from "./reports/store/yarn-store/yarn-delivery-challan-gate-pass-report/yarn-delivery-challan-gate-pass-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -575,6 +576,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="partywise-yarnissue-greyrcv-balance-summary-report"
                         element={<PartyWiseYanrIssueAndGreyRcvSummaryIndex />}
+                      />
+                      <Route
+                        path="yarn-delivery-challan-gate-pass-report"
+                        element={<YarnDeliveryChallanGatePassReport />}
                       />
                     </Route>
                     <Route path="grey-store">
