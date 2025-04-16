@@ -48,18 +48,30 @@ function ReportTable({
     (acc, item) => acc + Number(item.QUANTITY),
     0);
 
+  const totalBagQty = data?.reduce(
+    (acc, item) => acc + Number(item.CARTON_QTY),
+    0);
+
+  const totalConeQty = data?.reduce(
+    (acc, item) => acc + Number(item.CONE),
+    0);
+
   return (
     <>
-      {uniqueKeysArray?.map((key) => (
+      {uniqueKeysArray?.map((key, index) => (
         <ReportSubgroup
           key={key}
           data={groupedByDate[key].items}
+          index={index}
           firstHeader={firstHeader}
         ></ReportSubgroup>
       ))}
       <tr>
-        <td colSpan={4} className="border border-gray-300 p-1 font-bold">Total</td>
-        <td className="border border-gray-300 p-1 font-bold">{totalQuantiy}</td>
+        <td colSpan={5} className="border border-gray-950 font-bold p-0.5">Total</td>
+        <td className="border border-gray-950 p-0.5 font-bold">{totalQuantiy}</td>
+        <td className="border border-gray-950 p-0.5 font-bold">B: {totalBagQty} C: {totalConeQty}</td>
+        <td className="border border-gray-950 p-0.5"></td>
+        <td className="border border-gray-950 p-0.5"></td>
       </tr>
     </>
   );

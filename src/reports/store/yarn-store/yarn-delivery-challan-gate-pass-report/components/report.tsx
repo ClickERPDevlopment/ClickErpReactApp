@@ -40,7 +40,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["FABRIC", "GSM"]);
+    groupedByDate = groupBy(data, [""]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -48,11 +48,15 @@ function Report({
 
   //set table header
   const firstHeader = [
-    "YARN",
-    "BRAND",
-    "YARN LOT",
+    "SL NO.",
+    "Prog. NO",
+    "Yarn",
+    "Brand",
+    "Yarn Lot",
+    "Issue Qty(KG)",
     "BAG & CONE QTY",
-    "QTY",
+    "Issue Store",
+    "Remarks",
   ];
 
   return (
@@ -63,28 +67,28 @@ function Report({
         />
         <div className="flex justify-between mt-3">
           <div>
-            <table className="font-bold">
+            <table className="font-bold align-top">
               <thead></thead>
               <tbody>
                 <tr>
-                  <td>Challan No</td>
-                  <td>: {data[0]?.CHALLAN_NO}</td>
+                  <td className="align-top">Challan No</td>
+                  <td className="align-top">: {data[0]?.CHALLAN_NO}</td>
                 </tr>
                 <tr>
-                  <td>Date</td>
-                  <td>: {moment(data[0]?.CHALLAN_DATE).format("DD-MM-YY")}</td>
+                  <td className="align-top">Date</td>
+                  <td className="align-top">: {moment(data[0]?.CHALLAN_DATE).format("DD-MM-YY")}</td>
                 </tr>
                 <tr>
-                  <td>Order/Job No</td>
-                  <td>: {data[0]?.PO_NO}</td>
+                  <td className="align-top">Order/Job No</td>
+                  <td className="align-top">: {data[0]?.PO_NO}</td>
                 </tr>
                 <tr>
-                  <td>Style</td>
-                  <td>: {data[0]?.STYLE}</td>
+                  <td className="align-top">Style</td>
+                  <td className="align-top">: {data[0]?.STYLE}</td>
                 </tr>
                 <tr>
-                  <td>Buyer</td>
-                  <td>: {data[0]?.BUYER}</td>
+                  <td className="align-top">Buyer</td>
+                  <td className="align-top">: {data[0]?.BUYER}</td>
                 </tr>
               </tbody>
             </table>
@@ -94,12 +98,12 @@ function Report({
               <thead></thead>
               <tbody>
                 <tr>
-                  <td>To</td>
-                  <td>: {data[0]?.KNITTING_HOUSE}<br></br>{data[0]?.KNITTING_HOUSE_ADDRESS}</td>
+                  <td className="align-top">To</td>
+                  <td className="align-top">: {data[0]?.KNITTING_HOUSE}<br></br>{data[0]?.KNITTING_HOUSE_ADDRESS}</td>
                 </tr>
                 <tr>
-                  <td>Isssue Type</td>
-                  <td>: {data[0]?.ISSUE_TYPE}</td>
+                  <td className="align-top">Isssue Type</td>
+                  <td className="align-top">: {data[0]?.ISSUE_TYPE}</td>
                 </tr>
               </tbody>
             </table>
@@ -109,15 +113,11 @@ function Report({
           <thead className="sticky top-0 print:static bg-white print:bg-transparent">
             <tr className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
-                <th className="border border-gray-300 p-1">{item}</th>
+                <th className="border border-gray-950 p-0.5">{item}</th>
               )}
             </tr>
           </thead>
           <tbody>
-            <tr className="font-bold">
-              <td colSpan={5} className="border border-gray-300 p-1">Fabric:{data[0]?.FABRIC}
-                <br></br>GSM: {data[0]?.GSM}</td>
-            </tr>
             {uniqueKeysArray?.map((key) => (
               <ReportTable
                 key={key}

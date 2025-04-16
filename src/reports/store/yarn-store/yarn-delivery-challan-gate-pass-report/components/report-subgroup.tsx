@@ -1,10 +1,11 @@
 import { IYarnDeliveryChallanGatePassReport } from "../yarn-delivery-challan-gate-pass-report-type";
 
 function ReportSubgroup({
-  data,
+  data, index
 }: {
   data: IYarnDeliveryChallanGatePassReport[];
   firstHeader: string[] | null;
+  index: number;
 }) {
 
   const totalBagQty = data?.reduce(
@@ -22,11 +23,15 @@ function ReportSubgroup({
   return (
     <>
       <tr>
-        <td className="border border-gray-300 p-1">{data[0]?.YARN}</td>
-        <td className="border border-gray-300 p-1">{data[0]?.YARN_BRAND}</td>
-        <td className="border border-gray-300 p-1">{data[0]?.YARN_LOT_NUMBER}</td>
-        <td className="border border-gray-300 p-1">B: {totalBagQty}<br></br>C: {totalConeQty}</td>
-        <td className="border border-gray-300 p-1">{totalQuantiy}</td>
+        <td className="border border-gray-950 p-0.5">{index + 1}</td>
+        <td className="border border-gray-950 p-0.5"></td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.YARN_BRAND}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT_NUMBER}</td>
+        <td className="border border-gray-950 p-0.5">{totalQuantiy}</td>
+        <td className="border border-gray-950 p-0.5">B: {totalBagQty} C: {totalConeQty}</td>
+        <td className="border border-gray-950 p-0.5"></td>
+        <td className="border border-gray-950 p-0.5"></td>
       </tr>
     </>
   );
