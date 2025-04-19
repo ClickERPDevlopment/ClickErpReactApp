@@ -7,6 +7,7 @@ pipeline {
         registry_react_app = 'clickerp/react-app'
         dockerfile_react_app = 'Dockerfile'
         dockerImage_react_app = ''
+        CLIENT_NAME = 'AG'
     }
 
     stages {
@@ -16,6 +17,32 @@ pipeline {
             }
         }
         
+        stage('Write env file') {
+            steps {
+                script {
+                   //add file
+                   
+                   def data = "VITE_APP_CLIENT_NAME=${CLIENT_NAME}"
+                   writeFile(file: '.env', text: data)
+               }
+            }
+        }
+        stage('read') {
+           steps {
+               script {
+                   def data = readFile(file: '.env')
+                   println(data)
+               }
+           }
+       }
+       
+        stage('npm version check') {
+           steps {
+               script {
+                   bat 'npm --version'
+               }
+           }
+       }
         stage('npm install') { 
             steps {
                 sh 'npm install' 
