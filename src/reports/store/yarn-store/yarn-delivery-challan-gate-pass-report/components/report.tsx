@@ -21,8 +21,6 @@ function Report({
 
   const api = useApiUrl();
 
-  console.log("My Data", data[0]?.BUYER_ID);
-
   useEffect(() => {
     async function getData() {
       try {
@@ -33,7 +31,6 @@ function Report({
           .then((res) => {
             //console.log(res);
             if (res.data) {
-              console.log("My Data Booking Summary", res.data);
               setBookingSummaryData(res.data);
             } else {
               //console.log(res);
@@ -185,7 +182,7 @@ function Report({
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.PO_NO}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.ISSUE_QTY}</td>
-                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY - bookingSummaryData[0]?.ISSUE_QTY}</td>
+                  <td className="border border-gray-950 p-0.5">{(bookingSummaryData[0]?.BOOKING_QTY - bookingSummaryData[0]?.ISSUE_QTY).toFixed(2)}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY - bookingSummaryData[0]?.ISSUE_QTY > 0 ? "Less" : "Over"}</td>
                 </tr>
               </tbody>

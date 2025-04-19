@@ -30,7 +30,7 @@ function YarnDeliveryChallanGatePassReport() {
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Process Wise Dyeing Finish Production Report";
+    document.title = "Yarn Delivery Challan Gate Pass Report";
   }, []);
 
   useEffect(() => {
@@ -59,7 +59,6 @@ function YarnDeliveryChallanGatePassReport() {
           .then((res) => {
             //console.log(res);
             if (res.data) {
-              console.log("My Data", res.data);
               setData(res.data);
             } else {
               //console.log(res);
