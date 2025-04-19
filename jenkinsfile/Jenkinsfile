@@ -36,13 +36,6 @@ pipeline {
            }
        }
        
-        stage('npm version check') {
-           steps {
-               script {
-                   bat 'npm --version'
-               }
-           }
-       }
         stage('npm install') { 
             steps {
                 sh 'npm install' 
