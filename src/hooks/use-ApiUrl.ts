@@ -12,8 +12,6 @@ export default function useApiUrl() {
   const DevRootUrl = "http://localhost:40000";
   let ProductionUrl = "";
   let ProductionRootUrl = "";
-  // const icclUrl = "http://119.148.62.103:6503/reports/api";
-  // const versatileUrl = "http://103.192.156.110:6503/reports/api";
 
   const icclUrl = "http://119.148.62.103:6503/api";
   const icclRootUrl = "http://119.148.62.103:6503";
