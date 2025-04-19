@@ -31,7 +31,10 @@ export default function useApiUrl() {
   const euroUrl = "http://192.168.1.155:6001/api";
   const euroRootUrl = "http://192.168.1.155:6001";
 
-  if (currentEnv === devEnv) {
+    console.log("currentEnv: ", currentEnv);
+    if (currentEnv === devEnv) {
+    console.log("Dev Environment");
+    console.log("clientName: ", clientName);
     if (clientName === AG) {
       if (import.meta.env.VITE_APP_LINUX_NODE_ENV === "production") {
         ProductionUrl = agUrl;
@@ -45,6 +48,8 @@ export default function useApiUrl() {
       ProductionRootUrl = DevRootUrl;
     }
   } else {
+    console.log("Production Environment");
+    console.log("clientName: ", clientName);
     if (VERSATILE === clientName) {
       ProductionUrl = versatileUrl;
       ProductionRootUrl = versatileRootUrl;
