@@ -4,12 +4,49 @@ import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { IYarnDeliveryChallanGatePassReport } from "../yarn-delivery-challan-gate-pass-report-type";
 import moment from "moment";
+import { IYarnBookingSummary } from "../yarn-booking-summary-type";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 function Report({
   data,
 }: {
   data: IYarnDeliveryChallanGatePassReport[];
 }) {
+
+  const [bookingSummaryData, setBookingSummaryData] = useState<IYarnBookingSummary[]>(
+    []
+  );
+
+  const api = useApiUrl();
+
+  console.log("My Data", data[0]?.BUYER_ID);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        await axios
+          .get(
+            `${api.ProductionUrl}/production/YarnStoreReport/YarnBookingSummaryReport?buyerId=${data[0]?.BUYER_ID}&styleId=${data[0]?.STYLE_ID}&poId=${data[0]?.PO_ID}`
+          )
+          .then((res) => {
+            //console.log(res);
+            if (res.data) {
+              console.log("My Data Booking Summary", res.data);
+              setBookingSummaryData(res.data);
+            } else {
+              //console.log(res);
+            }
+          })
+          .catch((m) => console.log(m));
+
+      } catch {
+        //console.log(error.message);
+      }
+    }
+    getData();
+  }, []);
 
   const uniqueKeys: Set<string> = new Set();
 
@@ -127,7 +164,39 @@ function Report({
             ))}
           </tbody>
         </table>
-        <div className="p-5"></div>
+
+        <div className="flex w-full mt-5">
+          <div className="flex-[2]">
+            <p className="text-center font-bold">Booking Summary</p>
+            <table className="border-collapse border border-gray-300  w-[100%]">
+              <thead className="sticky top-0 print:static bg-white print:bg-transparent">
+                <tr className="bg-indigo-200 text-center">
+                  <th className="border border-gray-950 p-0.5">Buyer</th>
+                  <th className="border border-gray-950 p-0.5">Job No</th>
+                  <th className="border border-gray-950 p-0.5">Req. Yarn</th>
+                  <th className="border border-gray-950 p-0.5">Issue Yarn</th>
+                  <th className="border border-gray-950 p-0.5">Bal</th>
+                  <th className="border border-gray-950 p-0.5">Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BUYER_NAME}</td>
+                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.PO_NO}</td>
+                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY}</td>
+                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.ISSUE_QTY}</td>
+                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY - bookingSummaryData[0]?.ISSUE_QTY}</td>
+                  <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY - bookingSummaryData[0]?.ISSUE_QTY > 0 ? "Less" : "Over"}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex-[1]">
+          </div>
+        </div>
+
+        <div className="mt-[144px]"></div>
+
         <div>
           <ReportFooter></ReportFooter>
         </div>
