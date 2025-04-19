@@ -24,8 +24,8 @@ export default function useApiUrl() {
   const presentationUrl = "http://localhost:6001/api";
   const presentationRootUrl = "http://localhost:6001";
 
-  const agUrl = "http://103.95.98.115:6307/api";
-  const agRootUrl = "http://103.95.98.115:6307";
+  const agUrl = "http://10.10.101.6:6307/api";
+  const agRootUrl = "http://10.10.101.6:6307";
 
   const nurUrl = "http://163.47.147.34:6007/api";
   const nurRootUrl = "http://163.47.147.34:6007";
