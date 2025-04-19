@@ -39,7 +39,7 @@ function ReportTable({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["YARN", "YARN_LOT_NUMBER", "YARN_BRAND"]);
+    groupedByDate = groupBy(data, ["YARN", "YARN_LOT_NUMBER", "YARN_BRAND", "KNITTING_PROGRAM_NO"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);

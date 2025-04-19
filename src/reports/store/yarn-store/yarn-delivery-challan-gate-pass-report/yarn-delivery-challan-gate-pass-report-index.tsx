@@ -13,6 +13,9 @@ function YarnDeliveryChallanGatePassReport() {
   const [data, setData] = useState<IYarnDeliveryChallanGatePassReport[]>(
     []
   );
+
+
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
@@ -27,7 +30,7 @@ function YarnDeliveryChallanGatePassReport() {
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Process Wise Dyeing Finish Production Report";
+    document.title = "Yarn Delivery Challan Gate Pass Report";
   }, []);
 
   useEffect(() => {
@@ -49,6 +52,20 @@ function YarnDeliveryChallanGatePassReport() {
           })
           .catch((m) => console.log(m));
 
+        await axios
+          .get(
+            `${api.ProductionUrl}/production/YarnStoreReport/YarnBookingSummaryReport?buyerId=${data[0]?.BUYER_ID}&styleId=${data[0]?.STYLE_ID}&poId=${data[0]?.PO_ID}`
+          )
+          .then((res) => {
+            //console.log(res);
+            if (res.data) {
+              setData(res.data);
+            } else {
+              //console.log(res);
+            }
+          })
+          .catch((m) => console.log(m));
+
         setIsLoading(false);
       } catch {
         setIsLoading(false);
@@ -57,8 +74,6 @@ function YarnDeliveryChallanGatePassReport() {
     }
     getData();
   }, []);
-
-  console.log(data);
 
   return isLoading ? (
     <>

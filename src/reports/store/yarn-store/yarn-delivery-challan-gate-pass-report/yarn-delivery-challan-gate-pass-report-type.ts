@@ -24,6 +24,7 @@ export interface IYarnDeliveryChallanGatePassReport {
   KNITTING_HOUSE_ADDRESS: string;
   MODEL_NO_ID: number;
   STYLE: string;
+  STYLE_ID: string;
   GSM: string;
   FABRIC_TYPE_ID: number;
   FABRIC_TYPE: string;
@@ -57,4 +58,5 @@ export interface IYarnDeliveryChallanGatePassReport {
   COMPOSED_BY: string;
   SORTING_NO: string;
   CONE: number;
+  KNITTING_PROGRAM_NO: string;
 }

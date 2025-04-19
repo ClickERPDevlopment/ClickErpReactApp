@@ -7,6 +7,7 @@ function ReportHeader({
 }: {
   data: IYarnDeliveryChallanGatePassReport[];
 }) {
+
   return (
     <div className="w-[100%]">
       <p className="font-bold text-lg text-left w-[100%] text-sm">

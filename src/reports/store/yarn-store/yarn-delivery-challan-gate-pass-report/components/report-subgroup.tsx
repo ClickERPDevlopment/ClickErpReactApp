@@ -24,7 +24,7 @@ function ReportSubgroup({
     <>
       <tr>
         <td className="border border-gray-950 p-0.5">{index + 1}</td>
-        <td className="border border-gray-950 p-0.5"></td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.KNITTING_PROGRAM_NO}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_BRAND}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT_NUMBER}</td>
