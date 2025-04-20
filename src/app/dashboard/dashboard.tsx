@@ -61,19 +61,19 @@ export function ModuleCard({ module }: { module: ModuleType }) {
 }
 
 export default function Dashboard() {
-  const { currentEnv } = useDevEnv();
-  const {ProductionUrl} = useApiUrl();
+  // const { currentEnv } = useDevEnv();
+  // const {ProductionUrl} = useApiUrl();
   return (
     <div className="flex flex-wrap justify-center items-center gap-10 p-3 sm:p-10">
       {module.map((element) => (
         <ModuleCard key={element.name} module={element} />
       ))}
-      <p>VITE_APP_CLIENT_NAME</p>
+      {/* <p>VITE_APP_CLIENT_NAME</p>
       {import.meta.env.VITE_APP_CLIENT_NAME}
       <p>currentEnv</p>
       {currentEnv}
       <p>ProductionUrl</p>
-      {ProductionUrl}
+      {ProductionUrl} */}
     </div>
   );
 }
