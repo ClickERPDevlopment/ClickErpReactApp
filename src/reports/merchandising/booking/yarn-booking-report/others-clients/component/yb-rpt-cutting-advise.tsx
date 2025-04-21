@@ -4,7 +4,7 @@ import YarnBookingReportContext from "./yb-rpt-context";
 import {
   YarnBookingReportDto_CuttingAdviceQuantity,
   YarnBookingReportDto_TechnicalSheet,
-} from "./yb-rpt-type";
+} from "../../yb-rpt-type";
 
 function getSizeMeasurement(
   lstCuttingTech: YarnBookingReportDto_TechnicalSheet[],
@@ -71,20 +71,19 @@ export default function YarnBookingCuttingAdvise() {
           </tr>
         </thead>
         <tbody>
-          {data?.lstParts.map((p) => (
-            <tr key={p.NAME}>
+          {data?.lstParts.map((part) => (
+            <tr key={part.NAME}>
               <td className="text-center border border-black">~</td>
               <td className="text-center border border-black"></td>
               {data.sizeNameList.map((sName) => (
                 <td key={sName} className="text-center border border-black">
-                  {getSizeMeasurement(data.lstTechnicalSheet, p.NAME, sName)}
+                  {getSizeMeasurement(data.lstTechnicalSheet, part.NAME, sName)}
                 </td>
               ))}
-              <td className="text-center border border-black">{p.NAME}</td>
+              <td className="text-center border border-black">{part.NAME}</td>
               {data.MaterData.IS_OPEN_DIA === "0" ? (
-                p.NAME?.toUpperCase().includes("CHEST") ? (
+                part.NAME?.toUpperCase().includes("CHEST") ? (
                   <td className="text-center border border-black">
-                    {" "}
                     DIA SELECTION (Body)
                   </td>
                 ) : (

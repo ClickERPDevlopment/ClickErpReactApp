@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
-import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
+import { YarnBookingReportDto_KnittingDyeingAdvice } from "../../../yb-rpt-type";
 
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;

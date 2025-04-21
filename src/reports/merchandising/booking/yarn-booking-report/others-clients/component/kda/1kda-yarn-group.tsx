@@ -1,4 +1,4 @@
-import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
+import { YarnBookingReportDto_KnittingDyeingAdvice } from "../../../yb-rpt-type";
 import KittingDyeingAdvicePartsGroup from "./2kda-parts-group";
 
 type prams = {
