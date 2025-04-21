@@ -29,8 +29,10 @@ function Report({
       if (response.ok) {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
+        if (styleImage) {
+          URL.revokeObjectURL(styleImage);
+        }
         setStyleImage(url);
-        console.log("Image URL:", url);
       } else {
         console.error("Failed to fetch image");
       }
@@ -74,7 +76,7 @@ function Report({
           <img
             src={styleImage || ""}
             alt="Style Image"
-            className="w-32 h-32 object-cover"
+            className="w-32 h-auto object-cover"
           />
         </div>
       )}
@@ -105,7 +107,7 @@ function Report({
                 <td className="border border-gray-300">
                   {item.BUYER_NAME}
                 </td>
-                <td className="border border-gray-300 cursor-pointer"
+                <td className="border border-gray-300 cursor-pointer hover:bg-lime-200"
                   ref={cellRef}
                   onMouseEnter={(e) => {
                     const rect = (e.currentTarget as HTMLTableCellElement).getBoundingClientRect();
