@@ -4,6 +4,8 @@ import moment from "moment";
 import { ICreateDateWisePoSummaryReport } from "../create-date-wise-po-summary-report-type";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
+import { useRef, useState } from "react";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 function Report({
   data,
@@ -12,6 +14,33 @@ function Report({
   data: ICreateDateWisePoSummaryReport[];
   searchParams: { toDate: any; fromDate: any };
 }) {
+
+  const api = useApiUrl();
+  const [hoveredStyleId, setHoveredStyleId] = useState<number | null>(null);
+  const [styleImage, setStyleImage] = useState<string | null>(null);
+  const [imagePosition, setImagePosition] = useState<{ top: number; left: number } | null>(null);
+  const cellRef = useRef<HTMLTableCellElement | null>(null);
+
+  const fetchImage = async (id: number) => {
+    try {
+      const response = await fetch(
+        `${api.ProductionUrl}/production/Style/GetStyleImage?styleId=${id}`
+      );
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        if (styleImage) {
+          URL.revokeObjectURL(styleImage);
+        }
+        setStyleImage(url);
+      } else {
+        console.error("Failed to fetch image");
+      }
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
+
   //set table header
   const firstHeader = [
     "SL No",
@@ -36,6 +65,21 @@ function Report({
 
   return (
     <div className="px-10 text-sm">
+      {hoveredStyleId && imagePosition && (
+        <div
+          className="absolute z-50 bg-white shadow-lg p-2 rounded-md"
+          style={{
+            top: `${imagePosition.top}px`,
+            left: `${imagePosition.left}px`,
+          }}
+        >
+          <img
+            src={styleImage || ""}
+            alt="Style Image"
+            className="w-32 h-auto object-cover"
+          />
+        </div>
+      )}
       <div className="p-2">
         <ReportHeader
           searchParams={{
@@ -63,7 +107,24 @@ function Report({
                 <td className="border border-gray-300">
                   {item.BUYER_NAME}
                 </td>
-                <td className="border border-gray-300">{item.STYLE_NO}</td>
+                <td className="border border-gray-300 cursor-pointer hover:bg-lime-200"
+                  ref={cellRef}
+                  onMouseEnter={(e) => {
+                    const rect = (e.currentTarget as HTMLTableCellElement).getBoundingClientRect();
+                    setImagePosition({
+                      top: rect.bottom + window.scrollY,
+                      left: rect.left + window.scrollX,
+                    });
+                    setHoveredStyleId(item.STYLE_ID);
+                    fetchImage(item.STYLE_ID);
+                  }}
+                  onMouseLeave={() => {
+                    setHoveredStyleId(null);
+                    setImagePosition(null);
+                  }}
+                >
+                  {item.STYLE_NO}
+                </td>
                 <td className="border border-gray-300">{item.PO_NO}</td>
                 <td className="border border-gray-300">{item.ITEM_TYPE}</td>
                 <td className="border border-gray-300">
