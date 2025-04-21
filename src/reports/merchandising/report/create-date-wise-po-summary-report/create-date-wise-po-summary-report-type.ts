@@ -1,6 +1,7 @@
 export interface ICreateDateWisePoSummaryReport {
   BUYER_NAME: string;
   STYLE_NO: string;
+  STYLE_ID: number;
   PO_NO: string;
   ITEM_TYPE: string;
   ORDERPLACEMENTMONTH: Date;
