@@ -82,6 +82,10 @@ function Report({
                   <td>: {data?.embMaterialReqData[0]?.EMB_TYPE}</td>
                 </tr>
                 <tr>
+                  <td>Job Category</td>
+                  <td>: {data?.embMaterialReqData[0]?.EMB_CATEGORY}</td>
+                </tr>
+                <tr>
                   <td>Supplier</td>
                   <td>: {data?.embMaterialReqData[0]?.SUPPLIER_NAME}</td>
                 </tr>
@@ -98,6 +102,8 @@ function Report({
             </tr>
           </thead>
           <tbody>
+
+            {/* Material Requirement Data */}
             {data?.embMaterialReqData.map((item) => (
               <tr className="text-center">
                 <td className="border border-gray-300 p-1">
@@ -131,6 +137,8 @@ function Report({
             <tr className="text-center font-bold">
               <td colSpan={7} className="border border-gray-300 p-1 text-start">Additional Information</td>
             </tr>
+
+            {/* Material Requirement Productivity Data */}
             {data?.embMaterialReqProData.map((item, index) => (
               index === 0 ?
                 <tr className="text-center">
@@ -177,6 +185,7 @@ function Report({
               <td colSpan={7} className="border border-gray-300 p-4 text-end"></td>
             </tr>
 
+            {/* Summary Info Data */}
             <tr className="text-center font-bold">
               <td colSpan={6} className="border border-gray-300 p-1 text-end">Total Expenditures(TK)</td>
               <td className="border border-gray-300 p-1">
