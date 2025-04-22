@@ -2,14 +2,18 @@ import useApiUrl from "../../../../hooks/use-ApiUrl";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import YarnBookingReport from "./yarn-booking-rpt";
 import ReportSkeleton from "../../../../components/report-skeleton";
-import { YarnBookingReportDto } from "./component/yb-rpt-type";
+import useAppClient from "@/hooks/use-AppClient";
+import { YarnBookingReportDto } from "./yb-rpt-type";
+import YarnBookingReport_AG from "./ag-client/yarn-booking-rpt";
+import YarnBookingReport from "./others-clients/yarn-booking-rpt";
 
 export default function YarnBookingReportIndex() {
   const [data, setData] = useState<YarnBookingReportDto>();
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
+
+  const appClient = useAppClient();
 
   const api = useApiUrl();
 
@@ -72,9 +76,9 @@ export default function YarnBookingReportIndex() {
         <div className="flex justify-center">
           <ReportSkeleton />
         </div>
-      ) : (
-        <YarnBookingReport data={data!} />
-      )}
+      ) : appClient.currentClient==appClient.AG? (
+        <YarnBookingReport_AG data={data!} />
+      ):(<YarnBookingReport data={data!} />)}
     </>
   );
 }

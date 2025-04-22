@@ -45,7 +45,7 @@ function getAllKnittingSizes(
   return SizeNameList;
 }
 
-export default function YarnBookingReport({ data }: params) {
+export default function YarnBookingReport_AG({ data }: params) {
   if (data) {
     data.knittingSizeNameList = getAllKnittingSizes(
       data.lstKnittingDyeingAdvice
