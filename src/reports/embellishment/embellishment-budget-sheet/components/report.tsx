@@ -9,8 +9,9 @@ function Report({
 }: {
   data: { embMaterialReqData: EmbMaterialRequirementReportType[], embMaterialReqProData: EmbMaterialRequirementProductivityType[] };
 }) {
+
   //set table header
-  const firstHeader = [
+  const firstHeader: string[] = [
     "Material Group",
     "Materails Name",
     "Required Qty.",
