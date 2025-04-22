@@ -11,9 +11,9 @@ export interface EmbMaterialRequirementReportType {
   REQUIREMENT_NO_SERIAL: number;
   REQUIREMENT_NO: string;
   WORK_ORDER_QTY: number;
-  TOTLA_WORK_ORDER_AMOUNT: number;
+  TOTAL_WORK_ORDER_AMOUNT: number;
   CONVERSION_RATE: number;
-  TOTLA_WORK_ORDER_AMOUNT_BDT: number;
+  TOTAL_WORK_ORDER_AMOUNT_BDT: number;
   PRE_COSTING_AMOUNT: number;
   PROFIT_LOSS: number;
   CONSUPMTION_PER_DZN: number;
