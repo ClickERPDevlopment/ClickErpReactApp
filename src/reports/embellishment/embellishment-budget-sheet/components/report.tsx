@@ -9,8 +9,9 @@ function Report({
 }: {
   data: { embMaterialReqData: EmbMaterialRequirementReportType[], embMaterialReqProData: EmbMaterialRequirementProductivityType[] };
 }) {
+
   //set table header
-  const firstHeader = [
+  const firstHeader: string[] = [
     "Material Group",
     "Materails Name",
     "Required Qty.",
@@ -32,9 +33,9 @@ function Report({
     (acc: number, item: EmbMaterialRequirementProductivityType) => acc + item.REQUIRED_MAN_POWER, 0
   );
 
-  const totalManPowerCost = data?.embMaterialReqProData.reduce(
-    (acc: number, item: EmbMaterialRequirementProductivityType) => acc + item.REQUIRED_MAN_POWER * item.OVER_HEAD_COST, 0
-  );
+  const totalMarkupTk = data?.embMaterialReqData[0]?.TOTAL_WORK_ORDER_AMOUNT_BDT - totalAmount - data?.embMaterialReqProData[0]?.OVER_HEAD_COST;
+
+  const totalMarkupPercentage = (totalMarkupTk / data?.embMaterialReqData[0]?.TOTAL_WORK_ORDER_AMOUNT_BDT) * 100;
 
 
   return (
@@ -75,11 +76,15 @@ function Report({
                 </tr>
                 <tr>
                   <td>Total Value (Tk)</td>
-                  <td>: {data?.embMaterialReqData[0]?.AMOUNT_BDT}</td>
+                  <td>: {data?.embMaterialReqData[0]?.TOTAL_WORK_ORDER_AMOUNT_BDT.toFixed(2)}</td>
                 </tr>
                 <tr>
                   <td>Job Type</td>
                   <td>: {data?.embMaterialReqData[0]?.EMB_TYPE}</td>
+                </tr>
+                <tr>
+                  <td>Job Category</td>
+                  <td>: {data?.embMaterialReqData[0]?.EMB_CATEGORY}</td>
                 </tr>
                 <tr>
                   <td>Supplier</td>
@@ -98,6 +103,8 @@ function Report({
             </tr>
           </thead>
           <tbody>
+
+            {/* Material Requirement Data */}
             {data?.embMaterialReqData.map((item) => (
               <tr className="text-center">
                 <td className="border border-gray-300 p-1">
@@ -129,23 +136,38 @@ function Report({
             </tr>
 
             <tr className="text-center font-bold">
-              <td colSpan={6} className="border border-gray-300 p-1 text-start">Additional Information</td>
+              <td colSpan={7} className="border border-gray-300 p-1 text-start">Additional Information</td>
             </tr>
-            {data?.embMaterialReqProData.map((item) => (
-              <tr className="text-center">
-                <td className="border border-gray-300 p-1">
-                </td>
-                <td className="border border-gray-300 p-1">
-                  {item.MANPOWER_TYPE}
-                </td>
-                <td className="border border-gray-300 p-1">{item.REQUIRED_MAN_POWER.toFixed(2)}</td>
-                <td className="border border-gray-300 p-1"></td>
-                <td className="border border-gray-300 p-1"></td>
-                <td className="border border-gray-300 p-1">{item.OVER_HEAD_COST}</td>
-                <td className="border border-gray-300 p-1">
-                  {(item.OVER_HEAD_COST * item.REQUIRED_MAN_POWER).toFixed(2)}
-                </td>
-              </tr>
+
+            {/* Material Requirement Productivity Data */}
+            {data?.embMaterialReqProData.map((item, index) => (
+              index === 0 ?
+                <tr className="text-center">
+                  <td className="border border-gray-300 p-1">
+                  </td>
+                  <td className="border border-gray-300 p-1">
+                    {item.MANPOWER_TYPE}
+                  </td>
+                  <td className="border border-gray-300 p-1">{item.REQUIRED_MAN_POWER.toFixed(2)}</td>
+                  <td className="border border-gray-300 p-1"></td>
+                  <td className="border border-gray-300 p-1"></td>
+                  <td className="border border-gray-300 p-1"></td>
+                  <td rowSpan={data?.embMaterialReqProData?.length} className="border border-gray-300 p-1">
+                    {item.OVER_HEAD_COST}
+                  </td>
+                </tr>
+                :
+                <tr className="text-center">
+                  <td className="border border-gray-300 p-1">
+                  </td>
+                  <td className="border border-gray-300 p-1">
+                    {item.MANPOWER_TYPE}
+                  </td>
+                  <td className="border border-gray-300 p-1">{item.REQUIRED_MAN_POWER.toFixed(2)}</td>
+                  <td className="border border-gray-300 p-1"></td>
+                  <td className="border border-gray-300 p-1"></td>
+                  <td className="border border-gray-300 p-1"></td>
+                </tr>
             ))}
             <tr className="text-center font-bold">
               <td colSpan={2} className="border border-gray-300 p-1 text-end">Total</td>
@@ -156,9 +178,36 @@ function Report({
               <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1"></td>
               <td className="border border-gray-300 p-1">
-                {totalManPowerCost.toFixed(2)}
+                {data?.embMaterialReqProData[0]?.OVER_HEAD_COST}
               </td>
             </tr>
+
+            <tr className="text-center font-bold">
+              <td colSpan={7} className="border border-gray-300 p-4 text-end"></td>
+            </tr>
+
+            {/* Summary Info Data */}
+            <tr className="text-center font-bold">
+              <td colSpan={6} className="border border-gray-300 p-1 text-end">Total Expenditures(TK)</td>
+              <td className="border border-gray-300 p-1">
+                {(totalAmount + data?.embMaterialReqProData[0]?.OVER_HEAD_COST).toFixed(2)}
+              </td>
+            </tr>
+
+            <tr className="text-center font-bold">
+              <td colSpan={6} className="border border-gray-300 p-1 text-end">Budgeted Markup(TK)</td>
+              <td className="border border-gray-300 p-1">
+                {totalMarkupTk.toFixed(2)}
+              </td>
+            </tr>
+
+            <tr className="text-center font-bold">
+              <td colSpan={6} className="border border-gray-300 p-1 text-end">Markup%</td>
+              <td className="border border-gray-300 p-1">
+                {totalMarkupPercentage.toFixed(2)}
+              </td>
+            </tr>
+
           </tbody>
         </table>
         <div className="p-5"></div>
