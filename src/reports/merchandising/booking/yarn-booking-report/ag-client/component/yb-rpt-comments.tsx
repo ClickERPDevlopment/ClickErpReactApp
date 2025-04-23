@@ -9,7 +9,7 @@ export default function YarnBookingReportComments() {
     <table className="my-5 w-full">
       <thead>
         <tr>
-          <th className="border border-black w-20">SL</th>
+          <th className="border border-black w-12">SL</th>
           <th className="border border-black w-auto">COMMENTS</th>
         </tr>
       </thead>

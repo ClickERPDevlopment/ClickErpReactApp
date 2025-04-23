@@ -69,7 +69,7 @@ export default function YarnBookingReportIndex() {
       }
     }
     getData();
-  }, []);
+  }, [api.ProductionUrl, buyerId, poId, poNo, styleId]);
   return (
     <>
       {isLoading ? (

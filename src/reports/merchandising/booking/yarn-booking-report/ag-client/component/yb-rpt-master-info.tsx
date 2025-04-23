@@ -36,7 +36,7 @@ export default function YarnBookingMasterInfo({
     };
 
     fetchImage();
-  }, [masterData?.STYLEID]);
+  }, [api.ProductionUrl, masterData?.STYLEID]);
 
   let specialTreatment = "";
   lstSpecialTreatment.forEach((element) => {
@@ -46,56 +46,58 @@ export default function YarnBookingMasterInfo({
 
   return (
     <div className="mt-5">
-      <div className="flex gap-24 mt-3">
-        <ul className="basis-4/12">
-          <li className="flex mb-1">
-            <label className="min-w-28 font-bold">Order/Job No.</label>
-            <span>: {masterData?.PONO}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-28 font-bold">Body GSM</label>
-            <span>: {masterData?.BODY_GSM}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-28 font-bold">Counts</label>
-            <span >: {masterData?.COUNTS}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-28 font-bold">Style</label>
-            <span >: {masterData?.STYLENAME}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-28 font-bold">Buyer Name</label>
-            <span>: {masterData?.BUYER_NAME}</span>
-          </li>
-          {/* <li className="flex">
-            <label className="min-w-28 font-bold">Revise</label>
-            <span>:{masterData?.REVISED_NO}</span>
-          </li> */}
-        </ul>
-        <ul className="basis-4/12">
-          <li className="flex mb-1">
-            <label className="min-w-44 font-bold">Based on Tech. Sheet Date</label>
-            <span>: {masterData?.TECHNICAL_SHEET_DATE}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-44 font-bold">Order Qty</label>
-            <span>: {masterData?.ORDER_QTY}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-44 font-bold">Neck Rib GSM</label>
-            <span>: {masterData?.NECK_RIB_GSM}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-44 font-bold">Fabric Type</label>
-            <span>: {masterData?.FABRIC_TYPE}</span>
-          </li>
-          <li className="flex mb-1">
-            <label className="min-w-44 font-bold">Formation</label>
-            <span>: {masterData?.IS_OPEN_DIA==='1'?'Open':'Tubular'}</span>
-          </li>
-        </ul>
-        <div className="basis-4/12 flex justify-end">
+      <div className="flex gap-6 mt-3 justify-between">
+        <div className="flex flex-1 justify-between gap-5">
+          <ul className="flex flex-1 flex-col ">
+            <li className="flex mb-1">
+              <label className="min-w-28 font-bold">Order/Job No.</label>
+              <span>: {masterData?.PONO}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-28 font-bold">Body GSM</label>
+              <span>: {masterData?.BODY_GSM}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-28 font-bold">Counts</label>
+              <span >: {masterData?.COUNTS}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-28 font-bold">Style</label>
+              <span >: {masterData?.STYLENAME}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-28 font-bold">Buyer Name</label>
+              <span>: {masterData?.BUYER_NAME}</span>
+            </li>
+            {/* <li className="flex">
+              <label className="min-w-28 font-bold">Revise</label>
+              <span>:{masterData?.REVISED_NO}</span>
+            </li> */}
+          </ul>
+          <ul className="">
+            <li className="flex mb-1 ">
+              <label className="min-w-44 font-bold">Based on Tech. Sheet Date</label>
+              <span>: { masterData?.ASPERLATEST=='1'?'As per latest':   masterData?.TECHNICAL_SHEET_DATE}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-44 font-bold">Order Qty</label>
+              <span>: {masterData?.ORDER_QTY}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-44 font-bold">Neck Rib GSM</label>
+              <span>: {masterData?.NECK_RIB_GSM}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-44 font-bold">Fabric Type</label>
+              <span>: {masterData?.FABRIC_TYPE}</span>
+            </li>
+            <li className="flex mb-1">
+              <label className="min-w-44 font-bold">Formation</label>
+              <span>: {masterData?.TECH_IS_OPEN_DIA}</span>
+            </li>
+          </ul>
+        </div>
+        <div className="w-auto">
           {imageSrc ? (
             <img
               src={imageSrc}

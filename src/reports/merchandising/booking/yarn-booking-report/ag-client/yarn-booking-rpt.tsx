@@ -55,7 +55,7 @@ export default function YarnBookingReport_AG({ data }: params) {
 
     return (
       <YarnBookingReportContext.Provider value={data}>
-        <div className="container">
+        <div className="container print:max-w-none print:px-0">
           <div>
             <h1 className="text-2xl font-bold text-center">
               {data.MaterData.COMPANY_NAME}

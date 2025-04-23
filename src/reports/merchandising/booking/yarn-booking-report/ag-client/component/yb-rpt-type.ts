@@ -26,6 +26,7 @@ export type YarnBookingReportDto_StyleList = {
 };
 
 export type YarnBookingReportDto_MasterData = {
+  TECH_IS_OPEN_DIA: string;
   COMPANY_NAME: string;
   PONO: string;
   STYLENAME: string;
