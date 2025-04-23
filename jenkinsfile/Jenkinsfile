@@ -41,12 +41,6 @@ pipeline {
                 sh 'npm install' 
             }
         }
-
-       // stage('Build') { 
-     //    steps {
-      //    sh "npm run build"
-     //      }
-     //   }
     
         stage('Building image') {
             steps{
@@ -89,10 +83,19 @@ pipeline {
  
     post {
         success {
-            echo 'Docker image build and push successful!'
+            echo 'Pipeline succeeded!'
         }
         failure {
-            error 'Docker image build or push failed!'
+            echo "Job failed! Triggering email notification job..."
+            
+            // Trigger the email job with parameters
+            build job: 'email', 
+                wait: false, 
+                parameters: [
+                    string(name: 'BUILD_URL', value: env.BUILD_URL),
+                    string(name: 'JOB_NAME', value: env.JOB_NAME),
+                    string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER)
+                ]
         }
     }
 }
