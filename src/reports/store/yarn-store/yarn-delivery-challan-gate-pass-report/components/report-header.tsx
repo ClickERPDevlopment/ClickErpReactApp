@@ -17,7 +17,7 @@ function ReportHeader({
 
       {
         data[0]?.MAIN_COMPANY && <>
-          <h1 className="font-bold text-2xl text-center">
+          <h1 className="font-bold text-xl text-center">
             {
               data[0]?.MAIN_COMPANY
             }
@@ -30,7 +30,7 @@ function ReportHeader({
         </>
       }
 
-      <h1 className="font-bold text-xl text-center">
+      <h1 className="font-bold text-lg text-center">
         {
           data[0]?.COMPANY_NAME
         }
