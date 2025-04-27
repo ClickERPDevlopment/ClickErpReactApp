@@ -78,7 +78,7 @@ function YarnDeliveryChallanGatePassReport() {
   return isLoading ? (
     <>
       <div className="container">
-        <h3 className=" text-center p-2 m-4 text-3xl font-bold ">
+        <h3 className=" text-center p-2 m-4 font-bold ">
           <Skeleton width={400} height={40} />
         </h3>
         <TableSkeleton />

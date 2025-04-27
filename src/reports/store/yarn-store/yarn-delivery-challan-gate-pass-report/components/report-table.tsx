@@ -49,11 +49,11 @@ function ReportTable({
     0);
 
   const totalBagQty = data?.reduce(
-    (acc, item) => acc + Number(item.CARTON_QTY),
+    (acc, item) => acc + Math.floor(Number(item.CARTON_QTY)),
     0);
 
   const totalConeQty = data?.reduce(
-    (acc, item) => acc + Number(item.CONE),
+    (acc, item) => acc + Math.floor(Number(item.CONE)),
     0);
 
   return (
@@ -66,10 +66,10 @@ function ReportTable({
           firstHeader={firstHeader}
         ></ReportSubgroup>
       ))}
-      <tr>
+      <tr style={{ fontSize: "9px" }}>
         <td colSpan={5} className="border border-gray-950 font-bold p-0.5">Total</td>
-        <td className="border border-gray-950 p-0.5 font-bold">{totalQuantiy}</td>
-        <td className="border border-gray-950 p-0.5 font-bold">B: {totalBagQty} C: {totalConeQty}</td>
+        <td className="border border-gray-950 p-0.5 font-bold">{totalQuantiy.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.5 font-bold">B: {Math.floor(totalBagQty)} C: {Math.floor(totalConeQty)}</td>
         <td className="border border-gray-950 p-0.5"></td>
         <td className="border border-gray-950 p-0.5"></td>
       </tr>

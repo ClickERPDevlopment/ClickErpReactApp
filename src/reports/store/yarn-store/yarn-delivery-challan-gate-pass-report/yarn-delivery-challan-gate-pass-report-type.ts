@@ -59,4 +59,6 @@ export interface IYarnDeliveryChallanGatePassReport {
   SORTING_NO: string;
   CONE: number;
   KNITTING_PROGRAM_NO: string;
+  MAIN_COMPANY: string;
+  MAIN_COMPANY_ADDRESS: string;
 }

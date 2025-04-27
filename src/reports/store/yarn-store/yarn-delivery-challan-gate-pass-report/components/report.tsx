@@ -105,24 +105,24 @@ function Report({
               <thead></thead>
               <tbody>
                 <tr>
-                  <td className="align-top">Challan No</td>
-                  <td className="align-top">: {data[0]?.CHALLAN_NO}</td>
-                </tr>
-                <tr>
                   <td className="align-top">Date</td>
                   <td className="align-top">: {moment(data[0]?.CHALLAN_DATE).format("DD-MM-YY")}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Order/Job No</td>
-                  <td className="align-top">: {data[0]?.PO_NO}</td>
+                  <td className="align-top">Challan No</td>
+                  <td className="align-top">: {data[0]?.CHALLAN_NO}</td>
+                </tr>
+                <tr>
+                  <td className="align-top">Buyer</td>
+                  <td className="align-top">: {data[0]?.BUYER}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Style</td>
                   <td className="align-top">: {data[0]?.STYLE}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Buyer</td>
-                  <td className="align-top">: {data[0]?.BUYER}</td>
+                  <td className="align-top">Order/Job No</td>
+                  <td className="align-top">: {data[0]?.PO_NO}</td>
                 </tr>
               </tbody>
             </table>
@@ -145,7 +145,7 @@ function Report({
         </div>
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
           <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-            <tr className="bg-indigo-200 text-center">
+            <tr style={{ fontSize: "10px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
                 <th className="border border-gray-950 p-0.5">{item}</th>
               )}
@@ -164,10 +164,10 @@ function Report({
 
         <div className="flex w-full mt-5">
           <div className="flex-[2]">
-            <p className="text-center font-bold">Booking Summary</p>
+            <p style={{ fontSize: "9px" }} className="text-center font-bold">Booking Summary</p>
             <table className="border-collapse border border-gray-300  w-[100%]">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-                <tr className="bg-indigo-200 text-center">
+                <tr style={{ fontSize: "10px" }} className="bg-indigo-200 text-center">
                   <th className="border border-gray-950 p-0.5">Buyer</th>
                   <th className="border border-gray-950 p-0.5">Job No</th>
                   <th className="border border-gray-950 p-0.5">Req. Yarn</th>
@@ -177,7 +177,7 @@ function Report({
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr style={{ fontSize: "9px" }}>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BUYER_NAME}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.PO_NO}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY}</td>
@@ -190,6 +190,10 @@ function Report({
           </div>
           <div className="flex-[1]">
           </div>
+        </div>
+
+        <div>
+          <p style={{ fontSize: "9px" }} className="font-bold mt-2">Remarks: {data[0]?.ADVICE}</p>
         </div>
 
         <div className="mt-[144px]"></div>

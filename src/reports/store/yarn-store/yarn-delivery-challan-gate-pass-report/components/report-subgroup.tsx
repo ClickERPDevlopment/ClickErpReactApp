@@ -9,7 +9,7 @@ function ReportSubgroup({
 }) {
 
   const totalBagQty = data?.reduce(
-    (acc, item) => acc + Number(item.CARTON_QTY),
+    (acc, item) => acc + Math.floor(Number(item.CARTON_QTY)),
     0);
 
   const totalQuantiy = data?.reduce(
@@ -17,19 +17,19 @@ function ReportSubgroup({
     0);
 
   const totalConeQty = data?.reduce(
-    (acc, item) => acc + Number(item.CONE),
+    (acc, item) => acc + Math.floor(Number(item.CONE)),
     0);
 
   return (
     <>
-      <tr>
+      <tr style={{ fontSize: "9px" }}>
         <td className="border border-gray-950 p-0.5">{index + 1}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.KNITTING_PROGRAM_NO}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_BRAND}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT_NUMBER}</td>
-        <td className="border border-gray-950 p-0.5">{totalQuantiy}</td>
-        <td className="border border-gray-950 p-0.5">B: {totalBagQty} C: {totalConeQty}</td>
+        <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.5">B: {Math.floor(totalBagQty)} C: {Math.floor(totalConeQty)}</td>
         <td className="border border-gray-950 p-0.5"></td>
         <td className="border border-gray-950 p-0.5"></td>
       </tr>

@@ -1,6 +1,6 @@
 function ReportFooter() {
   return (
-    <div className="flex">
+    <div style={{ fontSize: "10px" }} className="flex">
       <div className='text-center w-[25%] mx-3 border-t border-gray-950'><span className='pb-1'>Received By</span></div>
       <div className='text-center w-[25%] mx-3 border-t border-gray-950'><span className='pb-1'>Store In-Charge</span></div>
       <div className='text-center w-[25%] mx-3 border-t border-gray-950'><span className='pb-1'>Knitting In-Charge</span></div>
