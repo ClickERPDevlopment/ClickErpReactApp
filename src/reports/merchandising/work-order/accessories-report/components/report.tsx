@@ -9,7 +9,7 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
   //set table header
   const firstHeader = [
     "STYLE",
-    "PO",
+    "PO/JOB",
     "MATERIAL NAME",
     "GMT COLOR",
     "MTL COLOR",
@@ -37,7 +37,7 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
   const sizeHeader = new Array();
 
   return (
-    <div className="container">
+    <div>
       <div className="p-2">
         <ReportHeader masterData={data[0]} />
         <ReportTable

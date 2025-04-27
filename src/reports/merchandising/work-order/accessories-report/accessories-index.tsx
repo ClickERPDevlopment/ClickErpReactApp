@@ -78,7 +78,7 @@ function AccessoriesReport() {
     </>
   ) : (
     <>
-      <div>
+      <div className="print:border-none">
         <Report data={data}></Report>
       </div>
     </>
