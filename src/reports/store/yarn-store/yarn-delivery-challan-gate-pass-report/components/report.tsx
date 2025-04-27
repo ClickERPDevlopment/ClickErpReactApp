@@ -95,7 +95,7 @@ function Report({
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
-      className="px-10 text-gray-950">
+      className="px-12 text-gray-950">
       <div className="p-2">
         <ReportHeader
           data={data}
@@ -165,10 +165,10 @@ function Report({
 
         <div className="flex w-full mt-5">
           <div className="flex-[2]">
-            <p style={{ fontSize: "9px" }} className="text-center font-bold">Booking Summary</p>
+            <p style={{ fontSize: "11px" }} className="text-center font-bold">Booking Summary</p>
             <table className="border-collapse border border-gray-300  w-[100%]">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-                <tr style={{ fontSize: "10px" }} className="bg-indigo-200 text-center">
+                <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center font-bold">
                   <th className="border border-gray-950 p-0.5">Buyer</th>
                   <th className="border border-gray-950 p-0.5">Job No</th>
                   <th className="border border-gray-950 p-0.5">Req. Yarn</th>
@@ -178,7 +178,7 @@ function Report({
                 </tr>
               </thead>
               <tbody>
-                <tr style={{ fontSize: "9px" }}>
+                <tr style={{ fontSize: "11px" }} className="font-bold">
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BUYER_NAME}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.PO_NO}</td>
                   <td className="border border-gray-950 p-0.5">{bookingSummaryData[0]?.BOOKING_QTY}</td>
@@ -194,7 +194,7 @@ function Report({
         </div>
 
         <div>
-          <p style={{ fontSize: "9px" }} className="font-bold mt-2">Remarks: {data[0]?.ADVICE}</p>
+          <p style={{ fontSize: "11px" }} className="font-bold mt-2">Remarks: {data[0]?.ADVICE}</p>
         </div>
 
         <div className="mt-[144px]"></div>
