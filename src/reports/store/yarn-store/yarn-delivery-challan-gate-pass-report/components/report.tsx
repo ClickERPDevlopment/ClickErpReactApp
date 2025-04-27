@@ -94,7 +94,8 @@ function Report({
   ];
 
   return (
-    <div className="px-10">
+    <div style={{ fontFamily: "Times New Roman, serif" }}
+      className="px-10 text-gray-950">
       <div className="p-2">
         <ReportHeader
           data={data}
