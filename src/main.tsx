@@ -119,6 +119,8 @@ import GeneralAndOTHoursProductionReport from "./reports/production/sewing/gener
 import GeneralAndOTHoursProductionLineWiseReport from "./reports/production/sewing/general-and-ot-hours-production-line-wise-report/general-and-ot-hours-production-line-wise-report-index.tsx";
 import EmblishmentBudgetSheet from "./reports/embellishment/embellishment-budget-sheet/embellishment-budget-sheet-index.tsx";
 import YarnDeliveryChallanGatePassReport from "./reports/store/yarn-store/yarn-delivery-challan-gate-pass-report/yarn-delivery-challan-gate-pass-report-index.tsx";
+import OrderWiseKnittingDyeingStatusReportIndex from "./reports/store/yarn-store/order-wise-knit-dyeing-status-report/order-wise-knit-dyeing-status-report-index.tsx";
+import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-booking-report/fabric-booking-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -411,6 +413,10 @@ createRoot(document.getElementById("root")!).render(
                         path="yarn-booking-report"
                         element={<YarnBookingReportIndex />}
                       />
+                      <Route
+                        path="fabric-booking-report"
+                        element={<FabricBookingReportIndex />}
+                      />
                     </Route>
                     <Route path="work-order">
                       <Route
@@ -565,6 +571,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="yarn-store">
+                      <Route
+                        path="order-wise-knit-dyeing-status-report"
+                        element={<OrderWiseKnittingDyeingStatusReportIndex />}
+                      />
                       <Route
                         path="outside-yissue-grcv-status-report"
                         element={<OutSideYIssueGrcvStatusReport />}
