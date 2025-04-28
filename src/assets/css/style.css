@@ -10653,11 +10653,11 @@ body {
 }
 
 ::-webkit-scrollbar {
-  @apply w-[0px] h-[20px] bg-gray-100;
+  @apply w-[15px] h-[20px] bg-white;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply w-[0px] h-[20px] bg-gray-300;
+  @apply w-[0px] h-[20px] bg-gray-500;
 }
 
 .custom-scroll::-webkit-scrollbar {
