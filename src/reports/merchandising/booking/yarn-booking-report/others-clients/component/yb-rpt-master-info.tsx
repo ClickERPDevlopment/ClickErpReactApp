@@ -36,7 +36,7 @@ export default function YarnBookingMasterInfo({
     };
 
     fetchImage();
-  }, [masterData?.STYLEID]);
+  }, [api.ProductionUrl, masterData?.STYLEID]);
 
   let specialTreatment = "";
   lstSpecialTreatment.forEach((element) => {
