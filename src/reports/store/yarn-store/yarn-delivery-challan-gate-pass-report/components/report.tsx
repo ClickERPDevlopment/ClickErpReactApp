@@ -88,7 +88,7 @@ function Report({
     "Brand",
     "Yarn Lot",
     "Issue Qty(KG)",
-    "BAG & CONE QTY",
+    "BAG & CONE",
     "Issue Store",
     "Remarks",
   ];
