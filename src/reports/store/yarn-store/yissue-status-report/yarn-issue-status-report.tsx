@@ -5,7 +5,7 @@ export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusR
     return (
         <div className='p-5'>
             <div className='static'>
-                <h1 className='text-center font-bold text-2xl'>{data[0]?.COMPANY_NAME}</h1>
+                {/* <h1 className='text-center font-bold text-2xl'>{data[0]?.COMPANY_NAME}</h1> */}
                 <h1 className='text-center font-bold text-xl'>Yarn Issue Status</h1>
             </div>
             <table className='border border-gray-600 rounded-md'>
