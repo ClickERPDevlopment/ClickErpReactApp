@@ -26,7 +26,7 @@ export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusR
                         <th className='border border-gray-600 min-w-24 p-1'>Issue Purpose</th>
                         <th className='border border-gray-600 min-w-56 p-1'>PARTY</th>
                         <th className='border border-gray-600 min-w-28 p-1'>Store</th>
-                        <th className='border border-gray-600 p-1'>Remarks</th>
+                        {/* <th className='border border-gray-600 p-1'>Remarks</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@ export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusR
                                 <td className='border border-gray-600 p-1 text-center text-xs'>{_?.ISSUE_TYPE}</td>
                                 <td className='border border-gray-600 p-1 text-center text-xs'>{_?.PARTY}</td>
                                 <td className='border border-gray-600 p-1 text-center text-xs'>Yarn Store</td>
-                                <td className='border border-gray-600 p-1 text-center text-xs'>{_?.REMARKS}</td>
+                                {/* <td className='border border-gray-600 p-1 text-center text-xs'>{_?.REMARKS}</td> */}
                             </tr>
                         )
                     }
