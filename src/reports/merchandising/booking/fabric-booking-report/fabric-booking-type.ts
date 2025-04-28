@@ -23,16 +23,20 @@ export type FabricBookingReportDto = {
 
 
 export type FabricBookingReportDto_MasterData = {
+  PO_ID?: string;
   COMPANY_NAME?: string;
   PONO?: string;
   STYLENAME?: string;
+  EMBELLISHMENT?: string;
   BUYER_NAME?: string;
   ORDER_QTY?: string;
   BUYERID?: string;
   STYLEID?: string;
   SHIPMENT_DATE?: string;
+  RECEIVE_DATE?: string;
   SUB_PONO?: string;
   SESSIONNO?: string;
+  ITEMTYPE?: string;
   MASTER_ID?: string;
   CONS_DATE?: string;
   TECHNICAL_SHEET_DATE?: string;
@@ -45,6 +49,13 @@ export type FabricBookingReportDto_MasterData = {
   IS_OPEN_DIA?: string;
   REVISED_NO?: string;
   SUB_PONO1?: string;
+  CREATED_DATE?: string;
+  UPDATED_DATE?: string;
+  CREATED_BY?: string;
+  APPROVED_BY?: string;
+  FABRIC_SOURCE?: string;
+  POID?: string;
+  DEALMERCHANDISERNAME: string;
 };
 
 export type StripeMeasurement = {
