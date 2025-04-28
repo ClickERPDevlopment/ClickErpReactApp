@@ -57,7 +57,7 @@ function StyleChangeOverReport() {
 
         await axios
           .get(
-            `${api.ProductionUrl}/ie/StyleChangeOver/StyleChangeReport?buyerId=${buyerId}&styleId=${styleId}&floorId=${floorId}&lineId=${lineId}&fromDate=${fromDate}&toDate=${toDate}`
+            `${api.ProductionUrl}/production/IEReport/StyleChangeOverReport?buyerId=${buyerId}&styleId=${styleId}&floorId=${floorId}&lineId=${lineId}&fromDate=${fromDate}&toDate=${toDate}`
           )
           .then((res) => {
             console.log(res);

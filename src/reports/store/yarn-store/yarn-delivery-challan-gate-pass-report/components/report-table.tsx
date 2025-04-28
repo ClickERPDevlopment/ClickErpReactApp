@@ -66,7 +66,7 @@ function ReportTable({
           firstHeader={firstHeader}
         ></ReportSubgroup>
       ))}
-      <tr style={{ fontSize: "11px" }}>
+      <tr style={{ fontSize: "12px" }}>
         <td colSpan={5} className="border border-gray-950 font-bold p-0.5">Total</td>
         <td className="border border-gray-950 p-0.5 font-bold">{totalQuantiy.toFixed(3)}</td>
         <td className="border border-gray-950 p-0.5 font-bold">B: {Math.floor(totalBagQty)} C: {Math.floor(totalConeQty)}</td>

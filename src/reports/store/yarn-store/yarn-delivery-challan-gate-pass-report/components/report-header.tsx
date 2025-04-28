@@ -30,13 +30,13 @@ function ReportHeader({
         </>
       }
 
-      <h1 className="font-bold text-lg text-center">
-        {
+      <h1 className="font-bold text-sm text-center">
+        ({
           data[0]?.COMPANY_NAME
-        }
+        })
       </h1>
       <h3 className="font-bold text-lg text-center">
-        Yarn Delivery Challan/Gate Pass Report
+        Yarn Delivery Challan/Gate Pass
       </h3>
     </div>
   );
