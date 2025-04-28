@@ -137,7 +137,7 @@ function Report({
                   <td className="align-top">: {data[0]?.KNITTING_HOUSE}<br></br>{data[0]?.KNITTING_HOUSE_ADDRESS}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Isssue Type</td>
+                  <td className="align-top">Issue Type</td>
                   <td className="align-top">: {data[0]?.ISSUE_TYPE}</td>
                 </tr>
               </tbody>
