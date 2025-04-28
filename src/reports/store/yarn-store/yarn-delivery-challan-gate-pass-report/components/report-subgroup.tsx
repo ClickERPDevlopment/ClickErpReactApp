@@ -29,7 +29,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_BRAND}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT_NUMBER}</td>
         <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">B: {Math.floor(totalBagQty)} C: {Math.floor(totalConeQty)}</td>
+        <td className="border border-gray-950 p-0.5">B: {Math.floor(totalBagQty)} | C: {Math.floor(totalConeQty)}</td>
         <td className="border border-gray-950 p-0.5"></td>
         <td className="border border-gray-950 p-0.5"></td>
       </tr>
