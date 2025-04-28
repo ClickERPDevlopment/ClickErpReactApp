@@ -59,12 +59,12 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
     <div className="container">
       <div className=" p-2">
         <ReportHeader />
-        <div className="text-sm mt-3">
+        <div className="mt-3">
           <table className="border-collapse border border-gray-300  w-[100%]">
             <thead>
-              <tr>
+              <tr className="text-sm">
                 {firstHeader?.map((item) => (
-                  <th className="border border-gray-300 p-1">{item}</th>
+                  <th className="border border-gray-300 p-0.5">{item}</th>
                 ))}
               </tr>
             </thead>
