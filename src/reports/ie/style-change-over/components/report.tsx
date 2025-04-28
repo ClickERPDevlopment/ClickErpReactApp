@@ -56,7 +56,7 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
   ];
 
   return (
-    <div className="container">
+    <div>
       <div className=" p-2">
         <ReportHeader />
         <div className="mt-3">
