@@ -121,6 +121,7 @@ import EmblishmentBudgetSheet from "./reports/embellishment/embellishment-budget
 import YarnDeliveryChallanGatePassReport from "./reports/store/yarn-store/yarn-delivery-challan-gate-pass-report/yarn-delivery-challan-gate-pass-report-index.tsx";
 import OrderWiseKnittingDyeingStatusReportIndex from "./reports/store/yarn-store/order-wise-knit-dyeing-status-report/order-wise-knit-dyeing-status-report-index.tsx";
 import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-booking-report/fabric-booking-report-index.tsx";
+import AccessoriesReportWithPo from "./reports/merchandising/work-order/accessories-report-with-po/accessories-with-po-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -446,6 +447,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="accessories-rpt"
                         element={<AccessoriesReport />}
+                      ></Route>
+                      <Route
+                        path="accessories-rpt-with-po"
+                        element={<AccessoriesReportWithPo />}
                       ></Route>
                     </Route>
                     <Route
