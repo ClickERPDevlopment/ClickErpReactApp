@@ -121,6 +121,8 @@ import EmblishmentBudgetSheet from "./reports/embellishment/embellishment-budget
 import YarnDeliveryChallanGatePassReport from "./reports/store/yarn-store/yarn-delivery-challan-gate-pass-report/yarn-delivery-challan-gate-pass-report-index.tsx";
 import OrderWiseKnittingDyeingStatusReportIndex from "./reports/store/yarn-store/order-wise-knit-dyeing-status-report/order-wise-knit-dyeing-status-report-index.tsx";
 import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-booking-report/fabric-booking-report-index.tsx";
+import AccessoriesReportWithPo from "./reports/merchandising/work-order/accessories-report-with-po/accessories-with-po-index.tsx";
+import YarnIssueStatusReportIndex from "./reports/store/yarn-store/yissue-status-report/yarn-issue-status-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
