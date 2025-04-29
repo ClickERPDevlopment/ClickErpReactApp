@@ -1,8 +1,4 @@
-import moment from 'moment'
 import { FabricBookingReportDto_ColorSizeWiseOrderQty } from '../fabric-booking-type'
-import Skeleton from 'react-loading-skeleton';
-
-
 
 export default function OrderQty({ lstColorSizeWiseOrderQty }: { lstColorSizeWiseOrderQty: FabricBookingReportDto_ColorSizeWiseOrderQty[] }) {
     const styles = Array.from(

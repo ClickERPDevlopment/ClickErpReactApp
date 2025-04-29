@@ -1,4 +1,3 @@
-import React from 'react'
 import { FabricBookingReportDto_StripeDetails } from '../fabric-booking-type'
 
 export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?: FabricBookingReportDto_StripeDetails[] }) {
