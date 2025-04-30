@@ -117,12 +117,12 @@ export default function MasterInfo({ masterData }: { masterData: FabricBookingRe
                     </table>
                 </div >
 
-                <div className="w-auto basis-2/12 border rounded-lg flex justify-center items-center overflow-visible p-1">
+                <div className="flex-1 max-w-[150px] aspect-square border border-gray-500 rounded-lg flex justify-center items-center overflow-hidden p-1">
                     {imageSrc ? (
                         <img
                             src={imageSrc}
                             alt="GMT image"
-                            className="max-w-[100%] h-auto"
+                            className="w-full h-auto max-h-full object-contain"
                         />
                     ) : (
                         <Skeleton width={200} height={200} />
