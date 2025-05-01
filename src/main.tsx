@@ -123,6 +123,7 @@ import OrderWiseKnittingDyeingStatusReportIndex from "./reports/store/yarn-store
 import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-booking-report/fabric-booking-report-index.tsx";
 import AccessoriesReportWithPo from "./reports/merchandising/work-order/accessories-report-with-po/accessories-with-po-index.tsx";
 import YarnIssueStatusReportIndex from "./reports/store/yarn-store/yissue-status-report/yarn-issue-status-report-index.tsx";
+import SampleProgramReportIndex from "./reports/merchandising/sample-program/report/sample-program-report.-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -410,6 +411,12 @@ createRoot(document.getElementById("root")!).render(
                   </Route>
 
                   <Route path="merchandising">
+                    <Route path="sample-program">
+                      <Route
+                        path="sample-program-report"
+                        element={<SampleProgramReportIndex />}
+                      />
+                    </Route>
                     <Route path="booking">
                       <Route
                         path="yarn-booking-report"
