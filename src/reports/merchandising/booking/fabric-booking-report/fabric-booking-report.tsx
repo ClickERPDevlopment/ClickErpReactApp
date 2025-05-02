@@ -9,7 +9,7 @@ import VarificationStatus from "./components/varification-status";
 import YarnRequirementSummary from "./components/yarn-requirement-summary";
 import { FabricBookingReportDto } from "./fabric-booking-type";
 
-export default function FabricBookingReport({ data }: { data: FabricBookingReportDto }) {
+export default function FabricBookingReport({ data }: { data?: FabricBookingReportDto }) {
 
     return (
         <div className="px-10 w-auto print:max-w-none print:px-0">

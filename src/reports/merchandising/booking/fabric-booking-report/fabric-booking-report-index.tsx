@@ -13,14 +13,14 @@ export default function FabricBookingReportIndex() {
 
     const api = useApiUrl();
 
-    let po: string | null = "";
-    let styleNo: string | null = "";
+    let poId: string | null = "";
+    let styleId: string | null = "";
 
-    if (searchParams.get("po")) {
-        po = searchParams.get("po");
+    if (searchParams.get("poId")) {
+        poId = searchParams.get("poId");
     }
-    if (searchParams.get("styleNo")) {
-        styleNo = searchParams.get("styleNo");
+    if (searchParams.get("styleId")) {
+        styleId = searchParams.get("styleId");
     }
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function FabricBookingReportIndex() {
 
                 await axios
                     .get(
-                        `${api.ProductionUrl}/production/Booking/FabricBookingReport?po=${po}&styleNo=${styleNo}`
+                        `${api.ProductionUrl}/production/Booking/FabricBookingReport?poId=${poId}&styleId=${styleId}`
                     )
                     .then((res) => {
                         if (res.data) {
@@ -52,7 +52,7 @@ export default function FabricBookingReportIndex() {
             }
         }
         getData();
-    }, [api.ProductionUrl, po, styleNo]);
+    }, [api.ProductionUrl, poId, styleId]);
     return (
         <>
             {isLoading ? (
@@ -60,7 +60,7 @@ export default function FabricBookingReportIndex() {
                     <ReportSkeleton />
                 </div>
             ) :
-                (<FabricBookingReport data={data!} />)
+                (<FabricBookingReport data={data} />)
 
             }
         </>

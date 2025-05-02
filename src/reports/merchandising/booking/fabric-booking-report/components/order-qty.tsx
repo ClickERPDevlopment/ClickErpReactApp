@@ -1,6 +1,6 @@
 import { FabricBookingReportDto_ColorSizeWiseOrderQty } from '../fabric-booking-type'
 
-export default function OrderQty({ lstColorSizeWiseOrderQty }: { lstColorSizeWiseOrderQty: FabricBookingReportDto_ColorSizeWiseOrderQty[] }) {
+export default function OrderQty({ lstColorSizeWiseOrderQty }: { lstColorSizeWiseOrderQty?: FabricBookingReportDto_ColorSizeWiseOrderQty[] }) {
 
     const sizes = Array.from(
         new Set(lstColorSizeWiseOrderQty?.map(item => item.size).filter((s): s is string => !!s))
