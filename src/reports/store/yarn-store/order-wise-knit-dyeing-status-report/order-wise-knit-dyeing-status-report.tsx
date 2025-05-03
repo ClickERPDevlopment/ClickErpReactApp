@@ -54,7 +54,7 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
                 <td >{moment(d.OPM).format('D-MMM-yy')}</td>
                 <td className="text-left pl-1">{d.BUYER_NAME}</td>
                 <td className="text-left pl-1 underline text-sky-600 hover:underline">
-                  <a href={`/report/merchandising/booking/fabric-booking-report?po=${d.PONO}&styleNo=${d.STYLENO}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/report/merchandising/booking/fabric-booking-report?poId=${d.PO_ID}&styleId=${d.STYLE_ID}`} target="_blank" rel="noopener noreferrer">
                     {d.PONO}
                   </a>
                 </td>
