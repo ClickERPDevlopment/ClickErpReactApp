@@ -32,4 +32,5 @@ export const ReactQueryKey = {
   Size: "Size",
   CompensationClaim: "CompensationClaim",
   ClaimId: "ClaimId",
+  PrintEmbProduction: "PrintEmbProduction",
 };

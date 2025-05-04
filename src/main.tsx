@@ -123,6 +123,8 @@ import OrderWiseKnittingDyeingStatusReportIndex from "./reports/store/yarn-store
 import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-booking-report/fabric-booking-report-index.tsx";
 import AccessoriesReportWithPo from "./reports/merchandising/work-order/accessories-report-with-po/accessories-with-po-index.tsx";
 import YarnIssueStatusReportIndex from "./reports/store/yarn-store/yissue-status-report/yarn-issue-status-report-index.tsx";
+import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-index.tsx";
+import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -163,6 +165,19 @@ createRoot(document.getElementById("root")!).render(
                     path="merchandising"
                     element={<MerchandisingDashboard />}
                   /> */}
+
+                      <Route path="printing-embroidery">
+                        <Route path="print-emp-production">
+                          <Route index element={<PrintEmbProductionIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbProductionCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                      </Route>
+
+
                       <Route path="merchandising">
                         <Route index element={<MerchandisingDashboard />} />
                         <Route path="buyer">

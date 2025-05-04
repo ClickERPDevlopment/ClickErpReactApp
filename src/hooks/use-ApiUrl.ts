@@ -10,6 +10,7 @@ export default function useApiUrl() {
 
   const DevUrl = "http://localhost:40000/api";
   const DevRootUrl = "http://localhost:40000";
+  
   let ProductionUrl = "";
   let ProductionRootUrl = "";
 
@@ -31,8 +32,8 @@ export default function useApiUrl() {
   const euroUrl = "http://192.168.1.155:6001/api";
   const euroRootUrl = "http://192.168.1.155:6001";
 
-    console.log("currentEnv: ", currentEnv);
-    if (currentEnv === devEnv) {
+  console.log("currentEnv: ", currentEnv);
+  if (currentEnv === devEnv) {
     console.log("Dev Environment");
     console.log("clientName: ", clientName);
     if (clientName === AG) {
