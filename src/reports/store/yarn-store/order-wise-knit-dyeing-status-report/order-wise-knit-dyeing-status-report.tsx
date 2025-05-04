@@ -51,10 +51,10 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
             {data.map((d, i) =>
               <tr className={`border ${i % 2 == 0 ? "bg-white" : " bg-gray-300"} hover:bg-emerald-200`} key={i}>
                 <td>{i + 1}</td>
-                <td >{moment(d.OPM).format('d-MMM-yy')}</td>
+                <td >{moment(d.OPM).format('D-MMM-yy')}</td>
                 <td className="text-left pl-1">{d.BUYER_NAME}</td>
                 <td className="text-left pl-1 underline text-sky-600 hover:underline">
-                  <a href={`/report/merchandising/booking/fabric-booking-report?po=${d.PONO}&styleNo=${d.STYLENO}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`/report/merchandising/booking/fabric-booking-report?poId=${d.PO_ID}&styleId=${d.STYLE_ID}`} target="_blank" rel="noopener noreferrer">
                     {d.PONO}
                   </a>
                 </td>
@@ -64,7 +64,8 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
                 <td className="text-left pl-1">{d.ITEMTYPE}</td>
                 <td className="text-left pl-1">{d.COLORNAME}</td>
                 <td className="text-left pl-1">{d.FABRIC}</td>
-                <td>{moment(d.BOOKING_DATE).format('d-MMM-yy')}</td>
+                {/* <td>{d.BOOKING_DATE}</td> */}
+                <td>{moment(d.BOOKING_DATE).format('D-MMM-yy')}</td>
                 <td>{d.PO_QTY}</td>
                 <td>{d.ORDER_QTY_FIN}</td>
                 <td>{d.UOM}</td>

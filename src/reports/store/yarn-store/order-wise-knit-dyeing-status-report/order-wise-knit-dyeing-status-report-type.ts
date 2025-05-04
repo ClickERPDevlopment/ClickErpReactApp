@@ -1,4 +1,6 @@
 export type OrderWiseKnttingDeyingStatusReportType = {
+    STYLE_ID: number;
+    PO_ID: number;
     COMPANY_NAME: string,
     OPM: string,
     BUYER_NAME: string,

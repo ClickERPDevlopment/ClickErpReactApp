@@ -16,9 +16,10 @@ export type FabricBookingReportDto = {
   lstFabricQtyDetails: FabricBookingReportDto_FabricQtyDetails[];
   lstOrderAllComments: FabricBookingReportDto_OrderAllComments[];
   lstInCm: FabricBookingReportDto_InCm[];
-  lstColorSizeWiseOrderQty: ColorSizeWiseOrderQty[];
-  lstYarnSummary: YarnDetails[];
-  lstStripeDetails: StripeDetails[];
+  lstColorSizeWiseOrderQty: FabricBookingReportDto_ColorSizeWiseOrderQty[];
+  lstYarnSummary: FabricBookingReportDto_YarnDetails[];
+  lstStripeDetails: FabricBookingReportDto_StripeDetails[];
+  lstWastagePercentage: FabricBookingReportDto_WastagePercentage[];
 };
 
 
@@ -57,28 +58,37 @@ export type FabricBookingReportDto_MasterData = {
   POID?: string;
   DEALMERCHANDISERNAME: string;
 };
+export type FabricBookingReportDto_WastagePercentage = {
+  FABRIC?: string;
+  GMT_PART?: string;
+  GMT_COLOR?: string;
+  FABRIC_COLOR?: string;
+  FABRIC_WASTAGE_PERCENTAGE_BUGET?: string;
+  GMT_WASTAGE_PERCENTAGE_BUDGET?: string;
+};
 
-export type StripeMeasurement = {
+
+export type FabricBookingReportDto_StripeMeasurement = {
   YARN_DYEING_COLOR?: string;
   STRIPE_MEASUREMENT?: string;
   YARN_DYEING_REQUIRED: number;
 };
 
-export type StripeDetails = StripeMeasurement & {
+export type FabricBookingReportDto_StripeDetails = FabricBookingReportDto_StripeMeasurement & {
   FABRIC_PART?: string;
   GMT_COLOR?: string;
   FABRIC_COLOR?: string;
   FABRIC_QTY: number;
-  lstDtls: StripeMeasurement[];
+  lstDtls: FabricBookingReportDto_StripeMeasurement[];
 };
 
-export type YarnDetails = {
+export type FabricBookingReportDto_YarnDetails = {
   YARN?: string;
   BOOKING_QTY: number;
 };
 
 
-export type ColorSizeWiseOrderQty = {
+export type FabricBookingReportDto_ColorSizeWiseOrderQty = {
   sortingNo: number;
   style?: string;
   color?: string;
@@ -234,11 +244,11 @@ export type FabricBookingReportDto_FabricQtyDetails = {
   FABRICFORM?: string;
   FABRICW?: string;
   GMTW?: string;
-  TOTALFINISHCONJDZN?: string;
-  TOTALFINISHFABRICS?: string;
+  TOTALFINISHCONJDZN?: number;
+  TOTALFINISHFABRICS: number;
   UOM?: string;
-  PCSQTY?: string;
-  TOTALYARN?: string;
+  PCSQTY?: number;
+  TOTALYARN: number;
   SAMPLEFABRICQTY?: string;
   REMARKS?: string;
 };

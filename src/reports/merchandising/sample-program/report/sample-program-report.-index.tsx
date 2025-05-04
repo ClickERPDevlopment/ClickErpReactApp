@@ -1,40 +1,37 @@
-import useApiUrl from "@/hooks/use-ApiUrl";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import { FabricBookingReportDto } from "./fabric-booking-type";
+import useApiUrl from "@/hooks/use-ApiUrl";
 import axios from "axios";
 import ReportSkeleton from "@/components/report-skeleton";
-import FabricBookingReport from "./fabric-booking-report";
+import SampleProgramReport from "./sample-program-report.";
+import { SampleProgramReportDtoType } from "./sample-program-report.-type";
 
-export default function FabricBookingReportIndex() {
-    const [data, setData] = useState<FabricBookingReportDto>();
+export default function SampleProgramReportIndex() {
+    const [data, setData] = useState<SampleProgramReportDtoType>();
     const [isLoading, setIsLoading] = useState(false);
     const [searchParams] = useSearchParams();
 
     const api = useApiUrl();
 
-    let poId: string | null = "";
-    let styleId: string | null = "";
+    let sampleId: string | null = "";
+    if (searchParams.get("sampleId")) {
+        sampleId = searchParams.get("sampleId");
+    }
 
-    if (searchParams.get("poId")) {
-        poId = searchParams.get("poId");
-    }
-    if (searchParams.get("styleId")) {
-        styleId = searchParams.get("styleId");
-    }
 
     useEffect(() => {
-        document.title = "Fabric Booking";
+        document.title = "Sample program";
     }, []);
 
     useEffect(() => {
+        console.log(`${api.ProductionUrl}/production/SampleProgram/SampleProgramReport?sampleId=${sampleId}`);
         async function getData() {
             try {
                 setIsLoading(true);
 
                 await axios
                     .get(
-                        `${api.ProductionUrl}/production/Booking/FabricBookingReport?poId=${poId}&styleId=${styleId}`
+                        `${api.ProductionUrl}/production/SampleProgram/SampleProgramReport?sampleId=${sampleId}`
                     )
                     .then((res) => {
                         if (res.data) {
@@ -52,17 +49,17 @@ export default function FabricBookingReportIndex() {
             }
         }
         getData();
-    }, [api.ProductionUrl, poId, styleId]);
+    }, []);
+
     return (
         <>
             {isLoading ? (
                 <div className="flex justify-center">
                     <ReportSkeleton />
                 </div>
-            ) :
-                (<FabricBookingReport data={data} />)
-
-            }
+            ) : (
+                <SampleProgramReport data={data} />
+            )}
         </>
     );
 }

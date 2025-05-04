@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 
 
 
-export default function MasterInfo({ masterData }: { masterData: FabricBookingReportDto_MasterData }) {
+export default function MasterInfo({ masterData }: { masterData?: FabricBookingReportDto_MasterData }) {
     const [imageSrc, setImageSrc] = useState<string>();
     const api = useApiUrl();
 
@@ -35,7 +35,6 @@ export default function MasterInfo({ masterData }: { masterData: FabricBookingRe
     return (
         <div>
             <h1 className='text-right'>{moment(masterData?.CONS_DATE).format('D-MMM-yy')}</h1>
-
             <h1 className='text-2xl font-bold text-center mb-3'>{masterData?.COMPANY_NAME}</h1>
             <h3 className='text-base font-bold text-center'>FABRICS BOOKING SHEET</h3>
 
@@ -51,13 +50,14 @@ export default function MasterInfo({ masterData }: { masterData: FabricBookingRe
                                 <td className='font-bold'>Buyer PO</td>
                                 <td className='value_colum'>: {masterData?.SUB_PONO}</td>
                             </tr>
-
+                            <tr>
+                                <td className='font-bold'>Style</td>
+                                <td className='value_colum'>: {masterData?.STYLENAME}</td>
+                            </tr>
                             <tr>
                                 <td className='font-bold'>Item Type</td>
                                 <td className='value_colum'>: {masterData?.ITEMTYPE}</td>
                             </tr>
-
-
                             <tr>
                                 <td className='font-bold'>Buyer Name</td>
                                 <td className='value_colum'>: {masterData?.BUYER_NAME}</td>
@@ -78,6 +78,10 @@ export default function MasterInfo({ masterData }: { masterData: FabricBookingRe
                     </table>
                     <table className='table_two'>
                         <tbody>
+                            <tr>
+                                <td className='font-bold'>Order Qty</td>
+                                <td className='value_colum'>: {masterData?.ORDER_QTY}</td>
+                            </tr>
                             <tr>
                                 <td className='font-bold'>Shipment Date</td>
                                 <td className='value_colum'>: {moment(masterData?.SHIPMENT_DATE).format('D-MMM-yy')}</td>
@@ -107,16 +111,17 @@ export default function MasterInfo({ masterData }: { masterData: FabricBookingRe
                                     <td>: </td>
                                 }
                             </tr>
+
                         </tbody>
                     </table>
                 </div >
 
-                <div className="w-auto">
+                <div className="flex-1 max-w-[150px] aspect-square border border-gray-500 rounded-lg flex justify-center items-center overflow-hidden p-1">
                     {imageSrc ? (
                         <img
                             src={imageSrc}
                             alt="GMT image"
-                            className="max-w-[200px] border h-auto"
+                            className="w-full h-auto max-h-full object-contain"
                         />
                     ) : (
                         <Skeleton width={200} height={200} />
