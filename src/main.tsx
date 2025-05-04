@@ -123,12 +123,9 @@ import OrderWiseKnittingDyeingStatusReportIndex from "./reports/store/yarn-store
 import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-booking-report/fabric-booking-report-index.tsx";
 import AccessoriesReportWithPo from "./reports/merchandising/work-order/accessories-report-with-po/accessories-with-po-index.tsx";
 import YarnIssueStatusReportIndex from "./reports/store/yarn-store/yissue-status-report/yarn-issue-status-report-index.tsx";
-<<<<<<< HEAD
+import SampleProgramReportIndex from "./reports/merchandising/sample-program/report/sample-program-report.-index.tsx";
 import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-index.tsx";
 import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-crud.tsx";
-=======
-import SampleProgramReportIndex from "./reports/merchandising/sample-program/report/sample-program-report.-index.tsx";
->>>>>>> 216d5bcf1f6d4b2d642d0117a24904f2191e370c
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
