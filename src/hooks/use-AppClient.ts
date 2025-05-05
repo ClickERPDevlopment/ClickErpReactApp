@@ -7,6 +7,7 @@ export default function useAppClient() {
   const AG = "AG";
   const EURO = "EURO";
   const PRESENTATION = "PRESENTATION";
+  const FAME = "FAME";
 
-  return { currentClient, NUR, ICCL, VERSATILE, AG, EURO, PRESENTATION };
+  return { currentClient, NUR, ICCL, VERSATILE, AG, EURO, FAME, PRESENTATION };
 }
