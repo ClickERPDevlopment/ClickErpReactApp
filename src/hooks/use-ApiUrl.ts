@@ -5,12 +5,12 @@ import useDevEnv from "./use-DevEnv";
 
 export default function useApiUrl() {
   const { currentEnv, devEnv } = useDevEnv();
-  const { NUR, VERSATILE, ICCL, AG, EURO, PRESENTATION } = useAppClient();
+  const { NUR, VERSATILE, ICCL, AG, EURO, FAME, PRESENTATION } = useAppClient();
   const clientName = import.meta.env.VITE_APP_CLIENT_NAME;
 
   const DevUrl = "http://localhost:40000/api";
   const DevRootUrl = "http://localhost:40000";
-  
+
   let ProductionUrl = "";
   let ProductionRootUrl = "";
 
@@ -31,6 +31,9 @@ export default function useApiUrl() {
 
   const euroUrl = "http://192.168.1.155:6001/api";
   const euroRootUrl = "http://192.168.1.155:6001";
+
+  const fameUrl = "http://118.179.81.150:6307/api";
+  const fameRootUrl = "http://118.179.81.150:6307";
 
   console.log("currentEnv: ", currentEnv);
   if (currentEnv === devEnv) {
@@ -69,6 +72,9 @@ export default function useApiUrl() {
     } else if (clientName === PRESENTATION) {
       ProductionUrl = presentationUrl;
       ProductionRootUrl = presentationRootUrl;
+    } else if (clientName === FAME) {
+      ProductionUrl = fameUrl;
+      ProductionRootUrl = fameRootUrl;
     }
   }
 
