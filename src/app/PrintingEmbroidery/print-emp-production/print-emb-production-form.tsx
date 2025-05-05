@@ -13,7 +13,7 @@ import {
   Delete,
   Save,
   Update,
-} from "@/actions/Merchandising/compensation-claim-action";
+} from "@/actions/PrintingEmbroidery/print-emb-production-action";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,6 +48,10 @@ import useApiUrl from "@/hooks/use-ApiUrl";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { PrintEmbProductionDetailsType, PrintEmbProductionMasterType, RejectionReasonDetailsType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
+import PrintEmbProductionOperationIndex from "./components/print-emb-production-operation-index";
+import PrintEmbProductionShiftIndex from "./components/print-emb-production-shift-index";
+import PrintEmbProductionWorkStationIndex from "./components/print-emb-production-work-station-index";
+import PrintEmbProductionHourIndex from "./components/print-emb-production-hour-index";
 
 const formSchema = z.object({
   ID: z.number().default(0),
@@ -173,6 +177,8 @@ export default function PrintEmbProductionForm({
   const navigator = useNavigate();
   const axios = useAxiosInstance();
 
+  console.log("data", data);
+
   const mutation = useMutation({
     mutationFn: (tag: any) => {
       if (pageAction === PageAction.add) {
@@ -190,8 +196,8 @@ export default function PrintEmbProductionForm({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
       location.pathname.includes("win/")
-        ? navigator("/win/merchandising/compensation-claim")
-        : navigator("/dashboard/merchandising/compensation-claim");
+        ? navigator("/win/printing-embroidery/print-emp-production")
+        : navigator("/dashboard/printing-embroidery/print-emp-production");
     },
     onError: (err: AxiosError) => {
       console.log(err.response?.data);
@@ -291,22 +297,21 @@ export default function PrintEmbProductionForm({
     const data = masterData;
     data.PrintEmbProductionDetails = detailsData || [];
 
+    const validationResult = masterFormSchema.safeParse(masterData);
 
-    // const validationResult = masterFormSchema.safeParse(masterData);
+    if (!validationResult.success) {
+      console.error("Validation failed:", validationResult.error.format());
+      return;
+    }
 
-    // if (!validationResult.success) {
-    //   console.error("Validation failed:", validationResult.error.format());
-    //   return;
-    // }
-
-    // mutation.mutate(data, {
-    //   onSuccess: (_response) => {
-    //     console.log("Mutation successful:", _response);
-    //   },
-    //   onError: (error) => {
-    //     console.error("Error during mutation:", error);
-    //   },
-    // });
+    mutation.mutate(data, {
+      onSuccess: (_response) => {
+        console.log("Mutation successful:", _response);
+      },
+      onError: (error) => {
+        console.error("Error during mutation:", error);
+      },
+    });
 
   }
 
@@ -352,6 +357,8 @@ export default function PrintEmbProductionForm({
     PrintEmbProductionDetails: data ? data.PrintEmbProductionDetails : []
   });
 
+  console.log("masterData", masterData);
+
 
   const [printEmbProductionDetails, setPrintEmbProductionDetails] = useState<PrintEmbProductionDetailsType>({
     ID: 0,
@@ -387,7 +394,7 @@ export default function PrintEmbProductionForm({
 
     setReasonDetails((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "QTY" ? Number(value) : value,
     }));
   };
 
@@ -398,7 +405,7 @@ export default function PrintEmbProductionForm({
 
     setMasterData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "MP" ? Number(value) : value,
     }));
   };
 
@@ -449,6 +456,7 @@ export default function PrintEmbProductionForm({
 
   }
 
+  console.log("Dsssata", data?.TYPE);
 
   const masterForm = useForm<z.infer<typeof masterFormSchema>>({
     resolver: zodResolver(masterFormSchema),
@@ -488,6 +496,10 @@ export default function PrintEmbProductionForm({
 
 
   const [openReasonDetailsModal, setOpenReasonDetailsModal] = useState(false);
+  const [openOperationModal, setOpenOperationModal] = useState(false);
+  const [openShiftnModal, setOpenShiftModal] = useState(false);
+  const [openWorkStationModal, setOpenWorkStationModal] = useState(false);
+  const [openProductionHourModal, setOpenProductionHourModal] = useState(false);
   const [reasonModalData, setReasonModalData] = useState<RejectionReasonDetailsType[]>([]);
   const [selectedDetailsIndex, setSelectedDetailsIndex] = useState<number>(-1);
 
@@ -543,7 +555,7 @@ export default function PrintEmbProductionForm({
 
                 <FormField
                   control={masterForm.control}
-                  name="TYPE"
+                  name="TYPE_ID"
                   render={({ field }) => (
                     <FormItem className="flex flex-col flex-1">
                       <FormLabel className="font-bold">Type</FormLabel>
@@ -553,7 +565,7 @@ export default function PrintEmbProductionForm({
                             <Button
                               variant="outline"
                               role="combobox"
-                              aria-expanded={openShift}
+                              aria-expanded={openProductionType}
                               className={cn(
                                 "w-full justify-between",
                                 !field.value && "text-muted-foreground"
@@ -610,149 +622,166 @@ export default function PrintEmbProductionForm({
                   )}
                 />
 
-                <FormField
-                  control={masterForm.control}
-                  name="SHIFT"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col flex-1">
-                      <FormLabel className="font-bold">Shift</FormLabel>
-                      <Popover open={openShift} onOpenChange={setOpenShift}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={openShift}
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? shift?.find(
-                                  (shift) =>
-                                    Number(shift.ID) === Number(field.value)
-                                )?.NAME
-                                : "Select a shift type"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0">
-                          <Command>
-                            <CommandInput placeholder="Search production type..." className="h-9" />
-                            <CommandList>
-                              <CommandEmpty>No production shift found.</CommandEmpty>
-                              <CommandGroup>
-                                {shift?.map((shiftData) => (
-                                  <CommandItem
-                                    value={shiftData.NAME}
-                                    key={shiftData.ID}
-                                    onSelect={() => {
-                                      field.onChange(Number(shiftData.ID));
-                                      setMasterData((prev) => ({
-                                        ...prev,
-                                        SHIFT_ID: Number(shiftData.ID),
-                                        SHIFT: shiftData.NAME,
-                                      }));
-                                      setOpenShift(false);
-                                    }}
-                                  >
-                                    {shiftData.NAME}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        Number(shiftData.ID) === Number(field.value)
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex align-middle">
+                  <FormField
+                    control={masterForm.control}
+                    name="SHIFT_ID"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col flex-1">
+                        <FormLabel className="font-bold">Shift</FormLabel>
+                        <Popover open={openShift} onOpenChange={setOpenShift}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={openShift}
+                                className={cn(
+                                  "w-full justify-between",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value
+                                  ? shift?.find(
+                                    (shift) =>
+                                      Number(shift.ID) === Number(field.value)
+                                  )?.NAME
+                                  : "Select a shift type"}
+                                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0">
+                            <Command>
+                              <CommandInput placeholder="Search production type..." className="h-9" />
+                              <CommandList>
+                                <CommandEmpty>No production shift found.</CommandEmpty>
+                                <CommandGroup>
+                                  {shift?.map((shiftData) => (
+                                    <CommandItem
+                                      value={shiftData.NAME}
+                                      key={shiftData.ID}
+                                      onSelect={() => {
+                                        field.onChange(Number(shiftData.ID));
+                                        setMasterData((prev) => ({
+                                          ...prev,
+                                          SHIFT_ID: Number(shiftData.ID),
+                                          SHIFT: shiftData.NAME,
+                                        }));
+                                        setOpenShift(false);
+                                      }}
+                                    >
+                                      {shiftData.NAME}
+                                      <CheckIcon
+                                        className={cn(
+                                          "ml-auto h-4 w-4",
+                                          Number(shiftData.ID) === Number(field.value)
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    onClick={() => setOpenShiftModal(true)}
+                    variant="outline"
+                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none mb-0.5"
+                  >
+                    <SquarePlus className="w-5 h-5" />
+                  </Button>
+                </div>
+
+                <div className="flex align-middle">
+                  <FormField
+                    control={masterForm.control}
+                    name="OPERATION_ID"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col flex-1">
+                        <FormLabel className="font-bold">Operation</FormLabel>
+                        <Popover open={openOperation} onOpenChange={setOpenOperation}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={openOperation}
+                                className={cn(
+                                  "w-full justify-between",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value
+                                  ? operation?.find(
+                                    (operationData) =>
+                                      Number(operationData.ID) === Number(field.value)
+                                  )?.NAME
+                                  : "Select a production type"}
+                                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0">
+                            <Command>
+                              <CommandInput placeholder="Search production type..." className="h-9" />
+                              <CommandList>
+                                <CommandEmpty>No operation shift found.</CommandEmpty>
+                                <CommandGroup>
+                                  {operation?.map((operationData) => (
+                                    <CommandItem
+                                      value={operationData.NAME}
+                                      key={operationData.ID}
+                                      onSelect={() => {
+                                        field.onChange(Number(operationData.ID));
+                                        setMasterData((prev) => ({
+                                          ...prev,
+                                          OPERATION_ID: Number(operationData.ID),
+                                          OPERATION: operationData.NAME,
+                                        }));
+                                        setOpenOperation(false);
+                                      }}
+                                    >
+                                      {operationData.NAME}
+                                      <CheckIcon
+                                        className={cn(
+                                          "ml-auto h-4 w-4",
+                                          Number(operationData.ID) === Number(field.value)
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    onClick={() => setOpenOperationModal(true)}
+                    variant="outline"
+                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none mb-0.5"
+                  >
+                    <SquarePlus className="w-5 h-5" />
+                  </Button>
+                </div>
 
 
                 <FormField
                   control={masterForm.control}
-                  name="OPERATION"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col flex-1">
-                      <FormLabel className="font-bold">Operation</FormLabel>
-                      <Popover open={openOperation} onOpenChange={setOpenOperation}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={openOperation}
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? operation?.find(
-                                  (operationData) =>
-                                    Number(operationData.ID) === Number(field.value)
-                                )?.NAME
-                                : "Select a production type"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0">
-                          <Command>
-                            <CommandInput placeholder="Search production type..." className="h-9" />
-                            <CommandList>
-                              <CommandEmpty>No operation shift found.</CommandEmpty>
-                              <CommandGroup>
-                                {operation?.map((operationData) => (
-                                  <CommandItem
-                                    value={operationData.NAME}
-                                    key={operationData.ID}
-                                    onSelect={() => {
-                                      field.onChange(Number(operationData.ID));
-                                      setMasterData((prev) => ({
-                                        ...prev,
-                                        OPERATION_ID: Number(operationData.ID),
-                                        OPERATION: operationData.NAME,
-                                      }));
-                                      setOpenOperation(false);
-                                    }}
-                                  >
-                                    {operationData.NAME}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        Number(operationData.ID) === Number(field.value)
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-
-                <FormField
-                  control={masterForm.control}
-                  name="FLOOR"
+                  name="FLOOR_ID"
                   render={({ field }) => (
                     <FormItem className="flex flex-col flex-1">
                       <FormLabel className="font-bold">Floor</FormLabel>
@@ -792,8 +821,8 @@ export default function PrintEmbProductionForm({
                                       field.onChange(Number(floorData.Id));
                                       setMasterData((prev) => ({
                                         ...prev,
-                                        OPERATION_ID: Number(floorData.Id),
-                                        OPERATION: floorData.Unitname,
+                                        FLOOR_ID: Number(floorData.Id),
+                                        FLOOR: floorData.Unitname,
                                       }));
                                       setOpenFloor(false);
                                     }}
@@ -819,75 +848,83 @@ export default function PrintEmbProductionForm({
                   )}
                 />
 
-
-                <FormField
-                  control={masterForm.control}
-                  name="WORKSTATION"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col flex-1">
-                      <FormLabel className="font-bold">Work Staion</FormLabel>
-                      <Popover open={openWorkstaion} onOpenChange={setOpenWorkstation}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={openWorkstaion}
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? workstation?.find(
-                                  (workstationData) =>
-                                    Number(workstationData.ID) === Number(field.value)
-                                )?.NAME
-                                : "Select a production type"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0">
-                          <Command>
-                            <CommandInput placeholder="Search production type..." className="h-9" />
-                            <CommandList>
-                              <CommandEmpty>No operation shift found.</CommandEmpty>
-                              <CommandGroup>
-                                {workstation?.map((workstationData) => (
-                                  <CommandItem
-                                    value={workstationData.NAME}
-                                    key={workstationData.ID}
-                                    onSelect={() => {
-                                      field.onChange(Number(workstationData.ID));
-                                      setMasterData((prev) => ({
-                                        ...prev,
-                                        WORKSTATION_ID: Number(workstationData.ID),
-                                        WORKSTATION: workstationData.NAME,
-                                      }));
-                                      setOpenWorkstation(false);
-                                    }}
-                                  >
-                                    {workstationData.NAME}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        Number(workstationData.ID) === Number(field.value)
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex align-middle">
+                  <FormField
+                    control={masterForm.control}
+                    name="WORKSTATION_ID"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col flex-1">
+                        <FormLabel className="font-bold">Work Staion</FormLabel>
+                        <Popover open={openWorkstaion} onOpenChange={setOpenWorkstation}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={openWorkstaion}
+                                className={cn(
+                                  "w-full justify-between",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value
+                                  ? workstation?.find(
+                                    (workstationData) =>
+                                      Number(workstationData.ID) === Number(field.value)
+                                  )?.NAME
+                                  : "Select a production type"}
+                                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0">
+                            <Command>
+                              <CommandInput placeholder="Search production type..." className="h-9" />
+                              <CommandList>
+                                <CommandEmpty>No operation shift found.</CommandEmpty>
+                                <CommandGroup>
+                                  {workstation?.map((workstationData) => (
+                                    <CommandItem
+                                      value={workstationData.NAME}
+                                      key={workstationData.ID}
+                                      onSelect={() => {
+                                        field.onChange(Number(workstationData.ID));
+                                        setMasterData((prev) => ({
+                                          ...prev,
+                                          WORKSTATION_ID: Number(workstationData.ID),
+                                          WORKSTATION: workstationData.NAME,
+                                        }));
+                                        setOpenWorkstation(false);
+                                      }}
+                                    >
+                                      {workstationData.NAME}
+                                      <CheckIcon
+                                        className={cn(
+                                          "ml-auto h-4 w-4",
+                                          Number(workstationData.ID) === Number(field.value)
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    onClick={() => setOpenWorkStationModal(true)}
+                    variant="outline"
+                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none"
+                  >
+                    <SquarePlus className="w-5 h-5" />
+                  </Button>
+                </div>
 
                 <FormField
                   control={masterForm.control}
@@ -908,75 +945,84 @@ export default function PrintEmbProductionForm({
                   )}
                 />
 
+                <div className="flex align-middle">
+                  <FormField
+                    control={masterForm.control}
+                    name="PRODUCTION_HOUR_ID"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col flex-1">
+                        <FormLabel className="font-bold">Production Hour</FormLabel>
+                        <Popover open={openProductionHour} onOpenChange={setOpenProductionHour}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={openWorkstaion}
+                                className={cn(
+                                  "w-full justify-between",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value
+                                  ? productionHour?.find(
+                                    (productionHourData) =>
+                                      Number(productionHourData.ID) === Number(field.value)
+                                  )?.NAME
+                                  : "Select a production type"}
+                                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0">
+                            <Command>
+                              <CommandInput placeholder="Search production hour..." className="h-9" />
+                              <CommandList>
+                                <CommandEmpty>No operation production hour found.</CommandEmpty>
+                                <CommandGroup>
+                                  {productionHour?.map((productionHourData) => (
+                                    <CommandItem
+                                      value={productionHourData.NAME}
+                                      key={productionHourData.ID}
+                                      onSelect={() => {
+                                        field.onChange(Number(productionHourData.ID));
+                                        setMasterData((prev) => ({
+                                          ...prev,
+                                          PRODUCTION_HOUR_ID: Number(productionHourData.ID),
+                                          PRODUCTION_HOUR: productionHourData.NAME,
+                                        }));
+                                        setOpenProductionHour(false);
+                                      }}
+                                    >
+                                      {productionHourData.NAME}
+                                      <CheckIcon
+                                        className={cn(
+                                          "ml-auto h-4 w-4",
+                                          Number(productionHourData.ID) === Number(field.value)
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    onClick={() => setOpenProductionHourModal(true)}
+                    variant="outline"
+                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none"
+                  >
+                    <SquarePlus className="w-5 h-5" />
+                  </Button>
+                </div>
 
-                <FormField
-                  control={masterForm.control}
-                  name="PRODUCTION_HOUR"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col flex-1">
-                      <FormLabel className="font-bold">Production Hour</FormLabel>
-                      <Popover open={openProductionHour} onOpenChange={setOpenProductionHour}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={openWorkstaion}
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? productionHour?.find(
-                                  (productionHourData) =>
-                                    Number(productionHourData.ID) === Number(field.value)
-                                )?.NAME
-                                : "Select a production type"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0">
-                          <Command>
-                            <CommandInput placeholder="Search production hour..." className="h-9" />
-                            <CommandList>
-                              <CommandEmpty>No operation production hour found.</CommandEmpty>
-                              <CommandGroup>
-                                {productionHour?.map((productionHourData) => (
-                                  <CommandItem
-                                    value={productionHourData.NAME}
-                                    key={productionHourData.ID}
-                                    onSelect={() => {
-                                      field.onChange(Number(productionHourData.ID));
-                                      setMasterData((prev) => ({
-                                        ...prev,
-                                        PRODUCTION_HOUR_ID: Number(productionHourData.ID),
-                                        PRODUCTION_HOUR: productionHourData.NAME,
-                                      }));
-                                      setOpenWorkstation(false);
-                                    }}
-                                  >
-                                    {productionHourData.NAME}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        Number(productionHourData.ID) === Number(field.value)
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
               </div>
             </form>
           </Form>
@@ -1506,7 +1552,7 @@ export default function PrintEmbProductionForm({
                           Rejected Qty
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
-                          Action Taken
+                          Action
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4"></TableHead>
                       </TableRow>
@@ -1653,7 +1699,7 @@ export default function PrintEmbProductionForm({
           </DialogTrigger>
           <DialogContent className="sm:max-w-[700px] bg-white">
             <DialogHeader>
-              <DialogTitle></DialogTitle>
+              <DialogTitle>Reason</DialogTitle>
               <DialogDescription>
 
                 <div>
@@ -1805,6 +1851,87 @@ export default function PrintEmbProductionForm({
             </div>
             <DialogFooter>
               <Button onClick={() => { setReasonModalData([]), setOpenReasonDetailsModal(false) }} >Save changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+
+        {/* operation dialog */}
+        <Dialog open={openOperationModal} onOpenChange={setOpenOperationModal}>
+          <DialogTrigger asChild>
+
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[700px] bg-white">
+            <DialogHeader>
+              <DialogTitle>Production Operation</DialogTitle>
+              <DialogDescription>
+                <PrintEmbProductionOperationIndex></PrintEmbProductionOperationIndex>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+            </div>
+            <DialogFooter>
+              <Button onClick={() => { getOperation(), setOpenOperationModal(false) }} >Close</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+
+        {/* shift dialog */}
+        <Dialog open={openShiftnModal} onOpenChange={setOpenShiftModal}>
+          <DialogTrigger asChild>
+
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[700px] bg-white">
+            <DialogHeader>
+              <DialogTitle>Production Shift</DialogTitle>
+              <DialogDescription>
+                <PrintEmbProductionShiftIndex></PrintEmbProductionShiftIndex>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+            </div>
+            <DialogFooter>
+              <Button onClick={() => { getShift(), setOpenShiftModal(false) }} >Close</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+
+        {/* work station dialog */}
+        <Dialog open={openWorkStationModal} onOpenChange={setOpenWorkStationModal}>
+          <DialogTrigger asChild>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[700px] bg-white">
+            <DialogHeader>
+              <DialogTitle>Work Station</DialogTitle>
+              <DialogDescription>
+                <PrintEmbProductionWorkStationIndex></PrintEmbProductionWorkStationIndex>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+            </div>
+            <DialogFooter>
+              <Button onClick={() => { getWorkStation(), setOpenWorkStationModal(false) }} >Close</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* work production hour */}
+        <Dialog open={openProductionHourModal} onOpenChange={setOpenProductionHourModal}>
+          <DialogTrigger asChild>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[700px] bg-white">
+            <DialogHeader>
+              <DialogTitle>Production Hour</DialogTitle>
+              <DialogDescription>
+                <PrintEmbProductionHourIndex></PrintEmbProductionHourIndex>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+            </div>
+            <DialogFooter>
+              <Button onClick={() => { getProductionHour(), setOpenProductionHourModal(false) }} >Close</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
