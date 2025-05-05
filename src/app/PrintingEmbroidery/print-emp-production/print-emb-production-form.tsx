@@ -1594,6 +1594,7 @@ export default function PrintEmbProductionForm({
                                 )}
                               </span>
                               <Button
+                                type="button"
                                 onClick={() => {
                                   setReasonModalData(item?.ReasonDetails);
                                   setOpenReasonDetailsModal(true)
