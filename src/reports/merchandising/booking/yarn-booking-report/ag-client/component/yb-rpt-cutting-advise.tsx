@@ -45,7 +45,7 @@ function getCuttingAdviseTotalQty(
   }
   return qty;
 }
-
+//
 export default function YarnBookingCuttingAdvise() {
   const data = useContext(YarnBookingReportContext);
   const sizeArrayLength = data?.sizeNameList?.length;
