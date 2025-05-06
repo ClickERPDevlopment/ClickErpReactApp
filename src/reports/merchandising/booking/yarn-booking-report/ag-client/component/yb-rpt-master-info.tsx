@@ -77,7 +77,7 @@ export default function YarnBookingMasterInfo({
           <ul className="">
             <li className="flex mb-1 ">
               <label className="min-w-44 font-bold">Based on Tech. Sheet Date</label>
-              <span>: { masterData?.ASPERLATEST=='1'?'As per latest':   masterData?.TECHNICAL_SHEET_DATE}</span>
+              <span>: {masterData?.ASPERLATEST == '1' ? 'As per latest' : masterData?.TECHNICAL_SHEET_DATE}</span>
             </li>
             <li className="flex mb-1">
               <label className="min-w-44 font-bold">Order Qty</label>
