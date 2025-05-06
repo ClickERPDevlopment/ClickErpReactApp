@@ -135,10 +135,10 @@ export function PrintEmbProductionTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/compensation-claim/${PageAction.view}/${item.ID}`
+                      `/win/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}`
                     )
                     : navigate(
-                      `/dashboard/merchandising/compensation-claim/${PageAction.view}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}`
                     )
                 }
               >
@@ -148,10 +148,10 @@ export function PrintEmbProductionTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/compensation-claim/${PageAction.edit}/${item.ID}`
+                      `/win/printing-embroidery/print-emp-production/${PageAction.edit}/${item.ID}`
                     )
                     : navigate(
-                      `/dashboard/merchandising/compensation-claim/${PageAction.edit}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.edit}/${item.ID}`
                     )
                 }
               >
@@ -161,10 +161,10 @@ export function PrintEmbProductionTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/merchandising/compensation-claim/${PageAction.delete}/${item.ID}`
+                      `/win/printing-embroidery/print-emp-production/${PageAction.delete}/${item.ID}`
                     )
                     : navigate(
-                      `/dashboard/merchandising/compensation-claim/${PageAction.delete}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.delete}/${item.ID}`
                     )
                 }
               >

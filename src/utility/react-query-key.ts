@@ -33,4 +33,6 @@ export const ReactQueryKey = {
   CompensationClaim: "CompensationClaim",
   ClaimId: "ClaimId",
   PrintEmbProduction: "PrintEmbProduction",
+  PrintEmbProductionOperation: "PrintEmbProductionOperation",
+  PrintEmbProductionHour: "PrintEmbProductionHour",
 };

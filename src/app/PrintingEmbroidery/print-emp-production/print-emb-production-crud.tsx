@@ -48,7 +48,7 @@ export default function PrintEmbProductionCrud() {
 
   if (pageAction === PageAction.view) {
     return (
-      <div className="w-full flex flex-col justify-center items-center mt-2 mb-10 ">
+      <div className="w-full flex flex-col justify-center items-center mt-5 mb-10 ">
         <h1 className="font-bold text-xl text-left w-full mb-2">
           Print Emb Production
         </h1>
@@ -60,7 +60,7 @@ export default function PrintEmbProductionCrud() {
     );
   } else if (pageAction === PageAction.add) {
     return (
-      <div className="w-full flex flex-col justify-center items-center mt-2 mb-10">
+      <div className="w-full flex flex-col justify-center items-center mt-5 mb-10">
         <h1 className="font-bold text-xl text-left w-full mb-2">
           Print Emb Production
         </h1>
@@ -72,7 +72,7 @@ export default function PrintEmbProductionCrud() {
     );
   } else if (pageAction === PageAction.edit) {
     return (
-      <div className="w-full flex flex-col justify-center items-center mt-2 mb-10">
+      <div className="w-full flex flex-col justify-center items-center mt-5 mb-10">
         <h1 className="font-bold text-xl text-left w-full mb-2">
           Update Print Emb Production
         </h1>
@@ -84,7 +84,7 @@ export default function PrintEmbProductionCrud() {
     );
   } else if (pageAction === PageAction.delete) {
     return (
-      <div className="w-full flex flex-col justify-center items-center mt-2 mb-10">
+      <div className="w-full flex flex-col justify-center items-center mt-5 mb-10">
         <h1 className="font-bold text-xl text-left w-full text-destructive mb-2">
           Delete Print Emb Production
         </h1>

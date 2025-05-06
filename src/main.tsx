@@ -324,6 +324,16 @@ createRoot(document.getElementById("root")!).render(
                           <Route index element={<SwtPlanStripIndex />} />
                         </Route>
                       </Route>
+                      <Route path="printing-embroidery">
+                        <Route path="print-emp-production">
+                          <Route index element={<PrintEmbProductionIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbProductionCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                      </Route>
                       <Route path="merchandising">
                         <Route index element={<MerchandisingDashboard />} />
                         <Route path="buyer">
