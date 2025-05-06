@@ -9,6 +9,7 @@ import {
   YarnBookingReportDto_KnittingDyeingAdvice,
   YarnBookingReportDto_Size,
 } from "./component/yb-rpt-type";
+import moment from "moment";
 type params = {
   data: YarnBookingReportDto;
 };
@@ -57,6 +58,7 @@ export default function YarnBookingReport_AG({ data }: params) {
       <YarnBookingReportContext.Provider value={data}>
         <div className="container print:max-w-none print:px-0">
           <div>
+            <h1 className='text-right'>{moment(data.MaterData?.CONS_DATE).format('D-MMM-yy')}</h1>
             <h1 className="text-2xl font-bold text-center">
               {data.MaterData.COMPANY_NAME}
             </h1>
