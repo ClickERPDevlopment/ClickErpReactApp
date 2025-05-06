@@ -163,8 +163,6 @@ interface ISize {
 };
 
 
-
-
 export default function PrintEmbProductionForm({
   data,
   pageAction,
@@ -176,8 +174,6 @@ export default function PrintEmbProductionForm({
   const queryClient = useQueryClient();
   const navigator = useNavigate();
   const axios = useAxiosInstance();
-
-  console.log("data", data);
 
   const mutation = useMutation({
     mutationFn: (tag: any) => {
@@ -294,8 +290,12 @@ export default function PrintEmbProductionForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    
     const data = masterData;
     data.PrintEmbProductionDetails = detailsData || [];
+
+    console.log("data", data);
+
 
     const validationResult = masterFormSchema.safeParse(masterData);
 
@@ -456,7 +456,6 @@ export default function PrintEmbProductionForm({
 
   }
 
-  console.log("Dsssata", data?.TYPE);
 
   const masterForm = useForm<z.infer<typeof masterFormSchema>>({
     resolver: zodResolver(masterFormSchema),
@@ -503,6 +502,8 @@ export default function PrintEmbProductionForm({
   const [reasonModalData, setReasonModalData] = useState<RejectionReasonDetailsType[]>([]);
   const [selectedDetailsIndex, setSelectedDetailsIndex] = useState<number>(-1);
 
+
+  console.log("detailsData", detailsData);
 
   return (
     <AppPageContainer>
@@ -1763,6 +1764,7 @@ export default function PrintEmbProductionForm({
                     onClick={() => {
                       const updatedReasonModalData = [...reasonModalData, reasonDetails];
                       setReasonModalData(updatedReasonModalData);
+
                       setReasonDetails({ ID: 0, MASTER_ID: 0, REASON: "", QTY: 0 });
 
                       if (selectedDetailsIndex !== null && detailsData) {
@@ -1772,11 +1774,9 @@ export default function PrintEmbProductionForm({
 
                           targetItem.ReasonDetails = updatedReasonModalData;
                           newData[selectedDetailsIndex] = targetItem;
-
                           return newData;
                         });
                       }
-
                       reasonForm.reset();
                     }}
                   >

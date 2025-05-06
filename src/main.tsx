@@ -126,6 +126,7 @@ import YarnIssueStatusReportIndex from "./reports/store/yarn-store/yissue-status
 import SampleProgramReportIndex from "./reports/merchandising/sample-program/report/sample-program-report.-index.tsx";
 import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-index.tsx";
 import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-crud.tsx";
+import MaterialOrderYarnDyeingReport from "./reports/merchandising/report/material-order-yarn-dyeing-report/material-order-yarn-dyeing-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -525,6 +526,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="compensation-claim-report"
                       element={<CompensationClaimReport />}
+                    ></Route>
+                    <Route
+                      path="material-order-yarn-dyeing-report"
+                      element={<MaterialOrderYarnDyeingReport />}
                     ></Route>
                   </Route>
 
