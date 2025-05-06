@@ -49,8 +49,10 @@ function getCuttingAdviseTotalQty(
 export default function YarnBookingCuttingAdvise() {
   const data = useContext(YarnBookingReportContext);
   const sizeArrayLength = data?.sizeNameList?.length;
-  // console.log("sizes", data?.sizeNameList);
-  // return JSON
+
+  const hasOpenFinish = data?.lstSpecialTreatment?.some(treatment => treatment.TREATMENT === "OPEN FINISH") ?? false;
+
+
   return (
     <div className="mt-5">
       <h3 className="text-center font-bold text-lg border border-black border-b-0">
@@ -81,12 +83,14 @@ export default function YarnBookingCuttingAdvise() {
                 </td>
               ))}
               <td className="text-center border border-black">{part.NAME}</td>
-              {data.MaterData.IS_OPEN_DIA === "1" ? (
-                <td>**</td>
+              {hasOpenFinish ? (
+                <td className="text-center border border-black">
+                  **
+                </td>
               ) : (
                 part.NAME?.toUpperCase().includes("CHEST") ? (
                   <td className="text-center border border-black">
-                    DIA SELECTION (Body)
+                    DIA SELECTION (Body) {data.MaterData?.IS_OPEN_DIA}
                   </td>
                 ) : (
                   <td className="text-center border border-black">**</td>

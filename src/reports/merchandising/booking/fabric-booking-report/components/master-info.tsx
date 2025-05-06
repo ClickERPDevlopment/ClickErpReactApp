@@ -129,43 +129,6 @@ export default function MasterInfo({ masterData }: { masterData?: FabricBookingR
                 </div>
 
             </div >
-
-            {/* <h4 style='border: 2px solid black; width: 150px; text-align: center; margin:10px 0;'>OPEN FINISH</h4>
-            <h4 style='border: 2px solid black; width: !important; text-align: center; margin:10px 0;'>" + SpecialTeatment + @"</h4> */}
-
-
-
-            {/* if (oDs.Tables["INCM"].Rows.Count > 0) {
-
-                docText += @"
-                < div className = 'order_info' >
-            <table className='table_one'>
-                <thead>
-                    <tr>
-                        <th className='font-bold' style='padding: 3px 6px;' colspan='3'>INCM DETAILS</th>
-                    </tr>
-                    <tr>
-                        <th className='font-bold' style='padding: 3px 6px;'>In-cm</th>
-                        <th className='font-bold' style='padding: 3px 6px;'>Job Qty</th>
-                        <th className='font-bold' style='padding: 3px 6px;'>Consumption</th>
-                    </tr>
-                </thead>
-                <tbody>";
-
-                    foreach (DataRow dtRow in oDs.Tables["INCM"].Rows)
-                    {
-                        docText += @"
-                        < tr >
-                            <td className='font-bold'>" + Convert.ToString(dtRow["IN_CM"]) + @"</td>
-                            <td className='font-bold'>" + Convert.ToString(dtRow["JOB_QTY"]) + @"</td>
-                            <td className='font-bold'>" + Convert.ToString(dtRow["CONSUMPTION_QTY"]) + @"</td>
-                        </tr>";
-            }
-
-                docText += @"
-            </tbody>
-        </table >
-            "; */}
         </div >
     )
 }
