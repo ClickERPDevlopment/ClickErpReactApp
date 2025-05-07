@@ -40,7 +40,7 @@ import { cn } from "@/lib/utils";
 import { PageAction } from "@/utility/page-actions";
 import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
-import { SquarePlus, Trash2Icon } from "lucide-react";
+import { SquarePen, SquarePlus, Trash2Icon } from "lucide-react";
 
 import AppPageContainer from "@/components/app-page-container";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -83,7 +83,7 @@ const masterFormSchema = z.object({
   FLOOR: z.string().min(1, "Floor is required"),
   WORKSTATION_ID: z.number().min(1, "Workstation is required"),
   WORKSTATION: z.string().min(1, "Workstation is required"),
-  MP: z.number().min(0, "MP must be zero or more"),
+  MP: z.number().min(1, "MP must be more then zero"),
   PRODUCTION_HOUR_ID: z.number().min(1, "Production hour is required"),
   PRODUCTION_HOUR: z.string().min(1, "Production hour is required"),
 });
@@ -203,33 +203,33 @@ export default function PrintEmbProductionForm({
   const api = useApiUrl();
 
   const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
-  const getBuyerData = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/buyer/GetAllBuyer");
+  const getBuyerData = async (woId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
     setBuyerData(response?.data);
   }
 
   const [style, setStyle] = useState<IStyle[]>([]);
-  const getStyleByBuyer = async (id: number = 0) => {
-    const response = await axios.get(api.ProductionUrl + "/production/Style/GetAllStyleByBuyer?buyerId=" + id);
+  const getStyleByBuyer = async (woId: number, buyerId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
     setStyle(response?.data);
   }
 
   const [PO, setPO] = useState<IPO[]>([]);
-  const getPOByStyle = async (id: number = 0) => {
-    const response = await axios.get(api.ProductionUrl + "/production/PurchaseOrder/GetAllPOByStyle?styleId=" + id);
+  const getPOByStyle = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
     setPO(response?.data);
   }
 
   const [color, setColor] = useState<IColor[]>([]);
-  const GetColorByBuyer = async (id: number = 0) => {
-    const response = await axios.get(api.ProductionUrl + "/production/Color/GetColorByBuyer?buyerId=" + id);
-    setColor(response?.data?.Data);
+  const GetColorByBuyer = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setColor(response?.data);
   }
 
   const [size, setSize] = useState<ISize[]>([]);
-  const GetSizeByBuyer = async (id: number = 0) => {
-    const response = await axios.get(api.ProductionUrl + "/production/Size/GetSizeByBuyer?buyerId=" + id);
-    setSize(response?.data?.Data);
+  const GetSizeByBuyer = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllSizeByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setSize(response?.data);
   }
 
   //get production data
@@ -263,10 +263,9 @@ export default function PrintEmbProductionForm({
     setWorkstation(response?.data);
   }
 
-
   const [floor, setFloor] = useState<IFloor[]>([]);
   const getFloor = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/Unit");
+    const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitByFactory?factoryId=3");
     setFloor(response?.data);
   }
 
@@ -277,7 +276,6 @@ export default function PrintEmbProductionForm({
   }
 
   useEffect(() => {
-    getBuyerData();
     getProductionHour();
     getOperation();
     getShift();
@@ -359,15 +357,67 @@ export default function PrintEmbProductionForm({
 
     if (type == "Add All Size") {
 
-      if (size.length <= 0) return;
-      const allSizeData = size.map((size) => ({
-        ...printEmbProductionDetails, SIZE_ID: size.ID,
-        SIZE: size.SIZENAME
-      }))
-      setdetailsData(allSizeData);
+      if (color.length > 0) {
+        if (size.length <= 0) return;
+
+        const colorSizeData = color.flatMap((col) =>
+          size.map((sz) => ({
+            ...printEmbProductionDetails,
+            COLOR_ID: col.ID,
+            COLOR: col.COLORNAME,
+            SIZE_ID: sz.ID,
+            SIZE: sz.SIZENAME,
+          }))
+        );
+        setdetailsData(colorSizeData);
+      } else {
+        if (size.length <= 0) return;
+
+        const allSizeData = size.map((sz) => ({
+          ...printEmbProductionDetails,
+          SIZE_ID: sz.ID,
+          SIZE: sz.SIZENAME,
+        }));
+
+        setdetailsData(allSizeData);
+      }
 
     }
+    else if (type === "Edit") {
+
+      if (editingIndex !== null && detailsData) {
+        setdetailsData((prevData) => {
+          const newData = [...(prevData || [])];
+          const currentItem = newData[editingIndex];
+          const updatedItem: PrintEmbProductionDetailsType = { ...currentItem };
+
+          (Object.keys(printEmbProductionDetails) as (keyof PrintEmbProductionDetailsType)[]).forEach((key) => {
+            if (key === "ReasonDetails") return;
+            const newValue = printEmbProductionDetails[key];
+
+            const shouldUpdate =
+              (typeof newValue === "string" && newValue.trim() !== "") ||
+              (typeof newValue === "number" && newValue !== 0) ||
+              (Array.isArray(newValue) && newValue.length > 0);
+
+            if (shouldUpdate) {
+              (updatedItem as any)[key] = newValue;
+            }
+          });
+
+          newData[editingIndex] = updatedItem;
+          return newData;
+        });
+      }
+
+      form.reset({ QC_PASSED_QTY: 0 });
+
+      setEditingIndex(-1);
+      setEditBtn(false);
+    }
+
     else {
+
       setdetailsData((prev) => {
         return [...(prev || []), printEmbProductionDetails];
       });
@@ -495,10 +545,6 @@ export default function PrintEmbProductionForm({
 
   }
 
-
-
-
-
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
@@ -522,9 +568,20 @@ export default function PrintEmbProductionForm({
   const [openProductionHourModal, setOpenProductionHourModal] = useState(false);
   const [reasonModalData, setReasonModalData] = useState<RejectionReasonDetailsType[]>([]);
   const [selectedDetailsIndex, setSelectedDetailsIndex] = useState<number>(-1);
+  const [editingIndex, setEditingIndex] = useState<number>(-1);
+  const [editBtn, setEditBtn] = useState(false);
 
 
-  console.log("detailsData", detailsData);
+
+  const handleEdit = (selectedData: PrintEmbProductionDetailsType) => {
+
+    setPrintEmbProductionDetails(selectedData);
+
+    form.reset({
+      QC_PASSED_QTY: selectedData.QC_PASSED_QTY,
+    });
+
+  };
 
   return (
     <AppPageContainer>
@@ -589,7 +646,7 @@ export default function PrintEmbProductionForm({
                               role="combobox"
                               aria-expanded={openProductionType}
                               className={cn(
-                                "w-full justify-between",
+                                "w-full justify-between bg-emerald-100",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -659,7 +716,7 @@ export default function PrintEmbProductionForm({
                                 role="combobox"
                                 aria-expanded={openShift}
                                 className={cn(
-                                  "w-full justify-between",
+                                  "w-full justify-between bg-emerald-100",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -714,6 +771,7 @@ export default function PrintEmbProductionForm({
                     )}
                   />
                   <Button
+                    type="button"
                     onClick={() => setOpenShiftModal(true)}
                     variant="outline"
                     className="h-9 w-9 flex items-center justify-center shadow-none mb-0.5 mt-5"
@@ -737,7 +795,7 @@ export default function PrintEmbProductionForm({
                                 role="combobox"
                                 aria-expanded={openOperation}
                                 className={cn(
-                                  "w-full justify-between",
+                                  "w-full justify-between bg-emerald-100",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -792,6 +850,7 @@ export default function PrintEmbProductionForm({
                     )}
                   />
                   <Button
+                    type="button"
                     onClick={() => setOpenOperationModal(true)}
                     variant="outline"
                     className="h-9 w-9 flex items-center justify-center shadow-none mb-0.5 mt-5"
@@ -815,7 +874,7 @@ export default function PrintEmbProductionForm({
                               role="combobox"
                               aria-expanded={openOperation}
                               className={cn(
-                                "w-full justify-between",
+                                "w-full justify-between bg-emerald-100",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -885,7 +944,7 @@ export default function PrintEmbProductionForm({
                                 role="combobox"
                                 aria-expanded={openWorkstaion}
                                 className={cn(
-                                  "w-full justify-between",
+                                  "w-full justify-between bg-emerald-100",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -940,6 +999,7 @@ export default function PrintEmbProductionForm({
                     )}
                   />
                   <Button
+                    type="button"
                     onClick={() => setOpenWorkStationModal(true)}
                     variant="outline"
                     className="h-9 w-9 flex items-center justify-center mt-5 shadow-none"
@@ -982,7 +1042,7 @@ export default function PrintEmbProductionForm({
                                 role="combobox"
                                 aria-expanded={openWorkstaion}
                                 className={cn(
-                                  "w-full justify-between",
+                                  "w-full justify-between bg-emerald-100",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -1037,6 +1097,7 @@ export default function PrintEmbProductionForm({
                     )}
                   />
                   <Button
+                    type="button"
                     onClick={() => setOpenProductionHourModal(true)}
                     variant="outline"
                     className="h-9 w-9 flex items-center justify-center mt-5 shadow-none"
@@ -1069,7 +1130,7 @@ export default function PrintEmbProductionForm({
                         name="WORK_ORDER_NO"
                         render={({ field }) => (
                           <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Work Order</FormLabel>
+                            <FormLabel className="font-bold">Order</FormLabel>
                             <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
                               <PopoverTrigger asChild>
                                 <FormControl>
@@ -1078,7 +1139,7 @@ export default function PrintEmbProductionForm({
                                     role="combobox"
                                     aria-expanded={openWorkOrder}
                                     className={cn(
-                                      "w-full justify-between",
+                                      "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
@@ -1087,7 +1148,7 @@ export default function PrintEmbProductionForm({
                                         (workOrderData) =>
                                           Number(workOrderData.ID) === Number(field.value)
                                       )?.WORK_ORDER_NO
-                                      : "Select a work order type"}
+                                      : "Select a order"}
                                     <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                   </Button>
                                 </FormControl>
@@ -1096,7 +1157,7 @@ export default function PrintEmbProductionForm({
                                 <Command>
                                   <CommandInput placeholder="Search production type..." className="h-9" />
                                   <CommandList>
-                                    <CommandEmpty>No production type found.</CommandEmpty>
+                                    <CommandEmpty>No order found.</CommandEmpty>
                                     <CommandGroup>
                                       {workOrder?.map((workOrderData) => (
                                         <CommandItem
@@ -1110,6 +1171,7 @@ export default function PrintEmbProductionForm({
                                               WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
                                             }));
                                             setOpenWorkOrder(false);
+                                            getBuyerData(workOrderData.ID)
                                           }}
                                         >
                                           {workOrderData.WORK_ORDER_NO}
@@ -1149,7 +1211,7 @@ export default function PrintEmbProductionForm({
                                     role="combobox"
                                     aria-expanded={openBuyer}
                                     className={cn(
-                                      "w-full justify-between",
+                                      "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
@@ -1180,9 +1242,8 @@ export default function PrintEmbProductionForm({
                                               BUYER_ID: Number(buyer?.Id),
                                               BUYER: buyer?.NAME,
                                             }));
-                                            getStyleByBuyer(Number(buyer?.Id));
-                                            GetColorByBuyer(Number(buyer?.Id));
-                                            GetSizeByBuyer(Number(buyer?.Id));
+                                            getStyleByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(buyer?.Id));
+
                                             setOpenBuyer(false);
                                           }}
                                         >
@@ -1232,7 +1293,7 @@ export default function PrintEmbProductionForm({
                                     role="combobox"
                                     aria-expanded={openStyle}
                                     className={cn(
-                                      "w-full justify-between",
+                                      "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
@@ -1264,7 +1325,9 @@ export default function PrintEmbProductionForm({
                                               STYLE: item.Styleno,
                                             }));
                                             setOpenStyle(false);
-                                            getPOByStyle(Number(item.Id));
+                                            getPOByStyle(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
+                                            GetColorByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
+                                            GetSizeByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
                                           }}
                                         >
                                           {item.Styleno}
@@ -1312,7 +1375,7 @@ export default function PrintEmbProductionForm({
                                     role="combobox"
                                     aria-expanded={openPO}
                                     className={cn(
-                                      "w-full justify-between",
+                                      "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
@@ -1383,7 +1446,7 @@ export default function PrintEmbProductionForm({
                                     role="combobox"
                                     aria-expanded={openColor}
                                     className={cn(
-                                      "w-full justify-between",
+                                      "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
@@ -1454,7 +1517,7 @@ export default function PrintEmbProductionForm({
                                     role="combobox"
                                     aria-expanded={openSize}
                                     className={cn(
-                                      "w-full justify-between",
+                                      "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
@@ -1532,25 +1595,30 @@ export default function PrintEmbProductionForm({
                     </div>
                   </div>
                 </div>
-
-                <Button
-                  type="button"
-                  onClick={() => handleAdd()}
-                  className="mt-1 mb-1"
-                >
-                  Add
-                </Button>
-
+                {
+                  editBtn == true ? <Button
+                    type="button"
+                    onClick={() => handleAdd("Edit")}
+                    className="mt-2 mb-2"
+                  >
+                    Edit
+                  </Button> : <Button
+                    type="button"
+                    onClick={() => handleAdd()}
+                    className="mt-2 mb-2"
+                  >
+                    Add
+                  </Button>
+                }
                 <Button
                   type="button"
                   onClick={() => handleAdd("Add All Size")}
-                  className="mt-1 ms-2 mb-1"
+                  className="mt-2 ms-2 mb-2"
                 >
                   Add All Size
                 </Button>
 
-
-                <div className="mb-5 min-h-60 p-0.5 border rounded-md">
+                <div className="max-h-[300px] overflow-y-auto border rounded-md">
                   <Table className="min-w-full rounded-md">
                     <TableHeader className="bg-green-100 rounded-md">
                       <TableRow className=" rounded-md">
@@ -1584,12 +1652,12 @@ export default function PrintEmbProductionForm({
                         <TableHead className="border border-gray-300 text-center px-4">
                           Action
                         </TableHead>
-                        <TableHead className="border border-gray-300 text-center px-4"></TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {detailsData?.map((item, index) => (
-                        <TableRow className="odd:bg-white even:bg-gray-50">
+                        <TableRow className={`${editingIndex === index ? 'bg-green' : 'odd:bg-white even:bg-gray-50'
+                          }`}>
                           <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
                             {index + 1}
                           </TableCell>
@@ -1640,9 +1708,15 @@ export default function PrintEmbProductionForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 p-0 m-0 hover:cursor-pointer">
                             <div className="w-full h-full p-0 m-0 flex justify-center">
+                              <SquarePen
+                                size={15}
+                                className="hover:text-blue-500"
+                                onClick={() => { setEditingIndex(index), handleEdit(item), setEditBtn(true) }}
+                                style={{ color: "blue", cursor: "pointer" }}
+                              />
                               <Trash2Icon
                                 size={15}
-                                className=" hover:text-red-500"
+                                className=" hover:text-red-500 ms-2"
                                 onClick={() => handleRemove(index)}
                                 style={{ color: "red" }}
                               />
@@ -1653,7 +1727,7 @@ export default function PrintEmbProductionForm({
                     </TableBody>
                   </Table>
                 </div>
-                <div className={cn("flex justify-between")}>
+                <div className={cn("flex justify-between mt-4")}>
                   <div className="flex gap-2">
                     <Button
                       type="submit"
@@ -1672,7 +1746,7 @@ export default function PrintEmbProductionForm({
                           ? "Update"
                           : "Delete"}
                     </Button>
-                    <Button
+                    {/* <Button
                       type="reset"
                       disabled={mutation.isPending}
                       onClick={() => {
@@ -1687,7 +1761,7 @@ export default function PrintEmbProductionForm({
                       )}
                     >
                       Cancel
-                    </Button>
+                    </Button> */}
                   </div>
                   <Button
                     type="reset"
@@ -1707,7 +1781,7 @@ export default function PrintEmbProductionForm({
             </Form>
           </div>
         </div>
-        <div className="p-2 mt-5">
+        {/* <div className="p-2 mt-5">
           {
             pageAction != PageAction.add &&
             <a
@@ -1719,7 +1793,7 @@ export default function PrintEmbProductionForm({
               Show Report
             </a>
           }
-        </div>
+        </div> */}
       </div>
       <div>
 
