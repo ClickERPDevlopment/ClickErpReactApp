@@ -288,21 +288,51 @@ export default function PrintEmbProductionForm({
   }, []);
 
 
+  const masterForm = useForm<z.infer<typeof masterFormSchema>>({
+    resolver: zodResolver(masterFormSchema),
+    defaultValues: {
+      PRODUCTION_DATE: data?.PRODUCTION_DATE ? new Date(data.PRODUCTION_DATE) : new Date(),
+      TYPE_ID: data?.TYPE_ID || 0,
+      TYPE: data?.TYPE || "",
+      SHIFT_ID: data?.SHIFT_ID || 0,
+      SHIFT: data?.SHIFT || "",
+      OPERATION_ID: data?.OPERATION_ID || 0,
+      OPERATION: data?.OPERATION || "",
+      FLOOR_ID: data?.FLOOR_ID || 0,
+      FLOOR: data?.FLOOR || "",
+      WORKSTATION_ID: data?.WORKSTATION_ID || 0,
+      WORKSTATION: data?.WORKSTATION || "",
+      MP: data?.MP || 0,
+      PRODUCTION_HOUR_ID: data?.PRODUCTION_HOUR_ID || 0,
+      PRODUCTION_HOUR: data?.PRODUCTION_HOUR || "",
+    },
+  });
+
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
-    const data = masterData;
-    data.PrintEmbProductionDetails = detailsData || [];
-
-    console.log("data", data);
 
 
     const validationResult = masterFormSchema.safeParse(masterData);
+    type MasterFormType = z.infer<typeof masterFormSchema>;
 
     if (!validationResult.success) {
-      console.error("Validation failed:", validationResult.error.format());
+
+      const errors = validationResult.error.flatten().fieldErrors;
+
+      Object.entries(errors).forEach(([field, messages]) => {
+        if (messages && messages.length > 0) {
+          masterForm.setError(field as keyof MasterFormType, {
+            type: "manual",
+            message: messages[0],
+          });
+        }
+      });
       return;
     }
+
+    const data = masterData;
+    data.PrintEmbProductionDetails = detailsData || [];
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
@@ -325,11 +355,23 @@ export default function PrintEmbProductionForm({
   >(data?.PrintEmbProductionDetails);
 
 
-  const handleAdd = () => {
-    setdetailsData((prev) => {
-      return [...(prev || []), printEmbProductionDetails];
-    });
+  const handleAdd = (type: string = "") => {
 
+    if (type == "Add All Size") {
+
+      if (size.length <= 0) return;
+      const allSizeData = size.map((size) => ({
+        ...printEmbProductionDetails, SIZE_ID: size.ID,
+        SIZE: size.SIZENAME
+      }))
+      setdetailsData(allSizeData);
+
+    }
+    else {
+      setdetailsData((prev) => {
+        return [...(prev || []), printEmbProductionDetails];
+      });
+    }
     reasonForm.reset();
   };
 
@@ -356,9 +398,6 @@ export default function PrintEmbProductionForm({
     PRODUCTION_HOUR: data ? data.PRODUCTION_HOUR : "",
     PrintEmbProductionDetails: data ? data.PrintEmbProductionDetails : []
   });
-
-  console.log("masterData", masterData);
-
 
   const [printEmbProductionDetails, setPrintEmbProductionDetails] = useState<PrintEmbProductionDetailsType>({
     ID: 0,
@@ -457,25 +496,7 @@ export default function PrintEmbProductionForm({
   }
 
 
-  const masterForm = useForm<z.infer<typeof masterFormSchema>>({
-    resolver: zodResolver(masterFormSchema),
-    defaultValues: {
-      PRODUCTION_DATE: data?.PRODUCTION_DATE ? new Date(data.PRODUCTION_DATE) : new Date(),
-      TYPE_ID: data?.TYPE_ID || 0,
-      TYPE: data?.TYPE || "",
-      SHIFT_ID: data?.SHIFT_ID || 0,
-      SHIFT: data?.SHIFT || "",
-      OPERATION_ID: data?.OPERATION_ID || 0,
-      OPERATION: data?.OPERATION || "",
-      FLOOR_ID: data?.FLOOR_ID || 0,
-      FLOOR: data?.FLOOR || "",
-      WORKSTATION_ID: data?.WORKSTATION_ID || 0,
-      WORKSTATION: data?.WORKSTATION || "",
-      MP: data?.MP || 0,
-      PRODUCTION_HOUR_ID: data?.PRODUCTION_HOUR_ID || 0,
-      PRODUCTION_HOUR: data?.PRODUCTION_HOUR || "",
-    },
-  });
+
 
 
   const [openBuyer, setOpenBuyer] = useState(false);
@@ -623,7 +644,7 @@ export default function PrintEmbProductionForm({
                   )}
                 />
 
-                <div className="flex align-middle">
+                <div className="flex items-start">
                   <FormField
                     control={masterForm.control}
                     name="SHIFT_ID"
@@ -695,13 +716,13 @@ export default function PrintEmbProductionForm({
                   <Button
                     onClick={() => setOpenShiftModal(true)}
                     variant="outline"
-                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none mb-0.5"
+                    className="h-9 w-9 flex items-center justify-center shadow-none mb-0.5 mt-5"
                   >
                     <SquarePlus className="w-5 h-5" />
                   </Button>
                 </div>
 
-                <div className="flex align-middle">
+                <div className="flex items-start">
                   <FormField
                     control={masterForm.control}
                     name="OPERATION_ID"
@@ -773,7 +794,7 @@ export default function PrintEmbProductionForm({
                   <Button
                     onClick={() => setOpenOperationModal(true)}
                     variant="outline"
-                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none mb-0.5"
+                    className="h-9 w-9 flex items-center justify-center shadow-none mb-0.5 mt-5"
                   >
                     <SquarePlus className="w-5 h-5" />
                   </Button>
@@ -849,7 +870,7 @@ export default function PrintEmbProductionForm({
                   )}
                 />
 
-                <div className="flex align-middle">
+                <div className="flex items-start">
                   <FormField
                     control={masterForm.control}
                     name="WORKSTATION_ID"
@@ -921,7 +942,7 @@ export default function PrintEmbProductionForm({
                   <Button
                     onClick={() => setOpenWorkStationModal(true)}
                     variant="outline"
-                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none"
+                    className="h-9 w-9 flex items-center justify-center mt-5 shadow-none"
                   >
                     <SquarePlus className="w-5 h-5" />
                   </Button>
@@ -946,7 +967,7 @@ export default function PrintEmbProductionForm({
                   )}
                 />
 
-                <div className="flex align-middle">
+                <div className="flex items-start">
                   <FormField
                     control={masterForm.control}
                     name="PRODUCTION_HOUR_ID"
@@ -1018,7 +1039,7 @@ export default function PrintEmbProductionForm({
                   <Button
                     onClick={() => setOpenProductionHourModal(true)}
                     variant="outline"
-                    className="h-9 w-9 flex items-center justify-center mt-auto shadow-none"
+                    className="h-9 w-9 flex items-center justify-center mt-5 shadow-none"
                   >
                     <SquarePlus className="w-5 h-5" />
                   </Button>
@@ -1518,6 +1539,14 @@ export default function PrintEmbProductionForm({
                   className="mt-1 mb-1"
                 >
                   Add
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={() => handleAdd("Add All Size")}
+                  className="mt-1 ms-2 mb-1"
+                >
+                  Add All Size
                 </Button>
 
 

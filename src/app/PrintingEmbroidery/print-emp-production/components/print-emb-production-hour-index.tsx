@@ -65,8 +65,6 @@ function PrintEmbProductionHourIndex() {
     e.preventDefault();
     const data = printEmbProductionHour;
 
-    console.log("Form data:", data);
-
     const validationResult = formSchema.safeParse(data);
 
     if (!validationResult.success) {
