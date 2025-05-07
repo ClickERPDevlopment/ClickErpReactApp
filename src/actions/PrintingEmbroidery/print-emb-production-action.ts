@@ -50,12 +50,27 @@ export interface RejectionReasonDetailsType {
 }
 
 
+export interface PrintEmbProductionSearchType {
+    FROM_DATE: Date;
+    TO_DATE: Date;
+    BUYER_ID: number;
+    BUYER: string;
+    STYLE_ID: number;
+    STYLE: string;
+    PO_ID: number;
+    PO_NO: string;
+    TYPE_ID: number;
+    TYPE: string;
+    WORK_ORDER_ID: number,
+    WORK_ORDER_NO: string,
+}
+
 
 export function GetPrintEmbProduction<T>() {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T[]> =>
-        (await axios.get("/production/PrintEmbProduction")).data;
+        (await axios.get("/production/PrintEmbProduction?fromDate=01-Jan-20&toDate=01-Jan-35")).data;
 
     const query = useQuery({
         queryKey: ["PrintEmbProductionData"],
