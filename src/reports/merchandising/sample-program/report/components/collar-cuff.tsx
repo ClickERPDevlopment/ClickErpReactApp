@@ -19,7 +19,7 @@ export default function CollarCuff({ lstCollarCuff }: { lstCollarCuff?: SamplePr
                                 <th className='p-1  border border-gray-600 text-center whitespace-nowrap'>Cuff Pcs</th>
                                 <th className='p-1  border border-gray-600 text-center whitespace-nowrap'>Cuff Size</th>
                                 <th className='p-1  border border-gray-600 text-center whitespace-nowrap'>Plkt Pcs</th>
-                                {/* <th className='p-1  border border-gray-600 text-center whitespace-nowrap'>Plkt Size</th> */}
+                                <th className='p-1  border border-gray-600 text-center whitespace-nowrap'>Plkt Size</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +33,7 @@ export default function CollarCuff({ lstCollarCuff }: { lstCollarCuff?: SamplePr
                                     <td className='p-1 border border-gray-600 text-center'>{ele.CUFF_PCS}</td>
                                     <td className='p-1 border border-gray-600 text-center'>{ele.CUFF_SIZE}</td>
                                     <td className='p-1 border border-gray-600 text-center'>{ele.PLACKET_QTY}</td>
-                                    {/* <td className='p-1 border border-gray-600 text-center'>{ele.PLACKET_SIZE}</td> */}
+                                    <td className='p-1 border border-gray-600 text-center'>{ele.PLACKET_SIZE}</td>
                                 </tr>
                             )}
                         </tbody>
