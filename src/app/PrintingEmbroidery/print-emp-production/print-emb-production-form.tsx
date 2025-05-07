@@ -621,7 +621,7 @@ export default function PrintEmbProductionForm({
                             field.onChange(newDate);
                             setMasterData((prev) => ({
                               ...prev,
-                              CLAIM_DATE: new Date(e.target.value),
+                              PRODUCTION_DATE: new Date(e.target.value),
                             }));
                           }}
                           className="form-control w-full h-9"
