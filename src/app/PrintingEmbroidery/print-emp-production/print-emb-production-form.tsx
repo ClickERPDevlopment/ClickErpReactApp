@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { toast, ToastContainer } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, CheckIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -188,12 +189,17 @@ export default function PrintEmbProductionForm({
       }
     },
     onSuccess: () => {
+
+      toast.success("Action performed successfully!");
+
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
-      location.pathname.includes("win/")
-        ? navigator("/win/printing-embroidery/print-emp-production")
-        : navigator("/dashboard/printing-embroidery/print-emp-production");
+      setTimeout(() => {
+        location.pathname.includes("win/")
+          ? navigator("/win/printing-embroidery/print-emp-production")
+          : navigator("/dashboard/printing-embroidery/print-emp-production");
+      }, 2000);
     },
     onError: (err: AxiosError) => {
       console.log(err.response?.data);
@@ -240,8 +246,8 @@ export default function PrintEmbProductionForm({
   }
 
   const [operation, setOperation] = useState<IOperation[]>([]);
-  const getOperation = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionOperation");
+  const getOperation = async (typeId: number = 0) => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionOperation/GetPrintEmbProductionOperationByTypeId?typeId=" + typeId);
     setOperation(response?.data);
   }
 
@@ -249,6 +255,7 @@ export default function PrintEmbProductionForm({
   const getShift = async () => {
     const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionShift");
     setShift(response?.data);
+
   }
 
   const [productionType, setProductionType] = useState<IType[]>([]);
@@ -258,31 +265,36 @@ export default function PrintEmbProductionForm({
   }
 
   const [workstation, setWorkstation] = useState<IWorkstation[]>([]);
-  const getWorkStation = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionWorkStation");
+  const getWorkStation = async (typeId: number = 0) => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionWorkStation/GetPrintEmbProductionWorkStationByType?typeId=" + typeId);
     setWorkstation(response?.data);
+
+    console.log(response);
   }
 
   const [floor, setFloor] = useState<IFloor[]>([]);
-  const getFloor = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitByFactory?factoryId=3");
+  const getFloor = async (sectionId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitBySection?sectionId=" + sectionId);
     setFloor(response?.data);
   }
 
   const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
-  const getWorkOrder = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
+  const getWorkOrder = async (embTypeId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/Emb-Wo-Recv-By-Emb-Type?embTypeId=" + embTypeId);
     setWorkOrder(response?.data);
   }
 
   useEffect(() => {
     getProductionHour();
-    getOperation();
     getShift();
     getProductionType();
-    getWorkStation();
-    getFloor();
-    getWorkOrder();
+
+    if (data?.TYPE_ID) {
+      getFloor(data?.TYPE_ID);
+      getWorkOrder(data?.TYPE_ID);
+      getOperation(data?.TYPE_ID);
+      getWorkStation(data?.TYPE_ID);
+    }
   }, []);
 
 
@@ -597,6 +609,7 @@ export default function PrintEmbProductionForm({
 
         {/* Master Data */}
         <div>
+          <ToastContainer position="top-right" autoClose={2000} />
           <Form {...masterForm}>
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
@@ -677,6 +690,10 @@ export default function PrintEmbProductionForm({
                                         TYPE_ID: Number(typeData.ID),
                                         TYPE: typeData.NAME,
                                       }));
+                                      getFloor(typeData.ID);
+                                      getWorkOrder(typeData.ID);
+                                      getOperation(typeData.ID);
+                                      getWorkStation(typeData.ID);
                                       setOpenProductionType(false);
                                     }}
                                   >

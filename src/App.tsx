@@ -16,6 +16,7 @@ import Sidebar from "./components/common/sidebar/sidebar";
 import { Outlet } from "react-router";
 import Footer from "./components/common/footer/footer";
 import Tabtotop from "./components/common/tabtotop/tabtotop";
+import "react-toastify/dist/ReactToastify.css";
 // import { Outlet } from "react-router-dom";
 // import Tabtotop from "../components/common/tabtotop/tabtotop";
 

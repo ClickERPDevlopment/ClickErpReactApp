@@ -7,6 +7,8 @@ import { AxiosInstance } from "axios";
 export interface PrintEmbProductionWorkStationType {
     ID: number;
     NAME: string;
+    TYPE_ID: number;
+    TYPE: string;
 }
 
 export function GetPrintEmbProductionWorkStation<T>() {
