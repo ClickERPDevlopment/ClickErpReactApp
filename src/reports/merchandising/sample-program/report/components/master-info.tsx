@@ -6,8 +6,8 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: SampleProgramRe
         <div className='w-full'>
             <h1 className='text-center text-2xl font-bold'>{masterInfo?.COMPANY_NAME}</h1>
             <h1 className=' text-center text-lg font-bold'>SAMPLE PROGRAM</h1>
-            <div className='container flex justify-start gap-2 mt-5'>
-                <ul className='basis-4/12'>
+            <div className='flex justify-between gap-2 mt-5'>
+                <ul className='basis-4/12 print:basis-6/12'>
                     <li>
                         <div>
                             <label htmlFor="" className='font-bold min-w-28'>Date</label>
@@ -23,7 +23,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: SampleProgramRe
                     <li>
                         <div>
                             <label htmlFor="" className='font-bold min-w-28'>Buyer</label>
-                            <span>: {masterInfo?.BUYER}</span>
+                            <span className='whitespace-nowrap'>: {masterInfo?.BUYER}</span>
                         </div></li>
                     <li>
                         <div>
@@ -37,7 +37,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: SampleProgramRe
                             <span>: {moment(masterInfo?.SHIP_TNA_DATE).format('D-MMM-yy')}</span>
                         </div></li>
                 </ul>
-                <ul className='basis-4/12'>
+                <ul className='basis-4/12 print:basis-6/12'>
                     <li>
                         <div>
                             <label htmlFor="" className='font-bold min-w-28'>Sample Type</label>
@@ -53,7 +53,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: SampleProgramRe
                     <li>
                         <div>
                             <label htmlFor="" className='font-bold min-w-28'>Attention</label>
-                            <span>: {masterInfo?.ATTENTION}</span>
+                            <span className='whitespace-nowrap'>: {masterInfo?.ATTENTION}</span>
                         </div>
                     </li>
                     <li>
