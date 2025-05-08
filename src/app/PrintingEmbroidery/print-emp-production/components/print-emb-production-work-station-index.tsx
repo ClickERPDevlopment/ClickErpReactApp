@@ -8,6 +8,7 @@ import { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
+  PrintEmbProductionWorkStationType,
   Save,
 } from "@/actions/PrintingEmbroidery/print-emb-production-work-station-action";
 import {
@@ -34,8 +35,13 @@ import { z } from "zod";
 
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { PrintEmbProductionShiftType } from "@/actions/PrintingEmbroidery/print-emb-production-shift-action";
+import { CheckIcon, Trash2Icon } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
 
 
 function PrintEmbProductionWorkStationIndex() {
@@ -59,6 +65,8 @@ function PrintEmbProductionWorkStationIndex() {
   const formSchema = z.object({
     ID: z.number().min(0, { message: "ID must be a non-negative number" }),
     NAME: z.string().min(1, { message: "Name is required" }),
+    TYPE_ID: z.number().min(0, { message: "ID must be a non-negative number" }),
+    TYPE: z.string().min(1, { message: "Name is required" }),
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -93,6 +101,8 @@ function PrintEmbProductionWorkStationIndex() {
         setPrintEmbProductionWorkStation({
           ID: 0,
           NAME: "",
+          TYPE_ID: 0,
+          TYPE: ""
         });
       },
       onError: (error) => {
@@ -119,6 +129,8 @@ function PrintEmbProductionWorkStationIndex() {
     defaultValues: {
       ID: 0,
       NAME: "",
+      TYPE_ID: 0,
+      TYPE: ""
     },
   });
 
@@ -127,6 +139,14 @@ function PrintEmbProductionWorkStationIndex() {
 
 
   interface IWorkStation {
+    ID: number;
+    NAME: string;
+    TYPE_ID: number,
+    TYPE: string
+  };
+
+
+  interface IType {
     ID: number;
     NAME: string;
   };
@@ -140,12 +160,15 @@ function PrintEmbProductionWorkStationIndex() {
 
 
   useEffect(() => {
+    getProductionType();
     getWokrStation();
   }, []);
 
-  const [printEmbProductionWorkStation, setPrintEmbProductionWorkStation] = useState<PrintEmbProductionShiftType>({
+  const [printEmbProductionWorkStation, setPrintEmbProductionWorkStation] = useState<PrintEmbProductionWorkStationType>({
     ID: 0,
     NAME: "",
+    TYPE_ID: 0,
+    TYPE: ""
   });
 
   const handleInputChange = (
@@ -159,6 +182,16 @@ function PrintEmbProductionWorkStationIndex() {
     }));
   };
 
+
+  const [productionType, setProductionType] = useState<IType[]>([]);
+  const getProductionType = async () => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionType");
+    setProductionType(response?.data);
+  }
+
+
+  const [openProductionType, setOpenProductionType] = useState(false);
+
   return (
     <div className="pt-5">
       <div>
@@ -168,7 +201,6 @@ function PrintEmbProductionWorkStationIndex() {
             className=""
           >
             <div className="grid grid-cols-2 gap-4">
-
               {/* name Input Field */}
               <div className="flex flex-col">
                 <FormField
@@ -185,6 +217,77 @@ function PrintEmbProductionWorkStationIndex() {
                           className="form-control h-9"
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <FormField
+                  control={form.control}
+                  name="TYPE"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col flex-1">
+                      <FormLabel className="font-bold">Type</FormLabel>
+                      <Popover open={openProductionType} onOpenChange={setOpenProductionType}>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              aria-expanded={openProductionType}
+                              className={cn(
+                                "w-full justify-between",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value
+                                ? productionType?.find(
+                                  (type) =>
+                                    Number(type.ID) === Number(field.value)
+                                )?.NAME
+                                : "Select a production type"}
+                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0 z-50 bg-white">
+                          <Command>
+                            <CommandInput placeholder="Search production type..." className="h-9" />
+                            <CommandList>
+                              <CommandEmpty>No production type found.</CommandEmpty>
+                              <CommandGroup>
+                                {productionType?.map((typeData) => (
+                                  <CommandItem
+                                    value={typeData.NAME}
+                                    key={typeData.ID}
+                                    onSelect={() => {
+                                      field.onChange(Number(typeData.ID));
+                                      setPrintEmbProductionWorkStation((prev) => ({
+                                        ...prev,
+                                        TYPE_ID: Number(typeData.ID),
+                                        TYPE: typeData.NAME,
+                                      }));
+                                      setOpenProductionType(false);
+                                    }}
+                                  >
+                                    {typeData.NAME}
+                                    <CheckIcon
+                                      className={cn(
+                                        "ml-auto h-4 w-4",
+                                        Number(typeData.ID) === Number(field.value)
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -212,6 +315,9 @@ function PrintEmbProductionWorkStationIndex() {
               <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
                 Name
               </TableHead>
+              <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
+                Type
+              </TableHead>
               <TableHead className="w-[60px] border border-gray-300 text-center px-4 whitespace-nowrap">
                 Action
               </TableHead>
@@ -226,6 +332,9 @@ function PrintEmbProductionWorkStationIndex() {
                 </TableCell>
                 <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
                   {item?.NAME}
+                </TableCell>
+                <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
+                  {item?.TYPE}
                 </TableCell>
                 <TableCell className="border border-gray-300 p-0 m-0 hover:cursor-pointer">
                   <div className="w-full h-full p-0 m-0 flex justify-center">

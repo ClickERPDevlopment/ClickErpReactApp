@@ -240,8 +240,8 @@ export default function PrintEmbProductionForm({
   }
 
   const [operation, setOperation] = useState<IOperation[]>([]);
-  const getOperation = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionOperation");
+  const getOperation = async (typeId: number = 0) => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionOperation/GetPrintEmbProductionOperationByTypeId?typeId=" + typeId);
     setOperation(response?.data);
   }
 
@@ -249,6 +249,7 @@ export default function PrintEmbProductionForm({
   const getShift = async () => {
     const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionShift");
     setShift(response?.data);
+
   }
 
   const [productionType, setProductionType] = useState<IType[]>([]);
@@ -258,31 +259,29 @@ export default function PrintEmbProductionForm({
   }
 
   const [workstation, setWorkstation] = useState<IWorkstation[]>([]);
-  const getWorkStation = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionWorkStation");
+  const getWorkStation = async (typeId: number = 0) => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionWorkStation/GetPrintEmbProductionWorkStationByType?typeId=" + typeId);
     setWorkstation(response?.data);
+
+    console.log(response);
   }
 
   const [floor, setFloor] = useState<IFloor[]>([]);
-  const getFloor = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitByFactory?factoryId=3");
+  const getFloor = async (sectionId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitBySection?sectionId=" + sectionId);
     setFloor(response?.data);
   }
 
   const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
-  const getWorkOrder = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
+  const getWorkOrder = async (embTypeId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/Emb-Wo-Recv-By-Emb-Type?embTypeId=" + embTypeId);
     setWorkOrder(response?.data);
   }
 
   useEffect(() => {
     getProductionHour();
-    getOperation();
     getShift();
     getProductionType();
-    getWorkStation();
-    getFloor();
-    getWorkOrder();
   }, []);
 
 
@@ -677,6 +676,10 @@ export default function PrintEmbProductionForm({
                                         TYPE_ID: Number(typeData.ID),
                                         TYPE: typeData.NAME,
                                       }));
+                                      getFloor(typeData.ID);
+                                      getWorkOrder(typeData.ID);
+                                      getOperation(typeData.ID);
+                                      getWorkStation(typeData.ID);
                                       setOpenProductionType(false);
                                     }}
                                   >
