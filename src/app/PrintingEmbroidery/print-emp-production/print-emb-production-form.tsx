@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { toast, ToastContainer } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, CheckIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -188,12 +189,17 @@ export default function PrintEmbProductionForm({
       }
     },
     onSuccess: () => {
+
+      toast.success("Action performed successfully!");
+
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
-      location.pathname.includes("win/")
-        ? navigator("/win/printing-embroidery/print-emp-production")
-        : navigator("/dashboard/printing-embroidery/print-emp-production");
+      setTimeout(() => {
+        location.pathname.includes("win/")
+          ? navigator("/win/printing-embroidery/print-emp-production")
+          : navigator("/dashboard/printing-embroidery/print-emp-production");
+      }, 2000);
     },
     onError: (err: AxiosError) => {
       console.log(err.response?.data);
@@ -282,6 +288,13 @@ export default function PrintEmbProductionForm({
     getProductionHour();
     getShift();
     getProductionType();
+
+    if (data?.TYPE_ID) {
+      getFloor(data?.TYPE_ID);
+      getWorkOrder(data?.TYPE_ID);
+      getOperation(data?.TYPE_ID);
+      getWorkStation(data?.TYPE_ID);
+    }
   }, []);
 
 
@@ -596,6 +609,7 @@ export default function PrintEmbProductionForm({
 
         {/* Master Data */}
         <div>
+          <ToastContainer position="top-right" autoClose={2000} />
           <Form {...masterForm}>
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
