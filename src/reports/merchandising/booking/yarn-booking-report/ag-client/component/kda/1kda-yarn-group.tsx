@@ -48,25 +48,12 @@ export default function KittingDyeingAdviceYarnGroup({ lstKda }: prams) {
         </h1>
         <div className="flex flex-row">
           <table className="w-full border border-black">
-            {/* {partsList?.map((part) => (
-              <KittingDyeingAdvicePartsGroup
-                key={Math.random()}
-                lstKda={lstKda?.filter((f) => f.FABRIC_PART === part)}
-              />
-            ))} */}
-             <KittingDyeingAdvicePartsGroup
-                key={Math.random()}
-                lstKda={lstKda}
-              />
+
+            <KittingDyeingAdvicePartsGroup
+              key={Math.random()}
+              lstKda={lstKda}
+            />
           </table>
-          {/* <div className="flex flex-col">
-            <span className="font-bold whitespace-nowrap border border-black px-1">
-              Grand Total
-            </span>
-            <div className="flex-1 border border-black flex justify-center items-center">
-              <span>{getGrandTotal(lstKda).toFixed(2)}</span>
-            </div>
-          </div> */}
         </div>
       </div>
     );

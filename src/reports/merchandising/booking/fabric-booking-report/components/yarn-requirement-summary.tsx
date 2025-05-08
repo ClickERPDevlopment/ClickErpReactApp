@@ -26,7 +26,9 @@ export default function YarnRequirementSummary({ lstYarnSummary }: { lstYarnSumm
                 <tfoot>
                     <tr>
                         <th colSpan={2} className='border border-gray-600 text-center text-xs'>Total</th>
-                        <th className='border border-gray-600 text-center text-xs'>{lstYarnSummary?.reduce((p, c) => p + c.BOOKING_QTY, 0).toFixed(0)}</th>
+                        <th className='border border-gray-600 text-center text-xs'>
+                            {lstYarnSummary?.reduce((p, c) => p + c.BOOKING_QTY, 0).toFixed(2)}
+                        </th>
                     </tr>
                 </tfoot>
             </table>

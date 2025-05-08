@@ -3,6 +3,8 @@ import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
 import KittingDyeingAdviceColorGroup from "./3ksa-color-grou";
 import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
+import { fabricPartsAction } from "./fabric-parts-action";
+import { cn } from "@/lib/utils";
 
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
@@ -28,6 +30,8 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
   const qty: number = parseFloat(
     lstKda?.reduce((acc, curr) => acc + curr.QTY, 0).toFixed(2) ?? "0"
   );
+  const fabricParts = fabricPartsAction(lstKda);
+
   if (lstKda)
     return (
       <>
@@ -39,7 +43,18 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
               <th className="border border-black w-20">{size}</th>
             ))}
             <th className="border border-black">SUB TOTAL</th>
-            <th className="border border-black w-20">RIB</th>
+            <th className={
+              cn("border border-black w-20",
+                fabricParts.isRibColAval ? "" : "hidden"
+              )}>RIB</th>
+            <th className={
+              cn("border border-black w-20",
+                fabricParts.isCollarColAval ? "" : "hidden"
+              )}>COLLAR</th>
+            <th className={
+              cn("border border-black w-20",
+                fabricParts.isCuffColAval ? "" : "hidden"
+              )}>CUFF</th>
             <th className="border border-black">TOTAL (KG)</th>
           </tr>
         </thead>
@@ -53,10 +68,10 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
             </tr>
           ))}
           <tr>
-            <td colSpan={4+ (sizeList?sizeList.length:0)} className="text-center font-bold">Total</td>
+            <td colSpan={4 + (sizeList ? sizeList.length : 0)} className="text-center font-bold">Total</td>
             <td className="text-center border border-black">
               {
-                lstKda[0].MTL_NAME.toUpperCase().includes('LYCRA')?qty.toFixed(2): qty.toFixed(0)
+                lstKda[0].MTL_NAME.toUpperCase().includes('LYCRA') ? qty.toFixed(2) : qty.toFixed(0)
               }
             </td>
           </tr>
