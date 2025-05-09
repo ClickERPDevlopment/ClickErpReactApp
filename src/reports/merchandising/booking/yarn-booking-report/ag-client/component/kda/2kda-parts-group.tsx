@@ -72,7 +72,7 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
             </tr>
           ))}
           <tr>
-            <td colSpan={4 + (sizeList ? sizeList.length : 0) + colspan} className="text-center font-bold">Total</td>
+            <td colSpan={3 + (sizeList ? sizeList.length : 0) + colspan} className="text-center font-bold">Total</td>
             <td className="text-center border border-black">
               {
                 lstKda[0].MTL_NAME.toUpperCase().includes('LYCRA') ? qty.toFixed(2) : qty.toFixed(0)
