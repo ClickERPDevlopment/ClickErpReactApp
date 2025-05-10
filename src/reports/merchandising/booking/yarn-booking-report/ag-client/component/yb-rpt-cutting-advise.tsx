@@ -105,10 +105,14 @@ export default function YarnBookingCuttingAdvise() {
               {data?.sizeNameList?.map((sizeName) => (
                 <td key={sizeName} className="text-center border border-black">
                   {
-                    data?.lstCuttingAdviceQuantity?.filter(
-                      (ca) =>
-                        ca.COLORNAME === colorName && ca.SIZENAME === sizeName
-                    )[0]?.QTY
+                    // data?.lstCuttingAdviceQuantity?.filter(
+                    //   (ca) =>
+                    //     ca.COLORNAME === colorName && ca.SIZENAME === sizeName
+                    // )[0]?.QTY ?? 0
+
+                    data?.lstCuttingAdviceQuantity
+                      ?.find(ca => ca.COLORNAME === colorName && ca.SIZENAME === sizeName)
+                      ?.QTY ?? 0
                   }
                 </td>
               ))}
