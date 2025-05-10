@@ -75,25 +75,25 @@ export default function YarnBookingCuttingAdvise() {
         <tbody>
           {data?.lstParts.map((part) => (
             <tr key={part.NAME}>
-              <td className="text-center border border-black">~</td>
-              <td className="text-center border border-black"></td>
+              <th className="text-center border border-black">~</th>
+              <th className="text-center border border-black"></th>
               {data.sizeNameList.map((sName) => (
-                <td key={sName} className="text-center border border-black">
+                <th key={sName} className="text-center border border-black">
                   {getSizeMeasurement(data.lstTechnicalSheet, part.NAME, sName)}
-                </td>
+                </th>
               ))}
-              <td className="text-center border border-black">{part.NAME}</td>
+              <th className="text-center border border-black">{part.NAME}</th>
               {hasOpenFinish ? (
-                <td className="text-center border border-black">
+                <th className="text-center border border-black">
                   **
-                </td>
+                </th>
               ) : (
                 part.NAME?.toUpperCase().includes("CHEST") ? (
-                  <td className="text-center border border-black">
-                    DIA SELECTION (Body) {data.MaterData?.IS_OPEN_DIA}
-                  </td>
+                  <th className="text-center border border-black">
+                    DIA SELECTION (Body)
+                  </th>
                 ) : (
-                  <td className="text-center border border-black">**</td>
+                  <th className="text-center border border-black">**</th>
                 )
               )}
             </tr>
