@@ -19,7 +19,7 @@ function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
     "GMT SIZE",
     "MTL SIZE",
     "GMT QTY",
-    "ORDER QTY",
+    "WO QTY",
     "UOM",
     "CURRENCY",
     "RATE",
