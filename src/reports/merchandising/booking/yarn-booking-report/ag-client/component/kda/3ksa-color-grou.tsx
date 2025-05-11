@@ -2,6 +2,8 @@
 import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
 import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
+import { fabricPartsAction } from "./fabric-parts-action";
+import { cn } from "@/lib/utils";
 
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
@@ -10,25 +12,25 @@ type prams = {
 function getSizeWiseQty(
   data: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined,
   sizeName: string,
-  yarnName:string,
+  yarnName: string,
 ) {
   let qty = 0;
   data?.forEach((element) => {
     if (element.SIZENAME === sizeName) qty += element.QTY;
   });
-  return qty === 0 ? "" : yarnName.toUpperCase().includes('LYCRA')?qty.toFixed(2): qty.toFixed(0);
+  return qty === 0 ? "" : yarnName.toUpperCase().includes('LYCRA') ? qty.toFixed(2) : qty.toFixed(0);
 }
 
 function getTotalQty(
   data: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined,
-  yarnName:string,
+  yarnName: string,
 ) {
   let qty = 0;
   data?.forEach((element) => {
     qty += element.QTY;
   });
 
-  return qty === 0 ? "" : yarnName.toUpperCase().includes('LYCRA')?qty.toFixed(2): qty.toFixed(0);
+  return qty === 0 ? "" : yarnName.toUpperCase().includes('LYCRA') ? qty.toFixed(2) : qty.toFixed(0);
 }
 
 
@@ -59,6 +61,8 @@ function getTotalQty(
 export default function KittingDyeingAdviceColorGroup({ lstKda }: prams) {
   const sizeList = useContext(YarnBookingReportContext)?.knittingSizeNameList;
   // const partsList = gatAllparts(lstKda);
+  const fabricParts = fabricPartsAction(lstKda);
+
   if (lstKda)
     return (
       <>
@@ -68,18 +72,37 @@ export default function KittingDyeingAdviceColorGroup({ lstKda }: prams) {
 
         {sizeList?.map((s: any) => (
           <td className="text-center border border-black">
-            {getSizeWiseQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() !=='RIB'), s, lstKda[0].MTL_NAME)}
+            {getSizeWiseQty(lstKda?.filter((f) => !fabricParts.summaryColumns.includes(f.FABRIC_PART.toUpperCase())), s, lstKda[0].MTL_NAME)}
           </td>
         ))}
 
+        {/* sub-total */}
         <td className="text-center border border-black">
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() !=='RIB'), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => !fabricParts.summaryColumns.includes(f.FABRIC_PART.toUpperCase())), lstKda[0].MTL_NAME)}
+        </td>
+        {/* end-sub-total */}
+
+        <td className={
+          cn("text-center border border-black",
+            fabricParts.isRibColAval ? "" : "hidden"
+          )}>
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.ribPartsName), lstKda[0].MTL_NAME)}
         </td>
 
-        <td className="text-center border border-black">
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() ==='RIB'), lstKda[0].MTL_NAME)}
+        <td className={
+          cn("text-center border border-black",
+            fabricParts.isCollarColAval ? "" : "hidden"
+          )}>
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.collarPartsName), lstKda[0].MTL_NAME)}
         </td>
-       
+
+        <td className={
+          cn("text-center border border-black",
+            fabricParts.isCuffColAval ? "" : "hidden"
+          )}>
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.cuffPartsName), lstKda[0].MTL_NAME)}
+        </td>
+
         <td className="text-center border border-black">
           {getTotalQty(lstKda, lstKda[0].MTL_NAME)}
         </td>
@@ -88,3 +111,5 @@ export default function KittingDyeingAdviceColorGroup({ lstKda }: prams) {
     );
   return <></>;
 }
+
+
