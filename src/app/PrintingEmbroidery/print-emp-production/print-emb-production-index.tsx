@@ -40,7 +40,7 @@ function PrintEmbProductionIndex() {
   const {
     data: printEmbProductionData,
     isError,
-    error,
+    error
   } = GetPrintEmbProduction<PrintEmbProductionMasterType>();
 
   if (isError) {

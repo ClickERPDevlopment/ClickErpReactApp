@@ -201,8 +201,6 @@ function PrintEmbProductionOperationIndex() {
             className=""
           >
             <div className="grid grid-cols-2 gap-4">
-
-              {/* type input field */}
               <FormField
                 control={form.control}
                 name="TYPE"
