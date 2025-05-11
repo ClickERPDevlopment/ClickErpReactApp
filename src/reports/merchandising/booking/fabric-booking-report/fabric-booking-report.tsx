@@ -21,7 +21,7 @@ export default function FabricBookingReport({ data }: { data?: FabricBookingRepo
             <StripeDetails lstStripeDetails={data?.lstStripeDetails} />
             <Comments lstComments={data?.lstComments} />
             <VarificationStatus lstVerificationStatus={data?.lstVerificationStatus} />
-            <Signature />
+            <Signature masterData={data?.MaterData} />
         </div>
     );
 }
