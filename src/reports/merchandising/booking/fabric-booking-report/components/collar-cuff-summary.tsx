@@ -146,7 +146,7 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total Yarn(KG)</th>
                             </tr>
                             <tr>
-                                <th className='border border-gray-600 p-1 text-xs text-center'>{uniqueFabricCombos[0]?.PARTS}</th>
+                                <th className='border border-gray-600 p-1 text-xs text-center'>{fabric_part.PARTS}</th>
                                 {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map(s =>
                                     <th className='border border-gray-600 min-w-12 p-1 text-xs text-center'>{s.FINISHDIA}</th>
                                 )}
