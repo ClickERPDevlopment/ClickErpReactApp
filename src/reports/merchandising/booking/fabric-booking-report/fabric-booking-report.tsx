@@ -12,7 +12,7 @@ import { FabricBookingReportDto } from "./fabric-booking-type";
 export default function FabricBookingReport({ data }: { data?: FabricBookingReportDto }) {
 
     return (
-        <div className="px-10 w-auto print:max-w-none print:px-0">
+        <div className="px-10 w-auto print:max-w-none print:px-0 mt-10">
             <MasterInfo masterData={data?.MaterData} />
             <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} />
             <Details lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} />
