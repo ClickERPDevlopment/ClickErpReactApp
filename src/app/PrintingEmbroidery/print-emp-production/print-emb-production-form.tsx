@@ -1782,7 +1782,7 @@ export default function PrintEmbProductionForm({
                           <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
                             <input
                               type="number"
-                              className="w-full text-center border border-gray-300 rounded p-1"
+                              className="w-full text-center text-sm border border-gray-300 rounded p-1"
                               value={item.QC_PASSED_QTY}
                               onChange={(e) => {
                                 const updatedData = [...detailsData];
