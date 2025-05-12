@@ -69,7 +69,7 @@ function BudgetReport() {
     </>
   ) : (
     <>
-      <div>
+      <div className="min-w-[50%]">
         <Report data={data}></Report>
       </div>
     </>
