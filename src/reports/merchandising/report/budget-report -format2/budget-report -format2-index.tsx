@@ -7,9 +7,9 @@ import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
-import { BudgetReportType } from "./budget-report-type";
+import { BudgetReportType } from "./budget-report -format2-type";
 
-function BudgetReport() {
+function BudgetReportFormat2() {
   const [data, setData] = useState<BudgetReportType[]>(
     []
   );
@@ -98,4 +98,4 @@ function BudgetReport() {
     </>
   );
 }
-export default BudgetReport;
+export default BudgetReportFormat2;

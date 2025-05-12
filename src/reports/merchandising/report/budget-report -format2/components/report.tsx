@@ -2,8 +2,8 @@
 import ReportTable from "./report-table";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
-import { BudgetReportType } from "../budget-report-type";
-
+import moment from "moment";
+import { BudgetReportType } from "../budget-report -format2-type";
 
 function Report({
   data,
@@ -12,7 +12,6 @@ function Report({
 }) {
 
   const uniqueKeys: Set<string> = new Set();
-
   function groupBy(
     data: BudgetReportType[],
     keys: string[]
@@ -79,11 +78,11 @@ function Report({
                 </tr>
                 <tr>
                   <td className="align-top">Budget For</td>
-                  <td className="align-top">: {data[0]?.BUYER}</td>
+                  <td className="align-top">: {moment(data[0]?.BUYER).format("DD-MMM-YY")}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Style</td>
-                  <td className="align-top">: {data[0]?.STYLENO}</td>
+                  <td className="align-top">: {moment(data[0]?.STYLENO).format("DD-MMM-YY")}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Item</td>

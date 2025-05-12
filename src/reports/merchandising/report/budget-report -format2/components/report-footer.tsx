@@ -1,4 +1,4 @@
-import { BudgetReportType } from "../budget-report-type";
+import { BudgetReportType } from "../budget-report -format2-type";
 
 function ReportFooter({ data }: { data: BudgetReportType[] }) {
   return (
