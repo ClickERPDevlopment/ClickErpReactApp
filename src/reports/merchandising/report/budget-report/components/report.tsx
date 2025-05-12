@@ -121,7 +121,7 @@ function Report({
           </div>
         </div>
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
-          <thead className="bg-white print:bg-transparent">
+          <thead className="print:bg-transparent">
             <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
                 <th className="border border-gray-950 p-0.5">{item}</th>
