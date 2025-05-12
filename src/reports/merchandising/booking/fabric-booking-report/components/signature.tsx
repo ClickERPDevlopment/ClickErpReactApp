@@ -9,7 +9,7 @@ export default function Signature({ masterData }: { masterData?: FabricBookingRe
         { title: "Planning", access_key: "PLANNING" },
         { title: "Authorise", access_key: "AUTHORISED_BY" }
     ]
-
+    
     return (
 
         <div className="flex justify-around items-center mt-10">

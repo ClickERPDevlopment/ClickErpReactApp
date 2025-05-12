@@ -268,8 +268,6 @@ export default function PrintEmbProductionForm({
   const getWorkStation = async (typeId: number = 0) => {
     const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionWorkStation/GetPrintEmbProductionWorkStationByType?typeId=" + typeId);
     setWorkstation(response?.data);
-
-    console.log(response);
   }
 
   const [floor, setFloor] = useState<IFloor[]>([]);
@@ -365,13 +363,54 @@ export default function PrintEmbProductionForm({
   >(data?.PrintEmbProductionDetails);
 
 
+  const [printEmbProductionDetailserror, setprintEmbProductionDetailserror] = useState({
+    WORK_ORDER_NO: "",
+    BUYER: "",
+    STYLE: "",
+    PO_NO: "",
+    COLOR: "",
+    SIZE: ""
+  });
+
+  const validateFields = (excludeFields: string[] = []): boolean => {
+    const requiredFields = [
+      "WORK_ORDER_NO",
+      "BUYER",
+      "STYLE",
+      "PO_NO",
+      "COLOR",
+      "SIZE"
+    ];
+
+    const errors: Record<string, string> = {};
+    let hasError = false;
+
+    requiredFields.forEach((field) => {
+      if (excludeFields.includes(field)) {
+        errors[field] = "";
+        return;
+      }
+
+      const value = (printEmbProductionDetails as any)[field];
+      if (!value || (typeof value === "string" && value.trim() === "")) {
+        errors[field] = `${field} is required`;
+        hasError = true;
+      } else {
+        errors[field] = "";
+      }
+    });
+
+    setprintEmbProductionDetailserror(errors as typeof printEmbProductionDetailserror);
+    return !hasError;
+  };
+
   const handleAdd = (type: string = "") => {
 
     if (type == "Add All Size") {
 
+      if (!validateFields(["SIZE"])) return;
       if (color.length > 0) {
         if (size.length <= 0) return;
-
         const colorSizeData = color.flatMap((col) =>
           size.map((sz) => ({
             ...printEmbProductionDetails,
@@ -429,7 +468,7 @@ export default function PrintEmbProductionForm({
     }
 
     else {
-
+      if (!validateFields()) return;
       setdetailsData((prev) => {
         return [...(prev || []), printEmbProductionDetails];
       });
@@ -1138,154 +1177,162 @@ export default function PrintEmbProductionForm({
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
                 className=""
               >
-                <div className="flex flex-wrap gap-2">
-                  <div className="flex justify-between gap-1 items-end">
+                <div className="flex flex-wrap gap-3">
+                  <div className="flex justify-between gap-2 items-end">
 
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="WORK_ORDER_NO"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Order</FormLabel>
-                            <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openWorkOrder}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? workOrder?.find(
-                                        (workOrderData) =>
-                                          Number(workOrderData.ID) === Number(field.value)
-                                      )?.WORK_ORDER_NO
-                                      : "Select a order"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search production type..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No order found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {workOrder?.map((workOrderData) => (
-                                        <CommandItem
-                                          value={workOrderData.WORK_ORDER_NO}
-                                          key={workOrderData.ID}
-                                          onSelect={() => {
-                                            field.onChange(Number(workOrderData.ID));
-                                            setPrintEmbProductionDetails((prev) => ({
-                                              ...prev,
-                                              WORK_ORDER_ID: Number(workOrderData.ID),
-                                              WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
-                                            }));
-                                            setOpenWorkOrder(false);
-                                            getBuyerData(workOrderData.ID)
-                                          }}
-                                        >
-                                          {workOrderData.WORK_ORDER_NO}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(workOrderData.ID) === Number(field.value)
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="WORK_ORDER_NO"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Order</FormLabel>
+                              <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openWorkOrder}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? workOrder?.find(
+                                          (workOrderData) =>
+                                            Number(workOrderData.ID) === Number(field.value)
+                                        )?.WORK_ORDER_NO
+                                        : "Select a order"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search production type..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No order found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {workOrder?.map((workOrderData) => (
+                                          <CommandItem
+                                            value={workOrderData.WORK_ORDER_NO}
+                                            key={workOrderData.ID}
+                                            onSelect={() => {
+                                              field.onChange(Number(workOrderData.ID));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                WORK_ORDER_ID: Number(workOrderData.ID),
+                                                WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
+                                              }));
+                                              setOpenWorkOrder(false);
+                                              getBuyerData(workOrderData.ID)
+                                            }}
+                                          >
+                                            {workOrderData.WORK_ORDER_NO}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(workOrderData.ID) === Number(field.value)
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.WORK_ORDER_NO && (
+                          <p className="text-sm">{printEmbProductionDetailserror.WORK_ORDER_NO}</p>
                         )}
-                      />
+                      </div>
                     </div>
 
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="BUYER_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Buyer</FormLabel>
-                            <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openBuyer}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? buyerData?.find(
-                                        (buyer) =>
-                                          Number(buyer.Id) === field.value
-                                      )?.NAME
-                                      : "Select a buyer"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search supplier..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No buyer found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {buyerData?.map((buyer) => (
-                                        <CommandItem
-                                          value={buyer?.NAME}
-                                          key={Number(buyer?.Id)}
-                                          onSelect={() => {
-                                            field.onChange(Number(buyer?.Id));
-                                            setPrintEmbProductionDetails((prev) => ({
-                                              ...prev,
-                                              BUYER_ID: Number(buyer?.Id),
-                                              BUYER: buyer?.NAME,
-                                            }));
-                                            getStyleByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(buyer?.Id));
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="BUYER_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Buyer</FormLabel>
+                              <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openBuyer}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? buyerData?.find(
+                                          (buyer) =>
+                                            Number(buyer.Id) === field.value
+                                        )?.NAME
+                                        : "Select a buyer"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search supplier..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No buyer found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {buyerData?.map((buyer) => (
+                                          <CommandItem
+                                            value={buyer?.NAME}
+                                            key={Number(buyer?.Id)}
+                                            onSelect={() => {
+                                              field.onChange(Number(buyer?.Id));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                BUYER_ID: Number(buyer?.Id),
+                                                BUYER: buyer?.NAME,
+                                              }));
+                                              getStyleByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(buyer?.Id));
 
-                                            setOpenBuyer(false);
-                                          }}
-                                        >
+                                              setOpenBuyer(false);
+                                            }}
+                                          >
 
-                                          {buyer?.NAME}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(buyer?.Id) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* <Button
+                                            {buyer?.NAME}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(buyer?.Id) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        {/* <Button
                         onClick={() => orderForm.resetField("BUYER_ID")}
                         variant={"outline"}
                         type="button"
@@ -1293,81 +1340,88 @@ export default function PrintEmbProductionForm({
                       >
                         <MdOutlineClear className="rounded text-slate-600 m-0" />
                       </Button> */}
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.BUYER && (
+                          <p className="text-sm">{printEmbProductionDetailserror.BUYER}</p>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="STYLE_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Style</FormLabel>
-                            <Popover open={openStyle} onOpenChange={setOpenStyle}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openStyle}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? style?.find(
-                                        (style) =>
-                                          Number(style.Id) === field.value
-                                      )?.Styleno
-                                      : "Select a style"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search style..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No style found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {style?.map((item) => (
-                                        <CommandItem
-                                          value={item.Styleno}
-                                          key={item.Id}
-                                          onSelect={() => {
-                                            field.onChange(Number(item.Id));
-                                            setPrintEmbProductionDetails((prev) => ({
-                                              ...prev,
-                                              STYLE_ID: Number(item.Id),
-                                              STYLE: item.Styleno,
-                                            }));
-                                            setOpenStyle(false);
-                                            getPOByStyle(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
-                                            GetColorByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
-                                            GetSizeByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
-                                          }}
-                                        >
-                                          {item.Styleno}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(item.Id) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* <Button
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="STYLE_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Style</FormLabel>
+                              <Popover open={openStyle} onOpenChange={setOpenStyle}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openStyle}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? style?.find(
+                                          (style) =>
+                                            Number(style.Id) === field.value
+                                        )?.Styleno
+                                        : "Select a style"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search style..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No style found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {style?.map((item) => (
+                                          <CommandItem
+                                            value={item.Styleno}
+                                            key={item.Id}
+                                            onSelect={() => {
+                                              field.onChange(Number(item.Id));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                STYLE_ID: Number(item.Id),
+                                                STYLE: item.Styleno,
+                                              }));
+                                              setOpenStyle(false);
+                                              getPOByStyle(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
+                                              GetColorByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
+                                              GetSizeByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
+                                            }}
+                                          >
+                                            {item.Styleno}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(item.Id) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        {/* <Button
                         onClick={() => orderForm.resetField("STYLE_ID")}
                         variant={"outline"}
                         type="button"
@@ -1375,240 +1429,269 @@ export default function PrintEmbProductionForm({
                       >
                         <MdOutlineClear className="rounded text-slate-600 m-0" />
                       </Button> */}
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.STYLE && (
+                          <p className="text-sm">{printEmbProductionDetailserror.STYLE}</p>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="PO_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">PO</FormLabel>
-                            <Popover open={openPO} onOpenChange={setOpenPO}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openPO}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? PO?.find(
-                                        (po) =>
-                                          Number(po.Id) === field.value
-                                      )?.Pono
-                                      : "Select a PO"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search PO..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No PO found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {PO?.map((item) => (
-                                        <CommandItem
-                                          value={item.Pono}
-                                          key={item.Id}
-                                          onSelect={() => {
-                                            field.onChange(Number(item.Id));
-                                            setPrintEmbProductionDetails((prev) => ({
-                                              ...prev,
-                                              PO_ID: Number(item.Id),
-                                              PO_NO: item.Pono,
-                                            }));
-                                            setOpenPO(false);
-                                          }}
-                                        >
-                                          {item.Pono}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(item.Id) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
+                    <div>
+                      <div>
+                        <FormField
+                          control={form.control}
+                          name="PO_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">PO</FormLabel>
+                              <Popover open={openPO} onOpenChange={setOpenPO}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openPO}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? PO?.find(
+                                          (po) =>
+                                            Number(po.Id) === field.value
+                                        )?.Pono
+                                        : "Select a PO"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search PO..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No PO found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {PO?.map((item) => (
+                                          <CommandItem
+                                            value={item.Pono}
+                                            key={item.Id}
+                                            onSelect={() => {
+                                              field.onChange(Number(item.Id));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                PO_ID: Number(item.Id),
+                                                PO_NO: item.Pono,
+                                              }));
+                                              setOpenPO(false);
+                                            }}
+                                          >
+                                            {item.Pono}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(item.Id) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.PO_NO && (
+                          <p className="text-sm">{printEmbProductionDetailserror.PO_NO}</p>
                         )}
-                      />
+                      </div>
                     </div>
-
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="COLOR_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Color</FormLabel>
-                            <Popover open={openColor} onOpenChange={setOpenColor}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openColor}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? color?.find(
-                                        (colorData) =>
-                                          Number(colorData.ID) === field.value
-                                      )?.COLORNAME
-                                      : "Select a color"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search PO..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No color found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {color?.map((colorData) => (
-                                        <CommandItem
-                                          value={colorData.COLORNAME}
-                                          key={colorData.ID}
-                                          onSelect={() => {
-                                            field.onChange(Number(colorData.ID));
-                                            setPrintEmbProductionDetails((prev) => ({
-                                              ...prev,
-                                              COLOR_ID: Number(colorData.ID),
-                                              COLOR: colorData.COLORNAME,
-                                            }));
-                                            setOpenColor(false);
-                                          }}
-                                        >
-                                          {colorData.COLORNAME}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(colorData.ID) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="COLOR_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Color</FormLabel>
+                              <Popover open={openColor} onOpenChange={setOpenColor}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openColor}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? color?.find(
+                                          (colorData) =>
+                                            Number(colorData.ID) === field.value
+                                        )?.COLORNAME
+                                        : "Select a color"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search PO..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No color found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {color?.map((colorData) => (
+                                          <CommandItem
+                                            value={colorData.COLORNAME}
+                                            key={colorData.ID}
+                                            onSelect={() => {
+                                              field.onChange(Number(colorData.ID));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                COLOR_ID: Number(colorData.ID),
+                                                COLOR: colorData.COLORNAME,
+                                              }));
+                                              setOpenColor(false);
+                                            }}
+                                          >
+                                            {colorData.COLORNAME}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(colorData.ID) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.COLOR && (
+                          <p className="text-sm">{printEmbProductionDetailserror.COLOR}</p>
                         )}
-                      />
+                      </div>
                     </div>
-
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="SIZE_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Size</FormLabel>
-                            <Popover open={openSize} onOpenChange={setOpenSize}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openSize}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? size?.find(
-                                        (sizeData) =>
-                                          Number(sizeData.ID) === field.value
-                                      )?.SIZENAME
-                                      : "Select a size"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search size..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No size found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {size?.map((sizeData) => (
-                                        <CommandItem
-                                          value={sizeData.SIZENAME}
-                                          key={sizeData.ID}
-                                          onSelect={() => {
-                                            field.onChange(Number(sizeData.ID));
-                                            setPrintEmbProductionDetails((prev) => ({
-                                              ...prev,
-                                              SIZE_ID: Number(sizeData.ID),
-                                              SIZE: sizeData.SIZENAME,
-                                            }));
-                                            setOpenSize(false);
-                                          }}
-                                        >
-                                          {sizeData.SIZENAME}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(sizeData.ID) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="SIZE_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Size</FormLabel>
+                              <Popover open={openSize} onOpenChange={setOpenSize}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openSize}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? size?.find(
+                                          (sizeData) =>
+                                            Number(sizeData.ID) === field.value
+                                        )?.SIZENAME
+                                        : "Select a size"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search size..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No size found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {size?.map((sizeData) => (
+                                          <CommandItem
+                                            value={sizeData.SIZENAME}
+                                            key={sizeData.ID}
+                                            onSelect={() => {
+                                              field.onChange(Number(sizeData.ID));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                SIZE_ID: Number(sizeData.ID),
+                                                SIZE: sizeData.SIZENAME,
+                                              }));
+                                              setOpenSize(false);
+                                            }}
+                                          >
+                                            {sizeData.SIZENAME}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(sizeData.ID) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.SIZE && (
+                          <p className="text-sm">{printEmbProductionDetailserror.SIZE}</p>
                         )}
-                      />
+                      </div>
                     </div>
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="QC_PASSED_QTY"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold  mb-0">QC Passed Qty</FormLabel>
+                              <FormControl className="m-0" onChange={handleDetailsInputChange}>
+                                <Input
+                                  style={{ marginTop: "2px" }}
+                                  placeholder=""
+                                  {...field}
+                                  className="form-control h-9"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="h-4">
 
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="QC_PASSED_QTY"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold  mb-0">QC Passed Qty</FormLabel>
-                            <FormControl className="m-0" onChange={handleDetailsInputChange}>
-                              <Input
-                                style={{ marginTop: "2px" }}
-                                placeholder=""
-                                {...field}
-                                className="form-control h-9"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1696,8 +1779,20 @@ export default function PrintEmbProductionForm({
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.SIZE}
                           </TableCell>
-                          <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.QC_PASSED_QTY}
+                          <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
+                            <input
+                              type="number"
+                              className="w-full text-center border border-gray-300 rounded p-1"
+                              value={item.QC_PASSED_QTY}
+                              onChange={(e) => {
+                                const updatedData = [...detailsData];
+                                updatedData[index] = {
+                                  ...updatedData[index],
+                                  QC_PASSED_QTY: Number(e.target.value),
+                                };
+                                setdetailsData(updatedData);
+                              }}
+                            />
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
 
