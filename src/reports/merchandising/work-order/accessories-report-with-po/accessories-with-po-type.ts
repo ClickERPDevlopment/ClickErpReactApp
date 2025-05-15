@@ -87,4 +87,5 @@ export type IAccessoriesReportWithPo = {
   MTL_COLOR_NAME_2: string;
   BODY_PER_PCS: string;
   SUB_PO: string;
+  SHIP_DATE: Date;
 };

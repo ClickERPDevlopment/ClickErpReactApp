@@ -1,3 +1,4 @@
+import moment from "moment";
 import { IAccessoriesReportWithPo } from "../accessories-with-po-type";
 
 function ReportTable({
@@ -90,6 +91,9 @@ function ReportTable({
               </td>
               <td className="border border-gray-900 p-0.5 text-center">
                 {item.MTL_COLOR_NAME_2}
+              </td>
+              <td className="border border-gray-900 p-0.5 text-center">
+                {moment(item.SHIP_DATE).format("DD-MMM-YY")}
               </td>
             </tr>
           ))}
