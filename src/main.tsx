@@ -129,6 +129,7 @@ import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emp-productio
 import MaterialOrderYarnDyeingReport from "./reports/merchandising/report/material-order-yarn-dyeing-report/material-order-yarn-dyeing-report-index.tsx";
 import BudgetReport from "./reports/merchandising/report/budget-report/budget-report-index.tsx";
 import BudgetReportFormat2 from "./reports/merchandising/report/budget-report -format2/budget-report -format2-index.tsx";
+import PartyWiseKnittingProgramReport from "./reports/Textile/knitting/party-wise-knitting-program-report/party-wise-knitting-program-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -556,6 +557,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="knitting-program-report"
                         element={<KnittingProgramReport />}
+                      />
+                      <Route
+                        path="party-wise-knitting-program-report"
+                        element={<PartyWiseKnittingProgramReport />}
                       />
                     </Route>
                     <Route path="dyeing">
