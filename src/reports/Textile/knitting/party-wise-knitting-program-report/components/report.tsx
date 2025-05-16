@@ -51,7 +51,7 @@ function Report({
   let summaryData: IGroupedData = {};
 
   if (data) {
-    groupedData = groupBy(data, ["PONO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "FABRIC_TYPE", "MC_DIA", "GAUGE", "FINISH_DIA", "GSM", "COLORNAME", "STITCH_LENGTH", "LYCRA_CM", "START_DATE", "END_DATE", "REMARKS"]);
+    groupedData = groupBy(data, ["KNITTING_PROGRAM_NO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "FABRIC_TYPE", "MC_DIA", "GAUGE", "FINISH_DIA", "GSM", "COLORNAME", "STITCH_LENGTH", "LYCRA_CM", "START_DATE", "END_DATE", "REMARKS"]);
     dtlsUniqueKeys = new Set(uniqueKeys)
 
 
