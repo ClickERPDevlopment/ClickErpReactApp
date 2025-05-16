@@ -3,7 +3,8 @@ export type SampleProgramReportDtoType = {
     lstDetails: SampleProgramReportDto_DetailsType[],
     lstSpecialTreatment: SampleProgramReportDto_SpecialTreatmentType[],
     lstCollarCuff: SampleProgramReportDto_CollarCuffType[],
-    lstComments: SampleProgramReportDto_CommentsType[]
+    lstComments: SampleProgramReportDto_CommentsType[],
+    lstYarnDyeingDetails: SampleProgramReportDto_YarnDyeingDetails[]
 };
 
 export type SampleProgramReportDto_MasterType = {
@@ -65,4 +66,12 @@ export type SampleProgramReportDto_CollarCuffType = {
 export type SampleProgramReportDto_CommentsType = {
     ID: number,
     COMMENTS: string
+};
+
+export type SampleProgramReportDto_YarnDyeingDetails = {
+    BODY_PARTS: string
+    FABRIC_COLOR: string
+    FABRIC_QTY_KG: number,
+    YD_COLOR: string
+    YARN_QTY_KG: number
 };

@@ -4,6 +4,7 @@ import Details from './components/details'
 import MasterIfo from './components/master-info'
 import Signature from './components/signaure'
 import SpecialTreatment from './components/special-treatment'
+import YarnDyeingDetails from './components/yarn-dyeing-details'
 import { SampleProgramReportDtoType } from './sample-program-report.-type'
 
 export default function SampleProgramReport({ data }: { data?: SampleProgramReportDtoType }) {
@@ -14,6 +15,7 @@ export default function SampleProgramReport({ data }: { data?: SampleProgramRepo
                 <Details lstDetails={data?.lstDetails} />
                 <CollarCuff lstCollarCuff={data?.lstCollarCuff} />
                 <SpecialTreatment lstSpecialTreatment={data?.lstSpecialTreatment} />
+                <YarnDyeingDetails lstYarnDyeingDetails={data?.lstYarnDyeingDetails} />
                 <Comments lstComments={data?.lstComments} />
             </div>
             <Signature />
