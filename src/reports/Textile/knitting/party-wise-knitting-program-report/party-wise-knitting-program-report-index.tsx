@@ -23,7 +23,7 @@ function PartyWiseKnittingProgramReport() {
 
   const [searchParams] = useSearchParams();
 
-  let id = "0";
+  let id = "106";
 
   if (searchParams.get("id")) {
     id = String(searchParams.get("id"));

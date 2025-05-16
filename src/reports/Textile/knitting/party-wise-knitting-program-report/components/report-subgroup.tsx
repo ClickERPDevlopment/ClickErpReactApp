@@ -23,7 +23,7 @@ function ReportSubgroup({
 
   return (
     <>
-      <tr style={{ fontSize: "11px" }} className="font-bold">
+      <tr style={{ fontSize: "11px" }}>
         <td className="border border-gray-950 p-0.5">{index + 1}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.PONO}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.BUYER}</td>
@@ -32,7 +32,9 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT} X {data[0]?.BRAND_NAME}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.FABRIC}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.FABRIC_TYPE}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.MC_DIA} X {data[0]?.GAUGE}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.MC_DIA || data[0]?.GAUGE
+          ? `${data[0]?.MC_DIA ?? ''}${data[0]?.MC_DIA && data[0]?.GAUGE ? ' X ' : ''}${data[0]?.GAUGE ?? ''}`
+          : ''}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.FINISH_DIA}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.GSM}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.COLORNAME}</td>
@@ -40,8 +42,8 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.LYCRA_CM}</td>
         <td className="border border-gray-950 p-0.5">{totalQtyKg}</td>
         <td className="border border-gray-950 p-0.5">{totalQtyPcs}</td>
-        <td className="border border-gray-950 p-0.5">{moment(data[0]?.START_DATE).format("DD-MMM-YY")}</td>
-        <td className="border border-gray-950 p-0.5">{moment(data[0]?.END_DATE).format("DD-MMM-YY")}</td>
+        <td className="border border-gray-950 p-0.5 text-nowrap">{moment(data[0]?.START_DATE).format("DD-MMM-YY")}</td>
+        <td className="border border-gray-950 p-0.5 text-nowrap">{moment(data[0]?.END_DATE).format("DD-MMM-YY")}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.REMARKS}</td>
       </tr>
     </>

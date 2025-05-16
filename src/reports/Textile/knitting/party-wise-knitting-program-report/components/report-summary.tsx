@@ -1,48 +1,27 @@
-import { IDateWiseFabricRequisitionReceive } from "@/reports/production/cuttting/date-wise-fabric-requisition-receive/date-wise-fabric-requisition-receive-type";
+import { PartyWiseKnittingProgramType } from "../party-wise-knitting-program-report-type";
 
 function ReportSummary({
   data,
+  index
 }: {
-  data: IDateWiseFabricRequisitionReceive[];
-  firstHeader: string[] | null;
+  data: PartyWiseKnittingProgramType[];
+  index: number
 }) {
-  const totalRequired = data.reduce((acc, item) => {
-    return acc + item.TOTAL_REQUIRED;
-  }, 0);
 
-  const totalDayReceive = data.reduce((acc, item) => {
-    return acc + item.DAY_RECEIVE;
-  }, 0);
-
-  const totalReceive = data.reduce((acc, item) => {
-    return acc + item.TOTAL_RECEIVE;
-  }, 0);
-
-  const totalBalance = data.reduce((acc, item) => {
-    return acc + (item.TOTAL_RECEIVE - item.TOTAL_REQUIRED);
-  }, 0);
+  const totalQtyKg = data?.reduce(
+    (acc, item) => acc + Number(item.DTLS_QTY),
+    0
+  );
 
   return (
     <>
-      {
-        <tr className="text-center">
-          <td className="border border-gray-300 p-1 font-bold">
-            {data[0].BUYER_NAME}
-          </td>
-          <td className="border border-gray-300 p-1">
-            {totalRequired && totalRequired.toFixed(2)}
-          </td>
-          <td className="border border-gray-300 p-1">
-            {totalDayReceive && totalDayReceive.toFixed(2)}
-          </td>
-          <td className="border border-gray-300 p-1">
-            {totalReceive && totalReceive.toFixed(2)}
-          </td>
-          <td className="border border-gray-300 p-1">
-            {totalBalance && totalBalance.toFixed(2)}
-          </td>
-        </tr>
-      }
+      <tr style={{ fontSize: "11px" }}>
+        <td className="border border-gray-950 p-0.5">{index}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.BRAND_NAME}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
+        <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
+      </tr>
     </>
   );
 }
