@@ -23,16 +23,16 @@ function ReportFooter({ data }: { data: PartyWiseKnittingProgramType[] }) {
         </tr>
         <tr className="text-center">
           <td className="w-[25%] border-0 text-nowrap">
-            <span className="border-t border-gray-950 px-5 pb-1">Create By</span>
+            <span className="border-t border-gray-950 px-5 pb-1">Prepared By</span>
           </td>
           <td className="w-[25%] border-0 text-nowrap">
-            <span className="border-t border-gray-950 px-5 pb-1">Check By</span>
+            <span className="border-t border-gray-950 px-5 pb-1">Receiver's Signature</span>
           </td>
           <td className="w-[25%] border-0 text-nowrap">
-            <span className="border-t border-gray-950 px-5 pb-1">Department Head</span>
+            <span className="border-t border-gray-950 px-5 pb-1">Knitting Incharge</span>
           </td>
           <td className="w-[25%] border-0 text-nowrap">
-            <span className="border-t border-gray-950 px-5 pb-1">MD Sir</span>
+            <span className="border-t border-gray-950 px-5 pb-1">Approved By</span>
           </td>
         </tr>
       </table>
