@@ -110,7 +110,7 @@ function Report({
   let fabricPartWiseData: Record<string, PartyWiseKnittingProgramType[]> = {};
 
   if (data) {
-    fabricParts = Array.from(new Set(data.map(item => item.FABRIC)));
+    fabricParts = Array.from(new Set(data.filter(item => item.FABRIC_PART === "COLLAR" || item.FABRIC_PART === "CUFF").map(item => item.FABRIC)));
 
     fabricPartWiseData = fabricParts.reduce((acc, part) => {
       acc[part] = data.filter(item => item.FABRIC === part);
