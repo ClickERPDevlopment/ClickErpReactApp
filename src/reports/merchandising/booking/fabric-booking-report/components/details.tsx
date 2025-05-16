@@ -27,8 +27,6 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
         return qty.toFixed(2);
     }
 
-
-
     return (
         <div className='mt-10'>
             <table>
@@ -52,6 +50,7 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                         <th className='p-1 border border-gray-600 text-sm text-center'>Total Finish Conj./dz</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>Total Finish Fabrics</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>UOM</th>
+                        <th className='p-1 border border-gray-600 text-sm text-center'>Total Grey Conj./dz</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>Total Yarn</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>Sample fabric qty</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>Remarks</th>
@@ -97,6 +96,7 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                             <td className='border border-gray-600 text-sm text-center'>{ele.TOTALFINISHCONJDZN}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.TOTALFINISHFABRICS}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.UOM}</td>
+                            <td className='border border-gray-600 text-sm text-center'>{ele.FACTORY_TOTAL_GREY_BOOKING_CON_PERPCS_GMT}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.TOTALYARN}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.SAMPLEFABRICQTY}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.REMARKS}</td>
@@ -107,6 +107,7 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                     <tr>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={16}>Total</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalFabricQty()}</th>
+                        <th className='p-1 border border-gray-600 text-sm text-center'></th>
                         <th className='p-1 border border-gray-600 text-sm text-center'></th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty()}</th>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={2}></th>
