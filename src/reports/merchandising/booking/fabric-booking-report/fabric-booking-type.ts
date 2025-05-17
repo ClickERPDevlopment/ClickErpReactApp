@@ -251,6 +251,7 @@ export type FabricBookingReportDto_FabricQtyDetails = {
   TOTALYARN: number;
   SAMPLEFABRICQTY?: string;
   REMARKS?: string;
+  FACTORY_TOTAL_GREY_BOOKING_CON_PERPCS_GMT: number;
 };
 
 export type FabricBookingReportDto_InCm = {
