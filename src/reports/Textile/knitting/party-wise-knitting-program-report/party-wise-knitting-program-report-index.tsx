@@ -9,6 +9,7 @@ import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { PartyWiseKnittingProgramType } from "./party-wise-knitting-program-report-type";
 import { CollarCuffQuantitySummaryReportType } from "./collar-cuff-quantity-summary-report-type";
+import { PartyWiseKnittingProgramStripeMeasurementType } from "./stripe-measurement-type";
 
 function PartyWiseKnittingProgramReport() {
   const [data, setData] = useState<PartyWiseKnittingProgramType[]>(
@@ -16,6 +17,10 @@ function PartyWiseKnittingProgramReport() {
   );
 
   const [collarCuffQtySummary, setCollarCuffQtySummary] = useState<CollarCuffQuantitySummaryReportType[]>(
+    []
+  );
+
+  const [stripeMeasurementData, setStripeMeasurementData] = useState<PartyWiseKnittingProgramStripeMeasurementType[]>(
     []
   );
 
@@ -69,11 +74,27 @@ function PartyWiseKnittingProgramReport() {
           })
           .catch((m) => console.log(m));
 
+        await axios
+          .get(
+            `${api.ProductionUrl}/production/KnittingReport/PartyWiseKnittingProgramStripeMeasurement?id=${id}`
+          )
+          .then((res) => {
+            //console.log(res);
+            if (res.data) {
+              //console.log("My Data", res.data);
+              setStripeMeasurementData(res.data);
+            } else {
+              //console.log(res);
+            }
+          })
+          .catch((m) => console.log(m));
+
         setIsLoading(false);
       } catch {
         setIsLoading(false);
         //console.log(error.message);
       }
+
     }
     getData();
   }, []);
@@ -91,7 +112,7 @@ function PartyWiseKnittingProgramReport() {
   ) : (
     <>
       <div className="min-w-[50%]">
-        <Report data={data} collarCuffQtySummary={collarCuffQtySummary}></Report>
+        <Report data={data} collarCuffQtySummary={collarCuffQtySummary} stripeMeasurementData={stripeMeasurementData}></Report>
       </div>
     </>
   );

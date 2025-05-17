@@ -7,13 +7,17 @@ import { PartyWiseKnittingProgramType } from "../party-wise-knitting-program-rep
 import { CollarCuffQuantitySummaryReportType } from "../collar-cuff-quantity-summary-report-type";
 import ReportSummary from "./report-summary";
 import ColorSizeBreakdown from "./color-size-breakdown";
+import { PartyWiseKnittingProgramStripeMeasurementType } from "../stripe-measurement-type";
+import StripeMeasurementTable from "./stripe-measurement-table";
 
 function Report({
   data,
-  collarCuffQtySummary
+  collarCuffQtySummary,
+  stripeMeasurementData
 }: {
   data: PartyWiseKnittingProgramType[];
-  collarCuffQtySummary: CollarCuffQuantitySummaryReportType[]
+  collarCuffQtySummary: CollarCuffQuantitySummaryReportType[],
+  stripeMeasurementData: PartyWiseKnittingProgramStripeMeasurementType[]
 }) {
 
   let uniqueKeys: Set<string> = new Set();
@@ -191,6 +195,7 @@ function Report({
             </tr>
           </tbody>
         </table>
+        <p style={{ fontSize: "11px" }}><span className="font-bold">Taka:</span> {data[0].DTLS_TOTAL_KNIT_AMOUNT}</p>
 
         <div className="mt-5">
           <div className="flex justify-between">
@@ -246,6 +251,16 @@ function Report({
             </div>
           </div>
         </div>
+        {
+          stripeMeasurementData.length > 0 && <div className="mt-5">
+            <div className="flex">
+              <div className="w-[50%]">
+                <StripeMeasurementTable data={stripeMeasurementData}></StripeMeasurementTable>
+              </div>
+            </div>
+          </div>
+        }
+
         <div>
           <div className="flex flex-row gap-3">
             {
