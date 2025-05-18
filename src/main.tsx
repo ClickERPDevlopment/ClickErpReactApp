@@ -124,12 +124,14 @@ import FabricBookingReportIndex from "./reports/merchandising/booking/fabric-boo
 import AccessoriesReportWithPo from "./reports/merchandising/work-order/accessories-report-with-po/accessories-with-po-index.tsx";
 import YarnIssueStatusReportIndex from "./reports/store/yarn-store/yissue-status-report/yarn-issue-status-report-index.tsx";
 import SampleProgramReportIndex from "./reports/merchandising/sample-program/report/sample-program-report.-index.tsx";
-import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-index.tsx";
-import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emp-production/print-emb-production-crud.tsx";
 import MaterialOrderYarnDyeingReport from "./reports/merchandising/report/material-order-yarn-dyeing-report/material-order-yarn-dyeing-report-index.tsx";
 import BudgetReport from "./reports/merchandising/report/budget-report/budget-report-index.tsx";
 import BudgetReportFormat2 from "./reports/merchandising/report/budget-report -format2/budget-report -format2-index.tsx";
 import PartyWiseKnittingProgramReport from "./reports/Textile/knitting/party-wise-knitting-program-report/party-wise-knitting-program-report-index.tsx";
+import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emb-production/print-emb-production-crud.tsx";
+import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emb-production/print-emb-production-index.tsx";
+import PrintEmbMaterialReceiveIndex from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-index.tsx";
+import PrintEmbMaterialReceiveCrud from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -177,6 +179,14 @@ createRoot(document.getElementById("root")!).render(
                           <Route
                             path=":pageAction/:id"
                             element={<PrintEmbProductionCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="print-emb-material-receive">
+                          <Route index element={<PrintEmbMaterialReceiveIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbMaterialReceiveCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
                         </Route>
@@ -334,6 +344,14 @@ createRoot(document.getElementById("root")!).render(
                           <Route
                             path=":pageAction/:id"
                             element={<PrintEmbProductionCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="print-emb-material-receive">
+                          <Route index element={<PrintEmbMaterialReceiveIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbMaterialReceiveCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
                         </Route>
