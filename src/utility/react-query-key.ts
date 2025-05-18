@@ -35,4 +35,5 @@ export const ReactQueryKey = {
   PrintEmbProduction: "PrintEmbProduction",
   PrintEmbProductionOperation: "PrintEmbProductionOperation",
   PrintEmbProductionHour: "PrintEmbProductionHour",
+  EmbMaterialReceive: "EmbMaterialReceive",
 };
