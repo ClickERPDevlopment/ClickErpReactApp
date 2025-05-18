@@ -195,7 +195,7 @@ function Report({
             </tr>
           </tbody>
         </table>
-        <p style={{ fontSize: "11px" }}><span className="font-bold">Taka:</span> {data[0].DTLS_TOTAL_KNIT_AMOUNT}</p>
+        <p style={{ fontSize: "11px" }}><span className="font-bold">Taka:</span> {data[0]?.DTLS_TOTAL_KNIT_AMOUNT}</p>
 
         <div className="mt-5">
           <div className="flex justify-between">
