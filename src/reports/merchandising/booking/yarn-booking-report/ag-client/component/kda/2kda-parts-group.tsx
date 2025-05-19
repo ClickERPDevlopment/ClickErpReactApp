@@ -33,6 +33,7 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
   const fabricParts = fabricPartsAction(lstKda);
 
   let colspan = fabricParts.isRibColAval ? 1 : 0;
+  colspan += fabricParts.isRibCuffColAval ? 1 : 0;
   colspan += fabricParts.isCollarColAval ? 1 : 0;
   colspan += fabricParts.isCuffColAval ? 1 : 0;
 
@@ -51,6 +52,10 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
               cn("border border-black w-20",
                 fabricParts.isRibColAval ? "" : "hidden"
               )}>RIB</th>
+            <th className={
+              cn("border border-black w-20",
+                fabricParts.isRibCuffColAval ? "" : "hidden"
+              )}>RIB CUFF</th>
             <th className={
               cn("border border-black w-20",
                 fabricParts.isCollarColAval ? "" : "hidden"
