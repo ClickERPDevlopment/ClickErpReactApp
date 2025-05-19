@@ -38,12 +38,12 @@ import { PageAction } from "@/utility/page-actions";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
-import { PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
+import { EmbMaterialReceiveMasterType } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
 
 export function PrintEmbMaterialReceiveTable({
   data,
 }: {
-  data: PrintEmbProductionMasterType[];
+  data: EmbMaterialReceiveMasterType[];
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -55,56 +55,40 @@ export function PrintEmbMaterialReceiveTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  console.log("data", data);
-
-  const columns: ColumnDef<PrintEmbProductionMasterType>[] = [
+  const columns: ColumnDef<EmbMaterialReceiveMasterType>[] = [
     {
-      accessorKey: "PRODUCTION_DATE",
-      header: "Production Date",
+      accessorKey: "RECEIVE_DATE",
+      header: "Receive Date",
       cell: ({ row }) => (
-        <div className="capitalize">{moment(row.getValue("PRODUCTION_DATE")).format("DD-MMM-YYYY")}</div>
+        <div className="capitalize">{moment(row.getValue("RECEIVE_DATE")).format("DD-MMM-YYYY")}</div>
       ),
     },
     {
-      accessorKey: "TYPE",
-      header: "Type",
+      accessorKey: "MATERIAL_RECEIVE_NO",
+      header: "Receive No",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("TYPE")}</div>
+        <div className="capitalize">{row.getValue("MATERIAL_RECEIVE_NO")}</div>
       ),
     },
     {
-      accessorKey: "SHIFT",
-      header: "Shift",
+      accessorKey: "BUYER",
+      header: "Buyer",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("SHIFT")}</div>
+        <div className="capitalize">{row.getValue("BUYER")}</div>
       ),
     },
     {
-      accessorKey: "OPERATION",
-      header: "Operation",
+      accessorKey: "STYLE",
+      header: "Style",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("OPERATION")}</div>
+        <div className="capitalize">{row.getValue("STYLE")}</div>
       ),
     },
     {
-      accessorKey: "FLOOR",
-      header: "Floor",
+      accessorKey: "PO",
+      header: "PO",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("FLOOR")}</div>
-      ),
-    },
-    {
-      accessorKey: "WORKSTATION",
-      header: "Workstation",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("WORKSTATION")}</div>
-      ),
-    },
-    {
-      accessorKey: "PRODUCTION_HOUR",
-      header: "Production Hour",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("PRODUCTION_HOUR")}</div>
+        <div className="capitalize">{row.getValue("PO")}</div>
       ),
     },
     {
@@ -123,13 +107,6 @@ export function PrintEmbMaterialReceiveTable({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              {/* <DropdownMenuItem
-                onClick={() =>
-                  navigator.clipboard.writeText(item.ID.toString())
-                }
-              >
-                Copy Planning Board Confugure Id
-              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() =>

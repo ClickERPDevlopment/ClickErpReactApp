@@ -86,6 +86,9 @@ export type EmbMaterialReceiveMasterType = {
     CREATED_DATE?: string | null;
     UPDATED_BY?: string | null;
     UPDATED_DATE?: string | null;
+    BUYER: string;
+    STYLE: string;
+    PO: string;
     MATERIAL_RECEIVE_SERIAL: number;
     EmbMaterialReceiveDetails: EmbMaterialReceiveDetailsType[];
 };
@@ -104,6 +107,7 @@ export type EmbMaterialReceiveDetailsType = {
     SIZE: string;
     WO_QTY: number;
     RCV_QTY: number;
+    PREV_RCV_QTY: number;
     EmbMaterialReceiveParts: EmbMaterialReceiveDetailsPartsType[];
 };
 

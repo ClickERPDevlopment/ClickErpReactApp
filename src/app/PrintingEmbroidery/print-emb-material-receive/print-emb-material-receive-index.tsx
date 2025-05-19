@@ -4,7 +4,6 @@ import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import AppPageContainer from "@/components/app-page-container";
-import { GetPrintEmbProduction, PrintEmbProductionMasterType, PrintEmbProductionSearchType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -33,15 +32,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { PrintEmbMaterialReceiveTable } from "./print-emb-material-receive-table";
+import { EmbMaterialReceiveMasterType, GetPrintEmbMaterialReceive } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
 
+
+interface ISearchData {
+  FROM_DATE: Date;
+  TO_DATE: Date;
+  WORK_ORDER_ID: number;
+  WORK_ORDER_NO: string;
+  WORK_ORDER_RECEIVE_ID: number;
+  WORK_ORDER_RECEIVE_NO: string;
+};
 
 
 function PrintEmbMaterialReceiveIndex() {
   const {
-    data: printEmbProductionData,
+    data: data,
     isError,
     error
-  } = GetPrintEmbProduction<PrintEmbProductionMasterType>();
+  } = GetPrintEmbMaterialReceive<EmbMaterialReceiveMasterType>();
 
   if (isError) {
     return (
@@ -52,31 +61,6 @@ function PrintEmbMaterialReceiveIndex() {
       </Alert>
     );
   }
-
-
-  interface IStyle {
-    Id: string;
-    Styleno: string;
-  };
-
-
-  interface IBuyer {
-    Id: string;
-    NAME: string;
-    DISPLAY_NAME: string;
-  };
-
-  interface IPO {
-    Id: string;
-    Pono: string;
-  };
-
-
-  interface IType {
-    ID: number;
-    NAME: string;
-  };
-
 
   interface IRcvWorkOrder {
     ID: number;
@@ -89,14 +73,8 @@ function PrintEmbMaterialReceiveIndex() {
     TO_DATE: z.date(),
     WORK_ORDER_ID: z.number().optional(),
     WORK_ORDER_NO: z.string().optional(),
-    BUYER_ID: z.number().optional(),
-    BUYER: z.string().optional(),
-    STYLE_ID: z.number().optional(),
-    STYLE: z.string().optional(),
-    PO_ID: z.number().default(0),
-    PO_NO: z.string().optional(),
-    TYPE_ID: z.number().optional(),
-    TYPE: z.string().optional(),
+    WORK_ORDER_RECEIVE_ID: z.number().optional(),
+    WORK_ORDER_RECEIVE_NO: z.string().optional(),
   });
 
   const today = new Date();
@@ -110,30 +88,18 @@ function PrintEmbMaterialReceiveIndex() {
       TO_DATE: today,
       WORK_ORDER_ID: 0,
       WORK_ORDER_NO: "",
-      BUYER_ID: 0,
-      BUYER: "",
-      STYLE_ID: 0,
-      STYLE: "",
-      PO_ID: 0,
-      PO_NO: "",
-      TYPE_ID: 0,
-      TYPE: "",
+      WORK_ORDER_RECEIVE_ID: 0,
+      WORK_ORDER_RECEIVE_NO: "",
     },
   });
 
-  const [searchData, setSearchData] = useState<PrintEmbProductionSearchType>({
+  const [searchData, setSearchData] = useState<ISearchData>({
     FROM_DATE: firstOfMonth,
     TO_DATE: today,
     WORK_ORDER_ID: 0,
     WORK_ORDER_NO: "",
-    BUYER_ID: 0,
-    BUYER: "",
-    STYLE_ID: 0,
-    STYLE: "",
-    PO_ID: 0,
-    PO_NO: "",
-    TYPE_ID: 0,
-    TYPE: "",
+    WORK_ORDER_RECEIVE_ID: 0,
+    WORK_ORDER_RECEIVE_NO: "",
   });
 
 
@@ -147,34 +113,15 @@ function PrintEmbMaterialReceiveIndex() {
     setWorkOrder(response?.data);
   }
 
-  const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
-  const getBuyerData = async (woId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
-    setBuyerData(response?.data);
+  const [embMaterialReceive, setEmbMaterialReceive] = useState<EmbMaterialReceiveMasterType[]>([]);
+  const getEmbMtlRcv = async () => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive");
+    setEmbMaterialReceive(response?.data);
   }
-
-  const [style, setStyle] = useState<IStyle[]>([]);
-  const getStyleByBuyer = async (woId: number, buyerId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
-    setStyle(response?.data);
-  }
-
-  const [PO, setPO] = useState<IPO[]>([]);
-  const getPOByStyle = async (woId: number, styleId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
-    setPO(response?.data);
-  }
-
-  const [productionType, setProductionType] = useState<IType[]>([]);
-  const getProductionType = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionType");
-    setProductionType(response?.data);
-  }
-
 
   useEffect(() => {
     getWorkOrder();
-    getProductionType();
+    getEmbMtlRcv();
   }, []);
 
 
@@ -184,19 +131,13 @@ function PrintEmbMaterialReceiveIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProduction?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
+    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&woId=" + searchData.WORK_ORDER_ID + "&woReceiveId=" + searchData.WORK_ORDER_RECEIVE_ID);
     setMasterData(response?.data);
   }
-
-
-  const [openBuyer, setOpenBuyer] = useState(false);
-  const [openStyle, setOpenStyle] = useState(false);
-  const [openPO, setOpenPO] = useState(false);
-  const [openProductionType, setOpenProductionType] = useState(false);
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
+  const [openMaterialReceive, setOpenMaterialReceive] = useState(false);
 
-  const [masterData, setMasterData] = useState<PrintEmbProductionMasterType[] | null>(null);
-
+  const [masterData, setMasterData] = useState<EmbMaterialReceiveMasterType[] | null>(null);
 
   return (
     <div className="pt-5">
@@ -285,10 +226,10 @@ function PrintEmbMaterialReceiveIndex() {
                     <div className="flex justify-between items-end">
                       <FormField
                         control={form.control}
-                        name="WORK_ORDER_NO"
+                        name="WORK_ORDER_RECEIVE_NO"
                         render={({ field }) => (
                           <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Order</FormLabel>
+                            <FormLabel className="font-bold">Work Order Receive</FormLabel>
                             <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
                               <PopoverTrigger asChild>
                                 <FormControl>
@@ -325,11 +266,10 @@ function PrintEmbMaterialReceiveIndex() {
                                             field.onChange(Number(workOrderData.ID));
                                             setSearchData((prev) => ({
                                               ...prev,
-                                              WORK_ORDER_ID: Number(workOrderData.ID),
-                                              WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
+                                              WORK_ORDER_RECEIVE_ID: Number(workOrderData.ID),
+                                              WORK_ORDER_RECEIVE_NO: workOrderData.WORK_ORDER_NO,
                                             }));
                                             setOpenWorkOrder(false);
-                                            getBuyerData(workOrderData.ID)
                                           }}
                                         >
                                           {workOrderData.WORK_ORDER_NO}
@@ -357,57 +297,57 @@ function PrintEmbMaterialReceiveIndex() {
                     <div className="flex justify-between items-end">
                       <FormField
                         control={form.control}
-                        name="TYPE_ID"
+                        name="WORK_ORDER_NO"
                         render={({ field }) => (
                           <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Type</FormLabel>
-                            <Popover open={openProductionType} onOpenChange={setOpenProductionType}>
+                            <FormLabel className="font-bold">Material Receive No</FormLabel>
+                            <Popover open={openMaterialReceive} onOpenChange={setOpenMaterialReceive}>
                               <PopoverTrigger asChild>
                                 <FormControl>
                                   <Button
                                     variant="outline"
                                     role="combobox"
-                                    aria-expanded={openProductionType}
+                                    aria-expanded={openMaterialReceive}
                                     className={cn(
                                       "w-full justify-between bg-emerald-100",
                                       !field.value && "text-muted-foreground"
                                     )}
                                   >
                                     {field.value
-                                      ? productionType?.find(
-                                        (type) =>
-                                          Number(type.ID) === Number(field.value)
-                                      )?.NAME
-                                      : "Select a production type"}
+                                      ? embMaterialReceive?.find(
+                                        (workOrderData) =>
+                                          Number(workOrderData.ID) === Number(field.value)
+                                      )?.MATERIAL_RECEIVE_NO
+                                      : "Select a order"}
                                     <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                   </Button>
                                 </FormControl>
                               </PopoverTrigger>
                               <PopoverContent className="w-full p-0">
                                 <Command>
-                                  <CommandInput placeholder="Search production type..." className="h-9" />
+                                  <CommandInput placeholder="Search receive no..." className="h-9" />
                                   <CommandList>
-                                    <CommandEmpty>No production type found.</CommandEmpty>
+                                    <CommandEmpty>No receive found.</CommandEmpty>
                                     <CommandGroup>
-                                      {productionType?.map((typeData) => (
+                                      {embMaterialReceive?.map((workOrderData) => (
                                         <CommandItem
-                                          value={typeData.NAME}
-                                          key={typeData.ID}
+                                          value={workOrderData.MATERIAL_RECEIVE_NO}
+                                          key={workOrderData.ID}
                                           onSelect={() => {
-                                            field.onChange(Number(typeData.ID));
+                                            field.onChange(Number(workOrderData.ID));
                                             setSearchData((prev) => ({
                                               ...prev,
-                                              TYPE_ID: Number(typeData.ID),
-                                              TYPE: typeData.NAME,
+                                              WORK_ORDER_ID: Number(workOrderData.ID),
+                                              WORK_ORDER_NO: workOrderData.MATERIAL_RECEIVE_NO,
                                             }));
-                                            setOpenProductionType(false);
+                                            setOpenMaterialReceive(false);
                                           }}
                                         >
-                                          {typeData.NAME}
+                                          {workOrderData.MATERIAL_RECEIVE_NO}
                                           <CheckIcon
                                             className={cn(
                                               "ml-auto h-4 w-4",
-                                              Number(typeData.ID) === Number(field.value)
+                                              Number(workOrderData.ID) === Number(field.value)
                                                 ? "opacity-100"
                                                 : "opacity-0"
                                             )}
@@ -425,238 +365,6 @@ function PrintEmbMaterialReceiveIndex() {
                       />
                     </div>
 
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="BUYER_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Buyer</FormLabel>
-                            <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openBuyer}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? buyerData?.find(
-                                        (buyer) =>
-                                          Number(buyer.Id) === field.value
-                                      )?.NAME
-                                      : "Select a buyer"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search supplier..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No buyer found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {buyerData?.map((buyer) => (
-                                        <CommandItem
-                                          value={buyer?.NAME}
-                                          key={Number(buyer?.Id)}
-                                          onSelect={() => {
-                                            field.onChange(Number(buyer?.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              BUYER_ID: Number(buyer?.Id),
-                                              BUYER: buyer?.NAME,
-                                            }));
-                                            getStyleByBuyer(Number(searchData.WORK_ORDER_ID), Number(buyer?.Id));
-
-                                            setOpenBuyer(false);
-                                          }}
-                                        >
-
-                                          {buyer?.NAME}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(buyer?.Id) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* <Button
-                                  onClick={() => orderForm.resetField("BUYER_ID")}
-                                  variant={"outline"}
-                                  type="button"
-                                  className="m-0 ml-1 px-[12px]"
-                                >
-                                  <MdOutlineClear className="rounded text-slate-600 m-0" />
-                                </Button> */}
-                    </div>
-
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="STYLE_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Style</FormLabel>
-                            <Popover open={openStyle} onOpenChange={setOpenStyle}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openStyle}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? style?.find(
-                                        (style) =>
-                                          Number(style.Id) === field.value
-                                      )?.Styleno
-                                      : "Select a style"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search style..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No style found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {style?.map((item) => (
-                                        <CommandItem
-                                          value={item.Styleno}
-                                          key={item.Id}
-                                          onSelect={() => {
-                                            field.onChange(Number(item.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              STYLE_ID: Number(item.Id),
-                                              STYLE: item.Styleno,
-                                            }));
-                                            setOpenStyle(false);
-                                            getPOByStyle(Number(searchData.WORK_ORDER_ID), Number(item?.Id));
-                                          }}
-                                        >
-                                          {item.Styleno}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(item.Id) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* <Button
-                                  onClick={() => orderForm.resetField("STYLE_ID")}
-                                  variant={"outline"}
-                                  type="button"
-                                  className="m-0 ml-1 px-[12px]"
-                                >
-                                  <MdOutlineClear className="rounded text-slate-600 m-0" />
-                                </Button> */}
-                    </div>
-
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="PO_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">PO</FormLabel>
-                            <Popover open={openPO} onOpenChange={setOpenPO}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openPO}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? PO?.find(
-                                        (po) =>
-                                          Number(po.Id) === field.value
-                                      )?.Pono
-                                      : "Select a PO"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search PO..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No PO found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {PO?.map((item) => (
-                                        <CommandItem
-                                          value={item.Pono}
-                                          key={item.Id}
-                                          onSelect={() => {
-                                            field.onChange(Number(item.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              PO_ID: Number(item.Id),
-                                              PO_NO: item.Pono,
-                                            }));
-                                            setOpenPO(false);
-                                          }}
-                                        >
-                                          {item.Pono}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(item.Id) === field.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
                   </div>
                 </div>
                 <div className={cn("flex justify-between mt-4")}>
@@ -672,8 +380,8 @@ function PrintEmbMaterialReceiveIndex() {
           </div>
         </div>
         <div className="mt-3">
-          {printEmbProductionData ? (
-            <PrintEmbMaterialReceiveTable data={masterData || printEmbProductionData} />
+          {data ? (
+            <PrintEmbMaterialReceiveTable data={masterData || data} />
           ) : (
             <TableSkeleton />
           )}

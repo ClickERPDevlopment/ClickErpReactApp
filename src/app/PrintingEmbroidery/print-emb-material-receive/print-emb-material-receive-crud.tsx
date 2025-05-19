@@ -2,17 +2,17 @@ import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageAction } from "@/utility/page-actions";
-import { GetPrintEmbProductionById, PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
 import PrintEmbMaterialReceiveForm from "./print-emb-material-receive-form";
+import { EmbMaterialReceiveMasterType, GetPrintEmbMaterialReceiveById } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
 
 export default function PrintEmbMaterialReceiveCrud() {
   const { pageAction, id } = useParams();
 
   const {
-    data: printEmbProductionData,
+    data: prinEmbMtlRcvData,
     isError,
     error,
-  } = GetPrintEmbProductionById<PrintEmbProductionMasterType>(Number(id));
+  } = GetPrintEmbMaterialReceiveById<EmbMaterialReceiveMasterType>(Number(id));
 
 
   if (!pageAction) {
@@ -36,7 +36,7 @@ export default function PrintEmbMaterialReceiveCrud() {
   }
 
   if (id && Number(id) > 0) {
-    if (!printEmbProductionData) {
+    if (!prinEmbMtlRcvData) {
       return (
         <h1>
           <em>Loading...</em>
@@ -53,7 +53,7 @@ export default function PrintEmbMaterialReceiveCrud() {
           Material Receive
         </h1>
         <PrintEmbMaterialReceiveForm
-          data={printEmbProductionData}
+          data={prinEmbMtlRcvData}
           pageAction={PageAction.view}
         />
       </div>
@@ -77,7 +77,7 @@ export default function PrintEmbMaterialReceiveCrud() {
           Update Material Receive
         </h1>
         <PrintEmbMaterialReceiveForm
-          data={printEmbProductionData}
+          data={prinEmbMtlRcvData}
           pageAction={PageAction.edit}
         />
       </div>
@@ -89,7 +89,7 @@ export default function PrintEmbMaterialReceiveCrud() {
           Delete Material Receive
         </h1>
         <PrintEmbMaterialReceiveForm
-          data={printEmbProductionData}
+          data={prinEmbMtlRcvData}
           pageAction={PageAction.delete}
         />
       </div>
