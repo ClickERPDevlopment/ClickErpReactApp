@@ -91,6 +91,13 @@ export default function KittingDyeingAdviceColorGroup({ lstKda }: prams) {
 
         <td className={
           cn("text-center border border-black",
+            fabricParts.isRibCuffColAval ? "" : "hidden"
+          )}>
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.ribCuffPartsName), lstKda[0].MTL_NAME)}
+        </td>
+
+        <td className={
+          cn("text-center border border-black",
             fabricParts.isCollarColAval ? "" : "hidden"
           )}>
           {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.collarPartsName), lstKda[0].MTL_NAME)}
