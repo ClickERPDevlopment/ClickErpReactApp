@@ -108,6 +108,7 @@ export type EmbMaterialReceiveDetailsType = {
     WO_QTY: number;
     RCV_QTY: number;
     PREV_RCV_QTY: number;
+    PARTS: string;
     EmbMaterialReceiveParts: EmbMaterialReceiveDetailsPartsType[];
 };
 

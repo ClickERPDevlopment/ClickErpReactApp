@@ -14,6 +14,8 @@ export default function PrintEmbMaterialReceiveCrud() {
     error,
   } = GetPrintEmbMaterialReceiveById<EmbMaterialReceiveMasterType>(Number(id));
 
+  console.log("prinEmbMtlRcvData", prinEmbMtlRcvData);
+
 
   if (!pageAction) {
     return (

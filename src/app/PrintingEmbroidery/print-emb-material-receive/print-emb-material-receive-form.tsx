@@ -41,7 +41,7 @@ import { cn } from "@/lib/utils";
 import { PageAction } from "@/utility/page-actions";
 import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
-import { SquarePlus, Trash2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 
 import AppPageContainer from "@/components/app-page-container";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -456,7 +456,7 @@ export default function PrintEmbMaterialReceiveForm({
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
   const [openParts, setOpenParts] = useState(false);
   const [partsModalData, setPartsModalData] = useState<EmbMaterialReceiveDetailsPartsType[]>([]);
-  const [selectedDetailsIndex, setSelectedDetailsIndex] = useState<number>(-1);
+  const [selectedDetailsIndex] = useState<number>(-1);
 
   return (
     <AppPageContainer>
@@ -1186,8 +1186,8 @@ export default function PrintEmbMaterialReceiveForm({
                             {item.SIZE}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
-
-                            <div className="flex align-middle justify-center gap-1 p-1">
+                            {item.PARTS}
+                            {/* <div className="flex align-middle justify-center gap-1 p-1">
                               <span>
                                 {
                                   item?.EmbMaterialReceiveParts?.length > 0
@@ -1207,7 +1207,7 @@ export default function PrintEmbMaterialReceiveForm({
                               >
                                 <SquarePlus className="w-5 h-5" />
                               </Button>
-                            </div>
+                            </div> */}
                           </TableCell>
 
                           <TableCell className="border border-gray-300 px-4 text-center ">
