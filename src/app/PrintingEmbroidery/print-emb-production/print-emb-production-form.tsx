@@ -404,37 +404,9 @@ export default function PrintEmbProductionForm({
     return !hasError;
   };
 
-  const handleAdd = (type: string = "") => {
+  const handleAdd = async (type: string = "") => {
 
-    if (type == "Add All Size") {
-
-      if (!validateFields(["SIZE"])) return;
-      if (color.length > 0) {
-        if (size.length <= 0) return;
-        const colorSizeData = color.flatMap((col) =>
-          size.map((sz) => ({
-            ...printEmbProductionDetails,
-            COLOR_ID: col.ID,
-            COLOR: col.COLORNAME,
-            SIZE_ID: sz.ID,
-            SIZE: sz.SIZENAME,
-          }))
-        );
-        setdetailsData(colorSizeData);
-      } else {
-        if (size.length <= 0) return;
-
-        const allSizeData = size.map((sz) => ({
-          ...printEmbProductionDetails,
-          SIZE_ID: sz.ID,
-          SIZE: sz.SIZENAME,
-        }));
-
-        setdetailsData(allSizeData);
-      }
-
-    }
-    else if (type === "Edit") {
+    if (type === "Edit") {
 
       if (editingIndex !== null && detailsData) {
         setdetailsData((prevData) => {
@@ -466,13 +438,96 @@ export default function PrintEmbProductionForm({
       setEditingIndex(-1);
       setEditBtn(false);
     }
-
     else {
-      if (!validateFields()) return;
-      setdetailsData((prev) => {
-        return [...(prev || []), printEmbProductionDetails];
-      });
+
+      if (type === "Add All Size") {
+        if (!validateFields(["SIZE"])) return;
+
+        const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=0`);
+
+
+        setdetailsData(prev => [...(prev || []), ...(response?.data || [])]);
+
+      }
+      else {
+        if (!validateFields()) return;
+
+        const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${printEmbProductionDetails.SIZE_ID}`);
+
+        setdetailsData(prev => [...(prev || []), ...(response?.data || [])]);
+      }
     }
+
+
+
+    // if (type == "Add All Size") {
+
+    //   if (!validateFields(["SIZE"])) return;
+    //   if (color.length > 0) {
+    //     if (size.length <= 0) return;
+    //     const colorSizeData = color.flatMap((col) =>
+    //       size.map((sz) => ({
+    //         ...printEmbProductionDetails,
+    //         COLOR_ID: col.ID,
+    //         COLOR: col.COLORNAME,
+    //         SIZE_ID: sz.ID,
+    //         SIZE: sz.SIZENAME,
+    //       }))
+    //     );
+    //     setdetailsData(colorSizeData);
+    //   } else {
+    //     if (size.length <= 0) return;
+
+    //     const allSizeData = size.map((sz) => ({
+    //       ...printEmbProductionDetails,
+    //       SIZE_ID: sz.ID,
+    //       SIZE: sz.SIZENAME,
+    //     }));
+
+    //     setdetailsData(allSizeData);
+    //   }
+
+    // }
+    // else if (type === "Edit") {
+
+    //   if (editingIndex !== null && detailsData) {
+    //     setdetailsData((prevData) => {
+    //       const newData = [...(prevData || [])];
+    //       const currentItem = newData[editingIndex];
+    //       const updatedItem: PrintEmbProductionDetailsType = { ...currentItem };
+
+    //       (Object.keys(printEmbProductionDetails) as (keyof PrintEmbProductionDetailsType)[]).forEach((key) => {
+    //         if (key === "ReasonDetails") return;
+    //         const newValue = printEmbProductionDetails[key];
+
+    //         const shouldUpdate =
+    //           (typeof newValue === "string" && newValue.trim() !== "") ||
+    //           (typeof newValue === "number" && newValue !== 0) ||
+    //           (Array.isArray(newValue) && newValue.length > 0);
+
+    //         if (shouldUpdate) {
+    //           (updatedItem as any)[key] = newValue;
+    //         }
+    //       });
+
+    //       newData[editingIndex] = updatedItem;
+    //       return newData;
+    //     });
+    //   }
+
+    //   form.reset({ QC_PASSED_QTY: 0 });
+
+    //   setEditingIndex(-1);
+    //   setEditBtn(false);
+    // }
+
+    // else {
+    //   if (!validateFields()) return;
+    //   setdetailsData((prev) => {
+    //     return [...(prev || []), printEmbProductionDetails];
+    //   });
+    // }
+
     reasonForm.reset();
   };
 
@@ -1744,6 +1799,9 @@ export default function PrintEmbProductionForm({
                           Size
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
+                          WIP
+                        </TableHead>
+                        <TableHead className="border border-gray-300 text-center px-4">
                           QC Passed Qty
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
@@ -1778,6 +1836,9 @@ export default function PrintEmbProductionForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.SIZE}
+                          </TableCell>
+                          <TableCell className="border border-gray-300 px-4 text-center ">
+                            {item.WIP}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
                             <input
