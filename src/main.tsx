@@ -132,6 +132,8 @@ import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emb-productio
 import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emb-production/print-emb-production-index.tsx";
 import PrintEmbMaterialReceiveIndex from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-index.tsx";
 import PrintEmbMaterialReceiveCrud from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-crud.tsx";
+import YarnTwistingWorkOrderReport from "./reports/merchandising/work-order/yarn-twisting-wrok-order-rpt/yarn-twisting-wrok-order-rpt-index.tsx";
+import YarnIssueForDyeingReportIndex from "./reports/store/yarn-store/yarn-issue-for-dyeing-report/yarn-issue-for-dyeing-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -492,6 +494,10 @@ createRoot(document.getElementById("root")!).render(
                         element={<StarcoStickerReport />}
                       />
                       <Route
+                        path="yarn-twisting-wrok-order-rpt"
+                        element={<YarnTwistingWorkOrderReport />}
+                      />
+                      <Route
                         path="starco-label-rpt"
                         element={<StarcoLabelReport />}
                       />
@@ -658,6 +664,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="yarn-issue-status-report"
                         element={<YarnIssueStatusReportIndex />}
+                      />
+                      <Route
+                        path="yarn-issue-for-dyeing-report"
+                        element={<YarnIssueForDyeingReportIndex />}
                       />
                       <Route
                         path="monthly-yarn-costing-report"

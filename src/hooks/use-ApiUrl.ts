@@ -35,10 +35,10 @@ export default function useApiUrl() {
   const fameUrl = "http://118.179.81.150:6307/api";
   const fameRootUrl = "http://118.179.81.150:6307";
 
-  console.log("currentEnv: ", currentEnv);
+  // console.log("currentEnv: ", currentEnv);
   if (currentEnv === devEnv) {
-    console.log("Dev Environment");
-    console.log("clientName: ", clientName);
+    // console.log("Dev Environment");
+    // console.log("clientName: ", clientName);
     if (clientName === AG) {
       if (import.meta.env.VITE_APP_LINUX_NODE_ENV === "production") {
         ProductionUrl = agUrl;
@@ -52,8 +52,8 @@ export default function useApiUrl() {
       ProductionRootUrl = DevRootUrl;
     }
   } else {
-    console.log("Production Environment");
-    console.log("clientName: ", clientName);
+    // console.log("Production Environment");
+    // console.log("clientName: ", clientName);
     if (VERSATILE === clientName) {
       ProductionUrl = versatileUrl;
       ProductionRootUrl = versatileRootUrl;
