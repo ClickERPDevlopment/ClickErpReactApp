@@ -2,7 +2,7 @@ import { YarnIssueStatusReportType } from '../yarn-issue-for-dyeing-report-type'
 
 export default function ReportBody({ data }: { data: YarnIssueStatusReportType[] | null }) {
     return (
-        <div className='min-w-full mt-5'>
+        <div className='min-w-full mt-5 font-bold'>
             <table className='min-w-full'>
                 <thead>
                     <tr>

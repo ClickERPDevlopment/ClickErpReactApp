@@ -5,9 +5,11 @@ import ReportFooter from './components/report-footer'
 
 export default function YarnIssueTwistingReport({ data }: { data: YarnIssueForTwistingType[] }) {
     return (
-        <div className='p-5 min-w-full'>
-            <ReportHeader data={data} />
-            <ReportBody data={data} />
+        <div className='w-full p-5 flex flex-col justify-between min-h-screen'>
+            <div className='w-full'>
+                <ReportHeader data={data} />
+                <ReportBody data={data} />
+            </div>
             <ReportFooter />
         </div>
     )

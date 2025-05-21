@@ -3,7 +3,7 @@ import { YarnIssueForTwistingType } from '../yarn-issue-for-twisting-report-type
 export default function ReportHeader({ data }: { data: YarnIssueForTwistingType[] | null }) {
     if (data)
         return (
-            <div className='min-w-full text-center'>
+            <div className='min-w-full text-center font-bold'>
 
                 <h1 className='text-2xl font-bold'>{data[0]?.GROUP_COMPANY_NAME}</h1>
                 <h1 className='text-base'>{data[0]?.GROUP_COMPANY_ADDRESS}</h1>
