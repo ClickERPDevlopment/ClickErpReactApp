@@ -1799,6 +1799,9 @@ export default function PrintEmbProductionForm({
                           Size
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
+                          PARTS
+                        </TableHead>
+                        <TableHead className="border border-gray-300 text-center px-4">
                           WIP
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
@@ -1836,6 +1839,9 @@ export default function PrintEmbProductionForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.SIZE}
+                          </TableCell>
+                          <TableCell className="border border-gray-300 px-4 text-center ">
+                            {item.PARTS}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.WIP}

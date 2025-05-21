@@ -40,6 +40,7 @@ export interface PrintEmbProductionDetailsType {
     SIZE?: string;
     QC_PASSED_QTY?: number;
     WIP?: number;
+    PARTS?: string;
     ReasonDetails: RejectionReasonDetailsType[];
 }
 
