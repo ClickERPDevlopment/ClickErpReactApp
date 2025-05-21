@@ -7,97 +7,99 @@ function ReportHeader({
   masterData: YarnTwistingWorkOrderReportType | null;
 }) {
   return (
-    <div>
+    <div className="w-full">
       <div className="">
         <h1 className="font-bold text-lg text-center">
-          {masterData?.COMPANY_NAME}
+          {masterData?.GROUP_COMPANY_NAME}
         </h1>
         <h4 className="font-bold text-sm text-center">
-          {masterData?.COMPANY_ADDRESS}
+          {masterData?.GROUP_COMPANY_ADDRESS}
         </h4>
         <h1 className="font-bold text-lg text-center mt-5">
           {masterData?.COMPANY_NAME}
         </h1>
-        <h4 className="font-bold text-base text-center mt-2">
+        <h4 className="font-bold text-base text-center">
           YARN TWISTING WORK ORDER
         </h4>
       </div>
-      <table className="border border-gray-900 w-[100%] mt-2">
-        <tr className="text-left text-xs">
-          <th className="border border-gray-900 px-1">Company</th>
-          <th className="border border-gray-900 px-1">Supplier</th>
-        </tr>
-        <tr className="text-xs">
-          <td className="border border-gray-900 p-0">
-            <table className="w-[100%] m-0">
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">Name: </td>
-                <td className="px-1 ">{masterData?.COMPANY_NAME}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">
-                  Factory Address:{" "}
-                </td>
-                <td className="px-1 "> {masterData?.COMPANY_ADDRESS}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">Work Order: </td>
-                <td className="px-1 "> {masterData?.WORK_ORDER_NO}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">
-                  Contact Person Name:{" "}
-                </td>
-                <td className="px-1">{masterData?.STORE_PERSONNEL}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">Mobile: </td>
-                <td className="px-1"> {masterData?.MOBILE_NO}</td>
-              </tr>
-              <tr>
-                <td className="px-1 border-r border-gray-900">Email: </td>
-                <td className="px-1"> {masterData?.COMPANY_EMAIL}</td>
-              </tr>
-            </table>
-          </td>
-          <td className="border border-gray-900 p-0">
-            <table className="w-[100%] m-0">
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">Name: </td>
-                <td className="px-1">{masterData?.SUPPLIER_NAME}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">Address: </td>
-                <td className="px-1"> {masterData?.SUPPLIER_ADDRESS}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">
-                  Delivery Date:{" "}
-                </td>
-                <td className="px-1">
-                  {masterData?.DELIVERY_DATE
-                    ? moment(masterData?.DELIVERY_DATE).format("D MMM YY")
-                    : ""}
-                </td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">
-                  Contact Person Name:{" "}
-                </td>
-                <td className="px-1">{masterData?.ATTENTION}</td>
-              </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900">Mobile: </td>
-                <td className="px-1"> {masterData?.SUPPLIER_MOBILE_NO}</td>
-              </tr>
-              <tr>
-                <td className="px-1 border-r border-gray-900">Email: </td>
-                <td className="px-1">{masterData?.SUPPLIER_EMAIL}</td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+      <div className="flex justify-between w-full mt-5">
+        <ul>
+          <li>
+            <div>
+              <label className="w-32">WO ORDER NO</label>
+              <label>: {masterData?.WORK_ORDER_NO}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">WO DATE</label>
+              <label>: {moment(masterData?.ISSUE_DATE).format('DD-MMM-YY')}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">DELIVERY DATE</label>
+              <label>: {moment(masterData?.DELIVERY_DATE).format('DD-MMM-YY')}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">RECEIVE STORE</label>
+              <label>: {masterData?.RCV_STORE}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">CONTACT PERSON</label>
+              <label>: {masterData?.STORE_PERSONNEL}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">MOBILE NO</label>
+              <label>: {masterData?.MOBILE_NO}</label>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div>
+              <label className="w-32">SUPPLIER NAME</label>
+              <label>: {masterData?.SUPPLIER_NAME}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">ADDRESS</label>
+              <label>: {masterData?.SUPPLIER_ADDRESS}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">ATTENTION</label>
+              <label>: {masterData?.ATTENTION}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">MOBILE NO</label>
+              <label>: {masterData?.SUPPLIER_MOBILE_NO}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label className="w-32">BUYER</label>
+              <label>: {masterData?.BUYER_NAME}</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              {/* <label className="w-32">MOBILE NO</label>
+              <label>: {masterData?.MOBILE_NO}</label> */}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

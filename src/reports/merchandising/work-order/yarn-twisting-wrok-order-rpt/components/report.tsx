@@ -7,11 +7,11 @@ import { YarnTwistingWorkOrderReportType } from "../yarn-twisting-wrok-order-rpt
 
 function Report({ data }: { data: YarnTwistingWorkOrderReportType[] }) {
   return (
-    <div>
+    <div className="w-full">
       <div className="p-2">
         <ReportHeader masterData={data[0]} />
         <ReportTable data={data} />
-        <ReportFooter masterData={null} />
+        <ReportFooter masterData={data} />
       </div>
     </div>
   );

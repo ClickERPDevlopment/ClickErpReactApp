@@ -1,3 +1,4 @@
+import { ToWords } from "to-words";
 import { YarnTwistingWorkOrderReportType } from "../yarn-twisting-wrok-order-rpt-type";
 
 function ReportFooter({
@@ -5,48 +6,35 @@ function ReportFooter({
 }: {
   masterData: YarnTwistingWorkOrderReportType[] | null;
 }) {
-  return (
-    <div className="flex flex-col text-xs">
-      <div className="border flex flex-col my-3 p-2 w-[500px]">
-        <label htmlFor="" className="font-bold text-xs mb-2">
-          PREPARED BY
-        </label>
-        <div className="flex flex-row mb-2">
-          <label
-            htmlFor=""
-            className="font-bold text-xs w-[150px] text-right pr-2 "
-          >
-            SIGNATURE:
-          </label>
-          <div className="border-b flex-1">
-            <span>{ }</span>
-          </div>
-        </div>
-        <div className="flex flex-row mb-2 ">
-          <label
-            htmlFor=""
-            className="font-bold text-xs w-[150px] text-right pr-2"
-          >
-            NAME:
-          </label>
-          <div className="border-b flex-1">
-            {/* <span className="text-xs">{masterData[0]?.PREPARED_BY}</span> */}
-          </div>
-        </div>
-        <div className="flex flex-row">
-          <label
-            htmlFor=""
-            className="font-bold text-xs w-[150px] text-right pr-2"
-          >
-            DESIGNATION:
-          </label>
-          <div className="border-b flex-1">
-            {/* <span className="text-xs">{masterData?.PREPARED_BY_DESG}</span> */}
-          </div>
-        </div>
+
+  const toWords = new ToWords({
+    localeCode: 'en-BD',
+    converterOptions: {
+      currency: true,
+      ignoreDecimal: false,
+      ignoreZeroCurrency: false,
+      currencyOptions: {
+        name: 'Dollar',
+        plural: 'Dollar',
+        symbol: '$',
+        fractionalUnit: {
+          name: 'Cent',
+          plural: 'Cents',
+          symbol: '¢',
+        },
+      },
+    },
+  })
+
+  const totalAmount = masterData?.reduce((p, c) => p + Number(c.TOTAL_AMOUNT), 0);
+  if (masterData)
+    return (
+      <div className="flex flex-col mt-5">
+        <p>IN WORD($): {toWords.convert(Number(totalAmount))}</p>
+        <p>NOTE: {masterData[0]?.NOTE}</p>
+        <p>REMARKS: {masterData[0]?.REMARKS}</p>
       </div>
-    </div>
-  );
+    );
 }
 
 export default ReportFooter;

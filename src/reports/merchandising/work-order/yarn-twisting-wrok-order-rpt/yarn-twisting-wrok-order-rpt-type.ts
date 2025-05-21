@@ -1,4 +1,7 @@
 export type YarnTwistingWorkOrderReportType = {
+  ID: number;
+  GROUP_COMPANY_NAME: string;
+  GROUP_COMPANY_ADDRESS: string;
   SUB_YARN_ID: string;
   SUB_YARN: string;
   SUB_YARN_QUANTITY: string;
@@ -24,7 +27,7 @@ export type YarnTwistingWorkOrderReportType = {
   WO_SUBJECT: string;
   ATTENTION: string;
   SUPPLIER_MOBILE_NO: string;
-  TOTAL_AMOUNT: string;
+  TOTAL_AMOUNT: number;
   BUYER_ID: string;
   PO_ID: string;
   BUYER_NAME: string;

@@ -68,7 +68,7 @@ function YarnTwistingWorkOrderReport() {
     </>
   ) : (
     <>
-      <div className="print:border-none">
+      <div className="print:border-none min-w-full py-5 px-10">
         <Report data={data}></Report>
       </div>
     </>
