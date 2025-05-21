@@ -22,7 +22,7 @@ export default function YarnIssueForTwistingReportIndex() {
   }
 
   useEffect(() => {
-    document.title = "Yarn issue status.";
+    document.title = "Yarn twisting challan";
 
     async function getData() {
       try {

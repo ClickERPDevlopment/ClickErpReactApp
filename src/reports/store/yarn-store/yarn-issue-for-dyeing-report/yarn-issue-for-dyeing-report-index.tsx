@@ -22,7 +22,7 @@ export default function YarnIssueForDyeingReportIndex() {
   }
 
   useEffect(() => {
-    document.title = "Yarn issue status.";
+    document.title = "Yarn dyeing challan.";
 
     async function getData() {
       try {
