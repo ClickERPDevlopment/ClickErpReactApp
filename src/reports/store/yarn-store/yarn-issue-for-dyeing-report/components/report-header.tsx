@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { YarnIssueStatusReportType } from '../yarn-issue-for-dyeing-report-type'
 
 export default function ReportHeader({ data }: { data: YarnIssueStatusReportType[] | null }) {
@@ -15,7 +16,7 @@ export default function ReportHeader({ data }: { data: YarnIssueStatusReportType
                         <li>
                             <div className='flex'>
                                 <span className='text-left w-28'>Date</span>
-                                <span>: {data[0]?.CHALLAN_DATE}</span>
+                                <span>: {moment(data[0]?.CHALLAN_DATE).format('DD-MMM-YY')}</span>
                             </div>
                         </li>
                         <li>
