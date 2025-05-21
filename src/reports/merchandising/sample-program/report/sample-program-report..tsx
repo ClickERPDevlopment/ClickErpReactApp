@@ -18,7 +18,7 @@ export default function SampleProgramReport({ data }: { data?: SampleProgramRepo
                 <YarnDyeingDetails lstYarnDyeingDetails={data?.lstYarnDyeingDetails} />
                 <Comments lstComments={data?.lstComments} />
             </div>
-            <Signature />
+            <Signature masterInfo={data?.masterInfo} />
         </div>
     )
 }

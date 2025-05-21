@@ -132,6 +132,7 @@ import PrintEmbProductionCrud from "./app/PrintingEmbroidery/print-emb-productio
 import PrintEmbProductionIndex from "./app/PrintingEmbroidery/print-emb-production/print-emb-production-index.tsx";
 import PrintEmbMaterialReceiveIndex from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-index.tsx";
 import PrintEmbMaterialReceiveCrud from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-crud.tsx";
+import YarnTwistingWorkOrderReport from "./reports/merchandising/work-order/yarn-twisting-wrok-order-rpt/yarn-twisting-wrok-order-rpt-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -490,6 +491,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="starco-sticker-rpt"
                         element={<StarcoStickerReport />}
+                      />
+                      <Route
+                        path="yarn-twisting-wrok-order-rpt"
+                        element={<YarnTwistingWorkOrderReport />}
                       />
                       <Route
                         path="starco-label-rpt"
