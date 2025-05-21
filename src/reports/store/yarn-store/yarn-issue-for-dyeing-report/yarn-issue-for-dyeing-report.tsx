@@ -8,7 +8,7 @@ export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusR
         <div className='p-5 min-w-full'>
             <ReportHeader data={data} />
             <ReportBody data={data} />
-            <ReportFooter data={data} />
+            <ReportFooter />
         </div>
     )
 }
