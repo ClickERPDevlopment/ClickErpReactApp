@@ -89,6 +89,9 @@ export type EmbMaterialReceiveMasterType = {
     BUYER: string;
     STYLE: string;
     PO: string;
+    OS_BUYER: string;
+    OS_STYLE: string;
+    OS_PO: string;
     MATERIAL_RECEIVE_SERIAL: number;
     EmbMaterialReceiveDetails: EmbMaterialReceiveDetailsType[];
 };
@@ -97,10 +100,16 @@ export type EmbMaterialReceiveDetailsType = {
     MASTER_ID: number;
     BUYER_ID: number;
     BUYER: string;
+    OS_BUYER_ID: number;
+    OS_BUYER: string;
     STYLE_ID: number;
     STYLE: string;
+    OS_STYLE_ID: number;
+    OS_STYLE: string;
     PO_ID: number;
     PO: string;
+    OS_PO_ID: number;
+    OS_PO: string;
     COLOR_ID: number;
     COLOR: string;
     SIZE_ID: number;

@@ -30,10 +30,16 @@ export interface PrintEmbProductionDetailsType {
     WORK_ORDER_NO?: string;
     BUYER_ID?: number;
     BUYER?: string;
+    OS_BUYER_ID?: number;
+    OS_BUYER?: string;
     STYLE_ID?: number;
     STYLE?: string;
+    OS_STYLE_ID?: number;
+    OS_STYLE?: string;
     PO_ID: number;
     PO_NO?: string;
+    OS_PO_ID: number;
+    OS_PO_NO?: string;
     COLOR_ID?: number;
     COLOR?: string;
     SIZE_ID?: number;

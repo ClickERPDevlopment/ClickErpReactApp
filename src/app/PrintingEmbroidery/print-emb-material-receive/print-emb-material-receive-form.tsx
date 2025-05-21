@@ -386,6 +386,9 @@ export default function PrintEmbMaterialReceiveForm({
     BUYER: data?.BUYER || "",
     STYLE: data?.STYLE || "",
     PO: data?.PO || "",
+    OS_BUYER: data?.BUYER || "",
+    OS_STYLE: data?.STYLE || "",
+    OS_PO: data?.PO || "",
     EmbMaterialReceiveDetails: data?.EmbMaterialReceiveDetails || [],
   });
 
@@ -1171,13 +1174,13 @@ export default function PrintEmbMaterialReceiveForm({
                             {index + 1}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4  text-center">
-                            {item.BUYER}
+                            {!item.BUYER ? item.OS_BUYER : item.BUYER}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.STYLE}
+                            {!item.STYLE ? item.OS_STYLE : item.STYLE}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.PO}
+                            {!item.PO ? item.OS_PO : item.PO}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.COLOR}

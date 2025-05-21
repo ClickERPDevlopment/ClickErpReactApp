@@ -340,6 +340,7 @@ export default function PrintEmbProductionForm({
     }
 
     const data = masterData;
+
     data.PrintEmbProductionDetails = detailsData || [];
 
     mutation.mutate(data, {
@@ -445,7 +446,6 @@ export default function PrintEmbProductionForm({
 
         const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=0`);
 
-
         setdetailsData(prev => [...(prev || []), ...(response?.data || [])]);
 
       }
@@ -457,77 +457,6 @@ export default function PrintEmbProductionForm({
         setdetailsData(prev => [...(prev || []), ...(response?.data || [])]);
       }
     }
-
-
-
-    // if (type == "Add All Size") {
-
-    //   if (!validateFields(["SIZE"])) return;
-    //   if (color.length > 0) {
-    //     if (size.length <= 0) return;
-    //     const colorSizeData = color.flatMap((col) =>
-    //       size.map((sz) => ({
-    //         ...printEmbProductionDetails,
-    //         COLOR_ID: col.ID,
-    //         COLOR: col.COLORNAME,
-    //         SIZE_ID: sz.ID,
-    //         SIZE: sz.SIZENAME,
-    //       }))
-    //     );
-    //     setdetailsData(colorSizeData);
-    //   } else {
-    //     if (size.length <= 0) return;
-
-    //     const allSizeData = size.map((sz) => ({
-    //       ...printEmbProductionDetails,
-    //       SIZE_ID: sz.ID,
-    //       SIZE: sz.SIZENAME,
-    //     }));
-
-    //     setdetailsData(allSizeData);
-    //   }
-
-    // }
-    // else if (type === "Edit") {
-
-    //   if (editingIndex !== null && detailsData) {
-    //     setdetailsData((prevData) => {
-    //       const newData = [...(prevData || [])];
-    //       const currentItem = newData[editingIndex];
-    //       const updatedItem: PrintEmbProductionDetailsType = { ...currentItem };
-
-    //       (Object.keys(printEmbProductionDetails) as (keyof PrintEmbProductionDetailsType)[]).forEach((key) => {
-    //         if (key === "ReasonDetails") return;
-    //         const newValue = printEmbProductionDetails[key];
-
-    //         const shouldUpdate =
-    //           (typeof newValue === "string" && newValue.trim() !== "") ||
-    //           (typeof newValue === "number" && newValue !== 0) ||
-    //           (Array.isArray(newValue) && newValue.length > 0);
-
-    //         if (shouldUpdate) {
-    //           (updatedItem as any)[key] = newValue;
-    //         }
-    //       });
-
-    //       newData[editingIndex] = updatedItem;
-    //       return newData;
-    //     });
-    //   }
-
-    //   form.reset({ QC_PASSED_QTY: 0 });
-
-    //   setEditingIndex(-1);
-    //   setEditBtn(false);
-    // }
-
-    // else {
-    //   if (!validateFields()) return;
-    //   setdetailsData((prev) => {
-    //     return [...(prev || []), printEmbProductionDetails];
-    //   });
-    // }
-
     reasonForm.reset();
   };
 
@@ -562,10 +491,16 @@ export default function PrintEmbProductionForm({
     WORK_ORDER_NO: "",
     BUYER_ID: 0,
     BUYER: "",
+    OS_BUYER_ID: 0,
+    OS_BUYER: "",
     STYLE_ID: 0,
     STYLE: "",
+    OS_STYLE_ID: 0,
+    OS_STYLE: "",
     PO_ID: 0,
     PO_NO: "",
+    OS_PO_ID: 0,
+    OS_PO_NO: "",
     COLOR_ID: 0,
     COLOR: "",
     SIZE_ID: 0,
@@ -650,6 +585,7 @@ export default function PrintEmbProductionForm({
     console.error("orderForm control is not available.");
 
   }
+
 
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
@@ -1826,13 +1762,13 @@ export default function PrintEmbProductionForm({
                             {item?.WORK_ORDER_NO}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4  text-center">
-                            {item.BUYER}
+                            {item.BUYER ? item?.BUYER : item?.OS_BUYER}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.STYLE}
+                            {item.STYLE ? item?.STYLE : item?.OS_STYLE}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.PO_NO}
+                            {item.PO_NO ? item?.PO_NO : item?.OS_PO_NO}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.COLOR}

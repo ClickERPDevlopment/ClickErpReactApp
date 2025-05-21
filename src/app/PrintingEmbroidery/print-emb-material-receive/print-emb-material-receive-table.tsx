@@ -60,7 +60,9 @@ export function PrintEmbMaterialReceiveTable({
       accessorKey: "RECEIVE_DATE",
       header: "Receive Date",
       cell: ({ row }) => (
-        <div className="capitalize">{moment(row.getValue("RECEIVE_DATE")).format("DD-MMM-YYYY")}</div>
+        <div className="capitalize">
+          {moment(row.getValue("RECEIVE_DATE")).format("DD-MMM-YYYY")}
+        </div>
       ),
     },
     {
@@ -73,23 +75,38 @@ export function PrintEmbMaterialReceiveTable({
     {
       accessorKey: "BUYER",
       header: "Buyer",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("BUYER")}</div>
-      ),
+      cell: ({ row }) => {
+        const item = row.original;
+        return (
+          <div className="capitalize">
+            {!item.BUYER || item.BUYER.trim() === "" ? item.OS_BUYER : item.BUYER}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "STYLE",
       header: "Style",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("STYLE")}</div>
-      ),
+      cell: ({ row }) => {
+        const item = row.original;
+        return (
+          <div className="capitalize">
+            {!item.STYLE || item.STYLE.trim() === "" ? item.OS_STYLE : item.STYLE}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "PO",
       header: "PO",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("PO")}</div>
-      ),
+      cell: ({ row }) => {
+        const item = row.original;
+        return (
+          <div className="capitalize">
+            {!item.PO || item.PO.trim() === "" ? item.OS_PO : item.PO}
+          </div>
+        );
+      },
     },
     {
       id: "actions",
@@ -153,6 +170,7 @@ export function PrintEmbMaterialReceiveTable({
       },
     },
   ];
+
 
   const table = useReactTable({
     data,
