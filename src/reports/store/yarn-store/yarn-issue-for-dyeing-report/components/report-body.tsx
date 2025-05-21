@@ -27,7 +27,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_LOT_NUMBER}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_DYEING_COLOR}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.QUANTITY}</td>
-                            <td className='p-1 text-center border border-gray-600'>{ele.CARTON_QTY} & {ele.CONE_QTY}</td>
+                            <td className='p-1 text-center border border-gray-600'>B:{ele.CARTON_QTY} & C:{ele.CONE_QTY}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.REMARKS}</td>
                         </tr>
                     )}
@@ -42,10 +42,10 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                             }
                         </th>
                         <th className='p-1 text-center border border-gray-600'>
-                            {
+                            B:{
                                 data?.reduce((p, c) => p + Number(c.CARTON_QTY), 0)
                             }
-                            {" & "}
+                            {" & C:"}
                             {
                                 data?.reduce((p, c) => p + Number(c.CONE_QTY), 0) ?? 0
                             }
