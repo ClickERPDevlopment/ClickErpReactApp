@@ -134,6 +134,7 @@ import PrintEmbMaterialReceiveIndex from "./app/PrintingEmbroidery/print-emb-mat
 import PrintEmbMaterialReceiveCrud from "./app/PrintingEmbroidery/print-emb-material-receive/print-emb-material-receive-crud.tsx";
 import YarnTwistingWorkOrderReport from "./reports/merchandising/work-order/yarn-twisting-wrok-order-rpt/yarn-twisting-wrok-order-rpt-index.tsx";
 import YarnIssueForDyeingReportIndex from "./reports/store/yarn-store/yarn-issue-for-dyeing-report/yarn-issue-for-dyeing-report-index.tsx";
+import YarnIssueForTwistingReportIndex from "./reports/store/yarn-store/yarn-issue-for-twisting-report/yarn-issue-for-twisting-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -668,6 +669,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="yarn-issue-for-dyeing-report"
                         element={<YarnIssueForDyeingReportIndex />}
+                      />
+                      <Route
+                        path="yarn-issue-for-twisting-report"
+                        element={<YarnIssueForTwistingReportIndex />}
                       />
                       <Route
                         path="monthly-yarn-costing-report"
