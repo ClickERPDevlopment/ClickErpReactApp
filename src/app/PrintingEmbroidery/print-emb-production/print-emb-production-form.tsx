@@ -321,6 +321,11 @@ export default function PrintEmbProductionForm({
     e.preventDefault();
 
 
+    if (pageAction === PageAction.delete) {
+      const confirmDelete = window.confirm("Are you sure you want to delete this item?");
+      if (!confirmDelete) return;
+    }
+
     const validationResult = masterFormSchema.safeParse(masterData);
     type MasterFormType = z.infer<typeof masterFormSchema>;
 

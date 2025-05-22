@@ -292,7 +292,10 @@ export default function PrintEmbMaterialReceiveForm({
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log("Master data:", masterData);
+    if (pageAction === PageAction.delete) {
+      const confirmDelete = window.confirm("Are you sure you want to delete this item?");
+      if (!confirmDelete) return;
+    }
 
     const validationResult = masterFormSchema.safeParse(masterData);
     type MasterFormType = z.infer<typeof masterFormSchema>;
@@ -316,8 +319,6 @@ export default function PrintEmbMaterialReceiveForm({
 
     const data = masterData;
     data.EmbMaterialReceiveDetails = detailsData || [];
-
-    console.log("Form data:", data);
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
