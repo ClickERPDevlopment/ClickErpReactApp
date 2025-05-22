@@ -15,7 +15,6 @@ export default function FinishGoodValuationCrud() {
   } = GetFinishGoodValuationById<FinishGoodValuationMasterType>(Number(id));
 
 
-
   if (!pageAction) {
     return (
       <Alert variant="destructive">
