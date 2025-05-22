@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import YarnIssueStatusReport from "./yarn-issue-for-dyeing-report";
+import YarnIssueTwistingReport from "./yarn-issue-for-twisting-report";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import axios from "axios";
 import useApiUrl from "@/hooks/use-ApiUrl";
-import { YarnIssueStatusReportType } from "./yarn-issue-for-dyeing-report-type";
+import { YarnIssueForTwistingType } from "./yarn-issue-for-twisting-report-type";
 
-export default function YarnIssueForDyeingReportIndex() {
+export default function YarnIssueForTwistingReportIndex() {
   const [searchParams] = useSearchParams();
-  const [data, setData] = useState<YarnIssueStatusReportType[]>(
+  const [data, setData] = useState<YarnIssueForTwistingType[]>(
     []
   );
   const [isLoading, setIsLoading] = useState(false);
@@ -22,14 +22,14 @@ export default function YarnIssueForDyeingReportIndex() {
   }
 
   useEffect(() => {
-    document.title = "Yarn dyeing challan.";
+    document.title = "Yarn twisting challan";
 
     async function getData() {
       try {
         setIsLoading(true);
         await axios
           .get(
-            `${api.ProductionUrl}/production/YarnStoreReport/YarnIssueForDyeingReport?id=${id}`
+            `${api.ProductionUrl}/production/YarnStoreReport/YarnIssueForTwistingReport?id=${id}`
           )
           .then((res) => {
             if (res.data) {
@@ -58,7 +58,7 @@ export default function YarnIssueForDyeingReportIndex() {
       </div>
     </>
   ) : (
-    <YarnIssueStatusReport data={data} />
+    <YarnIssueTwistingReport data={data} />
   );
 
 }

@@ -1,7 +1,7 @@
 import moment from 'moment'
-import { YarnIssueStatusReportType } from '../yarn-issue-for-dyeing-report-type'
+import { YarnIssueForTwistingType } from '../yarn-issue-for-twisting-report-type'
 
-export default function ReportHeader({ data }: { data: YarnIssueStatusReportType[] | null }) {
+export default function ReportHeader({ data }: { data: YarnIssueForTwistingType[] | null }) {
     if (data)
         return (
             <div className='min-w-full text-center font-bold'>
@@ -10,7 +10,7 @@ export default function ReportHeader({ data }: { data: YarnIssueStatusReportType
                 <h1 className='text-base'>{data[0]?.GROUP_COMPANY_ADDRESS}</h1>
 
                 <h1 className='text-xl font-bold mt-5'>{data[0]?.COMPANY_NAME}</h1>
-                <h1 className='text-base font-bold'>YARN ISSUE FOR DYEING CHALLAN/GATEPASS</h1>
+                <h1 className='text-base font-bold'>YARN ISSUE FOR TWISTING CHALLAN/GATEPASS</h1>
                 <div className='flex justify-between mt-5'>
                     <ul>
                         <li>

@@ -1,6 +1,6 @@
-import { YarnIssueStatusReportType } from '../yarn-issue-for-dyeing-report-type'
+import { YarnIssueForTwistingType } from '../yarn-issue-for-twisting-report-type'
 
-export default function ReportBody({ data }: { data: YarnIssueStatusReportType[] | null }) {
+export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] | null }) {
     return (
         <div className='min-w-full mt-5 font-bold'>
             <table className='min-w-full'>
@@ -21,7 +21,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                     {data?.map((ele, i) =>
                         <tr key={i}>
                             <td className='p-1 text-center border border-gray-600'>{i + 1}</td>
-                            <td className='p-1 text-center border border-gray-600'>{ele.BBLC_NO}	</td>
+                            <td className='p-1 text-center border border-gray-600'>{ele.BBLC_NO}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_BRAND}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_LOT_NUMBER}</td>
