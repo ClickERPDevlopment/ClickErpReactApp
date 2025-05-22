@@ -7,7 +7,8 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                 <thead>
                     <tr>
                         <th className='p-1 text-center border border-gray-600'>SL</th>
-                        <th className='p-1 text-center border border-gray-600'>BB LC NO/WO NO	</th>
+                        <th className='p-1 text-center border border-gray-600'>PO/JOB</th>
+                        <th className='p-1 text-center border border-gray-600'>BB LC NO/WO NO</th>
                         <th className='p-1 text-center border border-gray-600'>Yarn</th>
                         <th className='p-1 text-center border border-gray-600'>Brand</th>
                         <th className='p-1 text-center border border-gray-600'>Lot</th>
@@ -21,7 +22,8 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                     {data?.map((ele, i) =>
                         <tr key={i}>
                             <td className='p-1 text-center border border-gray-600'>{i + 1}</td>
-                            <td className='p-1 text-center border border-gray-600'>{ele.BBLC_NO}	</td>
+                            <td className='p-1 text-center border border-gray-600'>{ele.PONO}</td>
+                            <td className='p-1 text-center border border-gray-600'>{ele.BBLC_NO}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_BRAND}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_LOT_NUMBER}</td>
@@ -35,7 +37,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th className='p-1 text-center border border-gray-600' colSpan={6}>Total</th>
+                        <th className='p-1 text-center border border-gray-600' colSpan={7}>Total</th>
                         <th className='p-1 text-center border border-gray-600'>
                             {
                                 data?.reduce((p, c) => p + Number(c.QUANTITY), 0)

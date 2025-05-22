@@ -1,5 +1,4 @@
 export type YarnIssueStatusReportType = {
-    CONE_QTY: number;
     ID: number;
     COMPANY_ID: number;
     COMPANY_NAME: string;
@@ -32,4 +31,6 @@ export type YarnIssueStatusReportType = {
     BUYER_CODE: string;
     GROUP_COMPANY_NAME: string;
     GROUP_COMPANY_ADDRESS: string;
+    CONE_QTY: number;
+    PONO: string;
 }
