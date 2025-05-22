@@ -63,7 +63,7 @@ export default function FinishGoodValuationCrud() {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-5 mb-10">
         <h1 className="font-bold text-xl text-left w-full mb-2">
-          Finish Good Valuation
+          Finish Goods Valuation
         </h1>
         <FinishGoodValuationForm
           data={undefined}
@@ -75,7 +75,7 @@ export default function FinishGoodValuationCrud() {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-5 mb-10">
         <h1 className="font-bold text-xl text-left w-full mb-2">
-          Update Finish Good Valuation
+          Update Finish Goods Valuation
         </h1>
         <FinishGoodValuationForm
           data={data}
@@ -87,7 +87,7 @@ export default function FinishGoodValuationCrud() {
     return (
       <div className="w-full flex flex-col justify-center items-center mt-5 mb-10">
         <h1 className="font-bold text-xl text-left w-full text-destructive mb-2">
-          Delete Finish Good Valuation
+          Delete Finish Goods Valuation
         </h1>
         <FinishGoodValuationForm
           data={data}

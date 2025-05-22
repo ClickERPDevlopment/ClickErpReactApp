@@ -37,11 +37,11 @@ function FinishGoodValuation() {
   return (
     <div className="pt-5">
       <div className="flex items-center justify-between border-b pb-0">
-        <div className="font-bold text-2xl">Finish Good Valuation</div>
+        <div className="font-bold text-2xl">Finish Goods Valuation</div>
         <div>
           <Link to={`${PageAction.add}/0`}>
             <Button className="mb-2" role="button">
-              New Finish Good Valuation
+              New Finish Goods Valuation
             </Button>
           </Link>
         </div>
