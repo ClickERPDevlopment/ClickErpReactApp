@@ -135,6 +135,8 @@ import PrintEmbMaterialReceiveCrud from "./app/PrintingEmbroidery/print-emb-mate
 import YarnTwistingWorkOrderReport from "./reports/merchandising/work-order/yarn-twisting-wrok-order-rpt/yarn-twisting-wrok-order-rpt-index.tsx";
 import YarnIssueForDyeingReportIndex from "./reports/store/yarn-store/yarn-issue-for-dyeing-report/yarn-issue-for-dyeing-report-index.tsx";
 import YarnIssueForTwistingReportIndex from "./reports/store/yarn-store/yarn-issue-for-twisting-report/yarn-issue-for-twisting-report-index.tsx";
+import FinishGoodValuation from "./app/merchandising/finish-good-valuation/finish-good-valuation-index.tsx";
+import FinishGoodValuationCrud from "./app/merchandising/finish-good-valuation/finish-good-valuation-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -225,6 +227,14 @@ createRoot(document.getElementById("root")!).render(
                           <Route
                             path=":pageAction/:id"
                             element={<CompensationClaimCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="finish-good-valuation">
+                          <Route index element={<FinishGoodValuation />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<FinishGoodValuationCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
                         </Route>
@@ -388,6 +398,14 @@ createRoot(document.getElementById("root")!).render(
                           <Route
                             path=":pageAction/:id"
                             element={<CompensationClaimCrud />}
+                          />
+                          <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="finish-good-valuation">
+                          <Route index element={<FinishGoodValuation />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<FinishGoodValuationCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
                         </Route>
