@@ -37,7 +37,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th className='p-1 text-center border border-gray-600' colSpan={6}>Total</th>
+                        <th className='p-1 text-center border border-gray-600' colSpan={7}>Total</th>
                         <th className='p-1 text-center border border-gray-600'>
                             {
                                 data?.reduce((p, c) => p + Number(c.QUANTITY), 0)
