@@ -7,6 +7,8 @@ export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] 
                 <thead>
                     <tr>
                         <th className='p-1 text-center border border-gray-600'>SL</th>
+                        <th className='p-1 text-center border border-gray-600'>PO/JOB</th>
+                        <th className='p-1 text-center border border-gray-600'>Style</th>
                         <th className='p-1 text-center border border-gray-600'>BB LC NO/WO NO	</th>
                         <th className='p-1 text-center border border-gray-600'>Yarn</th>
                         <th className='p-1 text-center border border-gray-600'>Brand</th>
@@ -21,6 +23,8 @@ export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] 
                     {data?.map((ele, i) =>
                         <tr key={i}>
                             <td className='p-1 text-center border border-gray-600'>{i + 1}</td>
+                            <td className='p-1 text-center border border-gray-600'>{ele.PONO}</td>
+                            <td className='p-1 text-center border border-gray-600'>{ele.STYLE_NO}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.BBLC_NO}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN}</td>
                             <td className='p-1 text-center border border-gray-600'>{ele.YARN_BRAND}</td>
@@ -35,7 +39,7 @@ export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] 
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th className='p-1 text-center border border-gray-600' colSpan={6}>Total</th>
+                        <th className='p-1 text-center border border-gray-600' colSpan={8}>Total</th>
                         <th className='p-1 text-center border border-gray-600'>
                             {
                                 data?.reduce((p, c) => p + Number(c.QUANTITY), 0)
