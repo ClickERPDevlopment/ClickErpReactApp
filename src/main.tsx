@@ -137,6 +137,7 @@ import YarnIssueForDyeingReportIndex from "./reports/store/yarn-store/yarn-issue
 import YarnIssueForTwistingReportIndex from "./reports/store/yarn-store/yarn-issue-for-twisting-report/yarn-issue-for-twisting-report-index.tsx";
 import FinishGoodValuation from "./app/merchandising/finish-good-valuation/finish-good-valuation-index.tsx";
 import FinishGoodValuationCrud from "./app/merchandising/finish-good-valuation/finish-good-valuation-crud.tsx";
+import GreyFabricIssueToDyeingChallanIndex from "./reports/store/grey-store/grey-fabric-issue-to-dyeing-challan/grey-fabric-issue-to-dyeing-challan-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -716,6 +717,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="grey-fabric-transfer-report"
                         element={<GreyFabricTransferReport />}
+                      />
+                      <Route
+                        path="grey-fabric-issue-to-dyeing-challan"
+                        element={<GreyFabricIssueToDyeingChallanIndex />}
                       />
                     </Route>
                     <Route path="finish-fabric-store">
