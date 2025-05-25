@@ -36,7 +36,7 @@ function StripeMeasurementTableRow({
   let groupedData: IGroupedData = {};
 
   if (data) {
-    groupedData = groupBy(data, ["GMT_PARTS", "GMT_COLOR"]);
+    groupedData = groupBy(data, ["GMT_COLOR"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -53,7 +53,7 @@ function StripeMeasurementTableRow({
         ></StripeMeasurementTableSubGroupRow>
       ))}
       <tr style={{ fontSize: "11px" }} className="font-bold">
-        <td colSpan={3} className="border border-gray-950 p-0.5">Total</td>
+        <td colSpan={3} className="border border-gray-950 p-0.5">GMT Parts Wise Total</td>
         <td className="border border-gray-950 p-0.5">{totalFeeder.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5">{totalStripeMeasure.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5">{ }</td>

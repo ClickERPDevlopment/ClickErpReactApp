@@ -1,5 +1,5 @@
 import { PartyWiseKnittingProgramStripeMeasurementType } from "../stripe-measurement-type"
-import StripeMeasurementTableRow from "./stripe-measurement-table-row copy";
+import StripeMeasurementTableRow from "./stripe-measurement-table-row";
 
 function StripeMeasurementTable({ data }: { data: PartyWiseKnittingProgramStripeMeasurementType[] }) {
 
@@ -69,7 +69,7 @@ function StripeMeasurementTable({ data }: { data: PartyWiseKnittingProgramStripe
                     ))}
 
                     <tr style={{ fontSize: "11px" }} className="font-bold">
-                        <td colSpan={3} className="border border-gray-950 p-0.5">Total</td>
+                        <td colSpan={3} className="border border-gray-950 p-0.5">Grand Total</td>
                         <td className="border border-gray-950 p-0.5">{totalFeeder.toFixed(2)}</td>
                         <td className="border border-gray-950 p-0.5">{totalStripeMeasure.toFixed(2)}</td>
                         <td className="border border-gray-950 p-0.5">{ }</td>
