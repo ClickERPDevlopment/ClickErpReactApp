@@ -42,4 +42,5 @@ export type PartyWiseKnittingProgramType = {
     PREPARED_BY: string;
     FABRIC_TYPE: string;
     SIZENAME: string;
+    ORDER_NO: string;
 };
