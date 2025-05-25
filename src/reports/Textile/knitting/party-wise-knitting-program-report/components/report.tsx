@@ -55,7 +55,7 @@ function Report({
   let summaryData: IGroupedData = {};
 
   if (data) {
-    groupedData = groupBy(data, ["KNITTING_PROGRAM_NO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "FABRIC_TYPE", "MC_DIA", "GAUGE", "FINISH_DIA", "GSM", "COLORNAME", "STITCH_LENGTH", "LYCRA_CM", "START_DATE", "END_DATE", "REMARKS"]);
+    groupedData = groupBy(data, [""]);
     dtlsUniqueKeys = new Set(uniqueKeys)
 
 
@@ -85,8 +85,8 @@ function Report({
     "Lycra cm",
     "Qty(Kgs)",
     "Qty(Pcs)",
-    "Start Date",
-    "End Date",
+    // "Start Date",
+    // "End Date",
     "Remarks",
   ];
 
@@ -122,8 +122,6 @@ function Report({
     }, {} as Record<string, PartyWiseKnittingProgramType[]>);
   }
 
-  console.log(fabricPartWiseData)
-
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
       className="px-11 text-gray-950">
@@ -137,16 +135,16 @@ function Report({
               <thead></thead>
               <tbody>
                 <tr>
-                  <td className="align-top">Factory Name.</td>
-                  <td className="align-top">: {data[0]?.KNIT_HOUSE}</td>
+                  <td className="align-top border border-gray-950 p-0.1">Factory Name.</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.KNIT_HOUSE}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Address</td>
-                  <td className="align-top">: {data[0]?.KNIT_HOUSE_ADDRESS}</td>
+                  <td className="align-top border border-gray-950 p-0.1">Address</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.KNIT_HOUSE_ADDRESS}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Att</td>
-                  <td className="align-top">: </td>
+                  <td className="align-top border border-gray-950 p-0.1">Attention</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: </td>
                 </tr>
               </tbody>
             </table>
@@ -156,12 +154,20 @@ function Report({
               <thead></thead>
               <tbody>
                 <tr>
-                  <td className="align-top">Program Date</td>
-                  <td className="align-top">: {moment(data[0]?.KNITTING_PROG_DATE).format("DD-MMM-YY")}</td>
+                  <td className="align-top border border-gray-950 p-0.1">Program Date</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: {moment(data[0]?.KNITTING_PROG_DATE).format("DD-MMM-YY")}</td>
+                  <td className="align-top border border-gray-950 p-0.1">Program Start Date</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: {moment(data[0]?.START_DATE).format("DD-MMM-YY")}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Job Number</td>
-                  <td className="align-top">: {data[0]?.PONO}</td>
+                  <td className="align-top border border-gray-950 p-0.1">Job Number</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.PONO}</td>
+                  <td className="align-top border border-gray-950 p-0.1">Program End Date</td>
+                  <td className="align-top border border-gray-950 p-0.1 font-light">: {moment(data[0]?.END_DATE).format("DD-MMM-YY")}</td>
+                </tr>
+                <tr>
+                  <td className="align-top border border-gray-950 p-0.1">Order Number</td>
+                  <td colSpan={3} className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.ORDER_NO}</td>
                 </tr>
               </tbody>
             </table>
@@ -190,8 +196,8 @@ function Report({
               <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5">{totalQtyPcs.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
-              <td className="border border-gray-950 p-0.5">{ }</td>
-              <td className="border border-gray-950 p-0.5">{ }</td>
+              {/* <td className="border border-gray-950 p-0.5">{ }</td> */}
+              {/* <td className="border border-gray-950 p-0.5">{ }</td> */}
             </tr>
           </tbody>
         </table>
@@ -262,12 +268,12 @@ function Report({
         }
 
         <div>
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-col">
             {
               fabricParts.map(part => {
                 const partData = data.filter(item => item.FABRIC === part);
                 return (
-                  <div className="w-[50%]">
+                  <div className="w-[60%]">
                     <ColorSizeBreakdown
                       key={part}
                       data={partData}
