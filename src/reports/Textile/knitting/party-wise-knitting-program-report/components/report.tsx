@@ -122,8 +122,6 @@ function Report({
     }, {} as Record<string, PartyWiseKnittingProgramType[]>);
   }
 
-  console.log(fabricPartWiseData)
-
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
       className="px-11 text-gray-950">
