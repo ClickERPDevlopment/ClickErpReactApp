@@ -1,6 +1,6 @@
 import { GreyFabricIssueToDyeingChallanType_Details } from '../grey-fabric-issue-to-dyeing-challan-type'
 
-export default function ReportBody({ data }: { data: GreyFabricIssueToDyeingChallanType_Details[] | null }) {
+export default function ReportBody({ data }: { data: GreyFabricIssueToDyeingChallanType_Details[] | null | undefined }) {
 
     const fabrics = [...new Set(data?.map(item => item.FABRIC))]; // [ 'A', 'B']
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import YarnIssueStatusReport from "./grey-fabric-issue-to-dyeing-challan";
+import GreyFabricIssueToDyeing from "./grey-fabric-issue-to-dyeing-challan";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import axios from "axios";
@@ -9,8 +9,8 @@ import { GreyFabricIssueToDyeingChallanType } from "./grey-fabric-issue-to-dyein
 
 export default function GreyFabricIssueToDyeingChallanIndex() {
   const [searchParams] = useSearchParams();
-  const [data, setData] = useState<GreyFabricIssueToDyeingChallanType>(
-    []
+  const [data, setData] = useState<GreyFabricIssueToDyeingChallanType | null | undefined>(
+
   );
   const [isLoading, setIsLoading] = useState(false);
   const api = useApiUrl();
@@ -58,7 +58,7 @@ export default function GreyFabricIssueToDyeingChallanIndex() {
       </div>
     </>
   ) : (
-    <YarnIssueStatusReport data={data} />
+    <GreyFabricIssueToDyeing data={data} />
   );
 
 }

@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { GreyFabricIssueToDyeingChallanType_Master } from '../grey-fabric-issue-to-dyeing-challan-type'
 
-export default function ReportHeader({ data }: { data: GreyFabricIssueToDyeingChallanType_Master | null }) {
+export default function ReportHeader({ data }: { data: GreyFabricIssueToDyeingChallanType_Master | null | undefined }) {
     if (data)
         return (
             <div className='min-w-full text-center font-bold'>

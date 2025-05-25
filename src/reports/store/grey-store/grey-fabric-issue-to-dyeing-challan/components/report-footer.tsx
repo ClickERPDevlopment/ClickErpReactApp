@@ -1,6 +1,6 @@
 import { GreyFabricIssueToDyeingChallanType_Master } from "../grey-fabric-issue-to-dyeing-challan-type"
 
-export default function ReportFooter({ data }: { data: GreyFabricIssueToDyeingChallanType_Master | null }) {
+export default function ReportFooter({ data }: { data: GreyFabricIssueToDyeingChallanType_Master | null | undefined }) {
     const signs = ["Received By", "Prepared By", "Delivery Sup.", "Manager (Store)", "Authorised Sign"]
     return (
         <div className="flex justify-around font-bold mt-20">

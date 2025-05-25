@@ -1,6 +1,6 @@
 import { GreyFabricIssueToDyeingChallanType_Comments } from '../grey-fabric-issue-to-dyeing-challan-type'
 
-export default function ReportComments({ data }: { data: GreyFabricIssueToDyeingChallanType_Comments[] | null }) {
+export default function ReportComments({ data }: { data: GreyFabricIssueToDyeingChallanType_Comments[] | null | undefined }) {
 
     return (
         <div className='min-w-full mt-5 font-bold'>
