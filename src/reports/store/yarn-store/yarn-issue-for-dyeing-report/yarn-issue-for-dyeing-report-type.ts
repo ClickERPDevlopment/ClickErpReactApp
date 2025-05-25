@@ -33,4 +33,5 @@ export type YarnIssueStatusReportType = {
     GROUP_COMPANY_ADDRESS: string;
     CONE_QTY: number;
     PONO: string;
+    STYLE_NO: string;
 }

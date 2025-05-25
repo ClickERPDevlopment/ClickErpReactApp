@@ -32,4 +32,6 @@ export type YarnIssueForTwistingType = {
     GROUP_COMPANY_NAME: string;
     GROUP_COMPANY_ADDRESS: string;
     CONE_QTY: number;
+    STYLE_NO: string;
+    PONO: string;
 }
