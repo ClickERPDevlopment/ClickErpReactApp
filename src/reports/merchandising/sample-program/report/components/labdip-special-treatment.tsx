@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { SampleProgramReportDto_DetailsType } from '../sample-program-report.-type'
 
 export default function LabDipSpecialTreatment({ lstDetails }: { lstDetails?: SampleProgramReportDto_DetailsType[] }) {
@@ -13,7 +14,7 @@ export default function LabDipSpecialTreatment({ lstDetails }: { lstDetails?: Sa
     );
 
     return (
-        <div className='mt-5 flex'>
+        <div className={cn('mt-5 flex', uniqueData.length <= 0 ? 'hidden' : '')}>
             <table className='w-6/12'>
                 <thead>
                     <tr>

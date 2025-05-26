@@ -15,7 +15,7 @@ export default function OrderWiseKnittingDyeingStatusReportIndex() {
   let COMPANY_LIST = '';
   let BUYER_LIST = '';
   let PO_LIST = '';
-  let dtopmfromChecked = false;
+  let dtopmfromChecked = '';
   let dtopmfrom = '';
   let dtopmto = '';
   let isDtBookingDateFrom = false;
@@ -36,7 +36,7 @@ export default function OrderWiseKnittingDyeingStatusReportIndex() {
   }
 
   if (searchParams.get("dtopmfromChecked")) {
-    dtopmfromChecked = Boolean(searchParams.get("dtopmfromChecked"));
+    dtopmfromChecked = String(searchParams.get("dtopmfromChecked"));
   }
 
 
