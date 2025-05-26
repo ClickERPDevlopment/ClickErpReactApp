@@ -1,7 +1,7 @@
 import { SampleProgramReportDto_MasterType } from "../sample-program-report.-type";
 
 export default function Signature({ masterInfo }: { masterInfo?: SampleProgramReportDto_MasterType }) {
-    const data = ["Created By", "Checked By", "Knitting", "Dyeing"];
+    const data = ["Created By", "Checked By", "Knitting", "Dyeing", "Approve"];
     return (
         <div className="mt-12 flex justify-around">
             {data?.map(ele =>
