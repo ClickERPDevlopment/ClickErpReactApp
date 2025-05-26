@@ -18,12 +18,14 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
           <thead className=''>
             <tr className="border ">
               <th className="min-w-12 ">SL</th>
+              <th className="min-w-24 ">Factory</th>
               <th className="min-w-24 ">OPM</th>
               <th className="min-w-28 ">Buyer</th>
               <th className="min-w-28 ">PO/ Job No</th>
               <th className="min-w-28 ">Buyer PO</th>
               <th className="min-w-28 ">Fabric Source</th>
               <th className="min-w-28 ">Style</th>
+              <th className="min-w-28 ">Ship Date</th>
               <th className="min-w-24 ">Item</th>
               <th className="min-w-24 ">Color</th>
               <th className="min-w-64 ">Fabric</th>
@@ -61,6 +63,7 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
                   {data?.filter(f => f.PONO === po)?.map((d, i) =>
                     <tr className={`border ${i % 2 == 0 ? "bg-white" : " bg-gray-300"} hover:bg-emerald-200`} key={i}>
                       <td>{i + 1}</td>
+                      <td>{d.COMPANY_PREFIX}</td>
                       <td >{moment(d.OPM).format('D-MMM-yy')}</td>
                       <td className="text-left pl-1">{d.BUYER_NAME}</td>
                       <td className="text-left pl-1 underline text-sky-600 hover:underline">
@@ -71,6 +74,7 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
                       <td className="text-left pl-1">{d.BUYER_PO}</td>
                       <td className="text-left pl-1">{d.FABRIC_SOURCE}</td>
                       <td className="text-left pl-1">{d.STYLENO}</td>
+                      <td className="text-left pl-1">{moment(d.DELIVERY_DATE).format("DD-MMM-YY")}</td>
                       <td className="text-left pl-1">{d.ITEMTYPE}</td>
                       <td className="text-left pl-1">{d.COLORNAME}</td>
                       <td className="text-left pl-1">{d.FABRIC}</td>
@@ -104,7 +108,7 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
                   )}
 
                   <tr className="border font-bold bg-emerald-200 text-base">
-                    <td className="font-bold" colSpan={11}>Total</td>
+                    <td className="font-bold" colSpan={13}>Total</td>
 
                     <td className="font-bold">{getTotal("PO_QTY", data?.filter(f => f.PONO === po))}</td>
                     <td>{getTotal("ORDER_QTY_FIN", data?.filter(f => f.PONO === po))}</td>

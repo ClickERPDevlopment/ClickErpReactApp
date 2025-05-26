@@ -37,4 +37,6 @@ export type OrderWiseKnttingDeyingStatusReportType = {
     FIN_RCV_BAL: string,
     ISSUE_TO_CUT: string,
     ISSUE_TO_CUT_BAL: string,
+    COMPANY_PREFIX: string,
+    DELIVERY_DATE: string,
 };
