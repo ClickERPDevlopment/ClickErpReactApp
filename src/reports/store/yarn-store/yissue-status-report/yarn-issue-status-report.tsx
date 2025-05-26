@@ -1,6 +1,5 @@
 import moment from 'moment'
 import { YarnIssueStatusReportType } from './yarn-issue-status-report-type'
-import { e } from 'node_modules/react-router/dist/development/route-data-Cq_b5feC.d.mts';
 
 export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusReportType[] }) {
     const unique = [...new Set(data?.map(item => item.DATA_SOURCE))]; // [ 'A', 'B']
