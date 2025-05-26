@@ -2,11 +2,31 @@ import { FabricBookingReportDto_FabricQtyDetails, FabricBookingReportDto_Wastage
 
 export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: { lstFabricQtyDetails?: FabricBookingReportDto_FabricQtyDetails[], lstWastagePercentage?: FabricBookingReportDto_WastagePercentage[] }) {
     const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "0");
+    const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
+
+    const uniqueCollarCuff = Array.from(
+        new Map(
+            collarCuffData
+                ?.filter(item => item.PO && item.ARTSTYLE && item.PARTS && item.FABRICATION && item.YARNCOUNT && item.GMTCOLOR && item.FABRICCOLOR)
+                .map(item => [
+                    `${item.PO}__${item.ARTSTYLE}__${item.PARTS}__${item.FABRICATION}__${item.YARNCOUNT}__${item.GMTCOLOR}__${item.FABRICCOLOR}`, // composite key
+                    {
+                        PO: item.PO,
+                        ARTSTYLE: item.ARTSTYLE,
+                        PARTS: item.PARTS,
+                        FABRICATION: item.FABRICATION,
+                        YARNCOUNT: item.YARNCOUNT,
+                        GMTCOLOR: item.GMTCOLOR,
+                        FABRICCOLOR: item.FABRICCOLOR,
+                    }
+                ])
+        ).values()
+    );
 
     function getTotalFabricQty() {
         let qty = 0;
         try {
-            data?.forEach(element => {
+            lstFabricQtyDetails?.forEach(element => {
                 qty += Number(element.TOTALFINISHFABRICS);
             });
         } catch (error) {
@@ -18,9 +38,43 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
     function getTotalYarnQty() {
         let qty = 0;
         try {
-            data?.forEach(element => {
+            lstFabricQtyDetails?.forEach(element => {
                 qty += Number(element.TOTALYARN);
             });
+        } catch (error) {
+            console.log(error)
+        }
+        return qty.toFixed(2);
+    }
+
+    function getCollarCuffQty(
+        item: {
+            PO: string | undefined;
+            ARTSTYLE: string | undefined;
+            PARTS: string | undefined;
+            FABRICATION: string | undefined;
+            YARNCOUNT: string | undefined;
+            GMTCOLOR: string | undefined;
+            FABRICCOLOR: string | undefined;
+        },
+        fieldName: keyof FabricBookingReportDto_FabricQtyDetails) {
+
+        let qty = 0;
+        try {
+            collarCuffData?.
+                filter(f =>
+                    f.PO === item.PO &&
+                    f.ARTSTYLE === item.ARTSTYLE &&
+                    f.PARTS === item.PARTS &&
+                    f.FABRICATION === item.FABRICATION &&
+                    f.YARNCOUNT === item.YARNCOUNT &&
+                    f.GMTCOLOR === item.GMTCOLOR &&
+                    f.FABRICCOLOR === item.FABRICCOLOR
+                )?.
+                forEach(element => {
+                    qty += Number(element[fieldName]);
+                    console.log("d-", element[fieldName]);
+                });
         } catch (error) {
             console.log(error)
         }
@@ -58,8 +112,8 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                 </thead>
                 <tbody>
 
-                    {data?.map(ele =>
-                        <tr>
+                    {data?.map((ele, i) =>
+                        <tr key={i}>
                             <td className='border border-gray-600 text-sm text-center'>{ele.PO}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.ARTSTYLE}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.PARTS}</td>
@@ -100,6 +154,32 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                             <td className='border border-gray-600 text-sm text-center'>{ele.TOTALYARN}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.SAMPLEFABRICQTY}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.REMARKS}</td>
+                        </tr>
+                    )}
+                    {uniqueCollarCuff?.map((ele, i) =>
+                        <tr key={i}>
+                            <td className='border border-gray-600 text-sm text-center'>{ele.PO}</td>
+                            <td className='border border-gray-600 text-sm text-center'>{ele.ARTSTYLE}</td>
+                            <td className='border border-gray-600 text-sm text-center'>{ele.PARTS}</td>
+                            <td className='border border-gray-600 text-sm text-center min-w-[15%]'>{ele.FABRICATION}</td>
+                            <td className='border border-gray-600 text-sm text-center'>{ele.YARNCOUNT}</td>
+                            <td className='border border-gray-600 text-sm text-center min-w-[110px]'>{ele.GMTCOLOR}</td>
+                            <td className='border border-gray-600 text-sm text-center min-w-[110px]'>{ele.FABRICCOLOR}</td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'>{getCollarCuffQty(ele, "TOTALFINISHFABRICS")}</td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'>{getCollarCuffQty(ele, "TOTALYARN")}</td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'></td>
                         </tr>
                     )}
                 </tbody>
