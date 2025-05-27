@@ -1,7 +1,6 @@
 import CollarCuff from './components/collar-cuff'
 import Comments from './components/comments'
 import Details from './components/details'
-import LabDipSpecialTreatment from './components/labdip-special-treatment'
 import MasterIfo from './components/master-info'
 import Remarks from './components/remarks'
 import Signature from './components/signaure'
