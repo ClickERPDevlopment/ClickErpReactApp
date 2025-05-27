@@ -11,8 +11,8 @@ export default function Details({ lstDetails }: { lstDetails?: SampleProgramRepo
                         <th className='p-1 min-w-36 border border-gray-600 text-center'>Fabrication</th>
                         <th className='p-1 min-w-36 border border-gray-600 text-center'>Yarn Count</th>
                         <th className='p-1 min-w-24 border border-gray-600 text-center'>Fabric Color</th>
-                        {/* <th className='p-1 min-w-24 border border-gray-600 text-center'>Lab Dip No</th>
-                        <th className='p-1 whitespace-nowrap border border-gray-600 text-center'>Special Treatment</th> */}
+                        <th className='p-1 min-w-24 border border-gray-600 text-center'>Lab Dip No</th>
+                        <th className='p-1 whitespace-nowrap border border-gray-600 text-center'>Special Treatment</th>
                         <th className='p-1 min-w-20 border border-gray-600 text-center'>Size</th>
                         <th className='p-1 border border-gray-600 text-center'>Finish Dia</th>
                         <th className='p-1 border border-gray-600 text-center'>Gsm</th>
@@ -29,8 +29,8 @@ export default function Details({ lstDetails }: { lstDetails?: SampleProgramRepo
                             <td className='p-1 border border-gray-600 text-center'>{ele.FABRICATION}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele.YARN_COUNT}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele.FABRIC_COLOR}</td>
-                            {/* <td className='p-1 border border-gray-600 text-center'>{ele.LAB_DIP_NO}</td>
-                            <td className='p-1 border border-gray-600 text-center'>{ele.SPECIAL_TREATMENT}</td> */}
+                            <td className='p-1 border border-gray-600 text-center'>{ele.LAB_DIP_NO}</td>
+                            <td className='p-1 border border-gray-600 text-center'>{ele.SPECIAL_TREATMENT}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele.GMT_SIZE}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele.FINISH_DIA}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele.GSM}</td>
@@ -43,7 +43,7 @@ export default function Details({ lstDetails }: { lstDetails?: SampleProgramRepo
                 <tfoot>
                     <tr>
 
-                        <th className='p-1 border border-gray-600 text-center' colSpan={8}>Total</th>
+                        <th className='p-1 border border-gray-600 text-center' colSpan={6}>Total</th>
                         <th className='p-1 border border-gray-600 text-center'>
                             {
                                 lstDetails?.reduce((p, c) => p + Number(c.REQ_FINISH_FAB), 0).toFixed(2)

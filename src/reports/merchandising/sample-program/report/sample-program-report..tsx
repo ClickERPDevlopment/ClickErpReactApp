@@ -17,7 +17,7 @@ export default function SampleProgramReport({ data }: { data?: SampleProgramRepo
                 <MasterIfo masterInfo={data?.masterInfo} />
                 <Details lstDetails={data?.lstDetails} />
                 <Remarks masterInfo={data?.masterInfo} />
-                <LabDipSpecialTreatment lstDetails={data?.lstDetails} />
+                {/* <LabDipSpecialTreatment lstDetails={data?.lstDetails} /> */}
                 <CollarCuff lstCollarCuff={data?.lstCollarCuff} />
                 <SpecialTreatment lstSpecialTreatment={data?.lstSpecialTreatment} />
                 <YarnDyeingDetails lstYarnDyeingDetails={data?.lstYarnDyeingDetails} />

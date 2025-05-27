@@ -5,16 +5,15 @@ export default function LabDipSpecialTreatment({ lstDetails }: { lstDetails?: Sa
     const uniqueData = Array.from(
         new Map(
             lstDetails
-                ?.filter(item => item.LAB_DIP_NO && item.SPECIAL_TREATMENT)
+                ?.filter(item => (item.LAB_DIP_NO ?? "") && item.SPECIAL_TREATMENT)
                 .map(item => [
-                    `${item.LAB_DIP_NO}__${item.SPECIAL_TREATMENT}`, // composite key
+                    `${item.LAB_DIP_NO ?? ""}__${item.SPECIAL_TREATMENT}`, // composite key
                     { LAB_DIP_NO: item.LAB_DIP_NO, SPECIAL_TREATMENT: item.SPECIAL_TREATMENT }
                 ])
         ).values()
     );
-
     return (
-        <div className={cn('mt-5 flex', uniqueData.length <= 0 ? 'hidden' : '')}>
+        <div className={cn('mt-5 flex', (uniqueData.length <= 0 ? 'hidden' : ''))}>
             <table className='w-6/12'>
                 <thead>
                     <tr>
