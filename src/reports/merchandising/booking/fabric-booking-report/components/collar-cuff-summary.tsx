@@ -136,8 +136,8 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                             <tr>
                                 <th className='border border-gray-600 p-1 text-xs text-center'>Size</th>
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Fabrics Color</th>
-                                {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map(s =>
-                                    <th className='border border-gray-600 min-w-16 text-xs text-center'>{s.GMT_SIZE}</th>
+                                {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((s, i) =>
+                                    <th className='border border-gray-600 min-w-16 text-xs text-center' key={i}>{s.GMT_SIZE}</th>
                                 )}
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total (Pcs)</th>
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total Fabric(KG)</th>
@@ -147,18 +147,18 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                             </tr>
                             <tr>
                                 <th className='border border-gray-600 p-1 text-xs text-center'>{fabric_part.PARTS}</th>
-                                {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map(s =>
-                                    <th className='border border-gray-600 min-w-12 p-1 text-xs text-center'>{s.FINISHDIA}</th>
+                                {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((s, i) =>
+                                    <th className='border border-gray-600 min-w-12 p-1 text-xs text-center' key={i}>{s.FINISHDIA}</th>
                                 )}
                             </tr>
                         </thead>
                         <tbody>
-                            {getUniqueGmtAndFabricColorByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map(color =>
-                                <tr>
+                            {getUniqueGmtAndFabricColorByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((color, i) =>
+                                <tr key={i}>
                                     <td className='border border-gray-600 p-1 text-xs text-center'>{color.GMTCOLOR}</td>
                                     <td className='border border-gray-600 p-1 text-xs text-center'>{color.FABRICCOLOR}</td>
-                                    {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map(s =>
-                                        <td className='border border-gray-600 min-w-16 text-xs text-center'>
+                                    {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((s, i) =>
+                                        <td className='border border-gray-600 min-w-16 text-xs text-center' key={i}>
                                             {
                                                 get_SizeQy({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMTCOLOR: color.GMTCOLOR, FABRICCOLOR: color.FABRICCOLOR, GMT_SIZE: s.GMT_SIZE, FINISHDIA: s.FINISHDIA })
                                             }
@@ -193,8 +193,8 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                         <tfoot>
                             <tr>
                                 <th className='border border-gray-600 p-1 text-xs text-center' colSpan={2}>Total</th>
-                                {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map(s =>
-                                    <td className='border border-gray-600 min-w-16 text-xs text-center'>
+                                {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((s, i) =>
+                                    <td className='border border-gray-600 min-w-16 text-xs text-center' key={i}>
                                         {
                                             get_ColTotalQy({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMT_SIZE: s.GMT_SIZE, FINISHDIA: s.FINISHDIA })
                                         }

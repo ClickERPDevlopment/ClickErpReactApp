@@ -5,7 +5,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: SampleProgramRe
     return (
         <div className='w-full'>
             <h1 className='text-center text-2xl font-bold'>{masterInfo?.COMPANY_NAME}</h1>
-            <h1 className=' text-center text-lg font-bold'>SAMPLE PROGRAM</h1>
+            <h1 className=' text-center text-lg font-bold'>SAMPLE BOOKING</h1>
             <div className='flex justify-between gap-2 mt-5'>
                 <ul className='basis-4/12 print:basis-6/12'>
                     <li>
@@ -16,7 +16,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: SampleProgramRe
                     </li>
                     <li>
                         <div>
-                            <label htmlFor="" className='font-bold min-w-28'>Program No</label>
+                            <label htmlFor="" className='font-bold min-w-28'>Job Number</label>
                             <span>:{masterInfo?.PROGRAM_NO}</span>
                         </div>
                     </li>

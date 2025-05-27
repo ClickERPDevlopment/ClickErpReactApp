@@ -24,7 +24,7 @@ function YarnTwistingWorkOrderReport() {
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Accessories report";
+    document.title = "Yarn twisting work-order";
   }, []);
 
   useEffect(() => {

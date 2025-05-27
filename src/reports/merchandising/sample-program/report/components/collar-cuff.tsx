@@ -37,23 +37,6 @@ export default function CollarCuff({ lstCollarCuff }: { lstCollarCuff?: SamplePr
                                 </tr>
                             )}
                         </tbody>
-                        {/* <tfoot>
-                    <tr>
-
-                        <th className='p-1 border border-gray-600 text-center' colSpan={10}>Total</th>
-                        <th className='p-1 border border-gray-600 text-center'>
-                            {
-                                lstCollarCuff?.reduce((p, c) => p + Number(c.REQ_FINISH_FAB), 0).toFixed(2)
-                            }
-                        </th>
-                        <th className='p-1 border border-gray-600 text-center'></th>
-                        <th className='p-1 border border-gray-600 text-center'>
-                            {
-                                lstCollarCuff?.reduce((p, c) => p + Number(c.TOTAL_YARN), 0).toFixed(2)
-                            }
-                        </th>
-                    </tr>
-                </tfoot> */}
                     </table>
                 </div>
             )
