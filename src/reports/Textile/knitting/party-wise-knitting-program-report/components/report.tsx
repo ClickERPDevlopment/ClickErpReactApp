@@ -73,16 +73,16 @@ function Report({
     "P. No.",
     "Buyer",
     "Style",
-    "Yarn",
-    "Lot x Brand",
     "Fabrication",
-    "Full/ Half Feeder",
+    "Yarn",
+    "Brand x Lot",
+    // "Full/ Half Feeder",
     "McDia x GG",
     "Finish Dia X Type",
     "GSM",
     "Color",
     "Stitch L.",
-    "Lycra cm",
+    // "Lycra cm",
     "Qty(Kgs)",
     "Qty(Pcs)",
     // "Start Date",
@@ -121,6 +121,8 @@ function Report({
       return acc;
     }, {} as Record<string, PartyWiseKnittingProgramType[]>);
   }
+
+  console.log("Fabric Parts: ", fabricPartWiseData);
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
@@ -177,7 +179,7 @@ function Report({
           <thead className="print:bg-transparent">
             <tr style={{ fontSize: "11px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
-                <th className="border border-gray-950 p-0.5">{item}</th>
+                <th key={item} className="border border-gray-950 p-0.5">{item}</th>
               )}
             </tr>
           </thead>
@@ -192,26 +194,53 @@ function Report({
             ))}
 
             <tr style={{ fontSize: "11px" }} className="font-bold">
-              <td colSpan={14} className="border border-gray-950 p-0.5">Total</td>
+              <td colSpan={12} className="border border-gray-950 p-0.5">Total</td>
               <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5">{totalQtyPcs.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
-              {/* <td className="border border-gray-950 p-0.5">{ }</td> */}
-              {/* <td className="border border-gray-950 p-0.5">{ }</td> */}
             </tr>
           </tbody>
         </table>
         <p style={{ fontSize: "11px" }}><span className="font-bold">Taka:</span> {data[0]?.DTLS_TOTAL_KNIT_AMOUNT}</p>
 
+
+        <div>
+          <div className="flex flex-col">
+            {
+              fabricParts.map(part => {
+                const partData = data.filter(item => item.FABRIC === part);
+                return (
+                  <div className="w-[60%]">
+                    <ColorSizeBreakdown
+                      key={part}
+                      data={partData}
+                      fabricPart={part}
+                    /></div>
+                );
+              })
+            }
+          </div>
+        </div>
+
+        {
+          stripeMeasurementData.length > 0 && <div className="mt-5">
+            <div className="flex">
+              <div className="w-[50%]">
+                <StripeMeasurementTable data={stripeMeasurementData}></StripeMeasurementTable>
+              </div>
+            </div>
+          </div>
+        }
+
         <div className="mt-5">
           <div className="flex justify-between">
             <div>
-              <p style={{ fontSize: "11px" }} className="font-bold text-center">Summary</p>
+              <p style={{ fontSize: "11px" }} className="font-bold text-center">Yarn Summary</p>
               <table className="border-collapse border border-gray-300  w-[100%]">
                 <thead className="print:bg-transparent">
                   <tr style={{ fontSize: "11px" }} className="bg-indigo-200 text-center">
                     {summaryHeader?.map((item) =>
-                      <th className="border border-gray-950 p-0.5">{item}</th>
+                      <th key={item} className="border border-gray-950 p-0.5">{item}</th>
                     )}
                   </tr>
                 </thead>
@@ -246,45 +275,32 @@ function Report({
                 <tbody>
                   {
                     collarCuffQtySummary.map(item =>
-                      <tr className="border border-gray-950 p-0.5" style={{ fontSize: "11px" }}>
+                      <tr key={item.FABRIC} className="border border-gray-950 p-0.5" style={{ fontSize: "11px" }}>
                         <td className="border border-gray-950 p-0.5">{item.FABRIC}</td>
                         <td className="border border-gray-950 p-0.5">{item.PCS_QTY}</td>
                       </tr>
                     )
                   }
+                  <tr className="border border-gray-950 p-0.5 font-bold" style={{ fontSize: "11px" }}>
+                    <td className="border border-gray-950 p-0.5">Total</td>
+                    <td className="border border-gray-950 p-0.5">
+                      {
+                        collarCuffQtySummary.reduce((acc, item) => acc + item.PCS_QTY, 0)
+                      }
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        {
-          stripeMeasurementData.length > 0 && <div className="mt-5">
-            <div className="flex">
-              <div className="w-[50%]">
-                <StripeMeasurementTable data={stripeMeasurementData}></StripeMeasurementTable>
-              </div>
-            </div>
-          </div>
-        }
 
-        <div>
-          <div className="flex flex-col">
-            {
-              fabricParts.map(part => {
-                const partData = data.filter(item => item.FABRIC === part);
-                return (
-                  <div className="w-[60%]">
-                    <ColorSizeBreakdown
-                      key={part}
-                      data={partData}
-                      fabricPart={part}
-                    /></div>
-                );
-              })
-            }
-          </div>
-        </div>
         <div className="mt-3">
+          <p style={{ fontSize: "16px" }} className="mt-2 font-bold">
+            <span className="font-bold">Special Remarks: </span>
+            {data[0]?.KNITTING_ADVICE}
+          </p>
+
           <p style={{ fontSize: "11px" }}>
             <span className="font-bold">MUST IN ROLL MARK: </span>
             1) MC.NO, 2)Order No, 3) Booking No, 4) Prog SI No, 5) Buyer Name, 6) Color, 7) F/Dia, 8) F/GSM, 9) Y/Count, 10) Lot, 11) F.Type, 12) Brand, 13) Stitch Lengh, 14) Date & shift, 15) Operator Name.
@@ -300,12 +316,6 @@ function Report({
             If any kind of problem is found in fabrics knitting then must inform to Knitting Department. Without any approval fabrics will not be knitted.
             Marking on each roll of fabrics must be indicated & clearly visible with permanent color. Loose yarn must return after knitting for order close.
           </p>
-
-          <p style={{ fontSize: "11px" }} className="mt-2">
-            <span className="font-bold">Knitting Advice: </span>
-            {data[0]?.KNITTING_ADVICE}
-          </p>
-
         </div>
         <div>
           <ReportFooter data={data}></ReportFooter>

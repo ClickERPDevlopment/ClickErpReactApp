@@ -13,7 +13,6 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
             if (!result[key]) {
                 result[key] = {
                     COLORNAME: item.COLORNAME,
-                    GSM: item.GSM,
                     SIZE_DIA_QTY_KG: {},
                     SIZE_DIA_PCS_KG: {},
                 };
@@ -30,7 +29,6 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
     interface GroupedData {
         [key: string]: {
             COLORNAME: string;
-            GSM: string;
             SIZE_DIA_QTY_KG: { [sizeDiaKey: string]: number };
             SIZE_DIA_PCS_KG: { [sizeDiaKey: string]: number };
         };
@@ -41,7 +39,6 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
     if (data) {
         groupedData = groupBy(data, [
             "COLORNAME",
-            "GSM",
         ]);
     }
 
@@ -60,7 +57,7 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
         return { SIZENAME, FINISH_DIA };
     });
 
-    let header = ["COLORNAME", "GSM", ...uniqueSizeDiaPairs.map((p, idx) => <span key={idx}>
+    let header = ["COLORNAME", ...uniqueSizeDiaPairs.map((p, idx) => <span key={idx}>
         <span className="block border-b border-gray-950 w-full text-center">{p.SIZENAME}</span>
         {p.FINISH_DIA}
     </span>), "Total Pcs", "Total Yarn(Kg)"];
@@ -70,7 +67,7 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
 
     return (
         <div className="mt-5">
-            <p className="font-bold">{fabricPart}</p>
+            <p className="font-bold">{fabricPart} - Color Size Breakdown in Pcs</p>
             <table className="border-collapse border border-gray-300  w-[100%]">
                 <thead className="print:bg-transparent">
                     <tr style={{ fontSize: "11px" }} className="bg-indigo-200 text-center">
@@ -88,7 +85,6 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
                         return (
                             <tr key={key} style={{ fontSize: "11px" }}>
                                 <td className="border border-gray-950  p-0.5">{group.COLORNAME}</td>
-                                <td className="border border-gray-950  p-0.5">{group.GSM}</td>
 
                                 {uniqueSizeDiaPairs.map(({ SIZENAME, FINISH_DIA }) => {
                                     const sizeDiaKey = `${SIZENAME}::${FINISH_DIA}`;
@@ -129,7 +125,7 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
                     })}
 
                     <tr className="font-bold text-sm">
-                        <td className="border border-gray-950  p-0.5" colSpan={2}>
+                        <td className="border border-gray-950  p-0.5" colSpan={1}>
                             Total
                         </td>
 
