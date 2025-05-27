@@ -112,15 +112,15 @@ function Report({
 
   let fabricParts: string[] = [];
 
-  // let fabricPartWiseData: Record<string, PartyWiseKnittingProgramType[]> = {};
+  let fabricPartWiseData: Record<string, PartyWiseKnittingProgramType[]> = {};
 
   if (data) {
     fabricParts = Array.from(new Set(data.filter(item => item.FABRIC_PART === "COLLAR" || item.FABRIC_PART === "CUFF").map(item => item.FABRIC)));
 
-    // fabricPartWiseData = fabricParts.reduce((acc, part) => {
-    //   acc[part] = data.filter(item => item.FABRIC === part);
-    //   return acc;
-    // }, {} as Record<string, PartyWiseKnittingProgramType[]>);
+    fabricPartWiseData = fabricParts.reduce((acc, part) => {
+      acc[part] = data.filter(item => item.FABRIC === part);
+      return acc;
+    }, {} as Record<string, PartyWiseKnittingProgramType[]>);
   }
 
   console.log("Fabric Parts: ", fabricPartWiseData);
