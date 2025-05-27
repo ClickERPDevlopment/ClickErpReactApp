@@ -68,7 +68,7 @@ export interface PrintEmbProductionSearchType {
 //print emb material receive
 export type EmbMaterialReceiveMasterType = {
     ID: number;
-    RECEIVE_DATE: Date
+    RECEIVE_DATE: string
     WORKORDER_TYPE_ID: number;
     WORKORDER_TYPE: string;
     FLOOR_ID: number;

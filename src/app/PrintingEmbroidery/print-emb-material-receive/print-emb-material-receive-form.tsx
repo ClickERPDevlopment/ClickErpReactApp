@@ -60,7 +60,7 @@ const searchFormSchema = z.object({
 });
 
 const masterFormSchema = z.object({
-  RECEIVE_DATE: z.date(),
+  RECEIVE_DATE: z.string(),
   WORKORDER_TYPE_ID: z.number().min(1, "WO type is required"),
   WORKORDER_TYPE: z.string().min(1, "WO type is required"),
   FLOOR_ID: z.number().min(1, "Floor is required"),
@@ -213,6 +213,12 @@ export default function PrintEmbMaterialReceiveForm({
   const getFloor = async (sectionId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitBySection?sectionId=" + sectionId);
     setFloor(response?.data);
+
+    if (response?.data.length == 1) {
+      masterForm.setValue("FLOOR_ID", response?.data[0].Id);
+      setMasterData(prev => ({ ...prev, FLOOR_ID: response?.data[0].Id, FLOOR: response?.data[0].Unitname }));
+    }
+
   }
 
   const [workOrder, setWorkOrder] = useState<IWorkOrder[]>([]);
@@ -270,7 +276,7 @@ export default function PrintEmbMaterialReceiveForm({
   const masterForm = useForm<z.infer<typeof masterFormSchema>>({
     resolver: zodResolver(masterFormSchema),
     defaultValues: {
-      RECEIVE_DATE: data?.RECEIVE_DATE ? new Date(data.RECEIVE_DATE) : new Date(),
+      RECEIVE_DATE: data?.RECEIVE_DATE ? new Date(data.RECEIVE_DATE).toLocaleDateString("en-CA") : new Date().toLocaleDateString("en-CA"),
       WORKORDER_TYPE_ID: data?.WORKORDER_TYPE_ID || 0,
       WORKORDER_TYPE: data?.WORKORDER_TYPE || "",
       FLOOR_ID: data?.FLOOR_ID || 0,
@@ -365,7 +371,7 @@ export default function PrintEmbMaterialReceiveForm({
 
   const [masterData, setMasterData] = useState<EmbMaterialReceiveMasterType>({
     ID: data?.ID || 0,
-    RECEIVE_DATE: data?.RECEIVE_DATE ? new Date(data.RECEIVE_DATE) : new Date(),
+    RECEIVE_DATE: data?.RECEIVE_DATE ? new Date(data.RECEIVE_DATE).toLocaleDateString('en-CA') : new Date().toLocaleDateString('en-CA'),
     WORKORDER_TYPE_ID: data?.WORKORDER_TYPE_ID || 0,
     WORKORDER_TYPE: data?.WORKORDER_TYPE || "",
     FLOOR_ID: data?.FLOOR_ID || 0,
@@ -495,13 +501,13 @@ export default function PrintEmbMaterialReceiveForm({
                           style={{ marginTop: "2px" }}
                           placeholder=""
                           type="date"
-                          value={field.value ? field.value.toISOString().slice(0, 10) : ''}
+                          value={field.value ? new Date(field.value).toLocaleDateString("en-CA") : ''}
                           onChange={(e) => {
                             const newDate = e.target.value ? new Date(e.target.value) : null;
                             field.onChange(newDate);
                             setMasterData((prev) => ({
                               ...prev,
-                              RECEIVE_DATE: new Date(e.target.value),
+                              RECEIVE_DATE: new Date(e.target.value).toLocaleDateString('en-CA'),
                             }));
                           }}
                           className="form-control w-full h-9"

@@ -85,8 +85,8 @@ function PrintEmbProductionIndex() {
 
 
   const formSchema = z.object({
-    FROM_DATE: z.date(),
-    TO_DATE: z.date(),
+    FROM_DATE: z.string(),
+    TO_DATE: z.string(),
     WORK_ORDER_ID: z.number().optional(),
     WORK_ORDER_NO: z.string().optional(),
     BUYER_ID: z.number().optional(),
@@ -99,15 +99,15 @@ function PrintEmbProductionIndex() {
     TYPE: z.string().optional(),
   });
 
-  const today = new Date();
-  const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-
+  const toDate = new Date();
+  const fromDate = new Date();
+  fromDate.setDate(toDate.getDate() - 7);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      FROM_DATE: firstOfMonth,
-      TO_DATE: today,
+      FROM_DATE: fromDate.toLocaleDateString("en-CA"),
+      TO_DATE: toDate.toLocaleDateString("en-CA"),
       WORK_ORDER_ID: 0,
       WORK_ORDER_NO: "",
       BUYER_ID: 0,
@@ -122,8 +122,8 @@ function PrintEmbProductionIndex() {
   });
 
   const [searchData, setSearchData] = useState<PrintEmbProductionSearchType>({
-    FROM_DATE: firstOfMonth,
-    TO_DATE: today,
+    FROM_DATE: fromDate.toLocaleDateString("en-CA"),
+    TO_DATE: toDate.toLocaleDateString("en-CA"),
     WORK_ORDER_ID: 0,
     WORK_ORDER_NO: "",
     BUYER_ID: 0,
@@ -135,8 +135,6 @@ function PrintEmbProductionIndex() {
     TYPE_ID: 0,
     TYPE: "",
   });
-
-
 
   const axios = useAxiosInstance();
   const api = useApiUrl();
@@ -184,17 +182,15 @@ function PrintEmbProductionIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProduction?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProduction?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
     setMasterData(response?.data);
   }
-
 
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
   const [openProductionType, setOpenProductionType] = useState(false);
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
-
   const [masterData, setMasterData] = useState<PrintEmbProductionMasterType[] | null>(null);
 
 
@@ -233,13 +229,13 @@ function PrintEmbProductionIndex() {
                                 style={{ marginTop: "2px" }}
                                 placeholder=""
                                 type="date"
-                                value={field.value ? field.value.toISOString().slice(0, 10) : ''}
+                                value={field.value ? new Date(field.value).toLocaleDateString("en-CA") : ''}
                                 onChange={(e) => {
                                   const newDate = e.target.value ? new Date(e.target.value) : null;
                                   field.onChange(newDate);
                                   setSearchData((prev) => ({
                                     ...prev,
-                                    FROM_DATE: new Date(e.target.value),
+                                    FROM_DATE: new Date(e.target.value).toLocaleDateString("en-CA"),
                                   }));
                                 }}
                                 className="form-control w-full h-9"
@@ -264,13 +260,13 @@ function PrintEmbProductionIndex() {
                                 style={{ marginTop: "2px" }}
                                 placeholder=""
                                 type="date"
-                                value={field.value ? field.value.toISOString().slice(0, 10) : ''}
+                                value={field.value ? new Date(field.value).toLocaleDateString("en-CA") : ''}
                                 onChange={(e) => {
                                   const newDate = e.target.value ? new Date(e.target.value) : null;
                                   field.onChange(newDate);
                                   setSearchData((prev) => ({
                                     ...prev,
-                                    TO_DATE: new Date(e.target.value),
+                                    TO_DATE: new Date(e.target.value).toLocaleDateString("en-CA"),
                                   }));
                                 }}
                                 className="form-control w-full h-9"
