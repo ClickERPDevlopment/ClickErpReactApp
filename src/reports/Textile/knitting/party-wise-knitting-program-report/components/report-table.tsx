@@ -37,12 +37,66 @@ function ReportTable({
   }
 
 
-  const collarCuffGrouped = groupBy(collarCuffData, ["KNITTING_PROGRAM_NO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "FABRIC_TYPE", "GSM", "COLORNAME", "STITCH_LENGTH", "LYCRA_CM", "REMARKS"], collarCuffKeys);
+  const collarCuffGrouped = groupBy(collarCuffData, ["KNITTING_PROGRAM_NO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "GSM", "COLORNAME", "STITCH_LENGTH", "REMARKS"], collarCuffKeys);
 
-  const othersGrouped = groupBy(othersData, ["KNITTING_PROGRAM_NO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "FABRIC_TYPE", "MC_DIA", "GAUGE", "FINISH_DIA", "GSM", "COLORNAME", "STITCH_LENGTH", "LYCRA_CM", "REMARKS"], othersKeys);
+  const othersGrouped = groupBy(othersData, ["KNITTING_PROGRAM_NO", "BUYER", "STYLENO", "YARN", "YARN_LOT", "BRAND_NAME", "FABRIC", "MC_DIA", "GAUGE", "FINISH_DIA", "GSM", "COLORNAME", "STITCH_LENGTH", "REMARKS"], othersKeys);
 
   const collarCuffKeysArray = Array.from(collarCuffKeys);
   const othersKeysArray = Array.from(othersKeys);
+
+
+  function getRowSpansByKey(
+    items: PartyWiseKnittingProgramType[],
+    key: keyof PartyWiseKnittingProgramType
+  ): number[] {
+    const rowSpans = new Array(items.length).fill(0);
+    let i = 0;
+
+    while (i < items.length) {
+      let count = 1;
+      const currentValue = items[i]?.[key];
+      for (let j = i + 1; j < items.length; j++) {
+        if (items[j]?.[key] === currentValue) {
+          count++;
+        } else {
+          break;
+        }
+      }
+      rowSpans[i] = count;
+      for (let k = i + 1; k < i + count; k++) {
+        rowSpans[k] = 0;
+      }
+      i += count;
+    }
+
+    return rowSpans;
+  }
+
+
+  const newCollarCuffData = collarCuffKeysArray.map(
+    (key) => collarCuffGrouped[key]?.items[0]
+  );
+
+  const newOthersData = othersKeysArray.map(
+    (key) => collarCuffGrouped[key]?.items[0]
+  );
+
+  const collarCuffRowSpansByProgramNO = getRowSpansByKey(newCollarCuffData, "KNITTING_PROGRAM_NO");
+  const collarCuffRowSpansByBuyer = getRowSpansByKey(newCollarCuffData, "BUYER");
+  const collarCuffRowSpansByStyle = getRowSpansByKey(newCollarCuffData, "STYLENO");
+  const collarCuffRowSpansByYarn = getRowSpansByKey(newCollarCuffData, "YARN");
+  const collarCuffRowSpansByFabric = getRowSpansByKey(newCollarCuffData, "FABRIC");
+
+
+
+
+  const othersRowPansByProgramNo = getRowSpansByKey(newOthersData, "KNITTING_PROGRAM_NO");
+  const othersRowSpansByBuyer = getRowSpansByKey(newOthersData, "BUYER");
+  const othersfRowSpansByStyle = getRowSpansByKey(newOthersData, "STYLENO");
+  const othersRowSpansByYarn = getRowSpansByKey(newOthersData, "YARN");
+  const othersRowSpansByFabric = getRowSpansByKey(newOthersData, "FABRIC");
+
+
 
   return (
     <>
@@ -52,6 +106,11 @@ function ReportTable({
           data={collarCuffGrouped[key].items}
           firstHeader={firstHeader}
           index={index}
+          rowSpansByProgramNO={collarCuffRowSpansByProgramNO}
+          rowSpansByBuyer={collarCuffRowSpansByBuyer}
+          rowSpansByStyle={collarCuffRowSpansByStyle}
+          rowSpansByYarn={collarCuffRowSpansByYarn}
+          rowSpansByFabric={collarCuffRowSpansByFabric}
         ></ReportSubgroup>
       ))}
 
@@ -61,9 +120,13 @@ function ReportTable({
           data={othersGrouped[key].items}
           firstHeader={firstHeader}
           index={index + collarCuffKeysArray.length}
+          rowSpansByProgramNO={othersRowPansByProgramNo}
+          rowSpansByBuyer={othersRowSpansByBuyer}
+          rowSpansByStyle={othersfRowSpansByStyle}
+          rowSpansByYarn={othersRowSpansByYarn}
+          rowSpansByFabric={othersRowSpansByFabric}
         ></ReportSubgroup>
       ))}
-
     </>
   );
 }
