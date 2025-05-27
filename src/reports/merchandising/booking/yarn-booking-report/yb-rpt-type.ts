@@ -45,6 +45,7 @@ export type YarnBookingReportDto_MasterData = {
   FABRIC_TYPE: string;
   IS_OPEN_DIA: string;
   REVISED_NO: string;
+  CREATED_BY: string;
 };
 
 export type YarnBookingReportDto_StyleImage = {

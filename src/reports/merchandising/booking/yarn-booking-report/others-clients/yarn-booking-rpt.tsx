@@ -9,6 +9,7 @@ import {
   YarnBookingReportDto_KnittingDyeingAdvice,
   YarnBookingReportDto_Size,
 } from "../yb-rpt-type";
+import Signature from "./component/signature";
 type params = {
   data: YarnBookingReportDto;
 };
@@ -78,6 +79,9 @@ export default function YarnBookingReport({ data }: params) {
           </div>
           <div>
             <YarnBookingReportComments />
+          </div>
+          <div>
+            <Signature masterData={data.MaterData} />
           </div>
         </div>
       </YarnBookingReportContext.Provider>
