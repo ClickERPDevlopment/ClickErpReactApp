@@ -6,7 +6,7 @@ import { AxiosInstance } from "axios";
 //print embroidery
 export interface PrintEmbProductionMasterType {
     ID: number;
-    PRODUCTION_DATE?: Date;
+    PRODUCTION_DATE?: string;
     TYPE_ID: number;
     TYPE: string;
     SHIFT_ID: number;
@@ -20,6 +20,7 @@ export interface PrintEmbProductionMasterType {
     MP: number;
     PRODUCTION_HOUR_ID: number;
     PRODUCTION_HOUR: string;
+    REMARKS: string;
     PrintEmbProductionDetails: PrintEmbProductionDetailsType[];
 }
 
@@ -59,8 +60,8 @@ export interface RejectionReasonDetailsType {
 
 
 export interface PrintEmbProductionSearchType {
-    FROM_DATE: Date;
-    TO_DATE: Date;
+    FROM_DATE: string;
+    TO_DATE: string;
     BUYER_ID: number;
     BUYER: string;
     STYLE_ID: number;
@@ -77,8 +78,13 @@ export interface PrintEmbProductionSearchType {
 export function GetPrintEmbProduction<T>() {
     const axios = useAxiosInstance();
 
+    const toDate = new Date();
+    const fromDate = new Date();
+
+    fromDate.setDate(toDate.getDate() - 7);
+
     const getData = async (): Promise<T[]> =>
-        (await axios.get("/production/PrintEmbProduction?fromDate=01-Jan-20&toDate=01-Jan-35")).data;
+        (await axios.get("/production/PrintEmbProduction?fromDate=" + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
 
     const query = useQuery({
         queryKey: ["PrintEmbProductionData"],

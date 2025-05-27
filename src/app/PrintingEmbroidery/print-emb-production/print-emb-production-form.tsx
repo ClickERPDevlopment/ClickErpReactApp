@@ -73,7 +73,7 @@ const formSchema = z.object({
 });
 
 const masterFormSchema = z.object({
-  PRODUCTION_DATE: z.date(),
+  PRODUCTION_DATE: z.string(),
   TYPE_ID: z.number().min(1, "Type is required"),
   TYPE: z.string().min(1, "Type is required"),
   SHIFT_ID: z.number().min(1, "Shift is required"),
@@ -87,6 +87,7 @@ const masterFormSchema = z.object({
   MP: z.number().min(1, "MP must be more then zero"),
   PRODUCTION_HOUR_ID: z.number().min(1, "Production hour is required"),
   PRODUCTION_HOUR: z.string().min(1, "Production hour is required"),
+  REMARKS: z.string().optional(),
 });
 
 
@@ -192,6 +193,20 @@ export default function PrintEmbProductionForm({
 
       toast.success("Action performed successfully!");
 
+      if (pageAction === PageAction.add) {
+
+        masterForm.setValue("PRODUCTION_HOUR", "");
+        masterForm.setValue("PRODUCTION_HOUR_ID", 0);
+
+        setMasterData(prev => ({ ...prev, PRODUCTION_HOUR: "", PRODUCTION_HOUR_ID: 0 }));
+
+        setdetailsData([]);
+        setSizeWip(null);
+        getProductionHour(masterData.PRODUCTION_DATE || new Date().toLocaleDateString("en-CA"));
+        form.reset();
+        return;
+      }
+
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
@@ -240,8 +255,8 @@ export default function PrintEmbProductionForm({
 
   //get production data
   const [productionHour, setProductionHour] = useState<IHour[]>([]);
-  const getProductionHour = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionHour");
+  const getProductionHour = async (date: string) => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionHour/GetProductionHourByProductionDate?date=" + date);
     setProductionHour(response?.data);
   }
 
@@ -283,7 +298,7 @@ export default function PrintEmbProductionForm({
   }
 
   useEffect(() => {
-    getProductionHour();
+    getProductionHour(new Date(data?.PRODUCTION_DATE || new Date()).toLocaleDateString("en-CA"));
     getShift();
     getProductionType();
 
@@ -299,7 +314,7 @@ export default function PrintEmbProductionForm({
   const masterForm = useForm<z.infer<typeof masterFormSchema>>({
     resolver: zodResolver(masterFormSchema),
     defaultValues: {
-      PRODUCTION_DATE: data?.PRODUCTION_DATE ? new Date(data.PRODUCTION_DATE) : new Date(),
+      PRODUCTION_DATE: data?.PRODUCTION_DATE ? new Date(data.PRODUCTION_DATE).toLocaleDateString("en-CA") : new Date().toLocaleDateString("en-CA"),
       TYPE_ID: data?.TYPE_ID || 0,
       TYPE: data?.TYPE || "",
       SHIFT_ID: data?.SHIFT_ID || 0,
@@ -313,6 +328,7 @@ export default function PrintEmbProductionForm({
       MP: data?.MP || 0,
       PRODUCTION_HOUR_ID: data?.PRODUCTION_HOUR_ID || 0,
       PRODUCTION_HOUR: data?.PRODUCTION_HOUR || "",
+      REMARKS: data?.REMARKS || "",
     },
   });
 
@@ -457,9 +473,25 @@ export default function PrintEmbProductionForm({
       else {
         if (!validateFields()) return;
 
+        const wipQty = Number(sizeWip) || 0;
+        const qcPassedQty = printEmbProductionDetails.QC_PASSED_QTY || 0;
+
+        if (qcPassedQty > wipQty) {
+          toast.error("QC Passed Quantity cannot be greater than WIP quantity.");
+          return;
+        }
+
         const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${printEmbProductionDetails.SIZE_ID}`);
 
-        setdetailsData(prev => [...(prev || []), ...(response?.data || [])]);
+
+        setdetailsData(prev => [
+          ...(prev || []),
+          ...((response?.data || []).map((item: PrintEmbProductionDetailsType) => ({
+            ...item,
+            QC_PASSED_QTY: qcPassedQty
+          })))
+        ]);
+
       }
     }
     reasonForm.reset();
@@ -472,7 +504,7 @@ export default function PrintEmbProductionForm({
 
   const [masterData, setMasterData] = useState<PrintEmbProductionMasterType>({
     ID: data ? data.ID : 0,
-    PRODUCTION_DATE: data?.PRODUCTION_DATE ? new Date(data.PRODUCTION_DATE) : new Date(),
+    PRODUCTION_DATE: data?.PRODUCTION_DATE ? new Date(data.PRODUCTION_DATE).toLocaleDateString("en-CA") : new Date().toLocaleDateString("en-CA"),
     TYPE_ID: data ? data.TYPE_ID : 0,
     TYPE: data ? data.TYPE : "",
     SHIFT_ID: data ? data.SHIFT_ID : 0,
@@ -486,6 +518,7 @@ export default function PrintEmbProductionForm({
     MP: data ? data.MP : 0,
     PRODUCTION_HOUR_ID: data ? data.PRODUCTION_HOUR_ID : 0,
     PRODUCTION_HOUR: data ? data.PRODUCTION_HOUR : "",
+    REMARKS: data ? data.REMARKS || "" : "",
     PrintEmbProductionDetails: data ? data.PrintEmbProductionDetails : []
   });
 
@@ -630,6 +663,21 @@ export default function PrintEmbProductionForm({
 
   };
 
+  const [sizeWip, setSizeWip] = useState<number | null>(null);
+
+  const loadSizeWiseWip = async (sizeId: number) => {
+
+    if (!printEmbProductionDetails.WORK_ORDER_ID || !printEmbProductionDetails.BUYER_ID || !printEmbProductionDetails.STYLE_ID || !printEmbProductionDetails.PO_ID || !printEmbProductionDetails.COLOR_ID) {
+      toast.error("Please select all required fields before loading WIP.");
+      return;
+    }
+
+    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${sizeId}`);
+
+    console.log("WIP Response:", response?.data);
+    setSizeWip(response?.data?.[0]?.WIP || null);
+  }
+
   return (
     <AppPageContainer>
       <div className="w-full p-1">
@@ -663,14 +711,15 @@ export default function PrintEmbProductionForm({
                           style={{ marginTop: "2px" }}
                           placeholder=""
                           type="date"
-                          value={field.value ? field.value.toISOString().slice(0, 10) : ''}
+                          value={field.value ? new Date(field.value).toLocaleDateString("en-CA") : ''}
                           onChange={(e) => {
                             const newDate = e.target.value ? new Date(e.target.value) : null;
                             field.onChange(newDate);
                             setMasterData((prev) => ({
                               ...prev,
-                              PRODUCTION_DATE: new Date(e.target.value),
+                              PRODUCTION_DATE: new Date(e.target.value).toLocaleDateString("en-CA"),
                             }));
+                            getProductionHour(newDate?.toLocaleDateString("en-CA") || new Date().toLocaleDateString("en-CA"));
                           }}
                           className="form-control w-full h-9"
                         />
@@ -1158,15 +1207,34 @@ export default function PrintEmbProductionForm({
                   </Button>
                 </div>
 
+                <div>
+                  <FormField
+                    control={masterForm.control}
+                    name="REMARKS"
+                    render={({ field }) => (
+                      <FormItem className="w-full h-10">
+                        <FormLabel className="font-bold  mb-0">Remarks</FormLabel>
+                        <FormControl className="m-0" onChange={handleMasterInputChange}>
+                          <Input
+                            style={{ marginTop: "2px" }}
+                            placeholder=""
+                            {...field}
+                            className="form-control h-9"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
               </div>
             </form>
           </Form>
         </div>
 
-        <div className="mt-5"></div>
-
-        <div className="">
-          {/* ===================================Details data===================================== */}
+        {/* ===================================Details data===================================== */}
+        <div className="mt-10">
           <div className="border p-1">
             <Form {...form} >
               <form
@@ -1635,6 +1703,7 @@ export default function PrintEmbProductionForm({
                                                 SIZE: sizeData.SIZENAME,
                                               }));
                                               setOpenSize(false);
+                                              loadSizeWiseWip(sizeData.ID);
                                             }}
                                           >
                                             {sizeData.SIZENAME}
@@ -1657,6 +1726,14 @@ export default function PrintEmbProductionForm({
                             </FormItem>
                           )}
                         />
+                        {
+                          sizeWip && sizeWip > 0 &&
+                          <div className="text-center">
+                            <p className="font-bold">Wip</p>
+                            <Button disabled className="bg-inherit hover:bg-inherit text-gray-950">{sizeWip}</Button>
+                          </div>
+                        }
+
                       </div>
                       <div className="h-4">
                         {printEmbProductionDetailserror.SIZE && (
@@ -1664,6 +1741,11 @@ export default function PrintEmbProductionForm({
                         )}
                       </div>
                     </div>
+
+                    {/* <div>
+                      {sizeWip}
+                    </div> */}
+
                     <div>
                       <div className="flex justify-between items-end">
                         <FormField
@@ -1794,6 +1876,14 @@ export default function PrintEmbProductionForm({
                               value={item.QC_PASSED_QTY}
                               onChange={(e) => {
                                 const updatedData = [...detailsData];
+
+                                const wipQty = item.WIP || 0;
+                                const qcPassedQty = Number(e.target.value);
+                                if (qcPassedQty > wipQty) {
+                                  toast.error("QC Passed Qty cannot be greater than WIP Qty");
+                                  return;
+                                }
+
                                 updatedData[index] = {
                                   ...updatedData[index],
                                   QC_PASSED_QTY: Number(e.target.value),
@@ -2155,7 +2245,7 @@ export default function PrintEmbProductionForm({
             <div className="grid gap-4 py-4">
             </div>
             <DialogFooter>
-              <Button onClick={() => { getProductionHour(), setOpenProductionHourModal(false) }} >Close</Button>
+              <Button onClick={() => { getProductionHour(masterData.PRODUCTION_DATE || new Date().toLocaleDateString("en-CA")), setOpenProductionHourModal(false) }} >Close</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
