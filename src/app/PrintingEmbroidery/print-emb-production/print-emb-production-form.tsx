@@ -203,7 +203,7 @@ export default function PrintEmbProductionForm({
         setdetailsData([]);
         setSizeWip(null);
         getProductionHour(masterData.PRODUCTION_DATE || new Date().toLocaleDateString("en-CA"));
-        form.reset();
+        //form.reset();
         return;
       }
 
