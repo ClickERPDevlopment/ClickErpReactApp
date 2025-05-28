@@ -745,7 +745,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
             <img src={logo6} alt="logo" className="toggle-white" />
           </a>
         </div>
-        <SimpleBar className="main-sidebar" id="sidebar-scroll">
+        <SimpleBar className="main-sidebar" id="sidebar-scroll" style={{ scrollbarWidth: "none" }}>
           <nav className="main-menu-container nav nav-pills flex-column sub-open">
             <div
               className="slide-left"

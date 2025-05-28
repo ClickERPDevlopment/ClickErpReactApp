@@ -4,23 +4,19 @@
         .app-sidebar {
             .side-menu__item {
                 @apply flex items-center px-[1.6rem] #{!important};
-                
             }
             .side-menu__icon {
                 @apply mb-0 me-[0.35rem] #{!important};   
             }
             .side-menu__angle {
                 @apply block #{!important};
-                
             }
             .slide.has-sub .slide-menu {
                 &.active {
                     @apply start-auto end-auto rounded-none #{!important};
-                    
                 }
                 &.child1 {
                     @apply top-[100%] #{!important};
-                   
                 }
             }
             .slide.has-sub .slide-menu {

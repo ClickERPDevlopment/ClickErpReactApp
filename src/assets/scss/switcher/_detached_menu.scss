@@ -36,6 +36,7 @@
       }
 
       .main-sidebar {
+        // @apply mt-0;
         @apply mt-0 h-full #{!important};
       }
     }

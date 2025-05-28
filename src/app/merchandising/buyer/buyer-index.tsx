@@ -21,8 +21,8 @@ export default function Buyer() {
   }
 
   return (
-    <div className="pt-5">
-      <div className="flex items-center justify-between border-b pb-0">
+    <div className="p-5 bg-white rounded-lg mt-5">
+      <div className="flex items-center justify-between border-b pb-0 ">
         <div className="font-bold text-2xl">Buyer</div>
         <div>
           <Link to={`${PageAction.add}/0`}>

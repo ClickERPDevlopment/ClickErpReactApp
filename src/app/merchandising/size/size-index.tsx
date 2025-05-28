@@ -94,7 +94,7 @@ export default function Size() {
   };
 
   return (
-    <div className="pt-5">
+    <div className="p-5 bg-white rounded-lg mt-5">
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Size</div>
         <div>
@@ -136,9 +136,9 @@ export default function Size() {
                                 >
                                   {field.value
                                     ? buyers?.find(
-                                        (buyer) =>
-                                          Number(buyer.value) === field.value
-                                      )?.label
+                                      (buyer) =>
+                                        Number(buyer.value) === field.value
+                                    )?.label
                                     : "Select a buyer"}
                                   <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
