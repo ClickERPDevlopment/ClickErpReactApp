@@ -138,6 +138,7 @@ import YarnIssueForTwistingReportIndex from "./reports/store/yarn-store/yarn-iss
 import FinishGoodValuation from "./app/merchandising/finish-good-valuation/finish-good-valuation-index.tsx";
 import FinishGoodValuationCrud from "./app/merchandising/finish-good-valuation/finish-good-valuation-crud.tsx";
 import GreyFabricIssueToDyeingChallanIndex from "./reports/store/grey-store/grey-fabric-issue-to-dyeing-challan/grey-fabric-issue-to-dyeing-challan-index.tsx";
+import InternalProductPlacementSheetReport from "./reports/planning/report/internal-product-placement-sheet-summary-report/internal-product-placement-sheet-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -477,6 +478,13 @@ createRoot(document.getElementById("root")!).render(
                         element={<OnlineDisplayBoardView />}
                       />
                     </Route>
+                  </Route>
+
+                  <Route path="planning">
+                    <Route
+                      path="internal-product-placement-sheet-summary-report"
+                      element={<InternalProductPlacementSheetReport />}
+                    />
                   </Route>
 
                   <Route path="merchandising">
