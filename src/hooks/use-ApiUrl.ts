@@ -29,8 +29,11 @@ export default function useApiUrl() {
   const nurUrl = "http://163.47.147.34:6007/api";
   const nurRootUrl = "http://163.47.147.34:6007";
 
-  const euroUrl = "http://192.168.1.155:6001/api";
-  const euroRootUrl = "http://192.168.1.155:6001";
+  // const euroUrl = "http://192.168.1.155:6001/api";
+  // const euroRootUrl = "http://192.168.1.155:6001";
+
+  const euroUrl = "http://202.74.240.105:6307/api";
+  const euroRootUrl = "http://202.74.240.105:6307";
 
   const fameUrl = "http://118.179.81.150:6307/api";
   const fameRootUrl = "http://118.179.81.150:6307";

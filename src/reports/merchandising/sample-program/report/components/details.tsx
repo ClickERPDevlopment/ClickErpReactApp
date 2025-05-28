@@ -43,7 +43,7 @@ export default function Details({ lstDetails }: { lstDetails?: SampleProgramRepo
                 <tfoot>
                     <tr>
 
-                        <th className='p-1 border border-gray-600 text-center' colSpan={6}>Total</th>
+                        <th className='p-1 border border-gray-600 text-center' colSpan={10}>Total</th>
                         <th className='p-1 border border-gray-600 text-center'>
                             {
                                 lstDetails?.reduce((p, c) => p + Number(c.REQ_FINISH_FAB), 0).toFixed(2)
