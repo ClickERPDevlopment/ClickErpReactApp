@@ -39,7 +39,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmitEvent}>
-      <Card className="w-[350px]">
+      <Card className="w-[350px] bg-white">
         <CardHeader>
           <CardTitle className="text-center">Sign in</CardTitle>
         </CardHeader>
