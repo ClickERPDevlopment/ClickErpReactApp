@@ -43,9 +43,18 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{totalOrderQuantiy.toFixed(3)}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.STYLEID}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.NOCOLOR}</td>
-        <td className="border border-gray-950 p-0.5">{moment(data[0]?.PROPOSEDELIVERYDATE).format("DD-MMM-YY")}</td>
-        <td className="border border-gray-950 p-0.5">{moment(data[0]?.DELIVERYDATE).format("DD-MMM-YY")}</td>
-        <td className="border border-gray-950 p-0.5">{moment(data[0]?.PORECEIVEDATE).format("DD-MMM-YY")}</td>
+
+        <td className="border border-gray-950 p-0.5">
+          {data[0]?.PROPOSEDELIVERYDATE ? moment(data[0].PROPOSEDELIVERYDATE).format("DD-MMM-YY") : ""}
+        </td>
+        <td className="border border-gray-950 p-0.5">
+          {data[0]?.DELIVERYDATE ? moment(data[0].DELIVERYDATE).format("DD-MMM-YY") : ""}
+        </td>
+        <td className="border border-gray-950 p-0.5">
+          {data[0]?.PORECEIVEDATE ? moment(data[0].PORECEIVEDATE).format("DD-MMM-YY") : ""}
+        </td>
+
+
         <td className="border border-gray-950 p-0.5">
           {getRemarks(
             data[0]?.PORECEIVEDATE || null,

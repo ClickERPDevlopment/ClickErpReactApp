@@ -22,8 +22,8 @@ function InternalProductPlacementSheetReport() {
   const toDate = searchParams.get("toDate") || new Date().toLocaleDateString("en-CA");
   const buyerId = searchParams.get("buyerId") || "0";
   const companyId = searchParams.get("companyId") || "1";
-  const fromDateCheck = searchParams.get("fromDateCheck") === "false" ? false : true;
-  const toDateCheck = searchParams.get("toDateCheck") === "false" ? false : true;
+  const fromDateCheck = searchParams.get("fromDateCheck")?.toLowerCase() === "false" ? false : true;
+  const toDateCheck = searchParams.get("toDateCheck")?.toLowerCase() === "false" ? false : true;
 
   const searchParamsObj = {
     fromDate,
