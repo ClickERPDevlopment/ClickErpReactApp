@@ -9,4 +9,7 @@ export type IMonthlyOrderVsShipmentStatusReport = {
   SHIP_MIN: number | null;
   SHIP_FOB: number | null;
   SHIP_CM: number | null;
+  COMPANY_NAME: string | null;
+  COMPANY_ADDRESS: string | null;
+  COMPANY_REMARKS: string | null;
 };

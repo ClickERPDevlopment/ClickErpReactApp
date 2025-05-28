@@ -54,6 +54,7 @@ function Report({
     <div className="px-10">
       <div className="p-2">
         <ReportHeader
+          data={data}
           searchParams={{
             toDate: searchParams?.toDate,
             fromDate: searchParams?.fromDate,
