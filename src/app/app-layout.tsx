@@ -88,13 +88,13 @@ export function PageSearchDialog() {
     const proMenu = getMenuList("Production", ProductionMenu);
     const textMenu = getMenuList("Textile", TextileMenu);
     const hrPayMenu = getMenuList("Hr-Payroll", HrPayrollMenu);
-    const merMenu = getMenuList("Merchandising", MerchandisingMenu);
+    // const merMenu = getMenuList("Merchandising", MerchandisingMenu);
 
     lstMenu.push(...configMenu);
     lstMenu.push(...proMenu);
     lstMenu.push(...textMenu);
     lstMenu.push(...hrPayMenu);
-    lstMenu.push(...merMenu);
+    // lstMenu.push(...merMenu);
     return lstMenu;
   }, []);
 
