@@ -12,7 +12,6 @@ import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
 import { HrPayrollMenu } from "@/lib/menu/hr-payroll-menu";
 import { MenuType } from "@/lib/menu/menu-type";
 import { ProductionMenu } from "@/lib/menu/production-menu";
-import { MerchandisingMenu } from "@/lib/menu/merchandising-menu";
 import { TextileMenu } from "@/lib/menu/textile-menu";
 import React from "react";
 
