@@ -17,19 +17,19 @@ function ReportSummary({
     <>
       {
         <tr className="text-center">
-          <td className="border border-gray-950 p-0.1 font-bold">
+          <td className="border border-gray-950 p-0.1">
             {index + 1}
           </td>
-          <td className="border border-gray-950 p-0.1 font-bold">
+          <td className="border border-gray-950 p-0.1">
             {data[0]?.ITEMTYPE}
           </td>
-          <td className="border border-gray-950 p-0.1 font-bold">
-            {totalOrderQuantiy && totalOrderQuantiy.toFixed(3)}
+          <td className="border border-gray-950 p-0.1">
+            {totalOrderQuantiy && totalOrderQuantiy}
           </td>
-          <td className="border border-gray-950 p-0.1 font-bold">
+          <td className="border border-gray-950 p-0.1">
             {new Set(data?.map(item => item?.STYLEID)).size}
           </td>
-          <td className="border border-gray-950 p-0.1 font-bold">
+          <td className="border border-gray-950 p-0.1">
             {new Set(data?.map(item => item?.NOCOLOR)).size}
           </td>
         </tr>
