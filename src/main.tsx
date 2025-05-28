@@ -138,6 +138,7 @@ import YarnIssueForTwistingReportIndex from "./reports/store/yarn-store/yarn-iss
 import FinishGoodValuation from "./app/merchandising/finish-good-valuation/finish-good-valuation-index.tsx";
 import FinishGoodValuationCrud from "./app/merchandising/finish-good-valuation/finish-good-valuation-crud.tsx";
 import GreyFabricIssueToDyeingChallanIndex from "./reports/store/grey-store/grey-fabric-issue-to-dyeing-challan/grey-fabric-issue-to-dyeing-challan-index.tsx";
+import ShowBookingView from "./app/merchandising/booking/show-booking/show-booking-view.tsx";
 import InternalProductPlacementSheetReport from "./reports/planning/report/internal-product-placement-sheet-summary-report/internal-product-placement-sheet-report-index.tsx";
 
 //-------------------------------------------------------------
@@ -239,6 +240,10 @@ createRoot(document.getElementById("root")!).render(
                             element={<FinishGoodValuationCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="booking">
+                          <Route index element={<Buyer />} />
+                          <Route path="show-booking" element={<ShowBookingView />} />
                         </Route>
                       </Route>
                       <Route path="textile" element={<TextileDashboard />} />

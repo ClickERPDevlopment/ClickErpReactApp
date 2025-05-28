@@ -17,6 +17,7 @@ import logo6 from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from "simplebar-react";
 import Menuloop from "../../ui/menuloop";
 import { CommonMenu, SweaterMenu } from "@/lib/menu/sweater-menu";
+import { MerchandisingMenu } from "@/lib/menu/merchandising-menu";
 
 const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
   // const [menuitems, setMenuitems] = useState(MENUITEMS);
@@ -30,19 +31,19 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
     const menus = location.pathname.includes("/dashboard/configuration")
       ? CommonMenu
       : location.pathname.includes("/dashboard/production")
-      ? CommonMenu
-      : location.pathname.includes("/dashboard/textile")
-      ? CommonMenu
-      : location.pathname.includes("/dashboard/hr-payroll")
-      ? CommonMenu
-      : location.pathname === "/dashboard/sweater" ||
-        location.pathname.includes("/dashboard/sweater")
-      ? SweaterMenu
-      : location.pathname.includes("/dashboard/merchandising")
-      ? CommonMenu
-      : location.pathname.includes("/dashboard/inventory")
-      ? CommonMenu
-      : [];
+        ? CommonMenu
+        : location.pathname.includes("/dashboard/textile")
+          ? CommonMenu
+          : location.pathname.includes("/dashboard/hr-payroll")
+            ? CommonMenu
+            : location.pathname === "/dashboard/sweater" ||
+              location.pathname.includes("/dashboard/sweater")
+              ? SweaterMenu
+              : location.pathname.includes("/dashboard/merchandising")
+                ? MerchandisingMenu
+                : location.pathname.includes("/dashboard/inventory")
+                  ? CommonMenu
+                  : [];
 
     setMenuitems([...menus]);
   }, [location.pathname]);
@@ -552,10 +553,10 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
             if (theme.dir == "rtl") {
               if (
                 siblingULRect.left - siblingULRect.width - outterUlWidth + 150 <
-                  0 &&
+                0 &&
                 outterUlWidth < window.innerWidth &&
                 outterUlWidth + siblingULRect.width + siblingULRect.width <
-                  window.innerWidth
+                window.innerWidth
               ) {
                 targetObject.dirchange = true;
               } else {
@@ -564,10 +565,10 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
             } else {
               if (
                 outterUlWidth + siblingULRect.right + siblingULRect.width + 50 >
-                  window.innerWidth &&
+                window.innerWidth &&
                 siblingULRect.right >= 0 &&
                 outterUlWidth + siblingULRect.width + siblingULRect.width <
-                  window.innerWidth
+                window.innerWidth
               ) {
                 targetObject.dirchange = true;
               } else {
@@ -659,10 +660,10 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
           if (theme.dir == "rtl") {
             if (
               siblingULRect.left - siblingULRect.width - outterUlWidth + 150 <
-                0 &&
+              0 &&
               outterUlWidth < window.innerWidth &&
               outterUlWidth + siblingULRect.width + siblingULRect.width <
-                window.innerWidth
+              window.innerWidth
             ) {
               item.dirchange = true;
             } else {
@@ -671,10 +672,10 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
           } else {
             if (
               outterUlWidth + siblingULRect.right + siblingULRect.width + 50 >
-                window.innerWidth &&
+              window.innerWidth &&
               siblingULRect.right >= 0 &&
               outterUlWidth + siblingULRect.width + siblingULRect.width <
-                window.innerWidth
+              window.innerWidth
             ) {
               item.dirchange = true;
             } else {
@@ -768,12 +769,10 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
               {menuitems.map((levelone: any) => (
                 <Fragment key={Math.random()}>
                   <li
-                    className={`${
-                      levelone.menutitle ? "slide__category" : ""
-                    } ${levelone.type === "link" ? "slide" : ""}
-                       ${levelone.type === "sub" ? "slide has-sub" : ""} ${
-                      levelone?.active ? "open" : ""
-                    } ${levelone?.selected ? "active" : ""}`}
+                    className={`${levelone.menutitle ? "slide__category" : ""
+                      } ${levelone.type === "link" ? "slide" : ""}
+                       ${levelone.type === "sub" ? "slide has-sub" : ""} ${levelone?.active ? "open" : ""
+                      } ${levelone?.selected ? "active" : ""}`}
                   >
                     {levelone.menutitle ? (
                       <span className="category-name">
@@ -785,9 +784,8 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
                     {levelone.type === "link" ? (
                       <Link
                         to={levelone.path + "/"}
-                        className={`side-menu__item ${
-                          levelone.selected ? "active" : ""
-                        }`}
+                        className={`side-menu__item ${levelone.selected ? "active" : ""
+                          }`}
                       >
                         {levelone.icon}
                         <span className="side-menu__label">

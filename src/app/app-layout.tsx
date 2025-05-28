@@ -12,7 +12,6 @@ import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
 import { HrPayrollMenu } from "@/lib/menu/hr-payroll-menu";
 import { MenuType } from "@/lib/menu/menu-type";
 import { ProductionMenu } from "@/lib/menu/production-menu";
-import { MerchandisingMenu } from "@/lib/menu/merchandising-menu";
 import { TextileMenu } from "@/lib/menu/textile-menu";
 import React from "react";
 
@@ -88,13 +87,13 @@ export function PageSearchDialog() {
     const proMenu = getMenuList("Production", ProductionMenu);
     const textMenu = getMenuList("Textile", TextileMenu);
     const hrPayMenu = getMenuList("Hr-Payroll", HrPayrollMenu);
-    const merMenu = getMenuList("Merchandising", MerchandisingMenu);
+    // const merMenu = getMenuList("Merchandising", MerchandisingMenu);
 
     lstMenu.push(...configMenu);
     lstMenu.push(...proMenu);
     lstMenu.push(...textMenu);
     lstMenu.push(...hrPayMenu);
-    lstMenu.push(...merMenu);
+    // lstMenu.push(...merMenu);
     return lstMenu;
   }, []);
 

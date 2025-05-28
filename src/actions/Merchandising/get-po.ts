@@ -3,14 +3,14 @@ import axios from "axios";
 import { ReactQueryKey } from "@/utility/react-query-key";
 import useApiUrl from "@/hooks/use-ApiUrl";
 
-export function GetAllPoBStyled(styleId: number) {
+export function GetAllPoByStyled(styleId: number) {
   const api = useApiUrl();
 
   const getData = async (id: number): Promise<PurchaseOrder[]> =>
     (
       await axios.get(
         api.ProductionUrl +
-          `/production/PurchaseOrder/GetAllPOByStyle?styleId=${id}`
+        `/production/PurchaseOrder/GetAllPOByStyle?styleId=${id}`
       )
     ).data;
 
