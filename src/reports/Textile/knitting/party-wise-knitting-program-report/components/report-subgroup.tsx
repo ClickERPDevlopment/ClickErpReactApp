@@ -62,7 +62,7 @@ function ReportSubgroup({
         {
           rowSpansByYarn && rowSpansByYarn[index] > 0 &&
           <td className="border border-gray-950 p-0.5" rowSpan={rowSpansByYarn[index]}>
-            {data[0]?.YARN_LOT}
+            {data[0]?.YARN}
           </td>
         }
         <td className="border border-gray-950 p-0.5">{data[0]?.BRAND_NAME} x {data[0]?.YARN_LOT}</td>

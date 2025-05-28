@@ -203,7 +203,7 @@ export default function PrintEmbProductionForm({
         setdetailsData([]);
         setSizeWip(null);
         getProductionHour(masterData.PRODUCTION_DATE || new Date().toLocaleDateString("en-CA"));
-        form.reset();
+        //form.reset();
         return;
       }
 
@@ -288,6 +288,12 @@ export default function PrintEmbProductionForm({
   const [floor, setFloor] = useState<IFloor[]>([]);
   const getFloor = async (sectionId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/Unit/GetAllUnitBySection?sectionId=" + sectionId);
+
+    if (response?.data.length == 1) {
+      masterForm.setValue("FLOOR_ID", response?.data[0].Id);
+      setMasterData(prev => ({ ...prev, FLOOR_ID: response?.data[0].Id, FLOOR: response?.data[0].Unitname }));
+    }
+
     setFloor(response?.data);
   }
 

@@ -78,7 +78,7 @@ function ReportTable({
   );
 
   const newOthersData = othersKeysArray.map(
-    (key) => collarCuffGrouped[key]?.items[0]
+    (key) => othersGrouped[key]?.items[0]
   );
 
   const collarCuffRowSpansByProgramNO = getRowSpansByKey(newCollarCuffData, "KNITTING_PROGRAM_NO");
