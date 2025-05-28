@@ -6,7 +6,7 @@ import { CalendarIcon, CheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { GetAllBuyer } from "@/actions/Merchandising/get-buyer";
-import { GetAllPoBStyled } from "@/actions/Merchandising/get-po";
+import { GetAllPoByStyled } from "@/actions/Merchandising/get-po";
 import { GetAllStyleByBuyer } from "@/actions/Merchandising/get-style";
 import { AppButton } from "@/components/app-buttom";
 import { Button } from "@/components/ui/button";
@@ -79,7 +79,7 @@ export default function SwtPlanStripSearchForm() {
 
   const { data: lstBuyer } = GetAllBuyer();
   const { data: lstStyle } = GetAllStyleByBuyer(selectedBuyer?.valueOf() || 0);
-  const { data: lstPo } = GetAllPoBStyled(selectedStyle?.valueOf() || 0);
+  const { data: lstPo } = GetAllPoByStyled(selectedStyle?.valueOf() || 0);
 
   React.useEffect(() => {
     const _: comboBoxDataType[] = [];
@@ -277,8 +277,8 @@ export default function SwtPlanStripSearchForm() {
                         >
                           {field.value
                             ? buyers?.find(
-                                (buyer) => Number(buyer.value) === field.value
-                              )?.label
+                              (buyer) => Number(buyer.value) === field.value
+                            )?.label
                             : "Select a buyer"}
                           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
@@ -362,8 +362,8 @@ export default function SwtPlanStripSearchForm() {
                           <span>
                             {field.value
                               ? styles?.find(
-                                  (buyer) => Number(buyer.value) === field.value
-                                )?.label
+                                (buyer) => Number(buyer.value) === field.value
+                              )?.label
                               : "Select a style"}
                           </span>
                           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -448,8 +448,8 @@ export default function SwtPlanStripSearchForm() {
                           <span>
                             {field.value
                               ? pos?.find(
-                                  (buyer) => Number(buyer.value) === field.value
-                                )?.label
+                                (buyer) => Number(buyer.value) === field.value
+                              )?.label
                               : "Select a po"}
                           </span>
                           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />

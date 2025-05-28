@@ -1,3 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { GetAllBuyer } from "@/actions/Merchandising/get-buyer";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -6,16 +15,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import React from "react";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { MdOutlineClear } from "react-icons/md";
-import { GetAllBuyer } from "@/actions/Merchandising/get-buyer";
-import { GetAllPoByStyled } from "@/actions/Merchandising/get-po";
-import { GetAllStyleByBuyer } from "@/actions/Merchandising/get-style";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -29,8 +28,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { z } from "zod";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { MdOutlineClear } from "react-icons/md";
+import React from "react";
+import { GetAllStyleByBuyer } from "@/actions/Merchandising/get-style";
+import { GetAllPoByStyled } from "@/actions/Merchandising/get-po";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type comboBoxDataType = {
   label: string;
@@ -42,26 +45,49 @@ const FormSchema = z.object({
     .number({
       required_error: "Please select a buyer.",
     })
-    .gt(0)
+    .optional()
     .default(0),
-  styleId: z.number().gt(0).optional().default(0),
-  poId: z.number().gt(0).optional().default(0),
+  poId: z
+    .number({
+      required_error: "Please select a po.",
+    })
+    .optional()
+    .default(0),
+  styleId: z
+    .number({
+      required_error: "Please select a style.",
+    })
+    .optional()
+    .default(0),
+
+  bookingType: z
+    .string({
+      required_error: "Please select a booking type.",
+    }),
+
+  po: z
+    .string({
+      required_error: "Please select a po.",
+    })
+    .optional(),
 });
 
-export default function KnittingBillChallanWiseSummaryForm() {
-  const [selectedBuyer, setSelectedBuyer] = useState<number>(0);
-  const [selectedStyle, setSelectedStyle] = useState<number>(0);
+export default function ShowBookingForm() {
+  const [_selectedBuyer, setSelectedBuyer] = useState<number>(0);
+  const [_selectedPo, setSelectedPo] = useState<number>(0);
+  const [_selectedStyle, setSelectedStyle] = useState<number>(0);
+
   const [buyers, setBuyers] = useState<comboBoxDataType[]>();
-  const [styles, setStyles] = useState<comboBoxDataType[]>();
   const [pos, setPos] = useState<comboBoxDataType[]>();
+  const [styles, setStyles] = useState<comboBoxDataType[]>();
 
   const [openBuyer, setOpenBuyer] = React.useState(false);
+  const [openPo, setOpenPo] = React.useState(false);
   const [openStyle, setOpenStyle] = React.useState(false);
-  const [openItem, setOpenItem] = React.useState(false);
 
   const { data: buyersData } = GetAllBuyer();
-  const { data: stylesData } = GetAllStyleByBuyer(selectedBuyer);
-  const { data: posData } = GetAllPoByStyled(selectedStyle);
+  const { data: styleData } = GetAllStyleByBuyer(_selectedBuyer);
+  const { data: poData } = GetAllPoByStyled(_selectedStyle);
 
   useEffect(() => {
     const _: comboBoxDataType[] = [];
@@ -74,31 +100,21 @@ export default function KnittingBillChallanWiseSummaryForm() {
 
   useEffect(() => {
     const _: comboBoxDataType[] = [];
-    stylesData?.forEach((element) => {
-      _.push({
-        label: element.Styleno,
-        value: element.Id,
-      });
-    });
-
-    setStyles([..._]);
-  }, [stylesData]);
-
-  useEffect(() => {
-    const _: comboBoxDataType[] = [];
-    posData?.forEach((element) => {
-      _.push({
-        label: element.Pono,
-        value: element.Id,
-      });
+    poData?.forEach((element) => {
+      _.push({ label: element.Pono, value: element.Id });
     });
 
     setPos([..._]);
-  }, [posData]);
+  }, [poData]);
 
-  // console.log("buyer-data: ", buyers);
-  // console.log("styles-by-buyer: ", stylesData);
-  // console.log("FabricWorkOrder: ", FabricWorkOrderData);
+  useEffect(() => {
+    const _: comboBoxDataType[] = [];
+    styleData?.forEach((element) => {
+      _.push({ label: element.Styleno, value: element.Id });
+    });
+
+    setStyles([..._]);
+  }, [styleData]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -106,13 +122,19 @@ export default function KnittingBillChallanWiseSummaryForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    window.open(
-      `/report/store/grey-store/knitting-bill-challan-wise-summary-index?poId=${data.poId}&styleId=${data.styleId}`,
-      "blank"
-    );
+    console.log(data);
+    if (data.bookingType === "fabric") {
+      window.open(
+        `/report/merchandising/booking/fabric-booking-report?poId=${data.poId}&styleId=${data.styleId}`,
+        "blank"
+      );
+    } else {
+      window.open(
+        `/report/merchandising/booking/yarn-booking-report?buyerId=${data.buyerId}&poId=${data.poId}&poNo=${data.poId}&styleId=${data.styleId}`,
+        "blank"
+      );
+    }
   }
-
-  console.log(pos);
 
   return (
     <Form {...form}>
@@ -163,7 +185,6 @@ export default function KnittingBillChallanWiseSummaryForm() {
                                 form.setValue("buyerId", Number(buyer.value));
                                 setSelectedBuyer(Number(buyer.value));
                                 setOpenBuyer(false);
-                                form.resetField("styleId");
                               }}
                             >
                               {buyer.label}
@@ -198,6 +219,7 @@ export default function KnittingBillChallanWiseSummaryForm() {
             <MdOutlineClear className="rounded text-slate-600 m-0" />
           </Button>
         </div>
+        {/* end-Buyer================================================================================ */}
 
         {/* Style==================================================================================== */}
         <div className="flex justify-between items-end">
@@ -213,6 +235,7 @@ export default function KnittingBillChallanWiseSummaryForm() {
                       <Button
                         variant="outline"
                         role="combobox"
+                        aria-expanded={openStyle}
                         className={cn(
                           "w-full justify-between",
                           !field.value && "text-muted-foreground"
@@ -220,8 +243,7 @@ export default function KnittingBillChallanWiseSummaryForm() {
                       >
                         {field.value
                           ? styles?.find(
-                            (buyer) =>
-                              Number(buyer.value) === Number(field.value)
+                            (s) => Number(s.value) === field.value
                           )?.label
                           : "Select a style"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -235,24 +257,23 @@ export default function KnittingBillChallanWiseSummaryForm() {
                         className="h-9"
                       />
                       <CommandList>
-                        <CommandEmpty>No buyer found.</CommandEmpty>
+                        <CommandEmpty>No style found.</CommandEmpty>
                         <CommandGroup>
-                          {styles?.map((style) => (
+                          {styles?.map((s) => (
                             <CommandItem
-                              value={style.label}
-                              key={style.value}
+                              value={s.label}
+                              key={s.value}
                               onSelect={() => {
-                                form.setValue("styleId", Number(style.value));
+                                form.setValue("styleId", Number(s.value));
+                                setSelectedStyle(Number(s.value));
                                 setOpenStyle(false);
-                                setSelectedStyle(Number(style.value));
-                                form.resetField("poId");
                               }}
                             >
-                              {style.label}
+                              {s.label}
                               <CheckIcon
                                 className={cn(
                                   "ml-auto h-4 w-4",
-                                  Number(style.value) === Number(field.value)
+                                  Number(s.value) === field.value
                                     ? "opacity-100"
                                     : "opacity-0"
                                 )}
@@ -264,9 +285,6 @@ export default function KnittingBillChallanWiseSummaryForm() {
                     </Command>
                   </PopoverContent>
                 </Popover>
-                {/* <FormDescription>
-                This is the buyer that will be used in the report.
-              </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -280,8 +298,10 @@ export default function KnittingBillChallanWiseSummaryForm() {
             <MdOutlineClear className="rounded text-slate-600 m-0" />
           </Button>
         </div>
+        {/* end-Style================================================================================ */}
 
-        {/* Po==================================================================================== */}
+
+        {/* PO==================================================================================== */}
         <div className="flex justify-between items-end">
           <FormField
             control={form.control}
@@ -289,12 +309,13 @@ export default function KnittingBillChallanWiseSummaryForm() {
             render={({ field }) => (
               <FormItem className="flex flex-col flex-1">
                 <FormLabel>PO</FormLabel>
-                <Popover open={openItem} onOpenChange={setOpenItem}>
+                <Popover open={openPo} onOpenChange={setOpenPo}>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
                         variant="outline"
                         role="combobox"
+                        aria-expanded={openPo}
                         className={cn(
                           "w-full justify-between",
                           !field.value && "text-muted-foreground"
@@ -302,10 +323,9 @@ export default function KnittingBillChallanWiseSummaryForm() {
                       >
                         {field.value
                           ? pos?.find(
-                            (buyer) =>
-                              Number(buyer.value) === Number(field.value)
+                            (po) => Number(po.value) === field.value
                           )?.label
-                          : "Select an po"}
+                          : "Select a po"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
@@ -317,22 +337,24 @@ export default function KnittingBillChallanWiseSummaryForm() {
                         className="h-9"
                       />
                       <CommandList>
-                        <CommandEmpty>No buyer found.</CommandEmpty>
+                        <CommandEmpty>No po found.</CommandEmpty>
                         <CommandGroup>
-                          {pos?.map((buyer) => (
+                          {pos?.map((po) => (
                             <CommandItem
-                              value={buyer.label}
-                              key={buyer.value}
+                              value={po.label}
+                              key={po.value}
                               onSelect={() => {
-                                form.setValue("poId", Number(buyer.value));
-                                setOpenItem(false);
+                                form.setValue("poId", Number(po.value));
+                                form.setValue("po", po.label);
+                                setSelectedPo(Number(po.value));
+                                setOpenPo(false);
                               }}
                             >
-                              {buyer.label}
+                              {po.label}
                               <CheckIcon
                                 className={cn(
                                   "ml-auto h-4 w-4",
-                                  Number(buyer.value) === Number(field.value)
+                                  Number(po.value) === field.value
                                     ? "opacity-100"
                                     : "opacity-0"
                                 )}
@@ -344,9 +366,6 @@ export default function KnittingBillChallanWiseSummaryForm() {
                     </Command>
                   </PopoverContent>
                 </Popover>
-                {/* <FormDescription>
-                This is the buyer that will be used in the report.
-              </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -360,6 +379,34 @@ export default function KnittingBillChallanWiseSummaryForm() {
             <MdOutlineClear className="rounded text-slate-600 m-0" />
           </Button>
         </div>
+        {/* end-PO================================================================================ */}
+
+        {/* Booking Type==================================================================================== */}
+        <div className="flex justify-between items-end">
+          <FormField
+            control={form.control}
+            name="bookingType"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Booking Type</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl className="border border-gray-400">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a booking type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="fabric">Fabric</SelectItem>
+                    <SelectItem value="yarn">Yarn</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        {/* end Booking Type================================================================================= */}
+
 
         <Button type="submit" className="w-full">
           Show

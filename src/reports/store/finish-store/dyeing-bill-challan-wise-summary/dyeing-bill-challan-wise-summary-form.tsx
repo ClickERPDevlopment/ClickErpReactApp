@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineClear } from "react-icons/md";
 import { GetAllBuyer } from "@/actions/Merchandising/get-buyer";
-import { GetAllPoBStyled } from "@/actions/Merchandising/get-po";
+import { GetAllPoByStyled } from "@/actions/Merchandising/get-po";
 import { GetAllStyleByBuyer } from "@/actions/Merchandising/get-style";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,7 +61,7 @@ export default function DyeingBillChallanWiseSummaryForm() {
 
   const { data: buyersData } = GetAllBuyer();
   const { data: stylesData } = GetAllStyleByBuyer(selectedBuyer);
-  const { data: posData } = GetAllPoBStyled(selectedStyle);
+  const { data: posData } = GetAllPoByStyled(selectedStyle);
 
   useEffect(() => {
     const _: comboBoxDataType[] = [];
@@ -139,8 +139,8 @@ export default function DyeingBillChallanWiseSummaryForm() {
                       >
                         {field.value
                           ? buyers?.find(
-                              (buyer) => Number(buyer.value) === field.value
-                            )?.label
+                            (buyer) => Number(buyer.value) === field.value
+                          )?.label
                           : "Select a buyer"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -220,9 +220,9 @@ export default function DyeingBillChallanWiseSummaryForm() {
                       >
                         {field.value
                           ? styles?.find(
-                              (buyer) =>
-                                Number(buyer.value) === Number(field.value)
-                            )?.label
+                            (buyer) =>
+                              Number(buyer.value) === Number(field.value)
+                          )?.label
                           : "Select a style"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -302,9 +302,9 @@ export default function DyeingBillChallanWiseSummaryForm() {
                       >
                         {field.value
                           ? pos?.find(
-                              (buyer) =>
-                                Number(buyer.value) === Number(field.value)
-                            )?.label
+                            (buyer) =>
+                              Number(buyer.value) === Number(field.value)
+                          )?.label
                           : "Select an po"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
