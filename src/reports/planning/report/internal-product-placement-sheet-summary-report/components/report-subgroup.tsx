@@ -40,7 +40,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.BUYERNAME}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.PONO}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.COMMERCIALFACTORYPREFIX}</td>
-        <td className="border border-gray-950 p-0.5">{totalOrderQuantiy.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.5">{totalOrderQuantiy}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.STYLEID}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.NOCOLOR}</td>
 

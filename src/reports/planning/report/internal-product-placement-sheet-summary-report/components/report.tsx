@@ -161,7 +161,7 @@ function Report({
 
               <tr style={{ fontSize: "14px" }}>
                 <td colSpan={2} className="border border-gray-950 font-bold p-0.5">Total</td>
-                <td className="border border-gray-950 p-0.5 font-bold">{totalOrderQuantiy.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5 font-bold">{totalOrderQuantiy}</td>
                 <td className="border border-gray-950 p-0.5 font-bold"></td>
                 <td className="border border-gray-950 p-0.5 font-bold"></td>
               </tr>

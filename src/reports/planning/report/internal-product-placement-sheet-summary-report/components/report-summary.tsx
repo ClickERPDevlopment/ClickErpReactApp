@@ -24,7 +24,7 @@ function ReportSummary({
             {data[0]?.ITEMTYPE}
           </td>
           <td className="border border-gray-950 p-0.1">
-            {totalOrderQuantiy && totalOrderQuantiy.toFixed(3)}
+            {totalOrderQuantiy && totalOrderQuantiy}
           </td>
           <td className="border border-gray-950 p-0.1">
             {new Set(data?.map(item => item?.STYLEID)).size}
