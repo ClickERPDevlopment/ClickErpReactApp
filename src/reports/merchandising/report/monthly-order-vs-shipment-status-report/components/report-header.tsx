@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
+import { IMonthlyOrderVsShipmentStatusReport } from "../monthly-order-vs-shipment-status-report-type";
 
 function ReportHeader({
+  data,
   searchParams,
 }: {
+  data: IMonthlyOrderVsShipmentStatusReport[];
   searchParams: { toDate: any; fromDate: any };
 }) {
   return (
@@ -12,10 +15,10 @@ function ReportHeader({
         {moment().format("DD-MMM-YYYY")}
       </p>
       <h1 className="font-bold text-2xl text-center">
-        International Classic Composite Ltd.
+        {data[0]?.COMPANY_NAME || "Company Name"}
       </h1>
       <h4 className="font-bold text-base text-center">
-        568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.,
+        {data[0]?.COMPANY_ADDRESS || "Company Address"} {data[0]?.COMPANY_REMARKS || ""}
       </h4>
       <h3 className="font-bold text-xl text-center mt-2">
         Monthly Order Vs Shipment Status Report
