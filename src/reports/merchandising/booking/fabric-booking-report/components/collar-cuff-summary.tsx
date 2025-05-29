@@ -131,7 +131,7 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                     <table>
                         <thead>
                             <tr>
-                                <th colSpan={7 + getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS)?.length} className='border border-gray-600'>{fabric_part.FABRICATION} - Color Size Breakdown in Pcs</th>
+                                <th colSpan={5 + getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS)?.length} className='border border-gray-600'>{fabric_part.FABRICATION} - Color Size Breakdown in Pcs</th>
                             </tr>
                             <tr>
                                 <th className='border border-gray-600 p-1 text-xs text-center'>Size</th>
@@ -141,9 +141,9 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                                 )}
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total (Pcs)</th>
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total Fabric(KG)</th>
-                                <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Yarn</th>
+                                {/* <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Yarn</th> */}
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>GSM</th>
-                                <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total Yarn(KG)</th>
+                                {/* <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>Total Yarn(KG)</th> */}
                             </tr>
                             <tr>
                                 <th className='border border-gray-600 p-1 text-xs text-center'>{fabric_part.PARTS}</th>
@@ -174,19 +174,19 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                                             get_RowTotalFabricQty({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMTCOLOR: color.GMTCOLOR, FABRICCOLOR: color.FABRICCOLOR })
                                         }
                                     </td>
-                                    <td className='border border-gray-600 p-1 text-xs text-center' >
+                                    {/* <td className='border border-gray-600 p-1 text-xs text-center' >
                                         {
                                             get_RowYarnName({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMTCOLOR: color.GMTCOLOR, FABRICCOLOR: color.FABRICCOLOR }).map(y => y + ",")
                                         }
-                                    </td>
+                                    </td> */}
                                     <td className='border border-gray-600 p-1 text-xs text-center'>
                                         {
                                             get_RowGsm({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMTCOLOR: color.GMTCOLOR, FABRICCOLOR: color.FABRICCOLOR })
                                         }
                                     </td>
-                                    <td className='border border-gray-600 p-1 text-xs text-center'>
+                                    {/* <td className='border border-gray-600 p-1 text-xs text-center'>
                                         {get_RowYarnQty({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMTCOLOR: color.GMTCOLOR, FABRICCOLOR: color.FABRICCOLOR })}
-                                    </td>
+                                    </td> */}
                                 </tr>
                             )}
                         </tbody>
@@ -210,13 +210,13 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                                         get_TotalFabricQty({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS })
                                     }
                                 </th>
+                                {/* <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}></th> */}
                                 <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}></th>
-                                <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}></th>
-                                <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>
+                                {/* <th className='border border-gray-600 p-1 text-xs text-center' rowSpan={2}>
                                     {
                                         get_TotalYarnQty({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS })
                                     }
-                                </th>
+                                </th> */}
                             </tr>
                         </tfoot>
                     </table>

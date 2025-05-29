@@ -7,9 +7,9 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
     const uniqueCollarCuff = Array.from(
         new Map(
             collarCuffData
-                ?.filter(item => item.PO && item.ARTSTYLE && item.PARTS && item.FABRICATION && item.YARNCOUNT && item.GMTCOLOR && item.FABRICCOLOR)
+                ?.filter(item => item.PO && item.ARTSTYLE && item.PARTS && item.FABRICATION && item.YARNCOUNT && item.GMTCOLOR && item.FABRICCOLOR && item.UOM)
                 .map(item => [
-                    `${item.PO}__${item.ARTSTYLE}__${item.PARTS}__${item.FABRICATION}__${item.YARNCOUNT}__${item.GMTCOLOR}__${item.FABRICCOLOR}`, // composite key
+                    `${item.PO}__${item.ARTSTYLE}__${item.PARTS}__${item.FABRICATION}__${item.YARNCOUNT}__${item.GMTCOLOR}__${item.FABRICCOLOR}__${item.UOM}`, // composite key
                     {
                         PO: item.PO,
                         ARTSTYLE: item.ARTSTYLE,
@@ -18,6 +18,7 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                         YARNCOUNT: item.YARNCOUNT,
                         GMTCOLOR: item.GMTCOLOR,
                         FABRICCOLOR: item.FABRICCOLOR,
+                        UOM: item.UOM,
                     }
                 ])
         ).values()
@@ -56,6 +57,7 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
             YARNCOUNT: string | undefined;
             GMTCOLOR: string | undefined;
             FABRICCOLOR: string | undefined;
+            UOM: string | undefined;
         },
         fieldName: keyof FabricBookingReportDto_FabricQtyDetails) {
 
@@ -69,7 +71,8 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                     f.FABRICATION === item.FABRICATION &&
                     f.YARNCOUNT === item.YARNCOUNT &&
                     f.GMTCOLOR === item.GMTCOLOR &&
-                    f.FABRICCOLOR === item.FABRICCOLOR
+                    f.FABRICCOLOR === item.FABRICCOLOR &&
+                    f.UOM === item.UOM
                 )?.
                 forEach(element => {
                     qty += Number(element[fieldName]);
@@ -80,6 +83,49 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
         }
         return qty.toFixed(2);
     }
+
+    function getAvgQty(
+        item: {
+            PO: string | undefined;
+            ARTSTYLE: string | undefined;
+            PARTS: string | undefined;
+            FABRICATION: string | undefined;
+            YARNCOUNT: string | undefined;
+            GMTCOLOR: string | undefined;
+            FABRICCOLOR: string | undefined;
+            UOM: string | undefined;
+        },
+        fieldName: keyof FabricBookingReportDto_FabricQtyDetails
+    ) {
+        let totalQty = 0;
+        let count = 0;
+
+        try {
+            collarCuffData?.filter(f =>
+                f.PO === item.PO &&
+                f.ARTSTYLE === item.ARTSTYLE &&
+                f.PARTS === item.PARTS &&
+                f.FABRICATION === item.FABRICATION &&
+                f.YARNCOUNT === item.YARNCOUNT &&
+                f.GMTCOLOR === item.GMTCOLOR &&
+                f.FABRICCOLOR === item.FABRICCOLOR &&
+                f.UOM === item.UOM
+            )?.forEach(element => {
+                const value = Number(element[fieldName]);
+                if (!isNaN(value)) {
+                    totalQty += value;
+                    count++;
+                    console.log("Matched value:", value);
+                }
+            });
+        } catch (error) {
+            console.log("Error calculating average quantity:", error);
+        }
+
+        const avg = count > 0 ? totalQty / count : 0;
+        return avg.toFixed(2);
+    }
+
 
     return (
         <div className='mt-10'>
@@ -173,12 +219,12 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                             <td className='border border-gray-600 text-sm text-center'></td>
                             <td className='border border-gray-600 text-sm text-center'></td>
                             <td className='border border-gray-600 text-sm text-center'></td>
-                            <td className='border border-gray-600 text-sm text-center'></td>
-                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'>{getAvgQty(ele, "FACTORY_TOTAL_GREY_BOOKING_CON_PERPCS_GMT")}</td>
+                            <td className='border border-gray-600 text-sm text-center'>{getAvgQty(ele, "TOTALFINISHCONJDZN")}</td>
                             <td className='border border-gray-600 text-sm text-center'>{getCollarCuffQty(ele, "TOTALFINISHFABRICS")}</td>
                             <td className='border border-gray-600 text-sm text-center'>{getCollarCuffQty(ele, "TOTALYARN")}</td>
                             <td className='border border-gray-600 text-sm text-center'></td>
-                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'>{ele.UOM}</td>
                             <td className='border border-gray-600 text-sm text-center'></td>
                         </tr>
                     )}
