@@ -36,7 +36,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{index + 1}</td>
         {
           rowSpansByProgramNO && rowSpansByProgramNO[index] > 0 &&
-          <td className="border border-gray-950 p-0.5" rowSpan={rowSpansByProgramNO[index]}>
+          <td className="border border-gray-950 p-0.5 font-bold" rowSpan={rowSpansByProgramNO[index]}>
             {data[0]?.KNITTING_PROGRAM_NO}
           </td>
         }
@@ -89,7 +89,7 @@ function ReportSubgroup({
         </td>
         <td className="border border-gray-950 p-0.5">{data[0]?.GSM}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.COLORNAME}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.STITCH_LENGTH}</td>
+        <td style={{ fontSize: "14px" }} className="border border-gray-950 p-0.5 font-bold">{data[0]?.STITCH_LENGTH}</td>
         <td className="border border-gray-950 p-0.5">{totalQtyKg}</td>
         <td className="border border-gray-950 p-0.5">{totalQtyPcs}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.REMARKS}</td>

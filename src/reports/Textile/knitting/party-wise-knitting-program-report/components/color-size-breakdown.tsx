@@ -143,7 +143,7 @@ function ColorSizeBreakdown({ data, fabricPart }: { data: PartyWiseKnittingProgr
                         })}
 
                         <td className="border border-gray-950  p-0.5 text-center font-bold">
-                            {Object.values(columnWiseTotals).reduce((a, b) => a + b, 0).toFixed(2)}
+                            {Object.values(columnWiseTotals).reduce((a, b) => a + b, 0)}
                         </td>
 
                         <td className="border border-gray-950  p-0.5 text-center font-bold">

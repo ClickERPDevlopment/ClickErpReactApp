@@ -15,12 +15,12 @@ function ReportSummary({
 
   return (
     <>
-      <tr style={{ fontSize: "11px" }}>
-        <td className="border border-gray-950 p-0.5">{index}</td>
+      <tr style={{ fontSize: "14px" }} className="font-bold">
+        <td className="border border-gray-950 p-0.5">{index+1}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.BRAND_NAME}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
-        <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{totalQtyKg.toFixed(2)}</td>
       </tr>
     </>
   );

@@ -75,7 +75,7 @@ function Report({
     "Buyer",
     "Style",
     "Fabrication",
-    "Yarn",
+    "Yarn Count & Composition",
     "Brand x Lot",
     // "Full/ Half Feeder",
     "McDia x GG",
@@ -84,7 +84,7 @@ function Report({
     "Color",
     "Stitch L.",
     // "Lycra cm",
-    "Qty(Kgs)",
+    "Qty(Kg)",
     "Qty(Pcs)",
     // "Start Date",
     // "End Date",
@@ -93,10 +93,10 @@ function Report({
 
   const summaryHeader = [
     "SL",
+    "Yarn Count & Composition",
     "Brand",
     "Yarn Lot",
-    "Yarn",
-    "Quantity",
+    "Quantity(kg)",
   ];
 
 
@@ -126,7 +126,7 @@ function Report({
   console.log("Fabric Parts: ", fabricPartWiseData);
 
   return (
-    <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
+    <div style={{ fontFamily: "Times New Roman, serif", fontSize: "14px" }}
       className="px-11 text-gray-950">
       <div className="p-2">
         <ReportHeader
@@ -139,15 +139,15 @@ function Report({
               <tbody>
                 <tr>
                   <td className="align-top border border-gray-950 p-0.1">Factory Name.</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.KNIT_HOUSE}</td>
+                  <td className="align-top border border-gray-950 p-0.1">: {data[0]?.KNIT_HOUSE}</td>
                 </tr>
                 <tr>
                   <td className="align-top border border-gray-950 p-0.1">Address</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.KNIT_HOUSE_ADDRESS}</td>
+                  <td className="align-top border border-gray-950 p-0.1">: {data[0]?.KNIT_HOUSE_ADDRESS}</td>
                 </tr>
                 <tr>
                   <td className="align-top border border-gray-950 p-0.1">Attention</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: </td>
+                  <td className="align-top border border-gray-950 p-0.1">: </td>
                 </tr>
               </tbody>
             </table>
@@ -158,19 +158,19 @@ function Report({
               <tbody>
                 <tr>
                   <td className="align-top border border-gray-950 p-0.1">Program Date</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: {moment(data[0]?.KNITTING_PROG_DATE).format("DD-MMM-YY")}</td>
+                  <td className="align-top border border-gray-950 p-0.1">: {moment(data[0]?.KNITTING_PROG_DATE).format("DD-MMM-YY")}</td>
                   <td className="align-top border border-gray-950 p-0.1">Program Start Date</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: {moment(data[0]?.START_DATE).format("DD-MMM-YY")}</td>
+                  <td className="align-top border border-gray-950 p-0.1 ">: {moment(data[0]?.START_DATE).format("DD-MMM-YY")}</td>
                 </tr>
                 <tr>
                   <td className="align-top border border-gray-950 p-0.1">Job Number</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.PONO}</td>
+                  <td className="align-top border border-gray-950 p-0.1 ">: {data[0]?.PONO}</td>
                   <td className="align-top border border-gray-950 p-0.1">Program End Date</td>
-                  <td className="align-top border border-gray-950 p-0.1 font-light">: {moment(data[0]?.END_DATE).format("DD-MMM-YY")}</td>
+                  <td className="align-top border border-gray-950 p-0.1">: {moment(data[0]?.END_DATE).format("DD-MMM-YY")}</td>
                 </tr>
                 <tr>
                   <td className="align-top border border-gray-950 p-0.1">Order Number</td>
-                  <td colSpan={3} className="align-top border border-gray-950 p-0.1 font-light">: {data[0]?.ORDER_NO}</td>
+                  <td colSpan={3} className="align-top border border-gray-950 p-0.1 ">: {data[0]?.ORDER_NO}</td>
                 </tr>
               </tbody>
             </table>
@@ -197,12 +197,12 @@ function Report({
             <tr style={{ fontSize: "11px" }} className="font-bold">
               <td colSpan={12} className="border border-gray-950 p-0.5">Total</td>
               <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{totalQtyPcs.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5">{totalQtyPcs}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
             </tr>
           </tbody>
         </table>
-        <p style={{ fontSize: "11px" }}><span className="font-bold">Taka:</span> {data[0]?.DTLS_TOTAL_KNIT_AMOUNT}</p>
+        {/* <p style={{ fontSize: "11px" }}><span className="font-bold">Taka:</span> {data[0]?.DTLS_TOTAL_KNIT_AMOUNT}</p> */}
 
 
         <div>
@@ -236,10 +236,10 @@ function Report({
         <div className="mt-5">
           <div className="flex justify-between">
             <div>
-              <p style={{ fontSize: "11px" }} className="font-bold text-center">Yarn Summary</p>
+              <p style={{ fontSize: "15px" }} className="font-bold text-center">Yarn Summary</p>
               <table className="border-collapse border border-gray-300  w-[100%]">
                 <thead className="print:bg-transparent">
-                  <tr style={{ fontSize: "11px" }} className="bg-indigo-200 text-center">
+                  <tr style={{ fontSize: "15px" }} className="bg-indigo-200 text-center">
                     {summaryHeader?.map((item) =>
                       <th key={item} className="border border-gray-950 p-0.5">{item}</th>
                     )}
@@ -254,9 +254,9 @@ function Report({
                     ></ReportSummary>
                   ))}
 
-                  <tr style={{ fontSize: "12px" }} className="font-bold">
+                  <tr style={{ fontSize: "14px" }} className="font-bold">
                     <td colSpan={4} className="border border-gray-950 p-0.5">Total</td>
-                    <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
+                    <td className="border border-gray-950 p-0.5 text-center">{totalQtyKg.toFixed(2)}</td>
                   </tr>
                 </tbody>
               </table>
