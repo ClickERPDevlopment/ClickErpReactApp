@@ -11,7 +11,7 @@ import ShowBookingForm from "./show-booking-form";
 
 export default function ShowBookingView() {
   return (
-    <div className="flex justify-center mt-28">
+    <div className="min-h-full flex justify-center items-center">
       <Card className="md:w-[450px] sm:w-full sm:mx-1 bg-white">
         <CardHeader>
           <CardTitle>Booking Show</CardTitle>

@@ -60,10 +60,10 @@ function App() {
           <div className="page">
             <Header />
             <Sidebar />
-            <div className="content main-index">
+            <div className="content main-index flex flex-1">
               <div
-                className="main-content"
-                // onClick={Bodyclickk}
+                className="main-content min-w-full min-h-full"
+              // onClick={Bodyclickk}
               >
                 <Outlet />
               </div>

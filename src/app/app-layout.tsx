@@ -174,7 +174,7 @@ export default function AppLayout() {
             </div>
           </div>
         </nav> */}
-        <div className="container">
+        <div className="container min-w-full h-full">
           <Outlet />
         </div>
       </main>
