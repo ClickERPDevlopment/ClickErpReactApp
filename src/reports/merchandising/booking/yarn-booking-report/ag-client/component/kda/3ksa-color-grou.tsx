@@ -2,11 +2,21 @@
 import { useContext } from "react";
 import YarnBookingReportContext from "../yb-rpt-context";
 import { YarnBookingReportDto_KnittingDyeingAdvice } from "../yb-rpt-type";
-import { fabricPartsAction } from "./fabric-parts-action";
 import { cn } from "@/lib/utils";
 
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
+  fabricParts: {
+    ribPartsName: string;
+    ribCuffPartsName: string;
+    collarPartsName: string;
+    cuffPartsName: string;
+    summaryColumns: string[];
+    isRibColAval: boolean | undefined;
+    isRibCuffColAval: boolean | undefined;
+    isCollarColAval: boolean | undefined;
+    isCuffColAval: boolean | undefined;
+  }
 };
 
 function getSizeWiseQty(
@@ -33,35 +43,8 @@ function getTotalQty(
   return qty === 0 ? "" : yarnName.toUpperCase().includes('LYCRA') ? qty.toFixed(2) : qty.toFixed(0);
 }
 
-
-// function gatAllparts(
-//   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined
-// ) {
-//   let partsList: string[] = [];
-//   if (lstKda) {
-//     lstKda.forEach((element) => {
-//       if (!partsList.includes(element.FABRIC_PART)) {
-//         partsList.push(element.FABRIC_PART);
-//       }
-//     });
-//   }
-//   partsList = partsList.sort((a, b) =>
-//     a?.toUpperCase().includes("BODY")
-//       ? -1
-//       : b?.toUpperCase().includes("COLLAR")
-//       ? 1
-//       : b?.toUpperCase().includes("CUFF")
-//       ? 2
-//       : 0
-//   );
-//   return partsList;
-//   // return partsList.sort();
-// }
-
-export default function KittingDyeingAdviceColorGroup({ lstKda }: prams) {
+export default function KittingDyeingAdviceColorGroup({ lstKda, fabricParts }: prams) {
   const sizeList = useContext(YarnBookingReportContext)?.knittingSizeNameList;
-  // const partsList = gatAllparts(lstKda);
-  const fabricParts = fabricPartsAction(lstKda);
 
   if (lstKda)
     return (

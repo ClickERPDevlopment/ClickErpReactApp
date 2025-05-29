@@ -73,6 +73,7 @@ export default function KittingDyeingAdvicePartsGroup({ lstKda }: prams) {
               <td className="text-center border border-black">{index + 1}</td>
               <KittingDyeingAdviceColorGroup
                 lstKda={lstKda?.filter((f) => f.COLORNAME === color)}
+                fabricParts={fabricParts}
               />
             </tr>
           ))}
