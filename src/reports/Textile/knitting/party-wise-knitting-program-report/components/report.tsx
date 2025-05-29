@@ -234,7 +234,7 @@ function Report({
         }
 
         <div className="mt-5">
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-3 items-start">
             <div>
               <p style={{ fontSize: "15px" }} className="font-bold text-center">Yarn Summary</p>
               <table className="border-collapse border border-gray-300  w-[100%]">
@@ -262,8 +262,8 @@ function Report({
               </table>
 
             </div>
-            <div>
-              <p style={{ fontSize: "11px" }} className="font-bold text-center">
+            <div className="min-w-[30%]">
+              <p style={{ fontSize: "15px" }} className="font-bold text-center">
                 Collar Cuff Quantity Summary
               </p>
               <table className="border-collapse border border-gray-300  w-[100%]">
