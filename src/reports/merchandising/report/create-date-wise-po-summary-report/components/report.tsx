@@ -128,7 +128,7 @@ function Report({
                 <td className="border border-gray-300">{item.PO_NO}</td>
                 <td className="border border-gray-300">{item.ITEM_TYPE}</td>
                 <td className="border border-gray-300">
-                  {item.QTY}
+                  {item.QTY.toLocaleString("en-US")}
                 </td>
                 {moment(item.SHIP_DATE).format("DD-MMM-YY") !== "01-Jan-01" ?
                   <td className="border border-gray-300">
@@ -142,12 +142,18 @@ function Report({
                 <td className="border border-gray-300">
                   {(item.CM * 12).toFixed(3)}
                 </td>
-                <td className="border border-gray-300">{(item.CM * item.QTY).toFixed(3)}</td>
+                <td className="border border-gray-300">{(item.CM * item.QTY).toLocaleString("en-US", {
+                  minimumFractionDigits: 3,
+                  maximumFractionDigits: 3,
+                })}</td>
                 <td className="border border-gray-300">
                   {item.FOB.toFixed(3)}
                 </td>
                 <td className="border border-gray-300">
-                  {(item.FOB * item.QTY).toFixed(3)}
+                  {(item.FOB * item.QTY).toLocaleString("en-US", {
+                    minimumFractionDigits: 3,
+                    maximumFractionDigits: 3,
+                  })}
                 </td>
                 <td className="border border-gray-300">{item.CREATEBY}</td>
                 <td className="border border-gray-300 text-nowrap">{moment(item.CREATEDATE).format("DD-MMM-YY")}</td>
@@ -157,7 +163,7 @@ function Report({
               <td colSpan={6} className="border border-gray-300">
                 Total
               </td>
-              <td className="border border-gray-300">{totalQty}</td>
+              <td className="border border-gray-300">{totalQty.toLocaleString("en-US")}</td>
               <td className="border border-gray-300"></td>
               <td className="border border-gray-300"></td>
               <td className="border border-gray-300"></td>
