@@ -55,13 +55,13 @@ export default function KittingDyeingAdviceColorGroup({ lstKda, fabricParts }: p
 
         {sizeList?.map((s: any) => (
           <td className="text-center border border-black">
-            {getSizeWiseQty(lstKda?.filter((f) => !fabricParts.summaryColumns.includes(f.FABRIC_PART.toUpperCase())), s, lstKda[0].MTL_NAME)}
+            {getSizeWiseQty(lstKda?.filter((f) => !fabricParts.summaryColumns.includes(f.FABRIC_PART?.toUpperCase())), s, lstKda[0].MTL_NAME)}
           </td>
         ))}
 
         {/* sub-total */}
         <td className="text-center border border-black">
-          {getTotalQty(lstKda?.filter((f) => !fabricParts.summaryColumns.includes(f.FABRIC_PART.toUpperCase())), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => !fabricParts.summaryColumns.includes(f.FABRIC_PART?.toUpperCase())), lstKda[0].MTL_NAME)}
         </td>
         {/* end-sub-total */}
 
@@ -69,28 +69,28 @@ export default function KittingDyeingAdviceColorGroup({ lstKda, fabricParts }: p
           cn("text-center border border-black",
             fabricParts.isRibColAval ? "" : "hidden"
           )}>
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.ribPartsName), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART?.toUpperCase() === fabricParts.ribPartsName), lstKda[0].MTL_NAME)}
         </td>
 
         <td className={
           cn("text-center border border-black",
             fabricParts.isRibCuffColAval ? "" : "hidden"
           )}>
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.ribCuffPartsName), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART?.toUpperCase() === fabricParts.ribCuffPartsName), lstKda[0].MTL_NAME)}
         </td>
 
         <td className={
           cn("text-center border border-black",
             fabricParts.isCollarColAval ? "" : "hidden"
           )}>
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.collarPartsName), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART?.toUpperCase() === fabricParts.collarPartsName), lstKda[0].MTL_NAME)}
         </td>
 
         <td className={
           cn("text-center border border-black",
             fabricParts.isCuffColAval ? "" : "hidden"
           )}>
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART.toUpperCase() === fabricParts.cuffPartsName), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART?.toUpperCase() === fabricParts.cuffPartsName), lstKda[0].MTL_NAME)}
         </td>
 
         <td className="text-center border border-black">
