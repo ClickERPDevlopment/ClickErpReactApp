@@ -22,6 +22,8 @@ function EmbellishmentDailyProductionReport() {
 
   const fromDate = searchParams.get("fromDate") || "01-Jan-23";
   const toDate = searchParams.get("toDate") || "01-Jan-26";
+  const supplierId = searchParams.get("supplierId") || "0";
+  const woId = searchParams.get("woId") || "0";
   const buyerId = searchParams.get("buyerId") || "0";
   const styleId = searchParams.get("styleId") || "0";
   const poId = searchParams.get("poId") || "0";
@@ -46,7 +48,7 @@ function EmbellishmentDailyProductionReport() {
   useEffect(() => {
     async function getData() {
 
-      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentDailyProductionReport?fromDate=${fromDate}&toDate=${toDate}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&typeId=${typeId}`;
+      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentDailyProductionReport?fromDate=${fromDate}&toDate=${toDate}&supplierId=${supplierId}&woId=${woId}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&typeId=${typeId}`;
 
       try {
         setIsLoading(true);
