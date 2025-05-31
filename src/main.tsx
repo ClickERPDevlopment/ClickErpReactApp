@@ -140,6 +140,7 @@ import FinishGoodValuationCrud from "./app/merchandising/finish-good-valuation/f
 import GreyFabricIssueToDyeingChallanIndex from "./reports/store/grey-store/grey-fabric-issue-to-dyeing-challan/grey-fabric-issue-to-dyeing-challan-index.tsx";
 import ShowBookingView from "./app/merchandising/booking/show-booking/show-booking-view.tsx";
 import InternalProductPlacementSheetReport from "./reports/planning/report/internal-product-placement-sheet-summary-report/internal-product-placement-sheet-report-index.tsx";
+import EmbellishmentDailyProductionReport from "./reports/embellishment/embellishment-daily-production-report/embellishment-daily-production-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -752,6 +753,11 @@ createRoot(document.getElementById("root")!).render(
                       path="embellishment-budget-sheet"
                       element={<EmblishmentBudgetSheet />}
                     />
+                    <Route
+                      path="embellishment-daily-production-report"
+                      element={<EmbellishmentDailyProductionReport />}
+                    />
+
                   </Route>
 
                   <Route path="ie">
