@@ -142,6 +142,7 @@ import ShowBookingView from "./app/merchandising/booking/show-booking/show-booki
 import InternalProductPlacementSheetReport from "./reports/planning/report/internal-product-placement-sheet-summary-report/internal-product-placement-sheet-report-index.tsx";
 import EmbellishmentDailyProductionReport from "./reports/embellishment/embellishment-daily-production-report/embellishment-daily-production-report-index.tsx";
 import EmbellishmentDailySummaryProductionReport from "./reports/embellishment/embellishment-daily-summary-production-report/embellishment-daily-summary-production-report-index.tsx";
+import InHouseBatchWiseFabricDeliveryReport from "./reports/Textile/Dyeing/in-house-batch-wise-fabric-delivery-report - Copy/in-house-batch-wise-fabric-delivery-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -658,6 +659,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="subcontract-batch-wise-fabric-delivery-report"
                         element={<SubcontractBatchWiseFabricDeliveryReport />}
+                      />
+                      <Route
+                        path="in-house-batch-wise-fabric-delivery-report"
+                        element={<InHouseBatchWiseFabricDeliveryReport />}
                       />
                     </Route>
                   </Route>
