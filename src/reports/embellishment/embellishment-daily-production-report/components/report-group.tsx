@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import ReportSubgroup from "./report-subgroup";
 import { EmbellishmentDailyProductionReportType } from "../embellishment-daily-production-report-type";
-import ReportGroup from "./report-group";
 
-function ReportTable({
+function ReportGroup({
   data,
   firstHeader,
 }: {
@@ -39,7 +39,7 @@ function ReportTable({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["BUYER"]);
+    groupedByDate = groupBy(data, ["EMBELLISHMENT_TYPE", "WORK_ORDER_NO", "BUYER", "STYLE", "PO_NO", "COLOR", "PARTS"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -60,16 +60,17 @@ function ReportTable({
 
   return (
     <>
-      {uniqueKeysArray?.map((key) => (
-        <ReportGroup
+      {uniqueKeysArray?.map((key, index) => (
+        <ReportSubgroup
           key={key}
           data={groupedByDate[key].items}
+          index={index}
           firstHeader={firstHeader}
-        ></ReportGroup>
+        ></ReportSubgroup>
       ))}
 
       <tr style={{ fontSize: "14px" }} className="font-bold">
-        <td colSpan={7} className="border border-gray-950 p-0.5 text-center">Customer Wise Total</td>
+        <td colSpan={7} className="border border-gray-950 p-0.5 text-center">Buyer Wise Total</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalOrderQty}</td>
         <td className="border border-gray-950 p-0.5"></td>
         <td className="border border-gray-950 p-0.5 text-center">{totalPrevProduction}</td>
@@ -80,4 +81,4 @@ function ReportTable({
   );
 }
 
-export default ReportTable;
+export default ReportGroup;

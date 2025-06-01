@@ -23,6 +23,7 @@ function ReportSubgroup({
   return (
     <>
       <tr style={{ fontSize: "14px" }}>
+        <td className="border border-gray-950 p-0.5">{data[0]?.SUPPLIER_CODE}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.EMBELLISHMENT_TYPE}</td>
         <td className="border border-gray-950 p-0.5 text-nowrap">{data[0]?.WORK_ORDER_NO}</td>
         <td className="border border-gray-950 p-0.5">{!data[0]?.BUYER ? data[0]?.OS_BUYER : data[0]?.BUYER}</td>

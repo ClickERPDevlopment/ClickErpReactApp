@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportTable from "./report-table";
-import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { EmbellishmentDailyProductionReportType } from "../embellishment-daily-production-report-type";
 
@@ -41,7 +40,7 @@ function Report({
   let groupedData: IGroupedData = {};
 
   if (data) {
-    groupedData = groupBy(data, [""]);
+    groupedData = groupBy(data, ["SUPPLIER_CODE"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -49,6 +48,7 @@ function Report({
 
   //set table header
   const firstHeader = [
+    "Customer",
     "Emb. Type",
     "WO",
     "Buyer",
@@ -90,6 +90,7 @@ function Report({
               )}
             </tr>
           </thead>
+
           <tbody>
             {uniqueKeysArray?.map((key) => (
               <ReportTable
@@ -99,7 +100,7 @@ function Report({
               ></ReportTable>
             ))}
             <tr style={{ fontSize: "14px" }} className="font-bold">
-              <td colSpan={6} className="border border-gray-950 p-0.5">Total</td>
+              <td colSpan={7} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
               <td className="border border-gray-950 p-0.5 text-center">{totalOrderQty}</td>
               <td className="border border-gray-950 p-0.5"></td>
               <td className="border border-gray-950 p-0.5 text-center">{totalPrevProduction}</td>
@@ -110,8 +111,9 @@ function Report({
         </table>
 
         <div className="pt-10">
-          <ReportFooter></ReportFooter>
+          {/* <ReportFooter></ReportFooter> */}
         </div>
+
       </div>
     </div>
   );

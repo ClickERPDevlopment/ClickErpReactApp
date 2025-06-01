@@ -28,4 +28,6 @@ export type EmbellishmentDailyProductionReportType = {
 
   PARTS?: string;
   PREPARED_BY?: string;
+
+  SUPPLIER_CODE?: string;
 };
