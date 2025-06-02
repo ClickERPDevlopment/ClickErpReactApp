@@ -27,7 +27,7 @@ function BudgetReport() {
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Report";
+    document.title = "Budget Report";
   }, []);
 
   useEffect(() => {
