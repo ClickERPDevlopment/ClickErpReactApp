@@ -97,24 +97,24 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
         return lst ? lst.reduce((p, c) => p + Number(c.TOTALFINISHFABRICS), 0).toFixed(0) : 0;
     }
 
-    function get_RowYarnName({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
-        const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
-        const yarns = Array.from(
-            new Set(lst?.map(item => item.YARNCOUNT).filter((s): s is string => !!s))
-        );
-        return yarns;
-    }
+    // function get_RowYarnName({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
+    //     const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
+    //     const yarns = Array.from(
+    //         new Set(lst?.map(item => item.YARNCOUNT).filter((s): s is string => !!s))
+    //     );
+    //     return yarns;
+    // }
 
 
-    function get_RowYarnQty({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
-        const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
-        return lst ? lst.reduce((p, c) => p + Number(c.TOTALYARN), 0).toFixed(0) : 0;
-    }
+    // function get_RowYarnQty({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
+    //     const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
+    //     return lst ? lst.reduce((p, c) => p + Number(c.TOTALYARN), 0).toFixed(0) : 0;
+    // }
 
-    function get_TotalYarnQty({ FABRICATION, PARTS }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
-        const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS);
-        return lst ? lst.reduce((p, c) => p + Number(c.TOTALYARN), 0).toFixed(0) : 0;
-    }
+    // function get_TotalYarnQty({ FABRICATION, PARTS }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
+    //     const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS);
+    //     return lst ? lst.reduce((p, c) => p + Number(c.TOTALYARN), 0).toFixed(0) : 0;
+    // }
 
     function get_RowGsm({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
         const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
