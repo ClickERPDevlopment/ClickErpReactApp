@@ -27,6 +27,7 @@ function InHouseBatchWiseFabricDeliveryReport() {
   const colorId = Number(searchParams.get("colorId")) || 0;
   const batchId = Number(searchParams.get("batchId")) || 0;
   const companyId = Number(searchParams.get("companyId")) || 1;
+  const fabricId = Number(searchParams.get("fabricId")) || 0;
   // Set document title
   useEffect(() => {
     document.title = "Report";
@@ -44,7 +45,8 @@ function InHouseBatchWiseFabricDeliveryReport() {
           order,
           colorId,
           batchId,
-          companyId
+          companyId,
+          fabricId
         };
 
         const response = await axios.get(url, { params });

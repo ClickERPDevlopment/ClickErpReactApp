@@ -23,6 +23,8 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
               <td className="border border-gray-300">{moment(item.PRODUCTION_DATE).format("DD-MMM-YY")}</td>
             )
           }
+          <td className="border border-gray-300">{item.BUYER}</td>
+          <td className="border border-gray-300">{item.STYLE}</td>
           <td className="border border-gray-300">{item.PONO}</td>
           <td className="border border-gray-300">{item.COLORNAME}</td>
           <td className="border border-gray-300">{item.FABRIC}</td>
@@ -43,7 +45,7 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
         </tr>
       ))}
       <tr className="text-center font-bold">
-        <td className="border border-gray-300" colSpan={6}>
+        <td className="border border-gray-300" colSpan={8}>
           Total
         </td>
         <td className="border border-gray-300">{totalBatchQtyKg.toFixed(3)}</td>
@@ -51,7 +53,7 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
         <td className="border border-gray-300"></td>
         <td className="border border-gray-300">{totalGreyWeight.toFixed(3)}</td>
         <td className="border border-gray-300">{totalFinishQty.toFixed(3)}</td>
-        <td className="border border-gray-300">{totalProcessLoss.toFixed(3)}</td>
+        <td className="border border-gray-300">{(totalProcessLoss / data.length).toFixed(3)}</td>
       </tr>
     </>
   );

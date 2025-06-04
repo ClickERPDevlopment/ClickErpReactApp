@@ -63,7 +63,7 @@ function SubcontractBatchWiseFabricDeliveryReport() {
     fetchShortShipmentData();
   }, [api.ProductionUrl, fromDate, toDate, partyId, order, colorId, batchId, companyId]);
 
-  console.log(data);
+
 
   return (
     <>

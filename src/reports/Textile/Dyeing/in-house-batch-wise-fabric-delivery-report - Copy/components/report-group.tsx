@@ -34,7 +34,7 @@ function ReportGroup({
   let groupedByBuyer: GroupedByBuyer = {};
 
   if (data) {
-    groupedByBuyer = groupBy(data, ["PONO", "COLORNAME"]);
+    groupedByBuyer = groupBy(data, ["BUYER", "STYLE", "PONO", "COLORNAME"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -64,7 +64,7 @@ function ReportGroup({
           ))}
 
           <tr className="text-center font-bold">
-            <td className="border border-gray-300" colSpan={6}>
+            <td className="border border-gray-300" colSpan={8}>
               Grand Total
             </td>
             <td className="border border-gray-300">{totalBatchQtyKg.toFixed(3)}</td>
@@ -72,7 +72,7 @@ function ReportGroup({
             <td className="border border-gray-300"></td>
             <td className="border border-gray-300">{totalGreyWeight.toFixed(3)}</td>
             <td className="border border-gray-300">{totalFinishQty.toFixed(3)}</td>
-            <td className="border border-gray-300">{totalProcessLoss.toFixed(3)}</td>
+            <td className="border border-gray-300">{(totalProcessLoss / data.length).toFixed(3)}</td>
           </tr>
         </tbody>
       </table>

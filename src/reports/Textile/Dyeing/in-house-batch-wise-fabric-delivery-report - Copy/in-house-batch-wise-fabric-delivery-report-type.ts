@@ -14,4 +14,6 @@ export interface IInHouseBatchWiseFabricDeliveryReport {
   GREY_WEIGHT: number;
   FINISH_QUANTITY: number;
   PROCESS_LOSS: number;
+  BUYER: string;
+  STYLE: string;
 }

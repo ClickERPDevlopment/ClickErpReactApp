@@ -23,6 +23,8 @@ function Report({
   //set table header
   const firstHeader = [
     "Dyeing Date",
+    "Buyer",
+    "Style",
     "Order",
     "Color",
     "Fabric",
