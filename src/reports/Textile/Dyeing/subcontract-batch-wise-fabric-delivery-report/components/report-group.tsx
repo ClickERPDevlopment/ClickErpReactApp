@@ -71,7 +71,7 @@ function ReportGroup({
             <td className="border border-gray-300"></td>
             <td className="border border-gray-300">{totalGreyWeight.toFixed(3)}</td>
             <td className="border border-gray-300">{totalFinishQty.toFixed(3)}</td>
-            <td className="border border-gray-300">{(100 * (totalGreyWeight - totalBatchQtyKg) / totalGreyWeight).toFixed(3)}</td>
+            <td className="border border-gray-300">{(100 * (totalGreyWeight - totalFinishQty) / totalGreyWeight).toFixed(3)}</td>
           </tr>
         </tbody>
       </table>
