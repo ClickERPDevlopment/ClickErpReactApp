@@ -42,7 +42,6 @@ function ReportGroup({
   const totalBatchQtyKg = data.reduce((acc, item) => acc + item.BATCH_QTY_KG, 0);
   const totalGreyWeight = data.reduce((acc, item) => acc + item.GREY_WEIGHT, 0);
   const totalFinishQty = data.reduce((acc, item) => acc + item.FINISH_QUANTITY, 0);
-  const totalProcessLoss = data.reduce((acc, item) => acc + item.PROCESS_LOSS, 0);
 
   return (
     <div className="mb-2 mt-2">
