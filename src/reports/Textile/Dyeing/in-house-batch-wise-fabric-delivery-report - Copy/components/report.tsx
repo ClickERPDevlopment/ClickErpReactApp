@@ -35,7 +35,7 @@ function Report({
     "Delivery Challan",
     "Grey Weight",
     "Finish Qty",
-    "P/Loss",
+    "P/Loss(%)",
   ];
 
   console.log(data);

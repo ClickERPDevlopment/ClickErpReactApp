@@ -10,7 +10,6 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
   const totalBatchQtyKg = data.reduce((acc, item) => acc + item.BATCH_QTY_KG, 0);
   const totalGreyWeight = data.reduce((acc, item) => acc + item.GREY_WEIGHT, 0);
   const totalFinishQty = data.reduce((acc, item) => acc + item.FINISH_QUANTITY, 0);
-  const totalProcessLoss = data.reduce((acc, item) => acc + item.PROCESS_LOSS, 0);
 
   return (
     <>
@@ -53,7 +52,7 @@ const ReportTable: React.FC<IReportTableProps> = ({ data }) => {
         <td className="border border-gray-300"></td>
         <td className="border border-gray-300">{totalGreyWeight.toFixed(3)}</td>
         <td className="border border-gray-300">{totalFinishQty.toFixed(3)}</td>
-        <td className="border border-gray-300">{(totalProcessLoss / data.length).toFixed(3)}</td>
+        <td className="border border-gray-300">{(100 * (totalGreyWeight - totalFinishQty) / totalGreyWeight).toFixed(3)}</td>
       </tr>
     </>
   );
