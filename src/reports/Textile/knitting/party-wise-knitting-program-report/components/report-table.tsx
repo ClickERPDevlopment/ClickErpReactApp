@@ -87,9 +87,6 @@ function ReportTable({
   const collarCuffRowSpansByYarn = getRowSpansByKey(newCollarCuffData, "YARN");
   const collarCuffRowSpansByFabric = getRowSpansByKey(newCollarCuffData, "FABRIC");
 
-
-
-
   const othersRowPansByProgramNo = getRowSpansByKey(newOthersData, "KNITTING_PROGRAM_NO");
   const othersRowSpansByBuyer = getRowSpansByKey(newOthersData, "BUYER");
   const othersfRowSpansByStyle = getRowSpansByKey(newOthersData, "STYLENO");
@@ -100,8 +97,15 @@ function ReportTable({
 
   return (
     <>
-      {collarCuffKeysArray?.map((key, index) => (
-        <ReportSubgroup
+      {collarCuffKeysArray?.map((key, index) => {
+
+        const currentFabric = collarCuffGrouped[key].items[0]?.FABRIC;
+
+        const fabricWiseTotalQtyKg = collarCuffData
+          .filter(item => item.FABRIC === currentFabric)
+          .reduce((acc, item) => acc + Number(item.DTLS_QTY), 0);
+
+        return <ReportSubgroup
           key={key}
           data={collarCuffGrouped[key].items}
           firstHeader={firstHeader}
@@ -111,11 +115,18 @@ function ReportTable({
           rowSpansByStyle={collarCuffRowSpansByStyle}
           rowSpansByYarn={collarCuffRowSpansByYarn}
           rowSpansByFabric={collarCuffRowSpansByFabric}
-        ></ReportSubgroup>
-      ))}
+          fabricWiseTotalQtyKg={fabricWiseTotalQtyKg}
+        ></ReportSubgroup>;
+      })}
 
-      {othersKeysArray?.map((key, index) => (
-        <ReportSubgroup
+      {othersKeysArray?.map((key, index) => {
+
+        const currentFabric = othersGrouped[key].items[0]?.FABRIC;
+        const fabricWiseTotalQtyKg = othersData
+          .filter(item => item.FABRIC === currentFabric)
+          .reduce((acc, item) => acc + Number(item.DTLS_QTY), 0);
+
+        return <ReportSubgroup
           key={key}
           data={othersGrouped[key].items}
           firstHeader={firstHeader}
@@ -125,8 +136,9 @@ function ReportTable({
           rowSpansByStyle={othersfRowSpansByStyle}
           rowSpansByYarn={othersRowSpansByYarn}
           rowSpansByFabric={othersRowSpansByFabric}
+          fabricWiseTotalQtyKg={fabricWiseTotalQtyKg}
         ></ReportSubgroup>
-      ))}
+      })}
     </>
   );
 }

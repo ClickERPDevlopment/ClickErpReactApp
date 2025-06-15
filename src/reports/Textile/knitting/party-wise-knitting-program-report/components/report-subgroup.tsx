@@ -7,7 +7,8 @@ function ReportSubgroup({
   rowSpansByBuyer,
   rowSpansByStyle,
   rowSpansByYarn,
-  rowSpansByFabric
+  rowSpansByFabric,
+  fabricWiseTotalQtyKg,
 }: {
   data: PartyWiseKnittingProgramType[];
   firstHeader: string[] | null;
@@ -17,6 +18,7 @@ function ReportSubgroup({
   rowSpansByStyle?: number[];
   rowSpansByYarn?: number[];
   rowSpansByFabric?: number[];
+  fabricWiseTotalQtyKg?: number;
 }) {
 
 
@@ -25,10 +27,6 @@ function ReportSubgroup({
     0
   );
 
-  const totalQtyPcs = data?.reduce(
-    (acc, item) => acc + Number(item.DTLS_PICES),
-    0
-  );
 
   return (
     <>
@@ -91,7 +89,11 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.COLORNAME}</td>
         <td style={{ fontSize: "14px" }} className="border border-gray-950 p-0.5 font-bold">{data[0]?.STITCH_LENGTH}</td>
         <td className="border border-gray-950 p-0.5">{totalQtyKg}</td>
-        <td className="border border-gray-950 p-0.5">{totalQtyPcs}</td>
+        {rowSpansByFabric && rowSpansByFabric[index] > 0 && (
+          <td className="border border-gray-950 p-0.5 text-center font-bold" rowSpan={rowSpansByFabric[index]}>
+            {fabricWiseTotalQtyKg}
+          </td>
+        )}
         <td className="border border-gray-950 p-0.5">{data[0]?.REMARKS}</td>
       </tr>
     </>

@@ -85,7 +85,7 @@ function Report({
     "Stitch L.",
     // "Lycra cm",
     "Qty(Kg)",
-    "Qty(Pcs)",
+    "TTL Qty(Kg)",
     // "Start Date",
     // "End Date",
     "Remarks",
@@ -105,10 +105,7 @@ function Report({
     0
   );
 
-  const totalQtyPcs = data?.reduce(
-    (acc, item) => acc + Number(item.DTLS_PICES),
-    0
-  );
+
 
   let fabricParts: string[] = [];
 
@@ -197,7 +194,7 @@ function Report({
             <tr style={{ fontSize: "11px" }} className="font-bold">
               <td colSpan={12} className="border border-gray-950 p-0.5">Total</td>
               <td className="border border-gray-950 p-0.5">{totalQtyKg.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{totalQtyPcs}</td>
+              <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
             </tr>
           </tbody>
@@ -262,7 +259,7 @@ function Report({
               </table>
 
             </div>
-            <div className="min-w-[30%]">
+            {collarCuffQtySummary.length > 0 && <div className="min-w-[30%]">
               <p style={{ fontSize: "15px" }} className="font-bold text-center">
                 Collar Cuff Quantity Summary
               </p>
@@ -292,7 +289,7 @@ function Report({
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div>}
           </div>
         </div>
 
