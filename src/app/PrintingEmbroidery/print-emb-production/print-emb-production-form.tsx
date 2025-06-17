@@ -911,7 +911,7 @@ export default function PrintEmbProductionForm({
                                     (operationData) =>
                                       Number(operationData.ID) === Number(field.value)
                                   )?.NAME
-                                  : "Select a production type"}
+                                  : "Select an operation"}
                                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -920,7 +920,7 @@ export default function PrintEmbProductionForm({
                             <Command>
                               <CommandInput placeholder="Search production type..." className="h-9" />
                               <CommandList>
-                                <CommandEmpty>No operation shift found.</CommandEmpty>
+                                <CommandEmpty>No operation found.</CommandEmpty>
                                 <CommandGroup>
                                   {operation?.map((operationData) => (
                                     <CommandItem
@@ -1060,7 +1060,7 @@ export default function PrintEmbProductionForm({
                                     (workstationData) =>
                                       Number(workstationData.ID) === Number(field.value)
                                   )?.NAME
-                                  : "Select a production type"}
+                                  : "Select a work station"}
                                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -1069,7 +1069,7 @@ export default function PrintEmbProductionForm({
                             <Command>
                               <CommandInput placeholder="Search production type..." className="h-9" />
                               <CommandList>
-                                <CommandEmpty>No operation shift found.</CommandEmpty>
+                                <CommandEmpty>No work station found.</CommandEmpty>
                                 <CommandGroup>
                                   {workstation?.map((workstationData) => (
                                     <CommandItem
@@ -1158,7 +1158,7 @@ export default function PrintEmbProductionForm({
                                     (productionHourData) =>
                                       Number(productionHourData.ID) === Number(field.value)
                                   )?.NAME
-                                  : "Select a production type"}
+                                  : "Select a production hour"}
                                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
