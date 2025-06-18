@@ -144,6 +144,8 @@ import EmbellishmentDailyProductionReport from "./reports/embellishment/embellis
 import EmbellishmentDailySummaryProductionReport from "./reports/embellishment/embellishment-daily-summary-production-report/embellishment-daily-summary-production-report-index.tsx";
 import InHouseBatchWiseFabricDeliveryReport from "./reports/Textile/Dyeing/in-house-batch-wise-fabric-delivery-report - Copy/in-house-batch-wise-fabric-delivery-report-index.tsx";
 import OrderWiseKnittingDyeingStatusReportIndexF2 from "./reports/store/yarn-store/order-wise-knit-dyeing-status-report-f2/order-wise-knit-dyeing-status-report-index-f2.tsx";
+import PrintEmbDeliveryIndex from "./app/PrintingEmbroidery/print-emb-delivery/print-emb-delivery-index.tsx";
+import PrintEmbDeliveryCrud from "./app/PrintingEmbroidery/print-emb-delivery/print-emb-delivery-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -201,6 +203,13 @@ createRoot(document.getElementById("root")!).render(
                             element={<PrintEmbMaterialReceiveCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="print-emb-delivery">
+                          <Route index element={<PrintEmbDeliveryIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbDeliveryCrud />}
+                          />
                         </Route>
                       </Route>
 
@@ -378,6 +387,13 @@ createRoot(document.getElementById("root")!).render(
                             element={<PrintEmbMaterialReceiveCrud />}
                           />
                           <Route path="gl/:id" element={<BuyerGl />} />
+                        </Route>
+                        <Route path="print-emb-delivery">
+                          <Route index element={<PrintEmbDeliveryIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbDeliveryCrud />}
+                          />
                         </Route>
                       </Route>
                       <Route path="merchandising">
