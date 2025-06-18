@@ -145,7 +145,6 @@ export default function PrintEmbDeliveryForm({
 
     setdetailsData(response?.data?.PrintEmbDeliveryDetails)
 
-    console.log(response?.data?.PrintEmbDeliveryDetails)
 
     masterForm.setValue("SUPPLIER", response?.data.SUPPLIER);
     masterForm.setValue("SUPPLIER_ID", response?.data.SUPPLIER_ID);
@@ -216,7 +215,7 @@ export default function PrintEmbDeliveryForm({
     }
 
     const data = masterData;
-    
+
     data.PrintEmbDeliveryDetails = detailsData || [];
 
     mutation.mutate(data, {
@@ -646,7 +645,7 @@ export default function PrintEmbDeliveryForm({
                   </TableHeader>
                   <TableBody>
                     {detailsData?.map((item, index) => (
-                      <TableRow className={`odd:bg-white even:bg-gray-50`}>
+                      <TableRow key={Math.random() + index} className={`odd:bg-white even:bg-gray-50`}>
                         <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
                           {index + 1}
                         </TableCell>

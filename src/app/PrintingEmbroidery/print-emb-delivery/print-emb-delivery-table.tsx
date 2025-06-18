@@ -55,7 +55,6 @@ export function PrintEmbDeliveryTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  console.log("data", data);
 
   const columns: ColumnDef<PrintEmbDeliveryMasterType>[] = [
     {
