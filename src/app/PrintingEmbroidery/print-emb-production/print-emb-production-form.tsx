@@ -378,7 +378,6 @@ export default function PrintEmbProductionForm({
         console.error("Error during mutation:", error);
       },
     });
-
   }
 
   let errorMessage: string = "";

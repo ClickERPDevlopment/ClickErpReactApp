@@ -597,7 +597,7 @@ export default function PrintEmbDeliveryForm({
 
               <div className="max-h-[300px] overflow-y-auto border rounded-md">
                 <Table className="min-w-full rounded-md">
-                  <TableHeader className="bg-green-100 rounded-md">
+                  <TableHeader className="bg-green-100 border border-gray-300 text-center px-4">
                     <TableRow className=" rounded-md">
                       <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
                         S/L
