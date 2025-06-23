@@ -49,6 +49,7 @@ export interface PrintEmbProductionDetailsType {
     WIP?: number;
     PARTS?: string;
     ReasonDetails: RejectionReasonDetailsType[];
+    PartsDetails: PartsDetailsType[];
 }
 
 export interface RejectionReasonDetailsType {
@@ -57,6 +58,15 @@ export interface RejectionReasonDetailsType {
     REASON: string;
     QTY: number;
 }
+
+export interface PartsDetailsType {
+    ID: number;
+    MASTER_ID: number;
+    PARTS_ID: number;
+    PARTS_NAME: string;
+    QTY: number;
+}
+
 
 
 export interface PrintEmbProductionSearchType {

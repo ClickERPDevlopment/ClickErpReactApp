@@ -148,6 +148,7 @@ import PrintEmbDeliveryIndex from "./app/PrintingEmbroidery/print-emb-delivery/p
 import PrintEmbDeliveryCrud from "./app/PrintingEmbroidery/print-emb-delivery/print-emb-delivery-crud.tsx";
 import EmbellishmentOrderDetailsReport from "./reports/embellishment/embellishment-order-details-report/embellishment-order-details-report-index.tsx";
 import EmbellishmentOrderSummaryReport from "./reports/embellishment/embellishment-order-summary-report/embellishment-order-summary-report-index.tsx";
+import PrintEmbDashboardIndex from "./app/PrintingEmbroidery/print-emb-dashboard/print-emb-dashboard-inex.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -190,6 +191,9 @@ createRoot(document.getElementById("root")!).render(
                   /> */}
 
                       <Route path="printing-embroidery">
+                        <Route path="">
+                          <Route index element={<PrintEmbDashboardIndex />} />
+                        </Route>
                         <Route path="print-emp-production">
                           <Route index element={<PrintEmbProductionIndex />} />
                           <Route
@@ -374,6 +378,9 @@ createRoot(document.getElementById("root")!).render(
                         </Route>
                       </Route>
                       <Route path="printing-embroidery">
+                        <Route path="">
+                          <Route index element={<PrintEmbDashboardIndex />} />
+                        </Route>
                         <Route path="print-emp-production">
                           <Route index element={<PrintEmbProductionIndex />} />
                           <Route

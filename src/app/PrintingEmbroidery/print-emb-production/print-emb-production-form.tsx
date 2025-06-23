@@ -12,6 +12,7 @@ import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
 import {
   Delete,
+  PartsDetailsType,
   Save,
   Update,
 } from "@/actions/PrintingEmbroidery/print-emb-production-action";
@@ -41,7 +42,7 @@ import { cn } from "@/lib/utils";
 import { PageAction } from "@/utility/page-actions";
 import { ReactQueryKey } from "@/utility/react-query-key";
 import { z } from "zod";
-import { SquarePen, SquarePlus, Trash2Icon } from "lucide-react";
+import { SquarePlus, Trash2Icon } from "lucide-react";
 
 import AppPageContainer from "@/components/app-page-container";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -96,6 +97,13 @@ const reasonFormSchema = z.object({
   MASTER_ID: z.number().default(0),
   REASON: z.string().min(1, "Reason is required"),
   QTY: z.number().min(1, "Quantity must be at least 1"),
+});
+
+const partsFormSchema = z.object({
+  ID: z.number().default(0),
+  MASTER_ID: z.number().default(0),
+  PARTS_ID: z.number().default(0),
+  PARTS_NAME: z.string().min(1, "Parts is required"),
 });
 
 interface IStyle {
@@ -153,6 +161,11 @@ interface IRcvWorkOrder {
   ID: number;
   WORK_ORDER_NO: string;
 };
+
+// interface IParts {
+//   PARTS_ID: number;
+//   PARTS_NAME: string;
+// };
 
 interface IColor {
   ID: number;
@@ -302,6 +315,39 @@ export default function PrintEmbProductionForm({
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/Emb-Wo-Recv-By-Emb-Type?embTypeId=" + embTypeId);
     setWorkOrder(response?.data);
   }
+
+
+  // const [parts, setParts] = useState<IParts[]>([]);
+
+  // const getParts = async (
+  //   woId: number = 0,
+  //   buyerId: number = 0,
+  //   styleId: number = 0,
+  //   poId: number = 0,
+  //   colorId: number = 0,
+  //   sizeId: number = 0
+  // ) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${api.ProductionUrl}/production/PrintEmbProduction/EmbWorkOrderRcvDetailsParts`,
+  //       {
+  //         params: {
+  //           woId,
+  //           buyerId,
+  //           styleId,
+  //           poId,
+  //           colorId,
+  //           sizeId,
+  //         },
+  //       }
+  //     );
+
+  //     setParts(response?.data || []);
+  //   } catch (error) {
+  //     console.error("Failed to fetch parts:", error);
+  //   }
+  // };
+
 
   useEffect(() => {
     getProductionHour(new Date(data?.PRODUCTION_DATE || new Date()).toLocaleDateString("en-CA"));
@@ -550,6 +596,7 @@ export default function PrintEmbProductionForm({
     SIZE: "",
     QC_PASSED_QTY: 0,
     ReasonDetails: [],
+    PartsDetails: [],
   });
 
 
@@ -559,6 +606,27 @@ export default function PrintEmbProductionForm({
     REASON: "",
     QTY: 0,
   });
+
+  // const [partsDetails, setPartsDetails] = useState<PartsDetailsType>({
+  //   ID: 0,
+  //   MASTER_ID: 0,
+  //   PARTS_ID: 0,
+  //   PARTS_NAME: "",
+  //   QTY: 0,
+  // });
+
+  // const handlePartsDetailsInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
+  //   const { name, value } = e.target;
+
+  //   setPartsDetails((prev) => ({
+  //     ...prev,
+  //     [name]: name === "QTY" ? Number(value) : value,
+  //   }));
+  // };
+
+
 
   const handleReasonDetailsChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -624,6 +692,16 @@ export default function PrintEmbProductionForm({
     },
   });
 
+  const partsForm = useForm<z.infer<typeof partsFormSchema>>({
+    resolver: zodResolver(partsFormSchema),
+    defaultValues: {
+      ID: 0,
+      MASTER_ID: 0,
+      PARTS_ID: 0,
+      PARTS_NAME: "",
+    },
+  });
+
   if (!reasonForm?.control) {
     console.error("orderForm control is not available.");
 
@@ -641,32 +719,34 @@ export default function PrintEmbProductionForm({
   const [openShift, setOpenShift] = useState(false);
   const [openOperation, setOpenOperation] = useState(false);
   const [openFloor, setOpenFloor] = useState(false);
+  // const [openParts, setOpenParts] = useState(false);
   const [openWorkstaion, setOpenWorkstation] = useState(false);
   const [openProductionHour, setOpenProductionHour] = useState(false);
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
 
-
+  const [openPartsDetailsModal, setOpenPartsDetailsModal] = useState(false);
   const [openReasonDetailsModal, setOpenReasonDetailsModal] = useState(false);
   const [openOperationModal, setOpenOperationModal] = useState(false);
   const [openShiftnModal, setOpenShiftModal] = useState(false);
   const [openWorkStationModal, setOpenWorkStationModal] = useState(false);
   const [openProductionHourModal, setOpenProductionHourModal] = useState(false);
   const [reasonModalData, setReasonModalData] = useState<RejectionReasonDetailsType[]>([]);
+  const [partsModalData, setPartsModalData] = useState<PartsDetailsType[]>([]);
   const [selectedDetailsIndex, setSelectedDetailsIndex] = useState<number>(-1);
   const [editingIndex, setEditingIndex] = useState<number>(-1);
   const [editBtn, setEditBtn] = useState(false);
 
 
 
-  const handleEdit = (selectedData: PrintEmbProductionDetailsType) => {
+  // const handleEdit = (selectedData: PrintEmbProductionDetailsType) => {
 
-    setPrintEmbProductionDetails(selectedData);
+  //   setPrintEmbProductionDetails(selectedData);
 
-    form.reset({
-      QC_PASSED_QTY: selectedData.QC_PASSED_QTY,
-    });
+  //   form.reset({
+  //     QC_PASSED_QTY: selectedData.QC_PASSED_QTY,
+  //   });
 
-  };
+  // };
 
   const [sizeWip, setSizeWip] = useState<number | null>(null);
 
@@ -678,10 +758,31 @@ export default function PrintEmbProductionForm({
     }
 
     const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${sizeId}`);
-
-    console.log("WIP Response:", response?.data);
     setSizeWip(response?.data?.[0]?.WIP || null);
   }
+
+
+  const handlePartsDetailsChange = () => {
+    if (selectedDetailsIndex !== null && detailsData) {
+      const validParts = partsModalData.filter(part => part.QTY > 0);
+
+      if (validParts.length === 0) return;
+
+      setdetailsData((prevData) => {
+        const newData = [...(prevData || [])];
+        const targetItem = { ...newData[selectedDetailsIndex] };
+
+        targetItem.PartsDetails = validParts;
+        targetItem.QC_PASSED_QTY = validParts.reduce((acc, part) => acc + (part.QTY || 0), 0) / validParts.length;
+
+        newData[selectedDetailsIndex] = targetItem;
+        return newData;
+      });
+
+      setPartsModalData([]);
+      setSelectedDetailsIndex(-1);
+    }
+  };
 
   return (
     <AppPageContainer>
@@ -1836,6 +1937,9 @@ export default function PrintEmbProductionForm({
                           QC Passed Qty
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
+                          Parts Production
+                        </TableHead>
+                        <TableHead className="border border-gray-300 text-center px-4">
                           Rejected Qty
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
@@ -1845,7 +1949,7 @@ export default function PrintEmbProductionForm({
                     </TableHeader>
                     <TableBody>
                       {detailsData?.map((item, index) => (
-                        <TableRow className={`${editingIndex === index ? 'bg-green' : 'odd:bg-white even:bg-gray-50'
+                        <TableRow key={index} className={`${editingIndex === index ? 'bg-green' : 'odd:bg-white even:bg-gray-50'
                           }`}>
                           <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
                             {index + 1}
@@ -1874,6 +1978,7 @@ export default function PrintEmbProductionForm({
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.WIP}
                           </TableCell>
+
                           <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
                             <input
                               type="number"
@@ -1897,6 +2002,32 @@ export default function PrintEmbProductionForm({
                               }}
                             />
                           </TableCell>
+
+                          <TableCell className="border border-gray-300 px-4 text-center ">
+                            <div className="flex align-middle justify-between gap-1 p-1">
+                              <span>
+                                {item.PartsDetails
+                                  .filter(part => part.QTY > 0)
+                                  .map(part => part.PARTS_NAME)
+                                  .join(", ")
+                                }
+                              </span>
+                              <Button
+                                type="button"
+                                onClick={() => {
+                                  setPartsModalData(item?.PartsDetails || []);
+                                  setOpenPartsDetailsModal(true)
+                                  setSelectedDetailsIndex(index);
+                                }}
+                                variant="outline"
+                                className="h-5 w-5 flex border-0 items-center justify-center mt-auto shadow-none"
+                              >
+                                <SquarePlus className="w-5 h-5" />
+                              </Button>
+                            </div>
+
+                          </TableCell>
+
                           <TableCell className="border border-gray-300 px-4 text-center ">
 
                             <div className="flex align-middle justify-center gap-1 p-1">
@@ -1923,12 +2054,6 @@ export default function PrintEmbProductionForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 p-0 m-0 hover:cursor-pointer">
                             <div className="w-full h-full p-0 m-0 flex justify-center">
-                              <SquarePen
-                                size={15}
-                                className="hover:text-blue-500"
-                                onClick={() => { setEditingIndex(index), handleEdit(item), setEditBtn(true) }}
-                                style={{ color: "blue", cursor: "pointer" }}
-                              />
                               <Trash2Icon
                                 size={15}
                                 className=" hover:text-red-500 ms-2"
@@ -1961,22 +2086,6 @@ export default function PrintEmbProductionForm({
                           ? "Update"
                           : "Delete"}
                     </Button>
-                    {/* <Button
-                      type="reset"
-                      disabled={mutation.isPending}
-                      onClick={() => {
-                        form.reset();
-                        form.clearErrors();
-                      }}
-                      variant={"destructive"}
-                      className={cn(
-                        "w-24",
-                        pageAction === PageAction.view ? "hidden" : "",
-                        pageAction === PageAction.delete ? "hidden" : ""
-                      )}
-                    >
-                      Cancel
-                    </Button> */}
                   </div>
                   <Button
                     type="reset"
@@ -1996,21 +2105,169 @@ export default function PrintEmbProductionForm({
             </Form>
           </div>
         </div>
-        {/* <div className="p-2 mt-5">
-          {
-            pageAction != PageAction.add &&
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`/report/merchandising/compensation-claim-report?id=${masterData.ID}`}
-              className="px-4 py-2 bg-blue font-semibold text-white rounded-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Show Report
-            </a>
-          }
-        </div> */}
       </div>
       <div>
+
+        {/* Parts Production Modal */}
+        <Dialog open={openPartsDetailsModal} onOpenChange={setOpenPartsDetailsModal}>
+          <DialogTrigger asChild>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[500px] bg-white">
+            <DialogHeader>
+              <DialogTitle>Parts Production</DialogTitle>
+              <DialogDescription>
+
+                <div className="mt-3">
+                  <Form {...partsForm} >
+                    <form
+                      className=""
+                    >
+                      {/* <div className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col">
+                          <FormField
+                            control={partsForm.control}
+                            name="PARTS_ID"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-col flex-1">
+                                <FormLabel className="font-bold">Parts</FormLabel>
+                                <Popover open={openParts} onOpenChange={setOpenParts}>
+                                  <PopoverTrigger asChild>
+                                    <FormControl>
+                                      <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openParts}
+                                        className={cn(
+                                          "w-full justify-between bg-emerald-100",
+                                          !field.value && "text-muted-foreground"
+                                        )}
+                                      >
+                                        {field.value
+                                          ? parts?.find(
+                                            (p) =>
+                                              Number(p.PARTS_ID) === Number(field.value)
+                                          )?.PARTS_NAME
+                                          : "Select a parts"}
+                                        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                      </Button>
+                                    </FormControl>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-full p-0">
+                                    <Command>
+                                      <CommandInput placeholder="Search parts..." className="h-9" />
+                                      <CommandList>
+                                        <CommandEmpty>No parts found.</CommandEmpty>
+                                        <CommandGroup>
+                                          {parts?.map((p) => (
+                                            <CommandItem
+                                              value={p.PARTS_NAME}
+                                              key={p.PARTS_ID}
+                                              onSelect={() => {
+                                                field.onChange(Number(p.PARTS_ID));
+                                                setPartsDetails((prev) => ({
+                                                  ...prev,
+                                                  PARTS_ID: Number(p.PARTS_ID),
+                                                  PARTS_NAME: p.PARTS_NAME,
+                                                }));
+                                                setOpenParts(false);
+                                              }}
+                                            >
+                                              {p.PARTS_NAME}
+                                              <CheckIcon
+                                                className={cn(
+                                                  "ml-auto h-4 w-4",
+                                                  Number(p.PARTS_ID) === Number(field.value)
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          ))}
+                                        </CommandGroup>
+                                      </CommandList>
+                                    </Command>
+                                  </PopoverContent>
+                                </Popover>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div> */}
+                    </form>
+                  </Form>
+                </div>
+
+                {/* <div className="mt-1">
+                  <Button
+                    onClick={() => {
+                      if (!partsDetails.PARTS_ID) {
+                        toast.error("Please select parts and enter quantity");
+                        return;
+                      }
+                      setPartsModalData((prev) => [...prev, partsDetails]);
+                      setPartsDetails({ ID: 0, MASTER_ID: 0, PARTS_ID: 0, PARTS_NAME: "", QTY: 0 });
+                      partsForm.reset();
+                    }}
+                  >
+                    Add
+                  </Button>
+                </div> */}
+
+                <div className="mt-5">
+                  <table className="min-w-full rounded-md">
+                    <thead>
+                      <tr>
+                        <th className="font-bold p-2">Parts Name</th>
+                        <th className="font-bold p-2">WIP</th>
+                        <th className="font-bold p-2 text-center">Qty</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {partsModalData.map((part, index) => {
+                        const wip = detailsData?.[selectedDetailsIndex]?.WIP || 0;
+
+                        return (
+                          <tr key={index}>
+                            <td className="font-bold p-2 border-gray-300 border">{part.PARTS_NAME}</td>
+                            <td className="font-bold p-2 border-gray-300 border text-center">{wip}</td>
+                            <td className="border-gray-300 border text-center">
+                              <input
+                                type="number"
+                                className="w-32 px-3 py-1 bg-gray-200 border border-gray-100 text-center"
+                                value={part.QTY}
+                                min={0}
+                                max={wip}
+                                onChange={(e) => {
+                                  let newQty = parseInt(e.target.value) || 0;
+
+                                  if (newQty > wip) {
+                                    newQty = wip;
+                                  }
+
+                                  setPartsModalData((prev) =>
+                                    prev.map((p, i) =>
+                                      i === index ? { ...p, QTY: newQty } : p
+                                    )
+                                  );
+                                }}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+            </div>
+            <DialogFooter>
+              <Button onClick={() => { handlePartsDetailsChange(); setOpenPartsDetailsModal(false); }} >Save changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* reason details dialog */}
         <Dialog open={openReasonDetailsModal} onOpenChange={setOpenReasonDetailsModal}>
