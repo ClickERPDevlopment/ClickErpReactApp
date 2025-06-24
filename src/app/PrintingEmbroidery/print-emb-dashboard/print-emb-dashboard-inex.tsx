@@ -12,7 +12,7 @@ function PrintEmbDashboardIndex() {
 
 
   return (
-    <div className="pt-5">
+    <div className="p-5">
       <AppPageContainer>
         <MonthlyOrderSummaryChartView />
       </AppPageContainer>
