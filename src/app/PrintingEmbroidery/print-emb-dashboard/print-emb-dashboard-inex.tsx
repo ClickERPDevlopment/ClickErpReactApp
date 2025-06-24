@@ -3,6 +3,7 @@ import AppPageContainer from "@/components/app-page-container";
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
+import MonthlyOrderSummaryChartView from "./components/monthly-order-summary-chart-view";
 
 function PrintEmbDashboardIndex() {
 
@@ -13,7 +14,7 @@ function PrintEmbDashboardIndex() {
   return (
     <div className="pt-5">
       <AppPageContainer>
-
+        <MonthlyOrderSummaryChartView />
       </AppPageContainer>
     </div>
   );

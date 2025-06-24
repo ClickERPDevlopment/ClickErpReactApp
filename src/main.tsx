@@ -191,7 +191,7 @@ createRoot(document.getElementById("root")!).render(
                   /> */}
 
                       <Route path="printing-embroidery">
-                        <Route path="">
+                        <Route path="print-emb-dabsboard">
                           <Route index element={<PrintEmbDashboardIndex />} />
                         </Route>
                         <Route path="print-emp-production">
@@ -378,7 +378,7 @@ createRoot(document.getElementById("root")!).render(
                         </Route>
                       </Route>
                       <Route path="printing-embroidery">
-                        <Route path="">
+                        <Route path="print-emb-dabsboard">
                           <Route index element={<PrintEmbDashboardIndex />} />
                         </Route>
                         <Route path="print-emp-production">
