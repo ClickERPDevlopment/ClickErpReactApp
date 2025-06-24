@@ -773,7 +773,7 @@ export default function PrintEmbProductionForm({
         const targetItem = { ...newData[selectedDetailsIndex] };
 
         targetItem.PartsDetails = validParts;
-        targetItem.QC_PASSED_QTY = validParts.reduce((acc, part) => acc + (part.QTY || 0), 0) / validParts.length;
+        targetItem.QC_PASSED_QTY = Math.floor(validParts.reduce((acc, part) => acc + (part.QTY || 0), 0) / validParts.length);
 
         newData[selectedDetailsIndex] = targetItem;
         return newData;

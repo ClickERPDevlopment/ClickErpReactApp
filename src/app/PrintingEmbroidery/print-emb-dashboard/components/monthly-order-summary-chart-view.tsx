@@ -94,7 +94,7 @@ function MonthlyOrderSummaryChartView() {
             <h2 className="text-xl font-semibold mb-3 text-center">Printing Table</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full table-auto border border-gray-300 text-sm">
-                <thead className="bg-lime-200">
+                <thead className="bg-green-300">
                   <tr>
                     <th className="border p-1 text-left">Month</th>
                     <th className="border p-1 text-right">Order Qty</th>
@@ -130,8 +130,8 @@ function MonthlyOrderSummaryChartView() {
             <h2 className="text-xl font-semibold mb-3 text-center">Embroidery Table</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full table-auto border border-gray-300 text-sm">
-                <thead className="bg-gray-100">
-                  <tr className="bg-lime-200">
+                <thead className="bg-green-300">
+                  <tr>
                     <th className="border p-1 text-left">Month</th>
                     <th className="border p-1 text-right">Order Qty</th>
                     <th className="border p-1 text-right">Production Qty</th>
