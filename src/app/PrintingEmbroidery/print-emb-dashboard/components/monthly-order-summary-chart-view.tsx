@@ -46,7 +46,7 @@ function MonthlyOrderSummaryChartView() {
   const embroideryData = data.filter(item => item.EMB_TYPE === "Embroidery" || item.EMB_TYPE === null);
 
   const generateBarChart = (title: string, chartData: MonthlyOrderSummaryType[]) => (
-    <div className="my-10 bg-white p-4">
+    <div className="my-2 bg-white p-4">
       <h2 className="text-xl font-semibold text-center mb-4">{title}</h2>
       <ResponsiveContainer width="100%" height={350}>
         <BarChart data={chartData}>
@@ -75,7 +75,7 @@ function MonthlyOrderSummaryChartView() {
 
   return (
     <div>
-      <div className="mx-auto max-w-[1550px] px-4 py-6">
+      <div className="mx-auto max-w-[1550px] px-4">
         {/* Bar Charts */}
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-1/2">
