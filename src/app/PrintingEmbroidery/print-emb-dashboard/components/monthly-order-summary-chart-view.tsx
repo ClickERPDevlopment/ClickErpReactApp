@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import moment from "moment";
 
 
 function MonthlyOrderSummaryChartView() {
@@ -104,7 +105,17 @@ function MonthlyOrderSummaryChartView() {
                 <tbody>
                   {printingData.map((item, index) => (
                     <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors">
-                      <td className="border p-1">{item.MONTH_LABEL}</td>
+
+                      <td className="border p-1">
+                        <a
+                          className="underline text-blue-600 hover:text-blue-800"
+                          target="__blank"
+                          href={`../../report/embellishment/embellishment-daily-production-report?fromDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").format("DD-MMM-YY")}&toDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").endOf("month").format("DD-MMM-YY")}&supplierId=0&woId=0&buyerId=0&styleId=0&poId=0&typeId=0`}
+                        >
+                          {item.MONTH_LABEL}
+                        </a>
+                      </td>
+
                       <td className="border p-1 text-right">{item.ORDER_QTY || 0}</td>
                       <td className="border p-1 text-right">{item.PROD_QTY || 0}</td>
                       <td className="border p-1 text-right">{item.VALUE?.toFixed(2) || 0}</td>
@@ -130,7 +141,15 @@ function MonthlyOrderSummaryChartView() {
                 <tbody>
                   {embroideryData.map((item, index) => (
                     <tr key={index} className="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors">
-                      <td className="border p-1">{item.MONTH_LABEL}</td>
+                      <td className="border p-1">
+                        <a
+                          className="underline text-blue-600 hover:text-blue-800"
+                          target="__blank"
+                          href={`../../report/embellishment/embellishment-daily-production-report?fromDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").format("DD-MMM-YY")}&toDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").endOf("month").format("DD-MMM-YY")}&supplierId=0&woId=0&buyerId=0&styleId=0&poId=0&typeId=0`}
+                        >
+                          {item.MONTH_LABEL}
+                        </a>
+                      </td>
                       <td className="border p-1 text-right">{item.ORDER_QTY || 0}</td>
                       <td className="border p-1 text-right">{item.PROD_QTY || 0}</td>
                       <td className="border p-1 text-right">{item.VALUE?.toFixed(2) || 0}</td>
