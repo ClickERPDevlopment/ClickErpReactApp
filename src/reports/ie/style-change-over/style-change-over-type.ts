@@ -29,4 +29,5 @@ export interface IStyleChangeOver {
   IE_NAME: string;
   REASON: string;
   TOTAL_TIME: string;
+  REMARKS: string;
 }

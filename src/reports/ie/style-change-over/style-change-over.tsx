@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-const */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import useApiUrl from "../../../hooks/use-ApiUrl";
 import axios from "axios";
 import { useEffect, useState } from "react";

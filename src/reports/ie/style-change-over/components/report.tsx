@@ -53,6 +53,7 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
     "TOTAL MP",
     "REASON",
     "TECHNICIAN NAME",
+    "REMARKS",
   ];
 
   return (

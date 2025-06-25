@@ -56,6 +56,7 @@ function Reportrow({ data }: { data: IStyleChangeOver[] }) {
           </td>
           <td className="border border-gray-300 p-0.5">{item.REASON}</td>
           <td className="border border-gray-300 p-0.5">{item.TECHNICIAN_NAME}</td>
+          <td className="border border-gray-300 p-0.5">{item.REMARKS}</td>
         </tr>
       ))}
     </>
