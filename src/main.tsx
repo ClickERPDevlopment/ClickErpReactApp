@@ -149,6 +149,7 @@ import PrintEmbDeliveryCrud from "./app/PrintingEmbroidery/print-emb-delivery/pr
 import EmbellishmentOrderDetailsReport from "./reports/embellishment/embellishment-order-details-report/embellishment-order-details-report-index.tsx";
 import EmbellishmentOrderSummaryReport from "./reports/embellishment/embellishment-order-summary-report/embellishment-order-summary-report-index.tsx";
 import PrintEmbDashboardIndex from "./app/PrintingEmbroidery/print-emb-dashboard/print-emb-dashboard-inex.tsx";
+import EmbellishmentDeliveryReport from "./reports/embellishment/embellishment-delivery-report/embellishment-delivery-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -807,6 +808,10 @@ createRoot(document.getElementById("root")!).render(
                       element={<EmbellishmentOrderSummaryReport />}
                     />
 
+                    <Route
+                      path="embellishment-delivery-report"
+                      element={<EmbellishmentDeliveryReport />}
+                    />
                   </Route>
 
                   <Route path="ie">

@@ -758,6 +758,24 @@ export default function PrintEmbDeliveryForm({
                       Cancel
                     </Button> */}
                 </div>
+
+                {pageAction !== PageAction.add && (
+                  <Button
+                    type="button"
+                    disabled={mutation.isPending}
+                    onClick={() =>
+                      window.open(
+                        `../../../../report/embellishment/embellishment-delivery-report?id=${data?.ID}`,
+                        "_blank"
+                      )
+                    }
+                    variant="default"
+                    className={cn("w-24")}
+                  >
+                    Show
+                  </Button>
+                )}
+
                 <Button
                   type="reset"
                   disabled={mutation.isPending}
@@ -775,7 +793,7 @@ export default function PrintEmbDeliveryForm({
             </form>
           </Form>
         </div>
-      </div>
-    </AppPageContainer>
+      </div >
+    </AppPageContainer >
   );
 }
