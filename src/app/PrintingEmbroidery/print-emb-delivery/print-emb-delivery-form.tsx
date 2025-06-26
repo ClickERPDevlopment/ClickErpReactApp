@@ -686,7 +686,7 @@ export default function PrintEmbDeliveryForm({
                             type="number"
                             className="w-full text-center text-sm border border-gray-300 rounded p-1"
                             value={item.DELIVERY_QTY}
-                            onChange={(e) => {
+                            onBlur={(e) => {
                               const updatedData = [...detailsData];
 
                               const rcvQty = item.RCV_QTY || 0;
