@@ -150,6 +150,7 @@ import EmbellishmentOrderDetailsReport from "./reports/embellishment/embellishme
 import EmbellishmentOrderSummaryReport from "./reports/embellishment/embellishment-order-summary-report/embellishment-order-summary-report-index.tsx";
 import PrintEmbDashboardIndex from "./app/PrintingEmbroidery/print-emb-dashboard/print-emb-dashboard-inex.tsx";
 import EmbellishmentDeliveryReport from "./reports/embellishment/embellishment-delivery-report/embellishment-delivery-report-index.tsx";
+import YarnAdditionalBookingReportIndex from "./reports/merchandising/yarn-additional-booking/yarn-additional-booking-report.-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -529,6 +530,10 @@ createRoot(document.getElementById("root")!).render(
                         element={<SampleProgramReportIndex />}
                       />
                     </Route>
+                    <Route
+                      path="yarn-additional-booking-report"
+                      element={<YarnAdditionalBookingReportIndex />}
+                    />
                     <Route path="booking">
                       <Route
                         path="yarn-booking-report"
