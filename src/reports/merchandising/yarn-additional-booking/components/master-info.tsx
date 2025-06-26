@@ -60,7 +60,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: YarnAdditionalB
                     <li>
                         <div>
                             <label htmlFor="" className='font-bold min-w-36'>Resp. Department</label>
-                            <span className='whitespace-nowrap'>: {masterInfo?.ATTENTION_TO_EMP}</span>
+                            <span className='whitespace-nowrap'>: {masterInfo?.RESPONSIBLE_DEPT}</span>
                         </div>
                     </li>
                 </ul>

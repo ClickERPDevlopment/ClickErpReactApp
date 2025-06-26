@@ -6,7 +6,7 @@ export default function Signature({ masterInfo }: { masterInfo?: YarnAdditionalB
         <div className="mt-12 flex justify-around">
             {data?.map((ele, index) =>
                 <div className="flex flex-col justify-end" key={index}>
-                    <span className="text-center" >{ele == "Created By" ? (masterInfo?.CREATED_BY) : ""}</span>
+                    <span className="text-center" >{ele == "Created By" ? (masterInfo?.CREATED_BY_NAME) : ""}</span>
                     <div className="border-t border-t-gray-600 w-36 flex justify-center">
                         <span>{ele}</span>
                     </div>
