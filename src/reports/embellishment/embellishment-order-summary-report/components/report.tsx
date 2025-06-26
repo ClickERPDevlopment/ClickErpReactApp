@@ -74,7 +74,7 @@ function Report({
   );
 
   const totalValue = data.reduce(
-    (acc, item) => acc + (item.RATE || 0 * item.WO_QTY || 0),
+    (acc, item) => acc + ((item.RATE || 0) * (item.WO_QTY || 0)),
     0
   );
 
