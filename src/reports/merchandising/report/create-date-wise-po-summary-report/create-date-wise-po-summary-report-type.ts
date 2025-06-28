@@ -14,4 +14,7 @@ export interface ICreateDateWisePoSummaryReport {
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
   SHIP_DATE: Date;
+  BOOKING_RELEASE_DATE: Date;
+  JOB_NUMBER: string;
+  TOTAL_BOOKING_QTY : number;
 }

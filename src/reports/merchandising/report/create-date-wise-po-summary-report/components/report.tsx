@@ -48,6 +48,7 @@ function Report({
     "Buyer",
     "Style",
     "Po",
+    "Job No",
     "Item Type",
     "Order Qty",
     "Shipdate",
@@ -59,9 +60,12 @@ function Report({
     "Total FOB($)",
     "Create By",
     "Create Date",
+    "Booking Release Date",
+    "TTL Yarn Qty(KG)",
   ];
 
   const totalQty = data.reduce((acc, item) => acc + item.QTY, 0);
+  const totalBookingQty = data.reduce((acc, item) => acc + item.TOTAL_BOOKING_QTY, 0);
 
   return (
     <div className="px-10 text-sm">
@@ -126,6 +130,7 @@ function Report({
                   {item.STYLE_NO}
                 </td>
                 <td className="border border-gray-300">{item.PO_NO}</td>
+                <td className="border border-gray-300">{item.JOB_NUMBER}</td>
                 <td className="border border-gray-300">{item.ITEM_TYPE}</td>
                 <td className="border border-gray-300">
                   {item.QTY.toLocaleString("en-US")}
@@ -157,10 +162,18 @@ function Report({
                 </td>
                 <td className="border border-gray-300">{item.CREATEBY}</td>
                 <td className="border border-gray-300 text-nowrap">{moment(item.CREATEDATE).format("DD-MMM-YY")}</td>
+                {moment(item.BOOKING_RELEASE_DATE).format("DD-MMM-YY") !== "01-Jan-01" ?
+                  <td className="border border-gray-300">
+                    {moment(item.BOOKING_RELEASE_DATE).format("DD-MMM-YY")}
+                  </td> : <td className="border border-gray-300"></td>
+                }
+                <td className="border border-gray-300">
+                  {item.TOTAL_BOOKING_QTY.toLocaleString("en-US")}
+                </td>
               </tr>
             ))}
             <tr className="font-bold text-center">
-              <td colSpan={6} className="border border-gray-300">
+              <td colSpan={7} className="border border-gray-300">
                 Total
               </td>
               <td className="border border-gray-300">{totalQty.toLocaleString("en-US")}</td>
@@ -173,6 +186,8 @@ function Report({
               <td className="border border-gray-300"></td>
               <td className="border border-gray-300"></td>
               <td className="border border-gray-300"></td>
+              <td className="border border-gray-300"></td>
+              <td className="border border-gray-300">{totalBookingQty.toLocaleString("en-US")}</td>
             </tr>
           </tbody>
         </table>
