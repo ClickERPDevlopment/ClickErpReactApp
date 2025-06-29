@@ -237,8 +237,8 @@ export default function PrintEmbProductionForm({
   const api = useApiUrl();
 
   const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
-  const getBuyerData = async (woId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
+  const getBuyerData = async (embTypeId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=0&embTypeId=" + embTypeId);
     setBuyerData(response?.data);
   }
 
@@ -311,42 +311,26 @@ export default function PrintEmbProductionForm({
   }
 
   const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
-  const getWorkOrder = async (embTypeId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/Emb-Wo-Recv-By-Emb-Type?embTypeId=" + embTypeId);
+  const getWorkOrder = async (buyerId: number, styleId: number, poId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo?buyerId=" + buyerId + "&styleId=" + styleId + "&poId=" + poId);
+
     setWorkOrder(response?.data);
+
+    if (response?.data?.length === 1) {
+
+      form.setValue("WORK_ORDER_ID", response?.data[0]?.ID)
+
+      setPrintEmbProductionDetails(prev => ({
+        ...prev,
+        WORK_ORDER_ID: response?.data?.[0]?.ID,
+        WORK_ORDER_NO: response?.data?.[0]?.WORK_ORDER_NO
+      }));
+
+      GetColorByBuyer(response?.data[0]?.ID, styleId);
+      GetSizeByBuyer(response?.data[0]?.ID, styleId);
+    }
+
   }
-
-
-  // const [parts, setParts] = useState<IParts[]>([]);
-
-  // const getParts = async (
-  //   woId: number = 0,
-  //   buyerId: number = 0,
-  //   styleId: number = 0,
-  //   poId: number = 0,
-  //   colorId: number = 0,
-  //   sizeId: number = 0
-  // ) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${api.ProductionUrl}/production/PrintEmbProduction/EmbWorkOrderRcvDetailsParts`,
-  //       {
-  //         params: {
-  //           woId,
-  //           buyerId,
-  //           styleId,
-  //           poId,
-  //           colorId,
-  //           sizeId,
-  //         },
-  //       }
-  //     );
-
-  //     setParts(response?.data || []);
-  //   } catch (error) {
-  //     console.error("Failed to fetch parts:", error);
-  //   }
-  // };
 
 
   useEffect(() => {
@@ -356,7 +340,6 @@ export default function PrintEmbProductionForm({
 
     if (data?.TYPE_ID) {
       getFloor(data?.TYPE_ID);
-      getWorkOrder(data?.TYPE_ID);
       getOperation(data?.TYPE_ID);
       getWorkStation(data?.TYPE_ID);
     }
@@ -773,7 +756,10 @@ export default function PrintEmbProductionForm({
         const targetItem = { ...newData[selectedDetailsIndex] };
 
         targetItem.PartsDetails = validParts;
-        targetItem.QC_PASSED_QTY = Math.floor(validParts.reduce((acc, part) => acc + (part.QTY || 0), 0) / validParts.length);
+
+        targetItem.QC_PASSED_QTY = Math.min(
+          ...validParts.map(part => part.QTY)
+        );
 
         newData[selectedDetailsIndex] = targetItem;
         return newData;
@@ -881,10 +867,11 @@ export default function PrintEmbProductionForm({
                                         TYPE: typeData.NAME,
                                       }));
                                       getFloor(typeData.ID);
-                                      getWorkOrder(typeData.ID);
                                       getOperation(typeData.ID);
                                       getWorkStation(typeData.ID);
+                                      getBuyerData(typeData.ID)
                                       setOpenProductionType(false);
+
                                     }}
                                   >
                                     {typeData.NAME}
@@ -1354,85 +1341,6 @@ export default function PrintEmbProductionForm({
                       <div className="flex justify-between items-end">
                         <FormField
                           control={form.control}
-                          name="WORK_ORDER_NO"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-col flex-1">
-                              <FormLabel className="font-bold">Order</FormLabel>
-                              <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      variant="outline"
-                                      role="combobox"
-                                      aria-expanded={openWorkOrder}
-                                      className={cn(
-                                        "w-full justify-between bg-emerald-100",
-                                        !field.value && "text-muted-foreground"
-                                      )}
-                                    >
-                                      {field.value
-                                        ? workOrder?.find(
-                                          (workOrderData) =>
-                                            Number(workOrderData.ID) === Number(field.value)
-                                        )?.WORK_ORDER_NO
-                                        : "Select a order"}
-                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-full p-0">
-                                  <Command>
-                                    <CommandInput placeholder="Search production type..." className="h-9" />
-                                    <CommandList>
-                                      <CommandEmpty>No order found.</CommandEmpty>
-                                      <CommandGroup>
-                                        {workOrder?.map((workOrderData) => (
-                                          <CommandItem
-                                            value={workOrderData.WORK_ORDER_NO}
-                                            key={workOrderData.ID}
-                                            onSelect={() => {
-                                              field.onChange(Number(workOrderData.ID));
-                                              setPrintEmbProductionDetails((prev) => ({
-                                                ...prev,
-                                                WORK_ORDER_ID: Number(workOrderData.ID),
-                                                WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
-                                              }));
-                                              setOpenWorkOrder(false);
-                                              getBuyerData(workOrderData.ID)
-                                            }}
-                                          >
-                                            {workOrderData.WORK_ORDER_NO}
-                                            <CheckIcon
-                                              className={cn(
-                                                "ml-auto h-4 w-4",
-                                                Number(workOrderData.ID) === Number(field.value)
-                                                  ? "opacity-100"
-                                                  : "opacity-0"
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
-                                    </CommandList>
-                                  </Command>
-                                </PopoverContent>
-                              </Popover>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <div className="h-4">
-                        {printEmbProductionDetailserror.WORK_ORDER_NO && (
-                          <p className="text-sm">{printEmbProductionDetailserror.WORK_ORDER_NO}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between items-end">
-                        <FormField
-                          control={form.control}
                           name="BUYER_ID"
                           render={({ field }) => (
                             <FormItem className="flex flex-col flex-1">
@@ -1476,7 +1384,7 @@ export default function PrintEmbProductionForm({
                                                 BUYER_ID: Number(buyer?.Id),
                                                 BUYER: buyer?.NAME,
                                               }));
-                                              getStyleByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(buyer?.Id));
+                                              getStyleByBuyer(0, Number(buyer?.Id));
 
                                               setOpenBuyer(false);
                                             }}
@@ -1502,14 +1410,7 @@ export default function PrintEmbProductionForm({
                             </FormItem>
                           )}
                         />
-                        {/* <Button
-                        onClick={() => orderForm.resetField("BUYER_ID")}
-                        variant={"outline"}
-                        type="button"
-                        className="m-0 ml-1 px-[12px]"
-                      >
-                        <MdOutlineClear className="rounded text-slate-600 m-0" />
-                      </Button> */}
+
                       </div>
                       <div className="h-4">
                         {printEmbProductionDetailserror.BUYER && (
@@ -1566,9 +1467,7 @@ export default function PrintEmbProductionForm({
                                                 STYLE: item.Styleno,
                                               }));
                                               setOpenStyle(false);
-                                              getPOByStyle(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
-                                              GetColorByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
-                                              GetSizeByBuyer(Number(printEmbProductionDetails.WORK_ORDER_ID), Number(item?.Id));
+                                              getPOByStyle(0, Number(item?.Id));
                                             }}
                                           >
                                             {item.Styleno}
@@ -1591,14 +1490,7 @@ export default function PrintEmbProductionForm({
                             </FormItem>
                           )}
                         />
-                        {/* <Button
-                        onClick={() => orderForm.resetField("STYLE_ID")}
-                        variant={"outline"}
-                        type="button"
-                        className="m-0 ml-1 px-[12px]"
-                      >
-                        <MdOutlineClear className="rounded text-slate-600 m-0" />
-                      </Button> */}
+
                       </div>
                       <div className="h-4">
                         {printEmbProductionDetailserror.STYLE && (
@@ -1654,6 +1546,7 @@ export default function PrintEmbProductionForm({
                                                 PO_ID: Number(item.Id),
                                                 PO_NO: item.Pono,
                                               }));
+                                              getWorkOrder(printEmbProductionDetails.BUYER_ID || 0, printEmbProductionDetails.STYLE_ID || 0, Number(item.Id));
                                               setOpenPO(false);
                                             }}
                                           >
@@ -1684,6 +1577,90 @@ export default function PrintEmbProductionForm({
                         )}
                       </div>
                     </div>
+
+
+                    <div>
+                      <div className="flex justify-between items-end">
+                        <FormField
+                          control={form.control}
+                          name="WORK_ORDER_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Order</FormLabel>
+                              <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openWorkOrder}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? workOrder?.find(
+                                          (workOrderData) =>
+                                            Number(workOrderData.ID) === Number(field.value)
+                                        )?.WORK_ORDER_NO
+                                        : "Select a order"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search production type..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No order found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {workOrder?.map((workOrderData) => (
+                                          <CommandItem
+                                            value={workOrderData.WORK_ORDER_NO}
+                                            key={workOrderData.ID}
+                                            onSelect={() => {
+                                              field.onChange(Number(workOrderData.ID));
+                                              setPrintEmbProductionDetails((prev) => ({
+                                                ...prev,
+                                                WORK_ORDER_ID: Number(workOrderData.ID),
+                                                WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
+                                              }));
+
+                                              GetColorByBuyer(workOrderData.ID, printEmbProductionDetails.STYLE_ID || 0);
+                                              GetSizeByBuyer(workOrderData.ID, printEmbProductionDetails.STYLE_ID || 0);
+
+                                              setOpenWorkOrder(false);
+                                            }}
+                                          >
+                                            {workOrderData.WORK_ORDER_NO}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(workOrderData.ID) === Number(field.value)
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="h-4">
+                        {printEmbProductionDetailserror.WORK_ORDER_NO && (
+                          <p className="text-sm">{printEmbProductionDetailserror.WORK_ORDER_NO}</p>
+                        )}
+                      </div>
+                    </div>
+
                     <div>
                       <div className="flex justify-between items-end">
                         <FormField
