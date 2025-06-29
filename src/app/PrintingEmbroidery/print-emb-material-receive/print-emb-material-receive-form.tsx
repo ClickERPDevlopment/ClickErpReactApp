@@ -57,6 +57,8 @@ const searchFormSchema = z.object({
   STYLE: z.string().optional(),
   PO_ID: z.number().optional(),
   PO: z.string().optional(),
+  COLOR_ID: z.number().optional(),
+  COLOR: z.string().optional(),
 });
 
 const masterFormSchema = z.object({
@@ -127,6 +129,10 @@ interface IParts {
   NAME: string;
 };
 
+interface IColor {
+  ID: number;
+  COLORNAME: string;
+};
 
 interface ISearchData {
   BUYER_ID: number;
@@ -135,6 +141,8 @@ interface ISearchData {
   STYLE: string;
   PO_ID: number;
   PO: string;
+  COLOR_ID: number;
+  COLOR: string;
 };
 
 
@@ -193,14 +201,19 @@ export default function PrintEmbMaterialReceiveForm({
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
     setStyle(response?.data);
 
-    console.log("Style", response?.data);
-
   }
 
   const [PO, setPO] = useState<IPO[]>([]);
   const getPOByStyle = async (woId: number, styleId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
     setPO(response?.data);
+  }
+
+
+  const [color, setColor] = useState<IColor[]>([]);
+  const GetColorByBuyer = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setColor(response?.data);
   }
 
   const [workOrderType, setWorkOrderType] = useState<IType[]>([]);
@@ -359,6 +372,11 @@ export default function PrintEmbMaterialReceiveForm({
       if (searchData.PO && !item.PO.toLowerCase().includes(searchData.PO.toLowerCase())) {
         return false;
       }
+
+      if (searchData.COLOR && !item.COLOR.toLowerCase().includes(searchData.PO.toLowerCase())) {
+        return false;
+      }
+
       return true;
     });
     setdetailsData(searchedData);
@@ -414,7 +432,9 @@ export default function PrintEmbMaterialReceiveForm({
     STYLE_ID: 0,
     STYLE: "",
     PO_ID: 0,
-    PO: ""
+    PO: "",
+    COLOR_ID: 0,
+    COLOR: ""
   })
 
 
@@ -468,6 +488,9 @@ export default function PrintEmbMaterialReceiveForm({
   const [openParts, setOpenParts] = useState(false);
   const [partsModalData, setPartsModalData] = useState<EmbMaterialReceiveDetailsPartsType[]>([]);
   const [selectedDetailsIndex] = useState<number>(-1);
+
+  const [openColor, setOpenColor] = useState(false);
+
 
   return (
     <AppPageContainer>
@@ -1018,6 +1041,7 @@ export default function PrintEmbMaterialReceiveForm({
                                                 STYLE: item.Styleno,
                                               }));
                                               setOpenStyle(false);
+                                              GetColorByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
                                               getPOByStyle(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
                                             }}
                                           >
@@ -1124,13 +1148,86 @@ export default function PrintEmbMaterialReceiveForm({
                         />
                       </div>
                     </div>
+
+                    <div className="">
+                      <div>
+                        <FormField
+                          control={searchForm.control}
+                          name="COLOR_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Color</FormLabel>
+                              <Popover open={openColor} onOpenChange={setOpenColor}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openColor}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? color?.find(
+                                          (colorData) =>
+                                            Number(colorData.ID) === field.value
+                                        )?.COLORNAME
+                                        : "Select a color"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search PO..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No color found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {color?.map((colorData) => (
+                                          <CommandItem
+                                            value={colorData.COLORNAME}
+                                            key={colorData.ID}
+                                            onSelect={() => {
+                                              field.onChange(Number(colorData.ID));
+                                              setSearchData((prev) => ({
+                                                ...prev,
+                                                COLOR_ID: Number(colorData.ID),
+                                                COLOR: colorData.COLORNAME,
+                                              }));
+                                              setOpenColor(false);
+                                            }}
+                                          >
+                                            {colorData.COLORNAME}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(colorData.ID) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <Button
                   type="button"
                   onClick={() => handleSearch()}
-                  className="mt-2 ms-2 mb-2"
+                  className="mt-2  mb-2"
                 >
                   Search
                 </Button>
