@@ -215,7 +215,7 @@ export default function PrintEmbProductionForm({
 
         setdetailsData([]);
         setSizeWip(null);
-        getProductionHour(masterData.PRODUCTION_DATE || new Date().toLocaleDateString("en-CA"));
+        getProductionHour();
         //form.reset();
         return;
       }
@@ -268,8 +268,8 @@ export default function PrintEmbProductionForm({
 
   //get production data
   const [productionHour, setProductionHour] = useState<IHour[]>([]);
-  const getProductionHour = async (date: string) => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionHour/GetProductionHourByProductionDate?date=" + date);
+  const getProductionHour = async () => {
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionHour");
     setProductionHour(response?.data);
   }
 
@@ -350,7 +350,7 @@ export default function PrintEmbProductionForm({
 
 
   useEffect(() => {
-    getProductionHour(new Date(data?.PRODUCTION_DATE || new Date()).toLocaleDateString("en-CA"));
+    getProductionHour();
     getShift();
     getProductionType();
 
@@ -825,7 +825,7 @@ export default function PrintEmbProductionForm({
                               ...prev,
                               PRODUCTION_DATE: new Date(e.target.value).toLocaleDateString("en-CA"),
                             }));
-                            getProductionHour(newDate?.toLocaleDateString("en-CA") || new Date().toLocaleDateString("en-CA"));
+                            getProductionHour();
                           }}
                           className="form-control w-full h-9"
                         />
@@ -2507,7 +2507,7 @@ export default function PrintEmbProductionForm({
             <div className="grid gap-4 py-4">
             </div>
             <DialogFooter>
-              <Button onClick={() => { getProductionHour(masterData.PRODUCTION_DATE || new Date().toLocaleDateString("en-CA")), setOpenProductionHourModal(false) }} >Close</Button>
+              <Button onClick={() => { getProductionHour(), setOpenProductionHourModal(false) }} >Close</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

@@ -324,7 +324,8 @@ export default function PrintEmbMaterialReceiveForm({
     }
 
     const data = masterData;
-    data.EmbMaterialReceiveDetails = detailsData || [];
+
+    data.EmbMaterialReceiveDetails = detailsData?.filter(item => item.RCV_QTY > 0) || [];
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
