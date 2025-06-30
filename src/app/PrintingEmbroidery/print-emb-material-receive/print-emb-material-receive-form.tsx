@@ -1279,7 +1279,7 @@ export default function PrintEmbMaterialReceiveForm({
                                           (d) =>
                                             Number(d.ID) === field.value
                                         )?.SENDNO
-                                        : "Select a color"}
+                                        : "Select a emb send no"}
                                       <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                     </Button>
                                   </FormControl>
