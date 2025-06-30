@@ -16,5 +16,5 @@ export interface ICreateDateWisePoSummaryReport {
   SHIP_DATE: Date;
   BOOKING_RELEASE_DATE: Date;
   JOB_NUMBER: string;
-  TOTAL_BOOKING_QTY : number;
+  TOTAL_BOOKING_QTY: number;
 }

@@ -297,7 +297,6 @@ export default function PrintEmbMaterialReceiveForm({
     setEmbSendNo(response?.data);
   }
 
-
   useEffect(() => {
     getWorkOrderType();
     getParts();
