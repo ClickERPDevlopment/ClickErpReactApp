@@ -59,6 +59,8 @@ const searchFormSchema = z.object({
   PO: z.string().optional(),
   COLOR_ID: z.number().optional(),
   COLOR: z.string().optional(),
+  EMB_SEND_ID: z.number().optional(),
+  EMB_SEND_NO: z.string().optional(),
 });
 
 const masterFormSchema = z.object({
@@ -134,6 +136,12 @@ interface IColor {
   COLORNAME: string;
 };
 
+interface IEmbSendNo {
+  ID: number;
+  SENDNO: string;
+  WORKORDERNO: string;
+};
+
 interface ISearchData {
   BUYER_ID: number;
   BUYER: string;
@@ -143,6 +151,8 @@ interface ISearchData {
   PO: string;
   COLOR_ID: number;
   COLOR: string;
+  EMB_SEND_ID: number;
+  EMB_SEND_NO: string;
 };
 
 
@@ -267,8 +277,24 @@ export default function PrintEmbMaterialReceiveForm({
     masterForm.setValue("SUPPLIER", response?.data.SUPPLIER);
     masterForm.setValue("EMB_CATEGORY", response?.data.EMB_CATEGORY);
 
+    masterForm.setValue("WORKORDER_ID", response?.data.WORKORDER_ID);
+    masterForm.setValue("WORKORDER_NO", response?.data.WORKORDER_NO);
+
+    getEmbSendNo(response?.data.WORKORDER_NO);
+
     response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=" + woRcvId);
     setdetailsData(response?.data);
+  }
+
+  const getWorkOrderRcvInfoWithSendQty = async (woRcvId: number, sendNo: string) => {
+    let response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=" + woRcvId + "&embSendNo=" + sendNo);
+    setdetailsData(response?.data);
+  }
+
+  const [embSendNo, setEmbSendNo] = useState<IEmbSendNo[]>([]);
+  const getEmbSendNo = async (woNo: string) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/EmbellishmentSendNo?woNo=" + woNo);
+    setEmbSendNo(response?.data);
   }
 
 
@@ -434,7 +460,9 @@ export default function PrintEmbMaterialReceiveForm({
     PO_ID: 0,
     PO: "",
     COLOR_ID: 0,
-    COLOR: ""
+    COLOR: "",
+    EMB_SEND_ID: 0,
+    EMB_SEND_NO: ""
   })
 
 
@@ -458,6 +486,8 @@ export default function PrintEmbMaterialReceiveForm({
       STYLE: "",
       PO_ID: 0,
       PO: "",
+      EMB_SEND_ID: 0,
+      EMB_SEND_NO: ""
     },
   });
 
@@ -481,6 +511,7 @@ export default function PrintEmbMaterialReceiveForm({
   const [openWorkOrderType, setOpenWorkOrderType] = useState(false);
   const [openFloor, setOpenFloor] = useState(false);
   const [openWorkOrderRcv, setOpenWorkOrderRcv] = useState(false);
+  const [openEmbSendNo, setOpenEmbSendNo] = useState(false);
 
 
   const [openReasonDetailsModal, setOpenPartsModal] = useState(false);
@@ -687,80 +718,6 @@ export default function PrintEmbMaterialReceiveForm({
                   <div className="flex justify-between items-end">
                     <FormField
                       control={masterForm.control}
-                      name="WORKORDER_ID"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-col flex-1">
-                          <FormLabel className="font-bold">Work Order</FormLabel>
-                          <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
-                            <PopoverTrigger asChild>
-                              <FormControl>
-                                <Button
-                                  variant="outline"
-                                  role="combobox"
-                                  aria-expanded={openWorkOrder}
-                                  className={cn(
-                                    "w-full justify-between bg-emerald-100",
-                                    !field.value && "text-muted-foreground"
-                                  )}
-                                >
-                                  {field.value
-                                    ? workOrder?.find(
-                                      (workOrderData) =>
-                                        Number(workOrderData.Id) === Number(field.value)
-                                    )?.EmbellishmentOrderno
-                                    : "Select a order"}
-                                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                </Button>
-                              </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-full p-0">
-                              <Command>
-                                <CommandInput placeholder="Search production type..." className="h-9" />
-                                <CommandList>
-                                  <CommandEmpty>No order found.</CommandEmpty>
-                                  <CommandGroup>
-                                    {workOrder?.map((workOrderData) => (
-                                      <CommandItem
-                                        value={workOrderData.EmbellishmentOrderno}
-                                        key={workOrderData.Id}
-                                        onSelect={() => {
-                                          field.onChange(Number(workOrderData.Id));
-                                          setMasterData((prev) => ({
-                                            ...prev,
-                                            WORKORDER_ID: Number(workOrderData.Id),
-                                            WORKORDER_NO: workOrderData.EmbellishmentOrderno,
-                                          }));
-                                          setOpenWorkOrder(false);
-                                          getBuyerData(workOrderData.Id)
-                                        }}
-                                      >
-                                        {workOrderData.EmbellishmentOrderno}
-                                        <CheckIcon
-                                          className={cn(
-                                            "ml-auto h-4 w-4",
-                                            Number(workOrderData.Id) === Number(field.value)
-                                              ? "opacity-100"
-                                              : "opacity-0"
-                                          )}
-                                        />
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
-                                </CommandList>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-end">
-                    <FormField
-                      control={masterForm.control}
                       name="WORKORDER_RECEIVE_ID"
                       render={({ field }) => (
                         <FormItem className="flex flex-col flex-1">
@@ -814,6 +771,81 @@ export default function PrintEmbMaterialReceiveForm({
                                           className={cn(
                                             "ml-auto h-4 w-4",
                                             Number(workOrderData.ID) === Number(field.value)
+                                              ? "opacity-100"
+                                              : "opacity-0"
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between items-end">
+                    <FormField
+                      control={masterForm.control}
+                      name="WORKORDER_ID"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col flex-1">
+                          <FormLabel className="font-bold">Work Order</FormLabel>
+                          <Popover open={openWorkOrder} onOpenChange={setOpenWorkOrder}>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  aria-expanded={openWorkOrder}
+                                  className={cn(
+                                    "w-full justify-between bg-emerald-100",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value
+                                    ? workOrder?.find(
+                                      (workOrderData) =>
+                                        Number(workOrderData.Id) === Number(field.value)
+                                    )?.EmbellishmentOrderno
+                                    : "Select a order"}
+                                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-full p-0">
+                              <Command>
+                                <CommandInput placeholder="Search production type..." className="h-9" />
+                                <CommandList>
+                                  <CommandEmpty>No order found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {workOrder?.map((workOrderData) => (
+                                      <CommandItem
+                                        value={workOrderData.EmbellishmentOrderno}
+                                        key={workOrderData.Id}
+                                        onSelect={() => {
+                                          field.onChange(Number(workOrderData.Id));
+                                          setMasterData((prev) => ({
+                                            ...prev,
+                                            WORKORDER_ID: Number(workOrderData.Id),
+                                            WORKORDER_NO: workOrderData.EmbellishmentOrderno,
+                                          }));
+                                          getBuyerData(workOrderData.Id)
+                                          getEmbSendNo(workOrderData.EmbellishmentOrderno)
+                                          setOpenWorkOrder(false);
+                                        }}
+                                      >
+                                        {workOrderData.EmbellishmentOrderno}
+                                        <CheckIcon
+                                          className={cn(
+                                            "ml-auto h-4 w-4",
+                                            Number(workOrderData.Id) === Number(field.value)
                                               ? "opacity-100"
                                               : "opacity-0"
                                           )}
@@ -1221,6 +1253,81 @@ export default function PrintEmbMaterialReceiveForm({
                         />
                       </div>
                     </div>
+
+                    <div className="ms-20">
+                      <div>
+                        <FormField
+                          control={searchForm.control}
+                          name="EMB_SEND_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Embellishment Send No</FormLabel>
+                              <Popover open={openEmbSendNo} onOpenChange={setOpenEmbSendNo}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openEmbSendNo}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? embSendNo?.find(
+                                          (d) =>
+                                            Number(d.ID) === field.value
+                                        )?.SENDNO
+                                        : "Select a color"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search embellishment send no..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No emb send found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {embSendNo?.map((d) => (
+                                          <CommandItem
+                                            value={d.SENDNO}
+                                            key={d.ID}
+                                            onSelect={() => {
+                                              field.onChange(Number(d.ID));
+                                              setSearchData((prev) => ({
+                                                ...prev,
+                                                EMB_SEND_ID: Number(d.ID),
+                                                EMB_SEND_NO: d.SENDNO,
+                                              }));
+                                              getWorkOrderRcvInfoWithSendQty(masterData.WORKORDER_RECEIVE_ID, d.SENDNO);
+                                              setOpenEmbSendNo(false);
+                                            }}
+                                          >
+                                            {d.SENDNO}
+                                            <CheckIcon
+                                              className={cn(
+                                                "ml-auto h-4 w-4",
+                                                Number(d.ID) === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
