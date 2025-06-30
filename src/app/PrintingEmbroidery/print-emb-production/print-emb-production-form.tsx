@@ -689,14 +689,11 @@ export default function PrintEmbProductionForm({
     console.error("orderForm control is not available.");
 
   }
-
-
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openSize, setOpenSize] = useState(false);
-
 
   const [openProductionType, setOpenProductionType] = useState(false);
   const [openShift, setOpenShift] = useState(false);
