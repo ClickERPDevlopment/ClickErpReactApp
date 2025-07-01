@@ -14,7 +14,7 @@ function ReportSubgroup({
   return (
     <>
       <tr style={{ fontSize: "14px" }}>
-        <td className="border border-gray-950 p-0.5">{moment(data[0]?.EFFECTIVE_DATE).format("DD-MMM-YY")}</td>
+        <td className="border border-gray-950 p-0.5 text-nowrap">{moment(data[0]?.EFFECTIVE_DATE).format("DD-MMM-YY")}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.COMPENSATION_NO}</td>
         <td className="border border-gray-950 p-0.5 text-nowrap">{moment(data[0]?.ORDERPLACEMENTMONTH).format("MMM-YY")}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.BUYER}</td>
