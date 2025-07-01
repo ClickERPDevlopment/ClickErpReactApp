@@ -151,6 +151,7 @@ import EmbellishmentOrderSummaryReport from "./reports/embellishment/embellishme
 import PrintEmbDashboardIndex from "./app/PrintingEmbroidery/print-emb-dashboard/print-emb-dashboard-inex.tsx";
 import EmbellishmentDeliveryReport from "./reports/embellishment/embellishment-delivery-report/embellishment-delivery-report-index.tsx";
 import YarnAdditionalBookingReportIndex from "./reports/merchandising/yarn-additional-booking/yarn-additional-booking-report.-index.tsx";
+import CompensationReport from "./reports/production/finishing/compensation-report/compensation-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -484,6 +485,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="garments-dispatch-details-report"
                         element={<GarmentsDispatchDetailsReport />}
+                      />
+                      <Route
+                        path="compensation-report"
+                        element={<CompensationReport />}
                       />
                     </Route>
                     <Route path="cutting">
