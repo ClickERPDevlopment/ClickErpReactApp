@@ -150,7 +150,7 @@ function Report({
               </tr>
               <tr>
                 <td className="align-top">BUDGETED MARKUP($)</td>
-                <td className="align-top">: {(data[0]?.TOTAL_FOB_VALUE - totalBudgetValue).toFixed((2))}</td>
+                <td className="align-top">: {(data[0]?.BALANCE_VALUE - totalBudgetValue).toFixed((2))}</td>
               </tr>
               <tr>
                 <td className="align-top">MARKUP %</td>
