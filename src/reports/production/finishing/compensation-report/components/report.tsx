@@ -101,7 +101,7 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-end">{totalQty.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{ }</td>
               <td className="border border-gray-950 p-0.5 text-center">{ }</td>
-              <td className="border border-gray-950 p-0.5 text-end">{totalAmount}</td>
+              <td className="border border-gray-950 p-0.5 text-end">{totalAmount.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{totalSale.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{totalNetCompSale.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{ }</td>
