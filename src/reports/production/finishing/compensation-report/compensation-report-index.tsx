@@ -41,7 +41,8 @@ function CompensationReport() {
 
   const searchParamsObj = {
     fromDate,
-    toDate
+    toDate,
+    companyId: Number(companyId)
   }
 
   useEffect(() => {

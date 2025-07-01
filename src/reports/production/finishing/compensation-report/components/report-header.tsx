@@ -7,7 +7,7 @@ function ReportHeader({
   searchParamsObj,
 }: {
   data: CompensationReportType[];
-  searchParamsObj: { fromDate: string; toDate: string; }
+  searchParamsObj: { fromDate: string; toDate: string; companyId: number }
 }) {
 
   return (
@@ -17,9 +17,10 @@ function ReportHeader({
         {moment().format("DD-MMM-YYYY")}
       </p>
       <h1 className="font-bold text-3xl text-center">
-        {data[0]?.COMPANY_NAME}
+        {
+          searchParamsObj?.companyId != 0 ? data[0]?.COMPANY_NAME : "Anowara Group"
+        }
       </h1>
-      <h4 className="text-center text-lg">{data[0]?.COMPANY_ADDRESS}</h4>
       <h3 className="font-bold text-xl text-center">
         Compensation Report
       </h3>

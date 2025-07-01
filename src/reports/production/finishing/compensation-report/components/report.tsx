@@ -8,7 +8,7 @@ function Report({
   searchParamsObj
 }: {
   data: CompensationReportType[];
-  searchParamsObj: { fromDate: string; toDate: string; }
+  searchParamsObj: { fromDate: string; toDate: string; companyId: number }
 
 }) {
 
