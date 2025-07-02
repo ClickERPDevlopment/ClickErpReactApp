@@ -152,6 +152,7 @@ import PrintEmbDashboardIndex from "./app/PrintingEmbroidery/print-emb-dashboard
 import EmbellishmentDeliveryReport from "./reports/embellishment/embellishment-delivery-report/embellishment-delivery-report-index.tsx";
 import YarnAdditionalBookingReportIndex from "./reports/merchandising/yarn-additional-booking/yarn-additional-booking-report.-index.tsx";
 import CompensationReport from "./reports/production/finishing/compensation-report/compensation-report-index.tsx";
+import YarnReturnChallanReport from "./reports/store/yarn-store/yarn-return-challan-report/yarn-return-challan-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -730,6 +731,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="yarn-store">
+                      <Route
+                        path="yarn-return-challan-report"
+                        element={<YarnReturnChallanReport />}
+                      />
                       <Route
                         path="order-wise-knit-dyeing-status-report"
                         element={<OrderWiseKnittingDyeingStatusReportIndex />}
