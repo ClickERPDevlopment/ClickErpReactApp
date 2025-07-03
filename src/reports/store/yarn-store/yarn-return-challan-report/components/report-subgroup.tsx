@@ -18,9 +18,8 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
         <td className="border border-gray-950 p-0.5 text-nowrap">{data[0]?.YARN_BRAND}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT_NUMBER}</td>
-        <td className="border border-gray-950 p-0.5 text-center">{totalCtnQty}</td>
-        <td className="border border-gray-950 p-0.5 text-center">{totalCone}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalQty}</td>
+        <td className="border border-gray-950 p-0.5 text-center">B:{totalCtnQty} | C:{totalCone}</td>
       </tr>
     </>
   );

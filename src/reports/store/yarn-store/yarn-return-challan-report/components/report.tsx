@@ -51,17 +51,17 @@ function Report({
     "Yarn",
     "Brand",
     "Lot No",
-    "CTN",
-    "Cone",
     "Qty(Kg)",
+    "Bag & Cone",
   ];
 
   const totalQty = data.reduce((acc, item) => acc + item.QTY, 0)
   const totalCtnQty = data.reduce((acc, item) => acc + item.CTN, 0)
+  const totalCone = data.reduce((acc, item) => acc + item.CONE, 0)
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
-      className="px-12 text-gray-950">
+      className="px-12 text-gray-950 font-bold">
       <div className="p-2">
         <ReportHeader
           data={data}
@@ -131,9 +131,8 @@ function Report({
             ))}
             <tr style={{ fontSize: "14px" }} className="font-bold">
               <td colSpan={3} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
-              <td className="border border-gray-950 p-0.5 text-center">{totalCtnQty}</td>
-              <td className="border border-gray-950 p-0.5 text-center"></td>
               <td className="border border-gray-950 p-0.5 text-center">{totalQty}</td>
+              <td className="border border-gray-950 p-0.5 text-center">B:{totalCtnQty} | C:{totalCone}</td>
             </tr>
           </tbody>
         </table>
