@@ -54,10 +54,10 @@ export default function FinishFabricAllocationSummaryReport() {
     toDate = searchParams.get("toDate");
   }
 
-  console.log("buyerId: ", buyerId);
-  console.log("fabricId: ", fabricId);
-  console.log("orderRef: ", orderRef);
-  console.log("isStockAvl: ", isStockAvl);
+  // console.log("buyerId: ", buyerId);
+  // console.log("fabricId: ", fabricId);
+  // console.log("orderRef: ", orderRef);
+  // console.log("isStockAvl: ", isStockAvl);
 
   const api = useApiUrl();
 
@@ -85,9 +85,9 @@ export default function FinishFabricAllocationSummaryReport() {
     getData();
   }, [api.ProductionUrl, buyerId, fabricId, isStockAvl, orderRef, woId]);
 
-  //   console.log(masterData);
-  console.log("Mydate", masterData);
-  // return (<ReportSkeleton />);
+  // console.log(masterData);
+  // console.log("Mydate", masterData);
+  // eturn (<ReportSkeleton />);
 
   const uniqueKeys: Set<string> = new Set();
 
@@ -146,7 +146,6 @@ export default function FinishFabricAllocationSummaryReport() {
                     {" "}
                     Buyer: {groupedByBuyerStyle[key]?.items[0]?.BUYER}
                   </span>
-                  {/* <span className="ml-2">Style: {groupedByBuyerStyle[key]?.items[0]?.STYLENO}</span> */}
                 </h4>
                 <ReportTable
                   masterData={groupedByBuyerStyle[key].items}
@@ -159,7 +158,7 @@ export default function FinishFabricAllocationSummaryReport() {
             <div></div>
             <div className="max-w-[50%] min-w-[40%]">
               <h6 className="font-lg text-center font-bold">Unit Wise Summary</h6>
-              <FinishFabricAllocationUomWiseSummaryReport data={masterData}></FinishFabricAllocationUomWiseSummaryReport>
+              <FinishFabricAllocationUomWiseSummaryReport data={masterData} detailsData={detailsData}></FinishFabricAllocationUomWiseSummaryReport>
             </div>
           </div>
         </div>

@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { FinishFabricAllocatinReportDetailsType } from "@/reports/finish-fabric-allocation-report/finish-fabric-allocation-report-type";
 import { FinishFabricAllocationSummaryReportMasterType } from "../../finish-fabric-allocation-summary-report-type";
 import ReportRow from "./report-row";
 
 function Report({
   data,
+  detailsData
 }: {
   data: FinishFabricAllocationSummaryReportMasterType[];
+  detailsData: FinishFabricAllocatinReportDetailsType[]
 }) {
 
   //set table header
   const firstHeader: string[] = [
     "UOM",
     "RATE",
-    "QTY",
+    "RCV BAL",
     "VALUE",
   ];
-
-
-
 
   const uniqueKeys: Set<string> = new Set();
 
@@ -74,6 +74,7 @@ function Report({
             {uniqueKeysArray?.map((key) => (
               <ReportRow
                 data={groupedData[key].items}
+                detailsData={detailsData}
               ></ReportRow>
             ))}
 

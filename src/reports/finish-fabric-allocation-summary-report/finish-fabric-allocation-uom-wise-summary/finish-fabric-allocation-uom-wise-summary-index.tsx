@@ -1,8 +1,9 @@
 import { useEffect, useMemo } from "react";
 import Report from "./components/report";
 import { FinishFabricAllocationSummaryReportMasterType } from "../finish-fabric-allocation-summary-report-type";
+import { FinishFabricAllocatinReportDetailsType } from "@/reports/finish-fabric-allocation-report/finish-fabric-allocation-report-type";
 
-function FinishFabricAllocationUomWiseSummaryReport({ data }: { data: FinishFabricAllocationSummaryReportMasterType[] }) {
+function FinishFabricAllocationUomWiseSummaryReport({ data, detailsData }: { data: FinishFabricAllocationSummaryReportMasterType[], detailsData: FinishFabricAllocatinReportDetailsType[] }) {
   // Effects
   useEffect(() => {
   }, []);
@@ -15,6 +16,7 @@ function FinishFabricAllocationUomWiseSummaryReport({ data }: { data: FinishFabr
     <div>
       <Report
         data={sortedData}
+        detailsData={detailsData}
       />
     </div>
   );

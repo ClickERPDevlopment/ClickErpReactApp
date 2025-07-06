@@ -153,6 +153,7 @@ import EmbellishmentDeliveryReport from "./reports/embellishment/embellishment-d
 import YarnAdditionalBookingReportIndex from "./reports/merchandising/yarn-additional-booking/yarn-additional-booking-report.-index.tsx";
 import CompensationReport from "./reports/production/finishing/compensation-report/compensation-report-index.tsx";
 import YarnReturnChallanReport from "./reports/store/yarn-store/yarn-return-challan-report/yarn-return-challan-report-index.tsx";
+import KnittingProductionReport from "./reports/Textile/knitting/knitting-production-report/knitting-production-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -644,6 +645,10 @@ createRoot(document.getElementById("root")!).render(
 
                   <Route path="textile">
                     <Route path="knitting">
+                      <Route
+                        path="knitting-production-report"
+                        element={<KnittingProductionReport />}
+                      />
                       <Route
                         path="daily-knitting-update"
                         element={<DailyKnittingUpdateReport />}

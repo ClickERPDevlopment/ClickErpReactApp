@@ -42,10 +42,10 @@ export default function ReportTable({
     return (acc += item.RET_QTY);
   }, 0);
 
-  const totalValue = masterData.reduce((acc, item) => acc + (item.SUPPLIER_RATE_PER_PCS * item.WO_QTY), 0);
 
   let totaAllocationQty = 0;
   let totaAllocationBalance = 0;
+  let totalValue = 0;
 
   return (
     <>
@@ -77,6 +77,11 @@ export default function ReportTable({
             totaAllocationBalance += filteredData.reduce((acc, item) => {
               return (acc += (mData.RECEIVE_QTY - item.ALLOCATED_QTY));
             }, 0);
+
+            totalValue = filteredData.reduce((acc, item) => {
+              return (acc += ((mData.RECEIVE_QTY - item.ALLOCATED_QTY) * mData.SUPPLIER_RATE_PER_PCS));
+            }, 0);
+
             return (
               <ReportTableRow
                 key={Math.random()}

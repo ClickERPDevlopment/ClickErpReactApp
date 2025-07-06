@@ -60,7 +60,11 @@ export default function ReportTableRow({
         </td>
 
         <td className="border text-center text-xs">{masterData?.SUPPLIER_RATE_PER_PCS}</td>
-        <td className="border text-center text-xs">{(masterData?.SUPPLIER_RATE_PER_PCS * masterData?.WO_QTY).toFixed(2)}</td>
+
+        <td className="border text-center text-xs"> {isNaN(masterData.RECEIVE_QTY - totalAllocationQty)
+          ? "0"
+          : ((masterData.RECEIVE_QTY - totalAllocationQty) * masterData.SUPPLIER_RATE_PER_PCS).toFixed(2)}</td>
+
         <td className="border text-center text-xs">{masterData?.UOM}</td>
 
         <td className="border text-center text-xs">
