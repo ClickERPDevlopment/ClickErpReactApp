@@ -10,6 +10,7 @@ export type YarnAdditionalBookingReportDtoType = {
     BUYER: string;
     PO_ID: number;
     PO: string;
+    JOB_POS: string;
     STYLE_ID: number;
     STYLE: string;
     ATTENTION_TO_EMP_ID: number;

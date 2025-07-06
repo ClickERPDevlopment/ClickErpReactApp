@@ -36,7 +36,7 @@ export default function Details({ data }: { data?: YarnAdditionalBookingReportDt
                     {data?.oYBookingDetailsFabricList.map((ele, index) =>
                         <tr key={index}>
                             <td className='p-1 border border-gray-600 text-center'>{data?.STYLE}</td>
-                            <td className='p-1 border border-gray-600 text-center'>{data?.PO}</td>
+                            <td className='p-1 border border-gray-600 text-center'>{data?.JOB_POS}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele?.GMT_PARTS}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele?.FABRIC}</td>
                             <td className='p-1 border border-gray-600 text-center'>{getYarn(ele?.FABRIC_ADD_GUID_ID)}</td>
