@@ -19,6 +19,7 @@ export default function Details({ data }: { data?: YarnAdditionalBookingReportDt
                 <thead>
                     <tr>
                         <th className='p-1 min-w-24 border border-gray-600 text-center'>Style</th>
+                        <th className='p-1 min-w-24 border border-gray-600 text-center'>PO</th>
                         <th className='p-1 min-w-24 border border-gray-600 text-center'>GMT Parts</th>
                         <th className='p-1 min-w-36 border border-gray-600 text-center'>Fabrication</th>
                         <th className='p-1 min-w-36 border border-gray-600 text-center'>Yarn</th>
@@ -35,6 +36,7 @@ export default function Details({ data }: { data?: YarnAdditionalBookingReportDt
                     {data?.oYBookingDetailsFabricList.map((ele, index) =>
                         <tr key={index}>
                             <td className='p-1 border border-gray-600 text-center'>{data?.STYLE}</td>
+                            <td className='p-1 border border-gray-600 text-center'>{data?.PO}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele?.GMT_PARTS}</td>
                             <td className='p-1 border border-gray-600 text-center'>{ele?.FABRIC}</td>
                             <td className='p-1 border border-gray-600 text-center'>{getYarn(ele?.FABRIC_ADD_GUID_ID)}</td>
