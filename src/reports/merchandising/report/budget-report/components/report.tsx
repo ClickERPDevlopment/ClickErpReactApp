@@ -154,7 +154,7 @@ function Report({
               </tr>
               <tr>
                 <td className="align-top">MARKUP %</td>
-                <td className="align-top">: {(((data[0]?.TOTAL_FOB_VALUE - totalBudgetValue) / data[0]?.TOTAL_FOB_VALUE) * 100).toFixed((2))}</td>
+                <td className="align-top">: {(((data[0]?.BALANCE_VALUE - totalBudgetValue) / data[0]?.TOTAL_FOB_VALUE) * 100).toFixed((2))}</td>
               </tr>
             </tbody>
           </table>
