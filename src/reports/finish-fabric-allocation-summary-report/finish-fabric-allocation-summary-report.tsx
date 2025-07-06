@@ -10,6 +10,7 @@ import {
   FinishFabricAllocationSummaryReportMasterType,
 } from "./finish-fabric-allocation-summary-report-type";
 import ReportTable from "./components/report-table";
+import FinishFabricAllocationUomWiseSummaryReport from "./finish-fabric-allocation-uom-wise-summary/finish-fabric-allocation-uom-wise-summary-index";
 
 export default function FinishFabricAllocationSummaryReport() {
   const [masterData, setMasterData] = useState<
@@ -153,6 +154,13 @@ export default function FinishFabricAllocationSummaryReport() {
                 ></ReportTable>
               </div>
             ))}
+          </div>
+          <div className="flex justify-between mt-10">
+            <div></div>
+            <div className="max-w-[50%] min-w-[40%]">
+              <h6 className="font-lg text-center font-bold">Unit Wise Summary</h6>
+              <FinishFabricAllocationUomWiseSummaryReport data={masterData}></FinishFabricAllocationUomWiseSummaryReport>
+            </div>
           </div>
         </div>
       </>
