@@ -14,13 +14,6 @@ export default function ReportTableRow({
     return (acc += item.ALLOCATED_QTY);
   }, 0);
 
-  // const totalAllocationBalance = detailsData.reduce((acc, item) => {
-  //   return (acc += item.ALLOCATED_QTY - item.REQUIRED_QTY);
-  // }, 0);
-
-  // const totalReqQty = detailsData.reduce((acc, item) => {
-  //   return (acc += item.REQUIRED_QTY);
-  // }, 0);
 
   return (
     <>
@@ -45,6 +38,7 @@ export default function ReportTableRow({
         <td className="border text-center text-xs">
           {masterData?.RET_QTY}
         </td>
+
         {Number(masterData?.RECEIVE_QTY - masterData?.RET_QTY - masterData.WO_QTY) < 0 ? (
           <td className={`border text-center text-xs text-red-500`}>
             {(masterData?.RECEIVE_QTY - masterData?.RET_QTY - masterData.WO_QTY).toFixed(2)}
@@ -54,16 +48,21 @@ export default function ReportTableRow({
             {(masterData?.RECEIVE_QTY - masterData?.RET_QTY - masterData.WO_QTY).toFixed(2)}
           </td>
         )}
-        {/* <td className="border text-center text-xs">{masterData?.STOCK}</td> */}
+
         <td className="border text-center text-xs">
           {totalAllocationQty?.toFixed(2)}
         </td>
+
         <td className="border text-center text-xs">
-          {isNaN(totalAllocationQty - masterData.RECEIVE_QTY)
+          {isNaN(masterData.RECEIVE_QTY - totalAllocationQty)
             ? "0"
-            : (totalAllocationQty - masterData.RECEIVE_QTY).toFixed(2)}
+            : (masterData.RECEIVE_QTY - totalAllocationQty).toFixed(2)}
         </td>
+
+        <td className="border text-center text-xs">{masterData?.SUPPLIER_RATE_PER_PCS}</td>
+        <td className="border text-center text-xs">{(masterData?.SUPPLIER_RATE_PER_PCS * masterData?.WO_QTY).toFixed(2)}</td>
         <td className="border text-center text-xs">{masterData?.UOM}</td>
+
         <td className="border text-center text-xs">
           {Number(masterData.CONSUMPTION_PER_DZN) == 0
             ? "0"

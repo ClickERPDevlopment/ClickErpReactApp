@@ -22,9 +22,10 @@ export default function ReportTable({
     { name: "RCV QTY", classes: "" },
     { name: "RET QTY", classes: "" },
     { name: "RCV BAL", classes: "" },
-    // { name: "STOCK QTY", classes: "min-w-[60px]" } /*Rcv-Allocation*/,
     { name: "ALLO. QTY", classes: "" },
     { name: "ALLO. BAL", classes: "" },
+    { name: "RATE", classes: "" },
+    { name: "VALUE", classes: "" },
     { name: "UOM", classes: "" },
     { name: "PCS BAL", classes: "" },
   ];
@@ -41,9 +42,7 @@ export default function ReportTable({
     return (acc += item.RET_QTY);
   }, 0);
 
-  // const totalStockQty = masterData.reduce((acc, item) => {
-  //   return (acc += item.STOCK);
-  // }, 0);
+  const totalValue = masterData.reduce((acc, item) => acc + (item.SUPPLIER_RATE_PER_PCS * item.WO_QTY), 0);
 
   let totaAllocationQty = 0;
   let totaAllocationBalance = 0;
@@ -76,7 +75,7 @@ export default function ReportTable({
               return (acc += item.ALLOCATED_QTY);
             }, 0);
             totaAllocationBalance += filteredData.reduce((acc, item) => {
-              return (acc += item.ALLOCATED_QTY - mData.RECEIVE_QTY);
+              return (acc += (mData.RECEIVE_QTY - item.ALLOCATED_QTY));
             }, 0);
             return (
               <ReportTableRow
@@ -103,15 +102,17 @@ export default function ReportTable({
               {totalRetQty?.toFixed(2)}
             </td>
             <td className="border text-center text-xs font-semibold">
-              {(totalRcvQty -totalRetQty - totalWoQty).toFixed(2)}
+              {(totalRcvQty - totalRetQty - totalWoQty).toFixed(2)}
             </td>
-            {/* <td className="border text-center text-xs" >{totalStockQty?.toFixed(2)}</td> */}
-
             <td className="border text-center text-xs font-semibold">
               {totaAllocationQty?.toFixed(2)}
             </td>
             <td className="border text-center text-xs font-semibold">
               {totaAllocationBalance.toFixed(2)}
+            </td>
+            <td className="border text-center text-xs font-semibold"></td>
+            <td className="border text-center text-xs font-semibold">
+              {totalValue.toFixed(2)}
             </td>
             <td className="border text-center text-xs font-semibold"></td>
             <td className="border text-center text-xs font-semibold"></td>
