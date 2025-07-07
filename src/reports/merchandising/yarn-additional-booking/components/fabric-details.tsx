@@ -53,7 +53,7 @@ export default function Details({ data }: { data?: YarnAdditionalBookingReportDt
                 <tfoot>
                     <tr>
 
-                        <th className='p-1 border border-gray-600 text-center' colSpan={8}>Total</th>
+                        <th className='p-1 border border-gray-600 text-center' colSpan={9}>Total</th>
                         <th className='p-1 border border-gray-600 text-center'>
                             {
                                 data?.oYBookingDetailsFabricList?.reduce((p, c) => p + Number(c.FABRIC_REQUIRED_QTY), 0).toFixed(2)
