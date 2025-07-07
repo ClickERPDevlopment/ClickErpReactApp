@@ -18,7 +18,7 @@ function ReportHeader({
           {searchParam.factoryId == 0 ? "Anowara Group" : masterData?.COMPANY_NAME}
         </h1>
         <h4 className="font-bold text-base text-center mt-2">
-          Knitting Pdroduction Report
+          Knitting Production Report
         </h4>
         <h1 className="font-bold text-base text-center">
           {moment(searchParam.fromDate).format("DD-MMM-YY")} to {moment(searchParam.toDate).format("DD-MMM-YY")}

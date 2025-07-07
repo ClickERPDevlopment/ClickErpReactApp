@@ -5,4 +5,5 @@ export type KnittingProductionReportType = {
     OUTSIDE_PROD: number;
     COMPANY_NAME?: string | null;
     COMPANY_ADDRESS?: string | null;
+    FLOOR_NAME?: string | null;
 };

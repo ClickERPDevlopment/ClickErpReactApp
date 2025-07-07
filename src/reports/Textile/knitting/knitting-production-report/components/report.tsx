@@ -46,7 +46,7 @@ function Report({
     "Date",
   ];
   const secondHeader = [
-    "Total Inhouse Program",
+    "Total In-house Program",
     "Total Outside Program",
     "Total Knit Program",
   ];
@@ -59,10 +59,8 @@ function Report({
 
   const companyHeader = Array.from(uniqueCompany);
 
-  console.log("fffff", companyHeader)
-
   return (
-    <div className="container">
+    <div>
       <div className="p-2">
         <ReportHeader
           searchParam={searchParam}
