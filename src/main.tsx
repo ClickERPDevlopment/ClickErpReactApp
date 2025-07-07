@@ -155,6 +155,7 @@ import CompensationReport from "./reports/production/finishing/compensation-repo
 import YarnReturnChallanReport from "./reports/store/yarn-store/yarn-return-challan-report/yarn-return-challan-report-index.tsx";
 import KnittingProductionReport from "./reports/Textile/knitting/knitting-production-report/knitting-production-report-index.tsx";
 import YarnTransferChallanReport from "./reports/store/yarn-store/yarn-transfer-report/yarn-transfer-report-index.tsx";
+import YarnTransferReportFormat2 from "./reports/store/yarn-store/yarn-transfer-report-format2/yarn-transfer-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -744,6 +745,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="yarn-transfer-challan-report"
                         element={<YarnTransferChallanReport />}
+                      />
+                      <Route
+                        path="yarn-transfer-challan-report-format2"
+                        element={<YarnTransferReportFormat2 />}
                       />
                       <Route
                         path="order-wise-knit-dyeing-status-report"
