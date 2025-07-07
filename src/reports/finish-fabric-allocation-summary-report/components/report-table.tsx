@@ -44,8 +44,8 @@ export default function ReportTable({
 
 
   let totaAllocationQty = 0;
-  let totaAllocationBalance = 0;
   let totalValue = 0;
+
 
   return (
     <>
@@ -71,16 +71,16 @@ export default function ReportTable({
                 dData.STOCK_FABRIC_COLOR_ID === mData.GMT_COLOR_ID &&
                 dData.ORDER_REFERENCE === mData.ORDER_REFERENCE
             );
+
             totaAllocationQty += filteredData.reduce((acc, item) => {
               return (acc += item.ALLOCATED_QTY);
             }, 0);
-            totaAllocationBalance += filteredData.reduce((acc, item) => {
-              return (acc += (mData.RECEIVE_QTY - item.ALLOCATED_QTY));
+
+            const allocationQty = filteredData.reduce((acc, item) => {
+              return (acc += item.ALLOCATED_QTY);
             }, 0);
 
-            totalValue = filteredData.reduce((acc, item) => {
-              return (acc += ((mData.RECEIVE_QTY - item.ALLOCATED_QTY) * mData.SUPPLIER_RATE_PER_PCS));
-            }, 0);
+            totalValue += (mData.RECEIVE_QTY - allocationQty) * mData.SUPPLIER_RATE_PER_PCS;
 
             return (
               <ReportTableRow
@@ -90,6 +90,7 @@ export default function ReportTable({
               />
             );
           })}
+
           <tr>
             <td
               className="border text-center text-xs font-semibold"
@@ -113,7 +114,7 @@ export default function ReportTable({
               {totaAllocationQty?.toFixed(2)}
             </td>
             <td className="border text-center text-xs font-semibold">
-              {totaAllocationBalance.toFixed(2)}
+              {(totalRcvQty - totaAllocationQty).toFixed(2)}
             </td>
             <td className="border text-center text-xs font-semibold"></td>
             <td className="border text-center text-xs font-semibold">
