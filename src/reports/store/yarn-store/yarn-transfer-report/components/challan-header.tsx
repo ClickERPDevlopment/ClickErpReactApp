@@ -23,7 +23,7 @@ function ChallanHeader({
             </tr>
             <tr>
               <td className="align-top">{data?.WORK_ORDER ? 'Wo No' : ''}</td>
-              <td className="align-top">: {data?.WORK_ORDER}</td>
+              <td className="align-top">{data?.WORK_ORDER ? (': ' + data?.WORK_ORDER) : ''}</td>
             </tr>
           </tbody>
         </table>
