@@ -16,7 +16,7 @@ function Report({
   const firstHeader: string[] = [
     "UOM",
     "RATE",
-    "RCV BAL",
+    "ALLO. BAL",
     "VALUE",
   ];
 
@@ -54,8 +54,32 @@ function Report({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-  const totalQty = data.reduce((acc, item) => acc + item.WO_QTY, 0)
-  const totalValue = data.reduce((acc, item) => acc + (item.WO_QTY * item.SUPPLIER_RATE_PER_PCS), 0)
+  const totalRcvQty = data.reduce((acc, item) => acc + item.RECEIVE_QTY, 0)
+
+  let totaAllocationQty = 0;
+  let totalValue = 0;
+
+
+  data.map((mData) => {
+    const filteredData = detailsData.filter(
+      (dData) =>
+        dData.BLOCK_WORK_ORDER_ID === mData.WO_ID &&
+        dData.FABRIC_ID === mData.FABRIC_ID &&
+        dData.STOCK_FABRIC_COLOR_ID === mData.GMT_COLOR_ID &&
+        dData.ORDER_REFERENCE === mData.ORDER_REFERENCE
+    );
+    
+    totaAllocationQty += filteredData.reduce((acc, item) => {
+      return (acc += item.ALLOCATED_QTY);
+    }, 0);
+
+    const allocationQty = filteredData.reduce((acc, item) => {
+      return (acc += item.ALLOCATED_QTY);
+    }, 0);
+
+    totalValue += (mData.RECEIVE_QTY - allocationQty) * mData.SUPPLIER_RATE_PER_PCS;
+
+  })
 
 
   return (
@@ -81,7 +105,7 @@ function Report({
             <tr className="text-center font-bold">
               <td colSpan={2} className="border text-center text-xs">Total</td>
               <td className="border text-center text-xs">
-                {totalQty.toFixed(2)}
+                {(totalRcvQty - totaAllocationQty).toFixed(2)}
               </td>
               <td className="border text-center text-xs">
                 {totalValue.toFixed(2)}
