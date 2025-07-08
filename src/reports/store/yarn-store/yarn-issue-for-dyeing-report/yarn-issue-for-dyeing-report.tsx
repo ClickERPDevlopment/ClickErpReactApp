@@ -5,7 +5,7 @@ import ReportFooter from './components/report-footer'
 
 export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusReportType[] }) {
     return (
-        <div className='min-w-[60%] p-5' style={{ fontFamily: "Times New Roman, serif" }}>
+        <div className='min-w-[50%] p-5 text-gray-950' style={{ fontFamily: "Times New Roman, serif" }}>
             <ReportHeader data={data} />
             <ReportBody data={data} />
             <ReportFooter />
