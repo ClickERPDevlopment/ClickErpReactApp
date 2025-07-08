@@ -12,10 +12,6 @@ function ReportSubgroup({
     (acc, item) => acc + Number(item.QUANTITY),
     0);
 
-  const totalPerCtnQty = data?.reduce(
-    (acc, item) => acc + Number(item.PER_CTN_QTY),
-    0);
-
 
   const totalBagQty = data?.reduce(
     (acc, item) => acc + Math.floor(Number(item.CARTON_QTY)),
@@ -33,9 +29,8 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_LOT_NUMBER}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.YARN_BRAND}</td>
-        <td className="border border-gray-950 p-0.5">B: {Math.floor(totalBagQty)} | C: {Math.floor(totalConeQty)}</td>
-        <td className="border border-gray-950 p-0.5">{totalPerCtnQty.toFixed(3)}</td>
         <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.5">B: {Math.floor(totalBagQty)} | C: {Math.floor(totalConeQty)}</td>
       </tr>
     </>
   );

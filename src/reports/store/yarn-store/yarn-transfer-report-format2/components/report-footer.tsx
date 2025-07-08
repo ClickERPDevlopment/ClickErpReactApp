@@ -1,12 +1,29 @@
-function ReportFooter() {
+import { YarnTransferReportType } from "../yarn-transfer-report-type";
+
+function ReportFooter({ data }: { data: YarnTransferReportType[] }) {
   return (
     <div style={{ fontSize: "11px" }} className="flex font-bold justify-between">
-      <div className='text-center  mx-1 border-t border-gray-950 px-1'><span className='pb-1'>Received By</span></div>
-      <div className='text-center  mx-1 border-t border-gray-950 px-1'><span className='pb-1'>Store In-Charge</span></div>
-      <div className='text-center  mx-1 border-t border-gray-950 px-1'><span className='pb-1'>Knitting In-Charge</span></div>
-      <div className='text-center  mx-1 border-t border-gray-950 px-1'><span className='pb-1'>Manager (Yarn)</span></div>
-      <div className='text-center  mx-1 border-t border-gray-950 px-1'><span className='pb-1'>DGM (Knitting)</span></div>
-      <div className='text-center  mx-1 border-t border-gray-950 px-1'><span className='pb-1'>Authorized Sign</span></div>
+      <table className="w-full text-center">
+        <thead></thead>
+        <tbody>
+          <tr>
+            <td>{data[0]?.PREPARED_BY}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>Prepared By</span></td>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>Received By</span></td>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>Store In-Charge</span></td>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>Manager (Yarn)</span></td>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>DGM (Knitting)</span></td>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>Authorized Sign</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -36,7 +36,7 @@ function ReportHeader({
         })
       </h1>
       <h3 className="font-bold text-lg text-center">
-        Yarn Transfer Challan
+        Yarn Delivery Challan/Gate Pass
       </h3>
     </div>
   );

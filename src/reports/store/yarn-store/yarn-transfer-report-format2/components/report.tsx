@@ -54,9 +54,8 @@ function Report({
     "YARN",
     "LOT",
     "BRAND",
-    "BAG & CONE",
-    "PER CTN QTY",
     "QTY(KG)",
+    "BAG & CONE",
   ];
 
   return (
@@ -130,7 +129,7 @@ function Report({
         <div className="mt-[144px]"></div>
 
         <div>
-          <ReportFooter></ReportFooter>
+          <ReportFooter data={data}></ReportFooter>
         </div>
       </div>
     </div>

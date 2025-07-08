@@ -48,10 +48,6 @@ function ReportTable({
     (acc, item) => acc + Number(item.QUANTITY),
     0);
 
-  const totalPerCtnQty = data?.reduce(
-    (acc, item) => acc + Number(item.PER_CTN_QTY),
-    0);
-
 
   const totalBagQty = data?.reduce(
     (acc, item) => acc + Math.floor(Number(item.CARTON_QTY)),
@@ -73,9 +69,8 @@ function ReportTable({
       ))}
       <tr style={{ fontSize: "12px" }}>
         <td colSpan={5} className="border border-gray-950 font-bold p-0.5">Total</td>
-        <td className="border border-gray-950 p-0.5 font-bold">B: {Math.floor(totalBagQty)} | C: {Math.floor(totalConeQty)}</td>
-        <td className="border border-gray-950 p-0.5 font-bold">{totalPerCtnQty.toFixed(3)}</td>
         <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 font-bold">B: {Math.floor(totalBagQty)} | C: {Math.floor(totalConeQty)}</td>
       </tr>
     </>
   );
