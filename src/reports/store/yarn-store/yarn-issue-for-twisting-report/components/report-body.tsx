@@ -2,9 +2,9 @@ import { YarnIssueForTwistingType } from '../yarn-issue-for-twisting-report-type
 
 export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] | null }) {
     return (
-        <div className='min-w-full mt-5 font-bold'>
+        <div className='min-w-full mt-5 font-bold' >
             <table className='min-w-full'>
-                <thead>
+                <thead style={{ fontSize: "12px" }}>
                     <tr>
                         <th className='p-1 text-center border border-gray-600'>SL</th>
                         <th className='p-1 text-center border border-gray-600'>PO/JOB</th>
@@ -19,7 +19,7 @@ export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] 
                         <th className='p-1 text-center border border-gray-600'>Remarks</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ fontSize: "11px" }}>
                     {data?.map((ele, i) =>
                         <tr key={i}>
                             <td className='p-1 text-center border border-gray-600'>{i + 1}</td>
@@ -37,7 +37,7 @@ export default function ReportBody({ data }: { data: YarnIssueForTwistingType[] 
                     )}
 
                 </tbody>
-                <tfoot>
+                <tfoot style={{ fontSize: "12px" }}>
                     <tr>
                         <th className='p-1 text-center border border-gray-600' colSpan={8}>Total</th>
                         <th className='p-1 text-center border border-gray-600'>

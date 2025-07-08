@@ -6,12 +6,12 @@ export default function ReportHeader({ data }: { data: YarnIssueStatusReportType
         return (
             <div className='min-w-full text-center font-bold'>
 
-                <h1 className='text-2xl font-bold'>{data[0]?.GROUP_COMPANY_NAME}</h1>
-                <h1 className='text-base'>{data[0]?.GROUP_COMPANY_ADDRESS}</h1>
+                <h1 className='text-xl font-bold'>{data[0]?.GROUP_COMPANY_NAME}</h1>
+                <h1 className='text-sm'>{data[0]?.GROUP_COMPANY_ADDRESS}</h1>
 
-                <h1 className='text-xl font-bold mt-5'>{data[0]?.COMPANY_NAME}</h1>
-                <h1 className='text-base font-bold'>YARN ISSUE FOR DYEING CHALLAN/GATEPASS</h1>
-                <div className='flex justify-between mt-5'>
+                <h1 className='text-sm font-bold mt-5'>{data[0]?.COMPANY_NAME}</h1>
+                <h1 className='text-lg font-bold'>Yarn Issue For Dyeing Challan/Gate Pass</h1>
+                <div className='flex justify-between mt-5' style={{ fontSize: "11px" }}>
                     <ul>
                         <li>
                             <div className='flex'>
