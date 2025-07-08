@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportTable from "./report-table";
 import ReportHeader from "./report-header";
-import { KnittingProductionReportType } from "../knitting-production-report-type";
+import { DateWiseKnittingProgramReportType } from "../date-wise-knitting-program-report-type";
 
 function Report({
   data,
   searchParam,
 }: {
-  data: KnittingProductionReportType[];
+  data: DateWiseKnittingProgramReportType[];
   searchParam: { dtChecked: boolean, fromDate: string, toDate: string, factoryId: number };
 }) {
   const uniqueKeys: Set<string> = new Set();
 
-  function groupBy(data: KnittingProductionReportType[], keys: string[]) {
+  function groupBy(data: DateWiseKnittingProgramReportType[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
       const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
@@ -29,7 +29,7 @@ function Report({
 
   interface IGroupedBy {
     [key: string]: {
-      items: KnittingProductionReportType[];
+      items: DateWiseKnittingProgramReportType[];
     };
   }
 
@@ -46,9 +46,9 @@ function Report({
     "Date",
   ];
   const secondHeader = [
-    "Total In-house Prod",
-    "Total Outside Prod",
-    "Total Knit Prod",
+    "Total In-house Program",
+    "Total Outside Program",
+    "Total Knit Program",
   ];
 
   const uniqueCompany: Set<string> = new Set();
