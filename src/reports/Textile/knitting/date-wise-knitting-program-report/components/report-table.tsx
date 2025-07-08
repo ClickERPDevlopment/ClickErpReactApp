@@ -154,7 +154,7 @@ function ReportTable({
         <tbody>
           {uniqueKeysArray?.map((key) => (
             <tr key={key}>
-              <td className="border text-center border-gray-300 p-1">
+              <td className="border text-center border-gray-300 p-1 text-nowrap">
                 {moment(groupedData[key].PRODUCTION_DATE).format("DD-MMM-YY")}
               </td>
 
