@@ -56,8 +56,8 @@ function Report({
   ];
 
   const totalQty = data.reduce((acc, item) => acc + item.QTY, 0)
-  const totalCtnQty = data.reduce((acc, item) => acc + item.CTN, 0)
-  const totalCone = data.reduce((acc, item) => acc + item.CONE, 0)
+  const totalCtnQty = Math.floor( data.reduce((acc, item) => acc + item.CTN, 0));
+  const totalCone = Math.floor(data.reduce((acc, item) => acc + item.CONE, 0));
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
