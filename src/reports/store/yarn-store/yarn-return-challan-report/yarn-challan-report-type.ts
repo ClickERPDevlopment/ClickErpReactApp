@@ -17,6 +17,8 @@ export interface YarnReturnChallanReportType {
   RETURN_PER_CTN_QTY: number;
   UOM: string;
   REMARKS: string;
+  MAIN_COMPANY: string;
+  MAIN_COMPANY_ADDRESS: string;
 }
 
 

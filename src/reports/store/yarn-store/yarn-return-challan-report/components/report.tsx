@@ -51,7 +51,7 @@ function Report({
     "Yarn",
     "Brand",
     "Lot No",
-    "Qty(Kg)",
+    "Qty (Kg)",
     "Bag & Cone",
   ];
 
