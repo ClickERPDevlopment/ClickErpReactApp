@@ -5,7 +5,7 @@ export default function ReportFooter() {
             {signs?.map(ele =>
                 <div className="flex flex-col justify-end">
                     <span></span>
-                    <div className="border-t border-t-gray-600 w-36 flex justify-center">
+                    <div className="border-t border-t-gray-950 w-36 flex justify-center">
                         <span>{ele}</span>
                     </div>
                 </div>
