@@ -11,13 +11,8 @@ export default function YarnAdditionalBookingReport({ data }: { data?: YarnAddit
             <div className='w-full'>
                 <MasterIfo masterInfo={data} />
                 <Details data={data} />
-                {/* <Remarks masterInfo={data?.masterInfo} /> */}
-                {/* =================================================================== */}
                 <YarnSummary lstDetails={data?.oYBookingDetailsYarnList} />
                 <CollarCuff data={data} />
-                {/* <SpecialTreatment lstSpecialTreatment={data?.lstSpecialTreatment} /> */}
-                {/* <YarnDyeingDetails lstYarnDyeingDetails={data?.lstYarnDyeingDetails} /> */}
-                {/* <Comments lstComments={data?.lstComments} /> */}
             </div>
             <Signature masterInfo={data} />
         </div>

@@ -24,6 +24,7 @@ export type FabricBookingReportDto = {
 
 
 export type FabricBookingReportDto_MasterData = {
+  IS_PO_WISE?: boolean;
   PO_ID?: string;
   COMPANY_NAME?: string;
   PONO?: string;

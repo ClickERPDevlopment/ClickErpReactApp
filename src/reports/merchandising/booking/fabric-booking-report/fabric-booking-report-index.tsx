@@ -4,7 +4,9 @@ import { useSearchParams } from "react-router";
 import { FabricBookingReportDto } from "./fabric-booking-type";
 import axios from "axios";
 import ReportSkeleton from "@/components/report-skeleton";
-import FabricBookingReport from "./fabric-booking-report";
+import useAppClient from "@/hooks/use-AppClient";
+import FabricBookingReportFame from "./fame/fabric-booking-report-fame";
+import FabricBookingReport from "./others-client/fabric-booking-report";
 
 export default function FabricBookingReportIndex() {
     const [data, setData] = useState<FabricBookingReportDto>();
@@ -15,12 +17,16 @@ export default function FabricBookingReportIndex() {
 
     let poId: string | null = "";
     let styleId: string | null = "";
+    let isPoWise: string | null = "";
 
     if (searchParams.get("poId")) {
         poId = searchParams.get("poId");
     }
     if (searchParams.get("styleId")) {
         styleId = searchParams.get("styleId");
+    }
+    if (searchParams.get("ispowise")) {
+        isPoWise = searchParams.get("ispowise");
     }
 
     useEffect(() => {
@@ -34,7 +40,7 @@ export default function FabricBookingReportIndex() {
 
                 await axios
                     .get(
-                        `${api.ProductionUrl}/production/Booking/FabricBookingReport?poId=${poId}&styleId=${styleId}`
+                        `${api.ProductionUrl}/production/Booking/FabricBookingReport?poId=${poId}&styleId=${styleId}&isPoWise=${isPoWise}`
                     )
                     .then((res) => {
                         if (res.data) {
@@ -52,7 +58,9 @@ export default function FabricBookingReportIndex() {
             }
         }
         getData();
-    }, [api.ProductionUrl, poId, styleId]);
+    }, [api.ProductionUrl, isPoWise, poId, styleId]);
+
+    const client = useAppClient();
     return (
         <>
             {isLoading ? (
@@ -60,8 +68,7 @@ export default function FabricBookingReportIndex() {
                     <ReportSkeleton />
                 </div>
             ) :
-                (<FabricBookingReport data={data} />)
-
+                (client.currentClient == client.FAME ? <FabricBookingReportFame data={data} /> : <FabricBookingReport data={data} />)
             }
         </>
     );
