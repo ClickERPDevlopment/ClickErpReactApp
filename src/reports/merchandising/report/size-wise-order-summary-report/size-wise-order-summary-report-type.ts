@@ -1,6 +1,7 @@
 export type SizeWiseOrderSummaryReportType = {
     BUYER_NAME: string;
     STYLENO: string;
+    PONO: string;
     ITEMTYPE: string;
     COLORNAME: string;
     SIZENAME: string;

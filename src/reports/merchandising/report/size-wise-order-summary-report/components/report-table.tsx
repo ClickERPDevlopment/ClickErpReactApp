@@ -30,6 +30,7 @@ function ReportTable({
         result[key] = {
           BUYER_NAME: item?.BUYER_NAME,
           STYLENO: item?.STYLENO,
+          PONO: item?.PONO,
           ITEMTYPE: item?.ITEMTYPE,
           COLORNAME: item?.COLORNAME,
           SHIP_DATE: item?.SHIP_DATE,
@@ -63,6 +64,7 @@ function ReportTable({
     [key: string]: {
       BUYER_NAME: string;
       STYLENO: string;
+      PONO: string;
       ITEMTYPE: string;
       COLORNAME: string;
       SHIP_DATE: string;
@@ -88,7 +90,7 @@ function ReportTable({
   if (data) {
     groupedData = groupBy(
       data,
-      ["BUYER_NAME", "STYLENO", "ITEMTYPE", "COLORNAME", "SHIP_DATE", "REVISED_DATE"],
+      ["BUYER_NAME", "STYLENO", "PONO", "ITEMTYPE", "COLORNAME", "SHIP_DATE", "REVISED_DATE"],
       grandTotal,
       sizeWiseGrandTotal
     );
@@ -122,6 +124,9 @@ function ReportTable({
               </td>
               <td className="border border-gray-950 p-0.5">
                 {groupedData[key].STYLENO}
+              </td>
+              <td className="border border-gray-950 p-0.5">
+                {groupedData[key].PONO}
               </td>
               <td className="border border-gray-950 p-0.5">
                 {groupedData[key].ITEMTYPE}

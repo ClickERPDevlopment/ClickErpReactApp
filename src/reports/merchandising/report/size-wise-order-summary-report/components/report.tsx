@@ -43,6 +43,7 @@ function Report({
 
   //set table header
   const firstHeader = [
+    "BUYER",
     "STYLE NO.",
     "ORDER NO.",
     "ITEM DESCRIPTION",
