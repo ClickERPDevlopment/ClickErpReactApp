@@ -157,6 +157,7 @@ import KnittingProductionReport from "./reports/Textile/knitting/knitting-produc
 import YarnTransferChallanReport from "./reports/store/yarn-store/yarn-transfer-report/yarn-transfer-report-index.tsx";
 import YarnTransferReportFormat2 from "./reports/store/yarn-store/yarn-transfer-report-format2/yarn-transfer-report-index.tsx";
 import DateWiseKnittingProgramReport from "./reports/Textile/knitting/date-wise-knitting-program-report/date-wise-knitting-program-report-index.tsx";
+import SizeWiseOrderSummaryReport from "./reports/merchandising/report/size-wise-order-summary-report/size-wise-order-summary-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -534,6 +535,10 @@ createRoot(document.getElementById("root")!).render(
                   </Route>
 
                   <Route path="merchandising">
+                    <Route
+                      path="size-wise-order-summary-report"
+                      element={<SizeWiseOrderSummaryReport />}
+                    />
                     <Route path="sample-program">
                       <Route
                         path="sample-program-report"
