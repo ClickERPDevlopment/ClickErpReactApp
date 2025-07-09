@@ -1,4 +1,3 @@
-import React from "react";
 import { FabricBookingReportDto_FabricQtyDetails, FabricBookingReportDto_WastagePercentage } from "../../fabric-booking-type";
 import { cn } from "@/lib/utils";
 
