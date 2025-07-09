@@ -11,7 +11,7 @@ export default function ReportHeader({ data }: { data: YarnIssueStatusReportType
 
                 <h1 className='text-sm font-bold mt-5'>{data[0]?.COMPANY_NAME}</h1>
                 <h1 className='text-lg font-bold'>Yarn Issue For Dyeing Challan/Gate Pass</h1>
-                <div className='flex justify-between mt-5' style={{ fontSize: "12px" }}>
+                <div className='flex justify-between mt-5' style={{ fontSize: "13px" }}>
                     <ul>
                         <li>
                             <div className='flex'>
