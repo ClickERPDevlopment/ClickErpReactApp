@@ -194,7 +194,9 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                                         _.FABRIC == ele.FABRICATION &&
                                         _.GMT_PART == ele.PARTS &&
                                         _.GMT_COLOR == ele.GMTCOLOR &&
-                                        _.FABRIC_COLOR == ele.FABRICCOLOR
+                                        _.FABRIC_COLOR == ele.FABRICCOLOR &&
+                                        _.FABRIC_GSM == ele.GSM &&
+                                        _.FINISH_DIA == ele.FINISHDIA
                                     )[0]?.FABRIC_WASTAGE_PERCENTAGE_BUGET
                                 }
                             </td>
@@ -204,7 +206,9 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                                         _.FABRIC == ele.FABRICATION &&
                                         _.GMT_PART == ele.PARTS &&
                                         _.GMT_COLOR == ele.GMTCOLOR &&
-                                        _.FABRIC_COLOR == ele.FABRICCOLOR
+                                        _.FABRIC_COLOR == ele.FABRICCOLOR &&
+                                        _.FABRIC_GSM == ele.GSM &&
+                                        _.FINISH_DIA == ele.FINISHDIA
                                     )[0]?.GMT_WASTAGE_PERCENTAGE_BUDGET
                                 }
                             </td>

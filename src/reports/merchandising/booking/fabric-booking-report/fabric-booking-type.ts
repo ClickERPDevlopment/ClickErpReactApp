@@ -64,6 +64,8 @@ export type FabricBookingReportDto_WastagePercentage = {
   GMT_PART?: string;
   GMT_COLOR?: string;
   FABRIC_COLOR?: string;
+  FABRIC_GSM?: string;
+  FINISH_DIA?: string;
   FABRIC_WASTAGE_PERCENTAGE_BUGET?: string;
   GMT_WASTAGE_PERCENTAGE_BUDGET?: string;
 };
