@@ -5,7 +5,11 @@ import ReportFooter from './components/report-footer'
 
 export default function YarnIssueTwistingReport({ data }: { data: YarnIssueForTwistingType[] }) {
     return (
-        <div className='min-w-[50%] p-5 text-gray-950' style={{ fontFamily: "Times New Roman, serif" }}>
+        <div className='min-w-[50%] p-5' style={{
+            fontFamily: "Times New Roman, serif",
+            color: "#000",
+            fontWeight: "bold"
+        }}>
             <ReportHeader data={data} />
             <ReportBody data={data} />
             <ReportFooter />
