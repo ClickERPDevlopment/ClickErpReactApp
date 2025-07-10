@@ -1,10 +1,13 @@
 import { FabricBookingReportDto_FabricQtyDetails, FabricBookingReportDto_WastagePercentage } from "../../fabric-booking-type";
 import { cn } from "@/lib/utils";
 
-export default function Details_Fame(
-    { lstFabricQtyDetails, lstWastagePercentage, isPoWise }:
-        { lstFabricQtyDetails?: FabricBookingReportDto_FabricQtyDetails[], lstWastagePercentage?: FabricBookingReportDto_WastagePercentage[], isPoWise?: boolean }) {
-    const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "0");
+interface props {
+    lstFabricQtyDetails?: FabricBookingReportDto_FabricQtyDetails[],
+    lstWastagePercentage?: FabricBookingReportDto_WastagePercentage[],
+    isPoWise?: boolean
+}
+export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage, isPoWise }: props) {
+    const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT != "1");
     const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
     console.log(JSON.stringify(data));
     const uniqueCollarCuff = Array.from(
@@ -28,7 +31,6 @@ export default function Details_Fame(
     );
 
     const uniqueColors_RegularData = [...new Set(data?.map(item => item.GMTCOLOR))];
-    // const uniqueColors_CollarCuffData = [...new Set(uniqueCollarCuff?.map(item => item.GMTCOLOR))];
 
     function getTotalFabricQty() {
         let qty = 0;
