@@ -2,16 +2,19 @@
 import ReportTable from "./report-table";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
-import { BudgetReportType } from "../budget-report-type";
+import { BudgetReportResponseType, BudgetReportType } from "../budget-report-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 
 function Report({
   data,
 }: {
-  data: BudgetReportType[];
+  data: BudgetReportResponseType | undefined;
 }) {
 
+  const client = useAppClient();
   const uniqueKeys: Set<string> = new Set();
+
 
   function groupBy(
     data: BudgetReportType[],
@@ -40,7 +43,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["DS"]);
+    groupedByDate = groupBy(data?.Report, ["DS"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -56,10 +59,11 @@ function Report({
     "TOTAL($)",
   ];
 
-  const totalBudgetValue = data?.reduce(
+  const totalBudgetValue = data?.Report?.reduce(
     (acc, item) => acc + Number(item.BUDGET_TOTAL_VALUE),
     0
   );
+
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
@@ -75,24 +79,30 @@ function Report({
               <tbody>
                 <tr>
                   <td className="align-top">Budget No.</td>
-                  <td className="align-top">: {data[0]?.BUDGET_NO}</td>
+                  <td className="align-top">: {data?.Report[0]?.BUDGET_NO}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Budget For</td>
-                  <td className="align-top">: {data[0]?.BUYER}</td>
+                  <td className="align-top">: {data?.Report[0]?.BUYER}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Style</td>
-                  <td className="align-top">: {data[0]?.STYLENO}</td>
+                  <td className="align-top">: {data?.Report[0]?.STYLENO}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Item</td>
-                  <td className="align-top">: {data[0]?.ITEM}</td>
+                  <td className="align-top">: {data?.Report[0]?.ITEM}</td>
                 </tr>
                 <tr>
                   <td className="align-top">PO</td>
-                  <td className="align-top">: {data[0]?.COMBINE_PONO}</td>
+                  <td className="align-top">: {data?.Report[0]?.COMBINE_PONO}</td>
                 </tr>
+                {client.currentClient == client.EURO ?
+                  <tr>
+                    <td className="align-top">FOB</td>
+                    <td className="align-top">: {data?.FOB}</td>
+                  </tr> : ''
+                }
               </tbody>
             </table>
           </div>
@@ -100,21 +110,33 @@ function Report({
             <table className="font-bold">
               <thead></thead>
               <tbody>
+                {client.currentClient == client.EURO ?
+                  <>
+                    <tr>
+                      <td className="align-top">SMV</td>
+                      <td className="align-top">: {data?.SMV}</td>
+                    </tr>
+                    <tr>
+                      <td className="align-top">Required CM (SMV x 0.7)</td>
+                      <td className="align-top">: {data?.RequiredCM}</td>
+                    </tr>
+                  </> : ''
+                }
                 <tr>
                   <td className="align-top">Qty(Pcs)</td>
-                  <td className="align-top">: {data[0]?.PO_QTY.toFixed(2)}</td>
+                  <td className="align-top">: {data?.Report[0]?.PO_QTY.toFixed(2)}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Total FOB Value($)</td>
-                  <td className="align-top">: {data[0]?.TOTAL_FOB_VALUE.toFixed(2)}</td>
+                  <td className="align-top">: {data?.Report[0]?.TOTAL_FOB_VALUE.toFixed(2)}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Buying Commission($)</td>
-                  <td className="align-top">: {(data[0]?.TOTAL_FOB_VALUE - data[0]?.BALANCE_VALUE).toFixed(2)}</td>
+                  <td className="align-top">: {((data?.Report[0]?.TOTAL_FOB_VALUE ?? 0) - (data?.Report[0]?.BALANCE_VALUE ?? 0)).toFixed(2)}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Balance($)</td>
-                  <td className="align-top">: {data[0]?.BALANCE_VALUE.toFixed(2)}</td>
+                  <td className="align-top">: {data?.Report[0]?.BALANCE_VALUE.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
@@ -146,21 +168,21 @@ function Report({
             <tbody>
               <tr>
                 <td className="align-top">TOTAL EXPENDITURES($)</td>
-                <td className="align-top">: {totalBudgetValue.toFixed(2)}</td>
+                <td className="align-top">: {totalBudgetValue?.toFixed(2)}</td>
               </tr>
               <tr>
                 <td className="align-top">BUDGETED MARKUP($)</td>
-                <td className="align-top">: {(data[0]?.BALANCE_VALUE - totalBudgetValue).toFixed((2))}</td>
+                <td className="align-top">: {((data?.Report[0]?.BALANCE_VALUE ?? 0) - (totalBudgetValue ?? 0)).toFixed((2))}</td>
               </tr>
               <tr>
                 <td className="align-top">MARKUP %</td>
-                <td className="align-top">: {(((data[0]?.BALANCE_VALUE - totalBudgetValue) / data[0]?.TOTAL_FOB_VALUE) * 100).toFixed((2))}</td>
+                <td className="align-top">: {((((data?.Report[0]?.BALANCE_VALUE ?? 0) - (totalBudgetValue ?? 0)) / (data?.Report[0]?.TOTAL_FOB_VALUE ?? 0)) * 100).toFixed((2))}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div>
-          <ReportFooter data={data}></ReportFooter>
+          <ReportFooter data={data?.Report ?? []}></ReportFooter>
         </div>
       </div>
     </div>

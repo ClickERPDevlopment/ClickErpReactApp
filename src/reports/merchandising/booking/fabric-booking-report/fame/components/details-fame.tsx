@@ -6,7 +6,7 @@ export default function Details_Fame(
         { lstFabricQtyDetails?: FabricBookingReportDto_FabricQtyDetails[], lstWastagePercentage?: FabricBookingReportDto_WastagePercentage[], isPoWise?: boolean }) {
     const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "0");
     const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
-
+    console.log(JSON.stringify(data));
     const uniqueCollarCuff = Array.from(
         new Map(
             collarCuffData
