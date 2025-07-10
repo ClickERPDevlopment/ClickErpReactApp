@@ -9,7 +9,7 @@ interface props {
 export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage, isPoWise }: props) {
     const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT != "1");
     const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
     const uniqueCollarCuff = Array.from(
         new Map(
             collarCuffData
@@ -84,7 +84,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                 )?.
                 forEach(element => {
                     qty += Number(element[fieldName]);
-                    console.log("d-", element[fieldName]);
+                    // console.log("d-", element[fieldName]);
                 });
         } catch (error) {
             console.log(error)
@@ -123,7 +123,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                 if (!isNaN(value)) {
                     totalQty += value;
                     count++;
-                    console.log("Matched value:", value);
+                    // console.log("Matched value:", value);
                 }
             });
         } catch (error) {

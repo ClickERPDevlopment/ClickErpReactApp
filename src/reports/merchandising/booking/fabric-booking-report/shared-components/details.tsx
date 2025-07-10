@@ -27,23 +27,23 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
     function getTotalFabricQty() {
         let qty = 0;
         try {
-            const F: number[] = [];
-            let D: number = 0;
-            let C: number = 0;
+            // const F: number[] = [];
+            // let D: number = 0;
+            // let C: number = 0;
             lstFabricQtyDetails?.forEach(element => {
-                F.push(Number(element.TOTALFINISHFABRICS));
+                // F.push(Number(element.TOTALFINISHFABRICS));
 
                 qty += Number(element.TOTALFINISHFABRICS);
             });
-            data?.forEach(element => {
-                D += (Number(element.TOTALFINISHFABRICS));
-            });
-            collarCuffData?.forEach(element => {
-                C += (Number(element.TOTALFINISHFABRICS));
-            });
-            console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', JSON.stringify(F))
-            console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', JSON.stringify(D))
-            console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', JSON.stringify(C))
+            // data?.forEach(element => {
+            //     D += (Number(element.TOTALFINISHFABRICS));
+            // });
+            // collarCuffData?.forEach(element => {
+            //     C += (Number(element.TOTALFINISHFABRICS));
+            // });
+            // console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', JSON.stringify(F))
+            // console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', JSON.stringify(D))
+            // console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', JSON.stringify(C))
 
         } catch (error) {
             console.log(error)

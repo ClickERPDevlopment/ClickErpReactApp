@@ -117,7 +117,7 @@ function Report({
                       <td className="align-top">: {data?.SMV}</td>
                     </tr>
                     <tr>
-                      <td className="align-top">Required CM (SMV x 0.7)</td>
+                      <td className="align-top">Required CM (SMV x 0.07)</td>
                       <td className="align-top">: {data?.RequiredCM}</td>
                     </tr>
                   </> : ''
