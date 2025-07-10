@@ -1,7 +1,7 @@
 import { FabricBookingReportDto_FabricQtyDetails, FabricBookingReportDto_WastagePercentage } from '../fabric-booking-type'
 
 export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: { lstFabricQtyDetails?: FabricBookingReportDto_FabricQtyDetails[], lstWastagePercentage?: FabricBookingReportDto_WastagePercentage[] }) {
-    const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "0");
+    const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT != "1");
     const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
 
     const uniqueCollarCuff = Array.from(
@@ -27,9 +27,24 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
     function getTotalFabricQty() {
         let qty = 0;
         try {
+            const F: number[] = [];
+            let D: number = 0;
+            let C: number = 0;
             lstFabricQtyDetails?.forEach(element => {
+                F.push(Number(element.TOTALFINISHFABRICS));
+
                 qty += Number(element.TOTALFINISHFABRICS);
             });
+            data?.forEach(element => {
+                D += (Number(element.TOTALFINISHFABRICS));
+            });
+            collarCuffData?.forEach(element => {
+                C += (Number(element.TOTALFINISHFABRICS));
+            });
+            console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', JSON.stringify(F))
+            console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', JSON.stringify(D))
+            console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', JSON.stringify(C))
+
         } catch (error) {
             console.log(error)
         }
