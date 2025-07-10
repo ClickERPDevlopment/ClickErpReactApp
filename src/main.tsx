@@ -158,6 +158,7 @@ import YarnTransferChallanReport from "./reports/store/yarn-store/yarn-transfer-
 import YarnTransferReportFormat2 from "./reports/store/yarn-store/yarn-transfer-report-format2/yarn-transfer-report-index.tsx";
 import DateWiseKnittingProgramReport from "./reports/Textile/knitting/date-wise-knitting-program-report/date-wise-knitting-program-report-index.tsx";
 import SizeWiseOrderSummaryReport from "./reports/merchandising/report/size-wise-order-summary-report/size-wise-order-summary-report-index.tsx";
+import DateWiseYarnAndGreyFabricStockReport from "./reports/store/grey-store/date-wise-yarn-and-grey-stock-report/date-wise-yarn-and-grey-stock-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -812,6 +813,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="grey-fabric-issue-to-dyeing-challan"
                         element={<GreyFabricIssueToDyeingChallanIndex />}
+                      />
+                      <Route
+                        path="date-wise-yarn-and-grey-fabric-stock-report"
+                        element={<DateWiseYarnAndGreyFabricStockReport />}
                       />
                     </Route>
                     <Route path="finish-fabric-store">
