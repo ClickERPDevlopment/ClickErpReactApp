@@ -7,12 +7,10 @@ import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
-import { BudgetReportType } from "./budget-report-type";
+import { BudgetReportResponseType } from "./budget-report-type";
 
 function BudgetReport() {
-  const [data, setData] = useState<BudgetReportType[]>(
-    []
-  );
+  const [data, setData] = useState<BudgetReportResponseType>();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,25 +37,20 @@ function BudgetReport() {
             `${api.ProductionUrl}/production/MerchReport/BudgetReport?id=${id}`
           )
           .then((res) => {
-            //console.log(res);
             if (res.data) {
-              //console.log("My Data", res.data);
               setData(res.data);
-            } else {
-              //console.log(res);
             }
           })
           .catch((m) => console.log(m));
 
         setIsLoading(false);
-      } catch {
+      } catch (error) {
         setIsLoading(false);
-        //console.log(error.message);
+        console.log(error)
       }
     }
     getData();
-  }, []);
-
+  }, [api.ProductionUrl, id]);
 
   useEffect(() => {
 

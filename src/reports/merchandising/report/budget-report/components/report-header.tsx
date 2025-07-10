@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import { BudgetReportType } from "../budget-report-type";
+import { BudgetReportResponseType } from "../budget-report-type";
 
 function ReportHeader({
   data,
 }: {
-  data: BudgetReportType[];
+  data: BudgetReportResponseType | undefined;
 }) {
 
   return (
@@ -16,15 +16,15 @@ function ReportHeader({
       </p>
 
       {
-        data[0]?.MAIN_COMPANY_NAME && <>
+        data?.Report[0]?.MAIN_COMPANY_NAME && <>
           <h1 className="font-bold text-xl text-center">
             {
-              data[0]?.MAIN_COMPANY_NAME
+              data?.Report[0]?.MAIN_COMPANY_NAME
             }
           </h1>
           <h4 className="font-bold text-sm text-center mb-3">
             {
-              data[0]?.MAIN_COMPANY_ADDRESS
+              data?.Report[0]?.MAIN_COMPANY_ADDRESS
             }
           </h4>
         </>
@@ -32,12 +32,9 @@ function ReportHeader({
 
       <h1 className="font-bold text-sm text-center">
         ({
-          data[0]?.COMPANY_NAME
+          data?.Report[0]?.COMPANY_NAME
         })
       </h1>
-      {/* <h3 className="font-bold text-lg text-center">
-        Yarn Delivery Challan/Gate Pass
-      </h3> */}
     </div>
   );
 }

@@ -1,3 +1,10 @@
+export type BudgetReportResponseType = {
+    FOB: number;
+    SMV: number;
+    RequiredCM: number;
+    Report: BudgetReportType[];
+};
+
 export type BudgetReportType = {
     MAIN_COMPANY_NAME: string;
     MAIN_COMPANY_ADDRESS: string;
