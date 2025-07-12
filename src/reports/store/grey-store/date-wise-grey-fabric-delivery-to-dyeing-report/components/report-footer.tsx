@@ -1,6 +1,6 @@
-import { DateWiseYarnAndGreyFabricStockReportType } from "../date-wise-yarn-and-grey-stock-report-type";
+import { DateWiseGreyFabricDeliveryToDyeingReport } from "../date-wise-grey-fabric-delivery-to-dyeing-report-type";
 
-function ReportFooter({ }: { masterData: DateWiseYarnAndGreyFabricStockReportType | null }) {
+function ReportFooter({ }: { masterData: DateWiseGreyFabricDeliveryToDyeingReport | null }) {
   return (
     <div className="flex">
       <div className="border flex flex-col my-3 p-2 w-[50%]">
