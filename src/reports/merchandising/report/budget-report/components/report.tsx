@@ -118,7 +118,13 @@ function Report({
                       <td className="align-top">Required CM (SMV x 0.07)</td>
                       <td className="align-top">: {data?.RequiredCM}</td>
                     </tr>
-                  </> : ''
+                  </> : client.currentClient == client.FAME ?
+                    <>
+                      <tr>
+                        <td className="align-top">Required CM (SMV x 0.0653)</td>
+                        <td className="align-top">: {data?.RequiredCM}</td>
+                      </tr>
+                    </> : ''
                 }
                 <tr>
                   <td className="align-top">Qty(Pcs)</td>
