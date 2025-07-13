@@ -86,9 +86,33 @@ export default function FinishFabricAllocationReport() {
     getData();
   }, [api.ProductionUrl, buyerId, fabricId, isStockAvl, orderRef, woId]);
 
-  //   console.log(masterData);
-  console.log(detailsData);
-  // return (<ReportSkeleton />);
+
+  const groupedData = new Map<string, FinishFabricAllocatinReportMasterType>();
+
+  masterData.forEach((item) => {
+    const key = [
+      item.SUPPLIER,
+      item.WORK_ORDER_NO,
+      item.ORDER_REFERENCE,
+      item.FABRIC,
+      item.MTL_COLOR,
+      item.UOM,
+      item.CONSUMPTION_PER_DZN
+    ].join("|");
+
+    if (!groupedData.has(key)) {
+      groupedData.set(key, { ...item });
+    } else {
+      const existing = groupedData.get(key)!;
+      existing.WO_QTY += item.WO_QTY;
+      existing.RECEIVE_QTY += item.RECEIVE_QTY;
+      existing.RET_QTY += item.RET_QTY;
+    }
+  });
+
+  const uniqueMasterData = Array.from(groupedData.values());
+
+
   if (isLoading) {
     return <ReportSkeleton />;
   } else {
@@ -103,7 +127,7 @@ export default function FinishFabricAllocationReport() {
           </h3>
           <div className="border h-auto print:overflow-visible rounded">
             <table className="border-collapse table-fixed rounded">
-              {masterData.map((mData) => (
+              {uniqueMasterData.map((mData) => (
                 <FFATable
                   key={Math.random()}
                   masterData={mData}

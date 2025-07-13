@@ -12,8 +12,6 @@ function FinishFabricAllocationUomWiseSummaryReport({ data, detailsData }: { dat
     return [...data].sort((a, b) => a.UOM.localeCompare(b.UOM));
   }, [data]);
 
-
-
   const groupedData = new Map<string, FinishFabricAllocationSummaryReportMasterType>();
 
   sortedData.forEach((item) => {
