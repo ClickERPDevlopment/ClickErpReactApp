@@ -59,10 +59,22 @@ function ReportTable({
         ></ReportSubgroup>
       ))}
 
-      <tr style={{ fontSize: "11px" }} className="font-bold">
-        <td colSpan={5} className="border border-gray-950 p-0.5 text-end">PERCENTAGE: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
-        <td className="border border-gray-950 p-0.5">{totalBudgetValue.toFixed(2)}</td>
-      </tr>
+      {data[0].DS === 'TRIMS & ACCESSORIES' ?
+        (<tr style={{ fontSize: "11px" }} className="font-bold">
+          <td colSpan={4} className="border border-gray-950 p-0.5 text-end">PERCENTAGE: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
+          <td className="border border-gray-950 p-0.5">{
+            data.reduce((acc, item) => acc + Number(item.BUDGET_PRICE), 0).toFixed(2) + '(Dzn: ' +
+            (data.reduce((acc, item) => acc + Number(item.BUDGET_PRICE), 0) * 12).toFixed(2)
+            + ')'
+          }</td>
+          <td className="border border-gray-950 p-0.5">{totalBudgetValue.toFixed(2)}</td>
+        </tr>)
+        :
+        (<tr style={{ fontSize: "11px" }} className="font-bold">
+          <td colSpan={5} className="border border-gray-950 p-0.5 text-end">PERCENTAGE: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
+          <td className="border border-gray-950 p-0.5">{totalBudgetValue.toFixed(2)}</td>
+        </tr>)
+      }
     </>
   );
 }
