@@ -12,10 +12,36 @@ function FinishFabricAllocationUomWiseSummaryReport({ data, detailsData }: { dat
     return [...data].sort((a, b) => a.UOM.localeCompare(b.UOM));
   }, [data]);
 
+  const groupedData = new Map<string, FinishFabricAllocationSummaryReportMasterType>();
+
+  sortedData.forEach((item) => {
+    const key = [
+      item.SUPPLIER,
+      item.WORK_ORDER_NO,
+      item.ORDER_REFERENCE,
+      item.FABRIC,
+      item.MTL_COLOR,
+      item.SUPPLIER_RATE_PER_PCS,
+      item.UOM,
+      item.CONSUMPTION_PER_DZN
+    ].join("|");
+
+    if (!groupedData.has(key)) {
+      groupedData.set(key, { ...item });
+    } else {
+      const existing = groupedData.get(key)!;
+      existing.WO_QTY += item.WO_QTY;
+      existing.RECEIVE_QTY += item.RECEIVE_QTY;
+      existing.RET_QTY += item.RET_QTY;
+    }
+  });
+
+  const uniqueMasterData = Array.from(groupedData.values());
+
   return (
     <div>
       <Report
-        data={sortedData}
+        data={uniqueMasterData}
         detailsData={detailsData}
       />
     </div>
