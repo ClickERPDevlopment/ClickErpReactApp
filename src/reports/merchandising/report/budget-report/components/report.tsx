@@ -97,12 +97,10 @@ function Report({
                   <td className="align-top">PO</td>
                   <td className="align-top">: {data?.Report[0]?.COMBINE_PONO}</td>
                 </tr>
-                {client.currentClient == client.EURO ?
-                  <tr>
-                    <td className="align-top">FOB</td>
-                    <td className="align-top">: {data?.FOB}</td>
-                  </tr> : ''
-                }
+                <tr>
+                  <td className="align-top">FOB</td>
+                  <td className="align-top">: {data?.FOB}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -110,12 +108,12 @@ function Report({
             <table className="font-bold">
               <thead></thead>
               <tbody>
+                <tr>
+                  <td className="align-top">SMV</td>
+                  <td className="align-top">: {data?.SMV}</td>
+                </tr>
                 {client.currentClient == client.EURO ?
                   <>
-                    <tr>
-                      <td className="align-top">SMV</td>
-                      <td className="align-top">: {data?.SMV}</td>
-                    </tr>
                     <tr>
                       <td className="align-top">Required CM (SMV x 0.07)</td>
                       <td className="align-top">: {data?.RequiredCM}</td>
