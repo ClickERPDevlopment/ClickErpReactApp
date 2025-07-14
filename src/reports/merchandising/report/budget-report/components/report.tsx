@@ -98,7 +98,7 @@ function Report({
                   <td className="align-top">: {data?.Report[0]?.COMBINE_PONO}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">FOB</td>
+                  <td className="align-top">FOB($)</td>
                   <td className="align-top">: {data?.FOB}</td>
                 </tr>
               </tbody>
@@ -160,6 +160,7 @@ function Report({
                 key={key}
                 data={groupedByDate[key].items}
                 firstHeader={firstHeader}
+                totalQty={data?.Report[0]?.PO_QTY ?? 0}
               ></ReportTable>
             ))}
 
