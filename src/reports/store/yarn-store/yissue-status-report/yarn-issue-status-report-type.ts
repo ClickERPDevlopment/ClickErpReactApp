@@ -17,4 +17,5 @@ export type YarnIssueStatusReportType = {
     COMPANY_ADDRESS?: string;
     SORTING_NO?: string;
     DATA_SOURCE?: string;
+    PARTY_TYPE?: string;
 }

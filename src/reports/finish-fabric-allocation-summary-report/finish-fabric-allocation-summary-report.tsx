@@ -54,11 +54,6 @@ export default function FinishFabricAllocationSummaryReport() {
     toDate = searchParams.get("toDate");
   }
 
-  // console.log("buyerId: ", buyerId);
-  // console.log("fabricId: ", fabricId);
-  // console.log("orderRef: ", orderRef);
-  // console.log("isStockAvl: ", isStockAvl);
-
   const api = useApiUrl();
 
   useEffect(() => {
@@ -84,10 +79,6 @@ export default function FinishFabricAllocationSummaryReport() {
     }
     getData();
   }, [api.ProductionUrl, buyerId, fabricId, isStockAvl, orderRef, woId]);
-
-  // console.log(masterData);
-  // console.log("Mydate", masterData);
-  // eturn (<ReportSkeleton />);
 
   const uniqueKeys: Set<string> = new Set();
 

@@ -53,13 +53,6 @@ export default function FinishFabricAllocationReport() {
     toDate = searchParams.get("toDate");
   }
 
-  console.log("buyerId: ", buyerId);
-  console.log("fabricId: ", fabricId);
-  console.log("orderRef: ", orderRef);
-  console.log("isStockAvl: ", isStockAvl);
-
-  console.log("FFFFFFFF", toDate);
-
   const api = useApiUrl();
 
   useEffect(() => {
