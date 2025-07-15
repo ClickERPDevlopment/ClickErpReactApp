@@ -15,7 +15,7 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
 
       <div className='table-wrapper'>
         <table className='table table-bordered'>
-          <thead className=''>
+          <thead className='sticky top-0 print:static'>
             <tr className="border ">
               <th className="min-w-12 ">SL</th>
               <th className="min-w-24 ">Factory</th>
