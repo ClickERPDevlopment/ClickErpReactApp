@@ -3,7 +3,7 @@ import { YarnIssueStatusReportType } from './yarn-issue-status-report-type'
 
 export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusReportType[] }) {
 
-    const unique = [...new Set(data?.map(item => item.PARTY_TYPE))]; // [ 'A', 'B']
+    const unique = [...new Set(data?.map(item => item.DATA_SOURCE))]; // [ 'A', 'B']
 
     return (
         <div className="p-5">
@@ -37,18 +37,18 @@ export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusR
                     {
                         unique.map(item => {
 
-                            const filteredData = data?.filter(f => f.PARTY_TYPE === item)
+                            const filteredData = data?.filter(f => f.DATA_SOURCE === item)
                             return (
                                 <>
                                     <tr>
-                                        <td className='border border-gray-600 p-0.5 text-left font-bold text-base bg-gray-300' colSpan={15}>{item}</td>
+                                        <td className='border border-gray-600 p-0.5 text-center font-bold text-base bg-gray-300' colSpan={15}>{item}</td>
                                     </tr>
                                     <ReportSubGroup data={filteredData}></ReportSubGroup>
                                     <tr>
                                         <td className='border border-gray-600 p-0.5 text-center font-bold' colSpan={11}>Total {item}</td>
                                         <td className='border border-gray-600 p-0.5 text-center font-bold'>
                                             {
-                                                data?.filter(f => f.PARTY_TYPE === item)?.reduce((p, c) => p + Number(c.ISSUE_QTY), 0).toFixed(2)
+                                                data?.filter(f => f.DATA_SOURCE === item)?.reduce((p, c) => p + Number(c.ISSUE_QTY), 0).toFixed(2)
                                             }
                                         </td>
                                         <td className='border border-gray-600 p-0.5 text-center' colSpan={3}></td>
