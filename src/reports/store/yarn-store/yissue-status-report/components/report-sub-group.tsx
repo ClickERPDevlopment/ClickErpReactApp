@@ -3,7 +3,7 @@ import { YarnIssueStatusReportType } from "../yarn-issue-status-report-type";
 
 export default function ReportSubGroup({ data }: { data: YarnIssueStatusReportType[] }) {
 
-  const unique = [...new Set(data?.map(item => item.DATA_SOURCE))]; // [ 'A', 'B']
+  const unique = [...new Set(data?.map(item => item.PARTY_TYPE))]; // [ 'A', 'B']
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function ReportSubGroup({ data }: { data: YarnIssueStatusReportTy
                 <td className='border border-gray-600 p-0.5 text-center font-bold text-base bg-gray-300' colSpan={15}>{s}</td>
               </tr>
 
-              {data?.filter(f => f.DATA_SOURCE === s)?.map((_, i) =>
+              {data?.filter(f => f.PARTY_TYPE === s)?.map((_, i) =>
                 <tr>
                   <td className='border border-gray-600 p-0.5 text-center text-xs'>{i + 1}</td>
                   <td className='border border-gray-600 p-0.5 text-center text-xs'>{_?.JOB_NO}</td>
@@ -40,7 +40,7 @@ export default function ReportSubGroup({ data }: { data: YarnIssueStatusReportTy
                 <td className='border border-gray-600 p-0.5 text-center font-bold' colSpan={11}>Total {s}</td>
                 <td className='border border-gray-600 p-0.5 text-center font-bold'>
                   {
-                    data?.filter(f => f.DATA_SOURCE === s)?.reduce((p, c) => p + Number(c.ISSUE_QTY), 0).toFixed(2)
+                    data?.filter(f => f.PARTY_TYPE === s)?.reduce((p, c) => p + Number(c.ISSUE_QTY), 0).toFixed(2)
                   }
                 </td>
                 <td className='border border-gray-600 p-0.5 text-center' colSpan={3}></td>
