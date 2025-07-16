@@ -33,14 +33,14 @@ export default function MasterInfo({ masterData }: { masterData?: FabricBookingR
     }, [api.ProductionUrl, masterData?.STYLEID]);
 
     return (
-        <div>
-            <h1 className='text-right'>{moment(masterData?.CONS_DATE).format('D-MMM-yy')}</h1>
+        <div className='relative'>
+            <h1 className='text-right absolute right-0 top-0'>{moment(masterData?.CONS_DATE).format('D-MMM-yy')}</h1>
             <h1 className='text-[2.5rem] font-bold text-center mb-3'>{masterData?.COMPANY_NAME}</h1>
             <h3 className='text-xl font-bold text-center'>FABRICS BOOKING SHEET</h3>
 
             <div className='flex gap-10 mt-3 justify-between' >
                 <div className='flex flex-1 justify-between gap-5'>
-                    <table className='flex flex-1 '>
+                    <table className='flex flex-1'>
                         <tbody>
                             <tr>
                                 <td className='font-bold'>Job No.</td>

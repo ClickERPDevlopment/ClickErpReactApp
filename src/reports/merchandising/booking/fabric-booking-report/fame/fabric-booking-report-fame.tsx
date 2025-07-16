@@ -23,7 +23,7 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
     ]
 
     return (
-        <div className="px-10 w-auto print:max-w-none print:px-0 mt-10">
+        <div className="px-10 w-auto print:max-w-none print:px-0 mt-0">
             <MasterInfo masterData={data?.MaterData} />
             <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} />
             <Details_Fame lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} isPoWise={data?.MaterData?.IS_PO_WISE} />
@@ -32,6 +32,9 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
             <StripeDetails lstStripeDetails={data?.lstStripeDetails} />
             <Comments lstComments={data?.lstComments} />
             <VarificationStatus lstVerificationStatus={data?.lstVerificationStatus} />
+            <div className="flex text-center p-3 w-full">
+                <h1 className="text-center font-bold text-xl w-full">Bulk yarn count should be fixed by knitting department.</h1>
+            </div>
             <Signature masterData={data?.MaterData} signatureData={signatureData} />
         </div>
     );
