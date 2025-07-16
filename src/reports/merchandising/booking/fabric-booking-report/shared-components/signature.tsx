@@ -5,7 +5,7 @@ export default function Signature({ masterData, signatureData }: {
     signatureData: { title: string, access_key: string }[]
 }) {
     return (
-        <div className="flex justify-around items-center mt-10 flex-wrap">
+        <div className="flex justify-around items-center my-5 flex-wrap">
             {signatureData.map(({ title, access_key }) => (
                 <div key={access_key} className="w-32 flex flex-col">
                     <div className="text-center min-h-[24px]">
