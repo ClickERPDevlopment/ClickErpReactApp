@@ -14,21 +14,21 @@ export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusR
             <table className='border border-gray-600 rounded-md'>
                 <thead className='sticky top-0 print:static'>
                     <tr>
-                        <th className='border border-gray-600 min-w-5 p-0.5'>SL</th>
-                        <th className='border border-gray-600 min-w-36 p-0.5'>Job No</th>
-                        <th className='border border-gray-600 min-w-36 p-0.5'>Buyer Name</th>
-                        <th className='border border-gray-600 min-w-36 p-0.5'>Style No</th>
-                        <th className='border border-gray-600 min-w-36 p-0.5'>Order No</th>
-                        <th className='border border-gray-600 min-w-28 p-0.5'>date</th>
-                        <th className='border border-gray-600 min-w-24 p-0.5'>ch</th>
-                        <th className='border border-gray-600 min-w-24 p-0.5'>prog no</th>
-                        <th className='border border-gray-600 min-w-56 p-0.5'>Yarn</th>
-                        <th className='border border-gray-600 min-w-28 p-0.5'>Yarn Brand</th>
-                        <th className='border border-gray-600 min-w-24 p-0.5'>Lot No</th>
-                        <th className='border border-gray-600 min-w-24 p-0.5'>Issue Qty </th>
-                        <th className='border border-gray-600 min-w-24 p-0.5'>Issue Purpose</th>
-                        <th className='border border-gray-600 min-w-56 p-0.5'>PARTY</th>
-                        <th className='border border-gray-600 min-w-28 p-0.5'>Store</th>
+                        <th className='border border-gray-600 min-w-5 py-1'>SL</th>
+                        <th className='border border-gray-600 min-w-36 py-1'>Job No</th>
+                        <th className='border border-gray-600 min-w-36 py-1'>Buyer Name</th>
+                        <th className='border border-gray-600 min-w-36 py-1'>Style No</th>
+                        <th className='border border-gray-600 min-w-36 py-1'>Order No</th>
+                        <th className='border border-gray-600 min-w-28 py-1'>Date</th>
+                        <th className='border border-gray-600 min-w-24 py-1'>Challan</th>
+                        <th className='border border-gray-600 min-w-24 py-1'>Prog No</th>
+                        <th className='border border-gray-600 min-w-56 py-1'>Yarn</th>
+                        <th className='border border-gray-600 min-w-28 py-1'>Yarn Brand</th>
+                        <th className='border border-gray-600 min-w-24 py-1'>Lot No</th>
+                        <th className='border border-gray-600 min-w-24 py-1'>Issue Qty </th>
+                        <th className='border border-gray-600 min-w-24 py-1'>Issue Purpose</th>
+                        <th className='border border-gray-600 min-w-56 py-1'>Party</th>
+                        <th className='border border-gray-600 min-w-28 py-1'>Store</th>
                         {/* <th className='border border-gray-600 p-0.5'>Remarks</th> */}
                     </tr>
                 </thead>
