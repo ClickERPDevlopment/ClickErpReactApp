@@ -398,7 +398,7 @@ export default function PrintEmbMaterialReceiveForm({
         return false;
       }
 
-      if (searchData.COLOR && !item.COLOR.toLowerCase().includes(searchData.PO.toLowerCase())) {
+      if (searchData.COLOR && !item.COLOR.toLowerCase().includes(searchData.COLOR.toLowerCase())) {
         return false;
       }
 
