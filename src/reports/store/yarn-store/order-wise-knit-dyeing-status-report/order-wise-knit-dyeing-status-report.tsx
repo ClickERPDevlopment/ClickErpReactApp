@@ -17,9 +17,9 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
         <table className='table table-bordered'>
           <thead className='sticky top-0 print:static'>
             <tr className="border ">
-              <th className="min-w-12 ">SL</th>
-              <th className="min-w-24 ">Factory</th>
-              <th className="min-w-24 ">OPM</th>
+              <th className="min-w-12">SL</th>
+              <th className="min-w-24">Factory</th>
+              <th className="min-w-24">OPM</th>
               <th className="min-w-28 ">Buyer</th>
               <th className="min-w-28 ">PO/ Job No</th>
               <th className="min-w-28 ">Buyer PO</th>
