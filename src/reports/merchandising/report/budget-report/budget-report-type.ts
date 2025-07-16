@@ -1,6 +1,6 @@
 export type BudgetReportResponseType = {
     FOB: number;
-    SMV: number;
+    SMV: string;
     RequiredCM: number;
     Report: BudgetReportType[];
 };
