@@ -245,17 +245,46 @@ export default function PrintEmbMaterialReceiveForm({
   }
 
   const [workOrder, setWorkOrder] = useState<IWorkOrder[]>([]);
-  const getWorkOrder = async (embTypeId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbellishmentWo/GetAllEmbellishmentWoByType?typeId=" + embTypeId);
-    setWorkOrder(response?.data);
-  }
+  // const getWorkOrder = async (embTypeId: number) => {
+  //   const response = await axios.get(api.ProductionUrl + "/production/EmbellishmentWo/GetAllEmbellishmentWoByType?typeId=" + embTypeId);
+  //   setWorkOrder(response?.data);
+  // }
 
   const [workOrderRcv, setWorkOrderRcv] = useState<IRcvWorkOrder[]>([]);
-  const getWorkOrderRcv = async (embTypeId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/Emb-Wo-Recv-By-Emb-Type?embTypeId=" + embTypeId);
-    setWorkOrderRcv(response?.data);
-  }
+  const getWorkOrderRcv = async (embTypeId: number, poId: number) => {
+    try {
+      const { BUYER_ID, STYLE_ID } = searchData;
 
+      const response = await axios.get(`${api.ProductionUrl}/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo`, {
+        params: {
+          buyerId: BUYER_ID,
+          styleId: STYLE_ID,
+          poId: poId,
+          embTypeId: embTypeId
+        }
+      });
+
+      const data = response?.data;
+
+      if (Array.isArray(data) && data.length === 1) {
+        const workOrder = data[0];
+
+        setMasterData(prev => ({
+          ...prev,
+          WORKORDER_RECEIVE_ID: workOrder.ID,
+          WORKORDER_RECEIVE_NO: workOrder.WORK_ORDER_NO
+        }));
+
+        masterForm.setValue("WORKORDER_RECEIVE_ID", workOrder.ID);
+        masterForm.setValue("WORKORDER_RECEIVE_NO", workOrder.WORK_ORDER_NO);
+
+        getWorkOrderRcvInfo(workOrder.ID);
+      }
+
+      setWorkOrderRcv(data);
+    } catch (error) {
+    }
+  };
 
   const [partsData, setPartsData] = useState<IParts[]>([]);
   const getParts = async () => {
@@ -272,7 +301,14 @@ export default function PrintEmbMaterialReceiveForm({
   const getWorkOrderRcvInfo = async (woRcvId: number) => {
     let response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveMasterData?woRcvId=" + woRcvId);
 
-    setMasterData(prev => ({ ...prev, SUPPLIER_ID: response?.data.SUPPLIER_ID, SUPPLIER: response?.data.SUPPLIER, EMB_CATEGORY_ID: response?.data.EMB_CATEGORY_ID, EMB_CATEGORY: response?.data.EMB_CATEGORY }));
+    setMasterData(prev => ({ ...prev, SUPPLIER_ID: response?.data.SUPPLIER_ID, SUPPLIER: response?.data.SUPPLIER, EMB_CATEGORY_ID: response?.data.EMB_CATEGORY_ID, EMB_CATEGORY: response?.data.EMB_CATEGORY, WORKORDER_ID: response?.data.WORKORDER_ID, WORKORDER_NO: response?.data.WORKORDER_NO }));
+
+    const WoData: IWorkOrder = {
+      Id: response?.data.WORKORDER_ID,
+      EmbellishmentOrderno: response?.data.WORKORDER_NO
+    };
+
+    setWorkOrder([WoData]);
 
     masterForm.setValue("SUPPLIER", response?.data.SUPPLIER);
     masterForm.setValue("EMB_CATEGORY", response?.data.EMB_CATEGORY);
@@ -280,14 +316,15 @@ export default function PrintEmbMaterialReceiveForm({
     masterForm.setValue("WORKORDER_ID", response?.data.WORKORDER_ID);
     masterForm.setValue("WORKORDER_NO", response?.data.WORKORDER_NO);
 
+
     getEmbSendNo(response?.data.WORKORDER_NO);
 
-    response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=" + woRcvId);
+    response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
     setdetailsData(response?.data);
   }
 
   const getWorkOrderRcvInfoWithSendQty = async (woRcvId: number, sendNo: string) => {
-    let response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=" + woRcvId + "&embSendNo=" + sendNo);
+    let response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=${woRcvId}&embSendNo=${sendNo}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
     setdetailsData(response?.data);
   }
 
@@ -300,13 +337,28 @@ export default function PrintEmbMaterialReceiveForm({
   useEffect(() => {
     getWorkOrderType();
     getParts();
+    getBuyerData(0);
 
     if (pageAction === PageAction.add) { getNextReceiveNumber() }
 
     if (data?.WORKORDER_TYPE_ID) {
       getFloor(data?.WORKORDER_TYPE_ID);
-      getWorkOrder(data?.WORKORDER_TYPE_ID);
-      getWorkOrderRcv(data?.WORKORDER_TYPE_ID);
+      //getWorkOrder(data?.WORKORDER_TYPE_ID);
+      //getWorkOrderRcv(data?.WORKORDER_TYPE_ID, 0);
+
+      const WoData: IWorkOrder = {
+        Id: data.WORKORDER_ID,
+        EmbellishmentOrderno: data.WORKORDER_NO
+      };
+
+      setWorkOrder([WoData]);
+
+      const RcvWoData: IRcvWorkOrder = {
+        ID: data.WORKORDER_RECEIVE_ID,
+        WORK_ORDER_NO: data.WORKORDER_RECEIVE_NO
+      };
+
+      setWorkOrderRcv([RcvWoData]);
     }
 
   }, [])
@@ -357,7 +409,6 @@ export default function PrintEmbMaterialReceiveForm({
         }
       });
 
-      console.log("Validation errors:", errors);
       return;
     }
 
@@ -618,8 +669,8 @@ export default function PrintEmbMaterialReceiveForm({
                                         WORKORDER_TYPE: typeData.NAME,
                                       }));
                                       getFloor(typeData.ID);
-                                      getWorkOrder(typeData.ID);
-                                      getWorkOrderRcv(typeData.ID);
+                                      //getWorkOrder(typeData.ID);
+                                      //getWorkOrderRcv(typeData.ID, 0);
                                       setOpenWorkOrderType(false);
                                     }}
                                   >
@@ -835,7 +886,6 @@ export default function PrintEmbMaterialReceiveForm({
                                             WORKORDER_ID: Number(workOrderData.Id),
                                             WORKORDER_NO: workOrderData.EmbellishmentOrderno,
                                           }));
-                                          getBuyerData(workOrderData.Id)
                                           getEmbSendNo(workOrderData.EmbellishmentOrderno)
                                           setOpenWorkOrder(false);
                                         }}
@@ -1154,6 +1204,7 @@ export default function PrintEmbMaterialReceiveForm({
                                                 PO_ID: Number(item.Id),
                                                 PO: item.Pono,
                                               }));
+                                              getWorkOrderRcv(0, Number(item.Id));
                                               setOpenPO(false);
                                             }}
                                           >
