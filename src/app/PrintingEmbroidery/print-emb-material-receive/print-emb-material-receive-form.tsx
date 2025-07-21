@@ -1415,13 +1415,13 @@ export default function PrintEmbMaterialReceiveForm({
                           Parts
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
-                          Work Order Qty
+                          Work Order Qty({detailsData?.reduce((acc, item) => acc + (item.WO_QTY || 0), 0)})
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
-                          Received Qty
+                          Received Qty({detailsData?.reduce((acc, item) => acc + (item.PREV_RCV_QTY || 0), 0)})
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
-                          Receive Qty
+                          Receive Qty({detailsData?.reduce((acc, item) => acc + (item.RCV_QTY || 0), 0)})
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
                           Action
