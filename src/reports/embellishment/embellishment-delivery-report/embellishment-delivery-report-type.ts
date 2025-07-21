@@ -15,5 +15,5 @@ export type EmbellishmentDeliveryReportType = {
   OS_PONO?: string;
   DELIVERY_QTY: number;
   PREPARED_BY?: string;
-
+  EMB_TYPE?: string;
 };

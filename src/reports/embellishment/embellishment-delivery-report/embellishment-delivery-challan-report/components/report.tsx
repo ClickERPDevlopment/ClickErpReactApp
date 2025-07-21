@@ -71,6 +71,12 @@ function Report({
                   : {[...new Set(data.map(d => d.STYLE || d.OS_STYLE))].filter(Boolean).join(", ")}
                 </td>
               </tr>
+              <tr>
+                <td className="p-0.5 align-top">Embellishment Type</td>
+                <td className="p-0.5 align-top">
+                  : {data[0]?.EMB_TYPE || ""}
+                </td>
+              </tr>
             </tbody>
           </table>
 
