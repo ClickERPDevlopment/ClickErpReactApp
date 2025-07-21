@@ -1204,7 +1204,7 @@ export default function PrintEmbMaterialReceiveForm({
                                                 PO_ID: Number(item.Id),
                                                 PO: item.Pono,
                                               }));
-                                              getWorkOrderRcv(0, Number(item.Id));
+                                              getWorkOrderRcv(masterData.WORKORDER_TYPE_ID, Number(item.Id));
                                               setOpenPO(false);
                                             }}
                                           >

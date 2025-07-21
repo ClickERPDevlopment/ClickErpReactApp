@@ -312,7 +312,7 @@ export default function PrintEmbProductionForm({
 
   const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
   const getWorkOrder = async (buyerId: number, styleId: number, poId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo?buyerId=" + buyerId + "&styleId=" + styleId + "&poId=" + poId);
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo?buyerId=" + buyerId + "&styleId=" + styleId + "&poId=" + poId + "&embTypeId=" + masterData.TYPE_ID);
 
     setWorkOrder(response?.data);
 
@@ -732,10 +732,13 @@ export default function PrintEmbProductionForm({
 
   const loadSizeWiseWip = async (sizeId: number) => {
 
+
     if (!printEmbProductionDetails.WORK_ORDER_ID || !printEmbProductionDetails.BUYER_ID || !printEmbProductionDetails.STYLE_ID || !printEmbProductionDetails.PO_ID || !printEmbProductionDetails.COLOR_ID) {
       toast.error("Please select all required fields before loading WIP.");
       return;
     }
+
+    console.log("Loading WIP for size ID:", printEmbProductionDetails);
 
     const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${sizeId}`);
     setSizeWip(response?.data?.[0]?.WIP || null);
@@ -1735,7 +1738,7 @@ export default function PrintEmbProductionForm({
                         )}
                       </div>
                     </div>
-                    
+
                     <div>
                       <div className="flex justify-between items-end">
                         <FormField
