@@ -139,14 +139,16 @@ export function PrintEmbMaterialReceiveTable({
                 View
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() =>
-                  location.pathname.includes("win/")
-                    ? navigate(
-                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}`
-                    )
-                    : navigate(
-                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}`
-                    )
+                onClick={() => {
+
+                  localStorage.setItem("pageIndex", String(table.getState().pagination?.pageIndex));
+
+                  const targetUrl = location.pathname.includes("win/")
+                    ? `/win/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}`
+                    : `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}`;
+
+                  navigate(targetUrl);
+                }
                 }
               >
                 Edit
@@ -171,6 +173,29 @@ export function PrintEmbMaterialReceiveTable({
     },
   ];
 
+  //let pageIndex = localStorage.getItem("pageIndex") || 0;
+
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+
+  // React.useEffect(() => {
+
+  //   pageIndex = localStorage.getItem("pageIndex") || 0;
+
+  //   if (pageIndex == pagination.pageIndex) return;
+
+  //   setPagination((prev) => ({
+  //     ...prev,
+  //     pageIndex: Number(localStorage.getItem("pageIndex")) || 0,
+  //   }));
+
+  // });
+
+
+
 
   const table = useReactTable({
     data,
@@ -183,12 +208,16 @@ export function PrintEmbMaterialReceiveTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
+
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: pagination,
     },
+
   });
 
   return (
