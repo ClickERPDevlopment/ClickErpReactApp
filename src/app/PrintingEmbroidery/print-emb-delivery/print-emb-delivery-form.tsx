@@ -216,7 +216,7 @@ export default function PrintEmbDeliveryForm({
 
     const data = masterData;
 
-    data.PrintEmbDeliveryDetails = detailsData || [];
+    data.PrintEmbDeliveryDetails = (detailsData || []).filter(item => item.DELIVERY_QTY || 0 > 0);
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
@@ -630,7 +630,7 @@ export default function PrintEmbDeliveryForm({
                         Delivered Qty
                       </TableHead>
                       <TableHead className="border border-gray-300 text-center px-4">
-                        Balance Qty
+                        Ready for Qty
                       </TableHead>
                       <TableHead className="border border-gray-300 text-center px-4">
                         Delivery Qty
@@ -678,7 +678,7 @@ export default function PrintEmbDeliveryForm({
                         </TableCell>
 
                         <TableCell className="border border-gray-300 px-4 text-center ">
-                          {Number(item.RCV_QTY) - Number(item.DELIVERED_QTY)}
+                          {Number(item.PRODUCTION_QTY) - Number(item.DELIVERED_QTY)}
                         </TableCell>
 
                         <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
