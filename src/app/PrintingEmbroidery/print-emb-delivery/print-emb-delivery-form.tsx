@@ -630,7 +630,7 @@ export default function PrintEmbDeliveryForm({
                         Delivered Qty
                       </TableHead>
                       <TableHead className="border border-gray-300 text-center px-4">
-                        Ready for Qty
+                        Ready for Delivery
                       </TableHead>
                       <TableHead className="border border-gray-300 text-center px-4">
                         Delivery Qty
