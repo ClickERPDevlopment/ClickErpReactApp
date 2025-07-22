@@ -38,6 +38,16 @@ function ReportHeader({
       <h3 className="font-bold text-lg text-center">
         Yarn Delivery Challan/Gate Pass
       </h3>
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+        </div>
+        <div>
+          <span className="inline-block px-4 py-1 border border-gray-950 text-sm font-bold text-gray-950 rounded-full bg-white shadow">
+            {data[0]?.STATUS}
+          </span>
+        </div>
+      </div>
+
     </div>
   );
 }

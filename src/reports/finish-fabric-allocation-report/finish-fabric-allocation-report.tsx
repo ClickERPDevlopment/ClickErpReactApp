@@ -80,6 +80,10 @@ export default function FinishFabricAllocationReport() {
   }, [api.ProductionUrl, buyerId, fabricId, isStockAvl, orderRef, woId]);
 
 
+
+  console.log("Master Data:", masterData);
+
+
   const groupedData = new Map<string, FinishFabricAllocatinReportMasterType>();
 
   masterData.forEach((item) => {
