@@ -137,7 +137,9 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
     const Row = ({ ele }: { ele: FabricBookingReportDto_FabricQtyDetails }) => {
         return (
             <tr>
-                <td className={cn('border border-gray-600 text-sm text-center', isPoWise ? '' : 'hidden')}>{ele.PO}</td>
+                <td className={cn('border border-gray-600 text-sm text-center', isPoWise ? '' : 'hidden')}>
+                    <p>{ele.PO}</p>
+                </td>
                 <td className='border border-gray-600 text-sm text-center'>{ele.ARTSTYLE}</td>
                 <td className='border border-gray-600 text-sm text-center'>{ele.PARTS}</td>
                 <td className='border border-gray-600 text-sm text-center min-w-[15%]'>{ele.FABRICATION}</td>
@@ -280,14 +282,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
                     </tr>
                 </tbody>
-                <tfoot className="border-t border-gray-600">
-                    {/* <tr className="bg-emerald-300">
-                        <th className='p-1 border border-gray-600 text-sm text-center' colSpan={isPoWise ? 17 : 16}>Total</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalFabricQty()}</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty()}</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
-                    </tr> */}
-                </tfoot>
+                <tfoot className="border-t border-gray-600"></tfoot>
             </table>
         </div>
     )

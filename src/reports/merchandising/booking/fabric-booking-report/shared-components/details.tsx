@@ -254,14 +254,7 @@ export default function Details({ lstFabricQtyDetails, lstWastagePercentage }: {
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
                     </tr>
                 </tbody>
-                {/* <tfoot>
-                    <tr>
-                        <th className='p-1 border border-gray-600 text-sm text-center' colSpan={17}>Total</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalFabricQty()}</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty()}</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
-                    </tr>
-                </tfoot> */}
+                <tfoot className="border-t border-gray-600"></tfoot>
             </table>
         </div>
     )
