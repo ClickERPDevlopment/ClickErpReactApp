@@ -136,7 +136,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
 
     const Row = ({ ele }: { ele: FabricBookingReportDto_FabricQtyDetails }) => {
         return (
-            <tr>
+            <tr style={{ pageBreakInside: "avoid" }}>
                 <td className={cn('border border-gray-600 text-sm text-center', isPoWise ? '' : 'hidden')}>
                     <p>{ele.PO}</p>
                 </td>
