@@ -250,7 +250,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                     })}
 
                     {uniqueCollarCuff?.map((ele, i) =>
-                        <tr key={i}>
+                        <tr key={i} style={{ pageBreakInside: "avoid" }}>
                             <td className='border border-gray-600 text-sm text-center'>{ele.PO}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.ARTSTYLE}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.PARTS}</td>
@@ -275,14 +275,13 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                             <td className='border border-gray-600 text-sm text-center'></td>
                         </tr>
                     )}
-                    <tr className="bg-emerald-300">
+                    <tr className="bg-emerald-300" style={{ pageBreakInside: "avoid" }}>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={isPoWise ? 17 : 16}>Total</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalFabricQty()}</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty()}</th>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
                     </tr>
                 </tbody>
-                <tfoot className="border-t border-gray-600"></tfoot>
             </table>
         </div>
     )
