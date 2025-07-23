@@ -67,7 +67,7 @@ export default function MasterInfo({ masterData }: { masterData?: FabricBookingR
                                 <td className='value_colum'>: {moment(masterData?.SHIPMENT_DATE).diff(moment(masterData?.RECEIVE_DATE), 'days')} Days</td>
                             </tr>
                             <tr>
-                                <td className='font-bold'>Release Date</td>
+                                <td className='font-bold'>B.Release Date</td>
                                 <td className='value_colum'>: {moment(masterData?.CREATED_DATE).format("D-MMM-yy")}</td>
                             </tr>
                             <tr>
