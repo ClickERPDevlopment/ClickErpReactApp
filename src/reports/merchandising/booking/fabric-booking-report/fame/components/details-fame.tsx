@@ -280,14 +280,14 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
                     </tr>
                 </tbody>
-                {/* <tfoot>
-                    <tr className="bg-emerald-300">
+                <tfoot className="border-t border-gray-600">
+                    {/* <tr className="bg-emerald-300">
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={isPoWise ? 17 : 16}>Total</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalFabricQty()}</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty()}</th>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
-                    </tr>
-                </tfoot> */}
+                    </tr> */}
+                </tfoot>
             </table>
         </div>
     )
