@@ -41,7 +41,7 @@ function Report({
   let groupedData: IGroupedData = {};
 
   if (data) {
-    groupedData = groupBy(data, [""]);
+    groupedData = groupBy(data, ["COMPENSATION_NO"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -50,6 +50,7 @@ function Report({
   //set table header
   const firstHeader = [
     "Date",
+    "Party",
     "Compensation No.",
     "OPM",
     "Buyer",
@@ -59,15 +60,15 @@ function Report({
     "UOM",
     "Rate",
     "Amount",
+    "Total Amount",
     "Local Sale",
     "Net Comp. Amount",
-    "Party",
   ];
 
   const totalQty = data.reduce((acc, item) => acc + item.QTY, 0);
   const totalAmount = data.reduce((acc, item) => acc + item.RATE * item.QTY, 0);
-  const totalSale = data.reduce((acc, item) => acc + item.LOCAL_EARNING_AMT, 0);
-  const totalNetCompSale = data.reduce((acc, item) => acc + ((item.QTY * item.RATE) - item.LOCAL_EARNING_AMT), 0);
+
+  let totalSale = 0;
 
 
   return (
@@ -88,23 +89,27 @@ function Report({
           </thead>
 
           <tbody>
-            {uniqueKeysArray?.map((key) => (
-              <ReportTable
+            {uniqueKeysArray?.map((key) => {
+
+              totalSale += groupedData[key].items[0].LOCAL_EARNING_AMT;
+
+              return <ReportTable
                 key={key}
                 data={groupedData[key].items}
                 firstHeader={firstHeader}
               ></ReportTable>
-            ))}
+
+            })}
 
             <tr style={{ fontSize: "14px" }} className="font-bold">
-              <td className="border border-gray-950 p-0.5 text-center" colSpan={6}>Total</td>
+              <td className="border border-gray-950 p-0.5 text-center" colSpan={7}>Total</td>
               <td className="border border-gray-950 p-0.5 text-end">{totalQty.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{ }</td>
               <td className="border border-gray-950 p-0.5 text-center">{ }</td>
-              <td className="border border-gray-950 p-0.5 text-end">{totalAmount.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{totalSale.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{totalNetCompSale.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{ }</td>
+              <td className="border border-gray-950 p-0.5 text-center">{totalAmount.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{totalAmount.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{totalSale.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{(totalAmount - totalSale).toFixed(2)}</td>
             </tr>
           </tbody>
         </table>

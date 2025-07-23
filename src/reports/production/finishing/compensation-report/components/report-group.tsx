@@ -8,6 +8,7 @@ function ReportGroup({
 }: {
   data: CompensationReportType[];
   firstHeader: string[] | null;
+  mergeLength?: number;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
