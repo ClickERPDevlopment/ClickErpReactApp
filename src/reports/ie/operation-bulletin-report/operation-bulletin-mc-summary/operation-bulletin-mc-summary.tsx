@@ -71,7 +71,7 @@ function OperationBulletinMCSummary({
 
   return (
     <table style={{ fontSize: "12px" }} className="border-collapse border border-gray-300  w-[100%] mt-3">
-      <thead className="sticky top-0 print:stati print:bg-transparent">
+      <thead className="" style={{ backgroundColor: "#A7F3D0" }}>
         <tr>
           <th className="border border-gray-950 p-0.5">Machine</th>
           {header?.map((item) => (
