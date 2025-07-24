@@ -5,5 +5,6 @@ export interface IShipmentDelayReport {
   STYLE_NO: string;
   ORDER_PLACEMENT_MONTH: Date;
   QTY: number;
+  TEAM_LEAD: string;
   DELIVERY_DATE: Date;
 }

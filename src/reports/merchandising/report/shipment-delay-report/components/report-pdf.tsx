@@ -54,13 +54,14 @@ const ReportPDF = ({
     addHeader();
 
     // Table Data Preparation
-    const headers = [["BUYER", "MONTH", "PO", "QTY", "DELIVERY DATE", "DELAY"]];
+    const headers = [["BUYER", "MONTH", "PO", "TEAM LEADER", "QTY", "DELIVERY DATE", "DELAY"]];
     const tableData = data.map((item) => [
       item.BUYER_NAME,
       item.ORDER_PLACEMENT_MONTH
         ? moment(item.ORDER_PLACEMENT_MONTH).format("MMM-YY")
         : "",
       item.PO_NO,
+      item.TEAM_LEAD,
       item.QTY.toString(),
       item.DELIVERY_DATE ? moment(item.DELIVERY_DATE).format("DD-MMM-YY") : "",
       item.DELIVERY_DATE
@@ -122,6 +123,7 @@ const ReportPDF = ({
         2: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // QTY
         3: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // SHIP DATE
         4: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // DELAY
+        5: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // DELAY
       },
       margin: { top: 10, left: margin, right: margin }, // Set left and right margins
       didDrawPage: (data: any) => {

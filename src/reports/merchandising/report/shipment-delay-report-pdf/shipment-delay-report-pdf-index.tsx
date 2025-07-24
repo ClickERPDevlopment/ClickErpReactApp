@@ -111,7 +111,7 @@ function ShipmentDelayReportPDF() {
 
     // Table Data Preparation
     const headers = [
-      ["BUYER", "MONTH", "PO", "STYLE", "QTY", "DELIVERY DATE", "DELAY"],
+      ["BUYER", "MONTH", "PO", "TEAM LEADER", "STYLE", "QTY", "DELIVERY DATE", "DELAY"],
     ];
     const tableData = data?.map((item) => [
       item.BUYER_NAME,
@@ -119,6 +119,7 @@ function ShipmentDelayReportPDF() {
         ? moment(item.ORDER_PLACEMENT_MONTH).format("MMM-YY")
         : "",
       item.PO_NO,
+      item.TEAM_LEAD,
       item.STYLE_NO,
       item.QTY.toString(),
       item.DELIVERY_DATE ? moment(item.DELIVERY_DATE).format("DD-MMM-YY") : "",
@@ -176,13 +177,14 @@ function ShipmentDelayReportPDF() {
       },
       alternateRowStyles: { fillColor: "#f9f9f9" }, // Stripe rows with alternate colors
       columnStyles: {
-        0: { cellWidth: columnWidth, halign: "left", valign: "middle" }, // BUYER
-        1: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // MONTH
-        2: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // QTY
-        3: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // SHIP DATE
-        4: { cellWidth: columnWidth, halign: "center", valign: "middle" }, // DELAY
+        0: { cellWidth: columnWidth, halign: "left", valign: "middle" },
+        1: { cellWidth: columnWidth, halign: "center", valign: "middle" },
+        2: { cellWidth: columnWidth, halign: "center", valign: "middle" },
+        3: { cellWidth: columnWidth, halign: "center", valign: "middle" },
+        4: { cellWidth: columnWidth, halign: "center", valign: "middle" },
         5: { cellWidth: columnWidth, halign: "center", valign: "middle" },
         6: { cellWidth: columnWidth, halign: "center", valign: "middle" },
+        7: { cellWidth: columnWidth, halign: "center", valign: "middle" },
       },
       margin: { top: 10, left: margin, right: margin }, // Set left and right margins
       didDrawPage: (data: any) => {
