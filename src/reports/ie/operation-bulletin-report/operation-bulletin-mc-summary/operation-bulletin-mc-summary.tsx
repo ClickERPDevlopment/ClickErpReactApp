@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import ReportTable from "./report-table";
 import { OperationBulletinReportType } from "../operation-bulletin-report-type";
 
 function OperationBulletinMCSummary({
@@ -11,62 +10,105 @@ function OperationBulletinMCSummary({
 
   const uniqueKeys: Set<string> = new Set();
 
-  function groupBy(
-    data: OperationBulletinReportType[],
-    keys: string[]
-  ) {
+  const uniqueMachine: Set<string> = new Set();
+
+  data.forEach((item) => {
+    if (item.MACHINENAME != null) uniqueMachine.add(item.MACHINENAME);
+  });
+
+  const machineHeader = Array.from(uniqueMachine);
+
+  function groupBy(data: OperationBulletinReportType[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
       const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
       if (!result[key]) {
         result[key] = {
-          items: [],
+          MACHINENAME: item.MACHINENAME,
+          SMV: item.SMV,
+          MACHINE: {},
+          MACHINESMV: {},
         };
       }
-      result[key].items.push(item);
+
+      if (!result[key].MACHINE[item.MACHINENAME]) {
+        result[key].MACHINE[item.MACHINENAME] = 0;
+      }
+
+      if (!result[key].MACHINESMV[item.MACHINENAME]) {
+        result[key].MACHINESMV[item.MACHINENAME] = 0;
+      }
+
+      result[key].MACHINE[item.MACHINENAME] += Number(item.ALLOTTEDMP);
+      result[key].MACHINESMV[item.MACHINENAME] += Number(item.SMV);
 
       return result;
     }, {});
   }
 
-  interface GroupedByDate {
+  interface GroupedData {
     [key: string]: {
-      items: OperationBulletinReportType[];
+      MACHINENAME: string;
+      MACHINE: { [key: string]: number };
+      MACHINESMV: { [key: string]: number };
     };
   }
 
-  let groupedByDate: GroupedByDate = {};
+
+
+  let groupedData: GroupedData = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["MACHINENAME"]);
+    groupedData = groupBy(data, [
+      "",
+    ]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-
-  //set table header
-  const firstHeader = [
-    "MC/ Name",
-    "QTY",
-  ];
+  let header = machineHeader;
 
 
   return (
-    <table className="border-collapse border border-gray-300  w-[100%] mt-3">
+    <table style={{ fontSize: "12px" }} className="border-collapse border border-gray-300  w-[100%] mt-3">
       <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-        <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
-          {firstHeader?.map((item) =>
+        <tr>
+          <th className="border border-gray-950 p-0.5">Machine</th>
+          {header?.map((item) => (
             <th className="border border-gray-950 p-0.5">{item}</th>
-          )}
+          ))}
         </tr>
       </thead>
-      <tbody>
+
+      <tbody style={{ fontSize: "12px" }}>
         {uniqueKeysArray?.map((key) => (
-          <ReportTable
-            key={key}
-            data={groupedByDate[key].items}
-            firstHeader={firstHeader}
-          ></ReportTable>
+          <tr key={key}>
+            <td className="border border-gray-950 p-0.5 text-center">
+              Qty
+            </td>
+            {machineHeader?.map((machine) => {
+              return (
+                <td className="border border-gray-950 p-0.5 text-center">
+                  {groupedData[key].MACHINE[machine]}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+
+        {uniqueKeysArray?.map((key) => (
+          <tr key={key}>
+            <td className="border border-gray-950 p-0.5 text-center">
+              SMV
+            </td>
+            {machineHeader?.map((machine) => {
+              return (
+                <td className="border border-gray-950 p-0.5 text-center">
+                  {groupedData[key].MACHINESMV[machine]}
+                </td>
+              );
+            })}
+          </tr>
         ))}
       </tbody>
     </table>

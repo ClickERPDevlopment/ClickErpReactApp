@@ -15,6 +15,7 @@ function ReportSubgroup({
     <>
       <tr style={{ fontSize: "11px" }} className="font-bold">
         <td className="border border-gray-950 p-0.5">{data[0]?.MACHINENAME}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.SMV}</td>
         <td className="border border-gray-950 p-0.5">{totalQty}</td>
       </tr>
     </>

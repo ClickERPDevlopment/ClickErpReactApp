@@ -12,4 +12,14 @@ export type OperationBulletinSummaryReportType = {
   HLP: number;
   IR: number;
   PLANWS: number;
+  TOTALALLOTTEDMP: number;
+  TOTALSMV: number;
+  GSM: number;
+  SAMPLE_TYPE: string;
+  MAIN_FABRIC: string;
+  STYLENO: string;
+  ITEMTYPE: string;
+  BUYER_NAME: string;
+  LAYOUT_DATE: string;
+  SAMPLE_DATE: string;
 };

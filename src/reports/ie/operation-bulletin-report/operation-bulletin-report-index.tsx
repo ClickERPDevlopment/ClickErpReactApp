@@ -8,15 +8,16 @@ import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { OperationBulletinReportType } from "./operation-bulletin-report-type";
-import { OperationBulletinMCDayWiseTargetReportType } from "./operation-bulletin-mc-day-wise-target-report-type";
-import { OperationBulletinNameRemarksReportType } from "./operation-bulletin-name-remarks-report-type";
+// import { OperationBulletinMCDayWiseTargetReportType } from "./operation-bulletin-mc-day-wise-target-report-type";
+// import { OperationBulletinNameRemarksReportType } from "./operation-bulletin-name-remarks-report-type";
 import { OperationBulletinSummaryReportType } from "./operation-bulletin-summary-report-type";
-import OperationBulletinSummary from "./operation-bulletin-summary/operation-bulletin-summary";
-import OperationBulletinMCDayWiseTarget from "./operation-bulletin-mc-day-wise-target/operation-bulletin-mc-day-wise-target";
+// import OperationBulletinSummary from "./operation-bulletin-summary/operation-bulletin-summary";
+// import OperationBulletinMCDayWiseTarget from "./operation-bulletin-mc-day-wise-target/operation-bulletin-mc-day-wise-target";
 import OperationBulletinMCSummary from "./operation-bulletin-mc-summary/operation-bulletin-mc-summary";
-import OperationBulletinNameRemarks from "./operation-bulletin-name-remarks/operation-bulletin-name-remarks";
+// import OperationBulletinNameRemarks from "./operation-bulletin-name-remarks/operation-bulletin-name-remarks";
 import ReportHeader from "./components/report-header";
 import ReportFooter from "./components/report-footer";
+import moment from "moment";
 
 function OperationBulletinReport() {
 
@@ -24,13 +25,13 @@ function OperationBulletinReport() {
     []
   );
 
-  const [bulletinMCDayWiseTargetData, setBulletinMCDayWiseTargetData] = useState<OperationBulletinMCDayWiseTargetReportType[]>(
-    []
-  );
+  // const [bulletinMCDayWiseTargetData, setBulletinMCDayWiseTargetData] = useState<OperationBulletinMCDayWiseTargetReportType[]>(
+  //   []
+  // );
 
-  const [bulletinNameRemarksData, setBulletinNameRemarksData] = useState<OperationBulletinNameRemarksReportType[]>(
-    []
-  );
+  // const [bulletinNameRemarksData, setBulletinNameRemarksData] = useState<OperationBulletinNameRemarksReportType[]>(
+  //   []
+  // );
 
   const [bulletinSummaryData, setBulletinSummaryData] = useState<OperationBulletinSummaryReportType[]>(
     []
@@ -72,20 +73,20 @@ function OperationBulletinReport() {
           .catch((m) => console.log(m));
 
 
-        await axios
-          .get(
-            `${api.ProductionUrl}/production/IEReport/OperationBulletinMCDayWiseTargetReport?factoryId=${factoryId}&sectionId=${sectionId}&styleId=${styleId}&learningCurveId=${learningCurveId}`
-          )
-          .then((res) => {
-            //console.log(res);
-            if (res.data) {
-              //console.log("My Data", res.data);
-              setBulletinMCDayWiseTargetData(res.data);
-            } else {
-              //console.log(res);
-            }
-          })
-          .catch((m) => console.log(m));
+        // await axios
+        //   .get(
+        //     `${api.ProductionUrl}/production/IEReport/OperationBulletinMCDayWiseTargetReport?factoryId=${factoryId}&sectionId=${sectionId}&styleId=${styleId}&learningCurveId=${learningCurveId}`
+        //   )
+        //   .then((res) => {
+        //     //console.log(res);
+        //     if (res.data) {
+        //       //console.log("My Data", res.data);
+        //       setBulletinMCDayWiseTargetData(res.data);
+        //     } else {
+        //       //console.log(res);
+        //     }
+        //   })
+        //   .catch((m) => console.log(m));
 
         await axios
           .get(
@@ -103,20 +104,20 @@ function OperationBulletinReport() {
           .catch((m) => console.log(m));
 
 
-        await axios
-          .get(
-            `${api.ProductionUrl}/production/IEReport/OperationBulletinNameRemarksReport?factoryId=${factoryId}&sectionId=${sectionId}&styleId=${styleId}&learningCurveId=${learningCurveId}`
-          )
-          .then((res) => {
-            //console.log(res);
-            if (res.data) {
-              //console.log("My Data", res.data);
-              setBulletinNameRemarksData(res.data);
-            } else {
-              //console.log(res);
-            }
-          })
-          .catch((m) => console.log(m));
+        // await axios
+        //   .get(
+        //     `${api.ProductionUrl}/production/IEReport/OperationBulletinNameRemarksReport?factoryId=${factoryId}&sectionId=${sectionId}&styleId=${styleId}&learningCurveId=${learningCurveId}`
+        //   )
+        //   .then((res) => {
+        //     //console.log(res);
+        //     if (res.data) {
+        //       //console.log("My Data", res.data);
+        //       setBulletinNameRemarksData(res.data);
+        //     } else {
+        //       //console.log(res);
+        //     }
+        //   })
+        //   .catch((m) => console.log(m));
 
 
         setIsLoading(false);
@@ -128,10 +129,36 @@ function OperationBulletinReport() {
     getData();
   }, []);
 
+  const [styleImage, setStyleImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchImage(bulletinData[0]?.STYLEID || 0);
+  }, [bulletinData[0]?.STYLEID]);
+
+  const fetchImage = async (id: number) => {
+    try {
+      const response = await fetch(
+        `${api.ProductionUrl}/production/Style/GetStyleImage?styleId=${id}`
+      );
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        if (styleImage) {
+          URL.revokeObjectURL(styleImage);
+        }
+        setStyleImage(url);
+      } else {
+        console.error("Failed to fetch image");
+      }
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
+
   return isLoading ? (
     <>
       <div className="container">
-        <h3 className=" text-center p-2 m-4 font-bold ">
+        <h3 className=" text-start p-2 m-4 font-bold ">
           <Skeleton width={400} height={40} />
         </h3>
         <TableSkeleton />
@@ -143,9 +170,139 @@ function OperationBulletinReport() {
         <div>
           <ReportHeader data={bulletinData} />
         </div>
-        <div>
-
-          <div className="flex justify-between mt-3">
+        <div className="flex justify-between gap-3 mt-3">
+          <div className="w-[40%]">
+            <table className="border-collapse border border-gray-300  w-[100%] mt-3">
+              <thead className="sticky top-0 print:static bg-white print:bg-transparent">
+              </thead>
+              <tbody>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Layout Date</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {bulletinSummaryData[0]?.LAYOUT_DATE &&
+                      moment(bulletinSummaryData[0].LAYOUT_DATE).isAfter('1901-01-01')
+                      ? moment(bulletinSummaryData[0].LAYOUT_DATE).format("DD-MMM-YY")
+                      : ""}
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Buyer</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.BUYER_NAME}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Style</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.STYLENO}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Sample Type</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.SAMPLE_TYPE}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Sample Date</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {bulletinSummaryData[0]?.SAMPLE_DATE &&
+                      moment(bulletinSummaryData[0].SAMPLE_DATE).isAfter('1901-01-01')
+                      ? moment(bulletinSummaryData[0].SAMPLE_DATE).format("DD-MMM-YY")
+                      : ""}
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Tr 100% Eff</td>
+                  <td className="border border-gray-950 p-0.5">{(bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV} %</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Item</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.ITEMTYPE}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Main Fabric</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.MAIN_FABRIC}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">GSM</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.GSM}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="w-[20%]">
+            <div className="w-[100%] text-end ms-auto">
+              <img
+                src={styleImage || ""}
+                alt="Style Image"
+                className="w-[100%] h-auto object-cover"
+              />
+            </div>
+          </div>
+          <div className="w-[40%]">
+            <table className="border-collapse border border-gray-300  w-[100%] mt-3">
+              <thead className="sticky top-0 print:static bg-white print:bg-transparent">
+              </thead>
+              <tbody>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">OP</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {
+                      bulletinSummaryData.reduce((acc, item) => acc + item.OP, 0)
+                    }
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">HP</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {
+                      bulletinSummaryData.reduce((acc, item) => acc + item.HLP, 0)
+                    }
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">IR</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {
+                      bulletinSummaryData.reduce((acc, item) => acc + item.IR, 0)
+                    }
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">TMP</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {
+                      bulletinSummaryData.reduce((acc, item) => acc + item.OP + item.HLP + item.IR, 0)
+                    }
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Total SMV</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.TOTALSMV}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Target/Hr</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.TARGERPERHOUR}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">Target Effi.</td>
+                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.EFFICIENCY}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">TT OP SMV</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {
+                      bulletinSummaryData.reduce((acc, item) => acc + item.SMVM, 0)
+                    }
+                  </td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.5">TT HP + IM SMV</td>
+                  <td className="border border-gray-950 p-0.5">
+                    {
+                      bulletinSummaryData.reduce((acc, item) => acc + item.SMVH + item.SMVI, 0)
+                    }
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {/* <div className="flex justify-between mt-3">
             <div>
               <table className="font-bold align-top">
                 <thead></thead>
@@ -184,50 +341,55 @@ function OperationBulletinReport() {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
 
         </div>
-        <div className="flex justify-between mt-3 gap-2">
+
+        <div>
+          <OperationBulletinMCSummary data={bulletinData} />
+        </div>
+
+        {/* <div className="flex justify-between mt-3 gap-2">
           <div className="w-[75%]">
             <OperationBulletinSummary data={bulletinSummaryData} />
           </div>
           <div className="w-[25%]">
             <table className="border-collapse border border-gray-300  w-[100%] mt-3">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-                <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
+                <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-start">
                   <th colSpan={2} className="border border-gray-950 p-0.5">Summary View</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="text-center">
+                <tr className="text-start">
                   <td className="border border-gray-950 p-0.5">Total SMV</td>
                   <td className="border border-gray-950 p-0.5">{bulletinData[0]?.TOTALSMV}</td>
                 </tr>
-                <tr className="text-center">
+                <tr className="text-start">
                   <td className="border border-gray-950 p-0.5">Total Req. MP</td>
                   <td className="border border-gray-950 p-0.5">{bulletinData[0]?.TOTALREQUIREMP}</td>
                 </tr>
-                <tr className="text-center">
+                <tr className="text-start">
                   <td className="border border-gray-950 p-0.5">Total All. MP</td>
                   <td className="border border-gray-950 p-0.5">{bulletinData[0]?.TOTALALLOTTEDMP}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
 
-        <div className="flex justify-between gap-2 mt-3">
+        {/* <div className="flex justify-between gap-2 mt-3">
           <div className="min-w-[80%]">
             <OperationBulletinMCDayWiseTarget data={bulletinMCDayWiseTargetData} />
           </div>
           <div className="min-w-[20%]">
             <OperationBulletinMCSummary data={bulletinData} />
           </div>
-        </div>
+        </div> */}
         <Report data={bulletinData}></Report>
-        <div>
+        {/* <div>
           <OperationBulletinNameRemarks data={bulletinNameRemarksData} />
-        </div>
+        </div> */}
         <div>
           <ReportFooter data={bulletinData}></ReportFooter>
         </div>
