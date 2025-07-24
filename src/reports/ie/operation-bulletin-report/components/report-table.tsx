@@ -5,9 +5,11 @@ import ReportSubgroup from "./report-subgroup";
 function ReportTable({
   data,
   firstHeader,
+  uniqueItemNumber,
 }: {
   data: OperationBulletinReportType[];
   firstHeader: string[] | null;
+  uniqueItemNumber?: number;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
@@ -51,9 +53,12 @@ function ReportTable({
 
   return (
     <>
-      <tr className="font-bold">
-        <td colSpan={10} className="border border-gray-950 p-0.5 text-center">{data[0]?.SECTIONNAME}</td>
-      </tr>
+      {uniqueItemNumber && uniqueItemNumber > 1 && (
+        <tr className="font-bold">
+          <td colSpan={10} className="border border-gray-950 p-0.5 text-center">{data[0]?.SECTIONNAME}</td>
+        </tr>
+      )}
+
       {uniqueKeysArray?.map((key, index) => (
         <ReportSubgroup
           key={key}

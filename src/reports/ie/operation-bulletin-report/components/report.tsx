@@ -68,7 +68,7 @@ function Report({
       className="text-gray-950">
       <div>
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
-          <thead className="sticky top-0 print:static bg-white print:bg-transparent">
+          <thead className="sticky top-0 print:static print:bg-transparent">
             <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
                 <th className="border border-gray-950 p-0.5">{item}</th>
@@ -81,20 +81,24 @@ function Report({
                 key={key}
                 data={groupedByDate[key].items}
                 firstHeader={firstHeader}
+                uniqueItemNumber={uniqueKeysArray.length}
               ></ReportTable>
             ))}
 
-            <tr className="font-bold">
-              <td colSpan={2} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
-              <td className="border border-gray-950 p-0.5">{Number(totalSMV)?.toFixed(3)}</td>
-              <td className="border border-gray-950 p-0.5">{Number(totalSMV * 60)?.toFixed(3)}</td>
-              <td className="border border-gray-950 p-0.5"></td>
-              <td className="border border-gray-950 p-0.5">{totalRequiredMP?.toFixed(3)}</td>
-              <td className="border border-gray-950 p-0.5">{totalAllottedMP?.toFixed(3)}</td>
-              <td className="border border-gray-950 p-0.5">{(totalAllottedMP * data[0]?.CAPACITYHR)?.toFixed(3)}</td>
-              <td className="border border-gray-950 p-0.5">{totalPlanWS?.toFixed(3)}</td>
-              <td className="border border-gray-950 p-0.5"></td>
-            </tr>
+            {
+              uniqueKeysArray.length > 1 && <tr className="font-bold" style={{ backgroundColor: "#A7F3D0" }}>
+                <td colSpan={2} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
+                <td className="border border-gray-950 p-0.5">{Number(totalSMV)?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5">{Number(totalSMV * 60)?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5"></td>
+                <td className="border border-gray-950 p-0.5">{totalRequiredMP?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5">{totalAllottedMP?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5">{(totalAllottedMP * data[0]?.CAPACITYHR)?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5">{totalPlanWS?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.5"></td>
+              </tr>
+            }
+
           </tbody>
         </table>
       </div>
