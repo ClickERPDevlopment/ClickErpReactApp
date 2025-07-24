@@ -7,4 +7,7 @@ export interface IShipmentDelayReport {
   QTY: number;
   TEAM_LEAD: string;
   DELIVERY_DATE: Date;
+  COMPANY_NAME: string;
+  COMPANY_ADDRESS: string;
+  COMPANY_REMARKS: string;
 }

@@ -72,14 +72,14 @@ function ShipmentDelayReportPDF() {
     const addHeader = () => {
       // Header Title
       doc.setFontSize(13);
-      doc.text("International Classic Composite Ltd.", pageWidth / 2, 15, {
+      doc.text(data && data[0]?.COMPANY_NAME || "", pageWidth / 2, 15, {
         align: "center",
       });
 
       // Address Info
       doc.setFontSize(9);
       doc.text(
-        "568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.",
+        data && data[0]?.COMPANY_ADDRESS || "",
         pageWidth / 2,
         19,
         { align: "center" }
@@ -113,6 +113,8 @@ function ShipmentDelayReportPDF() {
     const headers = [
       ["BUYER", "MONTH", "PO", "TEAM LEADER", "STYLE", "QTY", "DELIVERY DATE", "DELAY"],
     ];
+
+
     const tableData = data?.map((item) => [
       item.BUYER_NAME,
       item.ORDER_PLACEMENT_MONTH

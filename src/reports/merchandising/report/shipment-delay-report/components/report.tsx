@@ -30,6 +30,9 @@ function Report({
           searchParams={{
             toDate: searchParams?.toDate,
             fromDate: searchParams?.fromDate,
+            COMPANY_NAME: data[0]?.COMPANY_NAME || "",
+            COMPANY_ADDRESS: data[0]?.COMPANY_ADDRESS || "",
+            COMPANY_REMARKS: data[0]?.COMPANY_REMARKS || "",
           }}
         />
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">

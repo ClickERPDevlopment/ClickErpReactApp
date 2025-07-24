@@ -24,6 +24,9 @@ function Report({
           searchParams={{
             toDate: searchParams?.toDate,
             fromDate: searchParams?.fromDate,
+            COMPANY_NAME: data[0]?.COMPANY_NAME || "",
+            COMPANY_ADDRESS: data[0]?.COMPANY_ADDRESS || "",
+            COMPANY_REMARKS: data[0]?.COMPANY_REMARKS || "",
           }}
         />
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
@@ -42,7 +45,7 @@ function Report({
                 </td>
                 <td className="border border-gray-300 p-1">
                   {item.ORDER_PLACEMENT_MONTH &&
-                  moment(item.ORDER_PLACEMENT_MONTH).format("DD-MMM-YY") !==
+                    moment(item.ORDER_PLACEMENT_MONTH).format("DD-MMM-YY") !==
                     "01-Jan-01"
                     ? moment(item.ORDER_PLACEMENT_MONTH).format("DD-MMM-YY")
                     : ""}
@@ -50,17 +53,17 @@ function Report({
                 <td className="border border-gray-300 p-1">{item.QTY}</td>
                 <td className="border border-gray-300 p-1">
                   {item.DELIVERY_DATE &&
-                  moment(item.DELIVERY_DATE).format("DD-MMM-YY") !== "01-Jan-01"
+                    moment(item.DELIVERY_DATE).format("DD-MMM-YY") !== "01-Jan-01"
                     ? moment(item.DELIVERY_DATE).format("DD-MMM-YY")
                     : ""}
                 </td>
                 <td className="border border-gray-300 p-1">
                   {item.DELIVERY_DATE &&
-                  moment(item.DELIVERY_DATE).format("DD-MMM-YY") !== "01-Jan-01"
+                    moment(item.DELIVERY_DATE).format("DD-MMM-YY") !== "01-Jan-01"
                     ? `${moment().diff(
-                        moment(item.DELIVERY_DATE),
-                        "days"
-                      )} days`
+                      moment(item.DELIVERY_DATE),
+                      "days"
+                    )} days`
                     : ""}
                 </td>
               </tr>

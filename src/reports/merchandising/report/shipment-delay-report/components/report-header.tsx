@@ -4,7 +4,7 @@ import moment from "moment";
 function ReportHeader({
   searchParams,
 }: {
-  searchParams: { toDate: any; fromDate: any };
+  searchParams: { toDate: any; fromDate: any, COMPANY_NAME: string, COMPANY_ADDRESS: string, COMPANY_REMARKS: string };
 }) {
   return (
     <div className="w-[100%]">
@@ -12,10 +12,10 @@ function ReportHeader({
         {moment().format("DD-MMM-YYYY")}
       </p>
       <h1 className="font-bold text-2xl text-center">
-        International Classic Composite Ltd.
+        {searchParams?.COMPANY_NAME || "Company Name"}
       </h1>
       <h4 className="font-bold text-base text-center">
-        568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.,
+        {searchParams?.COMPANY_ADDRESS || "Company Address"}
       </h4>
       <h3 className="font-bold text-xl text-center mt-2">
         Shipment Delay Report
