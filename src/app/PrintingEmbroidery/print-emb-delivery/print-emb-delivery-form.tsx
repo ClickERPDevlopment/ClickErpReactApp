@@ -176,15 +176,15 @@ export default function PrintEmbDeliveryForm({
   }
 
   const [PO, setPO] = useState<IPO[]>([]);
-  const getPOByStyle = async (woId: number, styleId: number) => {
+  const getPO = async (woId: number, styleId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
     setPO(response?.data);
   }
 
 
   const [color, setColor] = useState<IColor[]>([]);
-  const GetColorByBuyer = async (woId: number, styleId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+  const GetColor = async (woId: number, poId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + searchData.STYLE_ID + "&poId=" + poId);
     setColor(response?.data);
   }
 
@@ -254,6 +254,9 @@ export default function PrintEmbDeliveryForm({
         masterForm.setValue("WORKORDER_RECEIVE_NO", workOrder.WORK_ORDER_NO);
 
         getWorkOrderRcvInfo(workOrder.ID);
+      }
+      else {
+        setdetailsData(null);
       }
 
       setWorkOrder(data);
@@ -786,7 +789,7 @@ export default function PrintEmbDeliveryForm({
                                                       BUYER_ID: Number(buyer?.Id),
                                                       BUYER: buyer?.NAME,
                                                     }));
-                                                    getStyleByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(buyer?.Id));
+                                                    getStyleByBuyer(Number(0), Number(buyer?.Id));
                                                     setOpenBuyer(false);
                                                   }}
                                                 >
@@ -862,8 +865,8 @@ export default function PrintEmbDeliveryForm({
                                                       STYLE: item.Styleno,
                                                     }));
                                                     setOpenStyle(false);
-                                                    GetColorByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
-                                                    getPOByStyle(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
+                                                    // GetColor(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
+                                                    getPO(Number(0), Number(item?.Id));
                                                   }}
                                                 >
                                                   {item.Styleno}
@@ -936,6 +939,7 @@ export default function PrintEmbDeliveryForm({
                                                       PO_ID: Number(item.Id),
                                                       PO: item.Pono,
                                                     }));
+                                                    GetColor(Number(0), Number(item?.Id));
                                                     setOpenPO(false);
                                                   }}
                                                 >
