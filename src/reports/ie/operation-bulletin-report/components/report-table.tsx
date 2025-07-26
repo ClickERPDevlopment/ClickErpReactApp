@@ -70,15 +70,15 @@ function ReportTable({
           firstHeader={firstHeader}
         ></ReportSubgroup>
       ))}
-      <tr className="font-bold" style={{ fontSize: "12px" }}>
+      <tr className="font-bold" style={{ fontSize: "12px", backgroundColor: "#A7F3D0" }}>
         <td colSpan={3} className="border border-gray-950 p-0.1 text-center">Total</td>
         <td className="border border-gray-950 p-0.1">{totalSMV.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1">{Math.round(Number(totalSMV * 60))}</td>
         <td className="border border-gray-950 p-0.1"></td>
-        <td className="border border-gray-950 p-0.1">{totalRequiredMP.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.1">{totalAllottedMP.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.1">{totalRequiredMP.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1">{totalAllottedMP.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1">{Math.round(totalAllottedMP * data[0]?.CAPACITYHR)}</td>
-        <td className="border border-gray-950 p-0.1">{totalPlanWS.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.1">{totalPlanWS.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1"></td>
       </tr>
     </>

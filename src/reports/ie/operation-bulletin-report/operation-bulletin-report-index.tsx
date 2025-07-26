@@ -209,7 +209,7 @@ function OperationBulletinReport() {
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Tr 100% Eff</td>
-                  <td className="border border-gray-950 p-0.1">{(bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV} %</td>
+                  <td className="border border-gray-950 p-0.1">{Math.round((bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV)} %</td>
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Item</td>
@@ -228,11 +228,13 @@ function OperationBulletinReport() {
           </div>
           <div className="w-[20%]">
             <div className="w-[100%] text-end ms-auto">
-              <img
-                src={styleImage || ""}
-                alt="Style Image"
-                className="w-[100%] h-auto object-cover"
-              />
+              {styleImage && (
+                <img
+                  src={styleImage}
+                  alt="Style Image"
+                  className="w-full h-auto object-cover"
+                />
+              )}
             </div>
           </div>
           <div className="w-[40%]">
@@ -241,7 +243,7 @@ function OperationBulletinReport() {
               </thead>
               <tbody>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>OP</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Operator</td>
                   <td className="border border-gray-950 p-0.1" >
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.OP, 0)
@@ -249,7 +251,7 @@ function OperationBulletinReport() {
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>HP</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Helper</td>
                   <td className="border border-gray-950 p-0.1" >
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.HLP, 0)
@@ -257,7 +259,7 @@ function OperationBulletinReport() {
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>IR</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Ironmen</td>
                   <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.IR, 0)
@@ -265,7 +267,7 @@ function OperationBulletinReport() {
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TMP</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Total Manpower</td>
                   <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.OP + item.HLP + item.IR, 0)
@@ -285,7 +287,7 @@ function OperationBulletinReport() {
                   <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.EFFICIENCY}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TT OP SMV</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TT Operator SMV</td>
                   <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.SMVM, 0)

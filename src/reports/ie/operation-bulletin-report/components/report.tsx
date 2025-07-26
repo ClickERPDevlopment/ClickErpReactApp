@@ -97,10 +97,10 @@ function Report({
                 <td className="border border-gray-950 p-0.1">{Number(totalSMV)?.toFixed(2)}</td>
                 <td className="border border-gray-950 p-0.1">{Math.round(Number(totalSMV * 60))}</td>
                 <td className="border border-gray-950 p-0.1"></td>
-                <td className="border border-gray-950 p-0.1">{totalRequiredMP?.toFixed(3)}</td>
-                <td className="border border-gray-950 p-0.1">{totalAllottedMP?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.1">{totalRequiredMP?.toFixed(2)}</td>
+                <td className="border border-gray-950 p-0.1">{totalAllottedMP?.toFixed(2)}</td>
                 <td className="border border-gray-950 p-0.1">{Math.round(totalAllottedMP * data[0]?.CAPACITYHR)}</td>
-                <td className="border border-gray-950 p-0.1">{totalPlanWS?.toFixed(3)}</td>
+                <td className="border border-gray-950 p-0.1">{totalPlanWS?.toFixed(2)}</td>
                 <td className="border border-gray-950 p-0.1"></td>
               </tr>
             }

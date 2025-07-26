@@ -37,7 +37,7 @@ function ReportChart({
         operationName: item.OPERATIONNAME,
         totalAllottedMP: item.ALLOTTEDMP,
         capacityHr: item.CAPACITYHR,
-        efficiency: item.EFFICIENCY,
+        efficiency: item.TARGERPERHOUR,
       });
     } else {
       const existing = groupedDataMap.get(key)!;
@@ -62,8 +62,8 @@ function ReportChart({
       return (
         <div className="bg-white border p-2 rounded shadow text-sm">
           <p><strong>Operation:</strong> {dataPoint.operationName}</p>
-          <p><strong>Capacity Utilized:</strong> {dataPoint.capacityUtilized}</p>
-          <p><strong>Efficiency:</strong> {dataPoint.efficiency}</p>
+          <p><strong>Process Target:</strong> {dataPoint.capacityUtilized}</p>
+          <p><strong>Target:</strong> {dataPoint.efficiency}</p>
         </div>
       );
     }
@@ -73,7 +73,7 @@ function ReportChart({
   const generateLineChart = (title: string, chartData: any[]) => (
     <div className="my-1 bg-white p-2">
       <h2 className="text-base font-semibold text-center mb-2">{title}</h2>
-      <ResponsiveContainer width="100%" height={150}>
+      <ResponsiveContainer width="100%" height={100}>
         <LineChart
           data={chartData}
           margin={{ top: 5, right: 10, left: 0, bottom: 0 }}
@@ -82,7 +82,7 @@ function ReportChart({
           <XAxis
             dataKey="index"
             label={{
-              value: "Op No",
+              value: "Operation No",
               position: "insideBottom",
               offset: -2,
               fontSize: 10,
@@ -96,14 +96,14 @@ function ReportChart({
             type="monotone"
             dataKey="capacityUtilized"
             stroke="#8884d8"
-            name="Capacity"
+            name="Process Target"
             dot={false}
           />
           <Line
             type="monotone"
             dataKey="efficiency"
             stroke="#82ca9d"
-            name="Eff"
+            name="Target"
             dot={false}
           />
         </LineChart>
