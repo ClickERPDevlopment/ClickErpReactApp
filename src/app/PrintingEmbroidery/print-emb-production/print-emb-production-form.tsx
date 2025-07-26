@@ -223,6 +223,9 @@ export default function PrintEmbProductionForm({
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
+
+
+
       setTimeout(() => {
         location.pathname.includes("win/")
           ? navigator("/win/printing-embroidery/print-emp-production")
@@ -255,10 +258,11 @@ export default function PrintEmbProductionForm({
   }
 
   const [color, setColor] = useState<IColor[]>([]);
-  const GetColorByBuyer = async (woId: number, styleId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+  const GetColor = async (woId: number, poId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + printEmbProductionDetails.STYLE_ID + "&poId=" + poId);
     setColor(response?.data);
   }
+
 
   const [size, setSize] = useState<ISize[]>([]);
   const GetSizeByBuyer = async (woId: number, styleId: number) => {
@@ -326,7 +330,7 @@ export default function PrintEmbProductionForm({
         WORK_ORDER_NO: response?.data?.[0]?.WORK_ORDER_NO
       }));
 
-      GetColorByBuyer(response?.data[0]?.ID, styleId);
+      GetColor(response?.data[0]?.ID, poId);
       GetSizeByBuyer(response?.data[0]?.ID, styleId);
     }
 
@@ -1547,6 +1551,7 @@ export default function PrintEmbProductionForm({
                                                 PO_ID: Number(item.Id),
                                                 PO_NO: item.Pono,
                                               }));
+                                              GetColor(Number(0), Number(item?.Id));
                                               getWorkOrder(printEmbProductionDetails.BUYER_ID || 0, printEmbProductionDetails.STYLE_ID || 0, Number(item.Id));
                                               setOpenPO(false);
                                             }}
@@ -1628,7 +1633,7 @@ export default function PrintEmbProductionForm({
                                                 WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
                                               }));
 
-                                              GetColorByBuyer(workOrderData.ID, printEmbProductionDetails.STYLE_ID || 0);
+                                              // GetColorByBuyer(workOrderData.ID, printEmbProductionDetails.STYLE_ID || 0);
                                               GetSizeByBuyer(workOrderData.ID, printEmbProductionDetails.STYLE_ID || 0);
 
                                               setOpenWorkOrder(false);

@@ -55,6 +55,25 @@ export function PrintEmbProductionTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const [pagination, setPagination] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedPage = sessionStorage.getItem("printEmbProdPage");
+      return {
+        pageIndex: savedPage ? parseInt(savedPage) : 0,
+        pageSize: 10,
+      };
+    }
+    return { pageIndex: 0, pageSize: 10 };
+  });
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem("printEmbProdPage", pagination.pageIndex.toString());
+    }
+  }, [pagination.pageIndex]);
+
+
+
 
   const columns: ColumnDef<PrintEmbProductionMasterType>[] = [
     {
@@ -187,11 +206,13 @@ export function PrintEmbProductionTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination,
     },
   });
 
