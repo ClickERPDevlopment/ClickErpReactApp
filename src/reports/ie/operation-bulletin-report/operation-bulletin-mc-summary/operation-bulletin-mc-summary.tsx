@@ -73,9 +73,9 @@ function OperationBulletinMCSummary({
     <table style={{ fontSize: "12px" }} className="border-collapse border border-gray-300  w-[100%] mt-3">
       <thead className="" style={{ backgroundColor: "#A7F3D0" }}>
         <tr>
-          <th className="border border-gray-950 p-0.5">Machine</th>
+          <th className="border border-gray-950 p-0.1">Machine</th>
           {header?.map((item) => (
-            <th className="border border-gray-950 p-0.5">{item}</th>
+            <th className="border border-gray-950 p-0.1">{item}</th>
           ))}
         </tr>
       </thead>
@@ -83,12 +83,12 @@ function OperationBulletinMCSummary({
       <tbody style={{ fontSize: "12px" }}>
         {uniqueKeysArray?.map((key) => (
           <tr key={key}>
-            <td className="border border-gray-950 p-0.5 text-center">
+            <td className="border border-gray-950 p-0.1 text-center">
               Qty
             </td>
             {machineHeader?.map((machine) => {
               return (
-                <td className="border border-gray-950 p-0.5 text-center">
+                <td className="border border-gray-950 p-0.1 text-center">
                   {groupedData[key].MACHINE[machine]}
                 </td>
               );
@@ -98,13 +98,13 @@ function OperationBulletinMCSummary({
 
         {uniqueKeysArray?.map((key) => (
           <tr key={key}>
-            <td className="border border-gray-950 p-0.5 text-center">
+            <td className="border border-gray-950 p-0.1 text-center">
               SMV
             </td>
             {machineHeader?.map((machine) => {
               return (
-                <td className="border border-gray-950 p-0.5 text-center">
-                  {groupedData[key].MACHINESMV[machine]}
+                <td className="border border-gray-950 p-0.1 text-center">
+                  {groupedData[key].MACHINESMV[machine].toFixed(2)}
                 </td>
               );
             })}

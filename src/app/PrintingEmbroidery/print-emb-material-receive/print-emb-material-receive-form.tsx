@@ -557,6 +557,8 @@ export default function PrintEmbMaterialReceiveForm({
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
   const [openPO, setOpenPO] = useState(false);
+  const [openColor, setOpenColor] = useState(false);
+
 
 
   const [openWorkOrderType, setOpenWorkOrderType] = useState(false);
@@ -571,7 +573,6 @@ export default function PrintEmbMaterialReceiveForm({
   const [partsModalData, setPartsModalData] = useState<EmbMaterialReceiveDetailsPartsType[]>([]);
   const [selectedDetailsIndex] = useState<number>(-1);
 
-  const [openColor, setOpenColor] = useState(false);
 
 
   return (

@@ -64,6 +64,38 @@ const masterFormSchema = z.object({
 });
 
 
+const searchFormSchema = z.object({
+  BUYER_ID: z.number().default(0),
+  BUYER: z.string().optional(),
+  STYLE_ID: z.number().optional(),
+  STYLE: z.string().optional(),
+  PO_ID: z.number().optional(),
+  PO: z.string().optional(),
+  COLOR_ID: z.number().optional(),
+  COLOR: z.string().optional(),
+});
+
+interface IBuyer {
+  Id: string;
+  NAME: string;
+  DISPLAY_NAME: string;
+};
+
+interface IStyle {
+  Id: string;
+  Styleno: string;
+};
+
+interface IPO {
+  Id: string;
+  Pono: string;
+};
+
+interface IColor {
+  ID: number;
+  COLORNAME: string;
+};
+
 interface ISupplier {
   Id: number;
   Name: string;
@@ -72,6 +104,18 @@ interface ISupplier {
 interface IRcvWorkOrder {
   ID: number;
   WORK_ORDER_NO: string;
+};
+
+
+interface ISearchData {
+  BUYER_ID: number;
+  BUYER: string;
+  STYLE_ID: number;
+  STYLE: string;
+  PO_ID: number;
+  PO: string;
+  COLOR_ID: number;
+  COLOR: string;
 };
 
 export default function PrintEmbDeliveryForm({
@@ -118,6 +162,33 @@ export default function PrintEmbDeliveryForm({
 
   const api = useApiUrl();
 
+  const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
+  const getBuyerData = async (woId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
+    setBuyerData(response?.data);
+  }
+
+  const [style, setStyle] = useState<IStyle[]>([]);
+  const getStyleByBuyer = async (woId: number, buyerId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
+    setStyle(response?.data);
+
+  }
+
+  const [PO, setPO] = useState<IPO[]>([]);
+  const getPOByStyle = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setPO(response?.data);
+  }
+
+
+  const [color, setColor] = useState<IColor[]>([]);
+  const GetColorByBuyer = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setColor(response?.data);
+  }
+
+
   const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
   const getWorkOrder = async (supplierId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByFiltering?supplierId=" + supplierId);
@@ -155,9 +226,46 @@ export default function PrintEmbDeliveryForm({
     masterForm.setValue("EMBELLISHMENT_WO", response?.data.EMBELLISHMENT_WO);
   }
 
+  const getWorkOrderRcv = async (colorId: number) => {
+    try {
+      const { BUYER_ID, STYLE_ID, PO_ID } = searchData;
+
+      const response = await axios.get(`${api.ProductionUrl}/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo`, {
+        params: {
+          buyerId: BUYER_ID,
+          styleId: STYLE_ID,
+          poId: PO_ID,
+          colorId: colorId
+        }
+      });
+
+      const data = response?.data;
+
+      if (Array.isArray(data) && data.length === 1) {
+        const workOrder = data[0];
+
+        setMasterData(prev => ({
+          ...prev,
+          WORKORDER_RECEIVE_ID: workOrder.ID,
+          WORKORDER_RECEIVE_NO: workOrder.WORK_ORDER_NO
+        }));
+
+        masterForm.setValue("WORKORDER_RECEIVE_ID", workOrder.ID);
+        masterForm.setValue("WORKORDER_RECEIVE_NO", workOrder.WORK_ORDER_NO);
+
+        getWorkOrderRcvInfo(workOrder.ID);
+      }
+
+      setWorkOrder(data);
+
+    } catch (error) {
+    }
+  };
+
   useEffect(() => {
     getWorkOrder(0);
     getSupplier();
+    getBuyerData(0);
 
     if (pageAction === PageAction.add) { getNextDeliveryNumber() }
 
@@ -184,6 +292,33 @@ export default function PrintEmbDeliveryForm({
   });
 
 
+  const searchForm = useForm<z.infer<typeof searchFormSchema>>({
+    resolver: zodResolver(searchFormSchema),
+    defaultValues: {
+      BUYER_ID: 0,
+      BUYER: "",
+      STYLE_ID: 0,
+      STYLE: "",
+      PO_ID: 0,
+      PO: "",
+    },
+  });
+
+  const [searchData, setSearchData] = useState<ISearchData>({
+    BUYER_ID: 0,
+    BUYER: "",
+    STYLE_ID: 0,
+    STYLE: "",
+    PO_ID: 0,
+    PO: "",
+    COLOR_ID: 0,
+    COLOR: "",
+  })
+
+  const [openBuyer, setOpenBuyer] = useState(false);
+  const [openStyle, setOpenStyle] = useState(false);
+  const [openPO, setOpenPO] = useState(false);
+  const [openColor, setOpenColor] = useState(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -593,203 +728,487 @@ export default function PrintEmbDeliveryForm({
               </div>
 
               <div className="m-10"></div>
-              {/* ######################### details data ################################ */}
 
-              <div className="max-h-[300px] overflow-y-auto border rounded-md">
-                <Table className="min-w-full rounded-md">
-                  <TableHeader className="bg-green-100 border border-gray-300 text-center px-4">
-                    <TableRow className=" rounded-md">
-                      <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
-                        S/L
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Buyer
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Style
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        PO
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Color
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Size
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Wo Qty
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Input Qty
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Production Qty
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Delivered Qty
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Ready for Delivery
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Delivery Qty
-                      </TableHead>
-                      <TableHead className="border border-gray-300 text-center px-4">
-                        Parts
-                      </TableHead>
-                      {/* <TableHead className="border border-gray-300 text-center px-4">
-                        Action
-                      </TableHead> */}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {detailsData?.map((item, index) => (
-                      <TableRow key={Math.random() + index} className={`odd:bg-white even:bg-gray-50`}>
-                        <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4  text-center">
-                          {item.BUYER ? item?.BUYER : item?.OS_BUYER}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.STYLE ? item?.STYLE : item?.OS_STYLE}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.PO_NO ? item?.PO_NO : item?.OS_PO_NO}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.COLOR}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.SIZE}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.WO_QTY}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.RCV_QTY}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.PRODUCTION_QTY}
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.DELIVERED_QTY}
-                        </TableCell>
+              <div className="">
+                {/* search form */}
+                <div className="border p-1">
+                  <Form {...searchForm} >
+                    <form
+                      onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
+                      className=""
+                    >
+                      <div className="flex flex-wrap gap-3">
+                        <div className="flex justify-between gap-2 items-end">
+                          <div>
+                            <div className="flex justify-between items-end">
+                              <FormField
+                                control={searchForm.control}
+                                name="BUYER_ID"
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-col flex-1">
+                                    <FormLabel className="font-bold">Buyer</FormLabel>
+                                    <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
+                                      <PopoverTrigger asChild>
+                                        <FormControl>
+                                          <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={openBuyer}
+                                            className={cn(
+                                              "w-full justify-between bg-emerald-100",
+                                              !field.value && "text-muted-foreground"
+                                            )}
+                                          >
+                                            {field.value
+                                              ? buyerData?.find(
+                                                (buyer) =>
+                                                  Number(buyer.Id) === field.value
+                                              )?.NAME
+                                              : "Select a buyer"}
+                                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                          </Button>
+                                        </FormControl>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-full p-0">
+                                        <Command>
+                                          <CommandInput placeholder="Search supplier..." className="h-9" />
+                                          <CommandList>
+                                            <CommandEmpty>No buyer found.</CommandEmpty>
+                                            <CommandGroup>
+                                              {buyerData?.map((buyer) => (
+                                                <CommandItem
+                                                  value={buyer?.NAME}
+                                                  key={Number(buyer?.Id)}
+                                                  onSelect={() => {
+                                                    field.onChange(Number(buyer?.Id));
+                                                    setSearchData((prev) => ({
+                                                      ...prev,
+                                                      BUYER_ID: Number(buyer?.Id),
+                                                      BUYER: buyer?.NAME,
+                                                    }));
+                                                    getStyleByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(buyer?.Id));
+                                                    setOpenBuyer(false);
+                                                  }}
+                                                >
 
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {Number(item.PRODUCTION_QTY) - Number(item.DELIVERED_QTY)}
-                        </TableCell>
-
-                        <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
-                          <input
-                            type="number"
-                            className="w-full text-center text-sm border border-gray-300 rounded p-1"
-                            value={item.DELIVERY_QTY}
-                            onBlur={(e) => {
-                              const updatedData = [...detailsData];
-
-                              const rcvQty = item.RCV_QTY || 0;
-                              const deliveryQty = Number(e.target.value);
-                              if (deliveryQty > rcvQty) {
-                                toast.error("Delivery Qty cannot be greater than rcv Qty");
-                                return;
-                              }
-
-                              updatedData[index] = {
-                                ...updatedData[index],
-                                DELIVERY_QTY: Number(e.target.value),
-                              };
-                              setdetailsData(updatedData);
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell className="border border-gray-300 px-4 text-center ">
-                          {item.PATRS}
-                        </TableCell>
-                        {/* <TableCell className="border border-gray-300 p-0 m-0 hover:cursor-pointer">
-                          <div className="w-full h-full p-0 m-0 flex justify-center">
-                            <Trash2Icon
-                              size={15}
-                              className=" hover:text-red-500 ms-2"
-                              onClick={() => handleRemove(index)}
-                              style={{ color: "red" }}
-                            />
+                                                  {buyer?.NAME}
+                                                  <CheckIcon
+                                                    className={cn(
+                                                      "ml-auto h-4 w-4",
+                                                      Number(buyer?.Id) === field.value
+                                                        ? "opacity-100"
+                                                        : "opacity-0"
+                                                    )}
+                                                  />
+                                                </CommandItem>
+                                              ))}
+                                            </CommandGroup>
+                                          </CommandList>
+                                        </Command>
+                                      </PopoverContent>
+                                    </Popover>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
                           </div>
-                        </TableCell> */}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-              <div className={cn("flex justify-between mt-4")}>
-                <div className="flex gap-2">
-                  <Button
-                    type="submit"
-                    disabled={mutation.isPending}
-                    className={cn(
-                      "w-24",
-                      pageAction === PageAction.view ? "hidden" : " "
+
+                          <div>
+                            <div className="flex justify-between items-end">
+                              <FormField
+                                control={searchForm.control}
+                                name="STYLE_ID"
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-col flex-1">
+                                    <FormLabel className="font-bold">Style</FormLabel>
+                                    <Popover open={openStyle} onOpenChange={setOpenStyle}>
+                                      <PopoverTrigger asChild>
+                                        <FormControl>
+                                          <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={openStyle}
+                                            className={cn(
+                                              "w-full justify-between bg-emerald-100",
+                                              !field.value && "text-muted-foreground"
+                                            )}
+                                          >
+                                            {field.value
+                                              ? style?.find(
+                                                (style) =>
+                                                  Number(style.Id) === field.value
+                                              )?.Styleno
+                                              : "Select a style"}
+                                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                          </Button>
+                                        </FormControl>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-full p-0">
+                                        <Command>
+                                          <CommandInput placeholder="Search style..." className="h-9" />
+                                          <CommandList>
+                                            <CommandEmpty>No style found.</CommandEmpty>
+                                            <CommandGroup>
+                                              {style?.map((item) => (
+                                                <CommandItem
+                                                  value={item.Styleno}
+                                                  key={item.Id}
+                                                  onSelect={() => {
+                                                    field.onChange(Number(item.Id));
+                                                    setSearchData((prev) => ({
+                                                      ...prev,
+                                                      STYLE_ID: Number(item.Id),
+                                                      STYLE: item.Styleno,
+                                                    }));
+                                                    setOpenStyle(false);
+                                                    GetColorByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
+                                                    getPOByStyle(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
+                                                  }}
+                                                >
+                                                  {item.Styleno}
+                                                  <CheckIcon
+                                                    className={cn(
+                                                      "ml-auto h-4 w-4",
+                                                      Number(item.Id) === field.value
+                                                        ? "opacity-100"
+                                                        : "opacity-0"
+                                                    )}
+                                                  />
+                                                </CommandItem>
+                                              ))}
+                                            </CommandGroup>
+                                          </CommandList>
+                                        </Command>
+                                      </PopoverContent>
+                                    </Popover>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <div>
+                              <FormField
+                                control={searchForm.control}
+                                name="PO_ID"
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-col flex-1">
+                                    <FormLabel className="font-bold">PO</FormLabel>
+                                    <Popover open={openPO} onOpenChange={setOpenPO}>
+                                      <PopoverTrigger asChild>
+                                        <FormControl>
+                                          <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={openPO}
+                                            className={cn(
+                                              "w-full justify-between bg-emerald-100",
+                                              !field.value && "text-muted-foreground"
+                                            )}
+                                          >
+                                            {field.value
+                                              ? PO?.find(
+                                                (po) =>
+                                                  Number(po.Id) === field.value
+                                              )?.Pono
+                                              : "Select a PO"}
+                                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                          </Button>
+                                        </FormControl>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-full p-0">
+                                        <Command>
+                                          <CommandInput placeholder="Search PO..." className="h-9" />
+                                          <CommandList>
+                                            <CommandEmpty>No PO found.</CommandEmpty>
+                                            <CommandGroup>
+                                              {PO?.map((item) => (
+                                                <CommandItem
+                                                  value={item.Pono}
+                                                  key={item.Id}
+                                                  onSelect={() => {
+                                                    field.onChange(Number(item.Id));
+                                                    setSearchData((prev) => ({
+                                                      ...prev,
+                                                      PO_ID: Number(item.Id),
+                                                      PO: item.Pono,
+                                                    }));
+                                                    setOpenPO(false);
+                                                  }}
+                                                >
+                                                  {item.Pono}
+                                                  <CheckIcon
+                                                    className={cn(
+                                                      "ml-auto h-4 w-4",
+                                                      Number(item.Id) === field.value
+                                                        ? "opacity-100"
+                                                        : "opacity-0"
+                                                    )}
+                                                  />
+                                                </CommandItem>
+                                              ))}
+                                            </CommandGroup>
+                                          </CommandList>
+                                        </Command>
+                                      </PopoverContent>
+                                    </Popover>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="">
+                            <div>
+                              <FormField
+                                control={searchForm.control}
+                                name="COLOR_ID"
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-col flex-1">
+                                    <FormLabel className="font-bold">Color</FormLabel>
+                                    <Popover open={openColor} onOpenChange={setOpenColor}>
+                                      <PopoverTrigger asChild>
+                                        <FormControl>
+                                          <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={openColor}
+                                            className={cn(
+                                              "w-full justify-between bg-emerald-100",
+                                              !field.value && "text-muted-foreground"
+                                            )}
+                                          >
+                                            {field.value
+                                              ? color?.find(
+                                                (colorData) =>
+                                                  Number(colorData.ID) === field.value
+                                              )?.COLORNAME
+                                              : "Select a color"}
+                                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                          </Button>
+                                        </FormControl>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-full p-0">
+                                        <Command>
+                                          <CommandInput placeholder="Search PO..." className="h-9" />
+                                          <CommandList>
+                                            <CommandEmpty>No color found.</CommandEmpty>
+                                            <CommandGroup>
+                                              {color?.map((colorData) => (
+                                                <CommandItem
+                                                  value={colorData.COLORNAME}
+                                                  key={colorData.ID}
+                                                  onSelect={() => {
+                                                    field.onChange(Number(colorData.ID));
+                                                    setSearchData((prev) => ({
+                                                      ...prev,
+                                                      COLOR_ID: Number(colorData.ID),
+                                                      COLOR: colorData.COLORNAME,
+                                                    }));
+                                                    getWorkOrderRcv(Number(colorData.ID));
+                                                    setOpenColor(false);
+                                                  }}
+                                                >
+                                                  {colorData.COLORNAME}
+                                                  <CheckIcon
+                                                    className={cn(
+                                                      "ml-auto h-4 w-4",
+                                                      Number(colorData.ID) === field.value
+                                                        ? "opacity-100"
+                                                        : "opacity-0"
+                                                    )}
+                                                  />
+                                                </CommandItem>
+                                              ))}
+                                            </CommandGroup>
+                                          </CommandList>
+                                        </Command>
+                                      </PopoverContent>
+                                    </Popover>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </Form>
+                  {/* ######################### details data ################################ */}
+                  <div className="max-h-[300px] overflow-y-auto border rounded-md mt-5">
+                    <Table className="min-w-full rounded-md">
+                      <TableHeader className="bg-green-100 border border-gray-300 text-center px-4">
+                        <TableRow className=" rounded-md">
+                          <TableHead className="w-[100px] border border-gray-300 text-center px-4 whitespace-nowrap ">
+                            S/L
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Buyer
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Style
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            PO
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Color
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Size
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Wo Qty
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Input Qty
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Production Qty
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Delivered Qty
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Ready for Delivery
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Delivery Qty
+                          </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Parts
+                          </TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {detailsData?.map((item, index) => (
+                          <TableRow key={Math.random() + index} className={`odd:bg-white even:bg-gray-50`}>
+                            <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
+                              {index + 1}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4  text-center">
+                              {item.BUYER ? item?.BUYER : item?.OS_BUYER}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.STYLE ? item?.STYLE : item?.OS_STYLE}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.PO_NO ? item?.PO_NO : item?.OS_PO_NO}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.COLOR}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.SIZE}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.WO_QTY}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.RCV_QTY}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.PRODUCTION_QTY}
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.DELIVERED_QTY}
+                            </TableCell>
+
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {Number(item.PRODUCTION_QTY) - Number(item.DELIVERED_QTY)}
+                            </TableCell>
+
+                            <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
+                              <input
+                                type="number"
+                                className="w-full text-center text-sm border border-gray-300 rounded p-1"
+                                value={item.DELIVERY_QTY}
+                                onBlur={(e) => {
+                                  const updatedData = [...detailsData];
+
+                                  const rcvQty = item.RCV_QTY || 0;
+                                  const deliveryQty = Number(e.target.value);
+                                  if (deliveryQty > rcvQty) {
+                                    toast.error("Delivery Qty cannot be greater than rcv Qty");
+                                    return;
+                                  }
+
+                                  updatedData[index] = {
+                                    ...updatedData[index],
+                                    DELIVERY_QTY: Number(e.target.value),
+                                  };
+                                  setdetailsData(updatedData);
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell className="border border-gray-300 px-4 text-center ">
+                              {item.PATRS}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                  <div className={cn("flex justify-between mt-4")}>
+                    <div className="flex gap-2">
+                      <Button
+                        type="submit"
+                        disabled={mutation.isPending}
+                        className={cn(
+                          "w-24",
+                          pageAction === PageAction.view ? "hidden" : " "
+                        )}
+                        variant={
+                          pageAction === PageAction.delete ? "destructive" : "default"
+                        }
+                      >
+                        {pageAction === PageAction.add
+                          ? "Save"
+                          : pageAction === PageAction.edit
+                            ? "Update"
+                            : "Delete"}
+                      </Button>
+                    </div>
+
+                    {pageAction !== PageAction.add && (
+                      <Button
+                        type="button"
+                        disabled={mutation.isPending}
+                        onClick={() =>
+                          window.open(
+                            `../../../../report/embellishment/embellishment-delivery-report?id=${data?.ID}`,
+                            "_blank"
+                          )
+                        }
+                        variant="default"
+                        className={cn("w-24")}
+                      >
+                        Show
+                      </Button>
                     )}
-                    variant={
-                      pageAction === PageAction.delete ? "destructive" : "default"
-                    }
-                  >
-                    {pageAction === PageAction.add
-                      ? "Save"
-                      : pageAction === PageAction.edit
-                        ? "Update"
-                        : "Delete"}
-                  </Button>
-                  {/* <Button
+
+                    <Button
                       type="reset"
                       disabled={mutation.isPending}
-                      onClick={() => {
-                        form.reset();
-                        form.clearErrors();
-                      }}
-                      variant={"destructive"}
-                      className={cn(
-                        "w-24",
-                        pageAction === PageAction.view ? "hidden" : "",
-                        pageAction === PageAction.delete ? "hidden" : ""
-                      )}
+                      onClick={() =>
+                        location.pathname.includes("win/")
+                          ? navigator("/win/printing-embroidery/print-emb-delivery")
+                          : navigator("/dashboard/printing-embroidery/print-emb-delivery")
+                      }
+                      variant={"outline"}
+                      className={cn("w-24")}
                     >
-                      Cancel
-                    </Button> */}
+                      Back
+                    </Button>
+                  </div>
                 </div>
-
-                {pageAction !== PageAction.add && (
-                  <Button
-                    type="button"
-                    disabled={mutation.isPending}
-                    onClick={() =>
-                      window.open(
-                        `../../../../report/embellishment/embellishment-delivery-report?id=${data?.ID}`,
-                        "_blank"
-                      )
-                    }
-                    variant="default"
-                    className={cn("w-24")}
-                  >
-                    Show
-                  </Button>
-                )}
-
-                <Button
-                  type="reset"
-                  disabled={mutation.isPending}
-                  onClick={() =>
-                    location.pathname.includes("win/")
-                      ? navigator("/win/printing-embroidery/print-emb-delivery")
-                      : navigator("/dashboard/printing-embroidery/print-emb-delivery")
-                  }
-                  variant={"outline"}
-                  className={cn("w-24")}
-                >
-                  Back
-                </Button>
               </div>
+
             </form>
           </Form>
         </div>

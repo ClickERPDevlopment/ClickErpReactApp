@@ -6,10 +6,12 @@ function ReportTable({
   data,
   firstHeader,
   uniqueItemNumber,
+  dataLength
 }: {
   data: OperationBulletinReportType[];
   firstHeader: string[] | null;
   uniqueItemNumber?: number;
+  dataLength?: number;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
@@ -51,11 +53,12 @@ function ReportTable({
   const totalAllottedMP = data.reduce((acc, item) => acc + item.ALLOTTEDMP, 0);
   const totalPlanWS = data.reduce((acc, item) => acc + Number(item.PLANWS), 0);
 
+
   return (
     <>
       {uniqueItemNumber && uniqueItemNumber > 1 && (
         <tr className="font-bold">
-          <td colSpan={10} className="border border-gray-950 p-0.5 text-center">{data[0]?.SECTIONNAME}</td>
+          <td colSpan={10} className="border border-gray-950 p-0.1 text-center">{data[0]?.SECTIONNAME}</td>
         </tr>
       )}
 
@@ -63,20 +66,20 @@ function ReportTable({
         <ReportSubgroup
           key={key}
           data={groupedByDate[key].items}
-          index={index}
+          index={index + (dataLength || 0)}
           firstHeader={firstHeader}
         ></ReportSubgroup>
       ))}
-      <tr className="font-bold">
-        <td colSpan={2} className="border border-gray-950 p-0.5 text-center">Total</td>
-        <td className="border border-gray-950 p-0.5">{totalSMV.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{Number(totalSMV * 60)?.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5"></td>
-        <td className="border border-gray-950 p-0.5">{totalRequiredMP.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{totalAllottedMP.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{(totalAllottedMP * data[0]?.CAPACITYHR)?.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{totalPlanWS.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5"></td>
+      <tr className="font-bold" style={{ fontSize: "12px" }}>
+        <td colSpan={3} className="border border-gray-950 p-0.1 text-center">Total</td>
+        <td className="border border-gray-950 p-0.1">{totalSMV.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1">{Math.round(Number(totalSMV * 60))}</td>
+        <td className="border border-gray-950 p-0.1"></td>
+        <td className="border border-gray-950 p-0.1">{totalRequiredMP.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.1">{totalAllottedMP.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.1">{Math.round(totalAllottedMP * data[0]?.CAPACITYHR)}</td>
+        <td className="border border-gray-950 p-0.1">{totalPlanWS.toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.1"></td>
       </tr>
     </>
   );

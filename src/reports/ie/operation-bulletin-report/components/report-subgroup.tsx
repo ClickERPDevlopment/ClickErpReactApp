@@ -1,7 +1,8 @@
 import { OperationBulletinReportType } from "../operation-bulletin-report-type";
 
 function ReportSubgroup({
-  data
+  data,
+  index
 }: {
   data: OperationBulletinReportType[];
   firstHeader: string[] | null;
@@ -16,17 +17,18 @@ function ReportSubgroup({
 
   return (
     <>
-      <tr style={{ fontSize: "12px" }} className="font-bold">
-        <td className="border border-gray-950 p-0.5">{data[0]?.OPERATIONNAME}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.MACHINENAME}</td>
-        <td className="border border-gray-950 p-0.5">{totalSMV}</td>
-        <td className="border border-gray-950 p-0.5">{Number(totalSMV * 60)?.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.CAPACITYHR}</td>
-        <td className="border border-gray-950 p-0.5">{totalRequiredMP}</td>
-        <td className="border border-gray-950 p-0.5">{totalAllottedMP}</td>
-        <td className="border border-gray-950 p-0.5">{(totalAllottedMP * data[0]?.CAPACITYHR)?.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{totalPlanWS}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.REMARKS}</td>
+      <tr style={{ fontSize: "12px" }} className="font-light">
+        <td className="border border-gray-950 p-0.1">{index + 1}</td>
+        <td className="border border-gray-950 p-0.1">{data[0]?.OPERATIONNAME}</td>
+        <td className="border border-gray-950 p-0.1">{data[0]?.MACHINENAME}</td>
+        <td className="border border-gray-950 p-0.1">{totalSMV.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1">{Math.round(Number(totalSMV * 60))}</td>
+        <td className="border border-gray-950 p-0.1">{data[0]?.CAPACITYHR}</td>
+        <td className="border border-gray-950 p-0.1">{totalRequiredMP}</td>
+        <td className="border border-gray-950 p-0.1">{totalAllottedMP}</td>
+        <td className="border border-gray-950 p-0.1">{Math.round(totalAllottedMP * data[0]?.CAPACITYHR)}</td>
+        <td className="border border-gray-950 p-0.1">{totalPlanWS}</td>
+        <td className="border border-gray-950 p-0.1">{data[0]?.REMARKS}</td>
       </tr>
     </>
   );

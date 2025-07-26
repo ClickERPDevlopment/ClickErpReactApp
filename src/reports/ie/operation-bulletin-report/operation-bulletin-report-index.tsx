@@ -18,6 +18,7 @@ import OperationBulletinMCSummary from "./operation-bulletin-mc-summary/operatio
 import ReportHeader from "./components/report-header";
 import ReportFooter from "./components/report-footer";
 import moment from "moment";
+import ReportChart from "./components/report-chart";
 
 function OperationBulletinReport() {
 
@@ -170,15 +171,15 @@ function OperationBulletinReport() {
         <div>
           <ReportHeader data={bulletinData} />
         </div>
-        <div className="flex justify-between gap-3 mt-3">
+        <div className="flex justify-between gap-3 mt-1">
           <div className="w-[40%] ">
             <table className="border-collapse border border-gray-300  w-[100%] mt-3">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
               </thead>
               <tbody>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Layout Date</td>
-                  <td className="border border-gray-950 p-0.5">
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Layout Date</td>
+                  <td className="border border-gray-950 p-0.1">
                     {bulletinSummaryData[0]?.LAYOUT_DATE &&
                       moment(bulletinSummaryData[0].LAYOUT_DATE).isAfter('1901-01-01')
                       ? moment(bulletinSummaryData[0].LAYOUT_DATE).format("DD-MMM-YY")
@@ -186,20 +187,20 @@ function OperationBulletinReport() {
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Buyer</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.BUYER_NAME}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Buyer</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.BUYER_NAME}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Style</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.STYLENO}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Style</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.STYLENO}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Sample Type</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.SAMPLE_TYPE}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Sample Type</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.SAMPLE_TYPE}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Sample Date</td>
-                  <td className="border border-gray-950 p-0.5">
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Sample Date</td>
+                  <td className="border border-gray-950 p-0.1">
                     {bulletinSummaryData[0]?.SAMPLE_DATE &&
                       moment(bulletinSummaryData[0].SAMPLE_DATE).isAfter('1901-01-01')
                       ? moment(bulletinSummaryData[0].SAMPLE_DATE).format("DD-MMM-YY")
@@ -207,20 +208,20 @@ function OperationBulletinReport() {
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Tr 100% Eff</td>
-                  <td className="border border-gray-950 p-0.5">{(bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV} %</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Tr 100% Eff</td>
+                  <td className="border border-gray-950 p-0.1">{(bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV} %</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Item</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.ITEMTYPE}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Item</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.ITEMTYPE}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Main Fabric</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.MAIN_FABRIC}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Main Fabric</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.MAIN_FABRIC}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>GSM</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.GSM}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>GSM</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.GSM}</td>
                 </tr>
               </tbody>
             </table>
@@ -240,60 +241,60 @@ function OperationBulletinReport() {
               </thead>
               <tbody>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>OP</td>
-                  <td className="border border-gray-950 p-0.5" >
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>OP</td>
+                  <td className="border border-gray-950 p-0.1" >
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.OP, 0)
                     }
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>HP</td>
-                  <td className="border border-gray-950 p-0.5" >
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>HP</td>
+                  <td className="border border-gray-950 p-0.1" >
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.HLP, 0)
                     }
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>IR</td>
-                  <td className="border border-gray-950 p-0.5">
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>IR</td>
+                  <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.IR, 0)
                     }
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>TMP</td>
-                  <td className="border border-gray-950 p-0.5">
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TMP</td>
+                  <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.OP + item.HLP + item.IR, 0)
                     }
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Total SMV</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.TOTALSMV}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Total SMV</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.TOTALSMV}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Target/Hr</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.TARGERPERHOUR}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Target/Hr</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.TARGERPERHOUR}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>Target Effi.</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinSummaryData[0]?.EFFICIENCY}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Target Effi.</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.EFFICIENCY}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>TT OP SMV</td>
-                  <td className="border border-gray-950 p-0.5">
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TT OP SMV</td>
+                  <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.SMVM, 0)
                     }
                   </td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5" style={{ backgroundColor: "#A7F3D0" }}>TT HP + IM SMV</td>
-                  <td className="border border-gray-950 p-0.5">
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TT HP + IM SMV</td>
+                  <td className="border border-gray-950 p-0.1">
                     {
                       bulletinSummaryData.reduce((acc, item) => acc + item.SMVH + item.SMVI, 0)
                     }
@@ -357,21 +358,21 @@ function OperationBulletinReport() {
             <table className="border-collapse border border-gray-300  w-[100%] mt-3">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
                 <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-start">
-                  <th colSpan={2} className="border border-gray-950 p-0.5">Summary View</th>
+                  <th colSpan={2} className="border border-gray-950 p-0.1">Summary View</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5">Total SMV</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinData[0]?.TOTALSMV}</td>
+                  <td className="border border-gray-950 p-0.1">Total SMV</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinData[0]?.TOTALSMV}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5">Total Req. MP</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinData[0]?.TOTALREQUIREMP}</td>
+                  <td className="border border-gray-950 p-0.1">Total Req. MP</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinData[0]?.TOTALREQUIREMP}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.5">Total All. MP</td>
-                  <td className="border border-gray-950 p-0.5">{bulletinData[0]?.TOTALALLOTTEDMP}</td>
+                  <td className="border border-gray-950 p-0.1">Total All. MP</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinData[0]?.TOTALALLOTTEDMP}</td>
                 </tr>
               </tbody>
             </table>
@@ -390,6 +391,9 @@ function OperationBulletinReport() {
         {/* <div>
           <OperationBulletinNameRemarks data={bulletinNameRemarksData} />
         </div> */}
+        <div>
+          <ReportChart data={bulletinData}></ReportChart>
+        </div>
         <div>
           <ReportFooter data={bulletinData}></ReportFooter>
         </div>
