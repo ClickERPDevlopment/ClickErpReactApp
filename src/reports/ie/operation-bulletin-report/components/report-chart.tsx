@@ -16,14 +16,45 @@ function ReportChart({
 }: {
   data: OperationBulletinReportType[];
 }) {
-  const chartData = data.map((item, index) => ({
+
+
+
+  const groupedDataMap = new Map<
+    string,
+    {
+      operationName: string;
+      totalAllottedMP: number;
+      capacityHr: number;
+      efficiency: number;
+    }
+  >();
+
+  data.forEach((item) => {
+    const key = item.OPERATIONNAME;
+
+    if (!groupedDataMap.has(key)) {
+      groupedDataMap.set(key, {
+        operationName: item.OPERATIONNAME,
+        totalAllottedMP: item.ALLOTTEDMP,
+        capacityHr: item.CAPACITYHR,
+        efficiency: item.EFFICIENCY,
+      });
+    } else {
+      const existing = groupedDataMap.get(key)!;
+      existing.totalAllottedMP += item.ALLOTTEDMP;
+    }
+  });
+
+  console.log("Grouped Data Map:", groupedDataMap);
+
+  const chartData = Array.from(groupedDataMap.values()).map((item, index) => ({
     index: index + 1,
-    operationName: item.OPERATIONNAME,
-    capacityUtilized: Math.round(item.TOTALALLOTTEDMP * item.CAPACITYHR) * 2,
-    // capacityUtilized: Math.random() * 100,
-    efficiency: item.EFFICIENCY,
-    // efficiency: 50,
+    operationName: item.operationName,
+    capacityUtilized: Math.round(item.totalAllottedMP * item.capacityHr),
+    efficiency: item.efficiency,
   }));
+
+
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -32,7 +63,7 @@ function ReportChart({
         <div className="bg-white border p-2 rounded shadow text-sm">
           <p><strong>Operation:</strong> {dataPoint.operationName}</p>
           <p><strong>Capacity Utilized:</strong> {dataPoint.capacityUtilized}</p>
-          <p><strong>Efficiency:</strong> {dataPoint.efficiency}%</p>
+          <p><strong>Efficiency:</strong> {dataPoint.efficiency}</p>
         </div>
       );
     }

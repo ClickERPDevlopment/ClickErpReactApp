@@ -8,7 +8,6 @@ function Report({
   data: OperationBulletinReportType[];
 }) {
 
-
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
@@ -65,6 +64,7 @@ function Report({
   const totalPlanWS = data.reduce((acc, item) => acc + Number(item.PLANWS), 0);
 
   let dataLength = 0;
+
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
