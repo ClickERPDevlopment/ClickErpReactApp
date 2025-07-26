@@ -397,7 +397,8 @@ export default function PrintEmbProductionForm({
 
     const data = masterData;
 
-    data.PrintEmbProductionDetails = detailsData || [];
+    data.PrintEmbProductionDetails = (detailsData || []).filter(item => (item.QC_PASSED_QTY ?? 0) > 0);
+
 
     mutation.mutate(data, {
       onSuccess: (_response) => {

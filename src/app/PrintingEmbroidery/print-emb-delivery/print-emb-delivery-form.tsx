@@ -621,7 +621,7 @@ export default function PrintEmbDeliveryForm({
                         Wo Qty
                       </TableHead>
                       <TableHead className="border border-gray-300 text-center px-4">
-                        Rcv Qty
+                        Input Qty
                       </TableHead>
                       <TableHead className="border border-gray-300 text-center px-4">
                         Production Qty
