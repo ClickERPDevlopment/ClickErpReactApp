@@ -35,10 +35,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PageAction } from "@/utility/page-actions";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
 import { PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
+import { usePrintEmbProductionStore } from "@/store/app-store";
 
 export function PrintEmbProductionTable({
   data,
@@ -55,27 +56,7 @@ export function PrintEmbProductionTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const [searchParams] = useSearchParams();
-
-
-  const [pagination, setPagination] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedPage = localStorage.getItem("printEmbProdPage");
-      return {
-        pageIndex: savedPage ? parseInt(savedPage) : 0,
-        pageSize: 10,
-      };
-    }
-    return { pageIndex: Number(searchParams.get("page")) || 0, pageSize: 10 };
-  });
-
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("printEmbProdPage", pagination.pageIndex.toString());
-    }
-  }, [pagination.pageIndex]);
-
-
+  const { pageIndex, pageSize, setPageIndex } = usePrintEmbProductionStore();
 
 
   const columns: ColumnDef<PrintEmbProductionMasterType>[] = [
@@ -166,15 +147,13 @@ export function PrintEmbProductionTable({
                 View
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() =>
-                  location.pathname.includes("win/")
-                    ? navigate(
-                      `/win/printing-embroidery/print-emp-production/${PageAction.edit}/${item.ID}`
-                    )
-                    : navigate(
-                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.edit}/${item.ID}`
-                    )
-                }
+                onClick={() => {
+                  const basePath = location.pathname.includes("win/")
+                    ? "/win/printing-embroidery/print-emp-production"
+                    : "/dashboard/printing-embroidery/print-emp-production";
+
+                  navigate(`${basePath}/${PageAction.edit}/${item.ID}`);
+                }}
               >
                 Edit
               </DropdownMenuItem>
@@ -209,13 +188,20 @@ export function PrintEmbProductionTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onPaginationChange: setPagination,
+    onPaginationChange: (updater) => {
+      if (typeof updater === 'function') {
+        const newState = updater({ pageIndex, pageSize });
+        setPageIndex(newState.pageIndex);
+      } else {
+        setPageIndex(updater.pageIndex);
+      }
+    },
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      pagination,
+      pagination: { pageIndex, pageSize },
     },
   });
 

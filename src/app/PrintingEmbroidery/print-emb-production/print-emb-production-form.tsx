@@ -224,14 +224,11 @@ export default function PrintEmbProductionForm({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
 
-      const currentPage = sessionStorage.getItem("printEmbProdPage") || "0";
+      const basePath = location.pathname.includes("win/")
+        ? "/win/printing-embroidery/print-emp-production"
+        : "/dashboard/printing-embroidery/print-emp-production";
 
-      setTimeout(() => {
-        sessionStorage.setItem("printEmbProdPage", currentPage);
-        location.pathname.includes("win/")
-          ? navigator("/win/printing-embroidery/print-emp-production?page=" + currentPage)
-          : navigator("/dashboard/printing-embroidery/print-emp-production?page=" + currentPage);
-      }, 2000);
+      navigator(`${basePath}`);
 
     },
     onError: (err: AxiosError) => {
