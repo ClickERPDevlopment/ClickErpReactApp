@@ -214,7 +214,9 @@ function OperationBulletinReport() {
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Item</td>
-                  <td className="border border-gray-950 p-0.1">{bulletinData[0]?.ITEMTYPE}</td>
+                  <td className="border border-gray-950 p-0.1">
+                    {[...new Set(bulletinData.map(item => item.ITEMTYPE))].join(', ')}
+                  </td>
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Main Fabric</td>
