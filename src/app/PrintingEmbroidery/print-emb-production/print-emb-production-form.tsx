@@ -223,12 +223,17 @@ export default function PrintEmbProductionForm({
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
+      const params = new URLSearchParams(location.search);
+      const index = params.get("pageIndex");
 
       const basePath = location.pathname.includes("win/")
         ? "/win/printing-embroidery/print-emp-production"
         : "/dashboard/printing-embroidery/print-emp-production";
 
-      navigator(`${basePath}`);
+      setTimeout(() => {
+        navigator(`${basePath}?pageIndex=${index || 0}`);
+      }, 2000);
+
 
     },
     onError: (err: AxiosError) => {

@@ -57,6 +57,27 @@ export function PrintEmbProductionTable({
   const [rowSelection, setRowSelection] = React.useState({});
 
   const { pageIndex, pageSize, setPageIndex } = usePrintEmbProductionStore();
+  const params = new URLSearchParams(location.search);
+  const index = params.get("pageIndex");
+
+  React.useEffect(() => {
+
+    if (index && Number(index) > 0) {
+      table.setPageIndex(Number(index));
+    }
+
+  }, []);
+
+  React.useEffect(() => {
+
+    setTimeout(() => {
+      if (index && Number(index) > 0) {
+        table.setPageIndex(Number(index));
+      }
+    }, 2000);
+
+  }, [data]);
+
 
 
   const columns: ColumnDef<PrintEmbProductionMasterType>[] = [
@@ -152,7 +173,7 @@ export function PrintEmbProductionTable({
                     ? "/win/printing-embroidery/print-emp-production"
                     : "/dashboard/printing-embroidery/print-emp-production";
 
-                  navigate(`${basePath}/${PageAction.edit}/${item.ID}`);
+                  navigate(`${basePath}/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`);
                 }}
               >
                 Edit
@@ -308,7 +329,12 @@ export function PrintEmbProductionTable({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
+            onClick={() => {
+              table.previousPage();
+              const currentUrl = new URL(window.location.href);
+              currentUrl.searchParams.set("pageIndex", pageIndex.toString());
+              window.history.replaceState({}, '', currentUrl.toString());
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             Previous
@@ -316,7 +342,14 @@ export function PrintEmbProductionTable({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage();
+              const currentUrl = new URL(window.location.href);
+              currentUrl.searchParams.set("pageIndex", pageIndex.toString());
+              window.history.replaceState({}, '', currentUrl.toString());
+            }
+
+            }
             disabled={!table.getCanNextPage()}
           >
             Next
