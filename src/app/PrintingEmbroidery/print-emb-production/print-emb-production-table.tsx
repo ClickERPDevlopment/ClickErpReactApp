@@ -35,7 +35,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PageAction } from "@/utility/page-actions";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
 import { PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
@@ -55,20 +55,23 @@ export function PrintEmbProductionTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const [searchParams] = useSearchParams();
+
+
   const [pagination, setPagination] = React.useState(() => {
     if (typeof window !== 'undefined') {
-      const savedPage = sessionStorage.getItem("printEmbProdPage");
+      const savedPage = localStorage.getItem("printEmbProdPage");
       return {
         pageIndex: savedPage ? parseInt(savedPage) : 0,
         pageSize: 10,
       };
     }
-    return { pageIndex: 0, pageSize: 10 };
+    return { pageIndex: Number(searchParams.get("page")) || 0, pageSize: 10 };
   });
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem("printEmbProdPage", pagination.pageIndex.toString());
+      localStorage.setItem("printEmbProdPage", pagination.pageIndex.toString());
     }
   }, [pagination.pageIndex]);
 

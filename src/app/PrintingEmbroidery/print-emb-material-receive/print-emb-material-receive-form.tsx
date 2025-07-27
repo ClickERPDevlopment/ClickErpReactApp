@@ -222,8 +222,8 @@ export default function PrintEmbMaterialReceiveForm({
 
 
   const [color, setColor] = useState<IColor[]>([]);
-  const GetColorByBuyer = async (woId: number, styleId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+  const GetColor = async (woId: number, poId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllColorByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + searchData.STYLE_ID + "&poId=" + poId);
     setColor(response?.data);
   }
 
@@ -279,7 +279,7 @@ export default function PrintEmbMaterialReceiveForm({
         masterForm.setValue("WORKORDER_RECEIVE_ID", workOrder.ID);
         masterForm.setValue("WORKORDER_RECEIVE_NO", workOrder.WORK_ORDER_NO);
 
-        getWorkOrderRcvInfo(workOrder.ID);
+        getWorkOrderRcvInfo(workOrder.ID, poId);
       }
 
       setWorkOrderRcv(data);
@@ -299,7 +299,7 @@ export default function PrintEmbMaterialReceiveForm({
     masterForm.setValue("MATERIAL_RECEIVE_NO", response?.data.ReceiveNo);
   }
 
-  const getWorkOrderRcvInfo = async (woRcvId: number) => {
+  const getWorkOrderRcvInfo = async (woRcvId: number, poId: number) => {
     let response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveMasterData?woRcvId=" + woRcvId);
 
     setMasterData(prev => ({ ...prev, SUPPLIER_ID: response?.data.SUPPLIER_ID, SUPPLIER: response?.data.SUPPLIER, EMB_CATEGORY_ID: response?.data.EMB_CATEGORY_ID, EMB_CATEGORY: response?.data.EMB_CATEGORY, WORKORDER_ID: response?.data.WORKORDER_ID, WORKORDER_NO: response?.data.WORKORDER_NO }));
@@ -320,7 +320,7 @@ export default function PrintEmbMaterialReceiveForm({
 
     getEmbSendNo(response?.data.WORKORDER_NO);
 
-    response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
+    response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${poId}`);
     setdetailsData(response?.data);
   }
 
@@ -815,7 +815,7 @@ export default function PrintEmbMaterialReceiveForm({
                                           }));
                                           setOpenWorkOrderRcv(false);
                                           getBuyerData(workOrderData.ID)
-                                          getWorkOrderRcvInfo(workOrderData.ID)
+                                          getWorkOrderRcvInfo(workOrderData.ID, searchData.PO_ID)
                                         }}
                                       >
                                         {workOrderData.WORK_ORDER_NO}
@@ -1040,7 +1040,7 @@ export default function PrintEmbMaterialReceiveForm({
                                                 BUYER_ID: Number(buyer?.Id),
                                                 BUYER: buyer?.NAME,
                                               }));
-                                              getStyleByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(buyer?.Id));
+                                              getStyleByBuyer(Number(0), Number(buyer?.Id));
                                               setOpenBuyer(false);
                                             }}
                                           >
@@ -1124,8 +1124,7 @@ export default function PrintEmbMaterialReceiveForm({
                                                 STYLE: item.Styleno,
                                               }));
                                               setOpenStyle(false);
-                                              GetColorByBuyer(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
-                                              getPOByStyle(Number(masterData.WORKORDER_RECEIVE_ID), Number(item?.Id));
+                                              getPOByStyle(Number(0), Number(item?.Id));
                                             }}
                                           >
                                             {item.Styleno}
@@ -1206,6 +1205,7 @@ export default function PrintEmbMaterialReceiveForm({
                                                 PO_ID: Number(item.Id),
                                                 PO: item.Pono,
                                               }));
+                                              GetColor(Number(0), Number(item?.Id));
                                               getWorkOrderRcv(masterData.WORKORDER_TYPE_ID, Number(item.Id));
                                               setOpenPO(false);
                                             }}
