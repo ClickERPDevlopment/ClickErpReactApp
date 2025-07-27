@@ -46,6 +46,7 @@ function OperationBulletinReport() {
   const sectionId = searchParams.get("sectionId") || "0";
   const styleId = searchParams.get("styleId") || "0";
   const learningCurveId = searchParams.get("learningCurveId") || "0";
+  const isWithChart = searchParams.get("isWithChart") === "True";
 
 
   const api = useApiUrl();
@@ -394,7 +395,7 @@ function OperationBulletinReport() {
           <OperationBulletinNameRemarks data={bulletinNameRemarksData} />
         </div> */}
         <div>
-          <ReportChart data={bulletinData}></ReportChart>
+          {isWithChart && <ReportChart data={bulletinData}></ReportChart>}
         </div>
         <div>
           <ReportFooter data={bulletinData}></ReportFooter>
