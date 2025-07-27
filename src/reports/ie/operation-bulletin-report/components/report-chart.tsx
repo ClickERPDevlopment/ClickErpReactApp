@@ -71,14 +71,25 @@ function ReportChart({
   };
 
   const generateLineChart = (title: string, chartData: any[]) => (
-    <div className="my-1 bg-white p-2">
+    <div className="my-1 bg-white">
       <h2 className="text-base font-semibold text-center mb-2">{title}</h2>
-      <ResponsiveContainer width="100%" height={100}>
+      <ResponsiveContainer width="100%" height={120}>
         <LineChart
           data={chartData}
           margin={{ top: 5, right: 10, left: 0, bottom: 0 }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <defs>
+            <linearGradient id="colorProcess" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#4B0082" stopOpacity={0.8} />
+              <stop offset="100%" stopColor="#4B0082" stopOpacity={0.1} />
+            </linearGradient>
+            <linearGradient id="colorTarget" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#006400" stopOpacity={0.8} />
+              <stop offset="100%" stopColor="#006400" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
+
+          <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
           <XAxis
             dataKey="index"
             label={{
@@ -92,24 +103,32 @@ function ReportChart({
           <YAxis tick={{ fontSize: 10 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend wrapperStyle={{ fontSize: 10 }} />
+
           <Line
             type="monotone"
             dataKey="capacityUtilized"
-            stroke="#8884d8"
+            stroke="#4B0082"
+            strokeWidth={1.5}
             name="Process Target"
             dot={false}
+            fillOpacity={1}
+            fill="url(#colorProcess)"
           />
           <Line
             type="monotone"
             dataKey="efficiency"
-            stroke="#82ca9d"
+            stroke="#006400"
+            strokeWidth={1.5}
             name="Target"
             dot={false}
+            fillOpacity={1}
+            fill="url(#colorTarget)"
           />
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
+
 
 
   return (

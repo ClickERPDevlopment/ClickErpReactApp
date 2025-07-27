@@ -9,16 +9,14 @@ function ReportFooter({ }: { data: OperationBulletinReportType[] }) {
           <tr>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
           </tr>
           <tr>
-            <td><span className='pb-1 border-t border-gray-900 px-2'>Line Chief</span></td>
-            <td><span className='pb-1 border-t border-gray-900 px-2'>Maintenance</span></td>
+            {/* <td><span className='pb-1 border-t border-gray-900 px-2'>Line Chief</span></td> */}
+            {/* <td><span className='pb-1 border-t border-gray-900 px-2'>Maintenance</span></td> */}
             <td><span className='pb-1 border-t border-gray-900 px-2'>IE</span></td>
-            <td><span className='pb-1 border-t border-gray-900 px-2'>AGM/GM</span></td>
-            <td><span className='pb-1 border-t border-gray-900 px-2'>Planning</span></td>
+            <td><span className='pb-1 border-t border-gray-900 px-2'>Head of IE</span></td>
+            {/* <td><span className='pb-1 border-t border-gray-900 px-2'>AGM/GM</span></td> */}
+            {/* <td><span className='pb-1 border-t border-gray-900 px-2'>Planning</span></td> */}
           </tr>
         </tbody>
       </table>

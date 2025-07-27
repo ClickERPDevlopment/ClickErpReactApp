@@ -173,7 +173,7 @@ function OperationBulletinReport() {
           <ReportHeader data={bulletinData} />
         </div>
         <div className="flex justify-between gap-3 mt-1">
-          <div className="w-[40%] ">
+          <div className="w-[35%] ">
             <table className="border-collapse border border-gray-300  w-[100%] mt-3">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
               </thead>
@@ -214,7 +214,7 @@ function OperationBulletinReport() {
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Item</td>
-                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.ITEMTYPE}</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinData[0]?.ITEMTYPE}</td>
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Main Fabric</td>
@@ -227,7 +227,7 @@ function OperationBulletinReport() {
               </tbody>
             </table>
           </div>
-          <div className="w-[20%]">
+          <div className="w-[30%]">
             <div className="w-[100%] text-end ms-auto">
               {styleImage && (
                 <img
@@ -238,7 +238,7 @@ function OperationBulletinReport() {
               )}
             </div>
           </div>
-          <div className="w-[40%]">
+          <div className="w-[35%]">
             <table className="border-collapse border border-gray-300  w-[100%] mt-3">
               <thead className="sticky top-0 print:static bg-white print:bg-transparent">
               </thead>
@@ -284,8 +284,8 @@ function OperationBulletinReport() {
                   <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.TARGERPERHOUR}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Target Effi.</td>
-                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.EFFICIENCY}</td>
+                  <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Target Effi.(%)</td>
+                  <td className="border border-gray-950 p-0.1">{Math.round(bulletinSummaryData[0]?.EFFICIENCY)}</td>
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>TT Operator SMV</td>
