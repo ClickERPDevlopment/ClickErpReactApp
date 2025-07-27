@@ -18,7 +18,7 @@ function ReportSubgroup({
     <>
       <tr style={{ fontSize: "12px" }} className="font-light">
         <td className="border border-gray-950 p-0.1">{index + 1}</td>
-        <td className="border border-gray-950 p-0.1">{data[0]?.OPERATIONNAME}</td>
+        <td className="border border-gray-950 p-0.1 font-bold">{data[0]?.OPERATIONNAME}</td>
         <td className="border border-gray-950 p-0.1">{data[0]?.MACHINENAME}</td>
         <td className="border border-gray-950 p-0.1 text-center font-bold">{totalSMV.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1 text-center">{Math.round(Number(totalSMV * 60))}</td>

@@ -97,6 +97,8 @@ function ReportChart({
               position: "insideBottom",
               offset: -2,
               fontSize: 10,
+              fontWeight: "bold",
+              color: "#0000",
             }}
             tick={{ fontSize: 10 }}
           />

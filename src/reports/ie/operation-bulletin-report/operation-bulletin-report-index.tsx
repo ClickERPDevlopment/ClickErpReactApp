@@ -229,13 +229,13 @@ function OperationBulletinReport() {
               </tbody>
             </table>
           </div>
-          <div className="w-[30%]">
-            <div className="w-[100%] text-end ms-auto">
+          <div className="w-[30%]]">
+            <div className="w-[100%] text-center ms-auto">
               {styleImage && (
                 <img
                   src={styleImage}
                   alt="Style Image"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-cover max-h-[200px]"
                 />
               )}
             </div>
