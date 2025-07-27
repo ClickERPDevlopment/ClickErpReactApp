@@ -43,7 +43,7 @@ function ReportTable({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["OPERATIONNAME", "MACHINENAME", "CAPACITYHR", "REMARKS"]);
+    groupedByDate = groupBy(data, ["OPERATIONNAME", "MACHINENAME", "CAPACITYHR", "REMARKS", "GUIDEFOLDER", "ATTACHMENT"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -51,7 +51,6 @@ function ReportTable({
   const totalSMV = data.reduce((acc, item) => acc + Number(item.SMV), 0);
   const totalRequiredMP = data.reduce((acc, item) => acc + item.REQMP, 0);
   const totalAllottedMP = data.reduce((acc, item) => acc + item.ALLOTTEDMP, 0);
-  const totalPlanWS = data.reduce((acc, item) => acc + Number(item.PLANWS), 0);
 
 
   return (
@@ -72,13 +71,13 @@ function ReportTable({
       ))}
       <tr className="font-bold" style={{ fontSize: "12px", backgroundColor: "#A7F3D0" }}>
         <td colSpan={3} className="border border-gray-950 p-0.1 text-center">Total</td>
-        <td className="border border-gray-950 p-0.1">{totalSMV.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1">{Math.round(Number(totalSMV * 60))}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{totalSMV.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{Math.round(Number(totalSMV * 60))}</td>
         <td className="border border-gray-950 p-0.1"></td>
-        <td className="border border-gray-950 p-0.1">{totalRequiredMP.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1">{totalAllottedMP.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1">{Math.round(totalAllottedMP * data[0]?.CAPACITYHR)}</td>
-        <td className="border border-gray-950 p-0.1">{totalPlanWS.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{totalRequiredMP.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{totalAllottedMP.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{Math.round(totalAllottedMP * data[0]?.CAPACITYHR)}</td>
+        <td className="border border-gray-950 p-0.1"></td>
         <td className="border border-gray-950 p-0.1"></td>
       </tr>
     </>

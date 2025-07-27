@@ -29,3 +29,18 @@ export const useAppStore = create<appStoreType>((set) => ({
   setOpenErrorDialog: (openDialog: boolean) =>
     set({ openConfirmationDialog: openDialog }),
 }));
+
+
+interface PrintEmbProductionState {
+  pageIndex: number;
+  pageSize: number;
+  setPageIndex: (index: number) => void;
+  setPageSize: (size: number) => void;
+}
+
+export const usePrintEmbProductionStore = create<PrintEmbProductionState>((set) => ({
+  pageIndex: 0,
+  pageSize: 10,
+  setPageIndex: (index) => set({ pageIndex: index }),
+  setPageSize: (size) => set({ pageSize: size }),
+}));

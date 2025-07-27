@@ -223,15 +223,17 @@ export default function PrintEmbProductionForm({
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
+      const params = new URLSearchParams(location.search);
+      const index = params.get("pageIndex");
 
-      const currentPage = sessionStorage.getItem("printEmbProdPage") || "0";
+      const basePath = location.pathname.includes("win/")
+        ? "/win/printing-embroidery/print-emp-production"
+        : "/dashboard/printing-embroidery/print-emp-production";
 
       setTimeout(() => {
-        sessionStorage.setItem("printEmbProdPage", currentPage);
-        location.pathname.includes("win/")
-          ? navigator("/win/printing-embroidery/print-emp-production?page=" + currentPage)
-          : navigator("/dashboard/printing-embroidery/print-emp-production?page=" + currentPage);
+        navigator(`${basePath}?pageIndex=${index || 0}`);
       }, 2000);
+
 
     },
     onError: (err: AxiosError) => {
