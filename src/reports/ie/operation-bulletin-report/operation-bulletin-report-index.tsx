@@ -210,7 +210,7 @@ function OperationBulletinReport() {
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Tr 100% Eff</td>
-                  <td className="border border-gray-950 p-0.1">{Math.round((bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV)} %</td>
+                  <td className="border border-gray-950 p-0.1">{Math.round((bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV)}</td>
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#A7F3D0" }}>Item</td>
