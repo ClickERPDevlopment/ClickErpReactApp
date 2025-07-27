@@ -93,7 +93,9 @@ function ReportTable({
   const othersRowSpansByYarn = getRowSpansByKey(newOthersData, "YARN");
   const othersRowSpansByFabric = getRowSpansByKey(newOthersData, "FABRIC");
 
-
+  console.log('othersRowPansByProgramNo', othersRowPansByProgramNo);
+  console.log('newOthersData', newOthersData);
+  console.log('othersKeysArray', othersKeysArray);
 
   return (
     <>
@@ -130,13 +132,14 @@ function ReportTable({
           key={key}
           data={othersGrouped[key].items}
           firstHeader={firstHeader}
-          index={index + collarCuffKeysArray.length}
+          index={index}
           rowSpansByProgramNO={othersRowPansByProgramNo}
           rowSpansByBuyer={othersRowSpansByBuyer}
           rowSpansByStyle={othersfRowSpansByStyle}
           rowSpansByYarn={othersRowSpansByYarn}
           rowSpansByFabric={othersRowSpansByFabric}
           fabricWiseTotalQtyKg={fabricWiseTotalQtyKg}
+          collarCuffDataLength={collarCuffKeysArray.length}
         ></ReportSubgroup>
       })}
     </>

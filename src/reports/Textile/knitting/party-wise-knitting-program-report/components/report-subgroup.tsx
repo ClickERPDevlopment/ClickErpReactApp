@@ -9,6 +9,7 @@ function ReportSubgroup({
   rowSpansByYarn,
   rowSpansByFabric,
   fabricWiseTotalQtyKg,
+  collarCuffDataLength,
 }: {
   data: PartyWiseKnittingProgramType[];
   firstHeader: string[] | null;
@@ -19,6 +20,7 @@ function ReportSubgroup({
   rowSpansByYarn?: number[];
   rowSpansByFabric?: number[];
   fabricWiseTotalQtyKg?: number;
+  collarCuffDataLength?: number;
 }) {
 
 
@@ -31,11 +33,11 @@ function ReportSubgroup({
   return (
     <>
       <tr style={{ fontSize: "11px" }}>
-        <td className="border border-gray-950 p-0.5">{index + 1}</td>
+        <td className="border border-gray-950 p-0.5">{index + 1 + (collarCuffDataLength ?? 0)}</td>
         {
           rowSpansByProgramNO && rowSpansByProgramNO[index] > 0 &&
           <td className="border border-gray-950 p-0.5 font-bold" rowSpan={rowSpansByProgramNO[index]}>
-            {data[0]?.KNITTING_PROGRAM_NO}
+            {data[0]?.KNITTING_PROGRAM_NO} --- {rowSpansByProgramNO[0]}
           </td>
         }
 
@@ -91,7 +93,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{totalQtyKg}</td>
         {rowSpansByFabric && rowSpansByFabric[index] > 0 && (
           <td className="border border-gray-950 p-0.5 text-center font-bold" rowSpan={rowSpansByFabric[index]}>
-            {fabricWiseTotalQtyKg}
+            {fabricWiseTotalQtyKg?.toFixed(2)}
           </td>
         )}
         <td className="border border-gray-950 p-0.5">{data[0]?.REMARKS}</td>
