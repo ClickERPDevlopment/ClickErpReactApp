@@ -37,7 +37,7 @@ function ReportSubgroup({
         {
           rowSpansByProgramNO && rowSpansByProgramNO[index] > 0 &&
           <td className="border border-gray-950 p-0.5 font-bold" rowSpan={rowSpansByProgramNO[index]}>
-            {data[0]?.KNITTING_PROGRAM_NO} --- {rowSpansByProgramNO[0]}
+            {data[0]?.KNITTING_PROGRAM_NO}
           </td>
         }
 
