@@ -1013,7 +1013,7 @@ export default function PrintEmbDeliveryForm({
                                                       COLOR_ID: Number(colorData.ID),
                                                       COLOR: colorData.COLORNAME,
                                                     }));
-                                                    getWorkOrderRcv(Number(colorData.ID));
+                                                    // getWorkOrderRcv(Number(colorData.ID));
                                                     setOpenColor(false);
                                                   }}
                                                 >
@@ -1043,6 +1043,15 @@ export default function PrintEmbDeliveryForm({
                       </div>
                     </form>
                   </Form>
+                  <div>
+                    <Button
+                      type="button"
+                      onClick={() => { getWorkOrderRcv(Number(searchData.COLOR_ID)); }}
+                      className="mt-2  mb-2"
+                    >
+                      Search
+                    </Button>
+                  </div>
                   {/* ######################### details data ################################ */}
                   <div className="max-h-[300px] overflow-y-auto border rounded-md mt-5">
                     <Table className="min-w-full rounded-md">
