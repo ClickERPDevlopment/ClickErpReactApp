@@ -405,6 +405,16 @@ export default function PrintEmbProductionForm({
 
     const data = masterData;
 
+
+    const hasZeroOrNegativeProduction = (detailsData ?? []).some(item => (item.QC_PASSED_QTY ?? 0) <= 0);
+
+    if (hasZeroOrNegativeProduction) {
+      toast.error("Production quantity must be greater than zero.");
+      return;
+    }
+
+
+
     data.PrintEmbProductionDetails = (detailsData || []).filter(item => (item.QC_PASSED_QTY ?? 0) > 0);
 
 
