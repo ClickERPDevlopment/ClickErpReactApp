@@ -158,10 +158,10 @@ export function PrintEmbProductionTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}`
+                      `/win/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
                     )
                 }
               >

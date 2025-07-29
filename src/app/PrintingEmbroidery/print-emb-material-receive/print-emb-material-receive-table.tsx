@@ -39,6 +39,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
 import { EmbMaterialReceiveMasterType } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
+import { usePrintEmbProductionStore } from "@/store/app-store";
 
 export function PrintEmbMaterialReceiveTable({
   data,
@@ -54,6 +55,30 @@ export function PrintEmbMaterialReceiveTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const { pageIndex, pageSize, setPageIndex } = usePrintEmbProductionStore();
+  const params = new URLSearchParams(location.search);
+  const index = params.get("pageIndex");
+
+
+
+  React.useEffect(() => {
+
+    if (index && Number(index) > 0) {
+      table.setPageIndex(Number(index));
+    }
+
+  }, []);
+
+  React.useEffect(() => {
+
+    setTimeout(() => {
+      if (index && Number(index) > 0) {
+        table.setPageIndex(Number(index));
+      }
+    }, 2000);
+
+  }, [data]);
+
 
   const columns: ColumnDef<EmbMaterialReceiveMasterType>[] = [
     {
@@ -129,10 +154,10 @@ export function PrintEmbMaterialReceiveTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}`
+                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
                     )
                 }
               >
@@ -144,8 +169,8 @@ export function PrintEmbMaterialReceiveTable({
                   localStorage.setItem("pageIndex", String(table.getState().pagination?.pageIndex));
 
                   const targetUrl = location.pathname.includes("win/")
-                    ? `/win/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}`
-                    : `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}`;
+                    ? `/win/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`
+                    : `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`;
 
                   navigate(targetUrl);
                 }
@@ -173,30 +198,6 @@ export function PrintEmbMaterialReceiveTable({
     },
   ];
 
-  //let pageIndex = localStorage.getItem("pageIndex") || 0;
-
-  const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
-
-  // React.useEffect(() => {
-
-  //   pageIndex = localStorage.getItem("pageIndex") || 0;
-
-  //   if (pageIndex == pagination.pageIndex) return;
-
-  //   setPagination((prev) => ({
-  //     ...prev,
-  //     pageIndex: Number(localStorage.getItem("pageIndex")) || 0,
-  //   }));
-
-  // });
-
-
-
-
   const table = useReactTable({
     data,
     columns,
@@ -208,14 +209,20 @@ export function PrintEmbMaterialReceiveTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onPaginationChange: setPagination,
-
+    onPaginationChange: (updater) => {
+      if (typeof updater === 'function') {
+        const newState = updater({ pageIndex, pageSize });
+        setPageIndex(newState.pageIndex);
+      } else {
+        setPageIndex(updater.pageIndex);
+      }
+    },
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
-      pagination: pagination,
+      pagination: { pageIndex, pageSize },
     },
 
   });
@@ -323,7 +330,12 @@ export function PrintEmbMaterialReceiveTable({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
+            onClick={() => {
+              table.previousPage();
+              const currentUrl = new URL(window.location.href);
+              currentUrl.searchParams.set("pageIndex", pageIndex.toString());
+              window.history.replaceState({}, '', currentUrl.toString());
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             Previous
@@ -331,7 +343,12 @@ export function PrintEmbMaterialReceiveTable({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage();
+              const currentUrl = new URL(window.location.href);
+              currentUrl.searchParams.set("pageIndex", pageIndex.toString());
+              window.history.replaceState({}, '', currentUrl.toString());
+            }}
             disabled={!table.getCanNextPage()}
           >
             Next

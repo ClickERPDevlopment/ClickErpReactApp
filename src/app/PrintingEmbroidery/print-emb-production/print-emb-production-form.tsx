@@ -2086,11 +2086,13 @@ export default function PrintEmbProductionForm({
                   <Button
                     type="reset"
                     disabled={mutation.isPending}
-                    onClick={() =>
+                    onClick={() => {
+                      const params = new URLSearchParams(location.search);
+                      const index = params.get("pageIndex");
                       location.pathname.includes("win/")
-                        ? navigator("/win/printing-embroidery/print-emp-production")
-                        : navigator("/dashboard/printing-embroidery/print-emp-production")
-                    }
+                        ? navigator("/win/printing-embroidery/print-emp-production?pageIndex=" + index)
+                        : navigator("/dashboard/printing-embroidery/print-emp-production?pageIndex=" + index)
+                    }}
                     variant={"outline"}
                     className={cn("w-24")}
                   >

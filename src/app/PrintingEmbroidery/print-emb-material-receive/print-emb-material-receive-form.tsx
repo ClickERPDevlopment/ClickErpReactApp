@@ -188,11 +188,18 @@ export default function PrintEmbMaterialReceiveForm({
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
+
+      const params = new URLSearchParams(location.search);
+      const index = params.get("pageIndex");
+
+      const basePath = location.pathname.includes("win/")
+        ? "/win/printing-embroidery/print-emb-material-receive"
+        : "/dashboard/printing-embroidery/print-emb-material-receive";
+
       setTimeout(() => {
-        location.pathname.includes("win/")
-          ? navigator("/win/printing-embroidery/print-emb-material-receive")
-          : navigator("/dashboard/printing-embroidery/print-emb-material-receive");
+        navigator(`${basePath}?pageIndex=${index || 0}`);
       }, 2000);
+
     },
     onError: (err: AxiosError) => {
       console.log(err.response?.data);
@@ -1554,10 +1561,15 @@ export default function PrintEmbMaterialReceiveForm({
                   <Button
                     type="reset"
                     disabled={mutation.isPending}
-                    onClick={() =>
+                    onClick={() => {
+
+                      const params = new URLSearchParams(location.search);
+                      const index = params.get("pageIndex");
+
                       location.pathname.includes("win/")
-                        ? navigator("/win/printing-embroidery/print-emb-material-receive")
-                        : navigator("/dashboard/printing-embroidery/print-emb-material-receive")
+                        ? navigator("/win/printing-embroidery/print-emb-material-receive?pageIndex=" + index)
+                        : navigator("/dashboard/printing-embroidery/print-emb-material-receive?pageIndex=" + index)
+                    }
                     }
                     variant={"outline"}
                     className={cn("w-24")}
