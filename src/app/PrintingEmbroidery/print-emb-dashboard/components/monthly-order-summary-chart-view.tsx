@@ -110,7 +110,7 @@ function MonthlyOrderSummaryChartView() {
                         <a
                           className="underline text-blue-600 hover:text-blue-800"
                           target="__blank"
-                          href={`../../report/embellishment/embellishment-daily-production-report?fromDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").format("DD-MMM-YY")}&toDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").endOf("month").format("DD-MMM-YY")}&supplierId=0&woId=0&buyerId=0&styleId=0&poId=0&typeId=0`}
+                          href={`../../report/embellishment/embellishment-daily-production-report?fromDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").format("DD-MMM-YY")}&toDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").endOf("month").format("DD-MMM-YY")}&supplierId=0&woId=0&buyerId=0&styleId=0&poId=0&typeId=3`}
                         >
                           {item.MONTH_LABEL}
                         </a>
@@ -145,7 +145,7 @@ function MonthlyOrderSummaryChartView() {
                         <a
                           className="underline text-blue-600 hover:text-blue-800"
                           target="__blank"
-                          href={`../../report/embellishment/embellishment-daily-production-report?fromDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").format("DD-MMM-YY")}&toDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").endOf("month").format("DD-MMM-YY")}&supplierId=0&woId=0&buyerId=0&styleId=0&poId=0&typeId=0`}
+                          href={`../../report/embellishment/embellishment-daily-production-report?fromDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").format("DD-MMM-YY")}&toDate=${moment("01" + item.MONTH_LABEL, "DDMMM-YY").endOf("month").format("DD-MMM-YY")}&supplierId=0&woId=0&buyerId=0&styleId=0&poId=0&typeId=4`}
                         >
                           {item.MONTH_LABEL}
                         </a>
