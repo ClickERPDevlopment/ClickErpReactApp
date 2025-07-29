@@ -39,6 +39,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
 import { PrintEmbDeliveryMasterType } from "@/actions/PrintingEmbroidery/print-emb-delivery-action";
+import { usePrintEmbDeliveryStore } from "@/store/app-store";
 
 export function PrintEmbDeliveryTable({
   data,
@@ -54,6 +55,29 @@ export function PrintEmbDeliveryTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+
+  const { pageIndex, pageSize, setPageIndex } = usePrintEmbDeliveryStore();
+  const params = new URLSearchParams(location.search);
+  const index = params.get("pageIndex");
+
+  React.useEffect(() => {
+
+    if (index && Number(index) > 0) {
+      table.setPageIndex(Number(index));
+    }
+
+  }, []);
+
+  React.useEffect(() => {
+
+    setTimeout(() => {
+      if (index && Number(index) > 0) {
+        table.setPageIndex(Number(index));
+      }
+    }, 2000);
+
+  }, [data]);
 
 
   const columns: ColumnDef<PrintEmbDeliveryMasterType>[] = [
@@ -96,15 +120,17 @@ export function PrintEmbDeliveryTable({
               </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem
+
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}`
+                      `/win/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
                     )
                 }
+
               >
                 View
               </DropdownMenuItem>
@@ -112,10 +138,10 @@ export function PrintEmbDeliveryTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}`
+                      `/win/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`
                     )
                 }
               >
@@ -152,11 +178,20 @@ export function PrintEmbDeliveryTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: (updater) => {
+      if (typeof updater === 'function') {
+        const newState = updater({ pageIndex, pageSize });
+        setPageIndex(newState.pageIndex);
+      } else {
+        setPageIndex(updater.pageIndex);
+      }
+    },
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: { pageIndex, pageSize },
     },
   });
 

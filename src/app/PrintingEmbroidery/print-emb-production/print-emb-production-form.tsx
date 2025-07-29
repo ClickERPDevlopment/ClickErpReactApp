@@ -337,7 +337,6 @@ export default function PrintEmbProductionForm({
       GetColor(response?.data[0]?.ID, poId);
       GetSizeByBuyer(response?.data[0]?.ID, styleId);
     }
-
   }
 
 

@@ -149,10 +149,16 @@ export default function PrintEmbDeliveryForm({
       queryClient.invalidateQueries({
         queryKey: [ReactQueryKey.SwtPlanningBoard, data?.ID],
       });
+
+      const params = new URLSearchParams(location.search);
+      const index = params.get("pageIndex");
+
+      const basePath = location.pathname.includes("win/")
+        ? "/win/printing-embroidery/print-emb-delivery"
+        : "/dashboard/printing-embroidery/print-emb-delivery";
+
       setTimeout(() => {
-        location.pathname.includes("win/")
-          ? navigator("/win/printing-embroidery/print-emb-delivery")
-          : navigator("/dashboard/printing-embroidery/print-emb-delivery");
+        navigator(`${basePath}?pageIndex=${index || 0}`);
       }, 2000);
     },
     onError: (err: AxiosError) => {
@@ -226,16 +232,16 @@ export default function PrintEmbDeliveryForm({
     masterForm.setValue("EMBELLISHMENT_WO", response?.data.EMBELLISHMENT_WO);
   }
 
-  const getWorkOrderRcv = async (colorId: number) => {
+  const getWorkOrderRcv = async (poId: number) => {
     try {
-      const { BUYER_ID, STYLE_ID, PO_ID } = searchData;
+      const { BUYER_ID, STYLE_ID } = searchData;
 
       const response = await axios.get(`${api.ProductionUrl}/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo`, {
         params: {
           buyerId: BUYER_ID,
           styleId: STYLE_ID,
-          poId: PO_ID,
-          colorId: colorId
+          poId: poId,
+          colorId: 0
         }
       });
 
@@ -416,6 +422,49 @@ export default function PrintEmbDeliveryForm({
 
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
   const [openSupplier, setOpenSupplier] = useState(false);
+
+
+  const handleSearch = () => {
+
+    const searchedData = detailsData?.filter((item) => {
+
+      const buyerValue = item.BUYER?.trim() || item.OS_BUYER?.trim() || '';
+
+      if (
+        searchData.BUYER &&
+        !buyerValue.toLowerCase().includes(searchData.BUYER.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const styleValue = item.STYLE?.trim() || item.OS_STYLE?.trim() || '';
+
+      if (
+        searchData.STYLE &&
+        !styleValue.toLowerCase().includes(searchData.STYLE.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const poValue = item.PO_NO?.trim() || item.OS_PO_NO?.trim() || '';
+
+      if (
+        searchData.PO &&
+        !poValue.toLowerCase().includes(searchData.PO.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const colorValue = item.COLOR || "";
+
+      if (searchData.COLOR && !colorValue.toLowerCase().includes(searchData.COLOR.toLowerCase())) {
+        return false;
+      }
+
+      return true;
+    });
+    setdetailsData(searchedData);
+  };
 
   return (
     <AppPageContainer>
@@ -940,6 +989,7 @@ export default function PrintEmbDeliveryForm({
                                                       PO: item.Pono,
                                                     }));
                                                     GetColor(Number(0), Number(item?.Id));
+                                                    getWorkOrderRcv(Number(item.Id));
                                                     setOpenPO(false);
                                                   }}
                                                 >
@@ -998,7 +1048,7 @@ export default function PrintEmbDeliveryForm({
                                       </PopoverTrigger>
                                       <PopoverContent className="w-full p-0">
                                         <Command>
-                                          <CommandInput placeholder="Search PO..." className="h-9" />
+                                          <CommandInput placeholder="Search Color .." className="h-9" />
                                           <CommandList>
                                             <CommandEmpty>No color found.</CommandEmpty>
                                             <CommandGroup>
@@ -1046,7 +1096,7 @@ export default function PrintEmbDeliveryForm({
                   <div>
                     <Button
                       type="button"
-                      onClick={() => { getWorkOrderRcv(Number(searchData.COLOR_ID)); }}
+                      onClick={() => { handleSearch(); }}
                       className="mt-2  mb-2"
                     >
                       Search
@@ -1208,11 +1258,15 @@ export default function PrintEmbDeliveryForm({
                     <Button
                       type="reset"
                       disabled={mutation.isPending}
-                      onClick={() =>
+                      onClick={() => {
+                        const params = new URLSearchParams(location.search);
+                        const index = params.get("pageIndex");
+
                         location.pathname.includes("win/")
-                          ? navigator("/win/printing-embroidery/print-emb-delivery")
-                          : navigator("/dashboard/printing-embroidery/print-emb-delivery")
-                      }
+                          ? navigator("/win/printing-embroidery/print-emb-delivery?pageIndex=" + index)
+                          : navigator("/dashboard/printing-embroidery/print-emb-delivery?pageIndex=" + index)
+                      }}
+
                       variant={"outline"}
                       className={cn("w-24")}
                     >
