@@ -5,6 +5,7 @@ export type IBuyerWiseYarnPossitionReport = {
     BUYER: string;
     STYLE_ID: string;
     STYLENO: string;
+    STYLENAME: string;
     PO_ID: string;
     PONO: string;
     DELIVERYDATE: string;

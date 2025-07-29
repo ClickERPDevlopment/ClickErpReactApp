@@ -11,7 +11,7 @@ interface IUniqueFabricCombos {
 
 export default function BuyerWiseYarnPossitionReportReport({ data }: { data: IBuyerWiseYarnPossitionReport[] }) {
 
-    const uniqueCurrency = [...new Set(data?.map(item => item.CURRENCY))];
+    const uniqueCurrency = [...new Set(data?.filter(item => item.CURRENCY).map(item => item.CURRENCY))];
 
     const uniqueFabricCombos: IUniqueFabricCombos[] = Array.from(
         new Map(

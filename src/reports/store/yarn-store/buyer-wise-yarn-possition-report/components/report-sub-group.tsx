@@ -8,7 +8,7 @@ export default function ReportSubGroup({ data }: { data: IBuyerWiseYarnPossition
         i === 0 ?
           <tr>
             <td className='border border-gray-600 p-0.5 text-center text-xs' rowSpan={data.length}>{_.BUYER}	</td>
-            <td className='border border-gray-600 p-0.5 text-center text-xs' rowSpan={data.length}>{_.STYLENO}</td>
+            <td className='border border-gray-600 p-0.5 text-center text-xs' rowSpan={data.length}>{`${_.STYLENO} (${_.STYLENAME})`}</td>
             <td className='border border-gray-600 p-0.5 text-center text-xs' rowSpan={data.length}>{_.PONO}</td>
             <td className='border border-gray-600 p-0.5 text-center text-xs' rowSpan={data.length}>{_.BOOKING_YARN}</td>
             <td className='border border-gray-600 p-0.5 text-center text-xs' rowSpan={data.length}> {_.BOOKING_QTY}</td>
@@ -48,7 +48,7 @@ export default function ReportSubGroup({ data }: { data: IBuyerWiseYarnPossition
             <td className='border border-gray-600 p-0.5 text-center text-xs'> {_.SUPPLIER}</td>
             <td className='border border-gray-600 p-0.5 text-center text-xs'> {_.YARN_RECEIVED_DATE}</td>
             <td className='border border-gray-600 p-0.5 text-center text-xs'> {_.CURRENCY}</td>
-            <td className='border border-gray-600 p-0.5 text-center text-xs'> {_.TOTAL_AMOUNT}</td>
+            <td className='border border-gray-600 p-0.5 text-center text-xs'> {_.TOTAL_AMOUNT.toFixed(2)}</td>
           </tr>
       )
     })
