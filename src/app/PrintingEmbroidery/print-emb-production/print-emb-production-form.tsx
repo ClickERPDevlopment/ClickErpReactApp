@@ -413,8 +413,6 @@ export default function PrintEmbProductionForm({
       return;
     }
 
-
-
     data.PrintEmbProductionDetails = (detailsData || []).filter(item => (item.QC_PASSED_QTY ?? 0) > 0);
 
 

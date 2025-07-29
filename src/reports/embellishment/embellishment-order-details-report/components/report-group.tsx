@@ -39,7 +39,7 @@ function ReportGroup({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["SUPPLIER", "WORK_ORDER_NO", "BUYER", "STYLE", "PO_NO", "COLOR", "SIZE_NAME", "PARTS"]);
+    groupedByDate = groupBy(data, ["SUPPLIER", "WORK_ORDER_NO", "BUYER", "STYLE", "PO_NO", "COLOR", "SIZE_NAME", "PARTS", "OS_BUYER", "OS_STYLE", "OS_PO_NO"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
