@@ -59,3 +59,18 @@ export const usePrintEmbMaterialReceiveStore = create<PrintEmbMaterialReceiveSta
   setPageIndex: (index) => set({ pageIndex: index }),
   setPageSize: (size) => set({ pageSize: size }),
 }));
+
+
+interface PrintEmbDeliveryState {
+  pageIndex: number;
+  pageSize: number;
+  setPageIndex: (index: number) => void;
+  setPageSize: (size: number) => void;
+}
+
+export const usePrintEmbDeliveryStore = create<PrintEmbDeliveryState>((set) => ({
+  pageIndex: 0,
+  pageSize: 10,
+  setPageIndex: (index) => set({ pageIndex: index }),
+  setPageSize: (size) => set({ pageSize: size }),
+}));

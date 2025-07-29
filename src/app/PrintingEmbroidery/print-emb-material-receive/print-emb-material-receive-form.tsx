@@ -446,14 +446,31 @@ export default function PrintEmbMaterialReceiveForm({
 
   const handleSearch = () => {
     const searchedData = detailsData?.filter((item) => {
-      if (searchData.BUYER && !item.BUYER.toLowerCase().includes(searchData.BUYER.toLowerCase())) {
-        return false;
-      }
-      if (searchData.STYLE && !item.STYLE.toLowerCase().includes(searchData.STYLE.toLowerCase())) {
+
+      const buyerValue = item.BUYER?.trim() || item.OS_BUYER?.trim() || '';
+
+      if (
+        searchData.BUYER &&
+        !buyerValue.toLowerCase().includes(searchData.BUYER.toLowerCase())
+      ) {
         return false;
       }
 
-      if (searchData.PO && !item.PO.toLowerCase().includes(searchData.PO.toLowerCase())) {
+      const styleValue = item.STYLE?.trim() || item.OS_STYLE?.trim() || '';
+
+      if (
+        searchData.STYLE &&
+        !styleValue.toLowerCase().includes(searchData.STYLE.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const poValue = item.PO?.trim() || item.OS_PO?.trim() || '';
+
+      if (
+        searchData.PO &&
+        !poValue.toLowerCase().includes(searchData.PO.toLowerCase())
+      ) {
         return false;
       }
 

@@ -39,7 +39,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
 import { EmbMaterialReceiveMasterType } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
-import { usePrintEmbProductionStore } from "@/store/app-store";
+import { usePrintEmbMaterialReceiveStore } from "@/store/app-store";
 
 export function PrintEmbMaterialReceiveTable({
   data,
@@ -55,7 +55,7 @@ export function PrintEmbMaterialReceiveTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const { pageIndex, pageSize, setPageIndex } = usePrintEmbProductionStore();
+  const { pageIndex, pageSize, setPageIndex } = usePrintEmbMaterialReceiveStore();
   const params = new URLSearchParams(location.search);
   const index = params.get("pageIndex");
 
