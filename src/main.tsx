@@ -161,6 +161,7 @@ import SizeWiseOrderSummaryReport from "./reports/merchandising/report/size-wise
 import DateWiseYarnAndGreyFabricStockReport from "./reports/store/grey-store/date-wise-yarn-and-grey-stock-report/date-wise-yarn-and-grey-stock-report-index.tsx";
 import DateWiseGreyFabcirDeliveryToDyeingReport from "./reports/store/grey-store/date-wise-grey-fabric-delivery-to-dyeing-report/date-wise-grey-fabric-delivery-to-dyeing-report-index.tsx";
 import OperationBulletinReport from "./reports/ie/operation-bulletin-report/operation-bulletin-report-index.tsx";
+import BuyerWiseYarnPossitionReportIndex from "./reports/store/yarn-store/buyer-wise-yarn-possition-report/buyer-wise-yarn-possition-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -778,6 +779,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="yarn-issue-status-report"
                         element={<YarnIssueStatusReportIndex />}
+                      />
+                      <Route
+                        path="Buyer-Wise-Yarn-Possition-Report"
+                        element={<BuyerWiseYarnPossitionReportIndex />}
                       />
                       <Route
                         path="yarn-issue-for-dyeing-report"
