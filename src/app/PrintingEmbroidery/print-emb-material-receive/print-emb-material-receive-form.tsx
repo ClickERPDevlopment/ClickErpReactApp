@@ -338,7 +338,7 @@ export default function PrintEmbMaterialReceiveForm({
 
   const [embSendNo, setEmbSendNo] = useState<IEmbSendNo[]>([]);
   const getEmbSendNo = async (woNo: string) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/EmbellishmentSendNo?woNo=" + woNo);
+    const response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/EmbellishmentSendNo?woNo=${woNo || ""}&PO=${searchData.PO || ""}&buyerId=${searchData.BUYER_ID || 0}&styleId=${searchData.STYLE_ID || 0}`);
     setEmbSendNo(response?.data);
   }
 
