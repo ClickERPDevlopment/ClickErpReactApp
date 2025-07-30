@@ -162,6 +162,7 @@ import DateWiseYarnAndGreyFabricStockReport from "./reports/store/grey-store/dat
 import DateWiseGreyFabcirDeliveryToDyeingReport from "./reports/store/grey-store/date-wise-grey-fabric-delivery-to-dyeing-report/date-wise-grey-fabric-delivery-to-dyeing-report-index.tsx";
 import OperationBulletinReport from "./reports/ie/operation-bulletin-report/operation-bulletin-report-index.tsx";
 import BuyerWiseYarnPossitionReportIndex from "./reports/store/yarn-store/buyer-wise-yarn-possition-report/buyer-wise-yarn-possition-report-index.tsx";
+import DateWiseYarnReceiveRegisterReport from "./reports/store/yarn-store/date-wise-yarn-receive-register-report/date-wise-yarn-receive-register-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -803,6 +804,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="yarn-delivery-challan-gate-pass-report"
                         element={<YarnDeliveryChallanGatePassReport />}
+                      />
+                      <Route
+                        path="date-wise-yarn-receive-register-report"
+                        element={<DateWiseYarnReceiveRegisterReport />}
                       />
                     </Route>
                     <Route path="grey-store">
