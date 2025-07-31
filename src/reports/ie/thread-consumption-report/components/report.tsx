@@ -49,7 +49,7 @@ function Report({
     "Name of Operation",
     "MC Code",
     "SPI",
-    "Seam Len (CM)",
+    "SL (CM)",
     "Total Cons (M)",
   ];
 

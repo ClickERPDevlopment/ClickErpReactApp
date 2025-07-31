@@ -152,7 +152,7 @@ function ThreadConsumptionReport() {
                   <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.GSM}</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1 bg-emerald-200">Type of Sample</td>
+                  <td className="border border-gray-950 p-0.1 bg-emerald-200 text-nowrap">Sample Type</td>
                   <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.SAMPLE_TYPE}</td>
                 </tr>
                 <tr className="text-start">
