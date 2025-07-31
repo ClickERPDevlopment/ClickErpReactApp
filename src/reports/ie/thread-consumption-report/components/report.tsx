@@ -83,9 +83,9 @@ function Report({
             })}
 
             {
-              uniqueKeysArray.length > 1 && <tr className="font-bold" style={{ backgroundColor: "#A7F3D0", fontSize: "12px" }}>
+              <tr className="font-bold" style={{ backgroundColor: "#A7F3D0", fontSize: "12px" }}>
                 <td colSpan={5} className="border border-gray-950 p-0.1 text-center">Grand Total</td>
-                <td className="border border-gray-950 p-0.1">{Number(totalCons)?.toFixed(2)}</td>
+                <td className="border border-gray-950 p-0.1 text-center">{Number(totalCons)?.toFixed(2)}</td>
               </tr>
             }
 
