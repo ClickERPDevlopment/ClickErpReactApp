@@ -1150,7 +1150,7 @@ export default function PrintEmbDeliveryForm({
                       </TableHeader>
                       <TableBody>
                         {detailsData?.map((item, index) => (
-                          <TableRow key={Math.random() + index} className={`odd:bg-white even:bg-gray-50`}>
+                          <TableRow key={index} className={`odd:bg-white even:bg-gray-50`}>
                             <TableCell className="border border-gray-300 px-4  whitespace-nowrap text-center">
                               {index + 1}
                             </TableCell>
@@ -1191,7 +1191,7 @@ export default function PrintEmbDeliveryForm({
                                 type="number"
                                 className="w-full text-center text-sm border border-gray-300 rounded p-1"
                                 value={item.DELIVERY_QTY}
-                                onBlur={(e) => {
+                                onChange={(e) => {
                                   const updatedData = [...detailsData];
 
                                   const rcvQty = item.RCV_QTY || 0;
@@ -1208,6 +1208,7 @@ export default function PrintEmbDeliveryForm({
                                   setdetailsData(updatedData);
                                 }}
                               />
+
                             </TableCell>
                             <TableCell className="border border-gray-300 px-4 text-center ">
                               {item.PATRS}
