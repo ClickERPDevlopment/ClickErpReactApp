@@ -163,6 +163,7 @@ import DateWiseGreyFabcirDeliveryToDyeingReport from "./reports/store/grey-store
 import OperationBulletinReport from "./reports/ie/operation-bulletin-report/operation-bulletin-report-index.tsx";
 import BuyerWiseYarnPossitionReportIndex from "./reports/store/yarn-store/buyer-wise-yarn-possition-report/buyer-wise-yarn-possition-report-index.tsx";
 import DateWiseYarnReceiveRegisterReport from "./reports/store/yarn-store/date-wise-yarn-receive-register-report/date-wise-yarn-receive-register-report-index.tsx";
+import ThreadConsumptionReport from "./reports/ie/thread-consumption-report/thread-consumption-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -883,6 +884,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="operation-bulletin-report"
                       element={<OperationBulletinReport />}
+                    />
+                    <Route
+                      path="thread-consumption-report"
+                      element={<ThreadConsumptionReport />}
                     />
                   </Route>
                   <Route path="quality">
