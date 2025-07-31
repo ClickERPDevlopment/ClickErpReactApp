@@ -75,6 +75,7 @@ export type FabricBookingReportDto_StripeMeasurement = {
   YARN_DYEING_COLOR?: string;
   STRIPE_MEASUREMENT?: string;
   YARN_DYEING_REQUIRED: number;
+  GREY_YARN_BOOKING_QUANTITY: number;
 };
 
 export type FabricBookingReportDto_StripeDetails = FabricBookingReportDto_StripeMeasurement & {

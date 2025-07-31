@@ -14,7 +14,8 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                         <th className='border border-gray-600 text-center text-xs p-1'>Fabric Qty(KG)</th>
                         <th className='border border-gray-600 text-center text-xs p-1'>Stripe Color</th>
                         <th className='border border-gray-600 text-center text-xs p-1'>Stripe Measurement</th>
-                        <th className='border border-gray-600 text-center text-xs p-1'>Qty.(KG)</th>
+                        <th className='border border-gray-600 text-center text-xs p-1'>Grey Qty.(KG)</th>
+                        <th className='border border-gray-600 text-center text-xs p-1'>Finish Qty.(KG)</th>
                         <th className='border border-gray-600 text-center text-xs p-1'>Y/D Req</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
 
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.YARN_DYEING_COLOR} </td>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.STRIPE_MEASUREMENT} </td>
+                                    <td className='border border-gray-600 text-center text-xs'>{dtls?.GREY_YARN_BOOKING_QUANTITY} </td>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.YARN_DYEING_REQUIRED} </td>
                                     <td className='border border-gray-600 text-center text-xs'>yes </td>
                                 </tr>
@@ -38,6 +40,7 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                                 <tr>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.YARN_DYEING_COLOR} </td>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.STRIPE_MEASUREMENT} </td>
+                                    <td className='border border-gray-600 text-center text-xs'>{dtls?.GREY_YARN_BOOKING_QUANTITY} </td>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.YARN_DYEING_REQUIRED} </td>
                                     <td className='border border-gray-600 text-center text-xs'>yes </td>
                                 </tr>
@@ -48,11 +51,14 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                     <tr>
                         <th className='border border-gray-600 text-center text-xs p-1' colSpan={4}>Total</th>
                         <th className='border border-gray-600 text-center text-xs p-1' >
-                            {lstStripeDetails?.reduce((p, c) => p + c.FABRIC_QTY, 0).toFixed(2)}
+                            {lstStripeDetails?.reduce((p, c) => p + c.FABRIC_QTY, 0).toFixed(0)}
                         </th>
                         <th className='border border-gray-600 text-center text-xs p-1' colSpan={2}></th>
                         <th className='border border-gray-600 text-center text-xs p-1'>
-                            {lstStripeDetails?.reduce((p, c) => p + c.lstDtls?.reduce((pp, cc) => pp + cc.YARN_DYEING_REQUIRED, 0), 0).toFixed(2)}
+                            {lstStripeDetails?.reduce((p, c) => p + c.lstDtls?.reduce((pp, cc) => pp + cc.GREY_YARN_BOOKING_QUANTITY, 0), 0).toFixed(0)}
+                        </th>
+                        <th className='border border-gray-600 text-center text-xs p-1'>
+                            {lstStripeDetails?.reduce((p, c) => p + c.lstDtls?.reduce((pp, cc) => pp + cc.YARN_DYEING_REQUIRED, 0), 0).toFixed(0)}
                         </th>
                         <th className='border border-gray-600 text-center text-xs p-1'></th>
                     </tr>
