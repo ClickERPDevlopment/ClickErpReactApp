@@ -46,8 +46,6 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                                 </tr>
                         )
                     )}
-                </tbody>
-                <tfoot>
                     <tr>
                         <th className='border border-gray-600 text-center text-xs p-1' colSpan={4}>Total</th>
                         <th className='border border-gray-600 text-center text-xs p-1' >
@@ -62,7 +60,23 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                         </th>
                         <th className='border border-gray-600 text-center text-xs p-1'></th>
                     </tr>
-                </tfoot>
+                </tbody>
+                {/* <tfoot>
+                    <tr>
+                        <th className='border border-gray-600 text-center text-xs p-1' colSpan={4}>Total</th>
+                        <th className='border border-gray-600 text-center text-xs p-1' >
+                            {lstStripeDetails?.reduce((p, c) => p + c.FABRIC_QTY, 0).toFixed(0)}
+                        </th>
+                        <th className='border border-gray-600 text-center text-xs p-1' colSpan={2}></th>
+                        <th className='border border-gray-600 text-center text-xs p-1'>
+                            {lstStripeDetails?.reduce((p, c) => p + c.lstDtls?.reduce((pp, cc) => pp + cc.GREY_YARN_BOOKING_QUANTITY, 0), 0).toFixed(0)}
+                        </th>
+                        <th className='border border-gray-600 text-center text-xs p-1'>
+                            {lstStripeDetails?.reduce((p, c) => p + c.lstDtls?.reduce((pp, cc) => pp + cc.YARN_DYEING_REQUIRED, 0), 0).toFixed(0)}
+                        </th>
+                        <th className='border border-gray-600 text-center text-xs p-1'></th>
+                    </tr>
+                </tfoot> */}
             </table>
         </div>
     )
