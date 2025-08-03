@@ -372,7 +372,7 @@ function ReportTable({
                         </td>
                       ))}
                       <td className="border border-gray-300 p-1 text-center font-bold">
-                        {companyData?.COMPANY_TOTAL?.toFixed(2) || "0.00"}
+                        {companyData?.HOURLY_PER_UNIT_TOTAL?.toFixed(2) || "0.00"}
                       </td>
                     </>
                   );
