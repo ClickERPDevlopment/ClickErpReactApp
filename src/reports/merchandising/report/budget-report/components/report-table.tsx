@@ -66,7 +66,7 @@ function ReportTable({
           <td colSpan={4} className="border border-gray-950 p-0.5 text-end">PERCENTAGE: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
           <td className="border border-gray-950 p-0.5">{
             '(Dzn: ' +
-            (totalQty == 0 ? 0 : totalBudgetValue / totalQty).toFixed(2)
+            (totalQty == 0 ? 0 : (totalBudgetValue * 12 / totalQty)).toFixed(2)
             + ')'
           }</td>
           <td className="border border-gray-950 p-0.5">{totalBudgetValue.toFixed(2)}</td>
