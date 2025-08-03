@@ -1,6 +1,6 @@
-import { KnittingProductionReportType } from "../knitting-production-report-type";
+import { SewingHourlyProductionStatusReportType } from "../sewing-hourly-production-status-report-type";
 
-function ReportFooter({ }: { masterData: KnittingProductionReportType | null }) {
+function ReportFooter({ }: { masterData: SewingHourlyProductionStatusReportType | null }) {
   return (
     <div className="flex">
       <div className="border flex flex-col my-3 p-2 w-[50%]">
@@ -15,7 +15,7 @@ function ReportFooter({ }: { masterData: KnittingProductionReportType | null }) 
             SIGNATURE:
           </label>
           <div className="border-b flex-1">
-            <span>{}</span>
+            <span>{ }</span>
           </div>
         </div>
         <div className="flex flex-row mb-2 ">

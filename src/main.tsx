@@ -164,6 +164,7 @@ import OperationBulletinReport from "./reports/ie/operation-bulletin-report/oper
 import BuyerWiseYarnPossitionReportIndex from "./reports/store/yarn-store/buyer-wise-yarn-possition-report/buyer-wise-yarn-possition-report-index.tsx";
 import DateWiseYarnReceiveRegisterReport from "./reports/store/yarn-store/date-wise-yarn-receive-register-report/date-wise-yarn-receive-register-report-index.tsx";
 import ThreadConsumptionReport from "./reports/ie/thread-consumption-report/thread-consumption-report-index.tsx";
+import SewingProductionStatusReport from "./reports/production/sewing/sewing-production-status-report/sewing-production-status-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -510,6 +511,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="sewing">
+                      <Route
+                        path="sewing-production-status-report"
+                        element={<SewingProductionStatusReport />}
+                      />
                       <Route
                         path="style-wise-avg-efficiency-report"
                         element={<StyleWiseAvgEfficiencyReport />}

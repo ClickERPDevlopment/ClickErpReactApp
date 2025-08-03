@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportTable from "./report-table";
 import ReportHeader from "./report-header";
-import { KnittingProductionReportType } from "../knitting-production-report-type";
+import { SewingProductionStatusReportType } from "../sewing-production-status-report-type";
+import { SewingHourlyProductionStatusReportType } from "../sewing-hourly-production-status-report-type";
 
 function Report({
   data,
-  searchParam,
+  sewingHourlyProductionData
 }: {
-  data: KnittingProductionReportType[];
-  searchParam: { dtChecked: boolean, fromDate: string, toDate: string, factoryId: number };
+  data: SewingProductionStatusReportType[];
+  sewingHourlyProductionData: SewingHourlyProductionStatusReportType[]
 }) {
   const uniqueKeys: Set<string> = new Set();
 
-  function groupBy(data: KnittingProductionReportType[], keys: string[]) {
+  function groupBy(data: SewingProductionStatusReportType[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
       const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
@@ -29,7 +30,7 @@ function Report({
 
   interface IGroupedBy {
     [key: string]: {
-      items: KnittingProductionReportType[];
+      items: SewingProductionStatusReportType[];
     };
   }
 
@@ -46,15 +47,13 @@ function Report({
     "Date",
   ];
   const secondHeader = [
-    "Total In-house Prod",
-    "Total Outside Prod",
-    "Total Knit Prod",
+    "Grand Total",
   ];
 
   const uniqueCompany: Set<string> = new Set();
 
   data.forEach((item) => {
-    if (item.INTER_COMPANY != null) uniqueCompany.add(item.INTER_COMPANY);
+    if (item.PREFIX != null) uniqueCompany.add(item.PREFIX);
   });
 
   const companyHeader = Array.from(uniqueCompany);
@@ -63,7 +62,6 @@ function Report({
     <div>
       <div className="p-2">
         <ReportHeader
-          searchParam={searchParam}
           masterData={data[0]}
         />
 
@@ -71,6 +69,7 @@ function Report({
           <ReportTable
             key={key}
             data={groupedData[key].items}
+            sewingHourlyProductionData={sewingHourlyProductionData}
             firstHeader={firstHeader}
             companyHeader={companyHeader}
             secondHeader={secondHeader}
@@ -78,7 +77,6 @@ function Report({
         ))}
 
         <div>
-          {/* <ReportFooter masterData={data[0]}></ReportFooter> */}
         </div>
       </div>
     </div>
