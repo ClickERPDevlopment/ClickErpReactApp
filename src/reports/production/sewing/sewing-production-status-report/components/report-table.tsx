@@ -38,6 +38,7 @@ function ReportTable({
 
       const operator = Number(item.OPERATOR);
       const actualHours = Number(item.ACTUALHOURS);
+      const numberOfLine = Number(item.NO_OF_LINE);
 
       if (!grouped[dateKey]) {
         grouped[dateKey] = {
@@ -49,6 +50,7 @@ function ReportTable({
           ACTUALHOURS: 0,
           AVAILMIN: 0,
           EARN_MIN: 0,
+          NO_OF_LINE: 0,
           COMPANY: {},
         };
       }
@@ -65,6 +67,7 @@ function ReportTable({
           EARN_MIN_TOTAL: 0,
           OPERATOR_TOTAL: 0,
           ACTUALHOURS_TOTAL: 0,
+          NO_OF_LINE: 0
         };
       }
 
@@ -77,7 +80,8 @@ function ReportTable({
           AVAILMIN: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
-          FLOOR_ID: 0
+          FLOOR_ID: 0,
+          NO_OF_LINE: 0
         };
       }
 
@@ -89,6 +93,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].EARN_MIN += earnMin;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].ACTUALHOURS += actualHours;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].FLOOR_ID = item.FLOORID;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].NO_OF_LINE += numberOfLine;
 
       grouped[dateKey].COMPANY[companyKey].COMPANY_TOTAL += target;
       grouped[dateKey].COMPANY[companyKey].HOURLY_PER_UNIT_TOTAL += hourlyPerUnit;
@@ -98,6 +103,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].EARN_MIN_TOTAL += earnMin;
       grouped[dateKey].COMPANY[companyKey].ACTUALHOURS_TOTAL += actualHours;
       grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
+      grouped[dateKey].COMPANY[companyKey].NO_OF_LINE += numberOfLine;
 
       grouped[dateKey].TARGET += target;
       grouped[dateKey].HOURLY_PER_UNIT += hourlyPerUnit;
@@ -106,6 +112,7 @@ function ReportTable({
       grouped[dateKey].AVAILMIN += availableMin;
       grouped[dateKey].EARN_MIN += earnMin;
       grouped[dateKey].ACTUALHOURS += actualHours;
+      grouped[dateKey].NO_OF_LINE += numberOfLine;
 
       if (!grandTotal[companyKey]) {
         grandTotal[companyKey] = {
@@ -118,6 +125,7 @@ function ReportTable({
           AVAILMIN_TOTAL: 0,
           OPERATOR_TOTAL: 0,
           ACTUALHOURS_TOTAL: 0,
+          NO_OF_LINE: 0,
         };
       }
 
@@ -131,7 +139,8 @@ function ReportTable({
           EARN_MIN: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
-          FLOOR_ID: 0
+          FLOOR_ID: 0,
+          NO_OF_LINE: 0
         };
       }
 
@@ -156,6 +165,7 @@ function ReportTable({
     AVAILMIN: number;
     EARN_MIN: number;
     FLOOR_ID: number;
+    NO_OF_LINE: number;
   }
 
   interface ICompanyData {
@@ -168,6 +178,7 @@ function ReportTable({
     ACTUALHOURS_TOTAL: number;
     AVAILMIN_TOTAL: number;
     EARN_MIN_TOTAL: number;
+    NO_OF_LINE: number;
   }
 
   interface IGroupedData {
@@ -180,6 +191,7 @@ function ReportTable({
       ACTUALHOURS: number;
       AVAILMIN: number;
       EARN_MIN: number;
+      NO_OF_LINE: number;
       COMPANY: Record<string, ICompanyData>;
     };
   }
@@ -221,6 +233,9 @@ function ReportTable({
     byFloor: Record<number, Record<number, number>>;
     byFactory: Record<number, Record<number, number>>;
     byHour: Record<number, number>;
+    byFloorTotal: Record<number, number>;
+    byFactoryTotal: Record<number, number>;
+    grandTotal: number;
   }
 
   function organizeHourlyProductionData(
@@ -229,7 +244,10 @@ function ReportTable({
     const result: HourlyProductionData = {
       byFloor: {},
       byFactory: {},
-      byHour: {}
+      byHour: {},
+      byFloorTotal: {},
+      byFactoryTotal: {},
+      grandTotal: 0
     };
 
     data.forEach(item => {
@@ -241,12 +259,21 @@ function ReportTable({
       if (!result.byFloor[hour]) result.byFloor[hour] = {};
       if (!result.byFactory[hour]) result.byFactory[hour] = {};
       if (!result.byHour[hour]) result.byHour[hour] = 0;
+      if (!result.byFloorTotal[floorId]) result.byFloorTotal[floorId] = 0;
+      if (!result.byFactoryTotal[factoryId]) result.byFactoryTotal[factoryId] = 0;
 
       result.byFloor[hour][floorId] = (result.byFloor[hour][floorId] || 0) + output;
 
       result.byFactory[hour][factoryId] = (result.byFactory[hour][factoryId] || 0) + output;
 
       result.byHour[hour] += output;
+
+      result.byFloorTotal[floorId] += output;
+
+      result.byFactoryTotal[factoryId] += output;
+
+      result.grandTotal += output;
+
     });
 
     return result;
@@ -539,6 +566,155 @@ function ReportTable({
                   </>
                 })
               }
+
+
+              <tr key={dateKey}>
+
+                <td className="border text-center border-gray-300 p-1 text-nowrap font-bold">
+                  PRODUCTION
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+                  return (
+                    <>
+                      {Object.keys(grandTotal[company].FLOORS).map((floor) => {
+                        return <td
+                          key={`${dateKey}-${company}-${floor}`}
+                          className="border border-gray-300 p-1 text-center"
+                        >
+                          {organizedData.byFloorTotal[companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0] || 0}
+                        </td>
+                      })}
+                      <td className="border border-gray-300 p-1 text-center font-bold">
+                        {organizedData.byFactoryTotal[companyData?.FACTORYID ?? 0] || 0}
+                      </td>
+                    </>
+                  );
+                })}
+
+                <td className="border border-gray-300 p-1 text-center font-bold">
+                  {organizedData.grandTotal}
+                </td>
+              </tr>
+
+
+              <tr key={dateKey}>
+                <td className="border text-center border-gray-300 p-1 text-nowrap font-bold">
+                  HOURLY
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+
+                  const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
+                    const floorData = companyData?.FLOORS?.[floor];
+                    const floorId = floorData?.FLOOR_ID ?? 0;
+                    const actualHours = floorData?.ACTUALHOURS ?? 0;
+                    const noOfLine = floorData?.NO_OF_LINE ?? 0;
+                    const total = organizedData.byFloorTotal[floorId] ?? 0;
+
+                    const hourly =
+                      actualHours > 0 && noOfLine > 0
+                        ? total / actualHours / noOfLine
+                        : 0;
+
+                    return (
+                      <td
+                        key={`${dateKey}-${company}-${floor}`}
+                        className="border border-gray-300 p-1 text-center"
+                      >
+                        {isNaN(hourly) ? "0.00" : hourly.toFixed(2)}
+                      </td>
+                    );
+                  });
+
+                  const factoryId = companyData?.FACTORYID ?? 0;
+                  const factoryTotal = organizedData.byFactoryTotal[factoryId] ?? 0;
+                  const totalHours = companyData?.ACTUALHOURS_TOTAL ?? 0;
+                  const totalLines = companyData?.NO_OF_LINE ?? 0;
+                  const factoryHourly =
+                    totalHours > 0 && totalLines > 0
+                      ? factoryTotal / totalHours / totalLines
+                      : 0;
+
+                  cells.push(
+                    <td
+                      key={`${dateKey}-${company}-factory`}
+                      className="border border-gray-300 p-1 text-center font-bold"
+                    >
+                      {isNaN(factoryHourly) ? "0.00" : factoryHourly.toFixed(2)}
+                    </td>
+                  );
+
+                  return cells;
+                })}
+
+                <td className="border border-gray-300 p-1 text-center font-bold">
+                  {(() => {
+                    const grandTotal = organizedData.grandTotal ?? 0;
+                    const totalHours = grouped[dateKey]?.ACTUALHOURS ?? 0;
+                    const totalLines = grouped[dateKey]?.NO_OF_LINE ?? 0;
+
+                    const result =
+                      totalHours > 0 && totalLines > 0
+                        ? grandTotal / totalHours / totalLines
+                        : 0;
+
+                    return isNaN(result) ? "0.00" : result.toFixed(2);
+                  })()}
+                </td>
+              </tr>
+
+              <tr key={dateKey}>
+                <td className="border text-center border-gray-300 p-1 text-nowrap font-bold">
+                  ACHIEVE %
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+
+                  const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
+                    const floorId = companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0;
+                    const floorTarget = companyData?.FLOORS?.[floor]?.TARGET ?? 0;
+                    const floorTotal = organizedData.byFloorTotal[floorId] ?? 0;
+                    const achieve = (floorTotal * 100) / floorTarget;
+                    return (
+                      <td
+                        key={`${dateKey}-${company}-${floor}`}
+                        className="border border-gray-300 p-1 text-center"
+                      >
+                        {isNaN(achieve) ? "0.00" : achieve.toFixed(2)} %
+                      </td>
+                    );
+                  });
+
+                  const factoryId = companyData?.FACTORYID ?? 0;
+                  const companyTotal = companyData?.COMPANY_TOTAL ?? 0;
+                  const factoryTotal = organizedData.byFactoryTotal[factoryId] ?? 0;
+                  const factoryAchieve = (factoryTotal * 100) / companyTotal;
+
+                  cells.push(
+                    <td
+                      key={`${dateKey}-${company}-factory`}
+                      className="border border-gray-300 p-1 text-center font-bold"
+                    >
+                      {isNaN(factoryAchieve) ? "0.00" : factoryAchieve.toFixed(2)} %
+                    </td>
+                  );
+
+                  return cells;
+                })}
+
+                <td className="border border-gray-300 p-1 text-center font-bold">
+                  {(() => {
+                    const grandTarget = grouped[dateKey]?.TARGET ?? 0;
+                    const result = (organizedData.grandTotal * 100) / grandTarget;
+                    return isNaN(result) ? "0.00" : result.toFixed(2);
+                  })()} %
+                </td>
+              </tr>
+
 
             </>
           ))}
