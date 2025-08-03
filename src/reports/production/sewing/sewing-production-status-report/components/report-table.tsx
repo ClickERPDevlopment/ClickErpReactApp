@@ -32,7 +32,7 @@ function ReportTable({
       const target = Number(item.HOURLYTARGET);
 
       const hourlyPerUnit = Number(item.HOURLYTARGET) / Number(item.TARGETHOUR);
-      const hourlyPerLine = Number(item.HOURLYTARGET) / Number(item.NO_OF_LINE);
+      const hourlyPerLine = Number(hourlyPerUnit) / Number(item.NO_OF_LINE);
       const availableMin = Number(item.AVAILMIN);
       const earnMin = Number(item.EARN_MIN);
 
