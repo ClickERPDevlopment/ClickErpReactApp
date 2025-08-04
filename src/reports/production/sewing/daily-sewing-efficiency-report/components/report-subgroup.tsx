@@ -27,6 +27,8 @@ function ReportSubgroup({
 
   const totalQcPass = data.reduce((acc, item) => acc + item.SEWINGOUTPUT, 0)
 
+  // const totalSmv = data.reduce((acc, item) => acc + item.SMVSEWING, 0)
+
 
   return (
     <>
@@ -60,7 +62,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(totalQcPassLineWise * 100 / data[0]?.TOTALTARGET).toFixed(2)} {totalQcPassLineWise} %</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(totalQcPassLineWise * 100 / data[0]?.TOTALTARGET).toFixed(2)} %</td>
         }
 
         {
