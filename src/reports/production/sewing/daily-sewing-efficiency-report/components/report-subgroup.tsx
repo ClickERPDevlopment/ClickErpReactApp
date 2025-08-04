@@ -84,7 +84,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5 text-end">{ }</td>
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(totalSmvLineWise * data[0]?.TOTALTARGET * 100 / data[0]?.AVAILABLEMIN).toFixed(2)} %</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{((totalSmvLineWise / groupLength) * data[0]?.TOTALTARGET * 100 / data[0]?.AVAILABLEMIN).toFixed(2)} % </td>
         }
         <td className="border border-gray-950 p-0.5 text-end">{ }</td>
       </tr >

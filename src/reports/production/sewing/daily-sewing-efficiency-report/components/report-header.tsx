@@ -29,9 +29,10 @@ function ReportHeader({
       <h3 className="font-bold text-xl text-center">
         Daily Sewing Efficiency Report
       </h3>
+
       <p className="text-center text-lg">
-        From {moment(searchParamsObj.fromDate).format("DD-MMM-YYYY")}
-        {" "}To {moment(searchParamsObj.toDate).format("DD-MMM-YYYY")}
+        Of {moment(searchParamsObj.fromDate).format("DD-MMM-YYYY")}
+        {/* {" "}To {moment(searchParamsObj.toDate).format("DD-MMM-YYYY")} */}
       </p>
     </div>
   );
