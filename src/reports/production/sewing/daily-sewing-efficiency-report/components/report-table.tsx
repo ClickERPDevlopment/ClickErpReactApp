@@ -59,6 +59,7 @@ function ReportTable({
   const totalCM = data.reduce((acc, item) => acc + item.TOTALCM, 0)
 
 
+
   return (
     <>
       <tr>
@@ -97,7 +98,7 @@ function ReportTable({
         <td className="border border-gray-950 p-0.5 text-end">{(totalFob)?.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-end">{(totalCM)?.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-end">{ }</td>
-        <td className="border border-gray-950 p-0.5 text-center">{(totalQcPass * 100 / totalTarget).toFixed(2)} %</td>
+        <td className="border border-gray-950 p-0.5 text-center">{(totalTarget * (totalSmv / data.length) * 100 / totalAvailableMin).toFixed(2)} %</td>
         <td className="border border-gray-950 p-0.5 text-end">{ }</td>
       </tr>
 

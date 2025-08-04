@@ -152,7 +152,7 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-end">{(totalFob)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{(totalCM)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{ }</td>
-              <td className="border border-gray-950 p-0.5 text-center">{(totalQcPass * 100 / grandTotalTarget).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-0.5 text-center">{(grandTotalTarget * (totalSmv / data.length) * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
               <td className="border border-gray-950 p-0.5 text-end">{ }</td>
             </tr>
 
