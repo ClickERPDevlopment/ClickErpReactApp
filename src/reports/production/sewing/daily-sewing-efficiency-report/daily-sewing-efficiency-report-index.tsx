@@ -9,7 +9,7 @@ import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { DailySewingEfficiencyReportType } from "./daily-sewing-efficiency-report-type";
 
-function CompensationReport() {
+function DailySewingEfficiencyReport() {
   const [data, setData] = useState<DailySewingEfficiencyReportType[]>(
     []
   );
@@ -20,10 +20,10 @@ function CompensationReport() {
 
   const [searchParams] = useSearchParams();
 
-  const fromDate = searchParams.get("fromDate") || "01-Jan-23";
-  const toDate = searchParams.get("toDate") || "01-Jan-26";
+  const fromDate = searchParams.get("fromDate") || "02-Aug-25";
+  const toDate = searchParams.get("toDate") || "02-Aug-25";
   const companyId = searchParams.get("companyId") || "0";
-  //const floorIdsString = searchParams.get("floorIdsString") || "0";
+  const floorIdsString = searchParams.get("floorIdsString") || "";
 
   const api = useApiUrl();
 
@@ -43,6 +43,7 @@ function CompensationReport() {
       const url = `${api.ProductionUrl}/production/GmtSewingReport/DailySewingEfficiencyReport` +
         `?fromDate=${fromDate}` +
         `&toDate=${toDate}` +
+        `&floorIdsString=${floorIdsString}` +
         `&companyId=${companyId}`;
 
 
@@ -87,4 +88,4 @@ function CompensationReport() {
     </>
   );
 }
-export default CompensationReport;
+export default DailySewingEfficiencyReport;

@@ -3,6 +3,7 @@ import moment from "moment";
 import { DailySewingEfficiencyReportType } from "../daily-sewing-efficiency-report-type";
 
 function ReportHeader({
+  data,
   searchParamsObj,
 }: {
   data: DailySewingEfficiencyReportType[];
@@ -17,11 +18,16 @@ function ReportHeader({
       </p>
       <h1 className="font-bold text-3xl text-center">
         {
-          // searchParamsObj?.companyId != 0 ? data[0]?.COMPANY_NAME : "Anowara Group"
+          data[0]?.COMPANY_NAME
         }
       </h1>
+      <h3 className="font-bold text-lg text-center">
+        {
+          data[0]?.COMPANY_ADDRESS
+        }
+      </h3>
       <h3 className="font-bold text-xl text-center">
-        Compensation Report
+        Daily Sewing Efficiency Report
       </h3>
       <p className="text-center text-lg">
         From {moment(searchParamsObj.fromDate).format("DD-MMM-YYYY")}

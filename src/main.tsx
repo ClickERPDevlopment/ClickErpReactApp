@@ -165,6 +165,7 @@ import BuyerWiseYarnPossitionReportIndex from "./reports/store/yarn-store/buyer-
 import DateWiseYarnReceiveRegisterReport from "./reports/store/yarn-store/date-wise-yarn-receive-register-report/date-wise-yarn-receive-register-report-index.tsx";
 import ThreadConsumptionReport from "./reports/ie/thread-consumption-report/thread-consumption-report-index.tsx";
 import SewingProductionStatusReport from "./reports/production/sewing/sewing-production-status-report/sewing-production-status-report-index.tsx";
+import DailySewingEfficiencyReport from "./reports/production/sewing/daily-sewing-efficiency-report/daily-sewing-efficiency-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -511,6 +512,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="sewing">
+                      <Route
+                        path="daily-sewing-efficiecy-report"
+                        element={<DailySewingEfficiencyReport />}
+                      />
                       <Route
                         path="sewing-production-status-report"
                         element={<SewingProductionStatusReport />}
