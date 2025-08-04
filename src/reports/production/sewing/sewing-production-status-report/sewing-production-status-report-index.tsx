@@ -15,8 +15,8 @@ function SewingProductionStatusReport() {
 
   const [searchParams] = useSearchParams();
 
-  const companyId: number = Number(searchParams.get("companyId")) || 0;
   const dtDate: string = searchParams.get("dtDate") || "06-Jul-25";
+  const factoryIdString: string = searchParams.get("factoryIdString") || "";
 
   useEffect(() => {
     document.title = "Report";
@@ -34,7 +34,7 @@ function SewingProductionStatusReport() {
           {
             params: {
               dtDate,
-              companyId,
+              factoryIdString,
             },
           }
         );
@@ -66,7 +66,7 @@ function SewingProductionStatusReport() {
           {
             params: {
               dtDate,
-              companyId,
+              factoryIdString,
             },
           }
         );
