@@ -137,7 +137,7 @@ function Report({
             })}
             <tr style={{ fontSize: "14px" }} className="font-bold">
               <td colSpan={4} className="border border-gray-950 p-0.5 text-nowrap text-center">Grand Total</td>
-              <td className="border border-gray-950 p-0.5 text-center">{totalSmv.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{(totalSmv / data.length).toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{grandTotalOperator}</td>
               <td className="border border-gray-950 p-0.5 text-center">{grandTotalHelper}</td>
               <td className="border border-gray-950 p-0.5 text-center">{grandTotalOperator + grandTotalHelper}</td>
