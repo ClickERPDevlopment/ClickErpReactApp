@@ -57,4 +57,5 @@ export type ThreadConsumptionReportType = {
   SAMPLE_TYPE: string;
   GSM: string;
   MAIN_FABRIC: string;
+  SIZE_LIST: string;
 };

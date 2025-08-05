@@ -50,10 +50,17 @@ function Report({
     "MC Code",
     "SPI",
     "SL (CM)",
+    "Needle Thread (M)",
+    "Bobbin/Looper Thread (M)",
+    "Wastage",
     "Total Cons (M)",
   ];
 
-  const totalCons = data.reduce((acc, item) => acc + item.TOTALDETAILSOPERAITONLENGTH + item.WASTAGEVALUE, 0);
+  // const totalCons = data.reduce((acc, item) => acc + item.TOTALDETAILSOPERAITONLENGTH + item.WASTAGEVALUE, 0);
+  const totalNeedleThreadLength = data.reduce((acc, item) => acc + item.NEEDLETHREADLENGTH, 0);
+  const totalBobbinLopperThreadLength = data.reduce((acc, item) => acc + item.BOBBINTHREADLENGTH + item.LOOPERTHREADLENGTH, 0);
+
+  const totalWastageValue = data.reduce((acc, item) => acc + (((item.NEEDLETHREADLENGTH) * item.WASTAGE / 100)) + (((item.BOBBINTHREADLENGTH) * item.WASTAGE / 100)) + (((item.LOOPERTHREADLENGTH) * item.WASTAGE / 100)), 0);
 
   let dataLength = 0;
 
@@ -85,7 +92,10 @@ function Report({
             {
               <tr className="font-bold" style={{ backgroundColor: "#A7F3D0", fontSize: "12px" }}>
                 <td colSpan={5} className="border border-gray-950 p-0.1 text-center">Grand Total</td>
-                <td className="border border-gray-950 p-0.1 text-center">{Number(totalCons)?.toFixed(2)}</td>
+                <td className="border border-gray-950 p-0.1 text-center">{Number(totalNeedleThreadLength)?.toFixed(2)}</td>
+                <td className="border border-gray-950 p-0.1 text-center">{Number(totalBobbinLopperThreadLength)?.toFixed(2)}</td>
+                <td className="border border-gray-950 p-0.1 text-center">{Number(totalWastageValue)?.toFixed(2)}</td>
+                <td className="border border-gray-950 p-0.1 text-center">{(totalNeedleThreadLength + totalBobbinLopperThreadLength + totalWastageValue)?.toFixed(2)}</td>
               </tr>
             }
 

@@ -9,8 +9,12 @@ function ReportSubgroup({
   index: number;
 }) {
 
-  const totalCons = data.reduce((acc, item) => acc + item.TOTALDETAILSOPERAITONLENGTH + item.WASTAGEVALUE, 0);
+  // const totalCons = data.reduce((acc, item) => acc + item.TOTALDETAILSOPERAITONLENGTH + item.WASTAGEVALUE, 0);
 
+  const totalNeedleThreadLength = data.reduce((acc, item) => acc + item.NEEDLETHREADLENGTH, 0);
+  const totalBobbinLopperThreadLength = data.reduce((acc, item) => acc + item.BOBBINTHREADLENGTH + item.LOOPERTHREADLENGTH, 0);
+
+  const totalWastageValue = data.reduce((acc, item) => acc + (((item.NEEDLETHREADLENGTH) * item.WASTAGE / 100)) + (((item.BOBBINTHREADLENGTH) * item.WASTAGE / 100)) + (((item.LOOPERTHREADLENGTH) * item.WASTAGE / 100)), 0);
 
 
   return (
@@ -21,7 +25,10 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.1">{data[0]?.MACHINECODE}</td>
         <td className="border border-gray-950 p-0.1 text-center">{data[0]?.SPINO}</td>
         <td className="border border-gray-950 p-0.1 text-center">{data[0]?.SEAMLENGTH}</td>
-        <td className="border border-gray-950 p-0.1 text-center font-bold">{totalCons.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center font-bold">{totalNeedleThreadLength.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center font-bold">{totalBobbinLopperThreadLength.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center font-bold">{totalWastageValue.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center font-bold">{(totalNeedleThreadLength + totalBobbinLopperThreadLength + totalWastageValue).toFixed(2)}</td>
       </tr>
     </>
   );
