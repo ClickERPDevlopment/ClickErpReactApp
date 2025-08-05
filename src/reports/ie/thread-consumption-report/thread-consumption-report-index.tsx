@@ -164,6 +164,14 @@ function ThreadConsumptionReport() {
                       : ''}
                   </td>
                 </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.1 bg-emerald-200 text-nowrap">Working Size</td>
+                  <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.SIZENAME}</td>
+                </tr>
+                <tr className="text-start">
+                  <td className="border border-gray-950 p-0.1 bg-emerald-200 text-nowrap">Size Range</td>
+                  <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.SIZE_LIST}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -202,11 +210,19 @@ function ThreadConsumptionReport() {
                       {item.WASTAGEPERCENT}
                     </td>
                     <td className="border border-gray-950 p-0.1">
-                      {item.THREADLENGTH}
+                      {item.THREADLENGTH.toFixed(2)}
                     </td>
                   </tr>
                   )
                 }
+                <tr className="text-start">
+                  <td colSpan={2} className="border border-gray-950 p-0.1 bg-emerald-200 text-center">Total</td>
+                  <td className="border border-gray-950 p-0.1">
+                  </td>
+                  <td className="border border-gray-950 p-0.1">
+                    {(threadConsumptionSummaryData.reduce((acc, item) => acc + item.THREADLENGTH, 0)).toFixed(2)}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
