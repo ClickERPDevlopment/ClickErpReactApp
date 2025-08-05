@@ -129,14 +129,14 @@ export default function StyleWiseProfitLossReportIndex() {
                       <td className=" text-balance  text-center p-1">{x.PONO}</td>
                       <td className=" text-balance  text-center p-1">{x.ORDER_QTY}</td>
                       <td className=" text-balance  text-center p-1">{x.SHIP_QTY}</td>
-                      <td className=" text-balance  text-center p-1">{x.FABRIC_COST}</td>
-                      <td className=" text-balance  text-center p-1">{x.ACCESSORIES_COST}</td>
-                      <td className=" text-balance  text-center p-1">{x.EMBLISHMENT_COST}</td>
-                      <td className=" text-balance  text-center p-1">{x.COMMERCIAL_COST}</td>
-                      <td className=" text-balance  text-center p-1">{x.CM_COST}</td>
-                      <td className=" text-balance  text-center p-1">{x.TOTAL_COST}</td>
-                      <td className=" text-balance  text-center p-1">{x.SHIP_VALUE}</td>
-                      <td className=" text-balance  text-center p-1">{x.PROFIT_LOSS}</td>
+                      <td className=" text-balance  text-center p-1">{x.FABRIC_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.ACCESSORIES_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.EMBLISHMENT_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.COMMERCIAL_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.CM_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.TOTAL_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.SHIP_VALUE.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">{x.PROFIT_LOSS.toFixed(2)}</td>
                     </tr>
                   ))}
 
