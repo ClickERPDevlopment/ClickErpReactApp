@@ -50,8 +50,8 @@ function Report({
     "MC Code",
     "SPI",
     "SL (CM)",
-    "Needle Thread (M)",
-    "Bobbin/Looper Thread (M)",
+    "Needle (M)",
+    "Bobbin/Looper (M)",
     "Wastage",
     "Total Cons (M)",
   ];
