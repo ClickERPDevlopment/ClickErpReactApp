@@ -1,9 +1,9 @@
 export type IStyleWiseProfitLossReport = {
   BUYER_ID: string;
   BUYER: string;
-  STYLE_ID: string;
+  STYLE_ID: number;
   STYLENO: string;
-  JOB_PO_ID: string;
+  JOB_PO_ID: number;
   PONO: string;
   ORDER_QTY: number;
   SHIP_QTY: number;

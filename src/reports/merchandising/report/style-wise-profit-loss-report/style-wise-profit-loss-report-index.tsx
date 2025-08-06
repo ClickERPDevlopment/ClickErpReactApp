@@ -8,6 +8,7 @@ import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import { IStyleWiseProfitLossReport } from "./components/IStyleWiseProfitLossReport";
 import { cn } from "@/lib/utils";
+import { FabricCostDialog } from "./components/fabric-cost-dialog";
 
 export default function StyleWiseProfitLossReportIndex() {
   const [data, setData] = useState<IStyleWiseProfitLossReport[]>([]);
@@ -62,6 +63,9 @@ export default function StyleWiseProfitLossReportIndex() {
     }
     getData();
   }, []);
+
+
+
 
   return (
     <>
@@ -121,15 +125,22 @@ export default function StyleWiseProfitLossReportIndex() {
                       i % 2 ? 'bg-emerald-50' : ''
                     )} key={i}>
                       <td className="text-balance  text-center p-1">
+                        <span className="hidden">{x.BUYER_ID}</span>
                         {x.BUYER}
                       </td>
                       <td className="text-balance text-center p-1">
+                        <span className="hidden">{x.STYLE_ID}</span>
                         {x.STYLENO}
                       </td>
-                      <td className=" text-balance  text-center p-1">{x.PONO}</td>
+                      <td className=" text-balance  text-center p-1">
+                        <span className="hidden">{x.JOB_PO_ID}</span>
+                        {x.PONO}
+                      </td>
                       <td className=" text-balance  text-center p-1">{x.ORDER_QTY}</td>
                       <td className=" text-balance  text-center p-1">{x.SHIP_QTY}</td>
-                      <td className=" text-balance  text-center p-1">{x.FABRIC_COST.toFixed(2)}</td>
+                      <td className=" text-balance  text-center p-1">
+                        <FabricCostDialog text={x.FABRIC_COST.toFixed(2)} poId={x.JOB_PO_ID} styleId={x.STYLE_ID} />
+                      </td>
                       <td className=" text-balance  text-center p-1">{x.ACCESSORIES_COST.toFixed(2)}</td>
                       <td className=" text-balance  text-center p-1">{x.EMBLISHMENT_COST.toFixed(2)}</td>
                       <td className=" text-balance  text-center p-1">{x.COMMERCIAL_COST.toFixed(2)}</td>
