@@ -66,6 +66,7 @@ function Report({
     "Prod Qty",
     "Del Qty",
     "Del Bal",
+    "Budget Status",
   ];
 
   const totalQtyPcs = data.reduce(
@@ -113,7 +114,7 @@ function Report({
           <tbody>
             {uniqueKeysArray?.map((key) => (<>
               <tr style={{ fontSize: "14px" }} className="font-bold">
-                <td colSpan={18} className="border border-gray-950 p-0.5">Emb Type: {groupedData[key]?.items[0]?.EMBELLISHMENT_TYPE}</td>
+                <td colSpan={19} className="border border-gray-950 p-0.5">Emb Type: {groupedData[key]?.items[0]?.EMBELLISHMENT_TYPE}</td>
               </tr>
               <ReportTable
                 key={key}
@@ -131,6 +132,7 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-center">{totalProdQty}</td>
               <td className="border border-gray-950 p-0.5 text-center">{totalDelQty}</td>
               <td className="border border-gray-950 p-0.5 text-center">{totalProdQty - totalDelQty}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{ }</td>
             </tr>
           </tbody>
         </table>

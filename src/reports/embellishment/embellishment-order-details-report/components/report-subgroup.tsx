@@ -57,6 +57,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5 text-center">{totalProdQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalDelQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalProdQty - totalDelQty}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{data[0]?.BUDGET_STATUS}</td>
       </tr>
     </>
   );

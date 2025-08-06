@@ -28,6 +28,8 @@ function EmbellishmentOrderSummaryReport() {
   const styleId = searchParams.get("styleId") || "0";
   const poId = searchParams.get("poId") || "0";
   const typeId = searchParams.get("typeId") || "0";
+  const budgetDone = searchParams.get("budgetDone") === "True";
+  const budgetNotDone = searchParams.get("budgetNotDone") === "True";
 
   const searchParamsObj = {
     fromDate,
@@ -48,7 +50,7 @@ function EmbellishmentOrderSummaryReport() {
   useEffect(() => {
     async function getData() {
 
-      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentOrderDetailsReport?fromDate=${fromDate}&toDate=${toDate}&supplierId=${supplierId}&woId=${woId}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&typeId=${typeId}`;
+      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentOrderDetailsReport?fromDate=${fromDate}&toDate=${toDate}&supplierId=${supplierId}&woId=${woId}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&typeId=${typeId}&budgetDone=${budgetDone}&budgetNotDone=${budgetNotDone}`;
 
       try {
         setIsLoading(true);
