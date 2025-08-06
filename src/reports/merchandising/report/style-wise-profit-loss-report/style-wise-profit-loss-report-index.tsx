@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
@@ -65,8 +66,6 @@ export default function StyleWiseProfitLossReportIndex() {
   }, []);
 
 
-
-
   return (
     <>
       {isLoading ? (
@@ -79,19 +78,19 @@ export default function StyleWiseProfitLossReportIndex() {
       ) : (
 
         data.length === 0 ?
-          <div className="bg-sky-100 border-t border-b border-sky-500 text-sky-700 px-4 py-3 mt-16" role="alert">
+          <div className="print:m-0 overflow-hidden  bg-sky-100 border-t border-b border-sky-500 text-sky-700 px-4 py-3 mt-16" role="alert">
             <p className="font-bold text-xl">Informational message</p>
             <p className="text-base">No Data Found. Please check "Style Wise Cost Breakdown" Entry.</p>
           </div>
           :
-          <div className="m-5 print:m-0">
+          <div className="">
 
-            <div>
+            <div className="">
               <h1 className="text-center font-bold text-2xl">Style-wise Profit & Loss Report</h1>
               <h5 className="text-center font-bold text-base">Month: {moment(month).format("MMM-YYYY")}</h5>
             </div>
 
-            <div className="border border-gray-500 rounded-md my-5">
+            <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 overflow-auto">
               <table className="w-full">
                 <thead className="sticky top-0 z-10">
                   <tr>

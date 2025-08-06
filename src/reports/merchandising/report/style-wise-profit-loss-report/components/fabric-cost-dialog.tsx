@@ -15,14 +15,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import useApiUrl from "@/hooks/use-ApiUrl"
 import useAxiosInstance from "@/lib/axios-instance"
 import React from "react"
+
 type IStyleWiseCostBreakdown_FabricCosting = {
-    "PO_ID": number,
-    "STYLE_ID": number,
-    "CUTTING_ISSUE_QTY": number,
-    "TOTAL_FABRIC_COST_BUDGET": number,
-    "FABRIC_COST": number,
-    "PONO": string,
-    "STYLENO": string
+    PO_ID: number,
+    STYLE_ID: number,
+    CUTTING_ISSUE_QTY: number,
+    TOTAL_FABRIC_COST_BUDGET: number,
+    FABRIC_COST: number,
+    PONO: string,
+    STYLENO: string,
+    FABRIC: string,
 }
 
 type props = {
@@ -57,7 +59,7 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                 }, 500);
             });
         }
-    }, [open])
+    }, [open, poId, styleId])
 
     return (
         <Dialog open={open} onOpenChange={(v) => setOpen(v)}>
@@ -65,7 +67,7 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                 <DialogTrigger asChild>
                     <Button variant="link" className="m-0 p-0 h-auto">{text}</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] bg-white">
+                <DialogContent className="sm:max-w-[525px] bg-white">
                     <DialogHeader>
                         <DialogTitle>Fabric Cost Details</DialogTitle>
                         <DialogDescription>
@@ -73,35 +75,61 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex gap-2 flex-col min-h-24">
-                        <div className="flex justify-start items-center gap-5 font-bold">
+                        <div className="flex justify-start items-center flex-wrap gap-2 font-bold">
                             <Label className="font-bold underline">Style: {loading ? <Skeleton className="h-3 w-20 ml-1 rounded-sm" /> : data && data[0]?.STYLENO}</Label>
                             <Label className="font-bold underline">PO: {loading ? <Skeleton className="h-3 w-20 ml-1 rounded-sm" /> : data && data[0]?.PONO}</Label>
                         </div>
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Fabric Unit Price</TableHead>
-                                    <TableHead>Fabric Quantity</TableHead>
-                                    <TableHead>Fabric Total Price</TableHead>
+                                    <TableHead className="sm:w-48">Fabric</TableHead>
+                                    <TableHead className="text-wrap">Fabric Unit Price</TableHead>
+                                    <TableHead className="text-wrap">Fabric Quantity</TableHead>
+                                    <TableHead className="text-wrap">Fabric Total Price</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {loading ?
-                                    <TableRow>
-                                        <TableCell><Skeleton className="h-5 w-full" /></TableCell>
-                                        <TableCell><Skeleton className="h-5 w-full" /></TableCell>
-                                        <TableCell><Skeleton className="h-5 w-full" /></TableCell>
-                                    </TableRow>
+                                    <>
+                                        <TableRow>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                            <TableCell><Skeleton className="h-5 w-full" /></TableCell>
+                                        </TableRow>
+                                    </>
                                     :
-                                    data?.map((x, i) => {
-                                        return (
-                                            <TableRow key={i}>
-                                                <TableCell>{x.TOTAL_FABRIC_COST_BUDGET.toFixed(3)}</TableCell>
-                                                <TableCell>{x.CUTTING_ISSUE_QTY}</TableCell>
-                                                <TableCell>{x.FABRIC_COST.toFixed(3)}</TableCell>
-                                            </TableRow>)
-                                    })
+                                    <>
+                                        {data?.map((x, i) => {
+                                            return (
+                                                <TableRow key={i}>
+                                                    <TableCell className="text-wrap">{x.FABRIC}</TableCell>
+                                                    <TableCell>{x.TOTAL_FABRIC_COST_BUDGET.toFixed(3)}</TableCell>
+                                                    <TableCell>{x.CUTTING_ISSUE_QTY}</TableCell>
+                                                    <TableCell>{x.FABRIC_COST.toFixed(2)}</TableCell>
+                                                </TableRow>)
+                                        })}
+                                        <TableRow>
+                                            <TableCell className="text-wrap" colSpan={2}>Total</TableCell>
+                                            <TableCell>{data?.reduce((p, c) => p + c.CUTTING_ISSUE_QTY, 0)}</TableCell>
+                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_COST, 0)?.toFixed(2)}</TableCell>
+                                        </TableRow>
+                                    </>
                                 }
+
+
 
                             </TableBody>
                         </Table>
