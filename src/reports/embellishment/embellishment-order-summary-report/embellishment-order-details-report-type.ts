@@ -32,4 +32,5 @@ export type EmbellishmentOrderDetailsReportType = {
   RCV_QTY: number;
   PRO_QTY: number;
   DEL_QTY: number;
+  BUDGET_STATUS: string;
 };
