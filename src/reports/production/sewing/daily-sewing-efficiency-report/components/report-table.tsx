@@ -47,7 +47,7 @@ function ReportTable({
   let totalOperator = 0;
   let totalHelper = 0;
   let totalTarget = 0;
-  let totalWorkHour = 0;
+  //let totalWorkHour = 0;
   let totalAvailableMin = 0;
 
   const totalHourlyTarget = data.reduce((acc, item) => acc + (item.TOTALTARGET / item.ACTUALHOURS), 0)
@@ -57,6 +57,7 @@ function ReportTable({
   const totalSmv = data.reduce((acc, item) => acc + item.SMVSEWING, 0)
   const totalFob = data.reduce((acc, item) => acc + item.TOTALFOB, 0)
   const totalCM = data.reduce((acc, item) => acc + item.TOTALCM, 0)
+  const totalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
 
 
 
@@ -69,7 +70,7 @@ function ReportTable({
         totalOperator += groupedData[key].items[0]?.OPERATOR;
         totalHelper += groupedData[key].items[0]?.HELPER;
         totalTarget += groupedData[key].items[0]?.TOTALTARGET;
-        totalWorkHour += groupedData[key].items[0]?.ACTUALHOURS;
+        //totalWorkHour += groupedData[key].items[0]?.ACTUALHOURS;
         totalAvailableMin += groupedData[key].items[0]?.AVAILABLEMIN;
         return <>
           <ReportGroup
@@ -91,7 +92,7 @@ function ReportTable({
         <td className="border border-gray-950 p-0.5 text-center">{Math.round(totalTarget)}</td>
         <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
         <td className="border border-gray-950 p-0.5 text-center">{((totalTargetEarnMin) * 100 / totalAvailableMin).toFixed(2)} %</td>
-        <td className="border border-gray-950 p-0.5 text-end">{totalWorkHour?.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 text-end">{(totalWorkHour / data.length)?.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-center">{(totalEarneMin * 100 / totalAvailableMin)?.toFixed(2)} %</td>
         <td className="border border-gray-950 p-0.5 text-end">{(totalFob / totalQcPass)?.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)}</td>
