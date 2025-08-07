@@ -60,7 +60,7 @@ function ReportTable({
   const totalCM = data.reduce((acc, item) => acc + item.TOTALCM, 0)
   const totalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
 
-
+  //
 
   return (
     <>
