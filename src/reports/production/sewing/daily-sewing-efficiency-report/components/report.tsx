@@ -117,7 +117,7 @@ function Report({
           searchParamsObj={searchParamsObj}
         />
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
-          <thead className="sticky top-0 print:static print:bg-transparent">
+          <thead className="sticky top-0 print:static">
             <tr style={{ fontSize: "15px", backgroundColor: "#A7F3D0" }} className="text-center">
               {firstHeader?.map((item) =>
                 <th className="border border-gray-950 p-0.5">{item}</th>
