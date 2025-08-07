@@ -8,8 +8,8 @@ import useApiUrl from "../../../../hooks/use-ApiUrl";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import { IStyleWiseProfitLossReport } from "./components/IStyleWiseProfitLossReport";
-import { cn } from "@/lib/utils";
-import { FabricCostDialog } from "./components/fabric-cost-dialog";
+import TotalRow from "./components/total-row";
+import BuyerGroupSection from "./components/buyer-group-section";
 
 export default function StyleWiseProfitLossReportIndex() {
   const [data, setData] = useState<IStyleWiseProfitLossReport[]>([]);
@@ -65,6 +65,7 @@ export default function StyleWiseProfitLossReportIndex() {
     getData();
   }, []);
 
+  const uniqueBuyer = [...new Set(data?.map(item => item.BUYER))];
 
   return (
     <>
@@ -119,87 +120,10 @@ export default function StyleWiseProfitLossReportIndex() {
                   </tr>
                 </thead>
                 <tbody id="table-body">
-                  {data?.map((x, i) => (
-                    <tr className={cn("border-t border-gray-500",
-                      i % 2 ? 'bg-emerald-50' : ''
-                    )} key={i}>
-                      <td className="text-balance  text-center p-1">
-                        <span className="hidden">{x.BUYER_ID}</span>
-                        {x.BUYER}
-                      </td>
-                      <td className="text-balance text-center p-1">
-                        <span className="hidden">{x.STYLE_ID}</span>
-                        {x.STYLENO}
-                      </td>
-                      <td className=" text-balance  text-center p-1">
-                        <span className="hidden">{x.JOB_PO_ID}</span>
-                        {x.PONO}
-                      </td>
-                      <td className=" text-balance  text-center p-1">{x.ORDER_QTY}</td>
-                      <td className=" text-balance  text-center p-1">{x.SHIP_QTY}</td>
-                      <td className=" text-balance  text-center p-1">
-                        <FabricCostDialog text={x.FABRIC_COST.toFixed(2)} poId={x.JOB_PO_ID} styleId={x.STYLE_ID} />
-                      </td>
-                      <td className=" text-balance  text-center p-1">{x.ACCESSORIES_COST.toFixed(2)}</td>
-                      <td className=" text-balance  text-center p-1">{x.EMBLISHMENT_COST.toFixed(2)}</td>
-                      <td className=" text-balance  text-center p-1">{x.COMMERCIAL_COST.toFixed(2)}</td>
-                      <td className=" text-balance  text-center p-1">{x.CM_COST.toFixed(2)}</td>
-                      <td className=" text-balance  text-center p-1">{x.TOTAL_COST.toFixed(2)}</td>
-                      <td className=" text-balance  text-center p-1">{x.SHIP_VALUE.toFixed(2)}</td>
-                      <td className=" text-balance  text-center p-1">{x.PROFIT_LOSS.toFixed(2)}</td>
-                    </tr>
+                  {uniqueBuyer?.map((buyer, i) => (
+                    <BuyerGroupSection key={i} data={data.filter(y => y.BUYER === buyer)} />
                   ))}
-
-                  <tr className={cn("border-t border-gray-500 font-bold")} >
-                    <td className="text-balance  text-center p-1" colSpan={4}>
-                      Total
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.SHIP_QTY, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.FABRIC_COST, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.ACCESSORIES_COST, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.EMBLISHMENT_COST, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.COMMERCIAL_COST, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.CM_COST, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.TOTAL_COST, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.SHIP_VALUE, 0).toFixed(2)
-                      }
-                    </td>
-                    <td className=" text-balance  text-center p-1">
-                      {
-                        data.reduce((p, c) => p + c.PROFIT_LOSS, 0).toFixed(2)
-                      }
-                    </td>
-                  </tr>
+                  <TotalRow data={data} title="Total" />
                 </tbody>
               </table>
             </div>

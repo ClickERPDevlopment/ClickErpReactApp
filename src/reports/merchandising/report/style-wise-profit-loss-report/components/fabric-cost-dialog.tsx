@@ -56,7 +56,7 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                 console.log(err)
                 setTimeout(() => {
                     setLoading(false)
-                }, 500);
+                }, 200);
             });
         }
     }, [open, poId, styleId])
