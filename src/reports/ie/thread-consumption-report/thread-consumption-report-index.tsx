@@ -168,10 +168,10 @@ function ThreadConsumptionReport() {
                   <td className="border border-gray-950 p-0.1 bg-emerald-200 text-nowrap">Working Size</td>
                   <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.SIZENAME}</td>
                 </tr>
-                <tr className="text-start">
+                {/* <tr className="text-start">
                   <td className="border border-gray-950 p-0.1 bg-emerald-200 text-nowrap">Size Range</td>
                   <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.SIZE_LIST}</td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>
@@ -207,10 +207,10 @@ function ThreadConsumptionReport() {
                     <td className="border border-gray-950 p-0.1 bg-emerald-200">{item.THREADNAME}</td>
                     <td className="border border-gray-950 p-0.1 bg-emerald-200">{item.THREADCOLOR}</td>
                     <td className="border border-gray-950 p-0.1">
-                      {item.WASTAGEPERCENT}
+                      {item.WASTAGEPERCENT} %
                     </td>
                     <td className="border border-gray-950 p-0.1">
-                      {item.THREADLENGTH.toFixed(2)}
+                      {Math.round(item.THREADLENGTH)}
                     </td>
                   </tr>
                   )
@@ -220,12 +220,24 @@ function ThreadConsumptionReport() {
                   <td className="border border-gray-950 p-0.1">
                   </td>
                   <td className="border border-gray-950 p-0.1">
-                    {(threadConsumptionSummaryData.reduce((acc, item) => acc + item.THREADLENGTH, 0)).toFixed(2)}
+                    {Math.round(threadConsumptionSummaryData.reduce((acc, item) => acc + item.THREADLENGTH, 0))}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className="mt-3 text-end">
+          <table className="me-auto">
+            <thead></thead>
+            <tbody>
+              <tr className="text-start">
+                <td className="border border-gray-950 p-0.1 text-nowrap">Size Range</td>
+                <td className="border border-gray-950 p-0.1">{threadConsumptionData[0]?.SIZE_LIST}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <Report data={threadConsumptionData}></Report>

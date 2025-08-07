@@ -21,8 +21,8 @@ function ReportSubgroup({
     <>
       <tr style={{ fontSize: "12px" }} className="font-light">
         <td className="border border-gray-950 p-0.1 text-center">{index + 1}</td>
-        <td className="border border-gray-950 p-0.1 font-bold">{data[0]?.OPERATIONNAME}</td>
-        <td className="border border-gray-950 p-0.1">{data[0]?.MACHINECODE}</td>
+        <td className="border border-gray-950 p-0.1 font-bold text-nowrap">{data[0]?.OPERATIONNAME}</td>
+        <td className="border border-gray-950 p-0.1 text-nowrap">{data[0]?.MACHINECODE}</td>
         <td className="border border-gray-950 p-0.1 text-center">{data[0]?.SPINO}</td>
         <td className="border border-gray-950 p-0.1 text-center">{data[0]?.SEAMLENGTH}</td>
         <td className="border border-gray-950 p-0.1 text-center font-bold">{totalNeedleThreadLength.toFixed(2)}</td>

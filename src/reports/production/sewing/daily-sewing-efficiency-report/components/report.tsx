@@ -64,12 +64,12 @@ function Report({
     "PERFORMANCE",
     "W/H",
     "EFFICIENCY %",
-    "FOB PER PCS",
-    "CM PER DZN",
-    "TOTAL EARNED FOB",
-    "TOTAL EARNED CM",
+    "FOB PER PCS ($)",
+    "CM PER DZN ($)",
+    "EARNED FOB ($)",
+    "EARNED CM ($)",
     "COST",
-    "TARGET EFFICIENCY %",
+    "TGT. EFF. %",
     "REMARKS",
   ];
 
@@ -77,7 +77,7 @@ function Report({
   let grandTotalOperator = 0;
   let grandTotalHelper = 0;
   let grandTotalTarget = 0;
-  let grandTotalWorkHour = 0;
+  //let grandTotalWorkHour = 0;
   let grandTotalAvailableMin = 0;
 
 
@@ -94,7 +94,7 @@ function Report({
         grandTotalOperator += item.OPERATOR ?? 0;
         grandTotalHelper += item.HELPER ?? 0;
         grandTotalTarget += item.TOTALTARGET ?? 0;
-        grandTotalWorkHour += item.ACTUALHOURS ?? 0;
+        //grandTotalWorkHour += item.ACTUALHOURS ?? 0;
         grandTotalAvailableMin += item.AVAILABLEMIN ?? 0;
       }
     }
@@ -107,6 +107,7 @@ function Report({
   const totalSmv = data.reduce((acc, item) => acc + item.SMVSEWING, 0)
   const totalFob = data.reduce((acc, item) => acc + item.TOTALFOB, 0)
   const totalCM = data.reduce((acc, item) => acc + item.TOTALCM, 0)
+  const grandTotalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
@@ -145,7 +146,7 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-center">{Math.round(grandTotalTarget)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
               <td className="border border-gray-950 p-0.5 text-center">{((totalTargetEarnMin) * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
-              <td className="border border-gray-950 p-0.5 text-end">{grandTotalWorkHour?.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-end">{(grandTotalWorkHour / data.length)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{(totalEarneMin * 100 / grandTotalAvailableMin)?.toFixed(2)} %</td>
               <td className="border border-gray-950 p-0.5 text-end">{(totalFob / totalQcPass)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)}</td>
