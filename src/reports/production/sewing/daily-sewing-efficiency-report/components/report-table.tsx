@@ -82,8 +82,8 @@ function ReportTable({
       })}
 
 
-      <tr style={{ fontSize: "14px" }} className="font-bold">
-        <td colSpan={4} className="border border-gray-950 p-0.5 text-nowrap text-center">Total</td>
+      <tr style={{ fontSize: "14px", backgroundColor: "#c4f2dc" }} className="font-bold">
+        <td colSpan={4} className="border border-gray-950 p-0.5 text-nowrap text-center">Floor Wise Total</td>
         <td className="border border-gray-950 p-0.5 text-center">{(totalSmv / data.length).toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalOperator}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalHelper}</td>

@@ -80,7 +80,6 @@ function Report({
   //let grandTotalWorkHour = 0;
   let grandTotalAvailableMin = 0;
 
-
   for (const floorKey in groupedData) {
     const floorItems = groupedData[floorKey].items;
 
@@ -136,7 +135,7 @@ function Report({
               ></ReportTable>
 
             })}
-            <tr style={{ fontSize: "14px" }} className="font-bold">
+            <tr style={{ fontSize: "14px", backgroundColor: "#c4f2dc" }} className="font-bold">
               <td colSpan={4} className="border border-gray-950 p-0.5 text-nowrap text-center">Grand Total</td>
               <td className="border border-gray-950 p-0.5 text-center">{(totalSmv / data.length).toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{grandTotalOperator}</td>
