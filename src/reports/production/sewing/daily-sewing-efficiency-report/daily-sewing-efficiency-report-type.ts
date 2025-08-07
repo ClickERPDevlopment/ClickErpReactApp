@@ -28,4 +28,5 @@ export type DailySewingEfficiencyReportType = {
   AVGLOSSMIN: number;
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
+  TARGET_EARN_MIN: number;
 };

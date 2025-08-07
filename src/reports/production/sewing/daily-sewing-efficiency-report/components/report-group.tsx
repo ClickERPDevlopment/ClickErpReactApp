@@ -60,6 +60,8 @@ function ReportGroup({
   const totalAvailableMin = data.reduce((acc, item) => acc + item.AVAILABLEMIN, 0)
   const totalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
 
+
+
   return (
     <>
 

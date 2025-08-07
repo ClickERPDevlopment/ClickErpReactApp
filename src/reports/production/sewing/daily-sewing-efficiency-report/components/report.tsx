@@ -79,6 +79,7 @@ function Report({
   let grandTotalTarget = 0;
   //let grandTotalWorkHour = 0;
   let grandTotalAvailableMin = 0;
+  let grandTotalTargetEarnleMin = 0;
 
   for (const floorKey in groupedData) {
     const floorItems = groupedData[floorKey].items;
@@ -95,6 +96,7 @@ function Report({
         grandTotalTarget += item.TOTALTARGET ?? 0;
         //grandTotalWorkHour += item.ACTUALHOURS ?? 0;
         grandTotalAvailableMin += item.AVAILABLEMIN ?? 0;
+        grandTotalTargetEarnleMin += item.TARGET_EARN_MIN ?? 0;
       }
     }
   }
@@ -152,7 +154,7 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-end">{(totalFob)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{(totalCM)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{ }</td>
-              <td className="border border-gray-950 p-0.5 text-center">{(grandTotalTarget * (totalSmv / data.length) * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-0.5 text-center">{(grandTotalTargetEarnleMin * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
               <td className="border border-gray-950 p-0.5 text-end">{ }</td>
             </tr>
 
