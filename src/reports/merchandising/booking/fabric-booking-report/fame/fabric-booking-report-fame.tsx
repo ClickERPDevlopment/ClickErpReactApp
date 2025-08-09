@@ -25,6 +25,7 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
     return (
         <div className="px-10 w-auto print:max-w-none print:px-0 mt-0">
             <MasterInfo masterData={data?.MaterData} >
+                {/* last REVISE */}
                 {data?.lstRevice && data.lstRevice?.length > 0 &&
                     <h1 className="border border-black text-center text-lg font-bold uppercase">
                         {`REVISE: ${data?.lstRevice[data?.lstRevice?.length - 1].REVICE_NO}. ${data?.lstRevice[data?.lstRevice?.length - 1].REVICE_REASON}`}
