@@ -17,4 +17,5 @@ export type SewingProductionStatusReportType = {
     TARGET_EFFI: number;
     UNITNAME?: string;
     PREFIX?: string;
+    AVG_SMV: number;
 };
