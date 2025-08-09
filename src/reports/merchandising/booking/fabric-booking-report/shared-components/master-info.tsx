@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 
 
 
-export default function MasterInfo({ masterData }: { masterData?: FabricBookingReportDto_MasterData }) {
+export default function MasterInfo({ masterData, children }: { masterData?: FabricBookingReportDto_MasterData, children?: React.ReactNode }) {
     const [imageSrc, setImageSrc] = useState<string>();
     const api = useApiUrl();
 
@@ -37,7 +37,7 @@ export default function MasterInfo({ masterData }: { masterData?: FabricBookingR
             <h1 className='text-right absolute right-0 top-0'>{moment(masterData?.CONS_DATE).format('D-MMM-yy')}</h1>
             <h1 className='text-[2.5rem] font-bold text-center mb-3'>{masterData?.COMPANY_NAME}</h1>
             <h3 className='text-xl font-bold text-center'>FABRICS BOOKING SHEET</h3>
-
+            {children}
             <div className='flex gap-10 mt-3 justify-between' >
                 <div className='flex flex-1 justify-between gap-5'>
                     <table className='flex flex-1'>

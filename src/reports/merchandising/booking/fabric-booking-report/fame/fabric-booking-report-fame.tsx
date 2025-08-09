@@ -21,10 +21,16 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
         { title: "HOD Merchant", access_key: "" },
         { title: "Approved By", access_key: "" },
     ]
-
+    console.log('data', data);
     return (
         <div className="px-10 w-auto print:max-w-none print:px-0 mt-0">
-            <MasterInfo masterData={data?.MaterData} />
+            <MasterInfo masterData={data?.MaterData} >
+                {data?.lstRevice && data.lstRevice?.length > 0 &&
+                    <h1 className="border border-black text-center text-lg font-bold uppercase">
+                        {`REVISE: ${data?.lstRevice[data?.lstRevice?.length - 1].REVICE_NO}. ${data?.lstRevice[data?.lstRevice?.length - 1].REVICE_REASON}`}
+                    </h1>
+                }
+            </MasterInfo>
             <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} />
             <Details_Fame lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} isPoWise={data?.MaterData?.IS_PO_WISE} />
             <CollarCuffSummary lstFabricQtyDetails={data?.lstFabricQtyDetails} lstSize={data?.lstSize} />
