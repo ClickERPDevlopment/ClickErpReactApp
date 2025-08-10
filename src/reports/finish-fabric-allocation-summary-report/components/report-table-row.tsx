@@ -5,15 +5,10 @@ import {
 
 export default function ReportTableRow({
   masterData,
-  detailsData,
 }: {
   masterData: FinishFabricAllocationSummaryReportMasterType;
   detailsData: FinishFabricAllocationSummaryReportDetailsType[];
 }) {
-  const totalAllocationQty = detailsData.reduce((acc, item) => {
-    return (acc += item.ALLOCATED_QTY);
-  }, 0);
-
 
   return (
     <>
@@ -50,20 +45,20 @@ export default function ReportTableRow({
         )}
 
         <td className="border text-center text-xs">
-          {totalAllocationQty?.toFixed(2)}
+          {masterData?.ALLOCATED_QTY?.toFixed(2)}
         </td>
 
         <td className="border text-center text-xs">
-          {isNaN(masterData.RECEIVE_QTY - totalAllocationQty)
+          {isNaN(masterData.RECEIVE_QTY - masterData?.ALLOCATED_QTY)
             ? "0"
-            : (masterData.RECEIVE_QTY - totalAllocationQty).toFixed(2)}
+            : (masterData.RECEIVE_QTY - masterData?.ALLOCATED_QTY).toFixed(2)}
         </td>
 
         <td className="border text-center text-xs">{masterData?.SUPPLIER_RATE_PER_PCS}</td>
 
-        <td className="border text-center text-xs"> {isNaN(masterData.RECEIVE_QTY - totalAllocationQty)
+        <td className="border text-center text-xs"> {isNaN(masterData.RECEIVE_QTY - masterData?.ALLOCATED_QTY)
           ? "0"
-          : ((masterData.RECEIVE_QTY - totalAllocationQty) * masterData.SUPPLIER_RATE_PER_PCS).toFixed(2)}</td>
+          : ((masterData.RECEIVE_QTY - masterData?.ALLOCATED_QTY) * masterData.SUPPLIER_RATE_PER_PCS).toFixed(2)}</td>
 
         <td className="border text-center text-xs">{masterData?.UOM}</td>
 
@@ -71,7 +66,7 @@ export default function ReportTableRow({
           {Number(masterData.CONSUMPTION_PER_DZN) == 0
             ? "0"
             : (
-              Math.abs(totalAllocationQty - masterData.RECEIVE_QTY) /
+              Math.abs(masterData.ALLOCATED_QTY - masterData.RECEIVE_QTY) /
               (Number(masterData.CONSUMPTION_PER_DZN) / 12)
             ).toFixed(2)}
         </td>

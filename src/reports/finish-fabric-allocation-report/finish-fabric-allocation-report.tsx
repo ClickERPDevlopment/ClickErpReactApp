@@ -104,6 +104,7 @@ export default function FinishFabricAllocationReport() {
       existing.WO_QTY += item.WO_QTY;
       existing.RECEIVE_QTY += item.RECEIVE_QTY;
       existing.RET_QTY += item.RET_QTY;
+      existing.ALLOCATED_QTY += item.ALLOCATED_QTY;
     }
   });
 

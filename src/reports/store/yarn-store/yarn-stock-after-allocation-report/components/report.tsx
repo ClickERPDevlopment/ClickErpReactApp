@@ -2,8 +2,6 @@
 import ReportTable from "./report-table";
 // import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
-import * as XLSX from "xlsx";
-import { Button } from "@/components/ui/button";
 import { LotWiseYarnStockReportType } from "../yarn-stock-after-allocation-report-type";
 
 
@@ -82,22 +80,22 @@ function Report({
   let groupLength = 0;
 
 
-  function exportToExcel() {
-    const tableElement = document.querySelector("#report-div");
-    if (!tableElement) return;
+  // function exportToExcel() {
+  //   const tableElement = document.querySelector("#report-div");
+  //   if (!tableElement) return;
 
-    const ws = XLSX.utils.table_to_sheet(tableElement);
+  //   const ws = XLSX.utils.table_to_sheet(tableElement);
 
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Report");
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, "Report");
 
-    XLSX.writeFile(wb, "Report.xlsx");
-  }
+  //   XLSX.writeFile(wb, "Report.xlsx");
+  // }
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
       className="px-12 text-gray-950">
-      <div className="text-end mt-2 print:hidden">
+      {/* <div className="text-end mt-2 print:hidden">
         <Button
           size="sm"
           className="ms-auto  px-3 py-0.1 text-sm bg-lime-900"
@@ -105,7 +103,7 @@ function Report({
         >
           Export to Excel
         </Button>
-      </div>
+      </div> */}
       <div className="p-2" id="report-div">
         <ReportHeader
           data={data}
