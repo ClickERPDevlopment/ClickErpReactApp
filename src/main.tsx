@@ -168,6 +168,7 @@ import SewingProductionStatusReport from "./reports/production/sewing/sewing-pro
 import DailySewingEfficiencyReport from "./reports/production/sewing/daily-sewing-efficiency-report/daily-sewing-efficiency-report-index.tsx";
 import StyleWiseProfitLossReportIndex from "./reports/merchandising/report/style-wise-profit-loss-report/style-wise-profit-loss-report-index.tsx";
 import LotWiseYarnStockReport from "./reports/store/yarn-store/lot-wise-yarn-stock-report/lot-wise-yarn-stock-report-index.tsx";
+import YarnStockAfterAlloctionReport from "./reports/store/yarn-store/yarn-stock-after-allocation-report/yarn-stock-after-allocation-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -773,6 +774,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="lot-wise-yarn-stock-report"
                         element={<LotWiseYarnStockReport />}
+                      />
+                      <Route
+                        path="yarn-stock-after-alloction-report"
+                        element={<YarnStockAfterAlloctionReport />}
                       />
                       <Route
                         path="yarn-return-challan-report"
