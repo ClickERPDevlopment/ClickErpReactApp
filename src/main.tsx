@@ -167,6 +167,8 @@ import ThreadConsumptionReport from "./reports/ie/thread-consumption-report/thre
 import SewingProductionStatusReport from "./reports/production/sewing/sewing-production-status-report/sewing-production-status-report-index.tsx";
 import DailySewingEfficiencyReport from "./reports/production/sewing/daily-sewing-efficiency-report/daily-sewing-efficiency-report-index.tsx";
 import StyleWiseProfitLossReportIndex from "./reports/merchandising/report/style-wise-profit-loss-report/style-wise-profit-loss-report-index.tsx";
+import LotWiseYarnStockReport from "./reports/store/yarn-store/lot-wise-yarn-stock-report/lot-wise-yarn-stock-report-index.tsx";
+import YarnStockAfterAlloctionReport from "./reports/store/yarn-store/yarn-stock-after-allocation-report/yarn-stock-after-allocation-report-index.tsx";
 import AtoZReportIndex from "./reports/merchandising/report/a-to-z-report/a-to-z-report-index.tsx";
 
 //-------------------------------------------------------------
@@ -774,6 +776,14 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="yarn-store">
+                      <Route
+                        path="lot-wise-yarn-stock-report"
+                        element={<LotWiseYarnStockReport />}
+                      />
+                      <Route
+                        path="yarn-stock-after-alloction-report"
+                        element={<YarnStockAfterAlloctionReport />}
+                      />
                       <Route
                         path="yarn-return-challan-report"
                         element={<YarnReturnChallanReport />}

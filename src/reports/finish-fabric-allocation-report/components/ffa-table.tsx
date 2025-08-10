@@ -105,16 +105,16 @@ export default function FFATable({
             </td>
           )}
 
-          <td className="border text-center text-xs">{totalAllocation}</td>
+          <td className="border text-center text-xs">{masterData?.ALLOCATED_QTY}</td>
           <td className="border text-center text-xs">
-            {(totalAllocation - masterData.RECEIVE_QTY).toFixed(2)}
+            {(masterData?.ALLOCATED_QTY - masterData.RECEIVE_QTY).toFixed(2)}
           </td>
           <td className="border text-center text-xs">{masterData.UOM}</td>
           <td className="border text-center text-xs">
             {Number(masterData.CONSUMPTION_PER_DZN) == 0
               ? "0"
               : (
-                Math.abs(totalAllocation - masterData.RECEIVE_QTY) /
+                Math.abs(masterData.ALLOCATED_QTY - masterData.RECEIVE_QTY) /
                 (Number(masterData.CONSUMPTION_PER_DZN) / 12)
               ).toFixed(2)}
           </td>

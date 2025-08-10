@@ -53,6 +53,7 @@ export default function ReportTable({
       existing.WO_QTY += item.WO_QTY;
       existing.RECEIVE_QTY += item.RECEIVE_QTY;
       existing.RET_QTY += item.RET_QTY;
+      existing.ALLOCATED_QTY += item.ALLOCATED_QTY;
     }
   });
 
@@ -71,8 +72,13 @@ export default function ReportTable({
   }, 0);
 
 
-  let totaAllocationQty = 0;
-  let totalValue = 0;
+  const totaAllocationQty = masterData.reduce((acc, item) => {
+    return (acc += item.ALLOCATED_QTY);
+  }, 0);
+
+  let totalValue = masterData.reduce((acc, item) => {
+    return (acc += ((item.RECEIVE_QTY - item.ALLOCATED_QTY) * item.SUPPLIER_RATE_PER_PCS));
+  }, 0);
 
 
   return (
@@ -99,16 +105,6 @@ export default function ReportTable({
                 dData.STOCK_FABRIC_COLOR_ID === mData.GMT_COLOR_ID &&
                 dData.ORDER_REFERENCE === mData.ORDER_REFERENCE
             );
-
-            totaAllocationQty += filteredData.reduce((acc, item) => {
-              return (acc += item.ALLOCATED_QTY);
-            }, 0);
-
-            const allocationQty = filteredData.reduce((acc, item) => {
-              return (acc += item.ALLOCATED_QTY);
-            }, 0);
-
-            totalValue += (mData.RECEIVE_QTY - allocationQty) * mData.SUPPLIER_RATE_PER_PCS;
 
             return (
               <ReportTableRow
