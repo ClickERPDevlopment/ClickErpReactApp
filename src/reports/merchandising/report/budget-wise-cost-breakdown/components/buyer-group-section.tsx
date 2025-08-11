@@ -173,13 +173,13 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
           </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
             {/* Target CM per dzn */}
-            {bookingData[0]?.SMVSEWING ?? 0 * 0.06 * 12}
+            {((bookingData[0]?.SMVSEWING ?? 0) * 0.06 * 12)?.toFixed(2)}
           </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
             {/* PROFIT/ LOSS */}
             {
-              (((data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.find(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID && f.PROCESS_NAME === "CM")?.DZN_PRICE ?? 0) -
-                (bookingData[0]?.SMVSEWING ? bookingData[0].SMVSEWING * 0.06 * 12 : 0)) * (poData()?.reduce((p, c) => p + Number(c.QTY), 0))) / 12
+              (((((data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.find(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID && f.PROCESS_NAME === "CM")?.DZN_PRICE ?? 0) -
+                (bookingData[0]?.SMVSEWING ? bookingData[0].SMVSEWING * 0.06 * 12 : 0)) * (poData()?.reduce((p, c) => p + Number(c.QTY), 0))) / 12))?.toFixed(2)
 
             }
           </th>
@@ -191,12 +191,12 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
           <th className="text-balance text-center p-1 border-r border-t border-gray-500">{mainFabricData(item.FABRIC_OR_MTL_ID)?.reduce((p, c) => p + c.FABRIC_ITEM_PRICE_PER_UNIT_KG_BUDGET, 0)}</th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500">{mainFabricData(item.FABRIC_OR_MTL_ID)[0]?.UOM} </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500">
-            {mainFabricData(item.FABRIC_OR_MTL_ID)?.reduce((p, c) => p + Number(c.TOTAL_MAIN_FABRIC_VALUE), 0)}
+            {(mainFabricData(item.FABRIC_OR_MTL_ID)?.reduce((p, c) => p + Number(c.TOTAL_MAIN_FABRIC_VALUE), 0))?.toFixed(2)}
           </th>
 
           {fabricProcessType?.map((fp_item, i) =>
             <th className="text-balance text-center p-1 border-r border-t border-gray-500" key={i}>
-              {fabricProcessData(item.FABRIC_OR_MTL_ID, fp_item)?.reduce((p, c) => p + Number(c.TOTAL_PRICE), 0)}
+              {(fabricProcessData(item.FABRIC_OR_MTL_ID, fp_item)?.reduce((p, c) => p + Number(c.TOTAL_PRICE), 0))?.toFixed(2)}
             </th>
           )}
 

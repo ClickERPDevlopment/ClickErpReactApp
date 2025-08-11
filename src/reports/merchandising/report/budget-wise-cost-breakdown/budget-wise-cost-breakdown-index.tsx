@@ -37,6 +37,7 @@ export default function BudgetWiseCostBreakdownIndex() {
 
   if (searchParams.get("isOpmWise")) {
     isOpmWise = searchParams.get("isOpmWise");
+    console.log(searchParams.get("isOpmWise"))
   }
   if (searchParams.get("fromOpmDate")) {
     fromOpmDate = searchParams.get("fromOpmDate");

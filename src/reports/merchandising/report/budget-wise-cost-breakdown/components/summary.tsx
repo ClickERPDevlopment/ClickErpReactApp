@@ -81,11 +81,11 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
       <table className="border border-gray-500 m-5">
         <thead>
           <tr>
-            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={5}>SUM UP</th>
+            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={6}>SUM UP</th>
           </tr>
           <tr>
             <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={3}>SUM UP</th>
-            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={2} >CR</th>
+            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={3} >CR</th>
           </tr>
         </thead>
         <tbody>
@@ -99,12 +99,15 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500">
                   {item.amount.toFixed(2)}
                 </td>
+                <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.percentage?.toFixed(3)}%</td>
+
               </tr> :
               <tr>
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.particular}</td>
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500">
                   {item.amount.toFixed(2)}
                 </td>
+                <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.percentage?.toFixed(3)}%</td>
               </tr>
           )}
 
@@ -116,11 +119,12 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
             <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold">
               {(showData.reduce((p, c) => p + c.amount, 0)).toFixed(2)}
             </td>
+            <td className="text-balance text-center p-1 border-r border-t border-gray-500"></td>
           </tr>
 
           <tr>
             <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold">Balance</td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold" colSpan={4}>
+            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold" colSpan={5}>
               {(data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Number(c.MASTER_LC_VALUE), 0) -
                 (showData.reduce((p, c) => p + c.amount, 0))).toFixed(2)}
             </td>
@@ -142,7 +146,7 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
               </th>
             </tr>
             <tr>
-              <th className="border border-gray-500 text-center p-1">BTB & Cash</th>
+              <th className="border border-gray-500 text-center p-1">CM+Comercial</th>
               <th className="border border-gray-500 text-center p-1">
                 {(showData?.filter(f => !f.isBBLCash)?.reduce((p, c) => p + (c.amount ?? 0), 0))?.toFixed(2)}
               </th>

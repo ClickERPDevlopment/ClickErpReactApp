@@ -56,9 +56,8 @@ export default function TotalRow({ data, title, gmtProcessType, commissionType }
         {Number(localStorage.getItem('grossCost'))?.toFixed(2)}
       </th>
       <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
-        {((data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + c.MASTER_LC_VALUE, 0)) - Number(localStorage.getItem('grossCost')))?.toFixed(2)}
         {/* SHORT+ EXTRA */}
-        {/* {data?.BudgetWiseCostBreakdownDto_PO?.find(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)?.MASTER_LC_VALUE ?? 0 - grossCost()} */}
+        {Number((data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Math.round(c.MASTER_LC_VALUE), 0)) - (Number(localStorage.getItem('grossCost') ?? 0))).toFixed(2)}
       </th>
       <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
         {/* CM per dzn Achieve */}
