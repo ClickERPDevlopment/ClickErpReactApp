@@ -308,7 +308,8 @@ function ReportTable({
   let totalFloor = 0;
   let grandTotalHourly = 0;
   let grandTotalSMV = 0;
-
+  let grandTotalProduced = 0;
+  let grandTotalTarget = 0;
 
   const getFactoryColor = (factoryName: string): string => {
     let hash = 0;
@@ -402,11 +403,11 @@ function ReportTable({
                           className="border border-gray-950 p-1 text-center"
                           style={{ backgroundColor: getFactoryColor(company) }}
                         >
-                          {Math.round(companyData?.FLOORS?.[floor]?.TARGET) || "0.00"}
+                          {Math.round(companyData?.FLOORS?.[floor]?.TARGET) || "0"}
                         </td>
                       ))}
                       <td className="border border-gray-950 p-1 text-center font-bold" style={{ backgroundColor: getFactoryColor(company) }}>
-                        {Math.round(companyData?.COMPANY_TOTAL) || "0.00"}
+                        {Math.round(companyData?.COMPANY_TOTAL) || ""}
                       </td>
                     </>
                   );
@@ -705,13 +706,21 @@ function ReportTable({
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
                     const floorData = companyData?.FLOORS?.[floor];
                     const floorId = floorData?.FLOOR_ID ?? 0;
-                    const actualHours = floorData?.ACTUALHOURS ?? 0;
+                    // const actualHours = floorData?.ACTUALHOURS ?? 0;
                     const noOfLine = floorData?.NO_OF_LINE ?? 0;
                     const total = organizedData.byFloorTotal[floorId] ?? 0;
 
+                    const uniqueHours = new Set(
+                      sewingHourlyProductionData
+                        .filter(item => item.FLOORID === floorId)
+                        .map(item => item.HOUR)
+                    );
+
+                    const uniqueHourCount = uniqueHours.size;
+
                     const hourly =
-                      actualHours > 0 && noOfLine > 0
-                        ? total / actualHours / noOfLine
+                      uniqueHourCount > 0 && noOfLine > 0
+                        ? total / uniqueHourCount / noOfLine
                         : 0;
 
                     totalHourly += hourly;
@@ -774,27 +783,53 @@ function ReportTable({
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
+                  let totalProduced = 0;
+                  let totalTarget = 0;
+
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
                     const floorId = companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0;
-                    const floorTarget = companyData?.FLOORS?.[floor]?.TARGET ?? 0;
-                    const floorTotal = organizedData.byFloorTotal[floorId] ?? 0;
-                    const achieve = (floorTotal * 100) / floorTarget;
+                    const floorData = companyData?.FLOORS?.[floor];
+
+                    const noOfLine = floorData?.NO_OF_LINE ?? 0;
+                    const hourlyTarget = floorData?.HOURLY_PER_LINE ?? 0;
+                    const total = organizedData.byFloorTotal[floorId] ?? 0;
+
+                    const uniqueHours = new Set(
+                      sewingHourlyProductionData
+                        .filter(item => item.FLOORID === floorId)
+                        .map(item => item.HOUR)
+                    );
+                    const uniqueHourCount = uniqueHours.size;
+
+                    // Produced
+                    totalProduced += total;
+
+                    // Target
+                    totalTarget += uniqueHourCount * noOfLine * hourlyTarget;
+
+                    const achieve =
+                      uniqueHourCount > 0 && noOfLine > 0 && hourlyTarget > 0
+                        ? (total / (uniqueHourCount * noOfLine * hourlyTarget)) * 100
+                        : 0;
+
                     return (
                       <td
                         key={`${dateKey}-${company}-${floor}`}
                         className="border border-gray-950 p-1 text-center"
                         style={{ backgroundColor: getFactoryColor(company) }}
                       >
-                        {isNaN(achieve) ? "0.00" : Math
-                          .round(achieve)} %
+                        {isNaN(achieve) ? "0.00" : Math.round(achieve)} %
                       </td>
                     );
                   });
 
-                  const factoryId = companyData?.FACTORYID ?? 0;
-                  const companyTotal = companyData?.COMPANY_TOTAL ?? 0;
-                  const factoryTotal = organizedData.byFactoryTotal[factoryId] ?? 0;
-                  const factoryAchieve = (factoryTotal * 100) / companyTotal;
+                  // Weighted company achievement
+                  const companyAchieve =
+                    totalTarget > 0 ? (totalProduced / totalTarget) * 100 : 0;
+
+                  // Add to grand totals
+                  grandTotalProduced += totalProduced;
+                  grandTotalTarget += totalTarget;
 
                   cells.push(
                     <td
@@ -802,7 +837,7 @@ function ReportTable({
                       className="border border-gray-950 p-1 text-center font-bold"
                       style={{ backgroundColor: getFactoryColor(company) }}
                     >
-                      {isNaN(factoryAchieve) ? "0.00" : Math.round(factoryAchieve)} %
+                      {isNaN(companyAchieve) ? "0" : Math.round(companyAchieve)} %
                     </td>
                   );
 
@@ -811,14 +846,15 @@ function ReportTable({
 
                 <td className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
-                    const grandTarget = grouped[dateKey]?.TARGET ?? 0;
-                    const result = (organizedData.grandTotal * 100) / grandTarget;
-                    return isNaN(result) ? "0.00" : Math.round(result);
+                    const grandAchieve =
+                      grandTotalTarget > 0
+                        ? (grandTotalProduced / grandTotalTarget) * 100
+                        : 0;
+                    return isNaN(grandAchieve) ? "0" : Math.round(grandAchieve);
                   })()} %
                 </td>
+
               </tr>
-
-
             </>
           ))}
         </tbody>
