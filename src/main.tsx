@@ -170,6 +170,7 @@ import StyleWiseProfitLossReportIndex from "./reports/merchandising/report/style
 import LotWiseYarnStockReport from "./reports/store/yarn-store/lot-wise-yarn-stock-report/lot-wise-yarn-stock-report-index.tsx";
 import YarnStockAfterAlloctionReport from "./reports/store/yarn-store/yarn-stock-after-allocation-report/yarn-stock-after-allocation-report-index.tsx";
 import AtoZReportIndex from "./reports/merchandising/report/a-to-z-report/a-to-z-report-index.tsx";
+import DateWiseYarnAllocationReport from "./reports/store/yarn-store/date-wise-yarn-allocation-report/date-wise-yarn-allocation-report-index.tsx";
 import BudgetWiseCostBreakdownIndex from "./reports/merchandising/report/budget-wise-cost-breakdown/budget-wise-cost-breakdown-index.tsx";
 
 //-------------------------------------------------------------
@@ -781,6 +782,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="yarn-store">
+                      <Route
+                        path="date-wise-yarn-allocation-report"
+                        element={<DateWiseYarnAllocationReport />}
+                      />
                       <Route
                         path="lot-wise-yarn-stock-report"
                         element={<LotWiseYarnStockReport />}
