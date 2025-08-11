@@ -170,6 +170,7 @@ import StyleWiseProfitLossReportIndex from "./reports/merchandising/report/style
 import LotWiseYarnStockReport from "./reports/store/yarn-store/lot-wise-yarn-stock-report/lot-wise-yarn-stock-report-index.tsx";
 import YarnStockAfterAlloctionReport from "./reports/store/yarn-store/yarn-stock-after-allocation-report/yarn-stock-after-allocation-report-index.tsx";
 import AtoZReportIndex from "./reports/merchandising/report/a-to-z-report/a-to-z-report-index.tsx";
+import BudgetWiseCostBreakdownIndex from "./reports/merchandising/report/budget-wise-cost-breakdown/budget-wise-cost-breakdown-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -628,6 +629,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="a-to-z-report"
                       element={<AtoZReportIndex />}
+                    />
+                    <Route
+                      path="BudgetWiseCostBreakdown"
+                      element={<BudgetWiseCostBreakdownIndex />}
                     />
                     <Route
                       path="po-wise-fabric-access-status-report"
