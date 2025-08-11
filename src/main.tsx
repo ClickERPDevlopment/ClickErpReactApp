@@ -169,6 +169,7 @@ import DailySewingEfficiencyReport from "./reports/production/sewing/daily-sewin
 import StyleWiseProfitLossReportIndex from "./reports/merchandising/report/style-wise-profit-loss-report/style-wise-profit-loss-report-index.tsx";
 import LotWiseYarnStockReport from "./reports/store/yarn-store/lot-wise-yarn-stock-report/lot-wise-yarn-stock-report-index.tsx";
 import YarnStockAfterAlloctionReport from "./reports/store/yarn-store/yarn-stock-after-allocation-report/yarn-stock-after-allocation-report-index.tsx";
+import AtoZReportIndex from "./reports/merchandising/report/a-to-z-report/a-to-z-report-index.tsx";
 import DateWiseYarnAllocationReport from "./reports/store/yarn-store/date-wise-yarn-allocation-report/date-wise-yarn-allocation-report-index.tsx";
 
 //-------------------------------------------------------------
@@ -624,6 +625,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="style-wise-profig-loss-report"
                       element={<StyleWiseProfitLossReportIndex />}
+                    />
+                    <Route
+                      path="a-to-z-report"
+                      element={<AtoZReportIndex />}
                     />
                     <Route
                       path="po-wise-fabric-access-status-report"
