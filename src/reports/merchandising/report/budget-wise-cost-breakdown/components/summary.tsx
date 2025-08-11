@@ -93,7 +93,7 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
             i === 0 ?
               <tr>
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>MASTER  L/C </td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>SALES CONTRACT NO : EDFL-DWWL-CWSL-02A</td>
+                <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>SALES CONTRACT NO : {data?.SalesContractNo}</td>
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>{data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Number(c.MASTER_LC_VALUE), 0)}</td>
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.particular}</td>
                 <td className="text-balance text-center p-1 border-r border-t border-gray-500">

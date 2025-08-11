@@ -2,6 +2,7 @@ export type IBudgetWiseCostBreakdown = {
   PrintDate: Date;
   CompanyName: string;
   CompanyAddress: string;
+  SalesContractNo: string;
 
   BudgetWiseCostBreakdownDto_Booking: IBudgetWiseCostBreakdownDto_Booking[];
   BudgetWiseCostBreakdownDto_PO: IBudgetWiseCostBreakdownDto_PO[];

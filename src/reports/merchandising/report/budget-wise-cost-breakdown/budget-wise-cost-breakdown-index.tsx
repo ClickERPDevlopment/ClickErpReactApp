@@ -156,7 +156,7 @@ export default function BudgetWiseCostBreakdownIndex() {
               <h1 className="text-center font-bold text-2xl">{data?.CompanyName}</h1>
               <h1 className="text-center font-bold text-sm">{data?.CompanyAddress}</h1>
               <h1 className="text-center font-bold text-lg mt-5">BUDGET WISE COST BEAKDOWN</h1>
-              <h5 className="text-center font-bold text-base">SALES CONTRACT NO : ###</h5>
+              <h5 className="text-center font-bold text-base">SALES CONTRACT NO : {data?.SalesContractNo}</h5>
             </div>
 
             <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 overflow-auto m-1">
