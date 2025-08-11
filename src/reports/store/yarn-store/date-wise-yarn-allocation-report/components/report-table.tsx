@@ -51,9 +51,9 @@ function ReportTable({
 
   return (
     <>
-      <tr style={{ fontSize: "14px" }} className="font-bold">
+      {/* <tr style={{ fontSize: "14px" }} className="font-bold">
         <td colSpan={12} className="border border-gray-950 font-bold p-0.5">Yarn Description: {data[0]?.YARN}</td>
-      </tr>
+      </tr> */}
       {uniqueKeysArray?.map((key, index) => (
         <ReportSubgroup
           key={key}
