@@ -167,7 +167,7 @@ export default function BudgetWiseCostBreakdownIndex() {
                     <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">Buyer</th>
                     <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">STYLE </th>
                     <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">JOB NO/PO</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">Sub PO NO</th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-32">Sub PO NO</th>
                     <th className="text-balance text-center p-1 border-r border-gray-500">IMAGE </th>
                     <th className="text-balance text-center p-1 border-r border-gray-500">ORDER QTY PCS</th>
                     <th className="text-balance text-center p-1 border-r border-gray-500">ITEMS NAME</th>
