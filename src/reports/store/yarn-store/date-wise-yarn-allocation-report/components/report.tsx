@@ -117,7 +117,7 @@ function Report({
               ></ReportTable>
             })}
             <tr style={{ fontSize: "14px", backgroundColor: "#b5fcdb" }} className="font-bold">
-              <td colSpan={4} className="border border-gray-950 p-0.5">Grand Total</td>
+              <td colSpan={5} className="border border-gray-950 p-0.5">Grand Total</td>
               <td className="border border-gray-950 p-0.5">{totalAllocatedQty.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5">{totalIssueQty.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
