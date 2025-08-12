@@ -172,6 +172,7 @@ import YarnStockAfterAlloctionReport from "./reports/store/yarn-store/yarn-stock
 import AtoZReportIndex from "./reports/merchandising/report/a-to-z-report/a-to-z-report-index.tsx";
 import DateWiseYarnAllocationReport from "./reports/store/yarn-store/date-wise-yarn-allocation-report/date-wise-yarn-allocation-report-index.tsx";
 import BudgetWiseCostBreakdownIndex from "./reports/merchandising/report/budget-wise-cost-breakdown/budget-wise-cost-breakdown-index.tsx";
+import YarnRcvIssueRegisterReport from "./reports/store/yarn-store/yarn-rcv-issue-register-report/yarn-rcv-issue-register-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -782,6 +783,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="yarn-store">
+                      <Route
+                        path="yarn-rcv-issue-register-report"
+                        element={<YarnRcvIssueRegisterReport />}
+                      />
                       <Route
                         path="date-wise-yarn-allocation-report"
                         element={<DateWiseYarnAllocationReport />}
