@@ -109,19 +109,19 @@ function Report({
                 colSpan={middleHeader.length}
                 className="border border-gray-950 p-0.1"
               >
-                Embellishment Rcv From Cutting
+                Embellishment Rcv from Factory
               </th>
               <th
                 colSpan={middleHeader.length}
                 className="border border-gray-950 p-0.1"
               >
-                Embellishment Process
+                Embellishment Return to Factory
               </th>
               <th
                 colSpan={middleHeader.length}
                 className="border border-gray-950 p-0.1"
               >
-                Embellishment Stock
+                Embellishment Stock in Supplier
               </th>
 
               {lastHeader?.map((item) => (
