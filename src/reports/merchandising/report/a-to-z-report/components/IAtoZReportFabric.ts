@@ -1,4 +1,4 @@
-export type IAtoZReport = {
+export type IAtoZReportFabric = {
   BUYER_ID: number;
   BUYER: string;
   PO_ID: number;

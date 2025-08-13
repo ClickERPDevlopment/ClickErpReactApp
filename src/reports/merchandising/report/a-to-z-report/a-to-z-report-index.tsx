@@ -4,15 +4,17 @@ import { useSearchParams } from "react-router";
 
 import useApiUrl from "../../../../hooks/use-ApiUrl";
 import TableSkeleton from "../../../../components/table-skeleton";
-import { IAtoZReport } from "./components/IAtoZReport";
+import { IAtoZReportFabric } from "./components/IAtoZReportFabric";
 import TotalRow from "./components/total-row";
 import BuyerGroupSection from "./components/buyer-group-section";
 import { Skeleton } from "@/components/ui/skeleton";
 import AppAlert from "@/components/app-alert";
 import useAxiosInstance from "@/lib/axios-instance";
+import { IAtoZReportGmt } from "./components/IAtoZReportGmt";
 
 export default function AtoZReportIndex() {
-  const [data, setData] = useState<IAtoZReport[]>([]);
+  const [data_fabric, setDataFabric] = useState<IAtoZReportFabric[]>([]);
+  const [data_gmt, setDataGMT] = useState<IAtoZReportGmt[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isRendering, setIsRendering] = useState(true);
   const [searchParams] = useSearchParams();
@@ -67,7 +69,8 @@ export default function AtoZReportIndex() {
           )
           .then((res) => {
             if (res.data) {
-              setData(res.data);
+              setDataFabric(res.data);
+              setDataGMT([]);
               requestAnimationFrame(() => {
                 setIsRendering(false);
               });
@@ -93,7 +96,7 @@ export default function AtoZReportIndex() {
     getData();
   }, []);
 
-  const uniqueBuyer = [...new Set(data?.map(item => item.BUYER))];
+  const uniqueBuyer = [...new Set(data_fabric?.map(item => item.BUYER))];
 
   return (
     <>
@@ -108,8 +111,8 @@ export default function AtoZReportIndex() {
         error ? <AppAlert message={error} type="error" /> :
           <div className="">
             <div className="">
-              {/* <h1 className="text-center font-bold text-2xl">A-Z Report</h1>
-              <h5 className="text-center font-bold text-base">Order Placement Month from {moment(fromOpmDate).format("MMM-YYYY")} to {moment(toOpmDate).format("MMM-YYYY")}</h5> */}
+              <h1 className="text-left font-bold text-2xl px-5 mt-3">A-Z Report</h1>
+              {/* <h5 className="text-center font-bold text-base">Order Placement Month from {moment(fromOpmDate).format("MMM-YYYY")} to {moment(toOpmDate).format("MMM-YYYY")}</h5> */}
             </div>
 
             <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 m-1">
@@ -136,7 +139,15 @@ export default function AtoZReportIndex() {
                     <th className="text-balance text-center p-1 border-r border-gray-500 " rowSpan={2}>Knitting Close Dt.</th>
                     <th className="text-balance text-center p-1 border-r border-b border-gray-500 " colSpan={7}>Dyeing</th>
                     <th className="text-balance text-center p-1 border-r border-b border-gray-500 " colSpan={3}>Finish fabric</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 " rowSpan={2}>Fin Fabrics Del. Last Date</th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500" rowSpan={2}>Fin Fabrics Del. Last Date</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={4}>General Info</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={3}>Cutting</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={2}>Input</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={2}>Sewing</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={3}>Finishing</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={3}>Packing</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={2}>Shipping</th>
+                    <th className="text-balance text-center p-1 border-r border-b border-gray-500">Summery</th>
                   </tr>
                   <tr>
                     {/* <th colSpan={6}>Yarn</th> */}
@@ -165,16 +176,56 @@ export default function AtoZReportIndex() {
                     <th className="text-balance text-center p-1 border-r border-gray-500">RFT <span className="text-nowrap">[P=N-O]</span> 	</th>
 
                     {/* <th colSpan={3}>Finish fabric</th> */}
-                    <th className="text-balance text-center p-1 border-r border-gray-500">Req Qty<span className="text-nowrap">[Q=B*0.89]</span> 	</th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Req Qty<span className="text-nowrap">[Q=B*0.89]</span></th>
                     <th className="text-balance text-center p-1 border-r border-gray-500">Rcvd Qty [R]	</th>
-                    <th className="text-balance text-center p-1  border-r border-gray-500">Revd Bal <span className="text-nowrap">[S=Q-R]</span> </th>
+                    <th className="text-balance text-center p-1  border-r border-gray-500">Revd Bal <span className="text-nowrap">[S=Q-R]</span></th>
+
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={4}>General Info</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-24">PO<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Style<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Color<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Order Qty<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Qty<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Bal<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">PES<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Input</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Qty<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Ready<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Sewing</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Output<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">WIP<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Finishing</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Input<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Output<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">WIP<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Packing</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Input<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Output<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">WIP<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Shipping</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Qty<span className="text-nowrap"></span></th>
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Bal<span className="text-nowrap"></span></th>
+
+                    {/* <th className="text-balance text-center p-1 border-r border-gray-500">Summery</th> */}
+                    <th className="text-balance text-center p-1 border-r border-gray-500">Cut to Ship(%)<span className="text-nowrap"></span></th>
                   </tr>
                 </thead>
                 <tbody id="table-body">
                   {uniqueBuyer?.map((x, i) => (
-                    <BuyerGroupSection data={data?.filter(y => y.BUYER === x)} key={i} />
+                    <BuyerGroupSection
+                      data_fabric={data_fabric?.filter(y => y.BUYER === x)}
+                      data_gmt={data_gmt}
+                      key={i} />
                   ))}
-                  <TotalRow data={data} title="Total" />
+                  <TotalRow data={data_fabric} title="Total" />
                 </tbody>
               </table>
             </div>
