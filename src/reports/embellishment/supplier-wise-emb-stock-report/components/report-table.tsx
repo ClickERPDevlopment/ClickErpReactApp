@@ -65,7 +65,7 @@ function ReportTable({
   return (
     <>
       <tr style={{ fontSize: "12px" }} className="font-bold">
-        <td colSpan={17} className="border border-gray-950 p-0.1">{data[0]?.SUPPLIER}</td>
+        <td colSpan={18} className="border border-gray-950 p-0.1">{data[0]?.SUPPLIER}</td>
       </tr>
       {uniqueKeysArray?.map((key) => {
         const data = groupedByDate[key].items;
