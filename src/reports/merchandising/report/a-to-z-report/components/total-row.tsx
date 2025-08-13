@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
-import { IAtoZReport } from "./IAtoZReport";
+import { IAtoZReportFabric } from "./IAtoZReportFabric";
 
 type props = {
-  data: IAtoZReport[],
+  data: IAtoZReportFabric[],
   title: string
 }
 
 export default function TotalRow({ data, title }: props) {
 
   return (
-    <tr className={cn("border-t border-gray-500",)}>
+    <tr className={cn("border-t border-gray-500 font-bold",)}>
       <td className="text-balance text-center p-1" colSpan={3}>
         {title}
       </td>
