@@ -77,7 +77,7 @@ function ReportGroup({
         </>
       })}
       <tr style={{ fontSize: "12px" }} className="font-bold">
-        <td colSpan={4} className="border border-gray-950 p-0.1 text-center">Style Total</td>
+        <td colSpan={4} className="border border-gray-950 p-0.1 text-center">Buyer Total</td>
         <td className="border border-gray-950 p-0.1 text-center">{orderQty.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1 text-center">{pRcv.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1 text-center">{eRcv.toFixed(2)}</td>

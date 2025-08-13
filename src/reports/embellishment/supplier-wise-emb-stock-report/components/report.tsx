@@ -40,7 +40,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["BUYER"]);
+    groupedByDate = groupBy(data, ["SUPPLIER"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -64,8 +64,6 @@ function Report({
   const lastHeader = [
     "Remarks",
   ];
-
-
 
   const pRcv = data?.reduce((acc, item) => acc + item.P_RECEIVEQTY, 0)
   const eRcv = data?.reduce((acc, item) => acc + item.E_RECEIVEQTY, 0)

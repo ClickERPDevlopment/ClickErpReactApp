@@ -39,7 +39,7 @@ function ReportTable({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["STYLENO"]);
+    groupedByDate = groupBy(data, ["BUYER"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -64,6 +64,9 @@ function ReportTable({
 
   return (
     <>
+      <tr style={{ fontSize: "12px" }} className="font-bold">
+        <td colSpan={17} className="border border-gray-950 p-0.1">{data[0]?.SUPPLIER}</td>
+      </tr>
       {uniqueKeysArray?.map((key) => {
         const data = groupedByDate[key].items;
         return <>
@@ -75,7 +78,7 @@ function ReportTable({
         </>
       })}
       <tr style={{ fontSize: "12px" }} className="font-bold">
-        <td colSpan={4} className="border border-gray-950 p-0.1 text-center">Buyer Total</td>
+        <td colSpan={4} className="border border-gray-950 p-0.1 text-center">Supplier Total</td>
         <td className="border border-gray-950 p-0.1 text-center">{orderQty.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1 text-center">{pRcv.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.1 text-center">{eRcv.toFixed(2)}</td>
