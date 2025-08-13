@@ -39,21 +39,31 @@ function ReportTable({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["LC_NO", "YARN", "BRAND", "YARN_RECEIVED_DATE", "BUYER", "PO_NO", "CHALLAN_NO", "LC_NO", "KNITTING_HOUSE", "IMPORT_TYPE", "PER_CTN_QTY"]);
+    groupedByDate = groupBy(data, ["LC_NO", "YARN", "BRAND", "YARN_RECEIVED_DATE", "BUYER", "PO_NO", "CHALLAN_NO", "YARN_LOT_NUMBER", "KNITTING_HOUSE", "IMPORT_TYPE", "PER_CTN_QTY"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
+  let totalRcvKg = 0;
+  let totalRcvCtn = 0;
+
   return (
     <>
-      {uniqueKeysArray?.map((key, index) => (
-        <ReportSubgroup
-          key={key}
-          data={groupedByDate[key].items}
-          index={index}
-          firstHeader={firstHeader}
-        ></ReportSubgroup>
-      ))}
+      {uniqueKeysArray?.map((key, index) => {
+        const data = groupedByDate[key].items
+        totalRcvKg += data.reduce((acc, item) => acc + item.RECEIVE_KG, 0);
+        totalRcvCtn += data.reduce((acc, item) => acc + item.RECEIVE_CTN, 0);
+        return <>
+          <ReportSubgroup
+            key={key}
+            data={data}
+            index={index}
+            firstHeader={firstHeader}
+            totalRcvKg={totalRcvKg}
+            totalRcvCtn={totalRcvCtn}
+          ></ReportSubgroup>
+        </>
+      })}
     </>
   );
 }

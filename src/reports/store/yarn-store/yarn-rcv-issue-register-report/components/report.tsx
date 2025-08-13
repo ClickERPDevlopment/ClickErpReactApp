@@ -40,7 +40,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, [""]);
+    groupedByDate = groupBy(data, ["YARN_LOT_NUMBER"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -64,7 +64,7 @@ function Report({
     "ISSUE CTN",
     "ISSUE KG",
     "BALANCE CTN",
-    "BALANCE",
+    "BALANCE KG",
   ];
 
 
@@ -113,7 +113,7 @@ function Report({
           <thead className="sticky top-0 print:static">
             <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
-                <th className="border border-gray-950 p-0.5">{item}</th>
+                <th className="border border-gray-950 p-0.1">{item}</th>
               )}
             </tr>
           </thead>
@@ -127,14 +127,14 @@ function Report({
             ))}
 
             <tr style={{ fontSize: "12px" }} className="font-bold">
-              <td colSpan={10} className="border border-gray-950 p-0.5">Grand Total</td>
-              <td className="border border-gray-950 p-0.5">{rcvCtn.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{ }</td>
-              <td className="border border-gray-950 p-0.5">{rcvKg.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{issueCtn.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{issueKg.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{ }</td>
-              <td className="border border-gray-950 p-0.5">{ }</td>
+              <td colSpan={10} className="border border-gray-950 p-0.1">Grand Total</td>
+              <td className="border border-gray-950 p-0.1">{rcvCtn.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.1">{ }</td>
+              <td className="border border-gray-950 p-0.1">{rcvKg.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.1">{issueCtn.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.1">{issueKg.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.1">{ }</td>
+              <td className="border border-gray-950 p-0.1">{ }</td>
             </tr>
 
           </tbody>
