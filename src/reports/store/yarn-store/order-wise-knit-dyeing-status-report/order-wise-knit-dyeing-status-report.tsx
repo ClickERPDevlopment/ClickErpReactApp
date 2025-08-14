@@ -6,7 +6,7 @@ export default function OrderWiseKnittingDyeingStatusReport({ data }: { data: Or
   const uniquejob = [...new Set(data?.map(item => item.PONO))]; // [ 'A', 'B']
 
   const getTotal = (fieldName: keyof OrderWiseKnttingDeyingStatusReportType, d: OrderWiseKnttingDeyingStatusReportType[]) =>
-    d.reduce((p, c) => p + Number(c[fieldName]), 0);
+    d.reduce((p, c) => p + Number(c[fieldName]), 0).toFixed(2);
 
 
   return (
