@@ -24,7 +24,7 @@ export default function BuyerGroupSection({ data_fabric, data_gmt }: props) {
     uniquePoStyle?.map((item, i) => (
       <PoStyleGroupSection
         data_fabric={data_fabric?.filter(y => y.PO_ID === item.PO_ID && y.STYLE_ID === item.STYLE_ID)}
-        data_gmt={data_gmt?.filter(y => y.JOB_PO_ID === item.PO_ID && y.STYLE_ID === item.STYLE_ID)}
+        data_gmt={data_gmt?.filter(y => y.JOB_PO_ID === item.PO_ID && y.MAIN_STYLE_ID === item.STYLE_ID)}
         key={i}
       />
     )));

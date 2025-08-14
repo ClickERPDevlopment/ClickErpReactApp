@@ -2,6 +2,7 @@ export type IAtoZReportGmt = {
   JOB_PO_ID: number;
   PO_ID: number;
   PONO: string;
+  MAIN_STYLE_ID: number;
   STYLE_ID: number;
   STYLENO: string;
   COLOR_NAME: string;
