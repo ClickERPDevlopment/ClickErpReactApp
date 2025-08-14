@@ -51,30 +51,34 @@ function ReportTable({
     0
   );
 
+  let gorupLength = data.length || 0;
+
   return (
     <>
-      {uniqueKeysArray?.map((key) => (
+      {uniqueKeysArray?.map((key, index) => (
         <ReportSubgroup
           key={key}
           data={groupedByDate[key].items}
           firstHeader={firstHeader}
+          gorupLength={gorupLength}
+          index={index}
         ></ReportSubgroup>
       ))}
 
       {data[0].DS === 'TRIMS & ACCESSORIES' ?
-        (<tr style={{ fontSize: "11px" }} className="font-bold">
-          <td colSpan={4} className="border border-gray-950 p-0.5 text-end">PERCENTAGE: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
-          <td className="border border-gray-950 p-0.5">{
+        (<tr style={{ fontSize: "12px" }} className="font-bold">
+          <td colSpan={4} className="border border-gray-950 p-0.1 text-end">Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
+          <td className="border border-gray-950 p-0.1">{
             '(Dzn: ' +
             (totalQty == 0 ? 0 : (totalBudgetValue * 12 / totalQty)).toFixed(2)
             + ')'
           }</td>
-          <td className="border border-gray-950 p-0.5">{totalBudgetValue.toFixed(2)}</td>
+          <td className="border border-gray-950 p-0.1 text-center">{totalBudgetValue.toFixed(2)}</td>
         </tr>)
         :
-        (<tr style={{ fontSize: "11px" }} className="font-bold">
-          <td colSpan={5} className="border border-gray-950 p-0.5 text-end">PERCENTAGE: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
-          <td className="border border-gray-950 p-0.5">{totalBudgetValue.toFixed(2)}</td>
+        (<tr style={{ fontSize: "12px" }} className="font-bold">
+          <td colSpan={5} className="border border-gray-950 p-0.1 text-end">Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
+          <td className="border border-gray-950 p-0.1 text-center">{totalBudgetValue.toFixed(2)}</td>
         </tr>)
       }
     </>

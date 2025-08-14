@@ -4,6 +4,8 @@ import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { BudgetReportResponseType, BudgetReportType } from "../budget-report-type";
 import useAppClient from "@/hooks/use-AppClient";
+import { useEffect, useState } from "react";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 
 function Report({
@@ -14,6 +16,7 @@ function Report({
 
   const client = useAppClient();
   const uniqueKeys: Set<string> = new Set();
+  const api = useApiUrl();
 
 
   function groupBy(
@@ -64,6 +67,42 @@ function Report({
     0
   );
 
+  const [styleImage, setStyleImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchImage(data && data?.Report[0]?.STYLE_ID || 0);
+  }, [data?.Report[0]?.STYLE_ID]);
+
+  const fetchImage = async (id: number) => {
+    try {
+      const response = await fetch(
+        `${api.ProductionUrl}/production/Style/GetStyleImage?styleId=${id}`
+      );
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        if (styleImage) {
+          URL.revokeObjectURL(styleImage);
+        }
+        setStyleImage(url);
+      } else {
+        console.error("Failed to fetch image");
+      }
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
+
+
+  const report = data?.Report?.[0];
+  const fob = data?.FOB;
+  const requiredCM =
+    client.currentClient === client.EURO
+      ? `SMV x 0.07`
+      : client.currentClient === client.FAME
+        ? `SMV x 0.0653`
+        : null;
+
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
@@ -72,85 +111,90 @@ function Report({
         <ReportHeader
           data={data}
         />
-        <div className="flex justify-between mt-3 gap-3">
-          <div>
-            <table className="font-bold align-top">
-              <thead></thead>
+
+        <div className="flex justify-between mt-3 align-top gap-3 border border-gray-950 p-0.5">
+          <div className="w-[40%]">
+            <table className="font-bold align-top w-full">
               <tbody>
                 <tr>
-                  <td className="align-top">Budget No.</td>
-                  <td className="align-top">: {data?.Report[0]?.BUDGET_NO}</td>
+                  <td className="p-0.1 text-nowrap">Budget No.</td>
+                  <td className="p-0.1">: {report?.BUDGET_NO}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Budget For</td>
-                  <td className="align-top">: {data?.Report[0]?.BUYER}</td>
+                  <td className="p-0.1 text-nowrap">Budget For</td>
+                  <td className="p-0.1">: {report?.BUYER}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Style</td>
-                  <td className="align-top">: {data?.Report[0]?.STYLENO}</td>
+                  <td className="p-0.1 text-nowrap">Style</td>
+                  <td className="p-0.1 text-nowrap">: {report?.STYLENO}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Item</td>
-                  <td className="align-top">: {data?.Report[0]?.ITEM}</td>
+                  <td className="p-0.1 text-nowrap">Item</td>
+                  <td className="p-0.1">: {report?.ITEM}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">PO</td>
-                  <td className="align-top">: {data?.Report[0]?.COMBINE_PONO}</td>
+                  <td className="p-0.1 text-nowrap">PO</td>
+                  <td className="p-0.1">: {report?.COMBINE_PONO}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">FOB($)</td>
-                  <td className="align-top">: {data?.FOB}</td>
+                  <td className="p-0.1 text-nowrap">FOB($)</td>
+                  <td className="p-0.1">: {fob}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div>
-            <table className="font-bold">
-              <thead></thead>
+
+          <div className="w-[20%] flex items-start align-top justify-center">
+            {styleImage && (
+              <img
+                src={styleImage}
+                alt="Style Image"
+                className="max-h-[160px] w-auto object-contain"
+              />
+            )}
+          </div>
+
+          <div className="w-[40%]">
+            <table className="font-bold w-full">
               <tbody>
                 <tr>
-                  <td className="align-top">SMV</td>
-                  <td className="align-top">: {data?.SMV}</td>
+                  <td className="p-0.1">SMV</td>
+                  <td className="p-0.1">: {data?.SMV}</td>
                 </tr>
-                {client.currentClient == client.EURO ?
-                  <>
-                    <tr>
-                      <td className="align-top">Required CM (SMV x 0.07)</td>
-                      <td className="align-top">: {data?.RequiredCM}</td>
-                    </tr>
-                  </> : client.currentClient == client.FAME ?
-                    <>
-                      <tr>
-                        <td className="align-top">Required CM (SMV x 0.0653)</td>
-                        <td className="align-top">: {data?.RequiredCM}</td>
-                      </tr>
-                    </> : ''
-                }
+                {requiredCM && (
+                  <tr>
+                    <td className="p-0.1 text-nowrap">Required CM ({requiredCM})</td>
+                    <td className="p-0.1">: {data?.RequiredCM}</td>
+                  </tr>
+                )}
                 <tr>
-                  <td className="align-top">Qty(Pcs)</td>
-                  <td className="align-top">: {data?.Report[0]?.PO_QTY.toFixed(2)}</td>
+                  <td className="p-0.1 text-nowrap">Qty(Pcs)</td>
+                  <td className="p-0.1">: {report?.PO_QTY?.toFixed(2)}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Total FOB Value($)</td>
-                  <td className="align-top">: {data?.Report[0]?.TOTAL_FOB_VALUE.toFixed(2)}</td>
+                  <td className="p-0.1 text-nowrap">Total FOB Value($)</td>
+                  <td className="p-0.1">: {report?.TOTAL_FOB_VALUE?.toFixed(2)}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Buying Commission($)</td>
-                  <td className="align-top">: {((data?.Report[0]?.TOTAL_FOB_VALUE ?? 0) - (data?.Report[0]?.BALANCE_VALUE ?? 0)).toFixed(2)}</td>
+                  <td className="p-0.1 text-nowrap">Buying Commission($)</td>
+                  <td className="p-0.1">
+                    : {((report?.TOTAL_FOB_VALUE ?? 0) - (report?.BALANCE_VALUE ?? 0)).toFixed(2)}
+                  </td>
                 </tr>
                 <tr>
-                  <td className="align-top">Balance($)</td>
-                  <td className="align-top">: {data?.Report[0]?.BALANCE_VALUE.toFixed(2)}</td>
+                  <td className="p-0.1 text-nowrap">Balance($)</td>
+                  <td className="p-0.1">: {report?.BALANCE_VALUE?.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <table className="border-collapse border border-gray-300  w-[100%] mt-3">
+
+        <table className="border-collapse border border-gray-300  w-[100%] mt-2">
           <thead className="print:bg-transparent">
             <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
-                <th className="border border-gray-950 p-0.5">{item}</th>
+                <th className="border border-gray-950 p-0.1">{item}</th>
               )}
             </tr>
           </thead>
@@ -172,15 +216,15 @@ function Report({
             <thead></thead>
             <tbody>
               <tr>
-                <td className="align-top">TOTAL EXPENDITURES($)</td>
+                <td className="align-top">Total Expenditures($)</td>
                 <td className="align-top">: {totalBudgetValue?.toFixed(2)}</td>
               </tr>
               <tr>
-                <td className="align-top">BUDGETED MARKUP($)</td>
+                <td className="align-top">Budget Markup($)</td>
                 <td className="align-top">: {((data?.Report[0]?.BALANCE_VALUE ?? 0) - (totalBudgetValue ?? 0)).toFixed((2))}</td>
               </tr>
               <tr>
-                <td className="align-top">MARKUP %</td>
+                <td className="align-top">Markup %</td>
                 <td className="align-top">: {((((data?.Report[0]?.BALANCE_VALUE ?? 0) - (totalBudgetValue ?? 0)) / (data?.Report[0]?.TOTAL_FOB_VALUE ?? 0)) * 100).toFixed((2))}</td>
               </tr>
             </tbody>
