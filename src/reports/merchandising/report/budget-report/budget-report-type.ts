@@ -37,4 +37,5 @@ export type BudgetReportType = {
     DS: string;
     SORTING: number;
     COMBINE_PONO: string;
+    FACTORY_ID: number;
 };
