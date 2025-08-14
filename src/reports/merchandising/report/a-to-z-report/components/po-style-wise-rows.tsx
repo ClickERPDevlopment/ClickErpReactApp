@@ -47,24 +47,24 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.ALLOCATED_BALANCE}</td>
                             <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.YARN_ALLOCATION_CLOSE_DATE &&
-                                    moment(f?.YARN_ALLOCATION_CLOSE_DATE).format("DD-MMM-YYYY")}
+                                    moment(f?.YARN_ALLOCATION_CLOSE_DATE).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.YARN_ISSUE_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.YARN_ISSUE_BALANCE}</td>
                             <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.YARN_ISSUE_LAST_DTATE &&
-                                    moment(f?.YARN_ISSUE_LAST_DTATE).format("DD-MMM-YYYY")}
+                                    moment(f?.YARN_ISSUE_LAST_DTATE).format("MMM-YYYY")}
                             </td>
                             <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.KNITTING_START_DT &&
-                                    moment(f?.KNITTING_START_DT).format("DD-MMM-YYYY")}
+                                    moment(f?.KNITTING_START_DT).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.GREY_RCV_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.KNITTING_BAL}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.KNITTING_WIP}</td>
                             <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.KNITTING_CLOSE_DT &&
-                                    moment(f?.KNITTING_CLOSE_DT).format("DD-MMM-YYYY")}
+                                    moment(f?.KNITTING_CLOSE_DT).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.DYEING_GREY_RCV_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.BATCH_QTY_KG}</td>
@@ -78,7 +78,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FF_RCV_BALANCE}</td>
                             <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.FIN_FABRICS_DEL_LAST_DATE &&
-                                    moment(f?.FIN_FABRICS_DEL_LAST_DATE).format("DD-MMM-YYYY")}
+                                    moment(f?.FIN_FABRICS_DEL_LAST_DATE).format("MMM-YYYY")}
                             </td>
                             {/* gmt-General Info */}
                             <td className="border border-gray-500 text-balance text-center p-1 border-l">{g?.PONO}</td>
