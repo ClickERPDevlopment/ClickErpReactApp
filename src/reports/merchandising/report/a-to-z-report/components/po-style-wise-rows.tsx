@@ -29,7 +29,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                                 <span className="hidden">{f?.BUYER_ID}</span>
                                 {f?.BUYER}
                             </td>
-                            <td className=" border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>
                                 <span className="hidden">{f?.PO_ID}</span>
                                 {f?.PONO}
                             </td>
@@ -38,31 +38,31 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                                 {f?.STYLENO}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.PO_QTY}</td>
-                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.CONSUMPTION_RELEASE_DATE &&
                                     moment(f?.CONSUMPTION_RELEASE_DATE).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.YARN_BOOKING_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.ALLOCATED_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.ALLOCATED_BALANCE}</td>
-                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.YARN_ALLOCATION_CLOSE_DATE &&
                                     moment(f?.YARN_ALLOCATION_CLOSE_DATE).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.YARN_ISSUE_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.YARN_ISSUE_BALANCE}</td>
-                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.YARN_ISSUE_LAST_DTATE &&
                                     moment(f?.YARN_ISSUE_LAST_DTATE).format("MMM-YYYY")}
                             </td>
-                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.KNITTING_START_DT &&
                                     moment(f?.KNITTING_START_DT).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.GREY_RCV_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.KNITTING_BAL}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.KNITTING_WIP}</td>
-                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.KNITTING_CLOSE_DT &&
                                     moment(f?.KNITTING_CLOSE_DT).format("MMM-YYYY")}
                             </td>
@@ -76,14 +76,14 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISH_REQ_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISHING_FABRIC_RCV_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FF_RCV_BALANCE}</td>
-                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.FIN_FABRICS_DEL_LAST_DATE &&
                                     moment(f?.FIN_FABRICS_DEL_LAST_DATE).format("MMM-YYYY")}
                             </td>
                             {/* gmt-General Info */}
                             <td className="border border-gray-500 text-balance text-center p-1 border-l">{g?.PONO}</td>
-                            <td className="text-nowrap text-center p-1">{g?.STYLENO}</td>
-                            <td className="text-nowrap text-center p-1">{g?.PO_QTY}</td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
                             {/* <td className="border border-gray-500 text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.CUTTING_QTY}</td>
@@ -120,8 +120,8 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                         <tr className={cn("border-t border-gray-500")} key={i}>
                             {/* gmt-General Info */}
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.PONO}</td>
-                            <td className="text-nowrap text-center p-1">{g?.STYLENO}</td>
-                            <td className="text-nowrap text-center p-1">{g?.PO_QTY}</td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
                             {/* <td className="border border-gray-500 text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.CUTTING_QTY}</td>
