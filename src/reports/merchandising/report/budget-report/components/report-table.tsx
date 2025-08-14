@@ -66,19 +66,19 @@ function ReportTable({
       ))}
 
       {data[0].DS === 'TRIMS & ACCESSORIES' ?
-        (<tr style={{ fontSize: "12px" }} className="font-bold">
-          <td colSpan={4} className="border border-gray-950 p-0.1 text-end">Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
-          <td className="border border-gray-950 p-0.1">{
+        (<tr style={{ fontSize: "12px", }} className="font-bold">
+          <td colSpan={4} className="border border-gray-950 text-end"><span style={{ backgroundColor: "#f4f4cb" }}>Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</span></td>
+          <td className="border border-gray-950 p-0.1" style={{ backgroundColor: "#f4f4cb" }}>{
             '(Dzn: ' +
             (totalQty == 0 ? 0 : (totalBudgetValue * 12 / totalQty)).toFixed(2)
             + ')'
           }</td>
-          <td className="border border-gray-950 p-0.1 text-center">{totalBudgetValue.toFixed(2)}</td>
+          <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#f4f4cb" }}>{totalBudgetValue.toFixed(2)}</td>
         </tr>)
         :
         (<tr style={{ fontSize: "12px" }} className="font-bold">
-          <td colSpan={5} className="border border-gray-950 p-0.1 text-end">Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</td>
-          <td className="border border-gray-950 p-0.1 text-center">{totalBudgetValue.toFixed(2)}</td>
+          <td colSpan={5} className="border border-gray-950 text-end"><span style={{ backgroundColor: "#f4f4cb" }}>Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</span></td>
+          <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#f4f4cb" }}>{totalBudgetValue.toFixed(2)}</td>
         </tr>)
       }
     </>
