@@ -9,20 +9,20 @@ export type IAtoZReportGmt = {
   //CUTTING===============
   CUTTING_QTY: number;
   CUTTING_BALANCE: number;
-  CUTTING_PES: number;
+  // CUTTING_PES: number;
   //INPUT===============
-  INPUT_QTY: number;
-  INPUT_READY_QTY: number;
+  SEWING_INPUT_QTY: number;
+  SEWING_INPUT_READY_QTY: number;
   //SEWING===============
-  SEWING_OUTPUR_QTY: number;
+  SEWING_OUTPUT_QTY: number;
   SEWING_WIP: number;
   //FINISHING===============
-  FINISHING_Input: number;
-  FINISHING_Output: number;
+  FINISHING_INPUT: number;
+  FINISHING_OUTPUT: number;
   FINISHING_WIP: number;
   //PACKING===============
-  PACKING_Input: number;
-  PACKING_Output: number;
+  PACKED_INPUT: number;
+  PACKED_OUTPUT: number;
   PACKING_WIP: number;
   //SHIPPING===============
   SHIPPING_QTY: number;

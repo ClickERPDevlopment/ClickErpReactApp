@@ -1,3 +1,4 @@
+import StyleImage from "@/components/style-image";
 import { ICommission } from "../budget-wise-cost-breakdown-index";
 import { IBudgetWiseCostBreakdown, IBudgetWiseCostBreakdownDto_Booking } from "./IBudgetWiseCostBreakdown";
 
@@ -113,7 +114,11 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.STYLENO} </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.PONO}</th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.JOB_POS}</th>
-          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>...</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            <div className="w-full">
+              <StyleImage styleId={item.STYLE_ID} />
+            </div>
+          </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{poData()?.reduce((p, c) => p + Number(c.QTY), 0)}</th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.ITEMTYPE}</th>
 

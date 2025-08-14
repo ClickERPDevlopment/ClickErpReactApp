@@ -18,6 +18,9 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                 const f = { ...fabric };
                 const g = { ...gmt };
 
+
+                console.log('g-', data_fabric);
+
                 if (i == 0) {
                     return (
                         <tr className={cn("border-t border-gray-500")} key={i}>
@@ -34,7 +37,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                                 {f?.STYLENO}
                             </td>
                             <td className="text-balance text-center p-1" rowSpan={maxLength}>{f?.PO_QTY}</td>
-                            <td className="text-nowrap text-center p-1">
+                            <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.CONSUMPTION_RELEASE_DATE &&
                                     moment(f?.CONSUMPTION_RELEASE_DATE).format("DD-MMM-YYYY")}
                             </td>
@@ -77,32 +80,30 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                                     moment(f?.FIN_FABRICS_DEL_LAST_DATE).format("DD-MMM-YYYY")}
                             </td>
                             {/* gmt-General Info */}
-                            <td className="text-balance text-center p-1">{g?.PONO}</td>
+                            <td className="text-balance text-center p-1 border-l border-gray-500">{g?.PONO}</td>
                             <td className="text-nowrap text-center p-1">{g?.STYLENO}</td>
-                            <td className="text-nowrap text-center p-1">{g?.COLOR_NAME}</td>
                             <td className="text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}
                             <td className="text-balance text-center p-1">{g?.CUTTING_QTY}</td>
                             <td className="text-balance text-center p-1">{g?.CUTTING_BALANCE}</td>
-                            <td className="text-balance text-center p-1">{g?.CUTTING_PES}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Input</td> */}
-                            <td className="text-balance text-center p-1">{g?.INPUT_QTY}</td>
-                            <td className="text-balance text-center p-1">{g?.INPUT_READY_QTY}</td>
+                            <td className="text-balance text-center p-1">{g?.SEWING_INPUT_QTY}</td>
+                            <td className="text-balance text-center p-1">{g?.SEWING_INPUT_READY_QTY}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Sewing</td> */}
-                            <td className="text-balance text-center p-1">{g?.SEWING_OUTPUR_QTY}</td>
+                            <td className="text-balance text-center p-1">{g?.SEWING_OUTPUT_QTY}</td>
                             <td className="text-balance text-center p-1">{g?.SEWING_WIP}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Finishing</td> */}
-                            <td className="text-balance text-center p-1">{g?.FINISHING_Input}</td>
-                            <td className="text-balance text-center p-1">{g?.FINISHING_Output}</td>
+                            <td className="text-balance text-center p-1">{g?.FINISHING_INPUT}</td>
+                            <td className="text-balance text-center p-1">{g?.FINISHING_OUTPUT}</td>
                             <td className="text-balance text-center p-1">{g?.FINISHING_WIP}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Packing</td> */}
-                            <td className="text-balance text-center p-1">{g?.PACKING_Input}</td>
-                            <td className="text-balance text-center p-1">{g?.PACKING_Output}</td>
+                            <td className="text-balance text-center p-1">{g?.PACKED_INPUT}</td>
+                            <td className="text-balance text-center p-1">{g?.PACKED_OUTPUT}</td>
                             <td className="text-balance text-center p-1">{g?.PACKING_WIP}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Shipping</td> */}
@@ -117,32 +118,30 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                     return (
                         <tr className={cn("border-t border-gray-500")} key={i}>
                             {/* gmt-General Info */}
-                            <td className="text-balance text-center p-1">{g?.PONO}</td>
+                            <td className="text-balance text-center p-1 border-l border-gray-500">{g?.PONO}</td>
                             <td className="text-nowrap text-center p-1">{g?.STYLENO}</td>
-                            <td className="text-nowrap text-center p-1">{g?.COLOR_NAME}</td>
                             <td className="text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}
                             <td className="text-balance text-center p-1">{g?.CUTTING_QTY}</td>
                             <td className="text-balance text-center p-1">{g?.CUTTING_BALANCE}</td>
-                            <td className="text-balance text-center p-1">{g?.CUTTING_PES}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Input</td> */}
-                            <td className="text-balance text-center p-1">{g?.INPUT_QTY}</td>
-                            <td className="text-balance text-center p-1">{g?.INPUT_READY_QTY}</td>
+                            <td className="text-balance text-center p-1">{g?.SEWING_INPUT_QTY}</td>
+                            <td className="text-balance text-center p-1">{g?.SEWING_INPUT_READY_QTY}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Sewing</td> */}
-                            <td className="text-balance text-center p-1">{g?.SEWING_OUTPUR_QTY}</td>
+                            <td className="text-balance text-center p-1">{g?.SEWING_OUTPUT_QTY}</td>
                             <td className="text-balance text-center p-1">{g?.SEWING_WIP}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Finishing</td> */}
-                            <td className="text-balance text-center p-1">{g?.FINISHING_Input}</td>
-                            <td className="text-balance text-center p-1">{g?.FINISHING_Output}</td>
+                            <td className="text-balance text-center p-1">{g?.FINISHING_INPUT}</td>
+                            <td className="text-balance text-center p-1">{g?.FINISHING_OUTPUT}</td>
                             <td className="text-balance text-center p-1">{g?.FINISHING_WIP}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Packing</td> */}
-                            <td className="text-balance text-center p-1">{g?.PACKING_Input}</td>
-                            <td className="text-balance text-center p-1">{g?.PACKING_Output}</td>
+                            <td className="text-balance text-center p-1">{g?.PACKED_INPUT}</td>
+                            <td className="text-balance text-center p-1">{g?.PACKED_OUTPUT}</td>
                             <td className="text-balance text-center p-1">{g?.PACKING_WIP}</td>
 
                             {/* <td className="text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Shipping</td> */}
