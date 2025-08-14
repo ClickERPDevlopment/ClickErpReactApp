@@ -40,7 +40,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.PO_QTY}</td>
                             <td className="text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.CONSUMPTION_RELEASE_DATE &&
-                                    moment(f?.CONSUMPTION_RELEASE_DATE).format("DD-MMM-YYYY")}
+                                    moment(f?.CONSUMPTION_RELEASE_DATE).format("MMM-YYYY")}
                             </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.YARN_BOOKING_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.ALLOCATED_QTY}</td>
@@ -81,7 +81,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                                     moment(f?.FIN_FABRICS_DEL_LAST_DATE).format("DD-MMM-YYYY")}
                             </td>
                             {/* gmt-General Info */}
-                            <td className="border border-gray-500 text-balance text-center p-1 border-l border-gray-500">{g?.PONO}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1 border-l">{g?.PONO}</td>
                             <td className="text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
