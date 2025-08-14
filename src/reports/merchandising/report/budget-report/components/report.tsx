@@ -208,9 +208,23 @@ function Report({
               ></ReportTable>
             ))}
 
+            <tr style={{ fontSize: "12px" }} className="">
+              <td colSpan={5} className="p-0.1 text-end  border-s border-gray-950">Total Expenditures($):</td>
+              <td className=" p-0.1 text-center font-bold border-e border-gray-950"> {totalBudgetValue?.toFixed(2)}</td>
+            </tr>
+            <tr style={{ fontSize: "12px" }} className="">
+              <td colSpan={5} className="p-0.1 text-end border-s border-gray-950">Budget Markup($): </td>
+              <td className=" p-0.1 text-center border-e border-gray-950 font-bold">{((data?.Report[0]?.BALANCE_VALUE ?? 0) - (totalBudgetValue ?? 0)).toFixed((2))}</td>
+            </tr>
+
+            <tr style={{ fontSize: "12px" }} className="">
+              <td colSpan={5} className="p-0.1 text-end border-s border-gray-950 border-b">Markup %: </td>
+              <td className=" p-0.1 text-center border-e border-b border-gray-950 font-bold">{((((data?.Report[0]?.BALANCE_VALUE ?? 0) - (totalBudgetValue ?? 0)) / (data?.Report[0]?.TOTAL_FOB_VALUE ?? 0)) * 100).toFixed((2))}</td>
+            </tr>
+
           </tbody>
         </table>
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div></div>
           <table className="font-bold align-top">
             <thead></thead>
@@ -229,7 +243,7 @@ function Report({
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> */}
         <div>
           <ReportFooter data={data?.Report ?? []}></ReportFooter>
         </div>
