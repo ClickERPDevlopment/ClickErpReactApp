@@ -20,7 +20,7 @@ export default function TotalRow({ data, title }: props) {
 
       </td>
       <td className="border border-gray-500 text-balance text-center p-1">
-        {data?.reduce((p, c) => p + Number(c.YARN_BOOKING_QTY), 0)}
+        {data?.reduce((p, c) => p + Number(c.YARN_BOOKING_QTY), 0)?.toFixed(2)}
       </td>
       <td className="border border-gray-500 text-balance text-center p-1">
         {data?.reduce((p, c) => p + Number(c.ALLOCATED_QTY), 0)?.toFixed(2)}
