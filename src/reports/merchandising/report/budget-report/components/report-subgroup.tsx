@@ -20,7 +20,7 @@ function ReportSubgroup({
       {data[0].DS === 'COST CENTER' ?
         <tr style={{ fontSize: "12px" }} className="font-light">
           {
-            index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1">{data[0]?.DS}</td>
+            index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1 font-bold">{data[0]?.DS}</td>
           }
           <td className="border border-gray-950 p-0.1">{data[0]?.MTL + '(Dzn: ' + (data[0]?.BUDGET_PRICE * 12).toFixed(2) + ')'}</td>
           <td className="border border-gray-950 p-0.1 text-center">{totalQuantiy}</td>
@@ -30,7 +30,7 @@ function ReportSubgroup({
         </tr> :
         <tr style={{ fontSize: "12px" }} className="font-light">
           {
-            index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1">{data[0]?.DS}</td>
+            index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1 font-bold">{data[0]?.DS}</td>
           }
           <td className="border border-gray-950 p-0.1">{data[0]?.MTL}</td>
           <td className="border border-gray-950 p-0.1 text-center">{totalQuantiy}</td>
