@@ -119,7 +119,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                     return (
                         <tr className={cn("border-t border-gray-500")} key={i}>
                             {/* gmt-General Info */}
-                            <td className="border border-gray-500 text-balance text-center p-1 border-l border-gray-500">{g?.PONO}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1">{g?.PONO}</td>
                             <td className="text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
