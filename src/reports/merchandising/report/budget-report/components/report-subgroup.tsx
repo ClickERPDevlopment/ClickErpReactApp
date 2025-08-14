@@ -17,7 +17,7 @@ function ReportSubgroup({
 
   return (
     <>
-      {data[0].DS === 'COST CENTER' ?
+      {data[0].DS.includes('COST CENTER') ?
         <tr style={{ fontSize: "12px" }} className="font-light">
           {
             index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1 font-bold">{data[0]?.DS}</td>
