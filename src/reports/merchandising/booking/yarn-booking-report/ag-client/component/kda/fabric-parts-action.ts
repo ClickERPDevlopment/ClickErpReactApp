@@ -5,7 +5,7 @@ export function fabricPartsAction(lstKda: YarnBookingReportDto_KnittingDyeingAdv
     const ribCuffPartsName = 'RIB CUFF';
     const collarPartsName = 'COLLAR';
     const cuffPartsName = 'CUFF';
-    const summaryColumns = [ribPartsName, ribCuffPartsName, collarPartsName, cuffPartsName];
+    const summaryColumns = [...ribPartsName, ribCuffPartsName, collarPartsName, cuffPartsName];
 
     const isRibColAval = lstKda?.some(item => ribPartsName.includes(item.FABRIC_PART?.toUpperCase().trim()));
     const isRibCuffColAval = lstKda?.some(item => item.FABRIC_PART?.toUpperCase().trim() === ribCuffPartsName);
