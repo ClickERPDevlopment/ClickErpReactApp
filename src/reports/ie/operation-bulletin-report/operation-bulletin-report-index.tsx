@@ -200,19 +200,21 @@ function OperationBulletinReport() {
                   <td className="border border-gray-950 p-0.1 bg-emerald-200">Sample Type</td>
                   <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.SAMPLE_TYPE}</td>
                 </tr>
-                <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1 bg-emerald-200">Sample Date</td>
-                  <td className="border border-gray-950 p-0.1">
-                    {bulletinSummaryData[0]?.SAMPLE_DATE &&
-                      moment(bulletinSummaryData[0].SAMPLE_DATE).isAfter('1901-01-01')
-                      ? moment(bulletinSummaryData[0].SAMPLE_DATE).format('DD-MMM-YY')
-                      : ''}
-                  </td>
-                </tr>
+                {
+                  bulletinSummaryData[0]?.SAMPLE_DATE && moment(bulletinSummaryData[0].SAMPLE_DATE).isAfter('1901-01-01') &&
+                  <tr className="text-start">
+                    <td className="border border-gray-950 p-0.1 bg-emerald-200">Sample Date</td>
+                    <td className="border border-gray-950 p-0.1">
+                      {
+                        moment(bulletinSummaryData[0].SAMPLE_DATE).format('DD-MMM-YY')
+                      }
+                    </td>
+                  </tr>
+                }
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1 bg-emerald-200">Tr 100% Eff</td>
                   <td className="border border-gray-950 p-0.1">
-                    {Math.round((bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV)}
+                    {Math.round((bulletinSummaryData[0]?.TOTALALLOTTEDMP * 60) / bulletinSummaryData[0]?.TOTALSMV)} Pcs
                   </td>
                 </tr>
                 <tr className="text-start">
@@ -279,11 +281,11 @@ function OperationBulletinReport() {
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1 bg-emerald-200">Target/Hr</td>
-                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.TARGERPERHOUR}</td>
+                  <td className="border border-gray-950 p-0.1">{bulletinSummaryData[0]?.TARGERPERHOUR} Pcs</td>
                 </tr>
                 <tr className="text-start">
-                  <td className="border border-gray-950 p-0.1 bg-emerald-200">Target Effi.(%)</td>
-                  <td className="border border-gray-950 p-0.1">{Math.round(bulletinSummaryData[0]?.EFFICIENCY)}</td>
+                  <td className="border border-gray-950 p-0.1 bg-emerald-200">Target Effi.</td>
+                  <td className="border border-gray-950 p-0.1">{Math.round(bulletinSummaryData[0]?.EFFICIENCY)} %</td>
                 </tr>
                 <tr className="text-start">
                   <td className="border border-gray-950 p-0.1 bg-emerald-200">TT Operator SMV</td>
