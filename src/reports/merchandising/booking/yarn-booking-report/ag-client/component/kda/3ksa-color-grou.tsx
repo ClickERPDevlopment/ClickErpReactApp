@@ -7,16 +7,16 @@ import { cn } from "@/lib/utils";
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
   fabricParts: {
-    ribPartsName: string;
+    ribPartsName: string[];
     ribCuffPartsName: string;
     collarPartsName: string;
     cuffPartsName: string;
-    summaryColumns: string[];
+    summaryColumns: (string | string[])[];
     isRibColAval: boolean | undefined;
     isRibCuffColAval: boolean | undefined;
     isCollarColAval: boolean | undefined;
     isCuffColAval: boolean | undefined;
-  }
+}
 };
 
 function getSizeWiseQty(
