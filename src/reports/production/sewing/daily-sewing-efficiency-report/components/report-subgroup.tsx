@@ -61,11 +61,11 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(totalQcPassLineWise * 100 / data[0]?.TOTALTARGET).toFixed(2)} %</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(totalQcPassLineWise * 100 / (data[0]?.TOTALTARGET * data[0]?.RUNNING_HOUR / data[0]?.ACTUALHOURS)).toFixed(2)} %</td>
         }
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(data[0]?.ACTUALHOURS).toFixed(2)}</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.5 text-center">{(data[0]?.RUNNING_HOUR).toFixed(2)}</td>
         }
 
         {

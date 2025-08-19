@@ -50,18 +50,21 @@ function ReportTable({
   //let totalWorkHour = 0;
   let totalAvailableMin = 0;
   let totaltargetEarnMin = 0;
+  let avgWorkHour = 0;
+  let uniqueLine = 0;
 
   const totalHourlyTarget = data.reduce((acc, item) => acc + (item.TOTALTARGET / item.ACTUALHOURS), 0)
   const totalQcPass = data.reduce((acc, item) => acc + item.SEWINGOUTPUT, 0)
   const totalEarneMin = data.reduce((acc, item) => acc + item.EARNINGMIN, 0)
-  const totalTargetEarnMin = data.reduce((acc, item) => acc + Number(item.SMVSEWING * item.SEWINGOUTPUT), 0)
+  // const totalTargetEarnMin = data.reduce((acc, item) => acc + Number(item.SMVSEWING * item.SEWINGOUTPUT), 0)
   const totalSmv = data.reduce((acc, item) => acc + item.SMVSEWING, 0)
   const totalFob = data.reduce((acc, item) => acc + item.TOTALFOB, 0)
   const totalCM = data.reduce((acc, item) => acc + item.TOTALCM, 0)
-  const totalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
+  // const totalWorkHour = data.reduce((acc, item) => acc + item.RUNNING_HOUR, 0)
 
   //
 
+  let avgPerformance = 0;
   return (
     <>
       <tr>
@@ -74,6 +77,10 @@ function ReportTable({
         //totalWorkHour += groupedData[key].items[0]?.ACTUALHOURS;
         totaltargetEarnMin += groupedData[key].items[0]?.TARGET_EARN_MIN;
         totalAvailableMin += groupedData[key].items[0]?.AVAILABLEMIN;
+        avgWorkHour += ((groupedData[key].items[0]?.OPERATOR ?? 0) + (groupedData[key].items[0]?.HELPER ?? 0)) * groupedData[key].items[0]?.RUNNING_HOUR * 60;
+        const sewingOutput = data.reduce((acc, item) => acc + (item.LINENAME == groupedData[key].items[0]?.LINENAME ? item.SEWINGOUTPUT : 0), 0);
+        avgPerformance += (sewingOutput * 100) / (groupedData[key].items[0]?.TOTALTARGET * groupedData[key].items[0]?.RUNNING_HOUR / groupedData[key].items[0]?.ACTUALHOURS);
+        uniqueLine++;
         return <>
           <ReportGroup
             key={key}
@@ -93,8 +100,8 @@ function ReportTable({
         <td className="border border-gray-950 p-0.5 text-center">{Math.round(totalHourlyTarget)}</td>
         <td className="border border-gray-950 p-0.5 text-center">{Math.round(totalTarget)}</td>
         <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
-        <td className="border border-gray-950 p-0.5 text-center">{((totalTargetEarnMin) * 100 / totalAvailableMin).toFixed(2)} %</td>
-        <td className="border border-gray-950 p-0.5 text-end">{(totalWorkHour / data.length)?.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{(avgPerformance / uniqueLine).toFixed(2)} %</td>
+        <td className="border border-gray-950 p-0.5 text-center">{((avgWorkHour / 60) / (totalOperator + totalHelper))?.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-center">{(totalEarneMin * 100 / totalAvailableMin)?.toFixed(2)} %</td>
         <td className="border border-gray-950 p-0.5 text-end">{(totalFob / totalQcPass)?.toFixed(2)}</td>
         <td className="border border-gray-950 p-0.5 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)}</td>

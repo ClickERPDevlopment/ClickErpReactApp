@@ -58,7 +58,7 @@ function ReportGroup({
   const totalSmvLineWise = data.reduce((acc, item) => acc + Number(item.SMVSEWING), 0)
 
   const totalAvailableMin = data.reduce((acc, item) => acc + item.AVAILABLEMIN, 0)
-  const totalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
+  const totalWorkHour = data.reduce((acc, item) => acc + item.RUNNING_HOUR, 0)
 
 
 
