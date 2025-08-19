@@ -7,16 +7,16 @@ import { cn } from "@/lib/utils";
 type prams = {
   lstKda: YarnBookingReportDto_KnittingDyeingAdvice[] | undefined;
   fabricParts: {
-    ribPartsName: string;
+    ribPartsName: string[];
     ribCuffPartsName: string;
     collarPartsName: string;
     cuffPartsName: string;
-    summaryColumns: string[];
+    summaryColumns: (string | string[])[];
     isRibColAval: boolean | undefined;
     isRibCuffColAval: boolean | undefined;
     isCollarColAval: boolean | undefined;
     isCuffColAval: boolean | undefined;
-  }
+}
 };
 
 function getSizeWiseQty(
@@ -69,7 +69,7 @@ export default function KittingDyeingAdviceColorGroup({ lstKda, fabricParts }: p
           cn("text-center border border-black",
             fabricParts.isRibColAval ? "" : "hidden"
           )}>
-          {getTotalQty(lstKda?.filter((f) => f.FABRIC_PART?.toUpperCase() === fabricParts.ribPartsName), lstKda[0].MTL_NAME)}
+          {getTotalQty(lstKda?.filter((f) => fabricParts.ribPartsName.includes(f.FABRIC_PART?.toUpperCase())), lstKda[0].MTL_NAME)}
         </td>
 
         <td className={

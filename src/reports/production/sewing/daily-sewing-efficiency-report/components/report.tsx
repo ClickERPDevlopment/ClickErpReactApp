@@ -62,7 +62,7 @@ function Report({
     "TARGET",
     "QC PASS",
     "PERFORMANCE",
-    "W/H",
+    "ACTUAL W/H",
     "EFFICIENCY %",
     "FOB PER PCS ($)",
     "CM PER DZN ($)",
@@ -81,6 +81,11 @@ function Report({
   let grandTotalAvailableMin = 0;
   let grandTotalTargetEarnleMin = 0;
 
+  let avgWorkHour = 0;
+  let avgPerformance = 0;
+
+  let uniqueLine = 0;
+
   for (const floorKey in groupedData) {
     const floorItems = groupedData[floorKey].items;
 
@@ -97,6 +102,10 @@ function Report({
         //grandTotalWorkHour += item.ACTUALHOURS ?? 0;
         grandTotalAvailableMin += item.AVAILABLEMIN ?? 0;
         grandTotalTargetEarnleMin += item.TARGET_EARN_MIN ?? 0;
+        avgWorkHour += ((item.OPERATOR ?? 0) + (item.HELPER ?? 0)) * item.RUNNING_HOUR * 60;
+        const sewingOutput = data.reduce((acc, item) => acc + (item.LINENAME == lineName ? item.SEWINGOUTPUT : 0), 0);
+        avgPerformance += (sewingOutput * 100) / (item.TOTALTARGET * item.RUNNING_HOUR / item.ACTUALHOURS);
+        uniqueLine++;
       }
     }
   }
@@ -104,11 +113,13 @@ function Report({
   const totalHourlyTarget = data.reduce((acc, item) => acc + (item.TOTALTARGET / item.ACTUALHOURS), 0)
   const totalQcPass = data.reduce((acc, item) => acc + item.SEWINGOUTPUT, 0)
   const totalEarneMin = data.reduce((acc, item) => acc + item.EARNINGMIN, 0)
-  const totalTargetEarnMin = data.reduce((acc, item) => acc + Number(item.SMVSEWING * item.SEWINGOUTPUT), 0)
+  // const totalTargetEarnMin = data.reduce((acc, item) => acc + Number(item.SMVSEWING * item.SEWINGOUTPUT), 0)
   const totalSmv = data.reduce((acc, item) => acc + item.SMVSEWING, 0)
   const totalFob = data.reduce((acc, item) => acc + item.TOTALFOB, 0)
   const totalCM = data.reduce((acc, item) => acc + item.TOTALCM, 0)
-  const grandTotalWorkHour = data.reduce((acc, item) => acc + item.ACTUALHOURS, 0)
+  // const grandTotalWorkHour = data.reduce((acc, item) => acc + item.RUNNING_HOUR, 0)
+
+  avgWorkHour = (avgWorkHour / 60) / (grandTotalOperator + grandTotalHelper);
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
@@ -146,8 +157,8 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-center">{Math.round(totalHourlyTarget)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{Math.round(grandTotalTarget)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{((totalTargetEarnMin) * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
-              <td className="border border-gray-950 p-0.5 text-end">{(grandTotalWorkHour / data.length)?.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{(avgPerformance / uniqueLine).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-0.5 text-center">{avgWorkHour?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-center">{(totalEarneMin * 100 / grandTotalAvailableMin)?.toFixed(2)} %</td>
               <td className="border border-gray-950 p-0.5 text-end">{(totalFob / totalQcPass)?.toFixed(2)}</td>
               <td className="border border-gray-950 p-0.5 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)}</td>
