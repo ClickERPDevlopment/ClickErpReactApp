@@ -8,8 +8,8 @@ export default function useApiUrl() {
   const { NUR, VERSATILE, ICCL, AG, EURO, FAME, PRESENTATION } = useAppClient();
   const clientName = import.meta.env.VITE_APP_CLIENT_NAME;
 
-  const DevUrl = "http://103.95.98.115:6307/api";
-  const DevRootUrl = "http://103.95.98.115:6307";
+  const DevUrl = "http://localhost:40000/api";
+  const DevRootUrl = "http://localhost:40000";
 
   let ProductionUrl = "";
   let ProductionRootUrl = "";

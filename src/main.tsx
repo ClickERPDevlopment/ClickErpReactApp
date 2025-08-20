@@ -174,6 +174,7 @@ import DateWiseYarnAllocationReport from "./reports/store/yarn-store/date-wise-y
 import BudgetWiseCostBreakdownIndex from "./reports/merchandising/report/budget-wise-cost-breakdown/budget-wise-cost-breakdown-index.tsx";
 import YarnRcvIssueRegisterReport from "./reports/store/yarn-store/yarn-rcv-issue-register-report/yarn-rcv-issue-register-report-index.tsx";
 import SupplierWiseEmbStockReport from "./reports/embellishment/supplier-wise-emb-stock-report/supplier-wise-emb-stock-report-index.tsx";
+import DateWiseFabricPurchaseReceiveRegisterReport from "./reports/store/finish-store/date-wise-fabric-purchase-receive-register-report/date-wise-fabric-purchase-receive-register-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -883,6 +884,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="finish-fabric-store">
+                      <Route
+                        path="date-wise-fabric-purchase-receive-register-report"
+                        element={<DateWiseFabricPurchaseReceiveRegisterReport />}
+                      />
                       {FinishFabricStoreRoute().map((p) => (
                         <Route
                           key={p.path}
