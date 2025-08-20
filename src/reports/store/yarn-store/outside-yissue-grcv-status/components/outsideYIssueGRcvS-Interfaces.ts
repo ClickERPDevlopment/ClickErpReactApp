@@ -20,6 +20,7 @@ export interface outsideYIssueGRcvStatus_YarnIssue {
   YARN_LOT_NO: string;
   QUANTITY: number;
   RETURN_QUANTITY: number;
+  YARN_RETURN_CHALLAN_NO: string;
 }
 
 export interface outsideYIssueGRcvStatus_GreyRcv {
