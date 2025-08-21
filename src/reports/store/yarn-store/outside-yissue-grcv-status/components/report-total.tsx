@@ -68,6 +68,7 @@ export default function ReportTotal({
       <td className="border border-black text-[8px] text-center p-1 font-bold">
         {total?.issue.toFixed(3)}
       </td>
+      <td className="border border-black text-[8px] text-center p-1"></td>
       <td className="border border-black text-[8px] text-center p-1">
         {total?.retun}
       </td>

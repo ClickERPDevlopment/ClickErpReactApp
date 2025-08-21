@@ -107,6 +107,9 @@ export default function YarnChallanWiseGroup({
           {yarnIssue[0]?.QUANTITY.toFixed(3)}
         </td>
         <td className="border border-black text-[8px] text-center p-1">
+          {yarnIssue[0]?.YARN_RETURN_CHALLAN_NO}
+        </td>
+        <td className="border border-black text-[8px] text-center p-1">
           {yarnIssue[0]?.RETURN_QUANTITY}
         </td>
         <td className="border border-black text-[8px] text-center p-1">
@@ -158,6 +161,9 @@ export default function YarnChallanWiseGroup({
               {y?.QUANTITY.toFixed(3)}
             </td>
             <td className="border border-black text-[8px] text-center p-1">
+              {y?.YARN_RETURN_CHALLAN_NO}
+            </td>
+            <td className="border border-black text-[8px] text-center p-1">
               {y?.RETURN_QUANTITY}
             </td>
             <td className="border border-black text-[8px] text-center p-1">
@@ -187,6 +193,7 @@ export default function YarnChallanWiseGroup({
             <td className="border border-black text-[8px] text-center p-1"></td>
             <td className="border border-black text-[8px] text-center p-1"></td>
             <td className="border border-black text-[8px] text-center p-1"></td>
+            <td className="border border-black text-[8px] text-center p-1"></td>
             <td className="border border-black text-[8px] text-center p-1">
               {moment(y?.RCV_CHALLAN_DATE).format("DD-MMM-YYYY")}
             </td>
@@ -207,35 +214,6 @@ export default function YarnChallanWiseGroup({
         loseYanRcv={loseYanRcv}
         title="Sub Total"
       />
-      {/*           
-      <tr>
-        <td className="border border-black text-[8px] text-center p-1 font-bold">
-          Total
-        </td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1 font-bold">
-          {getTotalYarnIssueQty()}
-        </td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1"></td>
-        <td className="border border-black text-[8px] text-center p-1 font-bold">
-          {getTotalGreyFabricRcvQty()}
-        </td>
-        <td className="border border-black text-[8px] text-center p-1 font-bold">
-          {getLoseYarnQty()}
-        </td>
-        <td className="border border-black text-[8px] text-center p-1 font-bold">
-          {getTotalGreyFabricRcvQty()}
-        </td>
-        <td className="border border-black text-[8px] text-center p-1 font-bold">
-          {getGreyRcvBalanceQty()}
-        </td>
-      </tr> */}
       {/* end subTotal */}
     </>
   );

@@ -56,7 +56,10 @@ export default function Table({ yarnIssue, greyRcv, loseYanRcv }: props) {
             <th className="text-[8px] border border-black p-1">YARN LOT</th>
             <th className="text-[8px] border border-black p-1">
               DELIVERY YARN QTY (Kg)
-            </th>{" "}
+            </th>
+            <th className="text-[8px] border border-black p-1">
+              RETURN YARN CHALLAN
+            </th>
             <th className="text-[8px] border border-black p-1">
               RETURN YARN QTY (Kg)
             </th>
