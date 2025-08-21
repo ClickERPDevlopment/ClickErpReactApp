@@ -33,7 +33,7 @@ function ReportSubgroup({
             index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1 font-bold">{data[0]?.DS}</td>
           }
           <td className="border border-gray-950 p-0.1">{data[0]?.MTL}</td>
-          <td className="border bor~der-gray-950 p-0.1 text-center">{totalQuantiy}</td>
+          <td className="border border-gray-950 p-0.1 text-center">{totalQuantiy}</td>
           <td className="border border-gray-950 p-0.1 text-center">{data[0]?.UOM}</td>
           <td className="border border-gray-950 p-0.1 text-center">{data[0]?.BUDGET_PRICE.toFixed(3)}</td>
           <td className="border border-gray-950 p-0.1 text-center">{data[0]?.BUDGET_TOTAL_VALUE.toFixed(3)}</td>
