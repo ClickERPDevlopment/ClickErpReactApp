@@ -21,7 +21,7 @@ function ReportHeader({
 
           <h1 className="font-bold text-xl text-center">
             {
-              data[0]?.FACCOMPANYNAME
+              data[0]?.COMPANYNAME
             }
           </h1>
           {/* <h1 className="font-bold text-md text-start">
