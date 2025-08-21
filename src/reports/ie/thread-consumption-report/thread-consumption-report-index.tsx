@@ -28,6 +28,7 @@ function ThreadConsumptionReport() {
   const [searchParams] = useSearchParams();
 
   const threadConsumptionNo = searchParams.get("threadConsumptionNo") || "";
+  const companyId = searchParams.get("companyId") || 0;
 
 
   const api = useApiUrl();
@@ -42,7 +43,7 @@ function ThreadConsumptionReport() {
         setIsLoading(true);
         await axios
           .get(
-            `${api.ProductionUrl}/production/IEReport/ThreadConsumptionReport?threadConsumptionNo=${threadConsumptionNo}`
+            `${api.ProductionUrl}/production/IEReport/ThreadConsumptionReport?threadConsumptionNo=${threadConsumptionNo}&companyId=${companyId}`
           )
           .then((res) => {
             //console.log(res);
