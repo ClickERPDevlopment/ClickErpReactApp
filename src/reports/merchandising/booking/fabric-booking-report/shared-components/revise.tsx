@@ -4,7 +4,7 @@ export default function Revise({ lstRevise }: { lstRevise?: FabricBookingReportD
   if (!lstRevise) return null;
   if (lstRevise.length === 0) return null;
   return (
-    <table className="my-5 w-4/12">
+    <table className="my-5 w-6/12">
       <thead>
         <tr>
           <th className="border border-black w-12 text-nowrap px-2" colSpan={2}>Revise Details</th>

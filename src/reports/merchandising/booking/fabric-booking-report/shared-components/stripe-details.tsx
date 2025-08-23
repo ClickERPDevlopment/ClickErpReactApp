@@ -1,9 +1,10 @@
 import { FabricBookingReportDto_StripeDetails } from '../fabric-booking-type'
 
 export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?: FabricBookingReportDto_StripeDetails[] }) {
+    if (!lstStripeDetails) return null;
+    if (lstStripeDetails.length === 0) return null;
     return (
         <div className='mt-5'>
-
             <table>
                 <thead>
                     <tr>

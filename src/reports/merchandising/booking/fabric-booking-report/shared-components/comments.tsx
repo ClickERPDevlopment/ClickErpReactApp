@@ -6,7 +6,7 @@ export default function Comments({ lstComments }: { lstComments?: FabricBookingR
   if (!lstComments) return null;
   if (lstComments.length === 0) return null;
   return (
-    <table className="my-5 w-full">
+    <table className="my-5 w-6/12">
       <thead>
         <tr>
           <th className="border border-black w-12">SL</th>
