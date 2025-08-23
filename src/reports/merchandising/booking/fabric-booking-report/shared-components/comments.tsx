@@ -3,7 +3,8 @@
 import { FabricBookingReportDto_Comments } from "../fabric-booking-type";
 
 export default function Comments({ lstComments }: { lstComments?: FabricBookingReportDto_Comments[] }) {
-
+  if (!lstComments) return null;
+  if (lstComments.length === 0) return null;
   return (
     <table className="my-5 w-full">
       <thead>

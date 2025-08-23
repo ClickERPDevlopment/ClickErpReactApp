@@ -1,6 +1,8 @@
 import { FabricBookingReportDto_VerficationStatus } from '../fabric-booking-type'
 
 export default function VarificationStatus({ lstVerificationStatus }: { lstVerificationStatus?: FabricBookingReportDto_VerficationStatus[] }) {
+    if (!lstVerificationStatus) return null;
+    if (lstVerificationStatus.length === 0) return null;
     return (
         <div className='mt-5'>
             <div className="w-full text-center font-bold pb-[3px]">
