@@ -1,9 +1,13 @@
-import { FabricBookingReportDto_ColorSizeWiseOrderQty } from '../fabric-booking-type'
+import { FabricBookingReportDto_ColorSizeWiseOrderQty, FabricBookingReportDto_Size } from '../fabric-booking-type'
 
-export default function OrderQty({ lstColorSizeWiseOrderQty }: { lstColorSizeWiseOrderQty?: FabricBookingReportDto_ColorSizeWiseOrderQty[] }) {
+export default function OrderQty({ lstColorSizeWiseOrderQty, lstSize }:
+    {
+        lstColorSizeWiseOrderQty?: FabricBookingReportDto_ColorSizeWiseOrderQty[],
+        lstSize?: FabricBookingReportDto_Size[]
+    }) {
 
     const sizes = Array.from(
-        new Set(lstColorSizeWiseOrderQty?.map(item => item.size).filter((s): s is string => !!s))
+        new Set(lstSize?.map(item => item.SIZENAME).filter((s): s is string => !!s))
     );
 
     function getQtyBySize({ size }: { size: string }) {

@@ -22,7 +22,7 @@ export default function FabricBookingReport({ data }: { data?: FabricBookingRepo
     return (
         <div className="px-10 w-auto print:max-w-none print:px-0 mt-10">
             <MasterInfo masterData={data?.MaterData} />
-            <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} />
+            <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
             <Details lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} />
             <CollarCuffSummary lstFabricQtyDetails={data?.lstFabricQtyDetails} lstSize={data?.lstSize} />
             <YarnRequirementSummary lstYarnSummary={data?.lstYarnSummary} />
