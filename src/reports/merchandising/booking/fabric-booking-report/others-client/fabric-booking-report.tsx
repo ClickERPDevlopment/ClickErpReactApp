@@ -8,6 +8,7 @@ import StripeDetails from "../shared-components/stripe-details";
 import VarificationStatus from "../shared-components/varification-status";
 import YarnRequirementSummary from "../shared-components/yarn-requirement-summary";
 import { FabricBookingReportDto } from "../fabric-booking-type";
+import Revise from "../shared-components/revise";
 
 export default function FabricBookingReport({ data }: { data?: FabricBookingReportDto }) {
     const signatureData = [
@@ -28,6 +29,7 @@ export default function FabricBookingReport({ data }: { data?: FabricBookingRepo
             <StripeDetails lstStripeDetails={data?.lstStripeDetails} />
             <Comments lstComments={data?.lstComments} />
             <VarificationStatus lstVerificationStatus={data?.lstVerificationStatus} />
+            <Revise lstRevise={data?.lstRevice} />
             <Signature masterData={data?.MaterData} signatureData={signatureData} />
         </div>
     );

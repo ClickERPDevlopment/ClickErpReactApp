@@ -14,7 +14,7 @@ export default function Comments({ lstComments }: { lstComments?: FabricBookingR
       </thead>
       <tbody>
         {lstComments?.map((comm: any, index: number) => (
-          <tr key={Math.random()}>
+          <tr key={index}>
             <td className="border border-black text-center text-sm">
               {index + 1}
             </td>
