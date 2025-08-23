@@ -75,19 +75,21 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
     fabricProcessData(0, '')?.reduce((p, c) => p + Number(c.TOTAL_PRICE), 0) +
     gmtProcessData('')?.reduce((p, c) => p + Number(c.TOTAL_PRICE), 0);
 
-  const getCommissionCost = (comPercentage: number, commissinType?: string) => {
+  const getCommissionCost = ({ comPercentage, commissinType, comValueCost }: { comPercentage: number, commissinType?: string, comValueCost?: number }) => {
     const net_cost = netCost();
+    const n = ((net_cost ?? 0) * (comPercentage ?? 0) / 100);
 
     if (commissinType) {
       updateCommission({
         commissinType: commissinType ?? '',
         poid: bookingData[0].PO_ID,
         styelid: bookingData[0].STYLE_ID,
-        amount: net_cost * comPercentage / 100
+        amount: (n ?? 0) + (comValueCost ?? 0)
       });
     }
 
-    return net_cost * comPercentage / 100;
+
+    return (n ?? 0) + (comValueCost ?? 0);
   }
 
   const grossCost = () => {
@@ -96,9 +98,14 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
     if (commissionType) {
       for (let index = 0; index < commissionType?.length; index++) {
         const element = commissionType[index];
-        const comPerCost = getCommissionCost(commissionData(element)?.reduce((p, c) => p + Number(c.COMMISSION_PERCENTAGE_BUDGET), 0))
-        const comValueCost = getCommissionCost(commissionData(element)?.reduce((p, c) => p + Number(c.COMMISSION_VALUE_BUDGET), 0))
-        totalCost += comPerCost + comValueCost;
+        const comValueCost = commissionData(element)?.reduce((p, c) => p + Number(c.COMMISSION_VALUE_BUDGET), 0)
+        const comCost = getCommissionCost(
+          {
+            comPercentage: commissionData(element)?.reduce((p, c) => p + Number(c.COMMISSION_PERCENTAGE_BUDGET), 0),
+            comValueCost
+          })
+
+        totalCost += comCost;
       }
     }
     localStorage.setItem('grossCost', totalCost.toString())
@@ -151,7 +158,12 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
           {commissionType?.map((fp_item, i) =>
             <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length} key={i}>
               {/* {commissionData(fp_item)?.reduce((p, c) => p + Number(c.COMMISSION_PERCENTAGE_BUDGET), 0)}- */}
-              {getCommissionCost(commissionData(fp_item)?.reduce((p, c) => p + Number(c.COMMISSION_PERCENTAGE_BUDGET), 0), fp_item)?.toFixed(2)}
+              {(getCommissionCost({
+                comPercentage: commissionData(fp_item)?.reduce((p, c) => p + Number(c.COMMISSION_PERCENTAGE_BUDGET), 0),
+                commissinType: fp_item,
+                comValueCost: commissionData(fp_item)?.reduce((p, c) => p + Number(c.COMMISSION_VALUE_BUDGET), 0)
+              })
+              ).toFixed(2)}
             </th>
           )}
           {/* <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>Commercial</th>
