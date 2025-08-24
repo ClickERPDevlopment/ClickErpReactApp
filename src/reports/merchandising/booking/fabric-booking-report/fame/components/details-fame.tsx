@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 interface props {
     lstFabricQtyDetails?: FabricBookingReportDto_FabricQtyDetails[],
     lstWastagePercentage?: FabricBookingReportDto_WastagePercentage[],
-    isPoWise?: boolean
+    isPoWise?: boolean,
+    totalOrderQty?: number
 }
-export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage, isPoWise }: props) {
+export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage, isPoWise, totalOrderQty }: props) {
     const data = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT != "1");
     const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
     // console.log(JSON.stringify(data));
@@ -44,7 +45,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
         return qty.toFixed(2);
     }
 
-    function getTotalYarnQty() {
+    function getTotalYarnQty(): number {
         let qty = 0;
         try {
             lstFabricQtyDetails?.forEach(element => {
@@ -53,7 +54,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
         } catch (error) {
             console.log(error)
         }
-        return qty.toFixed(2);
+        return qty;
     }
 
     function getCollarCuffQty(
@@ -278,8 +279,13 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                     <tr className="bg-emerald-300" style={{ pageBreakInside: "avoid" }}>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={isPoWise ? 17 : 16}>Total</th>
                         <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalFabricQty()}</th>
-                        <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty()}</th>
+                        <th className='p-1 border border-gray-600 text-sm text-center'>{getTotalYarnQty().toFixed(2)}</th>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={3}></th>
+                    </tr>
+                    <tr className="bg-white" style={{ pageBreakInside: "avoid" }}>
+                        <th className='p-1 border border-gray-600 text-sm text-center' colSpan={isPoWise ? 22 : 21}>
+                            Net grey Consumption (Total yarn *12 / Order Qty) ={totalOrderQty && ((getTotalYarnQty() * 12) / totalOrderQty).toFixed(2)}
+                        </th>
                     </tr>
                 </tbody>
             </table>

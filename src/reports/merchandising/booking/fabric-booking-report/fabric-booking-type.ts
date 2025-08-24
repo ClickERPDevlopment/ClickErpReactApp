@@ -31,7 +31,7 @@ export type FabricBookingReportDto_MasterData = {
   STYLENAME?: string;
   EMBELLISHMENT?: string;
   BUYER_NAME?: string;
-  ORDER_QTY?: string;
+  ORDER_QTY?: number;
   BUYERID?: string;
   STYLEID?: string;
   SHIPMENT_DATE?: string;
