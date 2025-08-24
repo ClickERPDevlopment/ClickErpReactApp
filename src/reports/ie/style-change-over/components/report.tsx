@@ -59,7 +59,7 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
   return (
     <div>
       <div className=" p-2">
-        <ReportHeader />
+        <ReportHeader data={data} />
         <div className="mt-3">
           <table className="border-collapse border border-gray-300  w-[100%]">
             <thead>
