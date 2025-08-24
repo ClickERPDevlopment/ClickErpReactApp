@@ -33,7 +33,12 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
                 }
             </MasterInfo>
             <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
-            <Details_Fame lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} isPoWise={data?.MaterData?.IS_PO_WISE} />
+            <Details_Fame
+                lstFabricQtyDetails={data?.lstFabricQtyDetails}
+                lstWastagePercentage={data?.lstWastagePercentage}
+                isPoWise={data?.MaterData?.IS_PO_WISE}
+                totalOrderQty={data?.MaterData?.ORDER_QTY}
+            />
             <CollarCuffSummary lstFabricQtyDetails={data?.lstFabricQtyDetails} lstSize={data?.lstSize} />
             <YarnRequirementSummary lstYarnSummary={data?.lstYarnSummary} />
             <StripeDetails lstStripeDetails={data?.lstStripeDetails} />
