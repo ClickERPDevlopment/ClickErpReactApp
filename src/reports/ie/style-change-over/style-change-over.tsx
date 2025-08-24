@@ -19,6 +19,7 @@ function StyleChangeOverReport() {
   let styleId = 0;
   let floorId = 0;
   let lineId = 0;
+  let companyId = 1;
   let fromDate = "01-Jun-0001";
   let toDate = "06-Oct-2025";
 
@@ -33,6 +34,9 @@ function StyleChangeOverReport() {
   }
   if (searchParams.get("lineId")) {
     lineId = Number(searchParams.get("lineId"));
+  }
+  if (searchParams.get("companyId")) {
+    companyId = Number(searchParams.get("companyId"));
   }
   if (searchParams.get("fromDate")) {
     fromDate = String(searchParams.get("fromDate"));
@@ -56,7 +60,7 @@ function StyleChangeOverReport() {
 
         await axios
           .get(
-            `${api.ProductionUrl}/production/IEReport/StyleChangeOverReport?buyerId=${buyerId}&styleId=${styleId}&floorId=${floorId}&lineId=${lineId}&fromDate=${fromDate}&toDate=${toDate}`
+            `${api.ProductionUrl}/production/IEReport/StyleChangeOverReport?buyerId=${buyerId}&styleId=${styleId}&floorId=${floorId}&lineId=${lineId}&fromDate=${fromDate}&toDate=${toDate}&companyId=${companyId}`
           )
           .then((res) => {
             console.log(res);

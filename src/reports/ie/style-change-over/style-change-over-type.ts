@@ -30,4 +30,7 @@ export interface IStyleChangeOver {
   REASON: string;
   TOTAL_TIME: string;
   REMARKS: string;
+  COMPANY_NAME: string;
+  COMPANY_ADDRESS: string;
+  COMPANY_REMARKS: string;
 }
