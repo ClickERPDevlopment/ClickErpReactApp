@@ -284,7 +284,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                     </tr>
                     <tr className="bg-white" style={{ pageBreakInside: "avoid" }}>
                         <th className='p-1 border border-gray-600 text-sm text-center' colSpan={isPoWise ? 22 : 21}>
-                            Net grey Consumption (Total yarn *12 / Order Qty) ={totalOrderQty && ((getTotalYarnQty() * 12) / totalOrderQty).toFixed(2)}
+                            Net grey Consumption (Total yarn *12 / Order Qty) ={totalOrderQty && ((getTotalYarnQty() * 12) / totalOrderQty).toFixed(2)} kg/dz
                         </th>
                     </tr>
                 </tbody>
