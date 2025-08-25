@@ -20,6 +20,8 @@ function AccessoriesReceiveStatusByChallanNoReport() {
   const api = useApiUrl();
 
   // Extract and parse URL parameters
+  const woId = Number(searchParams.get("woId")) || 0;
+  const itemId = Number(searchParams.get("itemId")) || 0;
   const buyerId = Number(searchParams.get("buyerId")) || 0;
   const styleId = Number(searchParams.get("styleId")) || 0;
   const poId = Number(searchParams.get("poId")) || 0;
@@ -44,6 +46,8 @@ function AccessoriesReceiveStatusByChallanNoReport() {
           dtFrom,
           dtTo,
           challanNo,
+          woId,
+          itemId,
         };
 
         const response = await axios.get(url, { params });
