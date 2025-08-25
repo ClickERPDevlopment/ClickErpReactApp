@@ -81,8 +81,8 @@ function ReportTable({
           <td className="border border-gray-950 p-0.5 text-right">{groupedByDate[key]?.QUANTITY}</td>
         </tr>
       ))}
-      <tr style={{ fontSize: "14px" }}>
-        <td colSpan={4} className="border border-gray-950 font-bold p-0.5 text-center">Total</td>
+      <tr style={{ fontSize: "14px", backgroundColor: "#e0fcef" }}>
+        <td colSpan={4} className="border border-gray-950 font-bold p-0.5 text-right">Total</td>
         {sizeHeader?.map((size) =>
           <td key={size} className="border border-gray-950 p-0.5 font-bold text-right">{grandTotal.SIZES[size] ? grandTotal.SIZES[size] : ''}</td>
         )}

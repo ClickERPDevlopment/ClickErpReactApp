@@ -9,6 +9,14 @@ function Report({
   data: JobBreakdownReportType[];
 }) {
 
+  const grandTotal: {
+    QUANTITY: number;
+    SIZES: { [key: string]: number };
+  } = {
+    QUANTITY: 0,
+    SIZES: {}
+  };
+
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
@@ -25,6 +33,9 @@ function Report({
       }
       result[key].items.push(item);
 
+      grandTotal.SIZES[item.SIZENAME] = (grandTotal.SIZES[item.SIZENAME] || 0) + item.QTY;
+      grandTotal.QUANTITY += item.QTY;
+
       return result;
     }, {});
   }
@@ -38,7 +49,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, [""]);
+    groupedByDate = groupBy(data, ["PONO"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -52,6 +63,7 @@ function Report({
     "Color",
     "Ship Date",
   ];
+
 
   const header = firstHeader.concat(sizeHeader);
 
@@ -81,6 +93,15 @@ function Report({
                 sizeHeader={sizeHeader}
               ></ReportTable>
             ))}
+            <tr style={{ backgroundColor: "#e0fcef" }}>
+              <td className="border border-gray-950 p-0.5 font-bold text-right" colSpan={firstHeader.length}>Grand Total</td>
+              {sizeHeader?.map((size) => (
+                <td key={size} className="border border-gray-950 p-0.5 text-right font-bold">
+                  {grandTotal.SIZES[size] || 0}
+                </td>
+              ))}
+              <td className="border border-gray-950 p-0.5 text-center font-bold">{grandTotal.QUANTITY}</td>
+            </tr>
           </tbody>
         </table>
         <div className="mt-[144px]"></div>
