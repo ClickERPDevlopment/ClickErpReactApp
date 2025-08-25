@@ -175,6 +175,7 @@ import BudgetWiseCostBreakdownIndex from "./reports/merchandising/report/budget-
 import YarnRcvIssueRegisterReport from "./reports/store/yarn-store/yarn-rcv-issue-register-report/yarn-rcv-issue-register-report-index.tsx";
 import SupplierWiseEmbStockReport from "./reports/embellishment/supplier-wise-emb-stock-report/supplier-wise-emb-stock-report-index.tsx";
 import DateWiseFabricPurchaseReceiveRegisterReport from "./reports/store/finish-store/date-wise-fabric-purchase-receive-register-report/date-wise-fabric-purchase-receive-register-report-index.tsx";
+import JobBreakdownReport from "./reports/planning/report/job-breakdown-report/job-breakdown-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -556,6 +557,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="internal-product-placement-sheet-summary-report"
                       element={<InternalProductPlacementSheetReport />}
+                    />
+                    <Route
+                      path="job-breakdown-report"
+                      element={<JobBreakdownReport />}
                     />
                   </Route>
 
