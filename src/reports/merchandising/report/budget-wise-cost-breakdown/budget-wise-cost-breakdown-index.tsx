@@ -212,6 +212,7 @@ export default function BudgetWiseCostBreakdownIndex() {
                       gmtProcessType={gmtProcessType}
                       commissionType={commissionType}
                       updateCommission={updateCommission}
+                      index={buyeri}
                     />
                   ))}
                   <TotalRow

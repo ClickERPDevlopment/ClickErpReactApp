@@ -9,10 +9,11 @@ type props = {
   fabricProcessType?: string[],
   gmtProcessType?: string[],
   commissionType?: string[],
-  updateCommission: (com: ICommission) => void
+  updateCommission: (com: ICommission) => void,
+  index: number,
 }
 
-export default function PoStyleGroupSection({ data, bookingData, fabricProcessType, gmtProcessType, commissionType, updateCommission }: props) {
+export default function PoStyleGroupSection({ data, bookingData, fabricProcessType, gmtProcessType, commissionType, updateCommission, index }: props) {
 
   const poData = () =>
     data?.
@@ -116,7 +117,7 @@ export default function PoStyleGroupSection({ data, bookingData, fabricProcessTy
     bookingData?.map((item, i) =>
       i == 0 ?
         <tr key={i}>
-          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{i + 1}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{index + i + 1}</th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.BUYER}</th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.STYLENO} </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.PONO}</th>
