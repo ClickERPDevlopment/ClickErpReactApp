@@ -51,7 +51,7 @@ function ReportTable({
     0
   );
 
-  let gorupLength = data.length || 0;
+  const gorupLength = data.length || 0;
 
   return (
     <>
