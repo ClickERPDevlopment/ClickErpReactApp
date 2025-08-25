@@ -178,7 +178,7 @@ function Report({
                 <tr>
                   <td className="p-0.1 text-nowrap">Buying Commission($)</td>
                   <td className="p-0.1">
-                    : {((report?.TOTAL_FOB_VALUE ?? 0) - (report?.BALANCE_VALUE ?? 0)).toFixed(2)}
+                    : {((report?.TOTAL_FOB_VALUE ?? 0) - (report?.BALANCE_VALUE ?? 0)).toFixed(2)} ({report?.BUYEING_COMMI}%)
                   </td>
                 </tr>
                 <tr>

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
@@ -52,27 +50,25 @@ function BudgetReport() {
     getData();
   }, [api.ProductionUrl, id]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    setIsLoading(true)
+  //   setIsLoading(true)
 
-    const getData = async () => {
+  //   const getData = async () => {
+  //     setIsLoading(true);
 
-      setIsLoading(true);
+  //     await axios.get(api + "MerchReport/BudgetReport?id=" + id)
+  //       .then(res => {
+  //         setData(res?.data)
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       })
+  //       .finally(() => { setIsLoading(false) })
+  //   }
 
-      await axios.get(api + "MerchReport/BudgetReport?id=" + id)
-        .then(res => {
-          setData(res?.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-        .finally(() => { setIsLoading(false) })
-
-      getData();
-
-    }
-  }, []);
+  //   getData();
+  // }, []);
 
   return isLoading ? (
     <>
