@@ -176,6 +176,8 @@ import YarnRcvIssueRegisterReport from "./reports/store/yarn-store/yarn-rcv-issu
 import SupplierWiseEmbStockReport from "./reports/embellishment/supplier-wise-emb-stock-report/supplier-wise-emb-stock-report-index.tsx";
 import DateWiseFabricPurchaseReceiveRegisterReport from "./reports/store/finish-store/date-wise-fabric-purchase-receive-register-report/date-wise-fabric-purchase-receive-register-report-index.tsx";
 import JobBreakdownReport from "./reports/planning/report/job-breakdown-report/job-breakdown-report-index.tsx";
+import PrintEmbPIndex from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-index.tsx";
+import PrintEmbPICrud from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -242,6 +244,13 @@ createRoot(document.getElementById("root")!).render(
                           <Route
                             path=":pageAction/:id"
                             element={<PrintEmbDeliveryCrud />}
+                          />
+                        </Route>
+                        <Route path="print-emb-pi">
+                          <Route index element={<PrintEmbPIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbPICrud />}
                           />
                         </Route>
                       </Route>
@@ -429,6 +438,13 @@ createRoot(document.getElementById("root")!).render(
                           <Route
                             path=":pageAction/:id"
                             element={<PrintEmbDeliveryCrud />}
+                          />
+                        </Route>
+                        <Route path="print-emb-pi">
+                          <Route index element={<PrintEmbPIndex />} />
+                          <Route
+                            path=":pageAction/:id"
+                            element={<PrintEmbPICrud />}
                           />
                         </Route>
                       </Route>

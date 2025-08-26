@@ -11,10 +11,14 @@ export type PrintEmbPIMasterType = {
     ADDRESS?: string;
     PI_NO?: string;
     TERM_CONDITIONS?: string;
+    DISCOUNT_PERCENT?: number;
     PrintEmbPIDetails: PrintEmbPIDetailsType[];
 };
 
 export type PrintEmbPIDetailsType = {
+    COLOR_ID: any;
+    STYLE_ID: number;
+    BUYER_ID: number;
     ID: number;
     MASTER_ID: number;
     BUYER?: string;
@@ -30,6 +34,7 @@ export type PrintEmbPIDetailsType = {
     PRINT_TYPE?: string;
     QTY?: number;
     DZN_PRICE?: number;
+    PRICE?: number;
     AMOUNT?: number;
 };
 
@@ -47,7 +52,7 @@ export function GetPrintEmbPI<T>() {
     fromDate.setDate(toDate.getDate() - 7);
 
     const getData = async (): Promise<T[]> =>
-        (await axios.get("/production/GetPrintEmbPI?fromDate=" + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
+        (await axios.get("/production/PrintEmbPI?fromDate=" + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
 
     const query = useQuery({
         queryKey: ["GetPrintEmbPI"],
@@ -62,7 +67,7 @@ export function GetPrintEmbPIById<T>(id: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
-        (await axios.get("/production/GetPrintEmbPI/" + id)).data;
+        (await axios.get("/production/PrintEmbPI/" + id)).data;
 
     const query = useQuery({
         queryKey: [ReactQueryKey.PrintEmbPI, id],
@@ -74,7 +79,7 @@ export function GetPrintEmbPIById<T>(id: number) {
 
 export async function Save(data: any, axios: AxiosInstance) {
 
-    const response = await axios.post("/production/GetPrintEmbPI", data);
+    const response = await axios.post("/production/PrintEmbPI", data);
 
     if (!response) {
         throw new Error("This data already exist.");
@@ -85,7 +90,7 @@ export async function Save(data: any, axios: AxiosInstance) {
 
 export async function Update(data: any, axios: AxiosInstance) {
     const response = await axios.put(
-        "/production/GetPrintEmbPI/" + data.ID,
+        "/production/PrintEmbPI/" + data.ID,
         data
     );
 
@@ -101,5 +106,5 @@ export async function Delete(id: number, axios: AxiosInstance) {
         throw new Error("Print Embroidery Production ID is not valid.");
     }
 
-    await axios.delete("production/GetPrintEmbPI/" + id);
+    await axios.delete("production/PrintEmbPI/" + id);
 }
