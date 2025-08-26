@@ -178,6 +178,7 @@ import DateWiseFabricPurchaseReceiveRegisterReport from "./reports/store/finish-
 import JobBreakdownReport from "./reports/planning/report/job-breakdown-report/job-breakdown-report-index.tsx";
 import PrintEmbPIndex from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-index.tsx";
 import PrintEmbPICrud from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-crud.tsx";
+import EmbellishmentPIReport from "./reports/embellishment/embellishment-pi-report/embellishment-pi-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -920,6 +921,10 @@ createRoot(document.getElementById("root")!).render(
                   </Route>
 
                   <Route path="embellishment">
+                    <Route
+                      path="embellishment-pi-report"
+                      element={<EmbellishmentPIReport />}
+                    />
                     <Route
                       path="supplier-wise-emb-stock-report"
                       element={<SupplierWiseEmbStockReport />}
