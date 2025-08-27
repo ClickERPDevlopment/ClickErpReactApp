@@ -1,3 +1,4 @@
+import useAppClient from "@/hooks/use-AppClient";
 import { IAccessoriesReport } from "../accessories-report-type";
 
 function ReportFooter({
@@ -5,6 +6,9 @@ function ReportFooter({
 }: {
   masterData: IAccessoriesReport | null;
 }) {
+
+  const client = useAppClient();
+
   return (
     <div className="flex flex-col text-xs">
       <div className="border flex flex-col my-3 p-2 w-[500px]">
@@ -45,6 +49,51 @@ function ReportFooter({
           </div>
         </div>
       </div>
+      {
+        client.currentClient == client.FAME &&
+        <div className="mt-10 mb-5">
+          <table className="w-full mt-5">
+            <thead>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    Sr. Merchandiser
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    Mer. Manager
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    AGM. Mer & Marketing
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    ED
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    COO
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      }
     </div>
   );
 }
