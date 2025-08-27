@@ -50,7 +50,7 @@ function ReportFooter({
         </div>
       </div>
       {
-        client.currentClient == client.FAME &&
+        //client.currentClient == client.FAME &&
         <div className="mt-10 mb-5">
           <table className="w-full mt-5">
             <thead>
