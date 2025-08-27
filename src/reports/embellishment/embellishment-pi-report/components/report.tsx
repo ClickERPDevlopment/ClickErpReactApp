@@ -52,7 +52,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
               <tr>
                 <td className="p-1 pr-4 text-gray-700">Party Order</td>
                 <td className="p-1 text-gray-900">
-                  : {data[0]?.EMB_WORK_ORDER_NO || "N/A"}
+                  : {Array.from(new Set(data.map(item => item.EMB_WORK_ORDER_NO))).join(", ") || "N/A"}
                 </td>
               </tr>
               <tr>

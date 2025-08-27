@@ -116,6 +116,7 @@ interface IColor {
 interface ISupplier {
   Id: number;
   Name: string;
+  Address: string;
 };
 
 export default function PrintEmbPIForm({
@@ -490,7 +491,10 @@ export default function PrintEmbPIForm({
                                         ...prev,
                                         PARTY_ID: Number(party.Id),
                                         PARTY: party.Name,
+                                        ADDRESS: party.Address,
                                       }));
+                                      masterForm.setValue("ADDRESS", party.Address || "");
+
                                       setOpenSupplier(false);
                                     }}
                                   >
@@ -1041,13 +1045,13 @@ export default function PrintEmbPIForm({
                           Order Type
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
-                          Qty
+                          Qty ({detailsData?.reduce((acc, item) => acc + (item.QTY || 0), 0)})
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
                           Price/Dzn
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
-                          Total Amount(USD)
+                          Total Amount(USD) ({detailsData?.reduce((acc, item) => acc + ((item.PRICE || 0) * (item.QTY || 0)), 0).toFixed(2)})
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
                           Action
@@ -1064,11 +1068,15 @@ export default function PrintEmbPIForm({
                           <TableCell className="border border-gray-300 px-4  text-center">
                             {item.BUYER ? item?.BUYER : item?.OS_BUYER}
                           </TableCell>
-                          <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.STYLE ? item?.STYLE : item?.OS_STYLE}
+                          <TableCell className="border border-gray-300 px-4 text-center break-words max-w-[150px]">
+                            <div className="whitespace-normal break-all">
+                              {item.STYLE ? item?.STYLE : item?.OS_STYLE}
+                            </div>
                           </TableCell>
-                          <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.PO_NO ? item?.PO_NO : item?.OS_PO_NO}
+                          <TableCell className="border border-gray-300 px-4 text-center break-words max-w-[150px]">
+                            <div className="whitespace-normal break-all">
+                              {item.PO_NO ? item?.PO_NO : item?.OS_PO_NO}
+                            </div>
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
                             <input
