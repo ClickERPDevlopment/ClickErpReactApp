@@ -15,6 +15,7 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
         { title: "Checked By", access_key: "" },
         { title: "Yarn Store", access_key: "" },
         { title: "Yarn Procurement", access_key: "" },
+        { title: "Knitting", access_key: "" },
         { title: "Process Control", access_key: "" },
         { title: "Garment Planning", access_key: "" },
         { title: "Dyeing Planning", access_key: "" },
