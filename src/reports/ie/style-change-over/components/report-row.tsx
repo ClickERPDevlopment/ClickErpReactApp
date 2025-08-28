@@ -77,11 +77,11 @@ function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffse
                 : Number(item.TOTAL_TIME);
 
               const totalSmvTime = (hp + operator) * smv;
-              const remainingTime = totalTime - totalSmvTime;
+              //const remainingTime = totalTime - totalSmvTime;
 
-              if (remainingTime <= 0) return "0.00";
+              //if (remainingTime <= 0) return "0.00";
 
-              return ((totalSmvTime * 100) / remainingTime).toFixed(2);
+              return ((totalSmvTime * 100) / totalTime).toFixed(2);
             })()}
           </td>
           <td className="border border-gray-300 p-0.5">{item.REASON}</td>

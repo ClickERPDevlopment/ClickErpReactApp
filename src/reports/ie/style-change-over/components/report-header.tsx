@@ -1,7 +1,11 @@
 import moment from "moment";
 import { IStyleChangeOver } from "../style-change-over-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 function ReportHeader({ data }: { data: IStyleChangeOver[] }) {
+
+  const client = useAppClient();
+
   return (
     <div className="">
       <p className="font-bold text-left w-[100%] text-sm">
@@ -15,7 +19,9 @@ function ReportHeader({ data }: { data: IStyleChangeOver[] }) {
           ? data[0].COMPANY_ADDRESS : "Company Address"}
       </h4>
       <h3 className="font-bold text-xl text-center mt-2">
-        Style Change Over Report
+        {
+          client.currentClient == client.FAME ? "THROUGH PUT TIME (TPT) REPORT" : "Style Change Over Report"
+        }
       </h3>
     </div>
   );
