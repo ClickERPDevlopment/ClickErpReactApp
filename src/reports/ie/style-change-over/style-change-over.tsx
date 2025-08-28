@@ -50,7 +50,7 @@ function StyleChangeOverReport() {
   console.log("dd", data);
 
   useEffect(() => {
-    document.title = "Accessories work order";
+    document.title = "Report";
   }, []);
 
   useEffect(() => {

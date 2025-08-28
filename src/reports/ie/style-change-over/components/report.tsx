@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IStyleChangeOver } from "../style-change-over-type";
+import ReportGroup from "./report-group";
 import ReportHeader from "./report-header";
-import ReportRow from "./report-row";
 
 function Report({ data }: { data: IStyleChangeOver[] }) {
   const uniqueKeys: Set<string> = new Set();
@@ -30,7 +30,7 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
   let groupedByEntryDate: GroupedByEntryDate = {};
 
   if (data) {
-    groupedByEntryDate = groupBy(data, ["ENTRY_DATE"]);
+    groupedByEntryDate = groupBy(data, ["FLOOR_NAME"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -57,32 +57,32 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
             <thead>
               <tr className="text-sm">
                 {firstHeader?.map((item) => (
-                  <th rowSpan={2} className="border border-gray-300 p-0.5">{item}</th>
+                  <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
                 ))}
-                <th className="border border-gray-300 p-0.5" colSpan={3}>LAYOUT REQ.</th>
-                <th className="border border-gray-300 p-0.5" colSpan={3}>PRESENT</th>
+                <th className="border border-gray-950 p-0.5" colSpan={3}>LAYOUT REQ.</th>
+                <th className="border border-gray-950 p-0.5" colSpan={3}>PRESENT</th>
                 {secondHeader?.map((item) => (
-                  <th rowSpan={2} className="border border-gray-300 p-0.5">{item}</th>
+                  <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
                 ))}
               </tr>
               <tr className="text-sm">
-                <th className="border border-gray-300 p-0.5">OP</th>
-                <th className="border border-gray-300 p-0.5">HP</th>
-                <th className="border border-gray-300 p-0.5">TTL MP</th>
-                <th className="border border-gray-300 p-0.5">OP</th>
-                <th className="border border-gray-300 p-0.5">HP</th>
-                <th className="border border-gray-300 p-0.5">TTL MP</th>
+                <th className="border border-gray-950 p-0.5">OP</th>
+                <th className="border border-gray-950 p-0.5">HP</th>
+                <th className="border border-gray-950 p-0.5">TTL MP</th>
+                <th className="border border-gray-950 p-0.5">OP</th>
+                <th className="border border-gray-950 p-0.5">HP</th>
+                <th className="border border-gray-950 p-0.5">TTL MP</th>
               </tr>
             </thead>
             <tbody>
               {uniqueKeysArray?.map((key) => {
                 let prevLength = dataLength;
                 dataLength = dataLength + groupedByEntryDate[key].items.length;
-                return <ReportRow
+                return <ReportGroup
                   key={key}
                   data={groupedByEntryDate[key].items}
                   indexOffset={prevLength}
-                ></ReportRow>
+                ></ReportGroup>
               })}
             </tbody>
           </table>

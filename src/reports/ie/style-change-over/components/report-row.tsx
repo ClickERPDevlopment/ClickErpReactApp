@@ -23,48 +23,52 @@ function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffse
     <>
       {data.map((item, index) => (
         <tr className="text-center text-sm">
-          <td className="border border-gray-300 p-0.5">{index + indexOffset + 1}</td>
+          <td className="border border-gray-950 p-0.5">{index + indexOffset + 1}</td>
           {index == 0 && (
             <td
-              className="border border-gray-300 p-0.1 text-nowrap"
+              className="border border-gray-950 p-0.1 text-nowrap"
               rowSpan={data.length}
             >
               {moment(item.ENTRY_DATE).format("DD-MMM-YYYY")}
             </td>
           )}
-          <td className="border border-gray-300 p-0.5">{item.LINE_NAME}</td>
-          <td className="border border-gray-300 p-0.5">{item.BUYER_NAME}</td>
-          <td className="border border-gray-300 p-0.5">{item.STYLE_NO}</td>
-          <td className="border border-gray-300 p-0.5">{item.ITEM}</td>
-          <td className="border border-gray-300 p-0.5">{item.SMV}</td>
-          <td className="border border-gray-300 p-0.5">{item.REQ_OP}</td>
-          <td className="border border-gray-300 p-0.5">{item.REQ_HP}</td>
-          <td className="border border-gray-300 p-0.5">{Number(item.REQ_HP) + Number(item.REQ_OP)}</td>
-          <td className="border border-gray-300 p-0.5">{item.OPERATOR}</td>
-          <td className="border border-gray-300 p-0.5">{item.HP}</td>
-          <td className="border border-gray-300 p-0.5">{Number(item.HP) + Number(item.OPERATOR)}</td>
-          <td className="border border-gray-300 p-0.5">
-            {((Number(item.HP) + Number(item.OPERATOR)) * Number(item.SMV)).toFixed(2)}
+          <td className="border border-gray-950 p-0.5">{item.LINE_NAME}</td>
+          <td className="border border-gray-950 p-0.5">{item.BUYER_NAME}</td>
+          <td className="border border-gray-950 p-0.5">{item.STYLE_NO}</td>
+          <td className="border border-gray-950 p-0.5">{item.ITEM_TYPE}</td>
+          <td className="border border-gray-950 p-0.5">{item.SMV}</td>
+          <td className="border border-gray-950 p-0.5">{item.REQ_OP}</td>
+          <td className="border border-gray-950 p-0.5">{item.REQ_HP}</td>
+          <td className="border border-gray-950 p-0.5">{Number(item.REQ_HP) + Number(item.REQ_OP)}</td>
+          <td className="border border-gray-950 p-0.5">{item.OPERATOR}</td>
+          <td className="border border-gray-950 p-0.5">{item.HP}</td>
+          <td className="border border-gray-950 p-0.5">{Number(item.HP) + Number(item.OPERATOR)}</td>
+          <td className="border border-gray-950 p-0.5">
+            {Math.round(((Number(item.HP) + Number(item.OPERATOR)) * Number(item.SMV)))}
           </td>
-          <td className="border border-gray-300 p-0.5 text-nowrap">
-            {moment(item.LAYOUT_START_TIME).format("DD-MMM-YYYY hh:mm A")}
+          <td className="border border-gray-950 p-0.5 text-nowrap">
+            {moment(item.LAYOUT_START_TIME).format("hh:mm A")}
           </td>
-          <td className="border border-gray-300 p-0.5 text-nowrap">
-            {moment(item.LAYOUT_END_TIME).format("DD-MMM-YYYY hh:mm A")}
+          <td className="border border-gray-950 p-0.5 text-nowrap">
+            {moment(item.LAYOUT_END_TIME).format(" hh:mm A")}
           </td>
-          <td className="border border-gray-300 p-0.5">
-            {item.TOTAL_TIME}
+          <td className="border border-gray-950 p-0.5">
+            {Math.round(Number(item.TOTAL_TIME))}
           </td>
 
-          <td className="border border-gray-300 p-0.5">
-            {(
-              (isNaN(Number(item.TOTAL_TIME))
+          <td className="border border-gray-950 p-0.5">
+            {(() => {
+              const totalTime = isNaN(Number(item.TOTAL_TIME))
                 ? convertToMinutes(item.TOTAL_TIME)
-                : Number(item.TOTAL_TIME))
-              - ((Number(item.HP) + Number(item.OPERATOR)) * Number(item.SMV))
-            ).toFixed(2)}
+                : Number(item.TOTAL_TIME);
+
+              const totalSmvTime = (Number(item.HP) + Number(item.OPERATOR)) * Number(item.SMV);
+              const diff = totalTime - totalSmvTime;
+              return `${diff >= 0 ? "+" : "-"}${Math.abs(Math.round(diff))}`;
+            })()}
           </td>
-          <td className="border border-gray-300 p-0.5">
+
+          <td className="border border-gray-950 p-0.5">
             {(() => {
               const hp = Number(item.HP) || 0;
               const operator = Number(item.OPERATOR) || 0;
@@ -75,15 +79,12 @@ function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffse
                 : Number(item.TOTAL_TIME);
 
               const totalSmvTime = (hp + operator) * smv;
-              //const remainingTime = totalTime - totalSmvTime;
 
-              //if (remainingTime <= 0) return "0.00";
-
-              return ((totalSmvTime * 100) / totalTime).toFixed(2);
-            })()}
+              return Math.round((totalSmvTime * 100) / totalTime);
+            })()}%
           </td>
-          <td className="border border-gray-300 p-0.5">{item.REASON}</td>
-          <td className="border border-gray-300 p-0.5">{item.REMARKS}</td>
+          <td className="border border-gray-950 p-0.5">{item.REASON}</td>
+          <td className="border border-gray-950 p-0.5">{item.REMARKS}</td>
         </tr>
       ))}
     </>
