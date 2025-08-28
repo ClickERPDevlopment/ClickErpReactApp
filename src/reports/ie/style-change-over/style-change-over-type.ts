@@ -32,5 +32,9 @@ export interface IStyleChangeOver {
   REMARKS: string;
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
-  COMPANY_REMARKS: string;
+  REQ_OP: number;
+  REQ_HP: number;
+  REQ_IR: number;
+  ITEM_TYPE: string;
+  ITEM: string;
 }

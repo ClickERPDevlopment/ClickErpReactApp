@@ -37,25 +37,17 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
 
   //set table header
   const firstHeader = [
+    "SL",
     "DATE",
-    "LINE NO",
+    "LINE",
     "BUYER",
     "STYLE",
-    "PO",
+    "ITEM",
     "SMV",
-    "START TIME",
-    "FINISH TIME",
-    "TOTAL TIME",
-    "PRODUCT TYPE",
-    "OP",
-    "HP",
-    "IR",
-    "TOTAL MP",
-    "REASON",
-    "TECHNICIAN NAME",
-    "REMARKS",
   ];
 
+  const secondHeader = ["TGT TPT MIN.", "START TIME", "FINISH TIME", "TOTAL TPT MIN.", "EXCESS TIME", "HIT RATE %", "REASON", "REMARKS"];
+  let dataLength = 0;
   return (
     <div>
       <div className=" p-2">
@@ -65,17 +57,33 @@ function Report({ data }: { data: IStyleChangeOver[] }) {
             <thead>
               <tr className="text-sm">
                 {firstHeader?.map((item) => (
-                  <th className="border border-gray-300 p-0.5">{item}</th>
+                  <th rowSpan={2} className="border border-gray-300 p-0.5">{item}</th>
                 ))}
+                <th className="border border-gray-300 p-0.5" colSpan={3}>LAYOUT REQ.</th>
+                <th className="border border-gray-300 p-0.5" colSpan={3}>PRESENT</th>
+                {secondHeader?.map((item) => (
+                  <th rowSpan={2} className="border border-gray-300 p-0.5">{item}</th>
+                ))}
+              </tr>
+              <tr className="text-sm">
+                <th className="border border-gray-300 p-0.5">OP</th>
+                <th className="border border-gray-300 p-0.5">HP</th>
+                <th className="border border-gray-300 p-0.5">TTL MP</th>
+                <th className="border border-gray-300 p-0.5">OP</th>
+                <th className="border border-gray-300 p-0.5">HP</th>
+                <th className="border border-gray-300 p-0.5">TTL MP</th>
               </tr>
             </thead>
             <tbody>
-              {uniqueKeysArray?.map((key) => (
-                <ReportRow
+              {uniqueKeysArray?.map((key) => {
+                let prevLength = dataLength;
+                dataLength = dataLength + groupedByEntryDate[key].items.length;
+                return <ReportRow
                   key={key}
                   data={groupedByEntryDate[key].items}
+                  indexOffset={prevLength}
                 ></ReportRow>
-              ))}
+              })}
             </tbody>
           </table>
         </div>

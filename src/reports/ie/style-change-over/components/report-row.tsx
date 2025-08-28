@@ -1,11 +1,31 @@
 import moment from "moment";
 import { IStyleChangeOver } from "../style-change-over-type";
 
-function Reportrow({ data }: { data: IStyleChangeOver[] }) {
+function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffset: number }) {
+
+  const convertToMinutes = (timeStr: string): number => {
+    if (!timeStr) return 0;
+    if (/^\d+$/.test(timeStr.trim())) {
+      return Number(timeStr);
+    }
+
+    const match = timeStr.match(/^\s*(?:(\d+)h)?\s*(?:(\d+)m)?\s*$/i);
+
+    if (!match) return 0;
+
+    const hours = match[1] ? parseInt(match[1], 10) : 0;
+    const minutes = match[2] ? parseInt(match[2], 10) : 0;
+
+    return hours * 60 + minutes;
+  };
+
+
+
   return (
     <>
       {data.map((item, index) => (
         <tr className="text-center text-sm">
+          <td className="border border-gray-300 p-0.5">{index + indexOffset + 1}</td>
           {index == 0 && (
             <td
               className="border border-gray-300 p-0.1 text-nowrap"
@@ -17,8 +37,17 @@ function Reportrow({ data }: { data: IStyleChangeOver[] }) {
           <td className="border border-gray-300 p-0.5">{item.LINE_NAME}</td>
           <td className="border border-gray-300 p-0.5">{item.BUYER_NAME}</td>
           <td className="border border-gray-300 p-0.5">{item.STYLE_NO}</td>
-          <td className="border border-gray-300 p-0.5">{item.PO_NO}</td>
+          <td className="border border-gray-300 p-0.5">{item.ITEM}</td>
           <td className="border border-gray-300 p-0.5">{item.SMV}</td>
+          <td className="border border-gray-300 p-0.5">{item.REQ_OP}</td>
+          <td className="border border-gray-300 p-0.5">{item.REQ_HP}</td>
+          <td className="border border-gray-300 p-0.5">{Number(item.REQ_HP) + Number(item.REQ_OP)}</td>
+          <td className="border border-gray-300 p-0.5">{item.OPERATOR}</td>
+          <td className="border border-gray-300 p-0.5">{item.HP}</td>
+          <td className="border border-gray-300 p-0.5">{Number(item.HP) + Number(item.OPERATOR)}</td>
+          <td className="border border-gray-300 p-0.5">
+            {((Number(item.HP) + Number(item.OPERATOR)) * Number(item.SMV)).toFixed(2)}
+          </td>
           <td className="border border-gray-300 p-0.5 text-nowrap">
             {moment(item.LAYOUT_START_TIME).format("DD-MMM-YYYY hh:mm A")}
           </td>
@@ -27,35 +56,35 @@ function Reportrow({ data }: { data: IStyleChangeOver[] }) {
           </td>
           <td className="border border-gray-300 p-0.5">
             {item.TOTAL_TIME}
-            {/* {
-                                (() => {
-                                    const startTime = new Date(item.LAYOUT_START_TIME).getTime();
-                                    const endTime = new Date(item.LAYOUT_END_TIME).getTime();
-
-                                    if (!isNaN(startTime) && !isNaN(endTime)) {
-                                        const diffInMs = endTime - startTime;
-
-                                        const hours = Math.floor(diffInMs / (1000 * 60 * 60));
-                                        const minutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
-
-                                        return `${hours}h ${minutes}m`;
-                                    } else {
-                                        return 'Invalid date';
-                                    }
-                                })()
-                            } */}
           </td>
 
-          <td className="border border-gray-300p-0.5">{item.PRODUCTION_TYPE}</td>
+          <td className="border border-gray-300 p-0.5">
+            {(
+              (isNaN(Number(item.TOTAL_TIME))
+                ? convertToMinutes(item.TOTAL_TIME)
+                : Number(item.TOTAL_TIME))
+              - ((Number(item.HP) + Number(item.OPERATOR)) * Number(item.SMV))
+            ).toFixed(2)}
+          </td>
+          <td className="border border-gray-300 p-0.5">
+            {(() => {
+              const hp = Number(item.HP) || 0;
+              const operator = Number(item.OPERATOR) || 0;
+              const smv = Number(item.SMV) || 0;
 
-          <td className="border border-gray-300 p-0.5">{item.OPERATOR}</td>
-          <td className="border border-gray-300 p-0.5">{item.HP}</td>
-          <td className="border border-gray-300 p-0.5">{item.IRON_MAN}</td>
-          <td className="border border-gray-300 p-0.5 text-center">
-            {Number(item.OPERATOR) + Number(item.HP) + Number(item.IRON_MAN)}
+              const totalTime = isNaN(Number(item.TOTAL_TIME))
+                ? convertToMinutes(item.TOTAL_TIME)
+                : Number(item.TOTAL_TIME);
+
+              const totalSmvTime = (hp + operator) * smv;
+              const remainingTime = totalTime - totalSmvTime;
+
+              if (remainingTime <= 0) return "0.00";
+
+              return ((totalSmvTime * 100) / remainingTime).toFixed(2);
+            })()}
           </td>
           <td className="border border-gray-300 p-0.5">{item.REASON}</td>
-          <td className="border border-gray-300 p-0.5">{item.TECHNICIAN_NAME}</td>
           <td className="border border-gray-300 p-0.5">{item.REMARKS}</td>
         </tr>
       ))}
