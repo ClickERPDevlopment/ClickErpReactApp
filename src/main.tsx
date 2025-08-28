@@ -179,6 +179,7 @@ import JobBreakdownReport from "./reports/planning/report/job-breakdown-report/j
 import PrintEmbPIndex from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-index.tsx";
 import PrintEmbPICrud from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-crud.tsx";
 import EmbellishmentPIReport from "./reports/embellishment/embellishment-pi-report/embellishment-pi-report-index.tsx";
+import StyleWiseOrderDetailsReport from "./reports/planning/report/style-wise-order-details-report/style-wise-order-details-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -578,6 +579,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="job-breakdown-report"
                       element={<JobBreakdownReport />}
+                    />
+                    <Route
+                      path="style-wise-order-details-report"
+                      element={<StyleWiseOrderDetailsReport />}
                     />
                   </Route>
 

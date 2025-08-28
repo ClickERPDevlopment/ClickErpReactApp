@@ -19,8 +19,6 @@ function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffse
     return hours * 60 + minutes;
   };
 
-
-
   return (
     <>
       {data.map((item, index) => (
