@@ -1081,7 +1081,7 @@ export default function PrintEmbPIForm({
                           <TableCell className="border border-gray-300 px-4 text-center w-[60px]">
                             <input
                               type="text"
-                              className="w-full text-center text-sm border border-gray-300 rounded p-1"
+                              className="w-full text-center text-sm border border-gray-300 rounded p-1 bg-yellow"
                               value={item.EMB_WORK_ORDER_NO}
                               onChange={(e) => {
                                 const updatedData = [...detailsData];
