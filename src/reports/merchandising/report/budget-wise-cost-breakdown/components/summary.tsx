@@ -1,4 +1,5 @@
 import { ICommission } from "../budget-wise-cost-breakdown-index";
+import { useBudgetWiseCostBreakdownStore } from "../budget-wise-cost-breakdown-store";
 import { IBudgetWiseCostBreakdown } from "./IBudgetWiseCostBreakdown";
 
 type props = {
@@ -8,6 +9,12 @@ type props = {
   commissionType?: string[],
   children?: React.ReactNode,
   fabricProcessType?: string[],
+  comission?: {
+    poid: number;
+    styelid: number;
+    commissinType: string;
+    amount: number;
+  }[];
 }
 
 const stored = localStorage.getItem('commissions');
@@ -15,8 +22,8 @@ const commissionData: ICommission[] = stored ? JSON.parse(stored) : [];
 
 
 
-export default function Summary({ data, gmtProcessType, fabricProcessType, commissionType }: props) {
-
+export default function Summary({ data, gmtProcessType, fabricProcessType, commissionType, comission }: props) {
+  console.log('comission', comission);
   const rowspan = 3 +
     (fabricProcessType?.length ?? 0) +
     (gmtProcessType?.length ?? 0) +
@@ -74,10 +81,13 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
   showData.forEach(element => {
     element.percentage = (element.amount / total) * 100;
   });
+  const store = useBudgetWiseCostBreakdownStore();
+  console.log(store.data);
+
 
   return (
     <div>
-
+      <p>{store.data}</p>
       <table className="border border-gray-500 m-5">
         <thead>
           <tr>

@@ -23,6 +23,13 @@ export default function BudgetWiseCostBreakdownIndex() {
   const [data, setData] = useState<IBudgetWiseCostBreakdown>();
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
+  // const store = useBudgetWiseCostBreakdownStore();
+  const [comission, setComission] = React.useState<{
+    poid: number;
+    styelid: number;
+    commissinType: string;
+    amount: number;
+  }[]>();
 
   React.useEffect(() => localStorage.removeItem('commissions'), [0])
 
@@ -112,7 +119,7 @@ export default function BudgetWiseCostBreakdownIndex() {
 
   const commissions: ICommission[] = [];
 
-  const updateCommission = (com: ICommission) => {
+  const updateCommission = React.useCallback((com: ICommission) => {
     const stored = localStorage.getItem('commissions');
     const d: ICommission[] = stored ? JSON.parse(stored) : [];
 
@@ -129,10 +136,14 @@ export default function BudgetWiseCostBreakdownIndex() {
       ).values()
     );
 
+    setComission(uniqueFabricCombos);
     localStorage.setItem('commissions', JSON.stringify(uniqueFabricCombos));
-  };
+  }, []);
 
   console.log('commissions', commissions);
+
+  const signInOptions = ['Created By', 'Verified By', 'Approved By (Director)', 'Approved By (Managing Director)']
+
   return (
     <>
       {isLoading ? (
@@ -150,90 +161,95 @@ export default function BudgetWiseCostBreakdownIndex() {
             <p className="text-base">No Data Found. Please check"Style Wise Cost Breakdown" Entry.</p>
           </div>
           :
-          <div className="">
+          <div className="flex flex-col justify-between items-center min-h-screen border">
+            <div>
+              <div className="flex flex-col">
+                <h1 className="text-center font-bold text-2xl">{data?.CompanyName}</h1>
+                <h1 className="text-center font-bold text-sm">{data?.CompanyAddress}</h1>
+                <h1 className="text-center font-bold text-lg mt-5">BUDGET WISE COST BEAKDOWN</h1>
+                <h5 className="text-center font-bold text-base">SALES CONTRACT NO : {data?.SalesContractNo}</h5>
+              </div>
 
-            <div className="flex flex-col">
-              <h1 className="text-center font-bold text-2xl">{data?.CompanyName}</h1>
-              <h1 className="text-center font-bold text-sm">{data?.CompanyAddress}</h1>
-              <h1 className="text-center font-bold text-lg mt-5">BUDGET WISE COST BEAKDOWN</h1>
-              <h5 className="text-center font-bold text-base">SALES CONTRACT NO : {data?.SalesContractNo}</h5>
-            </div>
-
-            <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 overflow-auto m-1">
-              <table className="w-full">
-                <thead className="sticky top-0 z-10">
-                  <tr>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">SL/NO</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">Buyer</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">STYLE </th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">JOB NO/PO</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-32">Sub PO NO</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 max-w-24">IMAGE </th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">ORDER QTY PCS</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">ITEMS NAME</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500 min-w-48">MAIN FABRIC FABRICATION</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">MAIN FABRIC PRICE PER UNIT</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">UOM</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">PO  FOB </th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">MASTER L/C VALUE [FOB*OrderQty]</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">TOTAL MAIN FABRIC VALUE  </th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">POCKETING /OTHER FABRIC</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">ACCESSORIES </th>
-                    {fabricProcessType.map((item, i) =>
-                      <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
-                    )}
-                    {/* <th className="text-balance text-center p-1 border-r border-gray-500">WASH COST</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">TEST COST </th> */}
-                    {gmtProcessType.map((item, i) =>
-                      <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
-                    )}
-                    {/* <th className="text-balance text-center p-1 border-r border-gray-500">Total CM Achieve</th> */}
-                    {commissionType.map((item, i) =>
-                      <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
-                    )}
-                    {/* <th className="text-balance text-center p-1 border-r border-gray-500">Commercial</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">Head Office Cost </th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">Buyeing commission</th> */}
-                    <th className="text-balance text-center p-1 border-r border-gray-500">Total Exp</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">SHORT+ EXTRA </th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">CM per dzn Achieve</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">SMV</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">Target CM per dzn</th>
-                    <th className="text-balance text-center p-1 border-r border-gray-500">PROFIT/ LOSS</th>
-                  </tr>
-                </thead>
-                <tbody id="table-body">
-                  {uniquePoStyle?.map((po_style, buyeri) => (
-                    <PoStyleGroupSection
-                      key={buyeri}
+              <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 overflow-auto m-1">
+                <table className="w-full">
+                  <thead className="sticky top-0 z-10">
+                    <tr>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">SL/NO</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">Buyer</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">STYLE </th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500 min-w-28">JOB NO/PO</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500 min-w-32">Sub PO NO</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500 max-w-24">IMAGE </th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">ORDER QTY PCS</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">ITEMS NAME</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500 min-w-48">MAIN FABRIC FABRICATION</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">MAIN FABRIC PRICE PER UNIT</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">UOM</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">PO  FOB </th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">MASTER L/C VALUE [FOB*OrderQty]</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">TOTAL MAIN FABRIC VALUE  </th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">POCKETING /OTHER FABRIC</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">ACCESSORIES </th>
+                      {fabricProcessType.map((item, i) =>
+                        <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
+                      )}
+                      {gmtProcessType.map((item, i) =>
+                        <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
+                      )}
+                      {commissionType.map((item, i) =>
+                        <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
+                      )}
+                      <th className="text-balance text-center p-1 border-r border-gray-500">Total Exp</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">SHORT+ EXTRA </th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">CM per dzn Achieve</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">SMV</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">Target CM per dzn</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">PROFIT/ LOSS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                    {uniquePoStyle?.map((po_style, buyeri) => (
+                      <PoStyleGroupSection
+                        key={buyeri}
+                        data={data}
+                        bookingData={data.BudgetWiseCostBreakdownDto_Booking?.filter(f => f.PO_ID === po_style.PO_ID && f.STYLE_ID === po_style.STYLE_ID)}
+                        fabricProcessType={fabricProcessType}
+                        gmtProcessType={gmtProcessType}
+                        commissionType={commissionType}
+                        updateCommission={updateCommission}
+                        index={buyeri}
+                      />
+                    ))}
+                    <TotalRow
                       data={data}
-                      bookingData={data.BudgetWiseCostBreakdownDto_Booking?.filter(f => f.PO_ID === po_style.PO_ID && f.STYLE_ID === po_style.STYLE_ID)}
-                      fabricProcessType={fabricProcessType}
+                      title="Total"
                       gmtProcessType={gmtProcessType}
                       commissionType={commissionType}
-                      updateCommission={updateCommission}
-                      index={buyeri}
+                      fabricProcessType={fabricProcessType}
                     />
-                  ))}
-                  <TotalRow
-                    data={data}
-                    title="Total"
-                    gmtProcessType={gmtProcessType}
-                    commissionType={commissionType}
-                    fabricProcessType={fabricProcessType}
-                  />
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
 
+              </div>
+
+              <Summary
+                data={data}
+                title="Total"
+                gmtProcessType={gmtProcessType}
+                commissionType={commissionType}
+                fabricProcessType={fabricProcessType}
+                comission={comission}
+              />
             </div>
-
-            <Summary
-              data={data}
-              title="Total"
-              gmtProcessType={gmtProcessType}
-              commissionType={commissionType}
-              fabricProcessType={fabricProcessType}
-            />
+            <div className="min-w-full flex justify-around items-center">
+              {signInOptions.map((item, i) =>
+                <div key={i} className="p-5 pt-16">
+                  <span className="border-t-2 border-black px-5">
+                    {item}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
       )}
     </>
