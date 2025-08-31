@@ -76,12 +76,10 @@ function ReportHeader({
               </tr>
               <tr className="border-b border-gray-900">
                 <td className="px-1 border-r border-gray-900">
-                  Delivery Date:{" "}
+                  Delivery Store:
                 </td>
                 <td className="px-1">
-                  {masterData?.DELIVERY_DATE
-                    ? moment(masterData?.DELIVERY_DATE).format("D MMM YY")
-                    : ""}
+                  {masterData?.RCV_STORE}
                 </td>
               </tr>
               <tr className="border-b border-gray-900">
@@ -99,8 +97,10 @@ function ReportHeader({
                 <td className="px-1">{masterData?.SUPPLIER_EMAIL}</td>
               </tr>
               <tr>
-                <td className="px-1 border-r border-gray-900">Delivery Store: </td>
-                <td className="px-1">{masterData?.RCV_STORE}</td>
+                <td className="px-1 border-r border-gray-900">Delivery Date:</td>
+                <td className="px-1">{masterData?.DELIVERY_DATE
+                  ? moment(masterData?.DELIVERY_DATE).format("D MMM YY")
+                  : ""}</td>
               </tr>
             </table>
           </td>
