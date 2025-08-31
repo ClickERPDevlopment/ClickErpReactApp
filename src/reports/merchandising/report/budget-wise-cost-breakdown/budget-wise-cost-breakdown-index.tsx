@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 
@@ -24,13 +24,10 @@ export default function BudgetWiseCostBreakdownIndex() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   // const store = useBudgetWiseCostBreakdownStore();
-  const [comission, setComission] = React.useState<{
-    poid: number;
-    styelid: number;
-    commissinType: string;
-    amount: number;
-  }[]>();
+  const [commission, setCommission] = React.useState<ICommission[]>();
 
+  // Remove commissions on mount
+  useEffect(() => setCommission([]), []);
   React.useEffect(() => localStorage.removeItem('commissions'), [0])
 
   let isOpmWise: string | null = "";
@@ -101,48 +98,49 @@ export default function BudgetWiseCostBreakdownIndex() {
     getData();
   }, []);
 
-  const fabricProcessType = [...new Set(data?.BudgetWiseCostBreakdownDto_FabricProcessCost.map(item => item.PROCESS_NAME))];
-  const gmtProcessType = [...new Set(data?.BudgetWiseCostBreakdownDto_GmtOtherCost.map(item => item.PROCESS_NAME))];
-  const commissionType = [...new Set(data?.BudgetWiseCostBreakdownDto_Commission.map(item => item.COST_NAME))];
-
-  const uniquePoStyle = Array.from(
-    new Map(
-      data?.BudgetWiseCostBreakdownDto_Booking.filter(item => item.PO_ID && item.STYLE_ID)
-        .map(item => [
-          `${item.PO_ID}__${item.STYLE_ID}`, // composite key
-          { PO_ID: item.PO_ID, STYLE_ID: item.STYLE_ID }
-        ])
-    ).values()
+  // --- Memoized derived data ---
+  const fabricProcessType = useMemo(
+    () => [...new Set(data?.BudgetWiseCostBreakdownDto_FabricProcessCost?.map(item => item.PROCESS_NAME) ?? [])],
+    [data?.BudgetWiseCostBreakdownDto_FabricProcessCost]
   );
-
-
-
-  const commissions: ICommission[] = [];
-
-  const updateCommission = React.useCallback((com: ICommission) => {
-    const stored = localStorage.getItem('commissions');
-    const d: ICommission[] = stored ? JSON.parse(stored) : [];
-
-    d.push(com);
-
-    const uniqueFabricCombos = Array.from(
+  const gmtProcessType = useMemo(
+    () => [...new Set(data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.map(item => item.PROCESS_NAME) ?? [])],
+    [data?.BudgetWiseCostBreakdownDto_GmtOtherCost]
+  );
+  const commissionType = useMemo(
+    () => [...new Set(data?.BudgetWiseCostBreakdownDto_Commission?.map(item => item.COST_NAME) ?? [])],
+    [data?.BudgetWiseCostBreakdownDto_Commission]
+  );
+  const uniquePoStyle = useMemo(() =>
+    Array.from(
       new Map(
-        d
-          .filter(item => item.poid && item.styelid && item.commissinType && item.amount)
+        (data?.BudgetWiseCostBreakdownDto_Booking ?? [])
+          .filter(item => item.PO_ID && item.STYLE_ID)
           .map(item => [
-            `${item.poid}__${item.styelid}__${item.commissinType}__${item.amount}`,
-            { poid: item.poid, styelid: item.styelid, commissinType: item.commissinType, amount: item.amount }
+            `${item.PO_ID}__${item.STYLE_ID}`,
+            { PO_ID: item.PO_ID, STYLE_ID: item.STYLE_ID }
           ])
       ).values()
-    );
+    ), [data?.BudgetWiseCostBreakdownDto_Booking]
+  );
 
-    // setComission(uniqueFabricCombos);
-    localStorage.setItem('commissions', JSON.stringify(uniqueFabricCombos));
+  // --- Stable commission updater ---
+  const updateCommission = useCallback((com: ICommission) => {
+    setCommission(prev => {
+      // Only update if not already present for this poid, styelid, commissinType
+      const exists = prev?.some(
+        c => c.poid === com.poid && c.styelid === com.styelid && c.commissinType === com.commissinType && c.amount === com.amount
+      );
+      if (exists) return prev;
+      // Remove previous for this poid, styelid, commissinType (keep only latest)
+      const filtered = prev?.filter(
+        c => !(c.poid === com.poid && c.styelid === com.styelid && c.commissinType === com.commissinType)
+      );
+      return [...filtered ?? [], com];
+    });
   }, []);
 
-  console.log('commissions', commissions);
-
-  const signInOptions = ['Created By', 'Verified By', 'Approved By (Director)', 'Approved By (Managing Director)']
+  const signInOptions = ['Created By', 'Verified By', 'Approved By (Director)', 'Approved By (Managing Director)'];
 
   return (
     <>
@@ -238,7 +236,7 @@ export default function BudgetWiseCostBreakdownIndex() {
                 gmtProcessType={gmtProcessType}
                 commissionType={commissionType}
                 fabricProcessType={fabricProcessType}
-                comission={comission}
+                comission={commission}
               />
             </div>
             <div className="min-w-full flex justify-around items-center">

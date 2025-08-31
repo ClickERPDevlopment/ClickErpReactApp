@@ -1,145 +1,199 @@
+import { useMemo } from "react";
 import { ICommission } from "../budget-wise-cost-breakdown-index";
-import { useBudgetWiseCostBreakdownStore } from "../budget-wise-cost-breakdown-store";
 import { IBudgetWiseCostBreakdown } from "./IBudgetWiseCostBreakdown";
 
-type props = {
-  data: IBudgetWiseCostBreakdown,
-  title: string,
-  gmtProcessType?: string[],
-  commissionType?: string[],
-  children?: React.ReactNode,
-  fabricProcessType?: string[],
-  comission?: {
-    poid: number;
-    styelid: number;
-    commissinType: string;
-    amount: number;
-  }[];
-}
+type Props = {
+  data: IBudgetWiseCostBreakdown;
+  title: string;
+  gmtProcessType?: string[];
+  commissionType?: string[];
+  children?: React.ReactNode;
+  fabricProcessType?: string[];
+  comission?: ICommission[];
+};
 
-const stored = localStorage.getItem('commissions');
-const commissionData: ICommission[] = stored ? JSON.parse(stored) : [];
+export default function Summary({
+  data,
+  gmtProcessType,
+  fabricProcessType,
+  commissionType,
+  comission,
+}: Props) {
+  // --- total master LC ---
+  const total = useMemo(() => {
+    return (
+      data?.BudgetWiseCostBreakdownDto_PO?.reduce(
+        (p, c) => p + Number(c.MASTER_LC_VALUE),
+        0
+      ) ?? 0
+    );
+  }, [data?.BudgetWiseCostBreakdownDto_PO]);
 
+  // --- build rows ---
+  const showData = useMemo(() => {
+    const rows: {
+      particular: string;
+      amount: number;
+      isBBLCash: boolean;
+      percentage?: number;
+    }[] = [
+        {
+          particular: "Main FABRICS",
+          amount:
+            data?.BudgetWiseCostBreakdownDto_MainFabric?.reduce(
+              (p, c) => p + Number(c.TOTAL_MAIN_FABRIC_VALUE),
+              0
+            ) ?? 0,
+          isBBLCash: true,
+        },
+        {
+          particular: "Other FABRICS",
+          amount:
+            data?.BudgetWiseCostBreakdownDto_OtherFabric?.reduce(
+              (p, c) => p + Number(c.TOTAL_MAIN_FABRIC_VALUE),
+              0
+            ) ?? 0,
+          isBBLCash: true,
+        },
+        {
+          particular: "Accessories",
+          amount:
+            data?.BudgetWiseCostBreakdownDto_Accessories?.reduce(
+              (p, c) => p + Number(c.TOTAL_COST),
+              0
+            ) ?? 0,
+          isBBLCash: true,
+        },
+      ];
 
+    fabricProcessType?.forEach((element) => {
+      rows.push({
+        particular: element,
+        amount:
+          data?.BudgetWiseCostBreakdownDto_FabricProcessCost?.filter(
+            (f) => f.PROCESS_NAME === element
+          ).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0) ?? 0,
+        isBBLCash: true,
+      });
+    });
 
-export default function Summary({ data, gmtProcessType, fabricProcessType, commissionType, comission }: props) {
-  console.log('comission', comission);
-  const rowspan = 3 +
+    gmtProcessType?.forEach((element) => {
+      rows.push({
+        particular: element,
+        amount:
+          data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.filter(
+            (f) => f.PROCESS_NAME === element
+          ).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0) ?? 0,
+        isBBLCash: false,
+      });
+    });
+
+    commissionType?.forEach((element) => {
+      rows.push({
+        particular: element,
+        amount:
+          comission
+            ?.filter((f) => f.commissinType === element)
+            .reduce((p, c) => p + Number(c.amount), 0) ?? 0,
+        isBBLCash: false,
+      });
+    });
+
+    // add percentage once
+    return rows.map((r) => ({
+      ...r,
+      percentage: total > 0 ? (r.amount / total) * 100 : 0,
+    }));
+  }, [
+    total,
+    data?.BudgetWiseCostBreakdownDto_MainFabric,
+    data?.BudgetWiseCostBreakdownDto_OtherFabric,
+    data?.BudgetWiseCostBreakdownDto_Accessories,
+    data?.BudgetWiseCostBreakdownDto_FabricProcessCost,
+    data?.BudgetWiseCostBreakdownDto_GmtOtherCost,
+    commissionType,
+    comission,
+    fabricProcessType,
+    gmtProcessType,
+  ]);
+
+  const rowspan =
+    3 +
     (fabricProcessType?.length ?? 0) +
     (gmtProcessType?.length ?? 0) +
-    (commissionType?.length ?? 0)
-
-  const showData: { particular: string, amount: number, isBBLCash: boolean, percentage?: number }[] = [
-    {
-      particular: "Main  FABRICS",
-      amount: data?.BudgetWiseCostBreakdownDto_MainFabric?.reduce((p, c) => p + Number(c.TOTAL_MAIN_FABRIC_VALUE), 0),
-      isBBLCash: true
-    },
-    {
-      particular: "Other  FABRICS",
-      amount: data?.BudgetWiseCostBreakdownDto_OtherFabric?.reduce((p, c) => p + Number(c.TOTAL_MAIN_FABRIC_VALUE), 0),
-      isBBLCash: true
-    },
-    {
-      particular: "Accessories",
-      amount: data?.BudgetWiseCostBreakdownDto_Accessories?.reduce((p, c) => p + Number(c.TOTAL_COST), 0),
-      isBBLCash: true
-    },
-  ]
-
-  fabricProcessType?.forEach(element => {
-    showData.push(
-      {
-        particular: element,
-        amount: data?.BudgetWiseCostBreakdownDto_FabricProcessCost?.filter(f => f.PROCESS_NAME === element).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0),
-        isBBLCash: true
-      }
-    )
-  });
-
-  gmtProcessType?.forEach(element => {
-    showData.push(
-      {
-        particular: element,
-        amount: data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.filter(f => f.PROCESS_NAME === element).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0),
-        isBBLCash: false
-      }
-    )
-  });
-
-  commissionType?.forEach(element => {
-    showData.push(
-      {
-        particular: element,
-        amount: commissionData.filter(f => f.commissinType === element)?.reduce((p, c) => p + Number(c.amount), 0),
-        isBBLCash: false
-      }
-    )
-  });
-
-  const total = data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Number(c.MASTER_LC_VALUE), 0);
-  showData.forEach(element => {
-    element.percentage = (element.amount / total) * 100;
-  });
-  const store = useBudgetWiseCostBreakdownStore();
-  console.log(store.data);
-
+    (commissionType?.length ?? 0);
 
   return (
     <div>
-      <p>{store.data}</p>
       <table className="border border-gray-500 m-5">
         <thead>
           <tr>
-            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={6}>SUM UP</th>
+            <th colSpan={6} className="text-center p-1 border">
+              SUM UP
+            </th>
           </tr>
           <tr>
-            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={3}>SUM UP</th>
-            <th className="text-balance text-center p-1 border-r border-t border-gray-500" colSpan={3} >CR</th>
+            <th colSpan={3} className="text-center p-1 border">
+              SUM UP
+            </th>
+            <th colSpan={3} className="text-center p-1 border">
+              CR
+            </th>
           </tr>
         </thead>
         <tbody>
-          {showData?.map((item, i) =>
-            i === 0 ?
-              <tr>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>MASTER  L/C </td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>SALES CONTRACT NO : {data?.SalesContractNo}</td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={rowspan}>{data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Number(c.MASTER_LC_VALUE), 0)}</td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.particular}</td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500">
+          {showData.map((item, i) =>
+            i === 0 ? (
+              <tr key={i}>
+                <td rowSpan={rowspan} className="text-center p-1 border">
+                  MASTER L/C
+                </td>
+                <td rowSpan={rowspan} className="text-center p-1 border">
+                  SALES CONTRACT NO : {data?.SalesContractNo}
+                </td>
+                <td rowSpan={rowspan} className="text-center p-1 border">
+                  {total}
+                </td>
+                <td className="text-center p-1 border">{item.particular}</td>
+                <td className="text-center p-1 border">
                   {item.amount.toFixed(2)}
                 </td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.percentage?.toFixed(3)}%</td>
-
-              </tr> :
-              <tr>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.particular}</td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500">
-                  {item.amount.toFixed(2)}
+                <td className="text-center p-1 border">
+                  {item.percentage?.toFixed(3)}%
                 </td>
-                <td className="text-balance text-center p-1 border-r border-t border-gray-500">{item.percentage?.toFixed(3)}%</td>
               </tr>
+            ) : (
+              <tr key={i}>
+                <td className="text-center p-1 border">{item.particular}</td>
+                <td className="text-center p-1 border">
+                  {item.amount.toFixed(2)}
+                </td>
+                <td className="text-center p-1 border">
+                  {item.percentage?.toFixed(3)}%
+                </td>
+              </tr>
+            )
           )}
 
           <tr>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold">Total</td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500"></td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold">{data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Number(c.MASTER_LC_VALUE), 0)}</td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500"></td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold">
-              {(showData.reduce((p, c) => p + c.amount, 0)).toFixed(2)}
+            <td className="font-bold text-center p-1 border">Total</td>
+            <td className="text-center p-1 border"></td>
+            <td className="font-bold text-center p-1 border">{total}</td>
+            <td className="text-center p-1 border"></td>
+            <td className="font-bold text-center p-1 border">
+              {showData.reduce((p, c) => p + c.amount, 0).toFixed(2)}
             </td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500"></td>
+            <td className="text-center p-1 border"></td>
           </tr>
 
           <tr>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold">Balance</td>
-            <td className="text-balance text-center p-1 border-r border-t border-gray-500 font-bold" colSpan={5}>
-              {(data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Number(c.MASTER_LC_VALUE), 0) -
-                (showData.reduce((p, c) => p + c.amount, 0))).toFixed(2)}
+            <td className="font-bold text-center p-1 border">Balance</td>
+            <td colSpan={5} className="font-bold text-center p-1 border">
+              {(
+                total - showData.reduce((p, c) => p + c.amount, 0)
+              ).toFixed(2)}
             </td>
           </tr>
-
         </tbody>
       </table>
 
@@ -147,29 +201,40 @@ export default function Summary({ data, gmtProcessType, fabricProcessType, commi
         <table className="w-full">
           <thead>
             <tr>
-              <th className="border border-gray-500 text-center p-1">BTB & Cash</th>
-              <th className="border border-gray-500 text-center p-1">
-                {(showData?.filter(f => f.isBBLCash)?.reduce((p, c) => p + (c.amount ?? 0), 0))?.toFixed(2)}
+              <th className="border p-1">BTB & Cash</th>
+              <th className="border p-1">
+                {showData
+                  .filter((f) => f.isBBLCash)
+                  .reduce((p, c) => p + c.amount, 0)
+                  .toFixed(2)}
               </th>
-              <th className="border border-gray-500 text-center p-1">
-                {(showData?.filter(f => f.isBBLCash)?.reduce((p, c) => p + (c.percentage ?? 0), 0))?.toFixed(2)}%
+              <th className="border p-1">
+                {showData
+                  .filter((f) => f.isBBLCash)
+                  .reduce((p, c) => p + (c.percentage ?? 0), 0)
+                  .toFixed(2)}
+                %
               </th>
             </tr>
             <tr>
-              <th className="border border-gray-500 text-center p-1">CM+Comercial</th>
-              <th className="border border-gray-500 text-center p-1">
-                {(showData?.filter(f => !f.isBBLCash)?.reduce((p, c) => p + (c.amount ?? 0), 0))?.toFixed(2)}
+              <th className="border p-1">CM+Comercial</th>
+              <th className="border p-1">
+                {showData
+                  .filter((f) => !f.isBBLCash)
+                  .reduce((p, c) => p + c.amount, 0)
+                  .toFixed(2)}
               </th>
-              <th className="border border-gray-500 text-center p-1">
-                {(showData?.filter(f => !f.isBBLCash)?.reduce((p, c) => p + (c.percentage ?? 0), 0))?.toFixed(2)}%
+              <th className="border p-1">
+                {showData
+                  .filter((f) => !f.isBBLCash)
+                  .reduce((p, c) => p + (c.percentage ?? 0), 0)
+                  .toFixed(2)}
+                %
               </th>
             </tr>
           </thead>
         </table>
       </div>
-
     </div>
-
-
   );
 }
