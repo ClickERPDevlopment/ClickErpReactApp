@@ -9,9 +9,9 @@ function ReportHeader({
   return (
     <div>
       <div className="">
-        <p className="font-bold text-xs text-left w-[100%] text-sm">
+        {/* <p className="font-bold text-xs text-left w-[100%] text-sm">
           {moment().format("DD-MMM-YYYY")}
-        </p>
+        </p> */}
         <h1 className="font-bold text-lg text-center">
           {masterData?.COMPANY_NAME}
         </h1>
@@ -54,9 +54,13 @@ function ReportHeader({
                 <td className="px-1 border-r border-gray-900">Mobile: </td>
                 <td className="px-1"> {masterData?.MOBILE_NO}</td>
               </tr>
-              <tr>
+              <tr className="border-b border-gray-900">
                 <td className="px-1 border-r border-gray-900">Email: </td>
                 <td className="px-1"> {masterData?.COMPANY_EMAIL}</td>
+              </tr>
+              <tr>
+                <td className="px-1 border-r border-gray-900">Workorder Date: </td>
+                <td className="px-1"> {moment(masterData?.ISSUE_DATE).format("DD-MMM-YY")}</td>
               </tr>
             </table>
           </td>
@@ -90,9 +94,13 @@ function ReportHeader({
                 <td className="px-1 border-r border-gray-900">Mobile: </td>
                 <td className="px-1"> {masterData?.SUPPLIER_MOBILE_NO}</td>
               </tr>
-              <tr>
+              <tr className="border-b border-gray-900">
                 <td className="px-1 border-r border-gray-900">Email: </td>
                 <td className="px-1">{masterData?.SUPPLIER_EMAIL}</td>
+              </tr>
+              <tr>
+                <td className="px-1 border-r border-gray-900">Delivery Store: </td>
+                <td className="px-1">{masterData?.RCV_STORE}</td>
               </tr>
             </table>
           </td>

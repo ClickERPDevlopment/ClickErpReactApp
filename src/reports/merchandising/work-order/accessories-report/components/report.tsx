@@ -26,7 +26,6 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
     "DESCRIPTION 1",
     "DESCRIPTION 2",
     "MTL COLOR 2",
-    "SHIP DATE",
   ];
 
   const uniqueSizes: Set<string> = new Set();

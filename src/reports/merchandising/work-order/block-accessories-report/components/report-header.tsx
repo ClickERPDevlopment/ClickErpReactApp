@@ -11,7 +11,7 @@ function ReportHeader({
   return (
     <div>
       <div className="">
-        <p className="font-bold text-lg text-left w-[100%] text-sm">
+        <p className="font-bold text-left w-[100%] text-sm">
           {moment().format("DD-MMM-YYYY")}
         </p>
         <h1 className="font-bold text-2xl text-center">
