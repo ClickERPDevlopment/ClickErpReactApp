@@ -136,7 +136,7 @@ export default function BudgetWiseCostBreakdownIndex() {
       ).values()
     );
 
-    setComission(uniqueFabricCombos);
+    // setComission(uniqueFabricCombos);
     localStorage.setItem('commissions', JSON.stringify(uniqueFabricCombos));
   }, []);
 
