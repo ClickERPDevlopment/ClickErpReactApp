@@ -24,7 +24,7 @@ export default function BudgetWiseCostBreakdownIndex() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   // const store = useBudgetWiseCostBreakdownStore();
-  const [comission, setComission] = React.useState<{
+  const [comission, _] = React.useState<{
     poid: number;
     styelid: number;
     commissinType: string;

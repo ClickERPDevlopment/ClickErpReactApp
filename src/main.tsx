@@ -180,6 +180,7 @@ import PrintEmbPIndex from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-i
 import PrintEmbPICrud from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-crud.tsx";
 import EmbellishmentPIReport from "./reports/embellishment/embellishment-pi-report/embellishment-pi-report-index.tsx";
 import StyleWiseOrderDetailsReport from "./reports/planning/report/style-wise-order-details-report/style-wise-order-details-report-index.tsx";
+import FinishFabricReceiveChallanReport from "./reports/store/finish-store/finish-fabric-receive-challan-report/finish-fabric-receive-challan-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -911,6 +912,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="finish-fabric-store">
+                      <Route
+                        path="finish-fabric-receive-challan-report"
+                        element={<FinishFabricReceiveChallanReport />}
+                      />
                       <Route
                         path="date-wise-fabric-purchase-receive-register-report"
                         element={<DateWiseFabricPurchaseReceiveRegisterReport />}
