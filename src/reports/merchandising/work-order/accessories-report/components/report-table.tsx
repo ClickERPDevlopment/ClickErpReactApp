@@ -65,7 +65,7 @@ function ReportTable({
                 {item.GMT_QTY}
               </td>
               <td className="border border-gray-900 p-0.5 text-center">
-                {item.COMPOSITION}
+                {item.CONSUMPTION_PER_UNIT}
               </td>
               <td className="border border-gray-900 p-0.5 text-center">
                 {item.WORK_ORDER_QTY}
