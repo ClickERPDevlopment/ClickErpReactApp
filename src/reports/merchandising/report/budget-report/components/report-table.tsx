@@ -53,6 +53,8 @@ function ReportTable({
 
   const gorupLength = data.length || 0;
 
+  const particulars = ['YARN', 'Knitting', 'FABRIC DYEING']
+
   return (
     <>
       {uniqueKeysArray?.map((key, index) => (
@@ -75,11 +77,18 @@ function ReportTable({
           }</td>
           <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#f4f4cb" }}>{totalBudgetValue.toFixed(2)}</td>
         </tr>)
-        :
-        (<tr style={{ fontSize: "12px" }} className="font-bold">
-          <td colSpan={5} className="border border-gray-950 text-end"><span style={{ backgroundColor: "#f4f4cb" }}>Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</span></td>
-          <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#f4f4cb" }}>{totalBudgetValue.toFixed(2)}</td>
-        </tr>)
+        : particulars.includes(data[0].DS) ?
+          (<tr style={{ fontSize: "12px" }} className="font-bold">
+            <td colSpan={2} className="border border-gray-950 text-end"></td>
+            <td className="border border-gray-950 text-center"><span style={{ backgroundColor: "#f4f4cb" }}>{data.reduce((p, c) => p + c.QTY, 0)}</span></td>
+            <td colSpan={2} className="border border-gray-950 text-end"><span style={{ backgroundColor: "#f4f4cb" }}>Percen.: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</span></td>
+            <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#f4f4cb" }}>{totalBudgetValue.toFixed(2)}</td>
+          </tr>)
+          :
+          (<tr style={{ fontSize: "12px" }} className="font-bold">
+            <td colSpan={5} className="border border-gray-950 text-end"><span style={{ backgroundColor: "#f4f4cb" }}>Percentage: {((totalBudgetValue / data[0].TOTAL_FOB_VALUE) * 100).toFixed(2)} %</span></td>
+            <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#f4f4cb" }}>{totalBudgetValue.toFixed(2)}</td>
+          </tr>)
       }
     </>
   );
