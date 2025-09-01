@@ -6,6 +6,7 @@ import { BudgetReportResponseType, BudgetReportType } from "../budget-report-typ
 import useAppClient from "@/hooks/use-AppClient";
 import { useEffect, useState } from "react";
 import useApiUrl from "@/hooks/use-ApiUrl";
+import { Button } from "@/components/ui/button";
 
 
 function Report({
@@ -103,11 +104,50 @@ function Report({
         ? `SMV x 0.0653`
         : null;
 
+  const exportToExcel = async () => {
+    try {
+      const response = await fetch(
+        `${api.ProductionUrl}/production/MerchReport/BudgetExcelReport?id=${data?.Report[0]?.BUDGET_ID}`,
+        {
+          method: "GET",
+          headers: {
+            // add headers if required, e.g. Authorization
+            "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch Excel file");
+      }
+
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `BudgetReport_${data?.Report[0]?.BUDGET_ID}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error exporting Excel:", error);
+    }
+  };
+
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
       className="px-12 text-gray-950">
       <div className="p-2">
+
+        <div className="print:hidden text-right mb-2">
+          <Button onClick={exportToExcel} size={"sm"} value={"default"}>Export Excel</Button>
+        </div>
+
         <ReportHeader
           data={data}
         />

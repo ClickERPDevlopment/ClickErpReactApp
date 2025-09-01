@@ -30,6 +30,8 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
 
   const uniqueSizes: Set<string> = new Set();
 
+
+
   data.forEach((item) => {
     if (item.GMT_SIZE_NAME != null) uniqueSizes.add(item.GMT_SIZE_NAME);
   });
