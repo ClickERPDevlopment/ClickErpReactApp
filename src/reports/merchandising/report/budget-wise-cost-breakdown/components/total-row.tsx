@@ -14,6 +14,9 @@ const stored = localStorage.getItem('commissions');
 const commissionData: ICommission[] = stored ? JSON.parse(stored) : [];
 
 export default function TotalRow({ data, title, gmtProcessType, commissionType }: props) {
+  console.log('start')
+  const ddd = data?.BudgetWiseCostBreakdownDto_PO.map(f => { const dd = { poid: f.PO_ID, styleId: f.STYLE_ID, qty: f.QTY }; return dd; })
+  console.log('end', ddd)
 
   return (
     <tr>

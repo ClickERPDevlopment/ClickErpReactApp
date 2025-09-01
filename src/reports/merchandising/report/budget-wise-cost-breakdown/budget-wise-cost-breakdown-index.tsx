@@ -164,7 +164,7 @@ export default function BudgetWiseCostBreakdownIndex() {
               <div className="flex flex-col">
                 <h1 className="text-center font-bold text-2xl">{data?.CompanyName}</h1>
                 <h1 className="text-center font-bold text-sm">{data?.CompanyAddress}</h1>
-                <h1 className="text-center font-bold text-lg mt-5">BUDGET WISE COST BEAKDOWN</h1>
+                <h1 className="text-center font-bold text-lg mt-5">BUDGET WISE COST BREAKDOWN</h1>
                 <h5 className="text-center font-bold text-base">SALES CONTRACT NO : {data?.SalesContractNo}</h5>
               </div>
 
@@ -201,7 +201,7 @@ export default function BudgetWiseCostBreakdownIndex() {
                       <th className="text-balance text-center p-1 border-r border-gray-500">SHORT+ EXTRA </th>
                       <th className="text-balance text-center p-1 border-r border-gray-500">CM per dzn Achieve</th>
                       <th className="text-balance text-center p-1 border-r border-gray-500">SMV</th>
-                      <th className="text-balance text-center p-1 border-r border-gray-500">Target CM per dzn</th>
+                      <th className="text-balance text-center p-1 border-r border-gray-500">CM as per SMV(Dzn)</th>
                       <th className="text-balance text-center p-1 border-r border-gray-500">PROFIT/ LOSS</th>
                     </tr>
                   </thead>

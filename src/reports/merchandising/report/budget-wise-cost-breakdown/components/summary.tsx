@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { ICommission } from "../budget-wise-cost-breakdown-index";
 import { IBudgetWiseCostBreakdown } from "./IBudgetWiseCostBreakdown";
+import { cn } from "@/lib/utils";
 
 type Props = {
   data: IBudgetWiseCostBreakdown;
@@ -145,7 +146,7 @@ export default function Summary({
           {showData.map((item, i) =>
             i === 0 ? (
               <tr key={i}>
-                <td rowSpan={rowspan} className="text-center p-1 border">
+                <td rowSpan={rowspan} className={cn("text-center p-1 border")}>
                   MASTER L/C
                 </td>
                 <td rowSpan={rowspan} className="text-center p-1 border">
@@ -154,16 +155,16 @@ export default function Summary({
                 <td rowSpan={rowspan} className="text-center p-1 border">
                   {total}
                 </td>
-                <td className="text-center p-1 border">{item.particular}</td>
-                <td className="text-center p-1 border">
+                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-200')}>{item.particular}</td>
+                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-200')}>
                   {item.amount.toFixed(2)}
                 </td>
-                <td className="text-center p-1 border">
+                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-200')}>
                   {item.percentage?.toFixed(3)}%
                 </td>
               </tr>
             ) : (
-              <tr key={i}>
+              <tr key={i} className={cn(item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-100')}>
                 <td className="text-center p-1 border">{item.particular}</td>
                 <td className="text-center p-1 border">
                   {item.amount.toFixed(2)}
@@ -197,10 +198,10 @@ export default function Summary({
         </tbody>
       </table>
 
-      <div className="m-5 w-64">
+      <div className="m-5 w-4/12">
         <table className="w-full">
           <thead>
-            <tr>
+            <tr className={cn('bg-emerald-100')}>
               <th className="border p-1">BTB & Cash</th>
               <th className="border p-1">
                 {showData
@@ -216,8 +217,8 @@ export default function Summary({
                 %
               </th>
             </tr>
-            <tr>
-              <th className="border p-1">CM+Comercial</th>
+            <tr className={cn('bg-sky-100')}>
+              <th className="border p-1">CM/Comercial/HO Cost/Commission</th>
               <th className="border p-1">
                 {showData
                   .filter((f) => !f.isBBLCash)
