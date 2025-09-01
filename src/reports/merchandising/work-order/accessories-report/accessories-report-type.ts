@@ -86,5 +86,6 @@ export type IAccessoriesReport = {
   MTL_COLOR_NAME2: string;
   MTL_COLOR_NAME_2: string;
   BODY_PER_PCS: string;
-  SHIP_DATE: Date
+  SHIP_DATE: Date;
+  CONSUMPTION_PER_UNIT: number
 };

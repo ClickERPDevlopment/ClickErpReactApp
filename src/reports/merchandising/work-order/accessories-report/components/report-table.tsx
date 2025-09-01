@@ -65,6 +65,9 @@ function ReportTable({
                 {item.GMT_QTY}
               </td>
               <td className="border border-gray-900 p-0.5 text-center">
+                {item.CONSUMPTION_PER_UNIT}
+              </td>
+              <td className="border border-gray-900 p-0.5 text-center">
                 {item.WORK_ORDER_QTY}
               </td>
               <td className="border border-gray-900 p-0.5 text-center">
@@ -92,7 +95,7 @@ function ReportTable({
           ))}
         </tbody>
         <tr className="text-xs font-bold">
-          <td colSpan={8} className="border border-gray-900 p-1 text-center ">Total</td>
+          <td colSpan={9} className="border border-gray-900 p-1 text-center ">Total</td>
           <td className="border border-gray-900 p-1 text-center">
             {totalWoQty}
           </td>
