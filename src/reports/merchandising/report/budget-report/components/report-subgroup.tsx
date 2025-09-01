@@ -3,18 +3,23 @@ import { BudgetReportType } from "../budget-report-type";
 function ReportSubgroup({
   data,
   gorupLength,
-  index
+  index,
+  totalFob,
+  poQty
 }: {
   data: BudgetReportType[];
   firstHeader: string[] | null;
   gorupLength: number;
   index: number;
+  totalFob?: number;
+  poQty?: number;
 }) {
 
   const totalQuantiy = data?.reduce(
     (acc, item) => acc + Number(item.QTY),
     0);
-
+  console.log(totalFob)
+  console.log(poQty)
   return (
     <>
       {data[0].DS.includes('COST CENTER') ?

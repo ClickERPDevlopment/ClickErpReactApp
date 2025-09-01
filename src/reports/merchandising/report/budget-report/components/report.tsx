@@ -245,6 +245,8 @@ function Report({
                 data={groupedByDate[key].items}
                 firstHeader={firstHeader}
                 totalQty={data?.Report[0]?.PO_QTY ?? 0}
+                totalFob={report?.TOTAL_FOB_VALUE}
+                poQty={report?.PO_QTY}
               ></ReportTable>
             ))}
 

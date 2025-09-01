@@ -6,10 +6,14 @@ function ReportTable({
   data,
   firstHeader,
   totalQty,
+  totalFob,
+  poQty
 }: {
   data: BudgetReportType[];
   firstHeader: string[] | null;
   totalQty: number;
+  totalFob?: number;
+  poQty?: number;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
@@ -64,6 +68,8 @@ function ReportTable({
           firstHeader={firstHeader}
           gorupLength={gorupLength}
           index={index}
+          totalFob={totalFob}
+          poQty={poQty}
         ></ReportSubgroup>
       ))}
 
