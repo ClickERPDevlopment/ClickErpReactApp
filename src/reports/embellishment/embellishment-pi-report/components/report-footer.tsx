@@ -6,7 +6,7 @@ export default function ReportFooter({ }: { data: EmbellishmentPIReportType[] })
       <table className="w-full text-center border-collapse">
         <tfoot>
           <tr>
-            <td className="pt-6">
+            <td className="pt-6 text-start">
               <span className="border-t border-gray-500 px-4 font-medium">
                 Authorized Signature
               </span>
