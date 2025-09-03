@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import StyleImage from "@/components/style-image";
-import { ICommission } from "../budget-wise-cost-breakdown-index";
+import { ICommission, IGrossCostLocalStorage, IProfitLossLocalStorage } from "../budget-wise-cost-breakdown-index";
 import { IBudgetWiseCostBreakdown, IBudgetWiseCostBreakdownDto_Booking } from "./IBudgetWiseCostBreakdown";
 import React, { useMemo, useCallback } from "react";
 
@@ -15,6 +15,7 @@ type props = {
   index: number,
 }
 
+
 // Helper to safely sum arrays
 const sum = (arr?: any[], key?: string) =>
   arr?.reduce((p, c) => p + Number(key ? c[key] : c), 0) ?? 0;
@@ -28,6 +29,12 @@ function PoStyleGroupSection({
   updateCommission,
   index,
 }: props) {
+
+  // React.useEffect(() => {
+  //   localStorage.removeItem('grossCost');
+
+  // }, [])
+
   // Memoize all data selectors to avoid recalculation on every render
   const poData = useMemo(() =>
     data?.BudgetWiseCostBreakdownDto_PO?.filter(
@@ -142,8 +149,21 @@ function PoStyleGroupSection({
         totalCost += comCost;
       }
     }
+
+    //set local storage data for grosscost
+    const grossString = localStorage.getItem('grossCost');
+    const gross: IGrossCostLocalStorage[] = grossString ? JSON.parse(grossString) : [];
+    const targetGrossItem = gross?.find(item => item.index === index);
+    if (targetGrossItem) {
+      targetGrossItem.grossCost = totalCost;
+    } else
+      gross?.push({ index: index, grossCost: totalCost });
+
+    localStorage.setItem('grossCost', JSON.stringify(gross))
+    //end -set local storage data for grosscost
+
     return totalCost;
-  }, [netCost, commissionType, commissionData, getCommissionCost]);
+  }, [netCost, commissionType, index, commissionData, getCommissionCost]);
 
   // Memoize poQty for profit/loss calculation
   const poQty = useMemo(
@@ -168,8 +188,22 @@ function PoStyleGroupSection({
     const cmPrice = cmPerDzn ?? 0;
     const smv = bookingData[0]?.SMVSEWING ?? 0;
     const targetCm = smv * 0.06 * 12;
-    return (((cmPrice - targetCm) * poQty) / 12).toFixed(2);
-  }, [cmPerDzn, bookingData, poQty]);
+    const totalAmount = (((cmPrice - targetCm) * poQty) / 12);
+
+    //set local storage data for profitloss
+    const lsString = localStorage.getItem('budget-profitloss');
+    const gross: IProfitLossLocalStorage[] = lsString ? JSON.parse(lsString) : [];
+    const targetItem = gross?.find(item => item.index === index);
+    if (targetItem) {
+      targetItem.amount = totalAmount;
+    } else
+      gross?.push({ index: index, amount: totalAmount });
+
+    localStorage.setItem('budget-profitloss', JSON.stringify(gross))
+    //end -set local storage data for profitloss
+
+    return totalAmount.toFixed(2);
+  }, [cmPerDzn, bookingData, poQty, index]);
 
   // Memoize master LC value
   const masterLCValue = useMemo(

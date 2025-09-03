@@ -1,4 +1,4 @@
-import { ICommission } from "../budget-wise-cost-breakdown-index";
+import { ICommission, IGrossCostLocalStorage, IProfitLossLocalStorage } from "../budget-wise-cost-breakdown-index";
 import { IBudgetWiseCostBreakdown } from "./IBudgetWiseCostBreakdown";
 
 type props = {
@@ -8,15 +8,17 @@ type props = {
   commissionType?: string[],
   children?: React.ReactNode,
   fabricProcessType?: string[],
+  comission?: ICommission[];
 }
 
-const stored = localStorage.getItem('commissions');
-const commissionData: ICommission[] = stored ? JSON.parse(stored) : [];
+export default function TotalRow({ data, title, gmtProcessType, commissionType, comission }: props) {
+  const grossCostString = localStorage.getItem('grossCost');
+  const grossCostData: IGrossCostLocalStorage[] = grossCostString ? JSON.parse(grossCostString) : [];
+  const grossCost = grossCostData?.reduce((p, c) => p + c.grossCost, 0);
 
-export default function TotalRow({ data, title, gmtProcessType, commissionType }: props) {
-  console.log('start')
-  const ddd = data?.BudgetWiseCostBreakdownDto_PO.map(f => { const dd = { poid: f.PO_ID, styleId: f.STYLE_ID, qty: f.QTY }; return dd; })
-  console.log('end', ddd)
+  const profitLossString = localStorage.getItem('budget-profitloss');
+  const profitLossData: IProfitLossLocalStorage[] = profitLossString ? JSON.parse(profitLossString) : [];
+  const profitLoss = profitLossData?.reduce((p, c) => p + c.amount, 0);
 
   return (
     <tr>
@@ -48,19 +50,19 @@ export default function TotalRow({ data, title, gmtProcessType, commissionType }
 
       {commissionType?.map((fp_item, i) =>
         <th className="text-balance text-center p-1 border-r border-t border-gray-500" key={i}>
-          {commissionData.filter(f => f.commissinType === fp_item)?.reduce((p, c) => p + Number(c.amount), 0)?.toFixed(2)}
+          {comission?.filter(f => f.commissinType === fp_item)?.reduce((p, c) => p + Number(c.amount), 0)?.toFixed(2)}
         </th>
       )}
       {/* <th className="text-balance text-center p-1 border-r border-t border-gray-500" >Commercial</th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" >Head Office Cost </th>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" >Buyeing commission</th> */}
       <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
-        {/* {grossCost()?.toFixed(2)} */}
-        {Number(localStorage.getItem('grossCost'))?.toFixed(2)}
+        {grossCost?.toFixed(2)}
+        {/* {Number(localStorage.getItem('grossCost'))?.toFixed(2)} */}
       </th>
       <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
         {/* SHORT+ EXTRA */}
-        {Number((data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Math.round(c.MASTER_LC_VALUE), 0)) - (Number(localStorage.getItem('grossCost') ?? 0))).toFixed(2)}
+        {Number((data?.BudgetWiseCostBreakdownDto_PO?.reduce((p, c) => p + Math.round(c.MASTER_LC_VALUE), 0)) - grossCost).toFixed(2)}
       </th>
       <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
         {/* CM per dzn Achieve */}
@@ -73,6 +75,7 @@ export default function TotalRow({ data, title, gmtProcessType, commissionType }
       </th>
       <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
         {/* PROFIT/ LOSS */}
+        {profitLoss?.toFixed(2)}
       </th>
     </tr>
   );

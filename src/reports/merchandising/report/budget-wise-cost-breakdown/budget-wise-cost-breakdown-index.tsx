@@ -18,6 +18,14 @@ export type ICommission = {
   styelid: number,
   amount: number
 }
+export type IGrossCostLocalStorage = {
+  index: number,
+  grossCost: number
+}
+export type IProfitLossLocalStorage = {
+  index: number,
+  amount: number
+}
 
 export default function BudgetWiseCostBreakdownIndex() {
   const [data, setData] = useState<IBudgetWiseCostBreakdown>();
@@ -140,6 +148,8 @@ export default function BudgetWiseCostBreakdownIndex() {
     });
   }, []);
 
+
+
   const signInOptions = ['Created By', 'Verified By', 'Approved By (Director)', 'Approved By (Managing Director)'];
 
   return (
@@ -224,6 +234,7 @@ export default function BudgetWiseCostBreakdownIndex() {
                       gmtProcessType={gmtProcessType}
                       commissionType={commissionType}
                       fabricProcessType={fabricProcessType}
+                      comission={commission}
                     />
                   </tbody>
                 </table>
