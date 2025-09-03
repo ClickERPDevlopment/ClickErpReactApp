@@ -21,7 +21,7 @@ function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffse
 
   return (
     <>
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <tr className="text-center text-sm">
           <td className="border border-gray-950 p-0.5">{index + indexOffset + 1}</td>
           {index == 0 && (
@@ -53,12 +53,16 @@ function Reportrow({ data, indexOffset }: { data: IStyleChangeOver[], indexOffse
             {moment(item.LAYOUT_END_TIME).format(" hh:mm A")}
           </td>
           <td className="border border-gray-950 p-0.5">
-            {Math.round(Number(item.TOTAL_TIME))}
+            {
+              isNaN(Number(item?.TOTAL_TIME))
+                ? convertToMinutes(item.TOTAL_TIME)
+                : Number(item.TOTAL_TIME)
+            }
           </td>
 
           <td className="border border-gray-950 p-0.5">
             {(() => {
-              const totalTime = isNaN(Number(item.TOTAL_TIME))
+              const totalTime = isNaN(Number(item?.TOTAL_TIME))
                 ? convertToMinutes(item.TOTAL_TIME)
                 : Number(item.TOTAL_TIME);
 

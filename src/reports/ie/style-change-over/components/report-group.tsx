@@ -37,6 +37,23 @@ function ReportGroup({ data, indexOffset }: { data: IStyleChangeOver[], indexOff
     const totalTgtTptMin = data.reduce((sum, item) => sum + ((Number(item.OPERATOR) + Number(item.HP)) * Number(item.SMV) || 0), 0);
 
 
+    const convertToMinutes = (timeStr: string): number => {
+        if (!timeStr) return 0;
+        if (/^\d+$/.test(timeStr.trim())) {
+            return Number(timeStr);
+        }
+
+        const match = timeStr.match(/^\s*(?:(\d+)h)?\s*(?:(\d+)m)?\s*$/i);
+
+        if (!match) return 0;
+
+        const hours = match[1] ? parseInt(match[1], 10) : 0;
+        const minutes = match[2] ? parseInt(match[2], 10) : 0;
+
+        return hours * 60 + minutes;
+    };
+
+
     const totalTptMin = data.reduce((sum, item) => {
         const totalTime = isNaN(Number(item.TOTAL_TIME))
             ? convertToMinutes(item.TOTAL_TIME)
@@ -61,21 +78,7 @@ function ReportGroup({ data, indexOffset }: { data: IStyleChangeOver[], indexOff
         return sum + excessTime;
     }, 0);
 
-    const convertToMinutes = (timeStr: string): number => {
-        if (!timeStr) return 0;
-        if (/^\d+$/.test(timeStr.trim())) {
-            return Number(timeStr);
-        }
 
-        const match = timeStr.match(/^\s*(?:(\d+)h)?\s*(?:(\d+)m)?\s*$/i);
-
-        if (!match) return 0;
-
-        const hours = match[1] ? parseInt(match[1], 10) : 0;
-        const minutes = match[2] ? parseInt(match[2], 10) : 0;
-
-        return hours * 60 + minutes;
-    };
 
     let dataLength = indexOffset;
     return (
