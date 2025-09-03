@@ -36,7 +36,12 @@ export default function BudgetWiseCostBreakdownIndex() {
 
   // Remove commissions on mount
   useEffect(() => setCommission([]), []);
-  React.useEffect(() => localStorage.removeItem('commissions'), [0])
+
+  React.useEffect(() => {
+    localStorage.removeItem('commissions')
+    localStorage.removeItem('grossCost')
+    localStorage.removeItem('budget-profitloss')
+  }, [0])
 
   let isOpmWise: string | null = "";
   let fromOpmDate: string | null = "";
