@@ -181,6 +181,7 @@ import PrintEmbPICrud from "./app/PrintingEmbroidery/print-emb-pi/print-emb-pi-c
 import EmbellishmentPIReport from "./reports/embellishment/embellishment-pi-report/embellishment-pi-report-index.tsx";
 import StyleWiseOrderDetailsReport from "./reports/planning/report/style-wise-order-details-report/style-wise-order-details-report-index.tsx";
 import FinishFabricReceiveChallanReport from "./reports/store/finish-store/finish-fabric-receive-challan-report/finish-fabric-receive-challan-report-index.tsx";
+import SewingInputChallanReport from "./reports/production/sewing/sewing-input-challan-report/sewing-input-challan-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -541,6 +542,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="sewing">
+                      <Route
+                        path="sewing-input-challan-report"
+                        element={<SewingInputChallanReport />}
+                      />
                       <Route
                         path="daily-sewing-efficiecy-report"
                         element={<DailySewingEfficiencyReport />}
