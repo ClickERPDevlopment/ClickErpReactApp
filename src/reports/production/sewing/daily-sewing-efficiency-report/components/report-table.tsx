@@ -100,15 +100,15 @@ function ReportTable({
         <td className="border border-gray-950 p-0.1 text-center">{Math.round(totalHourlyTarget)}</td>
         <td className="border border-gray-950 p-0.1 text-center">{Math.round(totalTarget)}</td>
         <td className="border border-gray-950 p-0.1 text-end">{totalQcPass}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{(avgPerformance / uniqueLine).toFixed(2)} %</td>
-        <td className="border border-gray-950 p-0.1 text-center">{((avgWorkHour / 60) / (totalOperator + totalHelper))?.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{(totalEarneMin * 100 / totalAvailableMin)?.toFixed(2)} %</td>
-        <td className="border border-gray-950 p-0.1 text-end">{(totalFob / totalQcPass)?.toFixed(2)} $</td>
-        <td className="border border-gray-950 p-0.1 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)} $</td>
-        <td className="border border-gray-950 p-0.1 text-end">{(totalFob)?.toFixed(2)} $</td>
-        <td className="border border-gray-950 p-0.1 text-end">{(totalCM)?.toFixed(2)} $</td>
+        <td className="border border-gray-950 p-0.1 text-center text-nowrap">{(avgPerformance / uniqueLine).toFixed(2)} %</td>
+        <td className="border border-gray-950 p-0.1 text-center text-nowrap">{((avgWorkHour / 60) / (totalOperator + totalHelper))?.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center text-nowrap">{(totalEarneMin * 100 / totalAvailableMin)?.toFixed(2)} %</td>
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalFob / totalQcPass)?.toFixed(2)} $</td>
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM * 12 / totalQcPass)?.toFixed(2)} $</td>
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalFob)?.toFixed(2)} $</td>
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM)?.toFixed(2)} $</td>
         <td className="border border-gray-950 p-0.1 text-end">{ }</td>
-        <td className="border border-gray-950 p-0.1 text-center">{(totaltargetEarnMin * 100 / totalAvailableMin).toFixed(2)} %</td>
+        <td className="border border-gray-950 p-0.1 text-center text-nowrap">{(totaltargetEarnMin * 100 / totalAvailableMin).toFixed(2)} %</td>
         <td className="border border-gray-950 p-0.1 text-end">{ }</td>
       </tr>
     </>

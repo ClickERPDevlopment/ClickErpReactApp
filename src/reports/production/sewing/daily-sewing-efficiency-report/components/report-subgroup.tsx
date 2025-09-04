@@ -61,7 +61,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.1 text-end">{totalQcPass}</td>
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center">{(totalQcPassLineWise * 100 / (data[0]?.TOTALTARGET * data[0]?.RUNNING_HOUR / data[0]?.ACTUALHOURS)).toFixed(2)} %</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center text-nowrap">{(totalQcPassLineWise * 100 / (data[0]?.TOTALTARGET * data[0]?.RUNNING_HOUR / data[0]?.ACTUALHOURS)).toFixed(2)} %</td>
         }
 
         {
@@ -69,21 +69,21 @@ function ReportSubgroup({
         }
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center">{(totalEarnMinLineWise * 100 / data[0]?.AVAILABLEMIN).toFixed(2)} %</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center text-nowrap">{(totalEarnMinLineWise * 100 / data[0]?.AVAILABLEMIN).toFixed(2)} %</td>
         }
 
-        <td className="border border-gray-950 p-0.1 text-end">
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">
           {(totalFob && totalQcPass ? totalFob / totalQcPass : 0).toFixed(2)} $
         </td>
-        <td className="border border-gray-950 p-0.1 text-end">
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">
           {(totalCM && totalQcPass ? (totalCM * 12) / totalQcPass : 0).toFixed(2)} $
         </td>
-        <td className="border border-gray-950 p-0.1 text-end">{(totalFob).toFixed(2)} $</td>
-        <td className="border border-gray-950 p-0.1 text-end">{(totalCM).toFixed(2)} $</td>
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalFob).toFixed(2)} $</td>
+        <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM).toFixed(2)} $</td>
         <td className="border border-gray-950 p-0.1 text-end">{ }</td>
 
         {
-          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center">{(data[0]?.TARGET_EARN_MIN * 100 / (data[0].AVAILABLEMIN)).toFixed(2)} %</td>
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center text-nowrap">{(data[0]?.TARGET_EARN_MIN * 100 / (data[0].AVAILABLEMIN)).toFixed(2)} %</td>
         }
         <td className="border border-gray-950 p-0.1 text-end">{ }</td>
       </tr >
