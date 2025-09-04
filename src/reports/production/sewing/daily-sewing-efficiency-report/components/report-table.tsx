@@ -68,7 +68,7 @@ function ReportTable({
   return (
     <>
       <tr>
-        <td colSpan={21} className="border border-gray-950 p-0.1 text-nowrap font-bold">{data[0]?.FLOORNAME}</td>
+        <td colSpan={21} className="border border-gray-950 p-0.1 text-nowrap font-bold">Floor: {data[0]?.FLOORNAME}</td>
       </tr>
       {uniqueKeysArray?.map((key, index) => {
         totalOperator += groupedData[key].items[0]?.OPERATOR;
