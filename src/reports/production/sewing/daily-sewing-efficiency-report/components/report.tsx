@@ -61,9 +61,9 @@ function Report({
     "HOURLY TARGET",
     "TARGET",
     "QC PASS",
-    "PERFORMANCE",
+    "PERF. %",
     "ACTUAL W/H",
-    "EFFICIENCY %",
+    "EFF. %",
     "FOB PER PCS ($)",
     "CM PER DZN ($)",
     "EARNED FOB ($)",
@@ -123,7 +123,7 @@ function Report({
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
-      className="px-12 text-gray-950">
+      className="px-12 text-gray-950 font-bold">
       <div className="p-2">
         <ReportHeader
           data={data}
@@ -131,9 +131,9 @@ function Report({
         />
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
           <thead className="sticky top-0 print:static">
-            <tr style={{ fontSize: "15px", backgroundColor: "#A7F3D0" }} className="text-center">
+            <tr style={{ fontSize: "13px", backgroundColor: "#A7F3D0" }} className="text-center">
               {firstHeader?.map((item) =>
-                <th className="border border-gray-950 p-0.5">{item}</th>
+                <th className="border border-gray-950 p-0.1">{item}</th>
               )}
             </tr>
           </thead>
@@ -148,28 +148,33 @@ function Report({
               ></ReportTable>
 
             })}
-            <tr style={{ fontSize: "14px", backgroundColor: "#c4f2dc" }} className="font-bold">
-              <td colSpan={4} className="border border-gray-950 p-0.5 text-nowrap text-center">Grand Total</td>
-              <td className="border border-gray-950 p-0.5 text-center">{(totalSmv / data.length).toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{grandTotalOperator}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{grandTotalHelper}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{grandTotalOperator + grandTotalHelper}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{Math.round(totalHourlyTarget)}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{Math.round(grandTotalTarget)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{totalQcPass}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{(avgPerformance / uniqueLine).toFixed(2)} %</td>
-              <td className="border border-gray-950 p-0.5 text-center">{avgWorkHour?.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{(totalEarneMin * 100 / grandTotalAvailableMin)?.toFixed(2)} %</td>
-              <td className="border border-gray-950 p-0.5 text-end">{(totalFob / totalQcPass)?.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{(totalFob)?.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{(totalCM)?.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-end">{ }</td>
-              <td className="border border-gray-950 p-0.5 text-center">{(grandTotalTargetEarnleMin * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
-              <td className="border border-gray-950 p-0.5 text-end">{ }</td>
+            <tr style={{ fontSize: "13px", backgroundColor: "#c4f2dc" }} className="font-bold">
+              <td colSpan={4} className="border border-gray-950 p-0.1 text-nowrap text-center">Grand Total</td>
+              <td className="border border-gray-950 p-0.1 text-center">{(totalSmv / data.length).toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{grandTotalOperator}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{grandTotalHelper}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{grandTotalOperator + grandTotalHelper}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{Math.round(totalHourlyTarget)}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{Math.round(grandTotalTarget)}</td>
+              <td className="border border-gray-950 p-0.1 text-end">{totalQcPass}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{(avgPerformance / uniqueLine).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-0.1 text-center">{avgWorkHour?.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.1 text-center">{(totalEarneMin * 100 / grandTotalAvailableMin)?.toFixed(2)} %</td>
+              <td className="border border-gray-950 p-0.1 text-end">{(totalFob / totalQcPass)?.toFixed(2)} $</td>
+              <td className="border border-gray-950 p-0.1 text-end">{(totalCM * 12 / totalQcPass)?.toFixed(2)} $</td>
+              <td className="border border-gray-950 p-0.1 text-end">{(totalFob)?.toFixed(2)} $</td>
+              <td className="border border-gray-950 p-0.1 text-end">{(totalCM)?.toFixed(2)} $</td>
+              <td className="border border-gray-950 p-0.1 text-end">{ }</td>
+              <td className="border border-gray-950 p-0.1 text-center">{(grandTotalTargetEarnleMin * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-0.1 text-end">{ }</td>
             </tr>
 
           </tbody>
+          <tfoot>
+            <tr>
+              <td className="border-t border-gray-950" colSpan={21}></td>
+            </tr>
+          </tfoot>
         </table>
 
         <div className="pt-10">

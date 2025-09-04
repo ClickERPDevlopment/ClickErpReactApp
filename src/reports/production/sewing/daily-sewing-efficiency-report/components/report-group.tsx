@@ -43,7 +43,7 @@ function ReportGroup({
   // }
 
   if (data) {
-    groupedData = groupBy(data, ["LINENAME", "BUYERNAME", "STYLENO", "ITEMTYPE", "SMVSEWING", "PONO", "STARTDAY", "LINEINCHARGE", "RUNNIN_DAYS"]);
+    groupedData = groupBy(data, ["LINENAME", "BUYERNAME", "STYLENO", "ITEMTYPE", "SMVSEWING"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -71,7 +71,7 @@ function ReportGroup({
             key={key}
             data={groupedData[key].items}
             index={index}
-            groupLength={data.length}
+            groupLength={uniqueKeysArray?.length}
             totalOperator={totalOperator}
             totalHelper={totalHelper}
             totalQcPassLineWise={totalQcPassLineWise}
