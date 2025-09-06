@@ -1,7 +1,7 @@
 import { YarnAdditionalBookingReportDtoType } from "../yarn-additional-booking-report.-type";
 
 export default function Signature({ masterInfo }: { masterInfo?: YarnAdditionalBookingReportDtoType }) {
-    const data = ["Created By", "Checked By", "Knitting", "Dyeing", "Approve"];
+    const data = ["Created By", "Checked By", "Knitting", "Dyeing", "COO", "Approve"];
     return (
         <div className="mt-12 flex justify-around">
             {data?.map((ele, index) =>
