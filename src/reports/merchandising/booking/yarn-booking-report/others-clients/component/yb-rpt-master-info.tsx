@@ -47,7 +47,7 @@ export default function YarnBookingMasterInfo({
   return (
     <div className="mt-5">
       <div className="flex gap-24 mt-3">
-        <ul className="basis-6/12">
+        <ul className="basis-7/12">
           <li className="flex">
             <label className="w-28 font-bold">Order/Job No.</label>
             <span>:{masterData?.PONO}</span>
@@ -75,7 +75,7 @@ export default function YarnBookingMasterInfo({
             <span>:{masterData?.SESSIONNO}</span>
           </li>
         </ul>
-        <div className="basis-3/12 flex justify-end">
+        <div className="basis-2/12 flex justify-end">
           {imageSrc ? (
             <img
               src={imageSrc}
