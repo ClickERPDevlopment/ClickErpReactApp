@@ -3,6 +3,7 @@ import ReportTable from "./report-table";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { YarnRcvIssueRegisterReportType } from "../yarn-rcv-issue-register-report-index-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 function Report({
   data,
@@ -10,7 +11,7 @@ function Report({
   data: YarnRcvIssueRegisterReportType[];
 }) {
 
-
+  const clients = useAppClient();
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
@@ -50,7 +51,7 @@ function Report({
   const firstHeader = [
     "L/C NO",
     "YARN",
-    "BRAND",
+    (clients.currentClient == clients.FAME ? "LOCATION" : "BRAND"),
     "DATE",
     "BUYER",
     "ORDER NO",

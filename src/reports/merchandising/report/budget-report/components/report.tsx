@@ -180,6 +180,10 @@ function Report({
                   <td className="p-0.1 text-nowrap">FOB($)</td>
                   <td className="p-0.1">: {fob}</td>
                 </tr>
+                <tr>
+                  <td className="p-0.1 text-nowrap">SALES CONTACT</td>
+                  <td className="p-0.1">: {data?.Report[0]?.SCNO}</td>
+                </tr>
               </tbody>
             </table>
           </div>
