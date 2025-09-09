@@ -182,6 +182,7 @@ import EmbellishmentPIReport from "./reports/embellishment/embellishment-pi-repo
 import StyleWiseOrderDetailsReport from "./reports/planning/report/style-wise-order-details-report/style-wise-order-details-report-index.tsx";
 import FinishFabricReceiveChallanReport from "./reports/store/finish-store/finish-fabric-receive-challan-report/finish-fabric-receive-challan-report-index.tsx";
 import SewingInputChallanReport from "./reports/production/sewing/sewing-input-challan-report/sewing-input-challan-report-index.tsx";
+import FabricQualityProblemReport from "./reports/production/cuttting/fabric-quality-problem-report/fabric-quality-problem-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -511,6 +512,12 @@ createRoot(document.getElementById("root")!).render(
                   />
 
                   <Route path="production">
+                    <Route path="cutting">
+                      <Route
+                        path="fabric-quality-problem-report"
+                        element={<FabricQualityProblemReport />}
+                      />
+                    </Route>
                     <Route path="finishing">
                       <Route
                         path="short-shipment-reason-status-report"
