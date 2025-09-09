@@ -79,15 +79,28 @@ export default function Summary({
     });
 
     gmtProcessType?.forEach((element) => {
-      rows.push({
-        particular: element,
-        amount:
-          data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.filter(
-            (f) => f.PROCESS_NAME === element
-          ).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0) ?? 0,
-        isBBLCash: false,
-      });
+      if (element.toUpperCase().includes('WASHING')) {
+        rows.push({
+          particular: element,
+          amount:
+            data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.filter(
+              (f) => f.PROCESS_NAME === element
+            ).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0) ?? 0,
+          isBBLCash: true,
+        });
+      } else {
+        rows.push({
+          particular: element,
+          amount:
+            data?.BudgetWiseCostBreakdownDto_GmtOtherCost?.filter(
+              (f) => f.PROCESS_NAME === element
+            ).reduce((p, c) => p + Number(c.TOTAL_PRICE), 0) ?? 0,
+          isBBLCash: false,
+        });
+      }
     });
+
+
 
     commissionType?.forEach((element) => {
       rows.push({
