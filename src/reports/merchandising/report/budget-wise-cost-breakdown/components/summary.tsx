@@ -168,16 +168,16 @@ export default function Summary({
                 <td rowSpan={rowspan} className="text-center p-1 border">
                   {total}
                 </td>
-                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-200')}>{item.particular}</td>
-                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-200')}>
+                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-200' : 'bg-sky-200')}>{item.particular}</td>
+                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-200' : 'bg-sky-200')}>
                   {item.amount.toFixed(2)}
                 </td>
-                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-200')}>
+                <td className={cn("text-center p-1 border", item.isBBLCash ? 'bg-emerald-200' : 'bg-sky-200')}>
                   {item.percentage?.toFixed(3)}%
                 </td>
               </tr>
             ) : (
-              <tr key={i} className={cn(item.isBBLCash ? 'bg-emerald-100' : 'bg-sky-100')}>
+              <tr key={i} className={cn(item.isBBLCash ? 'bg-emerald-200' : 'bg-sky-100')}>
                 <td className="text-center p-1 border">{item.particular}</td>
                 <td className="text-center p-1 border">
                   {item.amount.toFixed(2)}
@@ -214,7 +214,7 @@ export default function Summary({
       <div className="m-5 w-4/12">
         <table className="w-full">
           <thead>
-            <tr className={cn('bg-emerald-100')}>
+            <tr className={cn('bg-emerald-200')}>
               <th className="border p-1">BTB & Cash</th>
               <th className="border p-1">
                 {showData
