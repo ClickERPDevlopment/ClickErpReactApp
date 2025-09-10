@@ -69,7 +69,7 @@ function Report({
   const dtlsUniqueKeysArray: string[] = Array.from(dtlsUniqueKeys);
   const summaryUniqueKeysArray: string[] = Array.from(summaryUniqueKeys);
 
-  const clietn = useAppClient();
+  const client = useAppClient();
   const firstHeader = [
     "SL",
     "P. No.",
@@ -77,7 +77,7 @@ function Report({
     "Style",
     "Fabrication",
     "Yarn Count & Composition",
-    clietn.currentClient == clietn.FAME ? 'Location' : "Brand x Lot",
+    client.currentClient == client.FAME ? 'Location' : "Brand x Lot",
     // "Full/ Half Feeder",
     "McDia x GG",
     "Finish Dia X Type",
@@ -95,7 +95,7 @@ function Report({
   const summaryHeader = [
     "SL",
     "Yarn Count & Composition",
-    clietn.currentClient == clietn.FAME ? 'Location' : "Brand",
+    client.currentClient == client.FAME ? 'Location' : "Brand",
     "Yarn Lot",
     "Quantity(kg)",
   ];
