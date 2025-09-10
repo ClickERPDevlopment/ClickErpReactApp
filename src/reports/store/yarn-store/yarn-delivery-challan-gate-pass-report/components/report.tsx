@@ -8,6 +8,7 @@ import { IYarnBookingSummary } from "../yarn-booking-summary-type";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useApiUrl from "@/hooks/use-ApiUrl";
+import useAppClient from "@/hooks/use-AppClient";
 
 function Report({
   data,
@@ -79,13 +80,14 @@ function Report({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
+  const client = useAppClient();
 
   //set table header
   const firstHeader = [
     "SL NO.",
     "Prog. NO",
     "Yarn",
-    "Brand",
+    client.currentClient == client.FAME ? 'Location' : "Brand",
     "Yarn Lot",
     "Issue Qty(KG)",
     "BAG & CONE",
