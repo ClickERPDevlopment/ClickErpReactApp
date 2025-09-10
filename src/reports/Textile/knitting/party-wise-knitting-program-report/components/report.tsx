@@ -10,6 +10,7 @@ import ReportSummary from "./report-summary";
 import ColorSizeBreakdown from "./color-size-breakdown";
 import { PartyWiseKnittingProgramStripeMeasurementType } from "../stripe-measurement-type";
 import StripeMeasurementTable from "./stripe-measurement-table";
+import useAppClient from "@/hooks/use-AppClient";
 
 function Report({
   data,
@@ -68,7 +69,7 @@ function Report({
   const dtlsUniqueKeysArray: string[] = Array.from(dtlsUniqueKeys);
   const summaryUniqueKeysArray: string[] = Array.from(summaryUniqueKeys);
 
-
+  const clietn = useAppClient();
   const firstHeader = [
     "SL",
     "P. No.",
@@ -76,7 +77,7 @@ function Report({
     "Style",
     "Fabrication",
     "Yarn Count & Composition",
-    "Brand x Lot",
+    clietn.currentClient == clietn.FAME ? 'Location' : "Brand x Lot",
     // "Full/ Half Feeder",
     "McDia x GG",
     "Finish Dia X Type",
@@ -94,7 +95,7 @@ function Report({
   const summaryHeader = [
     "SL",
     "Yarn Count & Composition",
-    "Brand",
+    clietn.currentClient == clietn.FAME ? 'Location' : "Brand",
     "Yarn Lot",
     "Quantity(kg)",
   ];
