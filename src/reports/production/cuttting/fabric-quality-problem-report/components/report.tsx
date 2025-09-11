@@ -110,7 +110,19 @@ function Report({
               <tbody>
                 <tr>
                   <td className="align-top">Knitting House</td>
-                  <td className="align-top">: {data[0]?.KNITTING_HOUSE_NAME}, {data[0]?.KNITTING_HOUSE_NAME2}, {data[0]?.KNITTING_HOUSE_NAME3}, {data[0]?.KNITTING_HOUSE_NAME4}</td>
+                  <td className="align-top">
+                    {[...new Set(
+                      data.flatMap(item => [
+                        item.KNITTING_HOUSE_NAME,
+                        item.KNITTING_HOUSE_NAME2,
+                        item.KNITTING_HOUSE_NAME3,
+                        item.KNITTING_HOUSE_NAME4
+                      ])
+                    )]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </td>
+
                 </tr>
                 <tr>
                   <td className="align-top">Dyeing Unit</td>
