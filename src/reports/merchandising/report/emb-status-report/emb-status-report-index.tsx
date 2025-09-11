@@ -24,10 +24,10 @@ function EmbStatusReport() {
 
   const [searchParams] = useSearchParams();
 
-  const fromOpmDate = searchParams.get("fromOpmDate") || "01-Jan-20";
-  const toOpmDate = searchParams.get("toOpmDate") || "01-Jan-26";
-  const fromShipDate = searchParams.get("fromShipDate") || "01-Jan-20";
-  const toShipDate = searchParams.get("toShipDate") || "01-Jan-26";
+  const fromOpmDate = "01-Jan-20";
+  const toOpmDate = "01-Jan-26";
+  const fromShipDate = "01-Jan-20";
+  const toShipDate = "01-Jan-26";
   const companyId = searchParams.get("companyId") || "0";
   const buyerId = searchParams.get("companyId") || "0";
   const poId = searchParams.get("companyId") || "0";
