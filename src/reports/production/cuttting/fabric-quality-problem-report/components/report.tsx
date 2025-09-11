@@ -97,7 +97,9 @@ function Report({
                 </tr>
                 <tr>
                   <td className="align-top">Req. GSM</td>
-                  <td className="align-top">: {data[0]?.REQ_GSM}</td>
+                  <td className="align-top">
+                    : {[...new Set(data.map(item => item.REQ_GSM).filter(gsm => gsm && gsm.trim() !== ""))].join(", ")}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -112,7 +114,9 @@ function Report({
                 </tr>
                 <tr>
                   <td className="align-top">Dyeing Unit</td>
-                  <td className="align-top">: {data[0]?.SUPPLIER}</td>
+                  <td className="align-top">
+                    : {[...new Set(data.map(item => item.SUPPLIER).filter(s => s && s.trim() !== ""))].join(", ")}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -145,7 +149,7 @@ function Report({
         </div>
 
         <div style={{ marginTop: "144px" }}>
-          <ReportFooter></ReportFooter>
+          <ReportFooter data={data}></ReportFooter>
         </div>
 
         <div className="w-full mt-10">
@@ -169,7 +173,8 @@ function Report({
               </tbody>
             </table>
           </div>
-          <div className="flex-[1]">
+          <div className="text-right mt-10 font-bold" style={{ marginTop: "100px" }}>
+            <p><span className="p-1 border-t border-gray-950">Party-{data[0]?.DEPARTMENT_NAME}</span></p>
           </div>
         </div>
       </div>

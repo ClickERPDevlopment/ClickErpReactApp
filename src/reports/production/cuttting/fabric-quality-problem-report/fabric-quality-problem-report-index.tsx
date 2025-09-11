@@ -25,6 +25,8 @@ function FabricQualityProblemReport() {
     id = String(searchParams.get("id"));
   }
 
+  const companyId = searchParams.get("companyId") || 1;
+
 
   const api = useApiUrl();
 
@@ -38,7 +40,7 @@ function FabricQualityProblemReport() {
         setIsLoading(true);
         await axios
           .get(
-            `${api.ProductionUrl}/production/GmtCuttingReport/FabricQualityProblemReport?id=${id}`
+            `${api.ProductionUrl}/production/GmtCuttingReport/FabricQualityProblemReport?id=${id}&companyId=${companyId}`
           )
           .then((res) => {
             //console.log(res);

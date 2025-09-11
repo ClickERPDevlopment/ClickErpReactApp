@@ -37,4 +37,5 @@ export type FabricQualityProblemReportType = {
   BRAND_NAME: string | null;
   COLORNAME: string | null;
   YARN_COUNT: string | null;
+  COMPANY_PREFIX: string | null;
 };
