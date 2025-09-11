@@ -90,7 +90,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.GSM}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.COLORNAME}</td>
         <td style={{ fontSize: "14px" }} className="border border-gray-950 p-0.5 font-bold">{data[0]?.STITCH_LENGTH}</td>
-        <td className="border border-gray-950 p-0.5">{totalQtyKg}</td>
+        <td className="border border-gray-950 p-0.5">{totalQtyKg?.toFixed(2)}</td>
         {rowSpansByFabric && rowSpansByFabric[index] > 0 && (
           <td className="border border-gray-950 p-0.5 text-center font-bold" rowSpan={rowSpansByFabric[index]}>
             {fabricWiseTotalQtyKg?.toFixed(2)}
