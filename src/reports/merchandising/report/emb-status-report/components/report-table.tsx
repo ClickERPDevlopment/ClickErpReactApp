@@ -29,7 +29,12 @@ function ReportTable({ styleData, embData }: ReportProps) {
       {styleData.map((item, index) => {
         const filteredEmbData = embData.filter(
           (emb) =>
-            emb.STYLEID === item.STYLEID && emb.PONO == item.PONO
+            emb.STYLEID === item.STYLEID && emb.PONO == item.PONO &&
+            (emb.EMB_CATEGORY_ID === item.PRINT_CATEGORY_ID ||
+              emb.EMB_CATEGORY_ID === item.EMB_CATEGORY_ID ||
+              emb.EMB_CATEGORY_ID === item.WASH_CATEGORY_ID ||
+              emb.EMB_CATEGORY_ID === item.PRINT_EMB_CATEGORY_ID ||
+              emb.EMB_CATEGORY_ID === item.SMOCK_CATEGORY_ID)
         );
 
         if (filteredEmbData.length === 0) {
