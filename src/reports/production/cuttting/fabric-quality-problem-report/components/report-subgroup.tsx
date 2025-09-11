@@ -29,7 +29,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.BATCH_QTY}</td>
         <td className="border border-gray-950 p-0.5">{totalProblemQty.toFixed(3)}</td>
         <td className="border border-gray-950 p-0.5">{totalProblemQtPcsy.toFixed(3)}</td>
-        <td className="border border-gray-950 p-0.5">{(totalProblemQtPcsy * 100 / (data[0].BATCH_QTY || 1)).toFixed(3)}</td>
+        <td className="border border-gray-950 p-0.5">{(totalProblemQty * 100 / (data[0].BATCH_QTY || 1)).toFixed(3)}</td>
       </tr>
     </>
   );
