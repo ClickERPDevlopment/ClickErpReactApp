@@ -49,8 +49,8 @@ function Report({
               <tr style={{ fontSize: "12px" }} className="" key={index}>
                 <td className="border border-gray-950 p-1 text-nowrap text-center">{moment(ele.ACTION_DATE).format("DD-MMM-YY")}</td>
                 <td className="border border-gray-950 p-1 text-center">{ele.CHALLAN_NO}</td>
-                <td className="border border-gray-950 p-1"></td>
-                <td className="border border-gray-950 p-1"></td>
+                <td className="border border-gray-950 p-1 text-center">{ele.PINO}</td>
+                <td className="border border-gray-950 p-1 text-center">{ele.WORK_ORDER_NO}</td>
                 <td className="border border-gray-950 p-1">{ele.BUYER_NAME}</td>
                 <td className="border border-gray-950 p-1">{ele.STYLENO}</td>
                 <td className="border border-gray-950 p-1">{ele.PONO}</td>
