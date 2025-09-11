@@ -23,4 +23,6 @@ export type DateWiseFinishFabricReceiveAndIssueRegisterReportType = {
   GMT_COLOR: string;
   COMPANY_NAME: string;
   COMPANY_ADDRESS: string;
+  WORK_ORDER_NO: string;
+  PINO: string;
 };
