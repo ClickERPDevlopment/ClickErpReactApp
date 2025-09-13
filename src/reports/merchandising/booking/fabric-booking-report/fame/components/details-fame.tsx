@@ -252,7 +252,10 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
 
                     {uniqueCollarCuff?.map((ele, i) =>
                         <tr key={i} style={{ pageBreakInside: "avoid" }}>
-                            <td className='border border-gray-600 text-sm text-center'>{ele.PO}</td>
+                            
+                            <td className={cn('border border-gray-600 text-sm text-center', isPoWise ? '' : 'hidden')}>
+                    <p>{ele.PO}</p>
+                </td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.ARTSTYLE}</td>
                             <td className='border border-gray-600 text-sm text-center'>{ele.PARTS}</td>
                             <td className='border border-gray-600 text-sm text-center min-w-[15%]'>{ele.FABRICATION}</td>
