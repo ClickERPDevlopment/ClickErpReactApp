@@ -34,8 +34,8 @@ function EmbStatusReport() {
   const styleId = searchParams.get("companyId") || "0";
   const isEmbDone = searchParams.get("isEmbDone") || false;
   const isEmbNotDone = searchParams.get("isEmbNotDone") || false;
-  const isOpmDate = searchParams.get("isOpmDate") || false;
-  const isShipDate = searchParams.get("isShipDate") || false;
+  const isOpmDate = searchParams.get("isOpmDate") == "True";
+  const isShipDate = searchParams.get("isShipDate") == "True";
 
 
   const api = useApiUrl();
