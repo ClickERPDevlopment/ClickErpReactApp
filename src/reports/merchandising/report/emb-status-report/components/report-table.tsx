@@ -77,7 +77,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
               <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMBELLISHMENT_ORDERNO}</td>
               <td className="border border-gray-950 p-0.5 text-center">{filteredEmbData[0]?.WO_QTY}</td>
               <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
-              <td className="border border-gray-950 p-0.5">
+              <td className="border border-gray-950 p-0.5 max-w-md">
                 {item.COLORNAME}
               </td>
             </tr>
@@ -102,7 +102,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                   <td className="border border-gray-950 p-0.5">{embItem.EMBELLISHMENT_ORDERNO}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{embItem.WO_QTY}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
-                  <td className="border border-gray-950 p-0.5">{item.COLORNAME}</td>
+                  <td className="border border-gray-950 p-0.5 max-w-md">{item.COLORNAME}</td>
                 </tr>
               );
             })}
