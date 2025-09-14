@@ -26,25 +26,28 @@ function ReportTable({ styleData, embData }: ReportProps) {
 
           const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
 
-          const activeCategoryId =
-            item.PRINT_CATEGORY_ID ||
-            item.EMB_CATEGORY_ID ||
-            item.WASH_CATEGORY_ID ||
-            item.PRINT_EMB_CATEGORY_ID ||
-            item.SMOCK_CATEGORY_ID ||
-            0;
+          // const activeCategoryId =
+          //   item.PRINT_CATEGORY_ID ||
+          //   item.EMB_CATEGORY_ID ||
+          //   item.WASH_CATEGORY_ID ||
+          //   item.PRINT_EMB_CATEGORY_ID ||
+          //   item.SMOCK_CATEGORY_ID ||
+          //   0;
 
-          if (activeCategoryId > 0) {
-            return (
-              sameStylePo &&
-              emb.EMB_CATEGORY_ID != null &&
-              emb.EMB_CATEGORY_ID > 0 &&
-              emb.EMB_CATEGORY_ID === activeCategoryId
-            );
-          }
+          // if (activeCategoryId > 0) {
+          //   return (
+          //     sameStylePo &&
+          //     emb.EMB_CATEGORY_ID != null &&
+          //     emb.EMB_CATEGORY_ID > 0 &&
+          //     emb.EMB_CATEGORY_ID === activeCategoryId
+          //   );
+          // }
 
           return sameStylePo;
         });
+
+
+        totalWoQty += (filteredEmbData[0]?.WO_QTY || 0);
 
         let balance = item.QTY - (filteredEmbData[0]?.WO_QTY || 0);
         totalQty += item.QTY;
@@ -73,7 +76,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                 </td>
                 <td className="border border-gray-950 p-0.5">{item?.EMB_TYPE}</td>
               </>
-              <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMB_CATEGORY}</td>
+              <td className="border border-gray-950 p-0.5">{item?.CATEGORY_NAME}</td>
               <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMBELLISHMENT_ORDERNO}</td>
               <td className="border border-gray-950 p-0.5 text-center">{filteredEmbData[0]?.WO_QTY}</td>
               <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
@@ -81,6 +84,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                 {item.COLORNAME}
               </td>
             </tr>
+
 
 
             {filteredEmbData.slice(1).map((embItem, embIndex) => {
@@ -98,7 +102,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                     {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
                   </td>
                   <td className="border border-gray-950 p-0.5">{item?.EMB_TYPE}</td>
-                  <td className="border border-gray-950 p-0.5">{embItem.EMB_CATEGORY}</td>
+                  <td className="border border-gray-950 p-0.5">{item.CATEGORY_NAME}</td>
                   <td className="border border-gray-950 p-0.5">{embItem.EMBELLISHMENT_ORDERNO}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{embItem.WO_QTY}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{balance}</td>

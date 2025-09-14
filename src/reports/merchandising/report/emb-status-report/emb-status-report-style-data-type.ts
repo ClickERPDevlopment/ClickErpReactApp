@@ -16,4 +16,5 @@ export type EmbStatusReportStyleDataType = {
     BUYER: string;
     COMPANY_PREFIX: string;
     EMB_TYPE: string;
+    CATEGORY_NAME: string;
 };

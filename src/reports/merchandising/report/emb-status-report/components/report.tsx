@@ -62,17 +62,17 @@ function Report({ styleData, embData }: ReportProps) {
     const sameStyleEmbData = embData.filter((emb) => {
       const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
 
-      const activeCategoryId =
-        item.PRINT_CATEGORY_ID ||
-        item.EMB_CATEGORY_ID ||
-        item.WASH_CATEGORY_ID ||
-        item.PRINT_EMB_CATEGORY_ID ||
-        item.SMOCK_CATEGORY_ID ||
-        0;
+      // const activeCategoryId =
+      //   item.PRINT_CATEGORY_ID ||
+      //   item.EMB_CATEGORY_ID ||
+      //   item.WASH_CATEGORY_ID ||
+      //   item.PRINT_EMB_CATEGORY_ID ||
+      //   item.SMOCK_CATEGORY_ID ||
+      //   0;
 
-      if (activeCategoryId > 0) {
-        return sameStylePo && emb.EMB_CATEGORY_ID === activeCategoryId;
-      }
+      // if (activeCategoryId > 0) {
+      //   return sameStylePo && emb.EMB_CATEGORY_ID === activeCategoryId;
+      // }
 
       return sameStylePo;
     });
