@@ -18,7 +18,7 @@ export default function OrderWiseKnittingDyeingStatusReportIndex() {
   let dtopmfromChecked = '';
   let dtopmfrom = '';
   let dtopmto = '';
-  let isDtBookingDateFrom = false;
+  let isDtBookingDateFrom = '';
   let dtBookingDateFrom = '';
   let dtBookingDateTo = '';
 
@@ -47,7 +47,7 @@ export default function OrderWiseKnittingDyeingStatusReportIndex() {
     dtopmto = String(searchParams.get("dtopmto"));
   }
   if (searchParams.get("isDtBookingDateFrom")) {
-    isDtBookingDateFrom = Boolean(searchParams.get("isDtBookingDateFrom"));
+    isDtBookingDateFrom = String(searchParams.get("isDtBookingDateFrom"));
   }
   if (searchParams.get("dtBookingDateFrom")) {
     dtBookingDateFrom = String(searchParams.get("dtBookingDateFrom"));
