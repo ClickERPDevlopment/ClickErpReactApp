@@ -7,6 +7,8 @@ import { EmbStatusReportEmbDataType } from "../emb-status-emb-data-type";
 type ReportProps = {
   styleData: EmbStatusReportStyleDataType[];
   embData: EmbStatusReportEmbDataType[];
+  isEmbDone: boolean,
+  isEmbNotDone: boolean
 };
 
 function Report({ styleData, embData }: ReportProps) {

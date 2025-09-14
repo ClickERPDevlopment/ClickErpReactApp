@@ -11,15 +11,8 @@ import { EmbStatusReportEmbDataType } from "./emb-status-emb-data-type";
 import { EmbStatusReportStyleDataType } from "./emb-status-report-style-data-type";
 
 function EmbStatusReport() {
-
-  const [embData, setEmbData] = useState<EmbStatusReportEmbDataType[]>(
-    []
-  );
-
-  const [styleData, setStyleData] = useState<EmbStatusReportStyleDataType[]>(
-    []
-  );
-
+  const [embData, setEmbData] = useState<EmbStatusReportEmbDataType[]>([]);
+  const [styleData, setStyleData] = useState<EmbStatusReportStyleDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
@@ -29,24 +22,22 @@ function EmbStatusReport() {
   const fromShipDate = "01-Jan-20";
   const toShipDate = "01-Jan-26";
   const companyId = searchParams.get("companyId") || "0";
-  const buyerId = searchParams.get("companyId") || "0";
-  const poId = searchParams.get("companyId") || "0";
-  const styleId = searchParams.get("companyId") || "0";
-  const isEmbDone = searchParams.get("isEmbDone") == "True";
-  const isEmbNotDone = searchParams.get("isEmbNotDone") == "True";
-  const isOpmDate = searchParams.get("isOpmDate") == "True";
-  const isShipDate = searchParams.get("isShipDate") == "True";
-
+  const buyerId = searchParams.get("buyerId") || "0";
+  const poId = searchParams.get("poId") || "0";
+  const styleId = searchParams.get("styleId") || "0";
+  const isEmbDone = searchParams.get("isEmbDone") === "True";
+  const isEmbNotDone = searchParams.get("isEmbNotDone") === "True";
+  const isOpmDate = searchParams.get("isOpmDate") === "True";
+  const isShipDate = searchParams.get("isShipDate") === "True";
 
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Report";
+    document.title = "Emb Status Report";
   }, []);
 
   useEffect(() => {
     async function getData() {
-
       try {
         setIsLoading(true);
 
@@ -64,72 +55,58 @@ function EmbStatusReport() {
             isShipDate
           },
         });
+        if (res.data) setStyleData(res.data);
 
-        if (res.data) {
-          setStyleData(res.data);
-        } else {
-          console.warn("No data received:", res);
-        }
-
-        const res2 = await axios.get(
-          `${api.ProductionUrl}/production/MerchReport/EmbStatusReportEmbData`
-        );
-
-        if (res2.data) {
-          setEmbData(res2.data);
-        } else {
-          console.warn("No data received:", res2);
-        }
+        const res2 = await axios.get(`${api.ProductionUrl}/production/MerchReport/EmbStatusReportEmbData`);
+        if (res2.data) setEmbData(res2.data);
 
         setIsLoading(false);
-      } catch {
+      } catch (err) {
+        console.error("Error fetching report data:", err);
         setIsLoading(false);
       }
     }
     getData();
   }, []);
 
-
   let filteredStyleData = styleData;
 
-  if (isEmbDone) {
-    filteredStyleData = styleData.filter(item => {
-      const hasEmb = embData.some(
+  if (isEmbDone && !isEmbNotDone) {
+    filteredStyleData = styleData.filter(item =>
+      embData.some(
         emb =>
           emb.STYLEID === item.STYLEID &&
-          emb.PONO == item.PONO
-      );
-      return hasEmb;
-    });
+          emb.PONO == item.PONO &&
+          emb.EMBELLISHMENT_ORDERNO != null &&
+          emb.EMBELLISHMENT_ORDERNO !== ""
+      )
+    );
   }
 
-
-  if (isEmbNotDone) {
-    filteredStyleData = styleData.filter(item => {
-      const hasEmb = embData.some(
+  if (isEmbNotDone && !isEmbDone) {
+    filteredStyleData = styleData.filter(item =>
+      !embData.some(
         emb =>
           emb.STYLEID === item.STYLEID &&
-          emb.PONO == item.PONO
-      );
-      return !hasEmb;
-    });
+          emb.PONO == item.PONO &&
+          emb.EMBELLISHMENT_ORDERNO != null &&
+          emb.EMBELLISHMENT_ORDERNO !== ""
+      )
+    );
   }
 
   return isLoading ? (
-    <>
-      <div className="container">
-        <h3 className=" text-center p-2 m-4 font-bold ">
-          <Skeleton width={400} height={40} />
-        </h3>
-        <TableSkeleton />
-      </div>
-    </>
+    <div className="container">
+      <h3 className="text-center p-2 m-4 font-bold">
+        <Skeleton width={400} height={40} />
+      </h3>
+      <TableSkeleton />
+    </div>
   ) : (
-    <>
-      <div>
-        <Report styleData={filteredStyleData} embData={embData}></Report>
-      </div>
-    </>
+    <div>
+      <Report isEmbDone={isEmbDone} isEmbNotDone={isEmbNotDone} styleData={filteredStyleData} embData={embData} />
+    </div>
   );
 }
+
 export default EmbStatusReport;
