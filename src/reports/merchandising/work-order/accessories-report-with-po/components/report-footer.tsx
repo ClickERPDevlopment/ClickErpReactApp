@@ -6,6 +6,7 @@ function ReportFooter({
 }: {
   masterData: IAccessoriesReportWithPo | null;
 }) {
+
   const client = useAppClient();
 
   return (
@@ -48,7 +49,6 @@ function ReportFooter({
           </div>
         </div>
       </div>
-
       {
         (client.currentClient == client.FAME || client.currentClient == client.EURO) &&
         <div className="mt-10 mb-5">

@@ -1,4 +1,4 @@
-export type SupplierWiseEmbStockReportType = {
+export type SupplierWiseEmbStockColorSizeWiseReportType = {
   SUPPLIER: string;
   BUYER: string;
   STYLENO: string;

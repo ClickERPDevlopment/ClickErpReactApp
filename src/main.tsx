@@ -184,6 +184,8 @@ import FinishFabricReceiveChallanReport from "./reports/store/finish-store/finis
 import SewingInputChallanReport from "./reports/production/sewing/sewing-input-challan-report/sewing-input-challan-report-index.tsx";
 import FabricQualityProblemReport from "./reports/production/cuttting/fabric-quality-problem-report/fabric-quality-problem-report-index.tsx";
 import DateWiseFinishFabricReceiveAndIssueRegisterReportIndex from "./reports/store/finish-store/DateWiseFinishFabricReceiveAndIssueRegisterReport/DateWiseFinishFabricReceiveAndIssueRegisterReport-index.tsx";
+import EmbStatusReport from "./reports/merchandising/report/emb-status-report/emb-status-report-index.tsx";
+import SupplierWiseEmbStockColorSizeWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-size-wise-report/supplier-wise-emb-stock-color-size-wise-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -602,6 +604,10 @@ createRoot(document.getElementById("root")!).render(
 
                   <Route path="merchandising">
                     <Route
+                      path="emb-status-report"
+                      element={<EmbStatusReport />}
+                    />
+                    <Route
                       path="size-wise-order-summary-report"
                       element={<SizeWiseOrderSummaryReport />}
                     />
@@ -955,6 +961,10 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                       path="supplier-wise-emb-stock-report"
                       element={<SupplierWiseEmbStockReport />}
+                    />
+                    <Route
+                      path="supplier-wise-emb-stock-color-size-wise-report"
+                      element={<SupplierWiseEmbStockColorSizeWiseReport />}
                     />
                     <Route
                       path="embellishment-budget-sheet"
