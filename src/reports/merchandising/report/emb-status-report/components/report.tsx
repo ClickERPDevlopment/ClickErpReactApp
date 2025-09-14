@@ -49,15 +49,11 @@ function Report({ styleData, embData }: ReportProps) {
   const firstHeader = [
     "FACTORY",
     "STYLE NO",
-    "ITEM DES.",
+    "ITEM TYPE",
     "PO NO",
     "ORDER QTY (Pcs)",
     "SHIP DATE",
   ];
-
-
-  
-
 
 
   let grandWoTotal = styleData.reduce((acc, item) => {
@@ -128,15 +124,15 @@ function Report({ styleData, embData }: ReportProps) {
               ></ReportTable>
             ))}
 
-            <tr className="bg-lime-50">
+            <tr className="bg-lime-50 font-bold">
               <td colSpan={4} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
-              <td className="border border-gray-950 p-0.5">{grantTotalQty}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{grantTotalQty}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
-              <td className="border border-gray-950 p-0.5">{grandWoTotal}</td>
-              <td className="border border-gray-950 p-0.5">{grantTotalQty - grandWoTotal}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{grandWoTotal}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{grantTotalQty - grandWoTotal}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
             </tr>
 

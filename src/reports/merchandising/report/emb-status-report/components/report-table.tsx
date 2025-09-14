@@ -57,7 +57,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                 <td className="border border-gray-950 p-0.5">
                   {item.PONO}
                 </td>
-                <td className="border border-gray-950 p-0.5">
+                <td className="border border-gray-950 p-0.5 text-center">
                   {item.QTY}
                 </td>
                 <td className="border border-gray-950 p-0.5 text-nowrap">
@@ -67,8 +67,8 @@ function ReportTable({ styleData, embData }: ReportProps) {
               </>
               <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMB_CATEGORY}</td>
               <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMBELLISHMENT_ORDERNO}</td>
-              <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.WO_QTY}</td>
-              <td className="border border-gray-950 p-0.5">{balance}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{filteredEmbData[0]?.WO_QTY}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
               <td className="border border-gray-950 p-0.5">
                 {item.COLORNAME}
               </td>
@@ -81,21 +81,19 @@ function ReportTable({ styleData, embData }: ReportProps) {
 
               return (
                 <tr key={embIndex + 1}>
-                  <>
-                    <td className="border border-gray-950 p-0.5">{item.COMPANY_NAME}</td>
-                    <td className="border border-gray-950 p-0.5">{item.STYLENO}</td>
-                    <td className="border border-gray-950 p-0.5">{item.ITEMTYPE}</td>
-                    <td className="border border-gray-950 p-0.5">{item.PONO}</td>
-                    <td className="border border-gray-950 p-0.5">{item.QTY}</td>
-                    <td className="border border-gray-950 p-0.5 text-nowrap">
-                      {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
-                    </td>
-                    <td className="border border-gray-950 p-0.5">{item?.EMB_TYPE}</td>
-                  </>
+                  <td className="border border-gray-950 p-0.5">{item.COMPANY_NAME}</td>
+                  <td className="border border-gray-950 p-0.5">{item.STYLENO}</td>
+                  <td className="border border-gray-950 p-0.5">{item.ITEMTYPE}</td>
+                  <td className="border border-gray-950 p-0.5">{item.PONO}</td>
+                  <td className="border border-gray-950 p-0.5 text-center">{item.QTY}</td>
+                  <td className="border border-gray-950 p-0.5 text-nowrap">
+                    {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
+                  </td>
+                  <td className="border border-gray-950 p-0.5">{item?.EMB_TYPE}</td>
                   <td className="border border-gray-950 p-0.5">{embItem.EMB_CATEGORY}</td>
                   <td className="border border-gray-950 p-0.5">{embItem.EMBELLISHMENT_ORDERNO}</td>
-                  <td className="border border-gray-950 p-0.5">{embItem.WO_QTY}</td>
-                  <td className="border border-gray-950 p-0.5">{balance}</td>
+                  <td className="border border-gray-950 p-0.5 text-center">{embItem.WO_QTY}</td>
+                  <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
                   <td className="border border-gray-950 p-0.5">{item.COLORNAME}</td>
                 </tr>
               );
@@ -106,15 +104,15 @@ function ReportTable({ styleData, embData }: ReportProps) {
         );
       })}
       {
-        <tr className="bg-lime-50">
+        <tr className="bg-lime-50 font-bold">
           <td colSpan={4} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER}</td>
-          <td className="border border-gray-950 p-0.5">{totalQty}</td>
+          <td className="border border-gray-950 p-0.5 text-center">{totalQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
-          <td className="border border-gray-950 p-0.5">{totalWoQty}</td>
-          <td className="border border-gray-950 p-0.5">{totalQty - totalWoQty}</td>
+          <td className="border border-gray-950 p-0.5 text-center">{totalWoQty}</td>
+          <td className="border border-gray-950 p-0.5 text-center">{totalQty - totalWoQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
         </tr>
       }
