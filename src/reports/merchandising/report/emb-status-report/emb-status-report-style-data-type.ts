@@ -14,4 +14,6 @@ export type EmbStatusReportStyleDataType = {
     PRINT_EMB_CATEGORY_ID: number;
     SMOCK_CATEGORY_ID: number;
     BUYER: string;
+    COMPANY_PREFIX: string;
+    EMB_TYPE: string;
 };

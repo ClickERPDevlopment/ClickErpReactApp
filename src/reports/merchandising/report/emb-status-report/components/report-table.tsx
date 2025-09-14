@@ -10,91 +10,104 @@ type ReportProps = {
 };
 
 
-// &&
-//   (emb.EMB_CATEGORY_ID === item.PRINT_CATEGORY_ID ||
-//     emb.EMB_CATEGORY_ID === item.EMB_CATEGORY_ID ||
-//     emb.EMB_CATEGORY_ID === item.WASH_CATEGORY_ID ||
-//     emb.EMB_CATEGORY_ID === item.PRINT_EMB_CATEGORY_ID ||
-//     emb.EMB_CATEGORY_ID === item.SMOCK_CATEGORY_ID)
-
-
 function ReportTable({ styleData, embData }: ReportProps) {
 
   let totalQty = 0;
   let totalWoQty = 0;
-  let buyerExist = 0;
+
 
   return (
     <>
       {styleData.map((item, index) => {
-        const filteredEmbData = embData.filter(
-          (emb) =>
-            emb.STYLEID === item.STYLEID && emb.PONO == item.PONO &&
-            (emb.EMB_CATEGORY_ID === item.PRINT_CATEGORY_ID ||
-              emb.EMB_CATEGORY_ID === item.EMB_CATEGORY_ID ||
-              emb.EMB_CATEGORY_ID === item.WASH_CATEGORY_ID ||
-              emb.EMB_CATEGORY_ID === item.PRINT_EMB_CATEGORY_ID ||
-              emb.EMB_CATEGORY_ID === item.SMOCK_CATEGORY_ID)
-        );
 
-        if (filteredEmbData.length === 0) {
-          return null;
-        };
+        let filteredEmbData = embData.filter((emb) => {
+          const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
 
-        let balance = item.QTY;
+          const activeCategoryId =
+            item.PRINT_CATEGORY_ID ||
+            item.EMB_CATEGORY_ID ||
+            item.WASH_CATEGORY_ID ||
+            item.PRINT_EMB_CATEGORY_ID ||
+            item.SMOCK_CATEGORY_ID ||
+            0;
+
+          if (activeCategoryId > 0) {
+            return sameStylePo && emb.EMB_CATEGORY_ID === activeCategoryId;
+          }
+
+          return sameStylePo;
+        });
+
+        let balance = item.QTY - (filteredEmbData[0]?.WO_QTY || 0);
         totalQty += item.QTY;
-        buyerExist = 1;
 
         return (
           <React.Fragment key={index}>
+            <tr key={index}>
+              <>
+                <td className="border border-gray-950 p-0.5">
+                  {item.COMPANY_PREFIX}
+                </td>
+                <td className="border border-gray-950 p-0.5">
+                  {item.STYLENO}
+                </td>
+                <td className="border border-gray-950 p-0.5">
+                  {item.ITEMTYPE}
+                </td>
+                <td className="border border-gray-950 p-0.5">
+                  {item.PONO}
+                </td>
+                <td className="border border-gray-950 p-0.5">
+                  {item.QTY}
+                </td>
+                <td className="border border-gray-950 p-0.5 text-nowrap">
+                  {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
+                </td>
+                <td className="border border-gray-950 p-0.5">{item?.EMB_TYPE}</td>
+              </>
+              <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMB_CATEGORY}</td>
+              <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMBELLISHMENT_ORDERNO}</td>
+              <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.WO_QTY}</td>
+              <td className="border border-gray-950 p-0.5">{balance}</td>
+              <td className="border border-gray-950 p-0.5">
+                {item.COLORNAME}
+              </td>
+            </tr>
 
-            {filteredEmbData.map((embItem, embIndex) => {
 
+            {filteredEmbData.slice(1).map((embItem, embIndex) => {
               balance -= embItem.WO_QTY;
-
               totalWoQty += embItem.WO_QTY;
 
               return (
-                <tr key={embIndex}>
-                  {embIndex === 0 && (
-                    <>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5">
-                        {item.COMPANY_NAME}
-                      </td>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5">
-                        {item.STYLENO}
-                      </td>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5">
-                        {item.ITEMTYPE}
-                      </td>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5">
-                        {item.PONO}
-                      </td>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5">
-                        {item.COLORNAME}
-                      </td>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5">
-                        {item.QTY}
-                      </td>
-                      <td rowSpan={filteredEmbData.length} className="border border-gray-950 p-0.5 text-nowrap">
-                        {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
-                      </td>
-                    </>
-                  )}
-                  <td className="border border-gray-950 p-0.5">{embItem.EMB_TYPE}</td>
+                <tr key={embIndex + 1}>
+                  <>
+                    <td className="border border-gray-950 p-0.5">{item.COMPANY_NAME}</td>
+                    <td className="border border-gray-950 p-0.5">{item.STYLENO}</td>
+                    <td className="border border-gray-950 p-0.5">{item.ITEMTYPE}</td>
+                    <td className="border border-gray-950 p-0.5">{item.PONO}</td>
+                    <td className="border border-gray-950 p-0.5">{item.QTY}</td>
+                    <td className="border border-gray-950 p-0.5 text-nowrap">
+                      {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
+                    </td>
+                    <td className="border border-gray-950 p-0.5">{item?.EMB_TYPE}</td>
+                  </>
                   <td className="border border-gray-950 p-0.5">{embItem.EMB_CATEGORY}</td>
                   <td className="border border-gray-950 p-0.5">{embItem.EMBELLISHMENT_ORDERNO}</td>
                   <td className="border border-gray-950 p-0.5">{embItem.WO_QTY}</td>
                   <td className="border border-gray-950 p-0.5">{balance}</td>
+                  <td className="border border-gray-950 p-0.5">{item.COLORNAME}</td>
                 </tr>
               );
             })}
+
+
           </React.Fragment>
         );
       })}
       {
-        buyerExist == 1 && <tr className="bg-lime-50">
-          <td colSpan={5} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER}</td>
+        <tr className="bg-lime-50">
+          <td colSpan={4} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER}</td>
           <td className="border border-gray-950 p-0.5">{totalQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
@@ -102,6 +115,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{totalWoQty}</td>
           <td className="border border-gray-950 p-0.5">{totalQty - totalWoQty}</td>
+          <td className="border border-gray-950 p-0.5">{ }</td>
         </tr>
       }
 

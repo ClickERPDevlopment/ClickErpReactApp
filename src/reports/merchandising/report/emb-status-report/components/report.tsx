@@ -51,10 +51,44 @@ function Report({ styleData, embData }: ReportProps) {
     "STYLE NO",
     "ITEM DES.",
     "PO NO",
-    "COLOR",
-    "OODER QTY (Pcs)",
+    "ORDER QTY (Pcs)",
     "SHIP DATE",
   ];
+
+
+  
+
+
+
+  let grandWoTotal = styleData.reduce((acc, item) => {
+    const sameStyleEmbData = embData.filter((emb) => {
+      const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
+
+      const activeCategoryId =
+        item.PRINT_CATEGORY_ID ||
+        item.EMB_CATEGORY_ID ||
+        item.WASH_CATEGORY_ID ||
+        item.PRINT_EMB_CATEGORY_ID ||
+        item.SMOCK_CATEGORY_ID ||
+        0;
+
+      if (activeCategoryId > 0) {
+        return sameStylePo && emb.EMB_CATEGORY_ID === activeCategoryId;
+      }
+
+      return sameStylePo;
+    });
+
+    const styleTotal = sameStyleEmbData.reduce(
+      (sum, emb) => sum + emb.WO_QTY,
+      0
+    );
+
+    return acc + styleTotal;
+  }, 0);
+
+
+  const grantTotalQty = styleData.reduce((acc, item) => acc + item.QTY, 0)
 
 
   return (
@@ -73,6 +107,7 @@ function Report({ styleData, embData }: ReportProps) {
               )}
               <th colSpan={2} className="border border-gray-950 p-0.5">EMBELLISHMENT</th>
               <th colSpan={3} className="border border-gray-950 p-0.5">Work Order</th>
+              <th rowSpan={2} className="border border-gray-950 p-0.5">Color</th>
             </tr>
 
             <tr>
@@ -92,6 +127,19 @@ function Report({ styleData, embData }: ReportProps) {
                 embData={embData}
               ></ReportTable>
             ))}
+
+            <tr className="bg-lime-50">
+              <td colSpan={4} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
+              <td className="border border-gray-950 p-0.5">{grantTotalQty}</td>
+              <td className="border border-gray-950 p-0.5">{ }</td>
+              <td className="border border-gray-950 p-0.5">{ }</td>
+              <td className="border border-gray-950 p-0.5">{ }</td>
+              <td className="border border-gray-950 p-0.5">{ }</td>
+              <td className="border border-gray-950 p-0.5">{grandWoTotal}</td>
+              <td className="border border-gray-950 p-0.5">{grantTotalQty - grandWoTotal}</td>
+              <td className="border border-gray-950 p-0.5">{ }</td>
+            </tr>
+
           </tbody>
         </table>
       </div>

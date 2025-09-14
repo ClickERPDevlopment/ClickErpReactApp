@@ -32,6 +32,10 @@ function EmbStatusReport() {
   const buyerId = searchParams.get("companyId") || "0";
   const poId = searchParams.get("companyId") || "0";
   const styleId = searchParams.get("companyId") || "0";
+  const isEmbDone = searchParams.get("isEmbDone") || false;
+  const isEmbNotDone = searchParams.get("isEmbNotDone") || false;
+  const isOpmDate = searchParams.get("isOpmDate") || false;
+  const isShipDate = searchParams.get("isShipDate") || false;
 
 
   const api = useApiUrl();
@@ -56,6 +60,8 @@ function EmbStatusReport() {
             buyerId,
             poId,
             styleId,
+            isOpmDate,
+            isShipDate
           },
         });
 
@@ -83,6 +89,32 @@ function EmbStatusReport() {
     getData();
   }, []);
 
+
+  let filteredStyleData = styleData;
+
+  if (isEmbDone) {
+    filteredStyleData = styleData.filter(item => {
+      const hasEmb = embData.some(
+        emb =>
+          emb.STYLEID === item.STYLEID &&
+          emb.PONO == item.PONO
+      );
+      return hasEmb;
+    });
+  }
+
+
+  if (isEmbNotDone) {
+    filteredStyleData = styleData.filter(item => {
+      const hasEmb = embData.some(
+        emb =>
+          emb.STYLEID === item.STYLEID &&
+          emb.PONO == item.PONO
+      );
+      return !hasEmb;
+    });
+  }
+
   return isLoading ? (
     <>
       <div className="container">
@@ -95,7 +127,7 @@ function EmbStatusReport() {
   ) : (
     <>
       <div>
-        <Report styleData={styleData} embData={embData}></Report>
+        <Report styleData={filteredStyleData} embData={embData}></Report>
       </div>
     </>
   );
