@@ -72,6 +72,7 @@ function EmbStatusReport() {
   let filteredStyleData = styleData;
 
   if (isEmbDone && !isEmbNotDone) {
+
     filteredStyleData = styleData.filter(item =>
       embData.some(
         emb =>
@@ -95,6 +96,41 @@ function EmbStatusReport() {
     );
   }
 
+
+
+  let filteredEmbData = embData;
+
+  if (isEmbDone && !isEmbNotDone) {
+    filteredEmbData = embData.filter(
+      emb =>
+        emb.EMBELLISHMENT_ORDERNO != null &&
+        emb.EMBELLISHMENT_ORDERNO !== "" &&
+        emb.WO_QTY != null &&
+        emb.WO_QTY > 0 &&
+        filteredStyleData.some(
+          style =>
+            style.STYLEID === emb.STYLEID &&
+            style.PONO == emb.PONO
+        )
+    );
+  }
+
+  if (isEmbNotDone && !isEmbDone) {
+    filteredEmbData = embData.filter(
+      emb =>
+        (emb.EMBELLISHMENT_ORDERNO == null ||
+          emb.EMBELLISHMENT_ORDERNO === "" ||
+          emb.WO_QTY == null ||
+          emb.WO_QTY <= 0) &&
+        filteredStyleData.some(
+          style =>
+            style.STYLEID === emb.STYLEID &&
+            style.PONO == emb.PONO
+        )
+    );
+
+  }
+
   return isLoading ? (
     <div className="container">
       <h3 className="text-center p-2 m-4 font-bold">
@@ -104,7 +140,7 @@ function EmbStatusReport() {
     </div>
   ) : (
     <div>
-      <Report isEmbDone={isEmbDone} isEmbNotDone={isEmbNotDone} styleData={filteredStyleData} embData={embData} />
+      <Report isEmbDone={isEmbDone} isEmbNotDone={isEmbNotDone} styleData={filteredStyleData} embData={filteredEmbData} />
     </div>
   );
 }

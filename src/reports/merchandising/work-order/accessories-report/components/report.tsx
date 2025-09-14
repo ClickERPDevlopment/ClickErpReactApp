@@ -49,6 +49,9 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
           sizeHeader={sizeHeader}
           secondHeader={secondHeader}
         ></ReportTable>
+        <div className="mt-3">
+          <p><span className="font-bold">Note:</span> Please mention the Work Order Number in the Delivery Challan and PI.</p>
+        </div>
         <div>
           <ReportFooter masterData={data[0]}></ReportFooter>
         </div>

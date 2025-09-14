@@ -88,4 +88,5 @@ export type IAccessoriesReportWithPo = {
   BODY_PER_PCS: string;
   SUB_PO: string;
   SHIP_DATE: Date;
+  CONSUMPTION_PER_UNIT: number
 };

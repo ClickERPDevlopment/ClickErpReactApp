@@ -16,11 +16,14 @@ function ReportTable({ styleData, embData }: ReportProps) {
   let totalWoQty = 0;
 
 
+
+
   return (
     <>
       {styleData.map((item, index) => {
 
         let filteredEmbData = embData.filter((emb) => {
+
           const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
 
           const activeCategoryId =
@@ -32,7 +35,12 @@ function ReportTable({ styleData, embData }: ReportProps) {
             0;
 
           if (activeCategoryId > 0) {
-            return sameStylePo && emb.EMB_CATEGORY_ID === activeCategoryId;
+            return (
+              sameStylePo &&
+              emb.EMB_CATEGORY_ID != null &&
+              emb.EMB_CATEGORY_ID > 0 &&
+              emb.EMB_CATEGORY_ID === activeCategoryId
+            );
           }
 
           return sameStylePo;

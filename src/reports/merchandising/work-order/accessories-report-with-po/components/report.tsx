@@ -19,6 +19,7 @@ function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
     "GMT SIZE",
     "MTL SIZE",
     "GMT QTY",
+    "CONZ",
     "WO QTY",
     "UOM",
     "CURRENCY",
@@ -27,7 +28,6 @@ function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
     "DESCRIPTION 1",
     "DESCRIPTION 2",
     "MTL COLOR 2",
-    "SHIP DATE",
   ];
 
   const uniqueSizes: Set<string> = new Set();
@@ -48,6 +48,9 @@ function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
           sizeHeader={sizeHeader}
           secondHeader={secondHeader}
         ></ReportTable>
+        <div className="mt-3">
+          <p><span className="font-bold">Note:</span> Please mention the Work Order Number in the Delivery Challan and PI.</p>
+        </div>
         <div>
           <ReportFooter masterData={data[0]}></ReportFooter>
         </div>
