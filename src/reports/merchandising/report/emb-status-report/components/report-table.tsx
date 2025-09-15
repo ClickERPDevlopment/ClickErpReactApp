@@ -11,9 +11,17 @@ type ReportProps = {
 
 function ReportTable({ styleData, embData }: ReportProps) {
 
-  let totalQty = [...new Map(styleData.map(item => [item.EMB_TYPE, item])).values()]
-    .reduce((acc, item) => acc + item.QTY, 0);
+  // let totalQty = [
+  //   ...new Map(
+  //     styleData.map(item => [
+  //       `${item.BUYER}_${item.STYLENO}_${item.PONO}_${item.EMB_TYPE}`,
+  //       item
+  //     ])
+  //   ).values()
+  // ].reduce((acc, item) => acc + item.QTY, 0);
 
+
+  let totalQty = 0;
   let totalWoQty = 0;
 
   let buyerTotalQty = 0
@@ -49,6 +57,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
 
         totalWoQty = (filteredEmbData[0]?.WO_QTY || 0);
 
+        totalQty = item.QTY;
         buyerTotalQty += item.QTY;
         buyerTotalWoQty += (filteredEmbData[0]?.WO_QTY || 0);
 
