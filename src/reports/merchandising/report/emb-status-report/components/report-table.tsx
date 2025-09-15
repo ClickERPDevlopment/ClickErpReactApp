@@ -124,7 +124,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
       })}
       {
         <tr className="bg-lime-50 font-bold">
-          <td colSpan={5} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER}</td>
+          <td colSpan={5} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER} Total</td>
           <td className="border border-gray-950 p-0.5 text-center">{buyerTotalQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
