@@ -29,8 +29,15 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.LC_UNIT_PRICE}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.CURRENCYCODE}</td>
         <td className="border border-gray-950 p-0.5">{totalValue.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.5">{data[0]?.BBLC_NO}</td>
-        <td className="border border-gray-950 p-0.5 text-nowrap">{moment(data[0]?.BBLC_DATE).format("DD-MMM-YY")}</td>
+        <td className="border border-gray-950 p-0.5">{data[0]?.BBLC_NO || data[0]?.WO_NO}</td>
+        <td className="border border-gray-950 p-0.5 text-nowrap">
+          {data[0]?.BBLC_DATE
+            ? moment(data[0].BBLC_DATE).format("DD-MMM-YY")
+            : data[0]?.WO_DATE
+              ? moment(data[0].WO_DATE).format("DD-MMM-YY")
+              : ""}
+        </td>
+
       </tr>
     </>
   );

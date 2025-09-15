@@ -40,7 +40,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["YARN_RECEIVED_DATE", "SUPPLIER", "RCVD_CHALLAN_NO", "YARN_NAME", "LC_UNIT_PRICE", "CURRENCYCODE", "BBLC_NO", "BBLC_DATE"]);
+    groupedByDate = groupBy(data, ["YARN_RECEIVED_DATE", "SUPPLIER", "RCVD_CHALLAN_NO", "YARN_NAME", "LC_UNIT_PRICE", "CURRENCYCODE", "BBLC_NO", "BBLC_DATE", "WO_NO", "WO_DATE"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -56,8 +56,8 @@ function Report({
     "Price",
     "Currency",
     "Value",
-    "L/C No",
-    "LC Date",
+    "LC/WO No",
+    "LC/WO Date",
   ];
 
   const totalDelQty = data?.reduce(
