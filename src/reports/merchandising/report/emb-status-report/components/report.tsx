@@ -89,7 +89,7 @@ function Report({ styleData, embData }: ReportProps) {
 
   const grantTotalQty = styleData.reduce((acc, item) => acc + item.QTY, 0)
 
-
+  //
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
       className="px-12 text-gray-950">
