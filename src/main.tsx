@@ -186,6 +186,7 @@ import FabricQualityProblemReport from "./reports/production/cuttting/fabric-qua
 import DateWiseFinishFabricReceiveAndIssueRegisterReportIndex from "./reports/store/finish-store/DateWiseFinishFabricReceiveAndIssueRegisterReport/DateWiseFinishFabricReceiveAndIssueRegisterReport-index.tsx";
 import EmbStatusReport from "./reports/merchandising/report/emb-status-report/emb-status-report-index.tsx";
 import SupplierWiseEmbStockColorSizeWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-size-wise-report/supplier-wise-emb-stock-color-size-wise-report-index.tsx";
+import FinishFabricStockReportIndex from "./reports/store/finish-store/finish-fabric-stock-report/finish-fabric-stock-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -931,6 +932,10 @@ createRoot(document.getElementById("root")!).render(
                       />
                     </Route>
                     <Route path="finish-fabric-store">
+                      <Route
+                        path="finish-fabric-stock-report"
+                        element={<FinishFabricStockReportIndex />}
+                      />
                       <Route
                         path="finish-fabric-receive-challan-report"
                         element={<FinishFabricReceiveChallanReport />}
