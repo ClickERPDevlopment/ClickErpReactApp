@@ -50,6 +50,7 @@ function Report({ styleData, embData }: ReportProps) {
 
   const firstHeader = [
     "FACTORY",
+    "BUYER",
     "STYLE NO",
     "ITEM TYPE",
     "PO NO",
@@ -127,7 +128,7 @@ function Report({ styleData, embData }: ReportProps) {
             ))}
 
             <tr className="bg-lime-50 font-bold">
-              <td colSpan={4} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
+              <td colSpan={5} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
               <td className="border border-gray-950 p-0.5 text-center">{grantTotalQty}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5">{ }</td>

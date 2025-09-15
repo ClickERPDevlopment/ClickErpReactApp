@@ -15,8 +15,8 @@ function ReportTable({ styleData, embData }: ReportProps) {
   let totalQty = 0;
   let totalWoQty = 0;
 
-
-
+  let buyerTotalQty = 0
+  let buyerTotalWoQty = 0
 
   return (
     <>
@@ -46,11 +46,14 @@ function ReportTable({ styleData, embData }: ReportProps) {
           return sameStylePo;
         });
 
+        totalWoQty = (filteredEmbData[0]?.WO_QTY || 0);
 
-        totalWoQty += (filteredEmbData[0]?.WO_QTY || 0);
+        totalQty = item.QTY;
 
-        let balance = item.QTY - (filteredEmbData[0]?.WO_QTY || 0);
-        totalQty += item.QTY;
+        buyerTotalQty += item.QTY;
+        buyerTotalWoQty += (filteredEmbData[0]?.WO_QTY || 0);
+
+        let balance = totalQty - (filteredEmbData[0]?.WO_QTY || 0);
 
         return (
           <React.Fragment key={index}>
@@ -58,6 +61,9 @@ function ReportTable({ styleData, embData }: ReportProps) {
               <>
                 <td className="border border-gray-950 p-0.5">
                   {item.COMPANY_PREFIX}
+                </td>
+                <td className="border border-gray-950 p-0.5">
+                  {item.BUYER}
                 </td>
                 <td className="border border-gray-950 p-0.5">
                   {item.STYLENO}
@@ -85,15 +91,16 @@ function ReportTable({ styleData, embData }: ReportProps) {
               </td>
             </tr>
 
-
-
             {filteredEmbData.slice(1).map((embItem, embIndex) => {
+
               balance -= embItem.WO_QTY;
               totalWoQty += embItem.WO_QTY;
+              buyerTotalWoQty += embItem.WO_QTY;
 
               return (
                 <tr key={embIndex + 1}>
-                  <td className="border border-gray-950 p-0.5">{item.COMPANY_NAME}</td>
+                  <td className="border border-gray-950 p-0.5">{item.COMPANY_PREFIX}</td>
+                  <td className="border border-gray-950 p-0.5">{item.BUYER}</td>
                   <td className="border border-gray-950 p-0.5">{item.STYLENO}</td>
                   <td className="border border-gray-950 p-0.5">{item.ITEMTYPE}</td>
                   <td className="border border-gray-950 p-0.5">{item.PONO}</td>
@@ -117,14 +124,14 @@ function ReportTable({ styleData, embData }: ReportProps) {
       })}
       {
         <tr className="bg-lime-50 font-bold">
-          <td colSpan={4} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER}</td>
-          <td className="border border-gray-950 p-0.5 text-center">{totalQty}</td>
+          <td colSpan={5} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER}</td>
+          <td className="border border-gray-950 p-0.5 text-center">{buyerTotalQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
-          <td className="border border-gray-950 p-0.5 text-center">{totalWoQty}</td>
-          <td className="border border-gray-950 p-0.5 text-center">{totalQty - totalWoQty}</td>
+          <td className="border border-gray-950 p-0.5 text-center">{buyerTotalWoQty}</td>
+          <td className="border border-gray-950 p-0.5 text-center">{buyerTotalQty - buyerTotalWoQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
         </tr>
       }
