@@ -186,6 +186,7 @@ import FabricQualityProblemReport from "./reports/production/cuttting/fabric-qua
 import DateWiseFinishFabricReceiveAndIssueRegisterReportIndex from "./reports/store/finish-store/DateWiseFinishFabricReceiveAndIssueRegisterReport/DateWiseFinishFabricReceiveAndIssueRegisterReport-index.tsx";
 import EmbStatusReport from "./reports/merchandising/report/emb-status-report/emb-status-report-index.tsx";
 import SupplierWiseEmbStockColorSizeWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-size-wise-report/supplier-wise-emb-stock-color-size-wise-report-index.tsx";
+import EmbellishmentHourlyProductionReport from "./reports/embellishment/embellishment-hourly-production-report/embellishment-hourly-production-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -954,6 +955,10 @@ createRoot(document.getElementById("root")!).render(
                   </Route>
 
                   <Route path="embellishment">
+                    <Route
+                      path="embellishment-hourly-production-report"
+                      element={<EmbellishmentHourlyProductionReport />}
+                    />
                     <Route
                       path="embellishment-pi-report"
                       element={<EmbellishmentPIReport />}
