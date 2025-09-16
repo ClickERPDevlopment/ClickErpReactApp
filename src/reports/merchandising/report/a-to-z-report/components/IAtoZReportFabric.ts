@@ -24,7 +24,9 @@ export type IAtoZReportFabric = {
   READY_FOR_BATCH: string;
   DYEING_QTY_KG: number;
   FINISHING_QTY: number;
+  FINISH_PROD_GREY_WEIGHT: number;
   FINISHING_DELIVER_QTY: number;
+  FINISHING_DELIVER_GREY_WEIGHT: number;
   RFT: number;
   FINISH_REQ_QTY: number;
   FINISHING_FABRIC_RCV_QTY: number;
