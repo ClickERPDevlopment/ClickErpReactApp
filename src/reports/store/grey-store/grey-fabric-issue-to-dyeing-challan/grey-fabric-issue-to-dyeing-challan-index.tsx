@@ -21,6 +21,8 @@ export default function GreyFabricIssueToDyeingChallanIndex() {
     id = searchParams.get("id");
   }
 
+  const reportFormat = Number(searchParams.get("reportFormat")) || 1;
+
   useEffect(() => {
     document.title = "Grey issue to dyeing challan.";
 
@@ -58,7 +60,7 @@ export default function GreyFabricIssueToDyeingChallanIndex() {
       </div>
     </>
   ) : (
-    <GreyFabricIssueToDyeing data={data} />
+    <GreyFabricIssueToDyeing data={data} reportFormat={reportFormat} />
   );
 
 }

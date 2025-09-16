@@ -14,6 +14,7 @@ export type GreyFabricIssueToDyeingChallanType_Master = {
     CHALLAN_NO: string;
     CHALLAN_DATE: string;
     BUYER: string;
+    BUYER_CODE: string;
     ORDER_NO: string;
     STYLE: string;
     SEASON: string;

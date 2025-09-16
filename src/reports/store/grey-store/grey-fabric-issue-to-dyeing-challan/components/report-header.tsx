@@ -1,11 +1,11 @@
 import moment from 'moment'
 import { GreyFabricIssueToDyeingChallanType_Master } from '../grey-fabric-issue-to-dyeing-challan-type'
 
-export default function ReportHeader({ data }: { data: GreyFabricIssueToDyeingChallanType_Master | null | undefined }) {
+export default function ReportHeader({ data, reportFormat }: { data: GreyFabricIssueToDyeingChallanType_Master | null | undefined, reportFormat: number }) {
     if (data)
         return (
             <div className='min-w-full text-center font-bold'>
-
+                <p className='text-right font-bold text-sm'>{moment().format("DD-MMM-YY hh:mm A")}</p>
                 <h1 className='text-2xl font-bold'>{data?.GROUP_COMPANY_NAME}</h1>
                 <h1 className='text-base'>Address: {data?.GROUP_COMPANY_ADDRESS}</h1>
 
@@ -28,27 +28,36 @@ export default function ReportHeader({ data }: { data: GreyFabricIssueToDyeingCh
                         <li>
                             <div className='flex'>
                                 <span className='text-left w-28'>Buyer</span>
-                                <span>: {data?.BUYER}</span>
+                                <span>: {reportFormat == 2 ? data?.BUYER_CODE : data.BUYER}</span>
                             </div>
                         </li>
-                        <li>
-                            <div className='flex'>
-                                <span className='text-left w-28'>Order No</span>
-                                <span>: {data?.ORDER_NO}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='flex'>
-                                <span className='text-left w-28'>Style</span>
-                                <span>: {data?.STYLE}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='flex'>
-                                <span className='text-left w-28'>Season</span>
-                                <span>: {data?.SEASON}</span>
-                            </div>
-                        </li>
+                        {
+                            reportFormat == 1 && <li>
+                                <div className='flex'>
+                                    <span className='text-left w-28'>Order No</span>
+                                    <span>: {data?.ORDER_NO}</span>
+                                </div>
+                            </li>
+                        }
+
+                        {
+                            reportFormat == 1 && <li>
+                                <div className='flex'>
+                                    <span className='text-left w-28'>Style</span>
+                                    <span>: {data?.STYLE}</span>
+                                </div>
+                            </li>
+                        }
+
+                        {
+                            reportFormat == 1 && <li>
+                                <div className='flex'>
+                                    <span className='text-left w-28'>Season</span>
+                                    <span>: {data?.SEASON}</span>
+                                </div>
+                            </li>
+                        }
+
                         <li>
                             <div className='flex'>
                                 <span className='text-left w-28'>Job No</span>
