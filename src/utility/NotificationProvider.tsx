@@ -30,7 +30,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   const [reactUser, setReactUser] = useState<ConnectedUser[]>([]);
   const [chatMessages, setChatMessage] = useState<string[]>([]);
   const api = useApiUrl();
-  const { user } = useAuth();
+  const user = useAuth();
 
 
   // Create connection
@@ -57,7 +57,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
         connection.on("UserConnected", (ConnectionId: string) => {
           console.log("UserConnected: ", ConnectionId);
           console.log("user: ", user);
-          connection.invoke("UpdateClientInfo", (user ?? "Najmuzzaman"), ConnectionId, "Web");
+          connection.invoke("UpdateClientInfo", ("Najmuzzaman"), ConnectionId, "Web");
 
           connection.invoke("GetConnectedClient").then((lst: ConnectedUser[]) => {
             setReactUser(lst);
