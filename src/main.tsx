@@ -187,6 +187,7 @@ import DateWiseFinishFabricReceiveAndIssueRegisterReportIndex from "./reports/st
 import EmbStatusReport from "./reports/merchandising/report/emb-status-report/emb-status-report-index.tsx";
 import SupplierWiseEmbStockColorSizeWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-size-wise-report/supplier-wise-emb-stock-color-size-wise-report-index.tsx";
 import FinishFabricStockReportIndex from "./reports/store/finish-store/finish-fabric-stock-report/finish-fabric-stock-report-index.tsx";
+import EmbellishmentHourlyProductionReport from "./reports/embellishment/embellishment-hourly-production-report/embellishment-hourly-production-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
