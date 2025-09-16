@@ -1,5 +1,6 @@
 import React from "react";
 import * as signalR from "@microsoft/signalr";
+import useApiUrl from "@/hooks/use-ApiUrl";
 
 export type ConnectedUser = {
   ConnectionId: string;
@@ -13,10 +14,10 @@ export default function Notifications() {
   const [windowsUser, setWindowsUser] = React.useState<ConnectedUser[]>([]);
   const [reactUser, setReactUser] = React.useState<ConnectedUser[]>([]);
   //   const [notification, setNotification] = React.useState(false);
-
+  const api = useApiUrl();
   React.useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:40000/notificationhub", {
+      .withUrl(api.ProductionRootUrl + "/notificationhub", {
         withCredentials: false,
       })
       .withAutomaticReconnect()
