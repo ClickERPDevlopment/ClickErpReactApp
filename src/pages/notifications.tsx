@@ -35,15 +35,15 @@ export default function Notifications() {
           });
         console.log("connected");
 
-        connection
-          .invoke("GetConnectedClient")
-          .then((lstConnectedUser: ConnectedUser[]) => {
-            setReactUser(lstConnectedUser);
-          });
-
         //---------------
         connection.on("UserConnected", (message: string) => {
           console.log("UserConnected: ", message);
+          connection
+            .invoke("GetConnectedClient")
+            .then((lstConnectedUser: ConnectedUser[]) => {
+              setReactUser(lstConnectedUser);
+            });
+
         });
 
         connection.on(
@@ -85,13 +85,17 @@ export default function Notifications() {
       <span>
         windowsUser
       </span>
-      <p>{JSON.stringify(windowsUser)}</p>
+      {windowsUser.map((item, index) => (
+        <p key={index}>{JSON.stringify(item)}</p>
+      ))}
     </div>
     <div style={{ border: "1px solid red", padding: "10px" }}>
       <span>
         React user
       </span>
-      <p>{JSON.stringify(reactUser)}</p>
+      {reactUser.map((item, index) => (
+        <p key={index}>{JSON.stringify(item)}</p>
+      ))}
     </div>
     <div>
       <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
