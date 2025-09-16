@@ -112,6 +112,10 @@ function ReportTable({
       <table className="border-collapse border border-gray-300  w-[100%]">
         <thead>
           <tr>
+            <th className="border border-gray-300 p-1" colSpan={firstHeader?.length}>ORDER DETAILS</th>
+            <th className="border border-gray-300 p-1" colSpan={(hourHeader?.length || 0) + 1}>HOURLY INFORMATION</th>
+          </tr>
+          <tr>
             {header?.map((item) => (
               <th className="border border-gray-300 p-1">{item}</th>
             ))}
@@ -158,9 +162,9 @@ function ReportTable({
             </tr>
           ))}
 
-          <tr>
+          <tr className="font-bold">
             <td
-              className="border text-center border-gray-300 p-1 font-bold"
+              className="border text-center border-gray-300 p-1"
               colSpan={firstHeader?.length}
             >
               Grand Total

@@ -43,7 +43,6 @@ function Report({
           data={data}
         />
 
-
         <div className="text-center">
           <p>
             <span className="font-bold">Machine No: </span>{data[0]?.WORKSTATION} <span className="font-bold">EMB Type: </span>{data[0]?.TYPE}

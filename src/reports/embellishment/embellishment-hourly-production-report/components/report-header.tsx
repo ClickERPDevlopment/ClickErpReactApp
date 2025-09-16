@@ -21,7 +21,7 @@ function ReportHeader({
       <h3 className="font-bold text-lg text-center">
         Embellishment Hourly Production Report
       </h3>
-      <h5 className="text-center">{moment(data[0]?.PRODUCTION_DATE).format("DD-MMM-YY")}</h5>
+      <h5 className="text-center text-md">{moment(data[0]?.PRODUCTION_DATE).format("DD-MMM-YY")}</h5>
     </div>
   );
 }
