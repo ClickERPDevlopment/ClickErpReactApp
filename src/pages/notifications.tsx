@@ -10,6 +10,7 @@ export type ConnectedUser = {
 
 export default function Notifications() {
   const [connection, setConnection] = React.useState<signalR.HubConnection>();
+  const [windowsUser, setWindowsUser] = React.useState<ConnectedUser[]>([]);
   //   const [notification, setNotification] = React.useState(false);
 
   React.useEffect(() => {
@@ -28,15 +29,16 @@ export default function Notifications() {
       connection.start().then(() => {
         connection
           .invoke("GetWindowsConnectedClient")
-          .then((lstConnectedUser: ConnectedUser[]) =>
+          .then((lstConnectedUser: ConnectedUser[]) => {
+            setWindowsUser(lstConnectedUser);
             console.log("GetWindowsConnectedClient: ", lstConnectedUser)
-          );
-        // console.log("connected");
+          });
+        console.log("connected");
 
         //---------------
-        // connection.on("UserConnected", (message: string) => {
-        //   console.log("UserConnected: ", message);
-        // });
+        connection.on("UserConnected", (message: string) => {
+          console.log("UserConnected: ", message);
+        });
 
         connection.on(
           "WindowsConnectedClientStatus",
@@ -48,5 +50,16 @@ export default function Notifications() {
     }
   }, [connection]);
 
-  return <div>notifications</div>;
+  return <div>
+    <span>
+      notifications
+    </span>
+    <p>{JSON.stringify(connection)}</p>
+    <div style={{ border: "1px solid red", padding: "10px" }}>
+      <span>
+        windowsUser
+      </span>
+      <p>{JSON.stringify(windowsUser)}</p>
+    </div>
+  </div>;
 }
