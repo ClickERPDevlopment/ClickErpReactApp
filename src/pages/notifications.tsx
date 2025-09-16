@@ -46,20 +46,47 @@ export default function Notifications() {
             console.log("WindowsConnectedClientStatus: ", lstConnectedUser);
           }
         );
+        connection.on("GetMessage", (message: string) => {
+          setShowMessage((prev) => [...prev, message]);
+        });
       });
     }
   }, [connection]);
+
+  const [message, setMessage] = React.useState("");
+  const [showMessage, setShowMessage] = React.useState<string[]>([]);
+
+
+  function handleSendMessage() {
+    if (connection && message) {
+      connection.invoke("SendMessage", message);
+    }
+  }
 
   return <div>
     <span>
       notifications
     </span>
-    <p>{JSON.stringify(connection)}</p>
+    {/* <p>{JSON.stringify(connection)}</p> */}
     <div style={{ border: "1px solid red", padding: "10px" }}>
       <span>
         windowsUser
       </span>
       <p>{JSON.stringify(windowsUser)}</p>
+    </div>
+    <div>
+      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+      <button onClick={() => handleSendMessage()} style={{ marginLeft: "10px", border: "1px solid red", padding: "10px" }}>Send Message</button>
+    </div>
+    <div>
+      <span>
+        showMessage
+      </span>
+      <div>
+        {showMessage.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
+      </div>
     </div>
   </div>;
 }
