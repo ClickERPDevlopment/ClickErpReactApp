@@ -70,9 +70,15 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.BATCH_QTY_KG}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.READY_FOR_BATCH}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.DYEING_QTY_KG}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISH_PROD_GREY_WEIGHT}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISHING_QTY}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>
+                                {((f?.FINISH_PROD_GREY_WEIGHT - f?.FINISHING_QTY) / f?.FINISH_PROD_GREY_WEIGHT * 100).toFixed(2)}
+                            </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISHING_DELIVER_QTY}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISHING_DELIVER_GREY_WEIGHT}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.RFT}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.DYEING_GREY_RCV_QTY - f?.FINISHING_DELIVER_GREY_WEIGHT}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISH_REQ_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FINISHING_FABRIC_RCV_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.FF_RCV_BALANCE}</td>
@@ -88,6 +94,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
                             {/* <td className="border border-gray-500 text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.CUTTING_QTY}</td>
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.CUTTING_BALANCE}</td>
+                            <td className="border border-gray-500 text-balance text-center p-1">{((g?.CUTTING_QTY * 100) / g?.PO_QTY).toFixed(2)}</td>
 
                             {/* <td className="border border-gray-500 text-balance text-center p-1 border-r border-gray-500" colSpan={2}>Input</td> */}
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.SEWING_INPUT_QTY}</td>
