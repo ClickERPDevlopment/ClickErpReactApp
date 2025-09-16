@@ -11,6 +11,7 @@ export type ConnectedUser = {
 export default function Notifications() {
   const [connection, setConnection] = React.useState<signalR.HubConnection>();
   const [windowsUser, setWindowsUser] = React.useState<ConnectedUser[]>([]);
+  const [reactUser, setReactUser] = React.useState<ConnectedUser[]>([]);
   //   const [notification, setNotification] = React.useState(false);
 
   React.useEffect(() => {
@@ -31,9 +32,14 @@ export default function Notifications() {
           .invoke("GetWindowsConnectedClient")
           .then((lstConnectedUser: ConnectedUser[]) => {
             setWindowsUser(lstConnectedUser);
-            console.log("GetWindowsConnectedClient: ", lstConnectedUser)
           });
         console.log("connected");
+
+        connection
+          .invoke("GetConnectedClient")
+          .then((lstConnectedUser: ConnectedUser[]) => {
+            setReactUser(lstConnectedUser);
+          });
 
         //---------------
         connection.on("UserConnected", (message: string) => {
@@ -41,9 +47,16 @@ export default function Notifications() {
         });
 
         connection.on(
+          "ConnectedClientStatus",
+          (lstConnectedUser: ConnectedUser[]) => {
+            console.log("React App Clients: ", lstConnectedUser);
+          }
+        );
+
+        connection.on(
           "WindowsConnectedClientStatus",
           (lstConnectedUser: ConnectedUser[]) => {
-            console.log("WindowsConnectedClientStatus: ", lstConnectedUser);
+            console.log("Windows Clients: ", lstConnectedUser);
           }
         );
         connection.on("GetMessage", (message: string) => {
@@ -73,6 +86,12 @@ export default function Notifications() {
         windowsUser
       </span>
       <p>{JSON.stringify(windowsUser)}</p>
+    </div>
+    <div style={{ border: "1px solid red", padding: "10px" }}>
+      <span>
+        React user
+      </span>
+      <p>{JSON.stringify(reactUser)}</p>
     </div>
     <div>
       <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
