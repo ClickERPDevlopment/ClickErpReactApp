@@ -30,4 +30,5 @@ export type DailySewingEfficiencyReportType = {
   COMPANY_ADDRESS: string;
   TARGET_EARN_MIN: number;
   RUNNING_HOUR: number;
+  PER_MACHINE_COST: number;
 };

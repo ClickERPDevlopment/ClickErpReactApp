@@ -80,8 +80,13 @@ function ReportSubgroup({
         </td>
         <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalFob).toFixed(2)} $</td>
         <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM).toFixed(2)} $</td>
-        <td className="border border-gray-950 p-0.1 text-end">{ }</td>
-
+        {
+          index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center text-nowrap">
+            {
+              (data[0]?.ACTUALHOURS * data[0]?.OPERATOR * data[0]?.PER_MACHINE_COST).toFixed(2)
+            } $
+          </td>
+        }
         {
           index == 0 && <td rowSpan={groupLength} className="border border-gray-950 p-0.1 text-center text-nowrap">{(data[0]?.TARGET_EARN_MIN * 100 / (data[0].AVAILABLEMIN)).toFixed(2)} %</td>
         }

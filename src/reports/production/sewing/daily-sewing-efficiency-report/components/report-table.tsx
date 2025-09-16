@@ -65,6 +65,7 @@ function ReportTable({
   //
 
   let avgPerformance = 0;
+  let cost = 0;
   return (
     <>
       <tr>
@@ -80,6 +81,7 @@ function ReportTable({
         avgWorkHour += ((groupedData[key].items[0]?.OPERATOR ?? 0) + (groupedData[key].items[0]?.HELPER ?? 0)) * groupedData[key].items[0]?.RUNNING_HOUR * 60;
         const sewingOutput = data.reduce((acc, item) => acc + (item.LINENAME == groupedData[key].items[0]?.LINENAME ? item.SEWINGOUTPUT : 0), 0);
         avgPerformance += (sewingOutput * 100) / (groupedData[key].items[0]?.TOTALTARGET * groupedData[key].items[0]?.RUNNING_HOUR / groupedData[key].items[0]?.ACTUALHOURS);
+        cost += groupedData[key].items[0]?.ACTUALHOURS * groupedData[key].items[0]?.OPERATOR * groupedData[key].items[0]?.PER_MACHINE_COST;
         uniqueLine++;
         return <>
           <ReportGroup
@@ -107,7 +109,7 @@ function ReportTable({
         <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM * 12 / totalQcPass)?.toFixed(2)} $</td>
         <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalFob)?.toFixed(2)} $</td>
         <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM)?.toFixed(2)} $</td>
-        <td className="border border-gray-950 p-0.1 text-end">{ }</td>
+        <td className="border border-gray-950 p-0.1 text-end">{(cost).toFixed(2)} $</td>
         <td className="border border-gray-950 p-0.1 text-center text-nowrap">{(totaltargetEarnMin * 100 / totalAvailableMin).toFixed(2)} %</td>
         <td className="border border-gray-950 p-0.1 text-end">{ }</td>
       </tr>

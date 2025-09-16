@@ -68,7 +68,7 @@ function Report({
     "CM PER DZN ($)",
     "EARNED FOB ($)",
     "EARNED CM ($)",
-    "COST",
+    "COST ($)",
     "TGT. EFF. %",
     "REMARKS",
   ];
@@ -85,6 +85,8 @@ function Report({
   let avgPerformance = 0;
 
   let uniqueLine = 0;
+
+  let cost = 0;
 
   for (const floorKey in groupedData) {
     const floorItems = groupedData[floorKey].items;
@@ -105,6 +107,9 @@ function Report({
         avgWorkHour += ((item.OPERATOR ?? 0) + (item.HELPER ?? 0)) * item.RUNNING_HOUR * 60;
         const sewingOutput = data.reduce((acc, item) => acc + (item.LINENAME == lineName ? item.SEWINGOUTPUT : 0), 0);
         avgPerformance += (sewingOutput * 100) / (item.TOTALTARGET * item.RUNNING_HOUR / item.ACTUALHOURS);
+
+        cost += item.ACTUALHOURS * item.OPERATOR * item.PER_MACHINE_COST;
+
         uniqueLine++;
       }
     }
@@ -164,7 +169,7 @@ function Report({
               <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM * 12 / totalQcPass)?.toFixed(2)} $</td>
               <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalFob)?.toFixed(2)} $</td>
               <td className="border border-gray-950 p-0.1 text-end text-nowrap">{(totalCM)?.toFixed(2)} $</td>
-              <td className="border border-gray-950 p-0.1 text-end">{ }</td>
+              <td className="border border-gray-950 p-0.1 text-end">{(cost).toFixed(2)} $</td>
               <td className="border border-gray-950 p-0.1 text-center text-nowrap">{(grandTotalTargetEarnleMin * 100 / grandTotalAvailableMin).toFixed(2)} %</td>
               <td className="border border-gray-950 p-0.1 text-end text-nowrap">{ }</td>
             </tr>
