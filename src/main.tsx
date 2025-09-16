@@ -188,6 +188,7 @@ import EmbStatusReport from "./reports/merchandising/report/emb-status-report/em
 import SupplierWiseEmbStockColorSizeWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-size-wise-report/supplier-wise-emb-stock-color-size-wise-report-index.tsx";
 import FinishFabricStockReportIndex from "./reports/store/finish-store/finish-fabric-stock-report/finish-fabric-stock-report-index.tsx";
 import EmbellishmentHourlyProductionReport from "./reports/embellishment/embellishment-hourly-production-report/embellishment-hourly-production-report-index.tsx";
+import { NotificationProvider } from "./utility/NotificationProvider.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -196,855 +197,857 @@ createRoot(document.getElementById("root")!).render(
     <React.Fragment>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <AuthProvider>
-            <React.Suspense>
-              <ScrollToTop />
-              <Routes>
-                <Route path="login" element={<Login />} />
-                <Route path="notifications" element={<Notifications />} />
-                <Route path="blank-page" element={<BalckPage />} />
-                <Route element={<PrivateRoute />}>
-                  <Route path={"/"} element={<App />}>
-                    <Route index element={<Dashboard />} />
-                    <Route path="/dashboard" element={<AppLayout />}>
+          <NotificationProvider>
+            <AuthProvider>
+              <React.Suspense>
+                <ScrollToTop />
+                <Routes>
+                  <Route path="login" element={<Login />} />
+                  <Route path="notifications" element={<Notifications />} />
+                  <Route path="blank-page" element={<BalckPage />} />
+                  <Route element={<PrivateRoute />}>
+                    <Route path={"/"} element={<App />}>
                       <Route index element={<Dashboard />} />
-                      <Route
-                        path="configuration"
-                        element={<ConfigurationDashboard />}
-                      />
-                      <Route
-                        path="configuration/company"
-                        element={<Company />}
-                      />
-                      <Route
-                        path="configuration/country"
-                        element={<Country />}
-                      />
-                      <Route
-                        path="configuration/country/:pageAction/:id"
-                        element={<CountryCrud />}
-                      />
-                      {/* <Route
+                      <Route path="/dashboard" element={<AppLayout />}>
+                        <Route index element={<Dashboard />} />
+                        <Route
+                          path="configuration"
+                          element={<ConfigurationDashboard />}
+                        />
+                        <Route
+                          path="configuration/company"
+                          element={<Company />}
+                        />
+                        <Route
+                          path="configuration/country"
+                          element={<Country />}
+                        />
+                        <Route
+                          path="configuration/country/:pageAction/:id"
+                          element={<CountryCrud />}
+                        />
+                        {/* <Route
                     path="merchandising"
                     element={<MerchandisingDashboard />}
                   /> */}
 
-                      <Route path="printing-embroidery">
-                        <Route path="print-emb-dabsboard">
-                          <Route index element={<PrintEmbDashboardIndex />} />
-                        </Route>
-                        <Route path="print-emp-production">
-                          <Route index element={<PrintEmbProductionIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbProductionCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="print-emb-material-receive">
-                          <Route index element={<PrintEmbMaterialReceiveIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbMaterialReceiveCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="print-emb-delivery">
-                          <Route index element={<PrintEmbDeliveryIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbDeliveryCrud />}
-                          />
-                        </Route>
-                        <Route path="print-emb-pi">
-                          <Route index element={<PrintEmbPIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbPICrud />}
-                          />
-                        </Route>
-                      </Route>
-
-
-                      <Route path="merchandising">
-                        <Route index element={<MerchandisingDashboard />} />
-                        <Route path="buyer">
-                          <Route index element={<Buyer />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<BuyerCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="color">
-                          <Route index element={<Color />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<ColorCrud />}
-                          />
-                        </Route>
-                        <Route path="size">
-                          <Route index element={<Size />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<SizeCrud />}
-                          />
-                        </Route>
-                        <Route path="compensation-claim">
-                          <Route index element={<CompensationClaimIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<CompensationClaimCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="finish-good-valuation">
-                          <Route index element={<FinishGoodValuation />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<FinishGoodValuationCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="booking">
-                          <Route index element={<Buyer />} />
-                          <Route path="show-booking" element={<ShowBookingView />} />
-                        </Route>
-                      </Route>
-                      <Route path="textile" element={<TextileDashboard />} />
-                      <Route
-                        path="production"
-                        element={<ProductionDashboard />}
-                      />
-                      <Route
-                        path="inventory"
-                        element={<InventoryDashboard />}
-                      />
-                      <Route
-                        path="hr-payroll"
-                        element={<HrPayrollDashboard />}
-                      />
-                      <Route path="sweater">
-                        <Route index element={<SweaterDashboard />} />
-                        <Route path="gauge">
-                          <Route index element={<Gauge />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<GaugeCrud />}
-                          />
-                        </Route>
-                        <Route path="mc-group">
-                          <Route index element={<McGroup />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<McGroupCrud />}
-                          />
-                        </Route>
-                        <Route path="brand-group">
-                          <Route index element={<BrandGroupIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<BrandGroupCrud />}
-                          />
-                        </Route>
-                        <Route path="date-wise-mc-distribution">
-                          <Route
-                            index
-                            element={<DateWiseMCDistributionIndex />}
-                          />
-                        </Route>
-                        <Route path="planning-board-configure">
-                          <Route
-                            index
-                            element={<PlanningBoardConfigureIndex />}
-                          />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PlanningBoardConfigureCrud />}
-                          />
-                        </Route>
-                        <Route path="plan-strip">
-                          <Route index element={<SwtPlanStripIndex />} />
-                        </Route>
-                        <Route path="swt-planning">
-                          {/* <Route index element={<PlanningBoardConfigureIndex />} /> */}
-                          <Route
-                            path="line-loading-plan"
-                            element={<LineLoadingPlanIndex />}
-                          />
-                        </Route>
-                      </Route>
-                    </Route>
-                  </Route>
-
-                  <Route path="/win" element={<DesktopLayout />}>
-                    <Route element={<PrivateRoute />}>
-                      <Route path="sweater">
-                        <Route index element={<SweaterDashboard />} />
-                        <Route path="gauge">
-                          <Route index element={<Gauge />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<GaugeCrud />}
-                          />
-                        </Route>
-                        <Route path="mc-group">
-                          <Route index element={<McGroup />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<McGroupCrud />}
-                          />
-                        </Route>
-                        <Route path="brand-group">
-                          <Route index element={<BrandGroupIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<BrandGroupCrud />}
-                          />
+                        <Route path="printing-embroidery">
+                          <Route path="print-emb-dabsboard">
+                            <Route index element={<PrintEmbDashboardIndex />} />
+                          </Route>
+                          <Route path="print-emp-production">
+                            <Route index element={<PrintEmbProductionIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbProductionCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="print-emb-material-receive">
+                            <Route index element={<PrintEmbMaterialReceiveIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbMaterialReceiveCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="print-emb-delivery">
+                            <Route index element={<PrintEmbDeliveryIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbDeliveryCrud />}
+                            />
+                          </Route>
+                          <Route path="print-emb-pi">
+                            <Route index element={<PrintEmbPIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbPICrud />}
+                            />
+                          </Route>
                         </Route>
 
-                        <Route path="planning-board-configure">
-                          <Route
-                            index
-                            element={<PlanningBoardConfigureIndex />}
-                          />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PlanningBoardConfigureCrud />}
-                          />
-                        </Route>
-                        <Route path="date-wise-mc-distribution">
-                          <Route
-                            index
-                            element={<DateWiseMCDistributionIndex />}
-                          />
-                        </Route>
-                        <Route path="plan-strip">
-                          <Route index element={<SwtPlanStripIndex />} />
-                        </Route>
-                      </Route>
-                      <Route path="printing-embroidery">
-                        <Route path="print-emb-dabsboard">
-                          <Route index element={<PrintEmbDashboardIndex />} />
-                        </Route>
-                        <Route path="print-emp-production">
-                          <Route index element={<PrintEmbProductionIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbProductionCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="print-emb-material-receive">
-                          <Route index element={<PrintEmbMaterialReceiveIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbMaterialReceiveCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="print-emb-delivery">
-                          <Route index element={<PrintEmbDeliveryIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbDeliveryCrud />}
-                          />
-                        </Route>
-                        <Route path="print-emb-pi">
-                          <Route index element={<PrintEmbPIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<PrintEmbPICrud />}
-                          />
-                        </Route>
-                      </Route>
-                      <Route path="merchandising">
-                        <Route index element={<MerchandisingDashboard />} />
-                        <Route path="buyer">
-                          <Route index element={<Buyer />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<BuyerCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="color">
-                          <Route index element={<Color />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<ColorCrud />}
-                          />
-                        </Route>
-                        <Route path="size">
-                          <Route index element={<Size />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<SizeCrud />}
-                          />
-                        </Route>
-                        <Route path="compensation-claim">
-                          <Route index element={<CompensationClaimIndex />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<CompensationClaimCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                        <Route path="finish-good-valuation">
-                          <Route index element={<FinishGoodValuation />} />
-                          <Route
-                            path=":pageAction/:id"
-                            element={<FinishGoodValuationCrud />}
-                          />
-                          <Route path="gl/:id" element={<BuyerGl />} />
-                        </Route>
-                      </Route>
-                    </Route>
-                  </Route>
-                </Route>
-                <Route path="*" element={<NoPage />} />
 
-                <Route path="/report" element={<ReportLayout />}>
-                  {/* <Route index element={<Home />} /> */}
-                  <Route
-                    path="ff-allocation-report"
-                    element={<FinishFabricAllocationReport />}
-                  />
-
-                  <Route
-                    path="ff-allocation-summary-report"
-                    element={<FinishFabricAllocationSummaryReport />}
-                  />
-
-                  <Route path="production">
-                    <Route path="cutting">
-                      <Route
-                        path="fabric-quality-problem-report"
-                        element={<FabricQualityProblemReport />}
-                      />
-                    </Route>
-                    <Route path="finishing">
-                      <Route
-                        path="short-shipment-reason-status-report"
-                        element={<ShortShipmentReasonStatusReport />}
-                      />
-                      <Route
-                        path="finish-fabric-return-cutting-floor-to-store-report"
-                        element={
-                          <FinishFabricReturnCuttingFloorToStoreReport />
-                        }
-                      />
-                      <Route
-                        path="reconciliation-pending-done-report"
-                        element={<ReconciliationPendingDoneReport />}
-                      />
-                      <Route
-                        path="garments-dispatch-details-report"
-                        element={<GarmentsDispatchDetailsReport />}
-                      />
-                      <Route
-                        path="compensation-report"
-                        element={<CompensationReport />}
-                      />
-                    </Route>
-                    <Route path="cutting">
-                      <Route
-                        path="date-wise-fabric-requisition-receive-report"
-                        element={<DateWiseFabricRequisitionReceiveReport />}
-                      />
-                    </Route>
-                    <Route path="sewing">
-                      <Route
-                        path="sewing-input-challan-report"
-                        element={<SewingInputChallanReport />}
-                      />
-                      <Route
-                        path="daily-sewing-efficiecy-report"
-                        element={<DailySewingEfficiencyReport />}
-                      />
-                      <Route
-                        path="sewing-production-status-report"
-                        element={<SewingProductionStatusReport />}
-                      />
-                      <Route
-                        path="style-wise-avg-efficiency-report"
-                        element={<StyleWiseAvgEfficiencyReport />}
-                      />
-                      <Route
-                        path="general-and-ot-hours-production-report"
-                        element={<GeneralAndOTHoursProductionReport />}
-                      />
-                      <Route
-                        path="general-and-ot-hours-production-line-wise-report"
-                        element={<GeneralAndOTHoursProductionLineWiseReport />}
-                      />
-                      <Route
-                        path="online-display-board"
-                        element={<OnlineDisplayBoard />}
-                      />
-                      <Route
-                        path="online-display-board-view"
-                        element={<OnlineDisplayBoardView />}
-                      />
-                    </Route>
-                  </Route>
-
-                  <Route path="planning">
-                    <Route
-                      path="internal-product-placement-sheet-summary-report"
-                      element={<InternalProductPlacementSheetReport />}
-                    />
-                    <Route
-                      path="job-breakdown-report"
-                      element={<JobBreakdownReport />}
-                    />
-                    <Route
-                      path="style-wise-order-details-report"
-                      element={<StyleWiseOrderDetailsReport />}
-                    />
-                  </Route>
-
-                  <Route path="merchandising">
-                    <Route
-                      path="emb-status-report"
-                      element={<EmbStatusReport />}
-                    />
-                    <Route
-                      path="size-wise-order-summary-report"
-                      element={<SizeWiseOrderSummaryReport />}
-                    />
-                    <Route path="sample-program">
-                      <Route
-                        path="sample-program-report"
-                        element={<SampleProgramReportIndex />}
-                      />
-                    </Route>
-                    <Route
-                      path="yarn-additional-booking-report"
-                      element={<YarnAdditionalBookingReportIndex />}
-                    />
-                    <Route path="booking">
-                      <Route
-                        path="yarn-booking-report"
-                        element={<YarnBookingReportIndex />}
-                      />
-                      <Route
-                        path="fabric-booking-report"
-                        element={<FabricBookingReportIndex />}
-                      />
-                    </Route>
-                    <Route path="work-order">
-                      <Route
-                        path="acc-wo-hangtagsticker-rpt"
-                        element={<AccessoriesWoReport />}
-                      />
-                      <Route
-                        path="acc-wo-bkl-carelabel-rpt"
-                        element={<AccessoriesWoReport_Carelabel />}
-                      />
-                      <Route
-                        path="george-various-material-rpt"
-                        element={<GeorgeVariousMaterialReport />}
-                      />
-                      <Route
-                        path="starco-sticker-rpt"
-                        element={<StarcoStickerReport />}
-                      />
-                      <Route
-                        path="yarn-twisting-wrok-order-rpt"
-                        element={<YarnTwistingWorkOrderReport />}
-                      />
-                      <Route
-                        path="starco-label-rpt"
-                        element={<StarcoLabelReport />}
-                      />
-                      <Route
-                        path="block-accessories-rpt"
-                        element={<BlockAccessoriesReport />}
-                      ></Route>
-                      <Route
-                        path="accessories-rpt"
-                        element={<AccessoriesReport />}
-                      ></Route>
-                      <Route
-                        path="accessories-rpt-with-po"
-                        element={<AccessoriesReportWithPo />}
-                      ></Route>
-                    </Route>
-                    <Route
-                      path="style-wise-fabric-comsump-report"
-                      element={<StyleWiseFabricConsumptionReport />}
-                    />
-                    <Route
-                      path="style-wise-profig-loss-report"
-                      element={<StyleWiseProfitLossReportIndex />}
-                    />
-                    <Route
-                      path="a-to-z-report"
-                      element={<AtoZReportIndex />}
-                    />
-                    <Route
-                      path="BudgetWiseCostBreakdown"
-                      element={<BudgetWiseCostBreakdownIndex />}
-                    />
-                    <Route
-                      path="po-wise-fabric-access-status-report"
-                      element={<POwiseFabricAndAccessoriesStatusReport />}
-                    />
-                    <Route
-                      path="general-block-fabric-status-report"
-                      element={<GeneralBlockFabricStatusReport />}
-                    />
-                    <Route
-                      path="general-block-fabric-status-view"
-                      element={<GeneralBlockFabricStatusView />}
-                    />
-                    <Route
-                      path="shipment-delay-rpt"
-                      element={<ShipmentDelayReport />}
-                    ></Route>
-                    <Route
-                      path="shipment-delay-rpt-pdf"
-                      element={<ShipmentDelayReportPDF />}
-                    ></Route>
-                    <Route
-                      path="monthly-order-vs-shipment-status-report"
-                      element={<MonthlyOrderVsShipmentStatusReport />}
-                    ></Route>
-                    <Route
-                      path="emblishment-status-report"
-                      element={<EmblishmentStatusReport />}
-                    ></Route>
-                    <Route
-                      path="create-date-wise-po-summary-report"
-                      element={<CreateDateWisePoSummaryReport />}
-                    ></Route>
-                    <Route
-                      path="compensation-claim-report"
-                      element={<CompensationClaimReport />}
-                    ></Route>
-                    <Route
-                      path="material-order-yarn-dyeing-report"
-                      element={<MaterialOrderYarnDyeingReport />}
-                    ></Route>
-                    <Route
-                      path="budget-report"
-                      element={<BudgetReport />}
-                    ></Route>
-                    <Route
-                      path="budget-report-format2"
-                      element={<BudgetReportFormat2 />}
-                    ></Route>
-                  </Route>
-
-                  <Route path="textile">
-                    <Route path="knitting">
-                      <Route
-                        path="date-wise-knitting-program-report"
-                        element={<DateWiseKnittingProgramReport />}
-                      />
-                      <Route
-                        path="knitting-production-report"
-                        element={<KnittingProductionReport />}
-                      />
-                      <Route
-                        path="daily-knitting-update"
-                        element={<DailyKnittingUpdateReport />}
-                      />
-                      <Route
-                        path="grey-fabric-challan-report"
-                        element={<GreyFabricChallanReport />}
-                      />
-                      <Route
-                        path="knitting-program-report"
-                        element={<KnittingProgramReport />}
-                      />
-                      <Route
-                        path="party-wise-knitting-program-report"
-                        element={<PartyWiseKnittingProgramReport />}
-                      />
-                    </Route>
-                    <Route path="dyeing">
-                      <Route
-                        path="grey-batch-status-report"
-                        element={<GreyBatchStatusReport />}
-                      />
-                      <Route
-                        path="dyeing-buyer-wise-grey-stock-report"
-                        element={<DyeingBuyerWiseGreyStockReport />}
-                      />
-                      <Route
-                        path="buyer-wise-grey-fabric-receive-view"
-                        element={<BuyerWiseGreyFabricReceiveView />}
-                      />
-                      <Route
-                        path="buyer-wise-grey-fabric-receive"
-                        element={<BuyerWiseGreyFabricReceiveIndex />}
-                      />
-                      <Route
-                        path="batch-wise-approval-status-report"
-                        element={<BatchWiseApprovalStatusReport />}
-                      />
-                      <Route
-                        path="buyer-wise-dyeing-monthly-summ-view"
-                        element={<BuyerWiseDyeingMonthlySummaryReportView />}
-                      />
-                      <Route
-                        path="buyer-wise-dyeing-monthly-summ-rpt-index"
-                        element={<BuyerWiseDyeingMonthlySummaryReportIndex />}
-                      />
-                      <Route
-                        path="process-wise-dyeing-finish-production-rpt"
-                        element={<ProcessWiseDyeingFinishProductionReport />}
-                      />
-                      <Route
-                        path="subcontract-batch-wise-fabric-delivery-report"
-                        element={<SubcontractBatchWiseFabricDeliveryReport />}
-                      />
-                      <Route
-                        path="in-house-batch-wise-fabric-delivery-report"
-                        element={<InHouseBatchWiseFabricDeliveryReport />}
-                      />
-                    </Route>
-                  </Route>
-
-                  <Route path="store">
-                    <Route path="accessories-store">
-                      <Route
-                        path="accessories-receive-return-challan-gatepass-report"
-                        element={
-                          <AccessoriesReceiveReturnChallanGatePassReport />
-                        }
-                      />
-                      <Route
-                        path="accessories-issue-return-challan-report"
-                        element={<AccessoriesIssueReturnChallanReport />}
-                      />
-                      <Route
-                        path="monthly-yarn-costing-report"
-                        element={<MonthlyYarnCostingReport />}
-                      />
-                      <Route
-                        path="partywise-yarnissue-greyrcv-balance-summary-report"
-                        element={<PartyWiseYanrIssueAndGreyRcvSummaryIndex />}
-                      />
-                      <Route
-                        path="accessories-receive-status-by-challan-no-report"
-                        element={<AccessoriesReceiveStatusByChallanNoReport />}
-                      />
-                    </Route>
-                    <Route path="yarn-store">
-                      <Route
-                        path="yarn-rcv-issue-register-report"
-                        element={<YarnRcvIssueRegisterReport />}
-                      />
-                      <Route
-                        path="date-wise-yarn-allocation-report"
-                        element={<DateWiseYarnAllocationReport />}
-                      />
-                      <Route
-                        path="lot-wise-yarn-stock-report"
-                        element={<LotWiseYarnStockReport />}
-                      />
-                      <Route
-                        path="yarn-stock-after-alloction-report"
-                        element={<YarnStockAfterAlloctionReport />}
-                      />
-                      <Route
-                        path="yarn-return-challan-report"
-                        element={<YarnReturnChallanReport />}
-                      />
-                      <Route
-                        path="yarn-transfer-challan-report"
-                        element={<YarnTransferChallanReport />}
-                      />
-                      <Route
-                        path="yarn-transfer-challan-report-format2"
-                        element={<YarnTransferReportFormat2 />}
-                      />
-                      <Route
-                        path="order-wise-knit-dyeing-status-report"
-                        element={<OrderWiseKnittingDyeingStatusReportIndex />}
-                      />
-                      <Route
-                        path="order-wise-knit-dyeing-status-report-f2"
-                        element={<OrderWiseKnittingDyeingStatusReportIndexF2 />}
-                      />
-                      <Route
-                        path="outside-yissue-grcv-status-report"
-                        element={<OutSideYIssueGrcvStatusReport />}
-                      />
-                      <Route
-                        path="yarn-issue-status-report"
-                        element={<YarnIssueStatusReportIndex />}
-                      />
-                      <Route
-                        path="Buyer-Wise-Yarn-Possition-Report"
-                        element={<BuyerWiseYarnPossitionReportIndex />}
-                      />
-                      <Route
-                        path="yarn-issue-for-dyeing-report"
-                        element={<YarnIssueForDyeingReportIndex />}
-                      />
-                      <Route
-                        path="yarn-issue-for-twisting-report"
-                        element={<YarnIssueForTwistingReportIndex />}
-                      />
-                      <Route
-                        path="monthly-yarn-costing-report"
-                        element={<MonthlyYarnCostingReport />}
-                      />
-                      <Route
-                        path="partywise-yarnissue-greyrcv-balance-summary-report"
-                        element={<PartyWiseYanrIssueAndGreyRcvSummaryIndex />}
-                      />
-                      <Route
-                        path="yarn-delivery-challan-gate-pass-report"
-                        element={<YarnDeliveryChallanGatePassReport />}
-                      />
-                      <Route
-                        path="date-wise-yarn-receive-register-report"
-                        element={<DateWiseYarnReceiveRegisterReport />}
-                      />
-                    </Route>
-                    <Route path="grey-store">
-                      {GreyFabricStoreRoute().map((p) => (
+                        <Route path="merchandising">
+                          <Route index element={<MerchandisingDashboard />} />
+                          <Route path="buyer">
+                            <Route index element={<Buyer />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<BuyerCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="color">
+                            <Route index element={<Color />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<ColorCrud />}
+                            />
+                          </Route>
+                          <Route path="size">
+                            <Route index element={<Size />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<SizeCrud />}
+                            />
+                          </Route>
+                          <Route path="compensation-claim">
+                            <Route index element={<CompensationClaimIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<CompensationClaimCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="finish-good-valuation">
+                            <Route index element={<FinishGoodValuation />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<FinishGoodValuationCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="booking">
+                            <Route index element={<Buyer />} />
+                            <Route path="show-booking" element={<ShowBookingView />} />
+                          </Route>
+                        </Route>
+                        <Route path="textile" element={<TextileDashboard />} />
                         <Route
-                          key={p.path}
-                          path={p.path}
-                          element={p.component}
+                          path="production"
+                          element={<ProductionDashboard />}
                         />
-                      ))}
-                      <Route
-                        path="grey-fabric-transfer-report"
-                        element={<GreyFabricTransferReport />}
-                      />
-                      <Route
-                        path="grey-fabric-issue-to-dyeing-challan"
-                        element={<GreyFabricIssueToDyeingChallanIndex />}
-                      />
-                      <Route
-                        path="date-wise-yarn-and-grey-fabric-stock-report"
-                        element={<DateWiseYarnAndGreyFabricStockReport />}
-                      />
-                      <Route
-                        path="date-wise-grey-fabric-delivery-to-dyeing-report"
-                        element={<DateWiseGreyFabcirDeliveryToDyeingReport />}
-                      />
-                    </Route>
-                    <Route path="finish-fabric-store">
-                      <Route
-                        path="finish-fabric-stock-report"
-                        element={<FinishFabricStockReportIndex />}
-                      />
-                      <Route
-                        path="finish-fabric-receive-challan-report"
-                        element={<FinishFabricReceiveChallanReport />}
-                      />
-                      <Route
-                        path="date-wise-fabric-purchase-receive-register-report"
-                        element={<DateWiseFabricPurchaseReceiveRegisterReport />}
-                      />
-                      <Route
-                        path="date-wise-f-fabric-receive-issue-register-report"
-                        element={<DateWiseFinishFabricReceiveAndIssueRegisterReportIndex />}
-                      />
-                      {FinishFabricStoreRoute().map((p) => (
                         <Route
-                          key={p.path}
-                          path={p.path}
-                          element={p.component}
+                          path="inventory"
+                          element={<InventoryDashboard />}
                         />
-                      ))}
+                        <Route
+                          path="hr-payroll"
+                          element={<HrPayrollDashboard />}
+                        />
+                        <Route path="sweater">
+                          <Route index element={<SweaterDashboard />} />
+                          <Route path="gauge">
+                            <Route index element={<Gauge />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<GaugeCrud />}
+                            />
+                          </Route>
+                          <Route path="mc-group">
+                            <Route index element={<McGroup />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<McGroupCrud />}
+                            />
+                          </Route>
+                          <Route path="brand-group">
+                            <Route index element={<BrandGroupIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<BrandGroupCrud />}
+                            />
+                          </Route>
+                          <Route path="date-wise-mc-distribution">
+                            <Route
+                              index
+                              element={<DateWiseMCDistributionIndex />}
+                            />
+                          </Route>
+                          <Route path="planning-board-configure">
+                            <Route
+                              index
+                              element={<PlanningBoardConfigureIndex />}
+                            />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PlanningBoardConfigureCrud />}
+                            />
+                          </Route>
+                          <Route path="plan-strip">
+                            <Route index element={<SwtPlanStripIndex />} />
+                          </Route>
+                          <Route path="swt-planning">
+                            {/* <Route index element={<PlanningBoardConfigureIndex />} /> */}
+                            <Route
+                              path="line-loading-plan"
+                              element={<LineLoadingPlanIndex />}
+                            />
+                          </Route>
+                        </Route>
+                      </Route>
+                    </Route>
+
+                    <Route path="/win" element={<DesktopLayout />}>
+                      <Route element={<PrivateRoute />}>
+                        <Route path="sweater">
+                          <Route index element={<SweaterDashboard />} />
+                          <Route path="gauge">
+                            <Route index element={<Gauge />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<GaugeCrud />}
+                            />
+                          </Route>
+                          <Route path="mc-group">
+                            <Route index element={<McGroup />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<McGroupCrud />}
+                            />
+                          </Route>
+                          <Route path="brand-group">
+                            <Route index element={<BrandGroupIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<BrandGroupCrud />}
+                            />
+                          </Route>
+
+                          <Route path="planning-board-configure">
+                            <Route
+                              index
+                              element={<PlanningBoardConfigureIndex />}
+                            />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PlanningBoardConfigureCrud />}
+                            />
+                          </Route>
+                          <Route path="date-wise-mc-distribution">
+                            <Route
+                              index
+                              element={<DateWiseMCDistributionIndex />}
+                            />
+                          </Route>
+                          <Route path="plan-strip">
+                            <Route index element={<SwtPlanStripIndex />} />
+                          </Route>
+                        </Route>
+                        <Route path="printing-embroidery">
+                          <Route path="print-emb-dabsboard">
+                            <Route index element={<PrintEmbDashboardIndex />} />
+                          </Route>
+                          <Route path="print-emp-production">
+                            <Route index element={<PrintEmbProductionIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbProductionCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="print-emb-material-receive">
+                            <Route index element={<PrintEmbMaterialReceiveIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbMaterialReceiveCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="print-emb-delivery">
+                            <Route index element={<PrintEmbDeliveryIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbDeliveryCrud />}
+                            />
+                          </Route>
+                          <Route path="print-emb-pi">
+                            <Route index element={<PrintEmbPIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbPICrud />}
+                            />
+                          </Route>
+                        </Route>
+                        <Route path="merchandising">
+                          <Route index element={<MerchandisingDashboard />} />
+                          <Route path="buyer">
+                            <Route index element={<Buyer />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<BuyerCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="color">
+                            <Route index element={<Color />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<ColorCrud />}
+                            />
+                          </Route>
+                          <Route path="size">
+                            <Route index element={<Size />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<SizeCrud />}
+                            />
+                          </Route>
+                          <Route path="compensation-claim">
+                            <Route index element={<CompensationClaimIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<CompensationClaimCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                          <Route path="finish-good-valuation">
+                            <Route index element={<FinishGoodValuation />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<FinishGoodValuationCrud />}
+                            />
+                            <Route path="gl/:id" element={<BuyerGl />} />
+                          </Route>
+                        </Route>
+                      </Route>
                     </Route>
                   </Route>
-
-                  <Route path="embellishment">
-                    <Route
-                      path="embellishment-hourly-production-report"
-                      element={<EmbellishmentHourlyProductionReport />}
-                    />
-                    <Route
-                      path="embellishment-pi-report"
-                      element={<EmbellishmentPIReport />}
-                    />
-                    <Route
-                      path="supplier-wise-emb-stock-report"
-                      element={<SupplierWiseEmbStockReport />}
-                    />
-                    <Route
-                      path="supplier-wise-emb-stock-color-size-wise-report"
-                      element={<SupplierWiseEmbStockColorSizeWiseReport />}
-                    />
-                    <Route
-                      path="embellishment-budget-sheet"
-                      element={<EmblishmentBudgetSheet />}
-                    />
-                    <Route
-                      path="embellishment-daily-production-report"
-                      element={<EmbellishmentDailyProductionReport />}
-                    />
-                    <Route
-                      path="embellishment-daily-summary-production-report"
-                      element={<EmbellishmentDailySummaryProductionReport />}
-                    />
-                    <Route
-                      path="embellishment-order-details-report"
-                      element={<EmbellishmentOrderDetailsReport />}
-                    />
-
-                    <Route
-                      path="embellishment-order-summary-report"
-                      element={<EmbellishmentOrderSummaryReport />}
-                    />
-
-                    <Route
-                      path="embellishment-delivery-report"
-                      element={<EmbellishmentDeliveryReport />}
-                    />
-                  </Route>
-
-                  <Route path="ie">
-                    <Route
-                      path="style-change-over-report"
-                      element={<StyleChangeOver />}
-                    />
-                    <Route
-                      path="operation-bulletin-report"
-                      element={<OperationBulletinReport />}
-                    />
-                    <Route
-                      path="thread-consumption-report"
-                      element={<ThreadConsumptionReport />}
-                    />
-                  </Route>
-                  <Route path="quality">
-                    <Route
-                      path="import-fabric-inspection-info-report"
-                      element={<ImportFabricInspectionInfoReport />}
-                    />
-                  </Route>
-                  <Route path="sweater">
-                    <Route path="swt-planning">
-                      {/* <Route index element={<PlanningBoardConfigureIndex />} /> */}
-                      <Route
-                        path="line-loading-plan"
-                        element={<LineLoadingPlanIndex />}
-                      />
-                    </Route>
-                  </Route>
-
                   <Route path="*" element={<NoPage />} />
 
-                  {/* <Route index element={<Crm />} />
+                  <Route path="/report" element={<ReportLayout />}>
+                    {/* <Route index element={<Home />} /> */}
+                    <Route
+                      path="ff-allocation-report"
+                      element={<FinishFabricAllocationReport />}
+                    />
+
+                    <Route
+                      path="ff-allocation-summary-report"
+                      element={<FinishFabricAllocationSummaryReport />}
+                    />
+
+                    <Route path="production">
+                      <Route path="cutting">
+                        <Route
+                          path="fabric-quality-problem-report"
+                          element={<FabricQualityProblemReport />}
+                        />
+                      </Route>
+                      <Route path="finishing">
+                        <Route
+                          path="short-shipment-reason-status-report"
+                          element={<ShortShipmentReasonStatusReport />}
+                        />
+                        <Route
+                          path="finish-fabric-return-cutting-floor-to-store-report"
+                          element={
+                            <FinishFabricReturnCuttingFloorToStoreReport />
+                          }
+                        />
+                        <Route
+                          path="reconciliation-pending-done-report"
+                          element={<ReconciliationPendingDoneReport />}
+                        />
+                        <Route
+                          path="garments-dispatch-details-report"
+                          element={<GarmentsDispatchDetailsReport />}
+                        />
+                        <Route
+                          path="compensation-report"
+                          element={<CompensationReport />}
+                        />
+                      </Route>
+                      <Route path="cutting">
+                        <Route
+                          path="date-wise-fabric-requisition-receive-report"
+                          element={<DateWiseFabricRequisitionReceiveReport />}
+                        />
+                      </Route>
+                      <Route path="sewing">
+                        <Route
+                          path="sewing-input-challan-report"
+                          element={<SewingInputChallanReport />}
+                        />
+                        <Route
+                          path="daily-sewing-efficiecy-report"
+                          element={<DailySewingEfficiencyReport />}
+                        />
+                        <Route
+                          path="sewing-production-status-report"
+                          element={<SewingProductionStatusReport />}
+                        />
+                        <Route
+                          path="style-wise-avg-efficiency-report"
+                          element={<StyleWiseAvgEfficiencyReport />}
+                        />
+                        <Route
+                          path="general-and-ot-hours-production-report"
+                          element={<GeneralAndOTHoursProductionReport />}
+                        />
+                        <Route
+                          path="general-and-ot-hours-production-line-wise-report"
+                          element={<GeneralAndOTHoursProductionLineWiseReport />}
+                        />
+                        <Route
+                          path="online-display-board"
+                          element={<OnlineDisplayBoard />}
+                        />
+                        <Route
+                          path="online-display-board-view"
+                          element={<OnlineDisplayBoardView />}
+                        />
+                      </Route>
+                    </Route>
+
+                    <Route path="planning">
+                      <Route
+                        path="internal-product-placement-sheet-summary-report"
+                        element={<InternalProductPlacementSheetReport />}
+                      />
+                      <Route
+                        path="job-breakdown-report"
+                        element={<JobBreakdownReport />}
+                      />
+                      <Route
+                        path="style-wise-order-details-report"
+                        element={<StyleWiseOrderDetailsReport />}
+                      />
+                    </Route>
+
+                    <Route path="merchandising">
+                      <Route
+                        path="emb-status-report"
+                        element={<EmbStatusReport />}
+                      />
+                      <Route
+                        path="size-wise-order-summary-report"
+                        element={<SizeWiseOrderSummaryReport />}
+                      />
+                      <Route path="sample-program">
+                        <Route
+                          path="sample-program-report"
+                          element={<SampleProgramReportIndex />}
+                        />
+                      </Route>
+                      <Route
+                        path="yarn-additional-booking-report"
+                        element={<YarnAdditionalBookingReportIndex />}
+                      />
+                      <Route path="booking">
+                        <Route
+                          path="yarn-booking-report"
+                          element={<YarnBookingReportIndex />}
+                        />
+                        <Route
+                          path="fabric-booking-report"
+                          element={<FabricBookingReportIndex />}
+                        />
+                      </Route>
+                      <Route path="work-order">
+                        <Route
+                          path="acc-wo-hangtagsticker-rpt"
+                          element={<AccessoriesWoReport />}
+                        />
+                        <Route
+                          path="acc-wo-bkl-carelabel-rpt"
+                          element={<AccessoriesWoReport_Carelabel />}
+                        />
+                        <Route
+                          path="george-various-material-rpt"
+                          element={<GeorgeVariousMaterialReport />}
+                        />
+                        <Route
+                          path="starco-sticker-rpt"
+                          element={<StarcoStickerReport />}
+                        />
+                        <Route
+                          path="yarn-twisting-wrok-order-rpt"
+                          element={<YarnTwistingWorkOrderReport />}
+                        />
+                        <Route
+                          path="starco-label-rpt"
+                          element={<StarcoLabelReport />}
+                        />
+                        <Route
+                          path="block-accessories-rpt"
+                          element={<BlockAccessoriesReport />}
+                        ></Route>
+                        <Route
+                          path="accessories-rpt"
+                          element={<AccessoriesReport />}
+                        ></Route>
+                        <Route
+                          path="accessories-rpt-with-po"
+                          element={<AccessoriesReportWithPo />}
+                        ></Route>
+                      </Route>
+                      <Route
+                        path="style-wise-fabric-comsump-report"
+                        element={<StyleWiseFabricConsumptionReport />}
+                      />
+                      <Route
+                        path="style-wise-profig-loss-report"
+                        element={<StyleWiseProfitLossReportIndex />}
+                      />
+                      <Route
+                        path="a-to-z-report"
+                        element={<AtoZReportIndex />}
+                      />
+                      <Route
+                        path="BudgetWiseCostBreakdown"
+                        element={<BudgetWiseCostBreakdownIndex />}
+                      />
+                      <Route
+                        path="po-wise-fabric-access-status-report"
+                        element={<POwiseFabricAndAccessoriesStatusReport />}
+                      />
+                      <Route
+                        path="general-block-fabric-status-report"
+                        element={<GeneralBlockFabricStatusReport />}
+                      />
+                      <Route
+                        path="general-block-fabric-status-view"
+                        element={<GeneralBlockFabricStatusView />}
+                      />
+                      <Route
+                        path="shipment-delay-rpt"
+                        element={<ShipmentDelayReport />}
+                      ></Route>
+                      <Route
+                        path="shipment-delay-rpt-pdf"
+                        element={<ShipmentDelayReportPDF />}
+                      ></Route>
+                      <Route
+                        path="monthly-order-vs-shipment-status-report"
+                        element={<MonthlyOrderVsShipmentStatusReport />}
+                      ></Route>
+                      <Route
+                        path="emblishment-status-report"
+                        element={<EmblishmentStatusReport />}
+                      ></Route>
+                      <Route
+                        path="create-date-wise-po-summary-report"
+                        element={<CreateDateWisePoSummaryReport />}
+                      ></Route>
+                      <Route
+                        path="compensation-claim-report"
+                        element={<CompensationClaimReport />}
+                      ></Route>
+                      <Route
+                        path="material-order-yarn-dyeing-report"
+                        element={<MaterialOrderYarnDyeingReport />}
+                      ></Route>
+                      <Route
+                        path="budget-report"
+                        element={<BudgetReport />}
+                      ></Route>
+                      <Route
+                        path="budget-report-format2"
+                        element={<BudgetReportFormat2 />}
+                      ></Route>
+                    </Route>
+
+                    <Route path="textile">
+                      <Route path="knitting">
+                        <Route
+                          path="date-wise-knitting-program-report"
+                          element={<DateWiseKnittingProgramReport />}
+                        />
+                        <Route
+                          path="knitting-production-report"
+                          element={<KnittingProductionReport />}
+                        />
+                        <Route
+                          path="daily-knitting-update"
+                          element={<DailyKnittingUpdateReport />}
+                        />
+                        <Route
+                          path="grey-fabric-challan-report"
+                          element={<GreyFabricChallanReport />}
+                        />
+                        <Route
+                          path="knitting-program-report"
+                          element={<KnittingProgramReport />}
+                        />
+                        <Route
+                          path="party-wise-knitting-program-report"
+                          element={<PartyWiseKnittingProgramReport />}
+                        />
+                      </Route>
+                      <Route path="dyeing">
+                        <Route
+                          path="grey-batch-status-report"
+                          element={<GreyBatchStatusReport />}
+                        />
+                        <Route
+                          path="dyeing-buyer-wise-grey-stock-report"
+                          element={<DyeingBuyerWiseGreyStockReport />}
+                        />
+                        <Route
+                          path="buyer-wise-grey-fabric-receive-view"
+                          element={<BuyerWiseGreyFabricReceiveView />}
+                        />
+                        <Route
+                          path="buyer-wise-grey-fabric-receive"
+                          element={<BuyerWiseGreyFabricReceiveIndex />}
+                        />
+                        <Route
+                          path="batch-wise-approval-status-report"
+                          element={<BatchWiseApprovalStatusReport />}
+                        />
+                        <Route
+                          path="buyer-wise-dyeing-monthly-summ-view"
+                          element={<BuyerWiseDyeingMonthlySummaryReportView />}
+                        />
+                        <Route
+                          path="buyer-wise-dyeing-monthly-summ-rpt-index"
+                          element={<BuyerWiseDyeingMonthlySummaryReportIndex />}
+                        />
+                        <Route
+                          path="process-wise-dyeing-finish-production-rpt"
+                          element={<ProcessWiseDyeingFinishProductionReport />}
+                        />
+                        <Route
+                          path="subcontract-batch-wise-fabric-delivery-report"
+                          element={<SubcontractBatchWiseFabricDeliveryReport />}
+                        />
+                        <Route
+                          path="in-house-batch-wise-fabric-delivery-report"
+                          element={<InHouseBatchWiseFabricDeliveryReport />}
+                        />
+                      </Route>
+                    </Route>
+
+                    <Route path="store">
+                      <Route path="accessories-store">
+                        <Route
+                          path="accessories-receive-return-challan-gatepass-report"
+                          element={
+                            <AccessoriesReceiveReturnChallanGatePassReport />
+                          }
+                        />
+                        <Route
+                          path="accessories-issue-return-challan-report"
+                          element={<AccessoriesIssueReturnChallanReport />}
+                        />
+                        <Route
+                          path="monthly-yarn-costing-report"
+                          element={<MonthlyYarnCostingReport />}
+                        />
+                        <Route
+                          path="partywise-yarnissue-greyrcv-balance-summary-report"
+                          element={<PartyWiseYanrIssueAndGreyRcvSummaryIndex />}
+                        />
+                        <Route
+                          path="accessories-receive-status-by-challan-no-report"
+                          element={<AccessoriesReceiveStatusByChallanNoReport />}
+                        />
+                      </Route>
+                      <Route path="yarn-store">
+                        <Route
+                          path="yarn-rcv-issue-register-report"
+                          element={<YarnRcvIssueRegisterReport />}
+                        />
+                        <Route
+                          path="date-wise-yarn-allocation-report"
+                          element={<DateWiseYarnAllocationReport />}
+                        />
+                        <Route
+                          path="lot-wise-yarn-stock-report"
+                          element={<LotWiseYarnStockReport />}
+                        />
+                        <Route
+                          path="yarn-stock-after-alloction-report"
+                          element={<YarnStockAfterAlloctionReport />}
+                        />
+                        <Route
+                          path="yarn-return-challan-report"
+                          element={<YarnReturnChallanReport />}
+                        />
+                        <Route
+                          path="yarn-transfer-challan-report"
+                          element={<YarnTransferChallanReport />}
+                        />
+                        <Route
+                          path="yarn-transfer-challan-report-format2"
+                          element={<YarnTransferReportFormat2 />}
+                        />
+                        <Route
+                          path="order-wise-knit-dyeing-status-report"
+                          element={<OrderWiseKnittingDyeingStatusReportIndex />}
+                        />
+                        <Route
+                          path="order-wise-knit-dyeing-status-report-f2"
+                          element={<OrderWiseKnittingDyeingStatusReportIndexF2 />}
+                        />
+                        <Route
+                          path="outside-yissue-grcv-status-report"
+                          element={<OutSideYIssueGrcvStatusReport />}
+                        />
+                        <Route
+                          path="yarn-issue-status-report"
+                          element={<YarnIssueStatusReportIndex />}
+                        />
+                        <Route
+                          path="Buyer-Wise-Yarn-Possition-Report"
+                          element={<BuyerWiseYarnPossitionReportIndex />}
+                        />
+                        <Route
+                          path="yarn-issue-for-dyeing-report"
+                          element={<YarnIssueForDyeingReportIndex />}
+                        />
+                        <Route
+                          path="yarn-issue-for-twisting-report"
+                          element={<YarnIssueForTwistingReportIndex />}
+                        />
+                        <Route
+                          path="monthly-yarn-costing-report"
+                          element={<MonthlyYarnCostingReport />}
+                        />
+                        <Route
+                          path="partywise-yarnissue-greyrcv-balance-summary-report"
+                          element={<PartyWiseYanrIssueAndGreyRcvSummaryIndex />}
+                        />
+                        <Route
+                          path="yarn-delivery-challan-gate-pass-report"
+                          element={<YarnDeliveryChallanGatePassReport />}
+                        />
+                        <Route
+                          path="date-wise-yarn-receive-register-report"
+                          element={<DateWiseYarnReceiveRegisterReport />}
+                        />
+                      </Route>
+                      <Route path="grey-store">
+                        {GreyFabricStoreRoute().map((p) => (
+                          <Route
+                            key={p.path}
+                            path={p.path}
+                            element={p.component}
+                          />
+                        ))}
+                        <Route
+                          path="grey-fabric-transfer-report"
+                          element={<GreyFabricTransferReport />}
+                        />
+                        <Route
+                          path="grey-fabric-issue-to-dyeing-challan"
+                          element={<GreyFabricIssueToDyeingChallanIndex />}
+                        />
+                        <Route
+                          path="date-wise-yarn-and-grey-fabric-stock-report"
+                          element={<DateWiseYarnAndGreyFabricStockReport />}
+                        />
+                        <Route
+                          path="date-wise-grey-fabric-delivery-to-dyeing-report"
+                          element={<DateWiseGreyFabcirDeliveryToDyeingReport />}
+                        />
+                      </Route>
+                      <Route path="finish-fabric-store">
+                        <Route
+                          path="finish-fabric-stock-report"
+                          element={<FinishFabricStockReportIndex />}
+                        />
+                        <Route
+                          path="finish-fabric-receive-challan-report"
+                          element={<FinishFabricReceiveChallanReport />}
+                        />
+                        <Route
+                          path="date-wise-fabric-purchase-receive-register-report"
+                          element={<DateWiseFabricPurchaseReceiveRegisterReport />}
+                        />
+                        <Route
+                          path="date-wise-f-fabric-receive-issue-register-report"
+                          element={<DateWiseFinishFabricReceiveAndIssueRegisterReportIndex />}
+                        />
+                        {FinishFabricStoreRoute().map((p) => (
+                          <Route
+                            key={p.path}
+                            path={p.path}
+                            element={p.component}
+                          />
+                        ))}
+                      </Route>
+                    </Route>
+
+                    <Route path="embellishment">
+                      <Route
+                        path="embellishment-hourly-production-report"
+                        element={<EmbellishmentHourlyProductionReport />}
+                      />
+                      <Route
+                        path="embellishment-pi-report"
+                        element={<EmbellishmentPIReport />}
+                      />
+                      <Route
+                        path="supplier-wise-emb-stock-report"
+                        element={<SupplierWiseEmbStockReport />}
+                      />
+                      <Route
+                        path="supplier-wise-emb-stock-color-size-wise-report"
+                        element={<SupplierWiseEmbStockColorSizeWiseReport />}
+                      />
+                      <Route
+                        path="embellishment-budget-sheet"
+                        element={<EmblishmentBudgetSheet />}
+                      />
+                      <Route
+                        path="embellishment-daily-production-report"
+                        element={<EmbellishmentDailyProductionReport />}
+                      />
+                      <Route
+                        path="embellishment-daily-summary-production-report"
+                        element={<EmbellishmentDailySummaryProductionReport />}
+                      />
+                      <Route
+                        path="embellishment-order-details-report"
+                        element={<EmbellishmentOrderDetailsReport />}
+                      />
+
+                      <Route
+                        path="embellishment-order-summary-report"
+                        element={<EmbellishmentOrderSummaryReport />}
+                      />
+
+                      <Route
+                        path="embellishment-delivery-report"
+                        element={<EmbellishmentDeliveryReport />}
+                      />
+                    </Route>
+
+                    <Route path="ie">
+                      <Route
+                        path="style-change-over-report"
+                        element={<StyleChangeOver />}
+                      />
+                      <Route
+                        path="operation-bulletin-report"
+                        element={<OperationBulletinReport />}
+                      />
+                      <Route
+                        path="thread-consumption-report"
+                        element={<ThreadConsumptionReport />}
+                      />
+                    </Route>
+                    <Route path="quality">
+                      <Route
+                        path="import-fabric-inspection-info-report"
+                        element={<ImportFabricInspectionInfoReport />}
+                      />
+                    </Route>
+                    <Route path="sweater">
+                      <Route path="swt-planning">
+                        {/* <Route index element={<PlanningBoardConfigureIndex />} /> */}
+                        <Route
+                          path="line-loading-plan"
+                          element={<LineLoadingPlanIndex />}
+                        />
+                      </Route>
+                    </Route>
+
+                    <Route path="*" element={<NoPage />} />
+
+                    {/* <Route index element={<Crm />} />
                       <Route
                         path={`${import.meta.env.BASE_URL}dashboards/crm`}
                         element={<Crm />}
                       /> */}
-                </Route>
-              </Routes>
-            </React.Suspense>
-          </AuthProvider>
+                  </Route>
+                </Routes>
+              </React.Suspense>
+            </AuthProvider>
+          </NotificationProvider>
         </BrowserRouter>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Toaster />
