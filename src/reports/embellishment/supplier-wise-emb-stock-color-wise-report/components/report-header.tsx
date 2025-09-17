@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import { SupplierWiseEmbStockColorSizeWiseReportType } from "../supplier-wise-emb-stock-color-size-wise-report-type";
+import { SupplierWiseEmbStockColorWiseReportType } from "../supplier-wise-emb-stock-color-wise-report-type";
 
 function ReportHeader({
   data,
 }: {
-  data: SupplierWiseEmbStockColorSizeWiseReportType[];
+  data: SupplierWiseEmbStockColorWiseReportType[];
 }) {
 
   return (
@@ -36,7 +36,7 @@ function ReportHeader({
         })
       </h1> */}
       <h3 className="font-bold text-lg text-center">
-        Color & Size Wise Embellishment Stock Report
+        Color Wise Embellishment Stock Report
       </h3>
     </div>
   );

@@ -21,6 +21,7 @@ function EmbellishmentPIReport() {
   const [searchParams] = useSearchParams();
 
   const id = searchParams.get("id") || "0";
+  const companyId = searchParams.get("companyId") || "3";
 
 
   const api = useApiUrl();
@@ -32,7 +33,7 @@ function EmbellishmentPIReport() {
   useEffect(() => {
     async function getData() {
 
-      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentPIReport?id=${id}`;
+      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentPIReport?id=${id}&companyId=${companyId}`;
 
       try {
         setIsLoading(true);

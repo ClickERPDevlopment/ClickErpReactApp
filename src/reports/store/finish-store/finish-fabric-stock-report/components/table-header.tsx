@@ -1,5 +1,6 @@
+import { cn } from "@/lib/utils";
 
-export default function TableHeader() {
+export default function TableHeader({ isSizeWiseCheck }: { isSizeWiseCheck?: boolean }) {
     return (
         <thead className="bg-blue-300 sticky top-0">
             <tr>
@@ -7,8 +8,8 @@ export default function TableHeader() {
                 <th className="text-xs border border-black p-2 min-w-24">Buyer</th>
                 <th className="text-xs border border-black p-2 min-w-24">PO</th>
                 <th className="text-xs border border-black p-2 min-w-24">Style</th>
-                <th className="text-xs border border-black p-2 min-w-24">Color</th>
-                <th className="text-xs border border-black p-2 min-w-24">Size</th>
+                <th className="text-xs border border-black p-2 min-w-24" >Color</th>
+                <th className={cn(`text-xs border border-black p-2 min-w-24`, isSizeWiseCheck ? '' : 'hidden')}>Size</th>
                 <th className="text-xs border border-black p-2 min-w-24">Parts</th>
                 <th className="text-xs border border-black p-2 min-w-24">UOM</th>
                 <th className="text-xs border border-black p-2 min-w-24">Order Qty [A]</th>
@@ -28,7 +29,7 @@ export default function TableHeader() {
                 <th className="text-xs border border-black p-2 min-w-24">Issue to Other PO [O]</th>
                 <th className="text-xs border border-black p-2 min-w-24">LO Issue [P]</th>
                 <th className="text-xs border border-black p-2 min-w-24">Total Issue [Q=N+O+P]</th>
-                <th className="text-xs border border-black p-2 min-w-24">Stock Qty [R=I+J+K+L-Q]</th>
+                <th className="text-xs border border-black p-2 min-w-24">Stock Qty [R=I+J+L-K-Q]</th>
             </tr>
         </thead>
     )

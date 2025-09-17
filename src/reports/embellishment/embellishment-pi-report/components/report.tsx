@@ -77,7 +77,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
             <h3 className="font-bold underline text-gray-800 mb-2">
               Terms & Conditions:
             </h3>
-            <p className="whitespace-pre-line text-gray-700 leading-5">
+            <p className="whitespace-pre-line text-gray-700 leading-5 text-sm">
               {data[0]?.TERM_CONDITIONS}
             </p>
           </div>

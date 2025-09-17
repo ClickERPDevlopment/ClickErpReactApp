@@ -26,6 +26,14 @@ export default function ReportFooter({ }: { data: EmbellishmentPIReportType[] })
           </tr>
         </tfoot>
       </table>
+      <div className="w-full mt-5 border-t border-gray-950 p-1">
+        <p className="text-sm text-left">
+          <span className="font-bold">Head Office:</span> House 73, Road 17/A , Block -E, Banani, Dhaka - 1213, Bangladesh. <span className="font-bold">Tel:</span> ‪+880 2 222280840‬ , ‪+880 2 222280826‬ , ‪+880 2 222262720‬
+        </p>
+        <p className="text-sm text-left">
+          <span className="font-bold">Factory: </span> Vill - Naojur, P.O.-Kodda Bazar, P.S.-Joydebpur, Dist-Gazipur. <span className="font-bold">Tel: </span>9262356-7 , 9262368-9, Fax : 9263692, <span className="font-bold">Mob: </span>01730084101
+        </p>
+      </div>
     </div>
   );
 }

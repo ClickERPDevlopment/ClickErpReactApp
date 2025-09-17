@@ -29,4 +29,6 @@ export type EmbellishmentPIReportType = {
   OS_STYLE?: string | null;
   OS_PO_NO?: string | null;
   PRINT_TYPE?: string | null;
+  COMPANY_NAME?: string | null;
+  COMPANY_ADDRESS?: string | null;
 };
