@@ -3,6 +3,7 @@ import moment from "moment";
 import { EmbellishmentPIReportType } from "../embellishment-pi-report-type";
 
 function ReportHeader({
+  data
 }: {
   data: EmbellishmentPIReportType[];
 }) {
@@ -17,10 +18,14 @@ function ReportHeader({
       {/* Company Name & Address */}
       <div className="text-center">
         <h1 className="font-extrabold text-3xl uppercase tracking-wide">
-          Magnum Bd Pvt Ltd
+          {
+            data[0]?.COMPANY_NAME
+          }
         </h1>
         <p className="text-base leading-tight">
-          568 & 584, Naojour, Kodda, Jaydebpur, Gazipur.
+          {
+            data[0]?.COMPANY_ADDRESS
+          }
         </p>
       </div>
 
