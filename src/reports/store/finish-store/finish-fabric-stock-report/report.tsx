@@ -7,11 +7,13 @@ interface props {
   data?: IFinishFabricStockReport[];
   CompanyName?: string;
   CompanyAddress?: string;
+  isSizeWiseCheck?: boolean;
 }
 
 export default function Report({
   data,
-  CompanyName
+  CompanyName,
+  isSizeWiseCheck
 }: props) {
 
   const uniquePo = [...new Set(data?.map(item => item.PO_NO))];
@@ -38,7 +40,7 @@ export default function Report({
         <div className="min-w-[100%] mt-8">
           <div className="flex flex-col justify-center">
             <table className="w-full">
-              <TableHeader />
+              <TableHeader isSizeWiseCheck={isSizeWiseCheck} />
               <tbody>
                 {uniquePo?.map((po) => {
                   return (
@@ -46,16 +48,16 @@ export default function Report({
                       {GetStylesByPo(data, po)?.map((style) => {
                         return (
                           <>
-                            {GetDataByPoStyle(data, po, style)?.map((styleData) => <TableRow data={styleData} />)}
-                            <TableTotalRow data={GetDataByPoStyle(data, po, style)} title="Style Total" />
+                            {GetDataByPoStyle(data, po, style)?.map((styleData) => <TableRow data={styleData} isSizeWiseCheck={isSizeWiseCheck} />)}
+                            <TableTotalRow data={GetDataByPoStyle(data, po, style)} title="Style Total" isSizeWiseCheck={isSizeWiseCheck} />
                           </>
                         )
                       })}
-                      <TableTotalRow data={GetDataByPo(data, po)} title="PO Total" />
+                      <TableTotalRow data={GetDataByPo(data, po)} title="PO Total" isSizeWiseCheck={isSizeWiseCheck} />
                     </>
                   )
                 })}
-                <TableTotalRow data={data} title="Grand Total" />
+                <TableTotalRow data={data} title="Grand Total" isSizeWiseCheck={isSizeWiseCheck} />
               </tbody>
             </table>
           </div>

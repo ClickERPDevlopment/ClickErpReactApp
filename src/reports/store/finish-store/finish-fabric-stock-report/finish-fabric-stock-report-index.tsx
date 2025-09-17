@@ -86,7 +86,11 @@ export default function FinishFabricStockReportIndex() {
       {isLoading ? (
         <ReportSkeleton />
       ) : (
-        <Report data={data?.Data} CompanyName={data?.CompanyName} CompanyAddress={data?.CompanyAddress} />
+        <Report
+          data={data?.Data}
+          CompanyName={data?.CompanyName}
+          CompanyAddress={data?.CompanyAddress}
+          isSizeWiseCheck={isSizeWiseCheck.toLowerCase() === 'true' ? true : false} />
       )}
     </>
   );

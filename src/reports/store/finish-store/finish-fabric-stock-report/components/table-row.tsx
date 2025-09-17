@@ -1,7 +1,8 @@
 import moment from "moment";
 import { IFinishFabricStockReport } from "../IFinishFabricStockReport";
+import { cn } from "@/lib/utils";
 
-export default function TableRow({ data }: { data?: IFinishFabricStockReport }) {
+export default function TableRow({ data, isSizeWiseCheck }: { data?: IFinishFabricStockReport, isSizeWiseCheck?: boolean }) {
     return (
         <tr>
             <td className="text-xs border border-black p-2 min-w-24">{moment(data?.ORDERPLACEMENTMONTH).format('MMM-YY')}</td>
@@ -9,7 +10,7 @@ export default function TableRow({ data }: { data?: IFinishFabricStockReport }) 
             <td className="text-xs border border-black p-2 min-w-24">{data?.PO_NO}</td>
             <td className="text-xs border border-black p-2 min-w-24">{data?.STYLENO}</td>
             <td className="text-xs border border-black p-2 min-w-24">{data?.COLOR}</td>
-            <td className="text-xs border border-black p-2 min-w-24">{data?.SIZENAME}</td>
+            <td className={cn(`text-xs border border-black p-2 min-w-24`, isSizeWiseCheck ? '' : 'hidden')}>{data?.SIZENAME}</td>
             <td className="text-xs border border-black p-2 min-w-24">{data?.FABRIC_PART}</td>
             <td className="text-xs border border-black p-2 min-w-24">{data?.UOM}</td>
             <td className="text-xs border border-black p-2 min-w-24">{data?.BOOKING_QTY}</td>
