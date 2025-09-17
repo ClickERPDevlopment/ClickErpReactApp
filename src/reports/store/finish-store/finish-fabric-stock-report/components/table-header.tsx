@@ -28,7 +28,7 @@ export default function TableHeader() {
                 <th className="text-xs border border-black p-2 min-w-24">Issue to Other PO [O]</th>
                 <th className="text-xs border border-black p-2 min-w-24">LO Issue [P]</th>
                 <th className="text-xs border border-black p-2 min-w-24">Total Issue [Q=N+O+P]</th>
-                <th className="text-xs border border-black p-2 min-w-24">Stock Qty [R=I+J+K+L-Q]</th>
+                <th className="text-xs border border-black p-2 min-w-24">Stock Qty [R=I+J+L-K-Q]</th>
             </tr>
         </thead>
     )
