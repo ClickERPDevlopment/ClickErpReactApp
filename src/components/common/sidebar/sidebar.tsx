@@ -18,6 +18,7 @@ import SimpleBar from "simplebar-react";
 import Menuloop from "../../ui/menuloop";
 import { CommonMenu, SweaterMenu } from "@/lib/menu/sweater-menu";
 import { MerchandisingMenu } from "@/lib/menu/merchandising-menu";
+import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
 
 const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
   // const [menuitems, setMenuitems] = useState(MENUITEMS);
@@ -29,7 +30,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
 
   useEffect(() => {
     const menus = location.pathname.includes("/dashboard/configuration")
-      ? CommonMenu
+      ? ConfigurationMenu
       : location.pathname.includes("/dashboard/production")
         ? CommonMenu
         : location.pathname.includes("/dashboard/textile")

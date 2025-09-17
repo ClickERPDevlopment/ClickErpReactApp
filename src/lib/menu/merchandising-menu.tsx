@@ -7,7 +7,6 @@ export const MerchandisingMenu: MenuItem[] = [
     selected: false,
     dirchange: false,
   },
-
   {
     icon: <i className="side-menu__icon bx bx-home"></i>,
     type: "sub",

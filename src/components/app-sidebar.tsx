@@ -8,6 +8,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  // SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -115,7 +116,7 @@ export function AppSidebar() {
       return { menu: [], moduleTitle: "Application" };
     }
   }, [pathname]);
-
+  return null;
   return (
     <Sidebar>
       <SidebarContent className="shadow-lg bg-slate-600">

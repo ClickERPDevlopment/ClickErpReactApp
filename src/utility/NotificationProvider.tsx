@@ -4,13 +4,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { useAuth } from "@/lib/auth-provider";
+import { ConnectedUser } from "@/pages/ActiveUser/ConnectedUser";
 
-export type ConnectedUser = {
-  ConnectionId: string;
-  UserName: string;
-  FullName: string;
-  Designation: string;
-};
 
 type NotificationContextType = {
   connection?: signalR.HubConnection;

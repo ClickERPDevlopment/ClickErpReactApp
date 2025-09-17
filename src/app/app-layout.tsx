@@ -2,13 +2,9 @@
 import { Search } from "lucide-react";
 
 import { Link, Outlet } from "react-router";
-// import { AppSidebar } from "@/components/app-sidebar";
-// import LogoutButton from "@/components/logout-button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { SidebarProvider } from "@/components/ui/sidebar";
-// import { AuthContextType, useAuth } from "@/lib/auth-provider";
-import { ConfigurationMenu } from "@/lib/menu/configuration-menu";
 import { HrPayrollMenu } from "@/lib/menu/hr-payroll-menu";
 import { MenuType } from "@/lib/menu/menu-type";
 import { ProductionMenu } from "@/lib/menu/production-menu";
@@ -83,17 +79,13 @@ export function PageSearchDialog() {
   const lstMenu: searchMenuType[] = React.useMemo(() => {
     const lstMenu: searchMenuType[] = [];
 
-    const configMenu = getMenuList("Configuration", ConfigurationMenu);
     const proMenu = getMenuList("Production", ProductionMenu);
     const textMenu = getMenuList("Textile", TextileMenu);
     const hrPayMenu = getMenuList("Hr-Payroll", HrPayrollMenu);
-    // const merMenu = getMenuList("Merchandising", MerchandisingMenu);
 
-    lstMenu.push(...configMenu);
     lstMenu.push(...proMenu);
     lstMenu.push(...textMenu);
     lstMenu.push(...hrPayMenu);
-    // lstMenu.push(...merMenu);
     return lstMenu;
   }, []);
 
