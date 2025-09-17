@@ -189,6 +189,7 @@ import SupplierWiseEmbStockColorSizeWiseReport from "./reports/embellishment/sup
 import FinishFabricStockReportIndex from "./reports/store/finish-store/finish-fabric-stock-report/finish-fabric-stock-report-index.tsx";
 import EmbellishmentHourlyProductionReport from "./reports/embellishment/embellishment-hourly-production-report/embellishment-hourly-production-report-index.tsx";
 import { NotificationProvider } from "./utility/NotificationProvider.tsx";
+import SupplierWiseEmbStockColorWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-wise-report/supplier-wise-emb-stock-color-wise-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -962,6 +963,10 @@ createRoot(document.getElementById("root")!).render(
                     </Route>
 
                     <Route path="embellishment">
+                      <Route
+                        path="supplier-wise-emb-stock-color-wise-report"
+                        element={<SupplierWiseEmbStockColorWiseReport />}
+                      />
                       <Route
                         path="embellishment-hourly-production-report"
                         element={<EmbellishmentHourlyProductionReport />}

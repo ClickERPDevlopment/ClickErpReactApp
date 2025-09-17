@@ -6,7 +6,7 @@ export default function ReportHeader({ data, reportFormat }: { data: GreyFabricI
         return (
             <div className='min-w-full text-center font-bold'>
                 {
-                    reportFormat == 2 && <p className='text-right font-bold text-sm'>{moment().format("DD-MMM-YY hh:mm A")}</p>
+                    <p className='text-right font-bold text-sm'>{moment().format("DD-MMM-YY hh:mm A")}</p>
                 }
                 <h1 className='text-2xl font-bold'>{data?.GROUP_COMPANY_NAME}</h1>
                 <h1 className='text-base'>Address: {data?.GROUP_COMPANY_ADDRESS}</h1>
