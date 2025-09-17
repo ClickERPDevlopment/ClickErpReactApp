@@ -74,10 +74,10 @@ function ReportGroup({
       <tr className="text-xs font-bold">
         <td colSpan={7} className="border border-gray-900 p-1 text-center ">Material Total</td>
         <td className="border border-gray-900 p-1 text-center">
-          {totalWoQty}
+
         </td>
         <td className="border border-gray-900 p-1 text-center"></td>
-        <td className="border border-gray-900 p-1 text-center"></td>
+        <td className="border border-gray-900 p-1 text-center">  {totalWoQty}</td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">
 
