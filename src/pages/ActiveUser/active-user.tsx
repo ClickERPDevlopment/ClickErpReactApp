@@ -23,7 +23,7 @@ export default function ActiveUsers() {
     const fUsers = reactUser.filter((user) => user.App?.toLowerCase() === value?.toLowerCase());
     setData(fUsers);
   }
-  const [isAll, setIsAll] = React.useState(false);
+  const [isAll, setIsAll] = React.useState(true);
   const [isWeb, setIsWeb] = React.useState(false);
   const [isDesktop, setIsDesktop] = React.useState(false);
 
