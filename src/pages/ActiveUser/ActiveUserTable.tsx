@@ -73,7 +73,7 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
                     className="max-w-sm"
                 />
             </div>
-            <div className="flex-1 rounded-md border bg-white shadow-sm border-green m-0 p-0 overflow-scroll">
+            <div className="flex-1 rounded-md border bg-white shadow-sm border-green m-0 p-0">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
