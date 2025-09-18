@@ -16,7 +16,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { ConnectedUser } from "./ConnectedUser";
-import { Input } from "@/components/ui/input";
 
 export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
 
@@ -62,8 +61,8 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
     });
 
     return (
-        <div className="w-full min-h-full p-5 bg-white rounded-md shadow-sm flex flex-col gap-2">
-            <div className="flex items-center gap-1">
+        <>
+            {/* <div className="flex items-center gap-1">
                 <Input
                     placeholder="Filter name..."
                     value={(table.getColumn("FullName")?.getFilterValue() as string) ?? ""}
@@ -72,8 +71,8 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
                     }
                     className="max-w-sm"
                 />
-            </div>
-            <div className="flex-1 rounded-md border bg-white shadow-sm border-green m-0 p-0">
+            </div> */}
+            <div className="flex-1 rounded-md border bg-white shadow-sm border-green m-0 p-0 overflow-hidden">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -123,6 +122,6 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
                     </TableBody>
                 </Table>
             </div>
-        </div>
+        </>
     );
 }
