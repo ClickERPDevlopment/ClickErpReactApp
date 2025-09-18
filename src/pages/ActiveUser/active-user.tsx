@@ -5,8 +5,7 @@ export default function ActiveUsers() {
   const { reactUser } = useNotifications();
 
   return (
-    <div>
-      {/* {JSON.stringify(reactUser)} */}
+    <div className="w-full h-full">
       <ActiveUserTable data={reactUser} />
     </div>
   )
