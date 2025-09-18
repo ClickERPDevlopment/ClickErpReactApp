@@ -68,7 +68,7 @@ function App() {
                 <Outlet />
               </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
           <Tabtotop />
         </HelmetProvider>

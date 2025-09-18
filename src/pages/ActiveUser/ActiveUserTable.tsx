@@ -16,15 +16,9 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { ConnectedUser } from "./ConnectedUser";
+import { Input } from "@/components/ui/input";
 
 export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
-    // const [sorting, setSorting] = React.useState<SortingState>([]);
-    // const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    //     []
-    // );
-    // const [columnVisibility, setColumnVisibility] =
-    //     React.useState<VisibilityState>({});
-    // const [rowSelection, setRowSelection] = React.useState({});
 
     const columns: ColumnDef<ConnectedUser>[] = [
         {
@@ -64,25 +58,12 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
     const table = useReactTable({
         data,
         columns,
-        // onSortingChange: setSorting,
-        // onColumnFiltersChange: setColumnFilters,
         getCoreRowModel: getCoreRowModel(),
-        // getPaginationRowModel: getPaginationRowModel(),
-        // getSortedRowModel: getSortedRowModel(),
-        // getFilteredRowModel: getFilteredRowModel(),
-        // onColumnVisibilityChange: setColumnVisibility,
-        // onRowSelectionChange: setRowSelection,
-        // state: {
-        //     sorting,
-        //     columnFilters,
-        //     columnVisibility,
-        //     rowSelection,
-        // },
     });
 
     return (
-        <div className="w-full min-h-full py-5">
-            {/* <div className="flex items-center py-4 gap-1">
+        <div className="w-full min-h-full p-5 bg-white rounded-md shadow-sm flex flex-col gap-2">
+            <div className="flex items-center gap-1">
                 <Input
                     placeholder="Filter name..."
                     value={(table.getColumn("FullName")?.getFilterValue() as string) ?? ""}
@@ -91,9 +72,9 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
                     }
                     className="max-w-sm"
                 />
-            </div> */}
-            <div className="w-full min-h-full rounded-md border bg-white shadow-sm border-green m-0 p-5">
-                <Table className="h-full w-full">
+            </div>
+            <div className="flex-1 rounded-md border bg-white shadow-sm border-green m-0 p-0 overflow-scroll">
+                <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -142,30 +123,6 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
                     </TableBody>
                 </Table>
             </div>
-            {/* <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-                <div className="space-x-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        Previous
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Next
-                    </Button>
-                </div>
-            </div> */}
         </div>
     );
 }
