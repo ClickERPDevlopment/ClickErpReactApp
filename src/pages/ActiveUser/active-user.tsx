@@ -29,18 +29,23 @@ export default function ActiveUsers() {
   return (
     <div className="w-full h-full py-5">
       <div className="w-full min-h-full p-5 bg-white rounded-md shadow-sm flex flex-col gap-2">
-        <div className="flex items-center gap-2">
-          <Select onValueChange={(e) => setApp(e)}>
-            <SelectTrigger className="w-[180px] border-gray-400">
-              <SelectValue placeholder="Select App" className="placeholder:text-gray-400" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All</SelectItem>
-              <SelectItem value="Web">Web</SelectItem>
-              <SelectItem value="Desktop">Desktop</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button onClick={handleFilterUser}>Refresh</Button>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Select onValueChange={(e) => setApp(e)}>
+              <SelectTrigger className="w-[180px] border-gray-400">
+                <SelectValue placeholder="Select App" className="placeholder:text-gray-400" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="Web">Web</SelectItem>
+                <SelectItem value="Desktop">Desktop</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleFilterUser}>Refresh</Button>
+          </div>
+          <div>
+            <span>Total Connected Client: {data?.length}</span>
+          </div>
         </div>
         <ActiveUserTable data={data} />
       </div>
