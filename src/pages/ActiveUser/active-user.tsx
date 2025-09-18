@@ -43,8 +43,10 @@ export default function ActiveUsers() {
             </Select>
             <Button onClick={handleFilterUser}>Refresh</Button>
           </div>
-          <div>
-            <span>Total Connected Client: {data?.length}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-fuchsia-700">Web User: {data?.filter(user => user.App === 'Web').length}</span>
+            <span className="text-emerald-700">Desktop User: {data?.filter(user => user.App !== 'Web').length}</span>
+            <span className="text-violet-700">Total User: {data?.length}</span>
           </div>
         </div>
         <ActiveUserTable data={data} />
