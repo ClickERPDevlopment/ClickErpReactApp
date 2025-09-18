@@ -20,9 +20,9 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
   return (
     <div
       style={{ fontFamily: "Times New Roman, serif" }}
-      className="px-2 py-6 text-gray-900 bg-white"
+      className="h-screen px-2 py-6 text-gray-900 bg-white flex flex-col"
     >
-      <div className="p-4 border border-gray-300 rounded-md bg-white">
+      <div className="p-4 border border-gray-300 rounded-md bg-white flex-1 flex flex-col">
         <ReportHeader data={data} />
 
         <div className="flex justify-between mb-6 mt-4 text-sm">
@@ -52,7 +52,10 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
               <tr>
                 <td className="p-1 pr-4 text-gray-700">Party Order</td>
                 <td className="p-1 text-gray-900">
-                  : {Array.from(new Set(data.map(item => item.EMB_WORK_ORDER_NO))).join(", ") || "N/A"}
+                  :{" "}
+                  {Array.from(
+                    new Set(data.map((item) => item.EMB_WORK_ORDER_NO))
+                  ).join(", ") || "N/A"}
                 </td>
               </tr>
               <tr>
@@ -68,7 +71,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
           </table>
         </div>
 
-        <div className="mt-2">
+        <div className="mt-2 flex-1">
           <ReportTable data={data} firstHeader={firstHeader} />
         </div>
 
@@ -83,11 +86,27 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
           </div>
         )}
 
-        <div className="mt-10">
+        <div className="mt-10 mb-5">
           <ReportFooter data={data} />
+        </div>
+
+        <div className="w-full border-t border-gray-950 p-1 mt-auto">
+          <p className="text-sm text-left">
+            <span className="font-bold">Head Office:</span> House 73, Road 17/A ,
+            Block -E, Banani, Dhaka - 1213, Bangladesh.
+            <span className="font-bold"> Tel:</span> ‪+880 2 222280840‬ , ‪+880 2
+            222280826‬ , ‪+880 2 222262720‬
+          </p>
+          <p className="text-sm text-left">
+            <span className="font-bold">Factory: </span> Vill - Naojur,
+            P.O.-Kodda Bazar, P.S.-Joydebpur, Dist-Gazipur.
+            <span className="font-bold"> Tel: </span>9262356-7 , 9262368-9, Fax :
+            9263692, <span className="font-bold"> Mob: </span>01730084101
+          </p>
         </div>
       </div>
     </div>
+
   );
 }
 
