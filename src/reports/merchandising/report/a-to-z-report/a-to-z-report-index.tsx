@@ -142,6 +142,7 @@ export default function AtoZReportIndex() {
                     <BuyerGroupSection
                       data_fabric={data_fabric?.filter(y => y.BUYER === x)}
                       data_gmt={data_gmt}
+                      buyerIndex={i}
                       key={i} />
                   ))}
                   <TotalRow data={data_fabric} title="Total" />
