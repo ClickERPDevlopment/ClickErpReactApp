@@ -62,16 +62,6 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
 
     return (
         <>
-            {/* <div className="flex items-center gap-1">
-                <Input
-                    placeholder="Filter name..."
-                    value={(table.getColumn("FullName")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("FullName")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-            </div> */}
             <div className="flex-1 rounded-md border bg-white shadow-sm border-green m-0 p-0 overflow-hidden">
                 <Table>
                     <TableHeader>

@@ -22,7 +22,7 @@ export default function ActiveUsers() {
       return;
     }
 
-    const fUsers = reactUser.filter((user) => user.App.toLowerCase() === value.toLowerCase());
+    const fUsers = reactUser.filter((user) => user.App?.toLowerCase() === value?.toLowerCase());
     setData(fUsers);
   }
 
