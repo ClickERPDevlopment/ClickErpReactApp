@@ -30,6 +30,9 @@ export default function AtoZReportIndex() {
   let buyerId: string | null = "";
   let poId: string | null = "";
   let styleId: string | null = "";
+  let isPlanningDateWise: string | null = "";
+  let fromPlanningDate: string | null = "";
+  let toPlanningDate: string | null = "";
 
   if (searchParams.get("isOpmWise")) {
     isOpmWise = true;
@@ -52,6 +55,18 @@ export default function AtoZReportIndex() {
   if (searchParams.get("styleId")) {
     styleId = searchParams.get("styleId");
   }
+  if (searchParams.get("isPlanningDateWise")) {
+    isPlanningDateWise = searchParams.get("isPlanningDateWise");
+  }
+  if (searchParams.get("fromPlanningDate")) {
+    fromPlanningDate = searchParams.get("fromPlanningDate");
+  }
+  if (searchParams.get("toPlanningDate")) {
+    toPlanningDate = searchParams.get("toPlanningDate");
+  }
+
+
+
 
   const api = useApiUrl();
 
@@ -66,7 +81,7 @@ export default function AtoZReportIndex() {
 
         await axios
           .get(
-            `${api.ProductionUrl}/production/MerchReport/AtoZReport??isOpmWise=${isOpmWise}&fromOpmDate=${fromOpmDate}&toOpmDate=${toOpmDate}&companyId=${companyId}&buyerId=${buyerId}&poId=${poId}&styleId=${styleId}`
+            `${api.ProductionUrl}/production/MerchReport/AtoZReport??isOpmWise=${isOpmWise}&fromOpmDate=${fromOpmDate}&toOpmDate=${toOpmDate}&companyId=${companyId}&buyerId=${buyerId}&poId=${poId}&styleId=${styleId}&isPlanningDateWise=${isPlanningDateWise}&fromPlanningDate=${fromPlanningDate}&toPlanningDate=${toPlanningDate}`
           )
           .then((res) => {
             if (res.data) {
