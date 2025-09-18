@@ -21,7 +21,6 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
 
     const columns: ColumnDef<ConnectedUser>[] = [
         {
-            accessorKey: "ConnectionId",
             header: "SL",
             cell: ({ row }: any) => (
                 <div className="capitalize">{row.index + 1}</div>
