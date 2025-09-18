@@ -190,6 +190,8 @@ import FinishFabricStockReportIndex from "./reports/store/finish-store/finish-fa
 import EmbellishmentHourlyProductionReport from "./reports/embellishment/embellishment-hourly-production-report/embellishment-hourly-production-report-index.tsx";
 import { NotificationProvider } from "./utility/NotificationProvider.tsx";
 import SupplierWiseEmbStockColorWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-wise-report/supplier-wise-emb-stock-color-wise-report-index.tsx";
+import ActiveUsers from "./pages/ActiveUser/active-user.tsx";
+import ChatIndex from "./pages/Chat/chat-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -226,6 +228,14 @@ createRoot(document.getElementById("root")!).render(
                         <Route
                           path="configuration/country/:pageAction/:id"
                           element={<CountryCrud />}
+                        />
+                        <Route
+                          path="configuration/active-user"
+                          element={<ActiveUsers />}
+                        />
+                        <Route
+                          path="configuration/chat"
+                          element={<ChatIndex />}
                         />
                         {/* <Route
                     path="merchandising"

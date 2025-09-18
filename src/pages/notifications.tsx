@@ -1,13 +1,6 @@
 import React from "react";
 import { useNotifications } from "@/utility/NotificationProvider";
 
-export type ConnectedUser = {
-  ConnectionId: string;
-  UserName: string;
-  FullName: string;
-  Designation: string;
-};
-
 export default function Notifications() {
   const { windowsUser, reactUser, chatMessages, sendChatMessage: sendMessage } = useNotifications();
   const [message, setMessage] = React.useState("");
@@ -18,7 +11,7 @@ export default function Notifications() {
     </span>
     <div style={{ border: "1px solid red", padding: "10px" }}>
       <span>
-        windowsUser
+        Windows User
       </span>
       {windowsUser.map((item, index) => (
         <p key={index}>{JSON.stringify(item)}</p>
@@ -26,7 +19,7 @@ export default function Notifications() {
     </div>
     <div style={{ border: "1px solid red", padding: "10px" }}>
       <span>
-        React user
+        All user
       </span>
       {reactUser.map((item, index) => (
         <p key={index}>{JSON.stringify(item)}</p>
