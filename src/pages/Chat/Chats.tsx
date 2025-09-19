@@ -17,10 +17,10 @@ export default function Chats({ selectedUser, setSelectedUser }: { selectedUser:
             </div>
 
             {/* Messages Area - Fixed height with proper scrolling */}
-            <div className="overflow-y-scroll flex flex-col flex-1 items-center p-2 rounded-bl-md border-b border-b-gray-300 w-full">
+            <div className="overflow-y-scroll flex flex-col flex-1 items-center p-2 rounded-bl-md border-b border-b-gray-300 w-full gap-1">
                 <UserCard userName="All" lastMsg="" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 {reactUser?.map(item =>
-                    <UserCard userName={item.FullName} lastMsg="" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+                    <UserCard userName={item.UserName} lastMsg="" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 )}
             </div>
         </div>

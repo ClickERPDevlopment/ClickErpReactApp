@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useEffect } from 'react';
 import { Send, Paperclip, Smile, MoreHorizontal, User, Bot } from 'lucide-react';
@@ -8,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNotifications } from '@/utility/NotificationProvider';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { ConnectedUser } from '../ActiveUser/ConnectedUser';
 
 // Message type definition
 interface Message {
@@ -19,25 +21,32 @@ interface Message {
     name?: string;
 }
 
-const initialMessages: Message[] = [
-    {
-        id: '1',
-        content: 'Hello! How can I help you today?',
-        sender: 'bot',
-        timestamp: new Date(Date.now() - 300000),
-        avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=chatbot',
-        name: 'Assistant'
-    }
-];
+
 
 export default function ChatInterface({ selectedUser }: { selectedUser: string }) {
-    const { SendMessage: sendChatMessage, message: chatMessage, sendChatMessageToUser } = useNotifications();
+    const { SendMessage: sendChatMessage, message: chatMessage, SendChatMessageToUser, GetClientInfo, ClientInfo } = useNotifications();
 
-    const [messages, setMessages] = useState(initialMessages);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+    const [user, setUser] = useState<ConnectedUser | null>(null);
+
+    useEffect(() => {
+        if (selectedUser) {
+            setUser(null);
+            setMessages([]);
+            setInputValue('');
+            setIsTyping(false);
+            GetClientInfo(selectedUser)
+        }
+    }, [selectedUser]);
+
+    useEffect(() => {
+        if (ClientInfo)
+            setUser(ClientInfo)
+    }, [ClientInfo]);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,7 +54,6 @@ export default function ChatInterface({ selectedUser }: { selectedUser: string }
 
     useEffect(() => {
         if (chatMessage) {
-            // Add user message
             const botResponse: Message = {
                 id: (Date.now() + 1).toString(),
                 content: chatMessage,
@@ -54,7 +62,6 @@ export default function ChatInterface({ selectedUser }: { selectedUser: string }
                 avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=chatbot',
                 name: 'Assistant'
             };
-
             setMessages(prev => [...prev, botResponse]);
         }
     }, [chatMessage]);
@@ -63,7 +70,7 @@ export default function ChatInterface({ selectedUser }: { selectedUser: string }
         e.preventDefault();
 
         if (inputValue.trim() === '') return;
-        sendChatMessageToUser(selectedUser, inputValue.trim());
+        SendChatMessageToUser(selectedUser, inputValue.trim());
 
         // Add user message
         const userMessage: Message = {
@@ -99,9 +106,9 @@ export default function ChatInterface({ selectedUser }: { selectedUser: string }
                                 </AvatarFallback>
                             </Avatar>
                             <div>
-                                <h2 className="font-semibold text-lg">{selectedUser}</h2>
+                                <h2 className="font-semibold text-lg">{user?.FullName}</h2>
                                 <p className="text-sm text-gray-500">
-                                    {isTyping ? 'Typing...' : 'Online'}
+                                    {user?.Designation}
                                 </p>
                             </div>
                         </div>
@@ -130,9 +137,9 @@ export default function ChatInterface({ selectedUser }: { selectedUser: string }
                     <div className="overflow-scroll h-[calc(100vh-250px)]">
                         <ScrollArea className="h-full p-4 py-1">
                             <div className="space-y-4" ref={messagesContainerRef}>
-                                {messages.map((message) => (
+                                {messages.map((message, index) => (
                                     <div
-                                        key={message.id}
+                                        key={index}
                                         className={cn(
                                             'flex items-start space-x-3',
                                             message.sender === 'user' && 'flex-row-reverse space-x-reverse'

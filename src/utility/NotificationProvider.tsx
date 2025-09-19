@@ -10,11 +10,13 @@ import { ConnectedUser } from "@/pages/ActiveUser/ConnectedUser";
 
 type NotificationContextType = {
   connection?: signalR.HubConnection;
+  ClientInfo?: ConnectedUser;
   windowsUser: ConnectedUser[];
   reactUser: ConnectedUser[];
   message?: string;
   SendMessage: (msg: string) => void;
-  sendChatMessageToUser: (userName: string, msg: string) => void;
+  SendChatMessageToUser: (userName: string, msg: string) => void;
+  GetClientInfo: (userName: string) => void;
 };
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   const [windowsUser, setWindowsUser] = useState<ConnectedUser[]>([]);
   const [reactUser, setReactUser] = useState<ConnectedUser[]>([]);
   const [message, setMessage] = useState<string>();
+  const [ClientInfo, setClientInfo] = useState<ConnectedUser>();
   const api = useApiUrl();
   const user = useAuth();
 
@@ -95,9 +98,17 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }
 
-  function sendChatMessageToUser(userName: string, msg: string) {
+  function SendChatMessageToUser(userName: string, msg: string) {
     if (connection && userName && msg) {
       connection.invoke("SendChatMessageToUser", userName, msg);
+    }
+  }
+
+  function GetClientInfo(userName: string) {
+    if (connection && userName) {
+      connection.invoke("GetClientInfo", userName).then((u: ConnectedUser) => {
+        setClientInfo(u);
+      });
     }
   }
 
@@ -109,7 +120,9 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
         reactUser,
         message,
         SendMessage,
-        sendChatMessageToUser,
+        SendChatMessageToUser,
+        GetClientInfo,
+        ClientInfo
       }}
     >
       {children}

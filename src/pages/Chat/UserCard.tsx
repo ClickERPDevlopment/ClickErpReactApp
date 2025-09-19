@@ -10,7 +10,7 @@ export default function UserCard({ userName, lastMsg, selectedUser, setSelectedU
         <div className={cn("flex items-center space-x-3  hover:bg-gray-300 w-full p-2 rounded-md", (selectedUser == userName ? 'bg-gray-400' : ''))}
             onClick={() => setSelectedUser(userName)}>
             <Avatar className="h-10 w-10">
-                <AvatarImage src="https://api.dicebear.com/7.x/bottts/svg?seed=chatbot" alt="Chatbot" />
+                <AvatarImage src='https://api.dicebear.com/7.x/avataaars/svg?seed=user' alt="user" />
                 <AvatarFallback>
                     <Bot className="h-5 w-5" />
                 </AvatarFallback>

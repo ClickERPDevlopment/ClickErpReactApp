@@ -16,16 +16,4 @@ export default function ChatIndex() {
             </div>
         </div>
     )
-
-    // return (
-    //     <div>
-    //         <span>
-    //             Message
-    //         </span>
-    //         <div className="flex gap-2">
-    //             <Input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-    //             <Button onClick={() => sendMessage(message)}>Send Message</Button>
-    //         </div>
-    //     </div>
-    // )
 }
