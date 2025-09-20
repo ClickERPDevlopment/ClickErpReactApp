@@ -28,7 +28,7 @@ export default function useApiUrl() {
 
   // const agUrl = "http://103.95.98.115:6307/api";
   // const agRootUrl = "http://103.95.98.115:6307";
-  
+
   const nurUrl = "http://163.47.147.34:6007/api";
   const nurRootUrl = "http://163.47.147.34:6007";
 
@@ -84,7 +84,7 @@ export default function useApiUrl() {
     }
   }
 
-  // ProductionUrl = icclUrl;
-  // ProductionRootUrl = icclRootUrl;
+  // ProductionUrl = euroUrl;
+  // ProductionRootUrl = euroRootUrl;
   return { ProductionUrl, ProductionRootUrl };
 }
