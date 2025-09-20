@@ -42,7 +42,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
       .withUrl(api.ProductionRootUrl + "/notificationhub", {
         withCredentials: false,
       })
-      .withAutomaticReconnect()
+      // .withAutomaticReconnect()
       .build();
 
     connectionRef.current = newConnection;
