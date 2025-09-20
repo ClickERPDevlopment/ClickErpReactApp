@@ -136,6 +136,12 @@ export default function AtoZReportIndex() {
                 </h5>
                 : ''
               }
+              {isPlanningDateWise?.toLowerCase() === 'true' ?
+                <h5 className="text-left font-bold text-base px-5">
+                  Planning Date from {moment(fromPlanningDate).format("MMM-YYYY")} to {moment(toPlanningDate).format("MMM-YYYY")}
+                </h5>
+                : ''
+              }
             </div>
 
             <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 m-1">
