@@ -119,13 +119,13 @@ function Report({
                 colSpan={middleHeader.length}
                 className="border border-gray-950 p-0.1"
               >
-                Embellishment Rcv from Factory
+                Embellishment Send
               </th>
               <th
                 colSpan={middleHeader.length}
                 className="border border-gray-950 p-0.1"
               >
-                Embellishment Return to Factory
+                Embellishment Receive
               </th>
               <th
                 colSpan={middleHeader.length}
