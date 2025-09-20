@@ -15,7 +15,6 @@ function SupplierWiseEmbStockReport() {
   );
 
 
-
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
@@ -31,6 +30,8 @@ function SupplierWiseEmbStockReport() {
   const styleId = Number(searchParams.get("styleId") || 0);
   const companyId = Number(searchParams.get("companyId") || 1);
   const loggedInCompanyId = Number(searchParams.get("loggedInCompanyId") || 1);
+
+
   const api = useApiUrl();
 
   useEffect(() => {
@@ -86,7 +87,7 @@ function SupplierWiseEmbStockReport() {
   ) : (
     <>
       <div>
-        <Report data={data}></Report>
+        <Report data={data} ></Report>
       </div>
     </>
   );

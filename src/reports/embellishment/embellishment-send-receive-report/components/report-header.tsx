@@ -4,8 +4,17 @@ import { SupplierWiseEmbStockReportType } from "../embellishment-send-receive-re
 
 function ReportHeader({
   data,
+  searchParamsObj
 }: {
   data: SupplierWiseEmbStockReportType[];
+  searchParamsObj: {
+    fromOpmDate: string,
+    toOpmDate: string,
+    fromSendRcvDate: string,
+    toSendRcvDate: string,
+    isOpmDate: boolean,
+    isSendRcvDate: boolean,
+  }
 }) {
 
   return (
@@ -38,6 +47,23 @@ function ReportHeader({
       <h3 className="font-bold text-lg text-center">
         Embellishment Send Receive Report
       </h3>
+
+      {
+        searchParamsObj.isOpmDate && <>
+          <h4 className="font-bold text-sm text-center">
+            OPM From: {moment(searchParamsObj.fromOpmDate).format("MMM-YY")} To: {moment(searchParamsObj.toOpmDate).format("MMM-YY")}
+          </h4>
+        </>
+      }
+
+      {
+        searchParamsObj.isSendRcvDate && <>
+          <h4 className="font-bold text-sm text-center">
+            Send/Rcv From: {moment(searchParamsObj.fromSendRcvDate).format("DD-MMM-YY")} To: {moment(searchParamsObj.toSendRcvDate).format("DD-MMM-YY")}
+          </h4>
+        </>
+      }
+
     </div>
   );
 }

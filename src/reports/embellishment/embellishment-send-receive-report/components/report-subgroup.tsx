@@ -32,6 +32,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.1">{data[0]?.STYLENO}</td>
         <td className="border border-gray-950 p-0.1">{data[0]?.STYLENAME}</td>
         <td className="border border-gray-950 p-0.1">{data[0]?.PONO}</td>
+        <td className="border border-gray-950 p-0.1">{data[0]?.COLORNAME}</td>
         <td className="border border-gray-950 p-0.1 text-center">{orderQty}</td>
         <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#c9eaa4" }}>{pRcv}</td>
         <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#e5b5ac" }}>{eRcv}</td>

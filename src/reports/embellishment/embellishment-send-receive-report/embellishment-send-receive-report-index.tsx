@@ -32,6 +32,17 @@ function EmbellishmentSendReceiveReport() {
   const colorId = Number(searchParams.get("colorId") || 0);
   const companyId = Number(searchParams.get("companyId") || 1);
   const loggedInCompanyId = Number(searchParams.get("loggedInCompanyId") || 1);
+
+
+  const searchParamsObj = {
+    fromOpmDate,
+    toOpmDate,
+    fromSendRcvDate,
+    toSendRcvDate,
+    isOpmDate,
+    isSendRcvDate,
+  }
+
   const api = useApiUrl();
 
   useEffect(() => {
@@ -88,7 +99,7 @@ function EmbellishmentSendReceiveReport() {
   ) : (
     <>
       <div>
-        <Report data={data}></Report>
+        <Report data={data} searchParamsObj={searchParamsObj}></Report>
       </div>
     </>
   );

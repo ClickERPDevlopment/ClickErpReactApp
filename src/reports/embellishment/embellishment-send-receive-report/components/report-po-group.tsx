@@ -76,7 +76,7 @@ function ReportPoGroup({
         </>
       })}
       <tr style={{ fontSize: "13px" }} className="font-bold">
-        <td colSpan={4} className="border border-gray-950 p-0.1 text-center">Style Wise Subtotal</td>
+        <td colSpan={5} className="border border-gray-950 p-0.1 text-right">Style Wise Subtotal</td>
         <td className="border border-gray-950 p-0.1 text-center">{orderQty}</td>
         <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#c9eaa4" }}>{pRcv}</td>
         <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#e5b5ac" }}>{eRcv}</td>

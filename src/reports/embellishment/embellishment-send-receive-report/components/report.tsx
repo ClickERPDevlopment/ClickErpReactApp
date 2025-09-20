@@ -6,8 +6,17 @@ import { SupplierWiseEmbStockReportType } from "../embellishment-send-receive-re
 
 function Report({
   data,
+  searchParamsObj
 }: {
   data: SupplierWiseEmbStockReportType[];
+  searchParamsObj: {
+    fromOpmDate: string,
+    toOpmDate: string,
+    fromSendRcvDate: string,
+    toSendRcvDate: string,
+    isOpmDate: boolean,
+    isSendRcvDate: boolean,
+  }
 }) {
 
 
@@ -51,6 +60,7 @@ function Report({
     "Style No",
     "Style Name",
     "PO No",
+    "Color",
     "Order Qty",
   ];
 
@@ -88,6 +98,7 @@ function Report({
       className="px-12 text-gray-950">
       <div className="p-2">
         <ReportHeader
+          searchParamsObj={searchParamsObj}
           data={data}
         />
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
@@ -164,7 +175,7 @@ function Report({
             ))}
 
             <tr style={{ fontSize: "13px" }} className="font-bold">
-              <td colSpan={4} className="border border-gray-950 p-0.1 text-center">Grand Total</td>
+              <td colSpan={5} className="border border-gray-950 p-0.1 text-right">Grand Total</td>
               <td className="border border-gray-950 p-0.1 text-center">{orderQty}</td>
               <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#c9eaa4" }}>{pRcv}</td>
               <td className="border border-gray-950 p-0.1 text-center" style={{ backgroundColor: "#e5b5ac" }}>{eRcv}</td>
