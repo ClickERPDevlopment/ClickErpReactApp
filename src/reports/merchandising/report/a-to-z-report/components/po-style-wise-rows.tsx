@@ -91,6 +91,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                             {/* gmt-General Info */}
                             <td className="border border-gray-500 text-balance text-center p-1 border-l">{g?.PONO}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.LINENAME}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
                             {/* <td className="border border-gray-500 text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}
@@ -130,6 +131,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                             {/* gmt-General Info */}
                             <td className="border border-gray-500 text-balance text-center p-1">{g?.PONO}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.LINENAME}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
                             {/* <td className="border border-gray-500 text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</td> */}

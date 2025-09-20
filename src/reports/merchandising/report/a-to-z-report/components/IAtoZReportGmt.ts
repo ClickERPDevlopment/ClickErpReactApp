@@ -6,6 +6,7 @@ export type IAtoZReportGmt = {
   STYLE_ID: number;
   STYLENO: string;
   COLOR_NAME: string;
+  LINENAME: string;
   PO_QTY: number;
   //CUTTING===============
   CUTTING_QTY: number;
