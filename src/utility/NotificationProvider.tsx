@@ -54,6 +54,18 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (!connection) return;
 
+    ConnectToServer();
+
+    return () => {
+      connection.stop();
+    };
+  }, [connection]);
+
+  function ConnectToServer() {
+    if (!connection) return false;
+    if (connection.state === "Connected") {
+      return true;
+    }
     connection
       .start()
       .then(() => {
@@ -84,28 +96,28 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
           if (message)
             setMessage(message);
         });
+        return true;
       })
-      .catch((err) => console.error("❌ SignalR Connection failed: ", err));
-
-    return () => {
-      connection.stop();
-    };
-  }, [connection]);
+      .catch((err) => {
+        console.error("❌ SignalR Connection failed: ", err)
+        return false;
+      });
+  }
 
   function SendMessage(msg: string) {
-    if (connection && msg) {
+    if (connection && msg && ConnectToServer()) {
       connection.invoke("SendMessage", msg);
     }
   }
 
   function SendChatMessageToUser(userName: string, msg: string) {
-    if (connection && userName && msg) {
+    if (connection && userName && msg && ConnectToServer()) {
       connection.invoke("SendChatMessageToUser", userName, msg);
     }
   }
 
   function GetClientInfo(userName: string) {
-    if (connection && userName) {
+    if (connection && userName && ConnectToServer()) {
       connection.invoke("GetClientInfo", userName).then((u: ConnectedUser) => {
         setClientInfo(u);
       });
