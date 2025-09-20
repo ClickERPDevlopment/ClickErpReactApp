@@ -12,6 +12,7 @@ import AppAlert from "@/components/app-alert";
 import useAxiosInstance from "@/lib/axios-instance";
 import { IAtoZReportGmt } from "./components/IAtoZReportGmt";
 import TableHeader from "./components/table-header";
+import moment from "moment";
 
 export default function AtoZReportIndex() {
   const [data_fabric, setDataFabric] = useState<IAtoZReportFabric[]>([]);
@@ -23,7 +24,7 @@ export default function AtoZReportIndex() {
   const axios = useAxiosInstance();
 
 
-  let isOpmWise: boolean = false;
+  let isOpmWise: string | null = "";
   let fromOpmDate: string | null = "";
   let toOpmDate: string | null = "";
   let companyId: string | null = "";
@@ -35,7 +36,7 @@ export default function AtoZReportIndex() {
   let toPlanningDate: string | null = "";
 
   if (searchParams.get("isOpmWise")) {
-    isOpmWise = true;
+    isOpmWise = searchParams.get("isOpmWise");
   }
   if (searchParams.get("fromOpmDate")) {
     fromOpmDate = searchParams.get("fromOpmDate");
@@ -81,7 +82,7 @@ export default function AtoZReportIndex() {
 
         await axios
           .get(
-            `${api.ProductionUrl}/production/MerchReport/AtoZReport??isOpmWise=${isOpmWise}&fromOpmDate=${fromOpmDate}&toOpmDate=${toOpmDate}&companyId=${companyId}&buyerId=${buyerId}&poId=${poId}&styleId=${styleId}&isPlanningDateWise=${isPlanningDateWise}&fromPlanningDate=${fromPlanningDate}&toPlanningDate=${toPlanningDate}`
+            `${api.ProductionUrl}/production/MerchReport/AtoZReport?isOpmWise=${isOpmWise}&fromOpmDate=${fromOpmDate}&toOpmDate=${toOpmDate}&companyId=${companyId}&buyerId=${buyerId}&poId=${poId}&styleId=${styleId}&isPlanningDateWise=${isPlanningDateWise}&fromPlanningDate=${fromPlanningDate}&toPlanningDate=${toPlanningDate}`
           )
           .then((res) => {
             if (res.data) {
@@ -129,7 +130,12 @@ export default function AtoZReportIndex() {
           <div className="">
             <div className="">
               <h1 className="text-left font-bold text-2xl px-5 mt-3">A-Z Report</h1>
-              {/* <h5 className="text-center font-bold text-base">Order Placement Month from {moment(fromOpmDate).format("MMM-YYYY")} to {moment(toOpmDate).format("MMM-YYYY")}</h5> */}
+              {isOpmWise?.toLowerCase() === 'true' ?
+                <h5 className="text-left font-bold text-base px-5">
+                  Order Placement Month from {moment(fromOpmDate).format("MMM-YYYY")} to {moment(toOpmDate).format("MMM-YYYY")}
+                </h5>
+                : ''
+              }
             </div>
 
             <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 m-1">
