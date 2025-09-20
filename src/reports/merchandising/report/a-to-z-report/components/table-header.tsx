@@ -24,7 +24,7 @@ export default function TableHeader() {
                 <th className="text-balance text-center p-1 border-r border-b border-gray-500 " colSpan={11}>Dyeing</th>
                 <th className="text-balance text-center p-1 border-r border-b border-gray-500 " colSpan={3}>Finish Fabric</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500" rowSpan={2}>Fin Fabrics Del. Last Date</th>
-                <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={3}>General Info</th>
+                <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={4}>General Info</th>
                 <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={3}>Cutting</th>
                 <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={2}>Input</th>
                 <th className="text-balance text-center p-1 border-r border-b border-gray-500" colSpan={2}>Sewing</th>
@@ -72,6 +72,7 @@ export default function TableHeader() {
                 {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={4}>General Info</th> */}
                 <th className="text-balance text-center p-1 border-r border-gray-500 min-w-24">PO<span className="text-nowrap"></span></th>
                 <th className="text-balance text-center p-1 border-r border-gray-500">Style<span className="text-nowrap"></span></th>
+                <th className="text-balance text-center p-1 border-r border-gray-500">Line<span className="text-nowrap"></span></th>
                 <th className="text-balance text-center p-1 border-r border-gray-500">Order Qty (KGs) <span className="text-nowrap"></span></th>
 
                 {/* <th className="text-balance text-center p-1 border-r border-gray-500" colSpan={3}>Cutting</th> */}
