@@ -7,10 +7,10 @@ import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
-import { SupplierWiseEmbStockColorWiseReportType } from "./supplier-wise-emb-stock-color-wise-report-type";
+import { SupplierWiseEmbStockReportType } from "./embellishment-send-receive-report-type";
 
-function SupplierWiseEmbStockColorWiseReport() {
-  const [data, setData] = useState<SupplierWiseEmbStockColorWiseReportType[]>(
+function EmbellishmentSendReceiveReport() {
+  const [data, setData] = useState<SupplierWiseEmbStockReportType[]>(
     []
   );
 
@@ -89,4 +89,4 @@ function SupplierWiseEmbStockColorWiseReport() {
     </>
   );
 }
-export default SupplierWiseEmbStockColorWiseReport;
+export default EmbellishmentSendReceiveReport;

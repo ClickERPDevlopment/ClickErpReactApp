@@ -194,6 +194,7 @@ import ActiveUsers from "./pages/ActiveUser/active-user.tsx";
 import ChatIndex from "./pages/Chat/chat-index.tsx";
 import PrintEmbQualityIndex from "./app/PrintingEmbroidery/print-emb-quality/print-emb-quality-index.tsx";
 import PrintEmbQualityCrud from "./app/PrintingEmbroidery/print-emb-quality/print-emb-quality-crud.tsx";
+import EmbellishmentSendReceiveReport from "./reports/embellishment/embellishment-send-receive-report/embellishment-send-receive-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -989,6 +990,10 @@ createRoot(document.getElementById("root")!).render(
                     </Route>
 
                     <Route path="embellishment">
+                      <Route
+                        path="embellishment-send-receive-report"
+                        element={<EmbellishmentSendReceiveReport />}
+                      />
                       <Route
                         path="supplier-wise-emb-stock-color-wise-report"
                         element={<SupplierWiseEmbStockColorWiseReport />}
