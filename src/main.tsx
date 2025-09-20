@@ -201,8 +201,8 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <React.Fragment>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <NotificationProvider>
+        <NotificationProvider>
+          <BrowserRouter>
             <AuthProvider>
               <React.Suspense>
                 <ScrollToTop />
@@ -1078,8 +1078,8 @@ createRoot(document.getElementById("root")!).render(
                 </Routes>
               </React.Suspense>
             </AuthProvider>
-          </NotificationProvider>
-        </BrowserRouter>
+          </BrowserRouter>
+        </NotificationProvider>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Toaster />
         <AppConfirmationDialog />

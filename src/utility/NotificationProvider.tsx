@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 // src/context/NotificationContext.tsx
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { useAuth } from "@/lib/auth-provider";
@@ -9,10 +10,13 @@ import { ConnectedUser } from "@/pages/ActiveUser/ConnectedUser";
 
 type NotificationContextType = {
   connection?: signalR.HubConnection;
+  ClientInfo?: ConnectedUser;
   windowsUser: ConnectedUser[];
   reactUser: ConnectedUser[];
-  chatMessages: string[];
-  sendChatMessage: (msg: string) => void;
+  message?: string;
+  SendMessage: (msg: string) => void;
+  SendChatMessageToUser: (userName: string, msg: string) => void;
+  GetClientInfo: (userName: string) => void;
 };
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -20,16 +24,20 @@ const NotificationContext = createContext<NotificationContextType | undefined>(u
 export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const connectionRef = useRef<signalR.HubConnection | null>(null);
   const [connection, setConnection] = useState<signalR.HubConnection>();
   const [windowsUser, setWindowsUser] = useState<ConnectedUser[]>([]);
   const [reactUser, setReactUser] = useState<ConnectedUser[]>([]);
-  const [chatMessages, setChatMessage] = useState<string[]>([]);
+  const [message, setMessage] = useState<string>();
+  const [ClientInfo, setClientInfo] = useState<ConnectedUser>();
   const api = useApiUrl();
   const user = useAuth();
 
 
   // Create connection
   useEffect(() => {
+    if (connectionRef.current) return;
+
     const newConnection = new signalR.HubConnectionBuilder()
       .withUrl(api.ProductionRootUrl + "/notificationhub", {
         withCredentials: false,
@@ -37,8 +45,10 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
       .withAutomaticReconnect()
       .build();
 
+    connectionRef.current = newConnection;
+
     setConnection(newConnection);
-  }, [api.ProductionRootUrl]);
+  }, []);
 
   // Start connection and register listeners
   useEffect(() => {
@@ -50,7 +60,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
         console.log("✅ Connected to SignalR");
 
         connection.on("UserConnected", (ConnectionId: string) => {
-          console.log("UserConnected: ", ConnectionId);
+          console.log("User ConnectionId: ", ConnectionId);
           console.log("user: ", user);
           connection.invoke("UpdateClientInfo", ("Najmuzzaman"), ConnectionId, "Web");
 
@@ -71,7 +81,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
         });
 
         connection.on("GetMessage", (message: string) => {
-          setChatMessage((prev) => [...prev, message]);
+          if (message)
+            setMessage(message);
         });
       })
       .catch((err) => console.error("❌ SignalR Connection failed: ", err));
@@ -81,9 +92,23 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, [connection]);
 
-  function sendChatMessage(msg: string) {
+  function SendMessage(msg: string) {
     if (connection && msg) {
       connection.invoke("SendMessage", msg);
+    }
+  }
+
+  function SendChatMessageToUser(userName: string, msg: string) {
+    if (connection && userName && msg) {
+      connection.invoke("SendChatMessageToUser", userName, msg);
+    }
+  }
+
+  function GetClientInfo(userName: string) {
+    if (connection && userName) {
+      connection.invoke("GetClientInfo", userName).then((u: ConnectedUser) => {
+        setClientInfo(u);
+      });
     }
   }
 
@@ -93,8 +118,11 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
         connection,
         windowsUser,
         reactUser,
-        chatMessages,
-        sendChatMessage,
+        message,
+        SendMessage,
+        SendChatMessageToUser,
+        GetClientInfo,
+        ClientInfo
       }}
     >
       {children}

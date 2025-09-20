@@ -2,7 +2,7 @@ import React from "react";
 import { useNotifications } from "@/utility/NotificationProvider";
 
 export default function Notifications() {
-  const { windowsUser, reactUser, chatMessages, sendChatMessage: sendMessage } = useNotifications();
+  const { windowsUser, reactUser, SendMessage: sendMessage } = useNotifications();
   const [message, setMessage] = React.useState("");
 
   return <div>
@@ -34,9 +34,7 @@ export default function Notifications() {
         Chat Messages
       </span>
       <div>
-        {chatMessages.map((item, index) => (
-          <p key={index}>{item}</p>
-        ))}
+
       </div>
     </div>
   </div>;

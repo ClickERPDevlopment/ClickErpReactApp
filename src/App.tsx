@@ -14,7 +14,7 @@ import Switcher from "./components/common/switcher/switcher";
 import Header from "./components/common/header/header";
 import Sidebar from "./components/common/sidebar/sidebar";
 import { Outlet } from "react-router";
-import Footer from "./components/common/footer/footer";
+// import Footer from "./components/common/footer/footer";
 import Tabtotop from "./components/common/tabtotop/tabtotop";
 import "react-toastify/dist/ReactToastify.css";
 // import { Outlet } from "react-router-dom";
@@ -68,7 +68,7 @@ function App() {
                 <Outlet />
               </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
           <Tabtotop />
         </HelmetProvider>

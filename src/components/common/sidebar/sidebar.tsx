@@ -25,7 +25,6 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
 
   //new =================================================================
   const location = useLocation();
-  console.log("lll", location);
   const [menuitems, setMenuitems] = useState<MenuItem[]>([]);
 
   useEffect(() => {

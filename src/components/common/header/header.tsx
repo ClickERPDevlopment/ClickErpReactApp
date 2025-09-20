@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useState } from "react";
@@ -33,6 +34,9 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useApiUrl from "@/hooks/use-ApiUrl";
+import React from "react";
+import axios from "axios";
 // import SimpleBar from "simplebar-react";
 
 const Header = ({ local_varaiable, ThemeChanger }: any) => {
@@ -326,6 +330,12 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
   //     localStorage.removeItem("ynexHeader");
   //   }
   // };
+  const api = useApiUrl();
+  const [client, setClient] = React.useState<string>()
+  React.useEffect(() => {
+    const fetchClient = async () => await axios.get(`${api.ProductionUrl}/production/ClientInfo/ClientName`);
+    fetchClient().then(res => setClient(res.data)).catch(err => console.log(err))
+  }, [])
 
   return (
     <Fragment>
@@ -379,6 +389,10 @@ const Header = ({ local_varaiable, ThemeChanger }: any) => {
             </div>
 
             <div className="header-content-right">
+              <div className="header-element py-[1rem] md:px-[0.65rem] px-2 header-search flex items-center justify-center">
+                <span className="mt-1">{client}</span>
+              </div>
+
               <div className="header-element py-[1rem] md:px-[0.65rem] px-2 header-search">
                 <button
                   aria-label="button"

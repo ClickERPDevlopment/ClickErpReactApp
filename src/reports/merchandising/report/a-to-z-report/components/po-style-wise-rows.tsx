@@ -6,8 +6,10 @@ import { IAtoZReportGmt } from './IAtoZReportGmt'
 type props = {
     data_fabric: IAtoZReportFabric[]
     data_gmt: IAtoZReportGmt[]
+    buyerIndex: number
+    poStyleIndex: number
 }
-export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
+export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }: props) {
     const maxLength = Math.max(data_fabric?.length ?? 0, data_gmt?.length ?? 0);
 
     return (
@@ -21,19 +23,19 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt }: props) {
 
 
                 console.log('g-', data_fabric);
-
+                const key = i + poStyleIndex + 1;
                 if (i == 0) {
                     return (
-                        <tr className={cn("border-t border-gray-500")} key={i}>
-                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>
+                        <tr className={cn("border-t border-gray-500", ((key % 2) == 0 ? 'bg-emerald-100' : ''))} key={key}>
+                            <td className="border border-gray-500 text-center p-1 text-nowrap" rowSpan={maxLength}>
                                 <span className="hidden">{f?.BUYER_ID}</span>
-                                {f?.BUYER}
+                                {f?.BUYER} {key}
                             </td>
-                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-center p-1 text-nowrap" rowSpan={maxLength}>
                                 <span className="hidden">{f?.PO_ID}</span>
                                 {f?.PONO}
                             </td>
-                            <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 <span className="hidden">{f?.STYLE_ID}</span>
                                 {f?.STYLENO}
                             </td>
