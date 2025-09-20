@@ -27,6 +27,7 @@ function SupplierWiseEmbStockReport() {
   const isSendRcvDate = searchParams.get("isSendRcvDate") === "True";
   const buyerId = Number(searchParams.get("buyerId") || 0);
   const supplierId = Number(searchParams.get("supplierId") || 0);
+  const poId = Number(searchParams.get("poId") || 0);
   const styleId = Number(searchParams.get("styleId") || 0);
   const companyId = Number(searchParams.get("companyId") || 1);
   const loggedInCompanyId = Number(searchParams.get("loggedInCompanyId") || 1);
@@ -51,6 +52,7 @@ function SupplierWiseEmbStockReport() {
           buyerId: buyerId.toString(),
           supplierId: supplierId.toString(),
           styleId: styleId.toString(),
+          poId: poId.toString(),
           companyId: companyId.toString(),
           loggedInCompanyId: loggedInCompanyId.toString()
         });
