@@ -38,4 +38,5 @@ export const ReactQueryKey = {
   EmbMaterialReceive: "EmbMaterialReceive",
   FinishGoodValuation: "FinishGoodValuation",
   PrintEmbPI: "PrintEmbPI",
+  PrintEmbQuality: "PrintEmbQuality",
 };

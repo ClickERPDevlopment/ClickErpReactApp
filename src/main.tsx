@@ -192,6 +192,8 @@ import { NotificationProvider } from "./utility/NotificationProvider.tsx";
 import SupplierWiseEmbStockColorWiseReport from "./reports/embellishment/supplier-wise-emb-stock-color-wise-report/supplier-wise-emb-stock-color-wise-report-index.tsx";
 import ActiveUsers from "./pages/ActiveUser/active-user.tsx";
 import ChatIndex from "./pages/Chat/chat-index.tsx";
+import PrintEmbQualityIndex from "./app/PrintingEmbroidery/print-emb-quality/print-emb-quality-index.tsx";
+import PrintEmbQualityCrud from "./app/PrintingEmbroidery/print-emb-quality/print-emb-quality-crud.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -274,6 +276,13 @@ createRoot(document.getElementById("root")!).render(
                             <Route
                               path=":pageAction/:id"
                               element={<PrintEmbPICrud />}
+                            />
+                          </Route>
+                          <Route path="print-emb-quality">
+                            <Route index element={<PrintEmbQualityIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbQualityCrud />}
                             />
                           </Route>
                         </Route>
@@ -468,6 +477,13 @@ createRoot(document.getElementById("root")!).render(
                             <Route
                               path=":pageAction/:id"
                               element={<PrintEmbPICrud />}
+                            />
+                          </Route>
+                          <Route path="print-emb-quality">
+                            <Route index element={<PrintEmbQualityIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbQualityCrud />}
                             />
                           </Route>
                         </Route>
