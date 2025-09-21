@@ -17,7 +17,7 @@ export default function PoWiseRows({ data, poStyleIndex, rowIndex }: props) {
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.STYLENO}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.PO_NO}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.GMT_COLOR}</th>
-                <th className="border border-gray-500 text-wrap text-center p-1">{data?.FABRIC}</th>
+                <th className="border border-gray-500 text-wrap text-center p-1 min-w-52">{data?.FABRIC}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.FABRIC_GSM}</th>
                 <th className="border border-gray-500 text-wrap text-center p-1 max-w-24">{data?.FINISH_DIA}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.GRAY_REQ_QTY}</th>
