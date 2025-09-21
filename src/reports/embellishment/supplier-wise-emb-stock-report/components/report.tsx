@@ -10,7 +10,6 @@ function Report({
   data: SupplierWiseEmbStockReportType[];
 }) {
 
-
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
