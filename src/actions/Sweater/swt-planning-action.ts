@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import moment from "moment";
-import { CompanyType } from "../Configurations/company-action";
+import { ICompanyType } from "../Configurations/company-action";
 
 export type LineLoadingPlanSearchType = {
   companyId: number;
@@ -16,15 +16,15 @@ export type LineLoadingPlanSearchType = {
 };
 
 export type LineLoadingPlanType = {
-  Company: CompanyType | undefined;
+  Company: ICompanyType | undefined;
   lstLineLoadingPlanDetailsDto: LineLoadingPlanDetailsType[] | undefined;
   lstLineLoadingPlanOrderStatusDto:
-    | LineLoadingPlanOrderStatusType[]
-    | undefined;
+  | LineLoadingPlanOrderStatusType[]
+  | undefined;
   lstLineLoadingPlanAvlMinutesDto: LineLoadingPlanAvlMinutesType[] | undefined;
   lstLineLoadingPlanUsedMinutesDto:
-    | LineLoadingPlanUsedMinutesType[]
-    | undefined;
+  | LineLoadingPlanUsedMinutesType[]
+  | undefined;
 };
 
 export type LineLoadingPlanDetailsType = {

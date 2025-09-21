@@ -30,7 +30,7 @@ import {
 import { cn } from "@/lib/utils";
 import { z } from "zod";
 import { GetCompany } from "@/actions/Sweater/swt-planning-board-configure-action";
-import { CompanyType } from "@/actions/Configurations/company-action";
+import { ICompanyType } from "@/actions/Configurations/company-action";
 import {
   Table,
   TableBody,
@@ -66,7 +66,7 @@ export default function BuyerForm() {
   const [factory, setFactory] = React.useState<comboBoxDataType[]>();
   const [openFactory, setOpenFactory] = React.useState(false);
 
-  const { data: factoryData } = GetCompany<CompanyType>();
+  const { data: factoryData } = GetCompany<ICompanyType>();
 
   //--
   //--------------------------
@@ -121,9 +121,9 @@ export default function BuyerForm() {
                             >
                               {field.value
                                 ? factory?.find(
-                                    (buyer) =>
-                                      Number(buyer.value) === field.value
-                                  )?.label
+                                  (buyer) =>
+                                    Number(buyer.value) === field.value
+                                )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -201,9 +201,9 @@ export default function BuyerForm() {
                             >
                               {field.value
                                 ? factory?.find(
-                                    (buyer) =>
-                                      Number(buyer.value) === field.value
-                                  )?.label
+                                  (buyer) =>
+                                    Number(buyer.value) === field.value
+                                )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -281,9 +281,9 @@ export default function BuyerForm() {
                             >
                               {field.value
                                 ? factory?.find(
-                                    (buyer) =>
-                                      Number(buyer.value) === field.value
-                                  )?.label
+                                  (buyer) =>
+                                    Number(buyer.value) === field.value
+                                )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -360,9 +360,9 @@ export default function BuyerForm() {
                             >
                               {field.value
                                 ? factory?.find(
-                                    (buyer) =>
-                                      Number(buyer.value) === field.value
-                                  )?.label
+                                  (buyer) =>
+                                    Number(buyer.value) === field.value
+                                )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -440,9 +440,9 @@ export default function BuyerForm() {
                             >
                               {field.value
                                 ? factory?.find(
-                                    (buyer) =>
-                                      Number(buyer.value) === field.value
-                                  )?.label
+                                  (buyer) =>
+                                    Number(buyer.value) === field.value
+                                )?.label
                                 : "Select a buyer"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>

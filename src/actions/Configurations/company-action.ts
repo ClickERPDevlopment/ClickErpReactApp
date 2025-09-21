@@ -1,4 +1,4 @@
-export type CompanyType = {
+export type ICompanyType = {
   ID: number;
   NAME?: string;
   PREFIX?: string;

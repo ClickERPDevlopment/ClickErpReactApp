@@ -30,7 +30,7 @@ import {
 import { MdOutlineClear } from "react-icons/md";
 import { FloorType } from "@/actions/Configurations/floor-action";
 import useAxiosInstance from "@/lib/axios-instance";
-import { CompanyType } from "@/actions/Configurations/company-action";
+import { ICompanyType } from "@/actions/Configurations/company-action";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { LineType } from "@/actions/Configurations/line-action";
 import React from "react";
@@ -90,7 +90,7 @@ export default function OnlineDisplayBoardForm() {
       const response = await axios.get(`/production/Company`);
       const factoryData = await response?.data;
       const _factory: comboBoxDataType[] = [];
-      factoryData?.forEach((element: CompanyType) => {
+      factoryData?.forEach((element: ICompanyType) => {
         _factory.push({
           label: element.NAME || "",
           value: element?.ID?.toString(),
@@ -169,8 +169,8 @@ export default function OnlineDisplayBoardForm() {
                       >
                         {field.value
                           ? factory?.find(
-                              (factory) => Number(factory.value) === field.value
-                            )?.label
+                            (factory) => Number(factory.value) === field.value
+                          )?.label
                           : "Select a factory"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -254,8 +254,8 @@ export default function OnlineDisplayBoardForm() {
                       >
                         {field.value
                           ? floor?.find(
-                              (floor) => Number(floor.value) === field.value
-                            )?.label
+                            (floor) => Number(floor.value) === field.value
+                          )?.label
                           : "Select a floor"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -336,8 +336,8 @@ export default function OnlineDisplayBoardForm() {
                       >
                         {field.value
                           ? line?.find(
-                              (line) => Number(line.value) === field.value
-                            )?.label
+                            (line) => Number(line.value) === field.value
+                          )?.label
                           : "Select a floor"}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
