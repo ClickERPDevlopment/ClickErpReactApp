@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { CaretSortIcon, CheckIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import AppPageContainer from "@/components/app-page-container";
 import { PrintEmbProductionSearchType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
 
@@ -31,6 +31,8 @@ import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { GetPrintEmbDelivery, PrintEmbDeliveryMasterType } from "@/actions/PrintingEmbroidery/print-emb-delivery-action";
 import { PrintEmbDeliveryTable } from "./print-emb-delivery-table";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
 
 
@@ -52,22 +54,22 @@ function PrintEmbDeliveryIndex() {
   }
 
 
-  // interface IStyle {
-  //   Id: string;
-  //   Styleno: string;
-  // };
+  interface IStyle {
+    Id: string;
+    Styleno: string;
+  };
 
 
-  // interface IBuyer {
-  //   Id: string;
-  //   NAME: string;
-  //   DISPLAY_NAME: string;
-  // };
+  interface IBuyer {
+    Id: string;
+    NAME: string;
+    DISPLAY_NAME: string;
+  };
 
-  // interface IPO {
-  //   Id: string;
-  //   Pono: string;
-  // };
+  interface IPO {
+    Id: string;
+    Pono: string;
+  };
 
 
   // interface IType {
@@ -76,10 +78,10 @@ function PrintEmbDeliveryIndex() {
   // };
 
 
-  // interface IRcvWorkOrder {
-  //   ID: number;
-  //   WORK_ORDER_NO: string;
-  // };
+  interface IRcvWorkOrder {
+    ID: number;
+    WORK_ORDER_NO: string;
+  };
 
 
   const formSchema = z.object({
@@ -137,29 +139,29 @@ function PrintEmbDeliveryIndex() {
   const axios = useAxiosInstance();
   const api = useApiUrl();
 
-  // const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
-  // const getWorkOrder = async () => {
-  //   const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
-  //   setWorkOrder(response?.data);
-  // }
+  const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
+  const getWorkOrder = async () => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
+    setWorkOrder(response?.data);
+  }
 
-  // const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
-  // const getBuyerData = async (woId: number) => {
-  //   const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
-  //   setBuyerData(response?.data);
-  // }
+  const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
+  const getBuyerData = async (woId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
+    setBuyerData(response?.data);
+  }
 
-  // const [style, setStyle] = useState<IStyle[]>([]);
-  // const getStyleByBuyer = async (woId: number, buyerId: number) => {
-  //   const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
-  //   setStyle(response?.data);
-  // }
+  const [style, setStyle] = useState<IStyle[]>([]);
+  const getStyleByBuyer = async (woId: number, buyerId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
+    setStyle(response?.data);
+  }
 
-  // const [PO, setPO] = useState<IPO[]>([]);
-  // const getPOByStyle = async (woId: number, styleId: number) => {
-  //   const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
-  //   setPO(response?.data);
-  // }
+  const [PO, setPO] = useState<IPO[]>([]);
+  const getPOByStyle = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setPO(response?.data);
+  }
 
   // const [productionType, setProductionType] = useState<IType[]>([]);
   // const getProductionType = async () => {
@@ -169,7 +171,10 @@ function PrintEmbDeliveryIndex() {
 
 
   useEffect(() => {
-    // getWorkOrder();
+    getWorkOrder();
+    getBuyerData(0);
+    getStyleByBuyer(0, 0);
+    getPOByStyle(0, 0);
     // getProductionType();
   }, []);
 
@@ -184,11 +189,12 @@ function PrintEmbDeliveryIndex() {
     setMasterData(response?.data);
   }
 
-  // const [openBuyer, setOpenBuyer] = useState(false);
-  // const [openStyle, setOpenStyle] = useState(false);
-  // const [openPO, setOpenPO] = useState(false);
+  const [openBuyer, setOpenBuyer] = useState(false);
+  const [openStyle, setOpenStyle] = useState(false);
+  const [openPO, setOpenPO] = useState(false);
+  const [openWorkOrder, setOpenWorkOrder] = useState(false);
+
   // const [openProductionType, setOpenProductionType] = useState(false);
-  // const [openWorkOrder, setOpenWorkOrder] = useState(false);
 
   const [masterData, setMasterData] = useState<PrintEmbDeliveryMasterType[] | null>(null);
 
@@ -276,7 +282,7 @@ function PrintEmbDeliveryIndex() {
                       />
                     </div>
 
-                    {/* <div className="flex justify-between items-end">
+                    <div className="flex justify-between items-end">
                       <FormField
                         control={form.control}
                         name="WORK_ORDER_NO"
@@ -346,7 +352,7 @@ function PrintEmbDeliveryIndex() {
                           </FormItem>
                         )}
                       />
-                    </div> */}
+                    </div>
 
                     {/* <div className="flex justify-between items-end">
                       <FormField
@@ -419,7 +425,7 @@ function PrintEmbDeliveryIndex() {
                       />
                     </div> */}
 
-                    {/* <div className="flex justify-between items-end">
+                    <div className="flex justify-between items-end">
                       <FormField
                         control={form.control}
                         name="BUYER_ID"
@@ -491,9 +497,9 @@ function PrintEmbDeliveryIndex() {
                           </FormItem>
                         )}
                       />
-                    </div> */}
+                    </div>
 
-                    {/* <div className="flex justify-between items-end">
+                    <div className="flex justify-between items-end">
                       <FormField
                         control={form.control}
                         name="STYLE_ID"
@@ -563,9 +569,9 @@ function PrintEmbDeliveryIndex() {
                           </FormItem>
                         )}
                       />
-                    </div> */}
+                    </div>
 
-                    {/* <div className="flex justify-between items-end">
+                    <div className="flex justify-between items-end">
                       <FormField
                         control={form.control}
                         name="PO_ID"
@@ -634,7 +640,7 @@ function PrintEmbDeliveryIndex() {
                           </FormItem>
                         )}
                       />
-                    </div> */}
+                    </div>
 
                   </div>
                 </div>
