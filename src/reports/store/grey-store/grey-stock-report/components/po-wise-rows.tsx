@@ -21,7 +21,13 @@ export default function PoWiseRows({ data, poStyleIndex, rowIndex }: props) {
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.FABRIC_GSM}</th>
                 <th className="border border-gray-500 text-wrap text-center p-1 w-32">{data?.FINISH_DIA}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.GRAY_REQ_QTY}</th>
-                <th className="border border-gray-500 text-nowrap text-center p-1">{data?.RECEIVE_QTY}</th>
+                <th className="border border-gray-500 text-nowrap text-center p-1">
+                    <a
+                        className='text-sky-600 underline'
+                        href={`/report/store/grey-store/grey-fabric-receive-status-report?isOPMWise=false&fromOpmDate=1-Jan-2025&toOpmDate=1-Jan-2026&factoryId=0&buyerId=${data?.BUYER_ID}&poId=${data?.PO_ID}&styleId=${data?.STYLE_ID}`} target='_blank' rel='noreferrer'>
+                        {data?.RECEIVE_QTY}
+                    </a>
+                </th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.TRANSFER_IN_QTY}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.TOTAL_RCVD_QTY}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.RECEIVE_BAL_QTY}</th>
