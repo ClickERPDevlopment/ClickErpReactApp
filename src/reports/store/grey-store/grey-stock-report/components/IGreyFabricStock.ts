@@ -2,6 +2,7 @@ export type IGreyFabricStock = {
   BUYER_ID: number;
   PO_ID: number;
   PO_NO: string;
+  JOB_NO: string;
   STYLE_ID: number;
   STYLENO: string;
   STYLENAME: string;

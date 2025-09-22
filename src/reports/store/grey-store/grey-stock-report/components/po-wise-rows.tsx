@@ -13,7 +13,7 @@ export default function PoWiseRows({ data, poStyleIndex, rowIndex }: props) {
         <>
             <tr className={cn("border-t border-gray-500", ((key % 2) == 0 ? 'bg-emerald-100' : ''))}>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.BUYER}</th>
-                <th className="border border-gray-500 text-nowrap text-center p-1">{data?.PO_NO}</th>
+                <th className="border border-gray-500 text-nowrap text-center p-1">{data?.JOB_NO}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.STYLENO}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.PO_NO}</th>
                 <th className="border border-gray-500 text-nowrap text-center p-1">{data?.GMT_COLOR}</th>
