@@ -77,7 +77,7 @@ function Report({
     "Style",
     "Fabrication",
     "Yarn Count & Composition",
-    client.currentClient == client.FAME ? 'Location' : "Brand x Lot",
+    client.currentClient == client.FAME ? 'Location x Lot' : "Brand x Lot",
     // "Full/ Half Feeder",
     "McDia x GG",
     "Finish Dia X Type",

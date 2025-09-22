@@ -107,7 +107,7 @@ function Report({
           </thead>
           <tbody>
             {uniqueKeysArray?.map((key) => {
-              let prevLength = groupLength;
+              const prevLength = groupLength;
               groupLength += groupedByDate[key].items.length;
               return <ReportTable
                 key={key}
