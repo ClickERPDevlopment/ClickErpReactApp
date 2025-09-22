@@ -21,8 +21,8 @@ function ReportHeader({
         Date Wise Shipment Summary Report
       </h3>
       <h3 className="font-bold text-xl text-center mt-2">
-        {moment(searchParams?.fromDate).format("MMM-YY")} to{" "}
-        {moment(searchParams?.toDate).format("MMM-YY")}
+        {moment(searchParams?.fromDate).format("DD-MMM-YY")} to{" "}
+        {moment(searchParams?.toDate).format("DD-MMM-YY")}
       </h3>
     </div>
   );
