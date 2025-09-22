@@ -196,6 +196,7 @@ import PrintEmbQualityIndex from "./app/PrintingEmbroidery/print-emb-quality/pri
 import PrintEmbQualityCrud from "./app/PrintingEmbroidery/print-emb-quality/print-emb-quality-crud.tsx";
 import EmbellishmentSendReceiveReport from "./reports/embellishment/embellishment-send-receive-report/embellishment-send-receive-report-index.tsx";
 import GreyFabricStockReportIndex from "./reports/store/grey-store/grey-stock-report/grey-stock-report-index.tsx";
+import DateWiseShiplentSummaryReport from "./reports/merchandising/report/date-wise-shiplent-summary-report/date-wise-shiplent-summary-report-index.tsx";
 import GreyFabricReceiveStatusReportIndex from "./reports/store/grey-store/grey-fabric-rcv-status-report/grey-fabric-rcv-status-report-index.tsx";
 
 //-------------------------------------------------------------
@@ -766,6 +767,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="budget-report-format2"
                         element={<BudgetReportFormat2 />}
+                      ></Route>
+                      <Route
+                        path="date-wise-shiplent-summary-report"
+                        element={<DateWiseShiplentSummaryReport />}
                       ></Route>
                     </Route>
 
