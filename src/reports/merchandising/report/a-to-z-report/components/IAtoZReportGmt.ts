@@ -32,4 +32,6 @@ export type IAtoZReportGmt = {
   //===============
 
   CUT_TO_SHIP_PERCENTAGE: number;
+  IS_EMB: string;
+  SHIP_DATE: Date;
 };

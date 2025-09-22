@@ -51,6 +51,12 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                                 <span className="hidden">{f?.STYLE_ID}</span>
                                 {f?.STYLENO}
                             </td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
+                                {f?.ITEM_TYPE}
+                            </td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
+                                {f?.SMV}
+                            </td>
                             <td className="border border-gray-500 text-balance text-center p-1" rowSpan={maxLength}>{f?.PO_QTY}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 {f?.CONSUMPTION_RELEASE_DATE &&
@@ -104,14 +110,15 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="border border-gray-500 text-balance text-center p-1 border-l">
                                 <a
-                                    href={`/report/embellishment/embellishment-send-receive-report?fromOpmDate=01-Jan-2025&toOpmDate=20-Dec-2025&fromSendRcvDate=20-Sep-2025&toSendRcvDate=20-Sep-2025&isOpmDate=false&isSendRcvDate=False&buyerId=0&styleId=0&poId=${g?.PO_ID}&colorId=0&companyId=0&loggedInCompanyId=1`} // your target route
+                                    href={`/report/embellishment/embellishment-send-receive-report?fromOpmDate=01-Jan-2025&toOpmDate=20-Dec-2025&fromSendRcvDate=20-Sep-2025&toSendRcvDate=20-Sep-2025&isOpmDate=False&isSendRcvDate=False&buyerId=0&styleId=0&poId=${g?.PO_ID}&colorId=0&companyId=0&loggedInCompanyId=1`} // your target route
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sky-600 hover:underline cursor-pointer"
+                                    className={cn(g?.IS_EMB === '1' ? "text-sky-600 hover:underline cursor-pointer" : "")}
                                 >
                                     {g?.PONO}
                                 </a>
                             </td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{moment(g?.SHIP_DATE).format("DD-MMM-YYYY")}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.LINENAME}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
@@ -156,11 +163,12 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                                     href={`/report/embellishment/embellishment-send-receive-report?fromOpmDate=01-Jan-2025&toOpmDate=20-Dec-2025&fromSendRcvDate=20-Sep-2025&toSendRcvDate=20-Sep-2025&isOpmDate=false&isSendRcvDate=False&buyerId=0&styleId=0&poId=${g?.PO_ID}&colorId=0&companyId=0&loggedInCompanyId=1`} // your target route
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sky-600 hover:underline cursor-pointer"
+                                    className={cn(g?.IS_EMB === '1' ? "text-sky-600 hover:underline cursor-pointer" : "")}
                                 >
                                     {g?.PONO}
                                 </a>
                             </td>
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{moment(g?.SHIP_DATE).format("DD-MMM-YYYY")}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.LINENAME}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 

@@ -33,4 +33,8 @@ export type IAtoZReportFabric = {
   FF_RCV_BALANCE: number;
   FINISHING_FABRIC_DEL_QTY: number;
   FIN_FABRICS_DEL_LAST_DATE: string;
+
+  ITEM_TYPE: string;
+  SMV: number;
+
 };
