@@ -20,7 +20,7 @@ export default function BuyerGroupSection({ data_fabric, buyerIndex }: props) {
           key={i}
         />
       ))}
-      <TotalRow data={data_fabric} title={`${data_fabric[0]?.BUYER} -Total`} />
+      <TotalRow data={data_fabric} title={`${data_fabric[0]?.BUYER} Total`} />
     </>
   )
 }

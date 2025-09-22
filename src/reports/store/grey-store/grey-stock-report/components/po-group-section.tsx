@@ -19,7 +19,7 @@ export default function PoGroupSection({ data, buyerIndex, poStyleIndex }: props
           buyerIndex={buyerIndex}
           poStyleIndex={poStyleIndex} />))}
 
-      <TotalRow data={data} title={`${data[0]?.PO_NO} -Total`} />
+      <TotalRow data={data} title={`${data[0]?.PO_NO} Total`} />
     </>
 
   );
