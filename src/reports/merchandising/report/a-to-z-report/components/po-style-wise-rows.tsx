@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import { IAtoZReportFabric } from './IAtoZReportFabric'
 import moment from 'moment'
 import { IAtoZReportGmt } from './IAtoZReportGmt'
+import useApiUrl from '@/hooks/use-ApiUrl'
 //--
 type props = {
     data_fabric: IAtoZReportFabric[]
@@ -11,7 +12,7 @@ type props = {
 }
 export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }: props) {
     const maxLength = Math.max(data_fabric?.length ?? 0, data_gmt?.length ?? 0);
-
+    const api = useApiUrl();
     return (
         <>
             {Array.from({ length: maxLength }).map((_, i) => {
@@ -29,11 +30,18 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                         <tr className={cn("border-t border-gray-500", ((key % 2) == 0 ? 'bg-emerald-100' : ''))} key={key}>
                             <td className="border border-gray-500 text-center p-1 text-nowrap" rowSpan={maxLength}>
                                 <span className="hidden">{f?.BUYER_ID}</span>
-                                {f?.BUYER} {key}
+                                {f?.BUYER}
                             </td>
                             <td className="border border-gray-500 text-center p-1 text-nowrap" rowSpan={maxLength}>
                                 <span className="hidden">{f?.PO_ID}</span>
-                                {f?.PONO}
+                                <a
+                                    href={`${api.ProductionRootUrl}:60/planning/show-report-summery?job_no=${f?.PONO}`} // your target route
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sky-600 hover:underline cursor-pointer"
+                                >
+                                    {f?.PONO}
+                                </a>
                             </td>
                             <td className="border border-gray-500 text-nowrap text-center p-1" rowSpan={maxLength}>
                                 <span className="hidden">{f?.STYLE_ID}</span>
@@ -89,6 +97,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                                     moment(f?.FIN_FABRICS_DEL_LAST_DATE).format("DD-MMM-YYYY")}
                             </td>
                             {/* gmt-General Info */}
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="border border-gray-500 text-balance text-center p-1 border-l">
                                 <a
                                     href={`/report/embellishment/embellishment-send-receive-report?fromOpmDate=01-Jan-2025&toOpmDate=20-Dec-2025&fromSendRcvDate=20-Sep-2025&toSendRcvDate=20-Sep-2025&isOpmDate=false&isSendRcvDate=False&buyerId=0&styleId=0&poId=${g?.PO_ID}&colorId=0&companyId=0&loggedInCompanyId=1`} // your target route
@@ -99,7 +108,6 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                                     {g?.PONO}
                                 </a>
                             </td>
-                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.LINENAME}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
@@ -138,6 +146,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                     return (
                         <tr className={cn("border-t border-gray-500")} key={i}>
                             {/* gmt-General Info */}
+                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="border border-gray-500 text-balance text-center p-1">
                                 <a
                                     href={`/report/embellishment/embellishment-send-receive-report?fromOpmDate=01-Jan-2025&toOpmDate=20-Dec-2025&fromSendRcvDate=20-Sep-2025&toSendRcvDate=20-Sep-2025&isOpmDate=false&isSendRcvDate=False&buyerId=0&styleId=0&poId=${g?.PO_ID}&colorId=0&companyId=0&loggedInCompanyId=1`} // your target route
@@ -148,7 +157,6 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                                     {g?.PONO}
                                 </a>
                             </td>
-                            <td className="border border-gray-500 text-nowrap text-center p-1">{g?.STYLENO}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.LINENAME}</td>
                             <td className="border border-gray-500 text-nowrap text-center p-1">{g?.PO_QTY}</td>
 
