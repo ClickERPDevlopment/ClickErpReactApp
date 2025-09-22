@@ -42,7 +42,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["PONO"]);
+    groupedByDate = groupBy(data, ["CREATED_DATE"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -61,7 +61,6 @@ function Report({
     "ORDER",
     "STYLE",
   ];
-
 
   const totalAllocatedQty = data.reduce((acc, item) => acc + item.ALLOCATED_QTY, 0)
   const totalIssueQty = data.reduce((acc, item) => acc + item.ISSUE_QTY, 0)
