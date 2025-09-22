@@ -3,6 +3,7 @@ import { IAtoZReportFabric } from './IAtoZReportFabric'
 import moment from 'moment'
 import { IAtoZReportGmt } from './IAtoZReportGmt'
 import useApiUrl from '@/hooks/use-ApiUrl'
+// import { Button } from '@/components/ui/button'
 //--
 type props = {
     data_fabric: IAtoZReportFabric[]
@@ -13,6 +14,9 @@ type props = {
 export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }: props) {
     const maxLength = Math.max(data_fabric?.length ?? 0, data_gmt?.length ?? 0);
     const api = useApiUrl();
+    // const handleClick = (po: string) => {
+    //     window.open(`${api.BaseUrl}:60/planning/show-report-summery?job_no=${po}`, "_blank", "noopener,noreferrer");
+    // };
     return (
         <>
             {Array.from({ length: maxLength }).map((_, i) => {
@@ -35,7 +39,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                             <td className="border border-gray-500 text-center p-1 text-nowrap" rowSpan={maxLength}>
                                 <span className="hidden">{f?.PO_ID}</span>
                                 <a
-                                    href={`${api.ProductionRootUrl}:60/planning/show-report-summery?job_no=${f?.PONO}`} // your target route
+                                    href={`${api.BaseUrl}:60/planning/show-report-summery?job_no=${f?.PONO}`} // your target route
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-sky-600 hover:underline cursor-pointer"
