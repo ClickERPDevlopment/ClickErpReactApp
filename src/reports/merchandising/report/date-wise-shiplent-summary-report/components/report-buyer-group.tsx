@@ -28,6 +28,7 @@ function ReportBuyerGroup({
           <td className="border border-gray-300 p-1 text-right">{item.ORDER_QTY}</td>
           <td className="border border-gray-300 p-1 text-right">{item.PREV_SHIPMENTQTY}</td>
           <td className="border border-gray-300 p-1 text-right">{(item.ORDER_QTY - item.PREV_SHIPMENTQTY - item.SHIPMENTQTY)}</td>
+          <td className="border border-gray-300 p-1 text-right">{item.FOB}</td>
           <td className="border border-gray-300 p-1 text-right">{item.SHIPMENTQTY}</td>
           <td className="border border-gray-300 p-1 text-right">{(item.SHIPMENTQTY * item.FOB).toFixed(2)}</td>
         </tr>
@@ -36,6 +37,7 @@ function ReportBuyerGroup({
       <tr className="text-center font-bold bg-emerald-100">
         <td colSpan={5} className="border border-gray-300 p-1 text-right">Buyer Wise Total</td>
         <td className="border border-gray-300 p-1 text-right">{totalOrderQty}</td>
+        <td className="border border-gray-300 p-1">{ }</td>
         <td className="border border-gray-300 p-1">{ }</td>
         <td className="border border-gray-300 p-1">{ }</td>
         <td className="border border-gray-300 p-1 text-right">{totalShipmentQty}</td>

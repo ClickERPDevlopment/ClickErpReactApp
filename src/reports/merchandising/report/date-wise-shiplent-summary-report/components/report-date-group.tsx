@@ -62,6 +62,7 @@ function ReportDateGroup({
         <td className="border border-gray-300 p-1 text-right">{totalOrderQty}</td>
         <td className="border border-gray-300 p-1">{ }</td>
         <td className="border border-gray-300 p-1">{ }</td>
+        <td className="border border-gray-300 p-1">{ }</td>
         <td className="border border-gray-300 p-1 text-right">{totalShipmentQty}</td>
         <td className="border border-gray-300 p-1 text-right">{totalValue.toFixed(2)}</td>
       </tr>

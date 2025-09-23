@@ -21,6 +21,7 @@ function Report({
     "ORDER QTY",
     "PREV. SHIP QTY",
     "REM. SHIP QTY",
+    "FOB",
     "SHIP QTY",
     "SHIP VALUE",
   ];
@@ -62,7 +63,7 @@ function Report({
 
   const totalOrderQty = data.reduce((sum, item) => sum + item.ORDER_QTY, 0);
   const totalShipmentQty = data.reduce((sum, item) => sum + item.SHIPMENTQTY, 0);
-  const totalValue = data.reduce((sum, item) => sum + (item.SHIPMENTQTY * item.FOB), 0);
+  const totalValue = data.reduce((sum, item) => sum + item.SHIPMENTQTY * item.FOB, 0);
 
 
   return (
@@ -99,6 +100,7 @@ function Report({
             <tr className="text-center bg-emerald-100 font-bold">
               <td colSpan={5} className="border border-gray-300 p-1 text-right">Grand Total</td>
               <td className="border border-gray-300 p-1 text-right">{totalOrderQty}</td>
+              <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1 text-right">{totalShipmentQty}</td>
