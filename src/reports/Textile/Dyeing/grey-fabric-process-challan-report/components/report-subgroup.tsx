@@ -19,13 +19,13 @@ function ReportSubgroup({
         </td>
         <td className="border border-gray-950 p-1">{data[0]?.COLORNAME}</td>
         <td className="border border-gray-950 p-1">{data[0]?.TREATMENT}</td>
-        <td className="border border-gray-950 p-1">{data[0]?.GREY_SHAPE}</td>
         <td className="border border-gray-950 p-1">{data[0]?.FIN_DIA}</td>
+        <td className="border border-gray-950 p-1">{data[0]?.GREY_SHAPE}</td>
         <td className="border border-gray-950 p-1">{data[0]?.GSM}</td>
         <td className="border border-gray-950 p-1">{data[0]?.STITCH_LENGTH}</td>
         <td className="border border-gray-950 p-1">{totalQuantiy}</td>
         <td className="border border-gray-950 p-1">{totalRollQty}</td>
-        <td className="border border-gray-950 p-1">{data[0]?.REMARKS}</td>
+        <td className="border border-gray-950 p-1">{data[0]?.DTL_REMARKS}</td>
       </tr>
 
     </>

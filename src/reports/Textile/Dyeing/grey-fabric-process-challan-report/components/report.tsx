@@ -57,8 +57,8 @@ function Report({
     "Yarn",
     "Color",
     "Process",
-    "FIN Dia",
     "MC Dia",
+    "FIN Dia",
     "GSM",
     "S/L",
     "Roll Qty",
@@ -78,7 +78,7 @@ function Report({
         />
         <div className="flex justify-between mt-3 font-bold">
           {/* Left Table */}
-          <table className="align-top w-1/2">
+          <table className="align-top">
             <tbody>
               <tr>
                 <td className="align-top">Party</td>
@@ -100,7 +100,7 @@ function Report({
           </table>
 
           {/* Right Table */}
-          <table className="align-top w-1/2">
+          <table className="align-top">
             <tbody>
               <tr>
                 <td className="align-top">Challan No</td>
@@ -149,6 +149,9 @@ function Report({
             </tr>
           </tbody>
         </table>
+        <div className="mt-3">
+          <p className="font-bold">Remarks: {data[0]?.REMARKS}</p>
+        </div>
         <div style={{ marginTop: "82px" }}></div>
         <div>
           <ReportFooter data={data}></ReportFooter>
