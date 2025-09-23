@@ -27,6 +27,7 @@ export type FinishFabricAllocatinReportMasterType = {
 
   CONSUMPTION_PER_DZN: string;
   RET_QTY: number;
+  AGEING: number;
 };
 
 export type FinishFabricAllocatinReportDetailsType = {

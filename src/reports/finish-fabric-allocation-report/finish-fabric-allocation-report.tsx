@@ -80,10 +80,6 @@ export default function FinishFabricAllocationReport() {
   }, [api.ProductionUrl, buyerId, fabricId, isStockAvl, orderRef, woId]);
 
 
-
-  console.log("Master Data:", masterData);
-
-
   const groupedData = new Map<string, FinishFabricAllocatinReportMasterType>();
 
   masterData.forEach((item) => {
@@ -94,7 +90,8 @@ export default function FinishFabricAllocationReport() {
       item.FABRIC,
       item.MTL_COLOR,
       item.UOM,
-      item.CONSUMPTION_PER_DZN
+      item.CONSUMPTION_PER_DZN,
+      item.AGEING
     ].join("|");
 
     if (!groupedData.has(key)) {
@@ -109,7 +106,6 @@ export default function FinishFabricAllocationReport() {
   });
 
   const uniqueMasterData = Array.from(groupedData.values());
-
 
   if (isLoading) {
     return <ReportSkeleton />;
