@@ -1,9 +1,12 @@
+import moment from "moment";
 import { IAccessoriesReport } from "../accessories-report-type";
 
 function ReportGroup({
   data,
+  isShipDateShow,
 }: {
   data: IAccessoriesReport[];
+  isShipDateShow: boolean;
 }) {
 
   const totalWoQty = data.reduce((acc, item) => {
@@ -69,6 +72,11 @@ function ReportGroup({
           <td className="border border-gray-900 p-0.5 text-center">
             {item.MTL_COLOR_NAME_2}
           </td>
+          {
+            isShipDateShow && <td className="border border-gray-900 p-0.5 text-center">
+              {item.SHIP_DATE ? moment(new Date(item.SHIP_DATE)).format("DD-MMM-YY") : ''}
+            </td>
+          }
         </tr>
       ))}
       <tr className="text-xs font-bold">
@@ -80,13 +88,15 @@ function ReportGroup({
         <td className="border border-gray-900 p-1 text-center">  {totalWoQty}</td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">
-
         </td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">{totalAmount.toFixed(2)}</td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center"></td>
+        {
+          isShipDateShow && <td className="border border-gray-900 p-1 text-center"></td>
+        }
       </tr>
     </>
   );

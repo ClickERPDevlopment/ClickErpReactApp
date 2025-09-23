@@ -6,11 +6,13 @@ function ReportTable({
   firstHeader,
   sizeHeader,
   secondHeader,
+  isShipDateShow,
 }: {
   data: IAccessoriesReport[];
   firstHeader: string[] | null;
   sizeHeader: string[] | null;
   secondHeader: string[] | null;
+  isShipDateShow: boolean;
 }) {
   let header;
   if (sizeHeader && secondHeader) {
@@ -78,13 +80,14 @@ function ReportTable({
             <ReportGroup
               key={key}
               data={groupedByDate[key].items}
+              isShipDateShow={isShipDateShow}
             ></ReportGroup>
           ))}
         </tbody>
         <tr className="text-xs font-bold">
           <td colSpan={7} className="border border-gray-900 p-1 text-center ">Total</td>
           <td className="border border-gray-900 p-1 text-center">
-           
+
           </td>
           <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center"> {totalWoQty}</td>
@@ -97,6 +100,9 @@ function ReportTable({
           <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center"></td>
+          {
+            isShipDateShow && <td className="border border-gray-900 p-1 text-center"></td>
+          }
         </tr>
       </table>
     </div>

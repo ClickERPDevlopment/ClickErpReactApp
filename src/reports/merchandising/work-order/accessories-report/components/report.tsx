@@ -5,7 +5,7 @@ import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { IAccessoriesReport } from "../accessories-report-type";
 
-function Report({ data }: { data: IAccessoriesReport[] }) {
+function Report({ data, isShipDateShow }: { data: IAccessoriesReport[], isShipDateShow: boolean }) {
   //set table header
   const firstHeader = [
     "STYLE",
@@ -14,6 +14,7 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
     "GMT COLOR",
     "MTL COLOR",
   ];
+
   const secondHeader = [
     "GMT SIZE",
     "MTL SIZE",
@@ -27,7 +28,9 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
     "DESCRIPTION 1",
     "DESCRIPTION 2",
     "MTL COLOR 2",
-  ];
+    isShipDateShow && "SHIP DATE",
+  ].filter(Boolean) as string[];
+
 
   const uniqueSizes: Set<string> = new Set();
 
@@ -48,6 +51,7 @@ function Report({ data }: { data: IAccessoriesReport[] }) {
           firstHeader={firstHeader}
           sizeHeader={sizeHeader}
           secondHeader={secondHeader}
+          isShipDateShow={isShipDateShow}
         ></ReportTable>
         <div className="mt-3">
           <p><span className="font-bold">Note:</span> Please mention the Work Order Number in the Delivery Challan and PI.</p>
