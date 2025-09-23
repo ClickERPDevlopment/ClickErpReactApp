@@ -10,7 +10,7 @@ export default function TotalRow({ data, title }: props) {
 
   return (
     <tr className={cn("border-t border-gray-500 font-bold",)}>
-      <td className="border border-gray-500 text-balance text-center p-1" colSpan={3}>
+      <td className="border border-gray-500 text-balance text-center p-1" colSpan={5}>
         {title}
       </td>
       <td className="border border-gray-500 text-balance text-center p-1">
