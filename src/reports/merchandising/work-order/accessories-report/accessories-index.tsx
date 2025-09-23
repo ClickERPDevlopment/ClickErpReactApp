@@ -27,6 +27,8 @@ function AccessoriesReport() {
     cmbReportFormat = String(searchParams.get("cmbReportFormat"));
   }
 
+  const isShipDateShow: boolean = searchParams.get("isShipDateShow") === "True" ? true : false;
+
   // console.log("id: ", id);
   // console.log("orderRef: ", currency);
   // console.log("fabricId: ", cmbReportFormat);
@@ -79,7 +81,7 @@ function AccessoriesReport() {
   ) : (
     <>
       <div className="print:border-none">
-        <Report data={data}></Report>
+        <Report data={data} isShipDateShow={isShipDateShow}></Report>
       </div>
     </>
   );

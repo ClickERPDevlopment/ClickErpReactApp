@@ -5,7 +5,7 @@ import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { IAccessoriesReportWithPo } from "../accessories-with-po-type";
 
-function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
+function Report({ data, isShipDateShow }: { data: IAccessoriesReportWithPo[], isShipDateShow: boolean }) {
   //set table header
   const firstHeader = [
     "STYLE",
@@ -28,8 +28,8 @@ function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
     "DESCRIPTION 1",
     "DESCRIPTION 2",
     "MTL COLOR 2",
-  ];
-
+    isShipDateShow && "SHIP DATE",
+  ].filter(Boolean) as string[];
   const uniqueSizes: Set<string> = new Set();
 
   data.forEach((item) => {
@@ -47,6 +47,7 @@ function Report({ data }: { data: IAccessoriesReportWithPo[] }) {
           firstHeader={firstHeader}
           sizeHeader={sizeHeader}
           secondHeader={secondHeader}
+          isShipDateShow={isShipDateShow}
         ></ReportTable>
         <div className="mt-3">
           <p><span className="font-bold">Note:</span> Please mention the Work Order Number in the Delivery Challan and PI.</p>

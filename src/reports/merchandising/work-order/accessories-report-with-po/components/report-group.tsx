@@ -1,9 +1,12 @@
+import moment from "moment";
 import { IAccessoriesReportWithPo } from "../accessories-with-po-type";
 
 function ReportGroup({
   data,
+  isShipDateShow,
 }: {
   data: IAccessoriesReportWithPo[];
+  isShipDateShow: boolean;
 }) {
 
 
@@ -73,12 +76,15 @@ function ReportGroup({
           <td className="border border-gray-900 p-0.5 text-center">
             {item.MTL_COLOR_NAME_2}
           </td>
+          {
+            isShipDateShow && <td className="border border-gray-900 p-0.5 text-center">{moment(item.SHIP_DATE).format("DD-MMM-YY")}</td>
+          }
         </tr>
       ))}
       <tr className="text-xs font-bold">
         <td colSpan={8} className="border border-gray-900 p-1 text-center ">Material Total</td>
         <td className="border border-gray-900 p-1 text-center">
-          
+
         </td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">{totalWoQty}</td>
@@ -91,6 +97,9 @@ function ReportGroup({
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center"></td>
+        {
+          isShipDateShow && <td className="border border-gray-900 p-1 text-center"></td>
+        }
       </tr>
     </>
   );

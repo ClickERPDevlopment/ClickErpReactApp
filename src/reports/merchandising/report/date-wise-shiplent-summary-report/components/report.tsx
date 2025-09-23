@@ -62,7 +62,7 @@ function Report({
 
   const totalOrderQty = data.reduce((sum, item) => sum + item.ORDER_QTY, 0);
   const totalShipmentQty = data.reduce((sum, item) => sum + item.SHIPMENTQTY, 0);
-  const totalValue = data.reduce((sum, item) => sum + (item.SHIPMENTQTY * item.FOB), 0);
+  const totalValue = data.reduce((sum, item) => sum + item.SHIPMENTQTY * item.FOB, 0);
 
 
   return (
