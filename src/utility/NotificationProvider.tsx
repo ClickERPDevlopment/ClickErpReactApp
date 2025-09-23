@@ -74,7 +74,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
         connection.on("UserConnected", (ConnectionId: string) => {
           console.log("User ConnectionId: ", ConnectionId);
           console.log("user: ", user);
-          connection.invoke("UpdateClientInfo", ("Najmuzzaman"), ConnectionId, "Web");
+          connection.invoke("UpdateClientInfo", ("Najmuzzaman"), ConnectionId, "Web", "");
 
           connection.invoke("GetConnectedClient").then((lst: ConnectedUser[]) => {
             setReactUser(lst);

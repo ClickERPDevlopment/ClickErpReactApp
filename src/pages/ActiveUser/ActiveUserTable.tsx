@@ -58,6 +58,10 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
             accessorKey: "App",
             header: "App",
         },
+        {
+            accessorKey: "ActivePage",
+            header: "Active Page",
+        },
     ];
 
     const table = useReactTable({
