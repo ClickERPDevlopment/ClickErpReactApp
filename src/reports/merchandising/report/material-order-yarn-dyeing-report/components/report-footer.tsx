@@ -48,7 +48,7 @@ function ReportFooter({ data }: { data: IMaterialOrderYarnDyeingReport[] }) {
         </span>
       </div>
 
-      <div className="mt-10 mb-5">
+      <div className="mt-20 mb-5">
         <table className="w-full mt-5">
           <thead>
           </thead>
