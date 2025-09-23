@@ -24,6 +24,7 @@ function DateWiseFinishFabricReceiveAndIssueRegisterReportIndex() {
   const styleId = searchParams.get("styleId") || "0";
   const poId = searchParams.get("poId") || "0";
   const transectioType = searchParams.get("transectioType") || "";
+  const isImport = searchParams.get("isImport") || "false";
 
   const api = useApiUrl();
 
@@ -36,7 +37,7 @@ function DateWiseFinishFabricReceiveAndIssueRegisterReportIndex() {
       try {
         setIsLoading(true);
 
-        const url = `${api.ProductionUrl}/production/FinishFabricStore/DateWiseFinishFabricReceiveAndIssueRegisterReport?fromDate=${fromDate}&toDate=${toDate}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&transectioType=${transectioType}`;
+        const url = `${api.ProductionUrl}/production/FinishFabricStore/DateWiseFinishFabricReceiveAndIssueRegisterReport?fromDate=${fromDate}&toDate=${toDate}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&transectioType=${transectioType}&isImport=${isImport}`;
 
         const res = await axios.get(url);
 
