@@ -16,12 +16,14 @@ function GreyFabricProcessChallanReport() {
 
 
 
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
 
   const id = searchParams.get("id") || "0";
   const companyId = searchParams.get("companyId") || "1";
+  const challanType = searchParams.get("challanType") || "";
 
   const api = useApiUrl();
 
@@ -74,7 +76,7 @@ function GreyFabricProcessChallanReport() {
   ) : (
     <>
       <div>
-        <Report data={data}></Report>
+        <Report data={data} challanType={challanType}></Report>
       </div>
     </>
   );

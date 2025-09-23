@@ -31,4 +31,5 @@ export type GreyFabricProcessChallanReportType = {
   UNIQUE_ROW?: string;
   GREY_SHAPE?: string;
   FIN_REQ_SHAPE?: string;
+  SYMBOLIC_NAME?: string;
 };

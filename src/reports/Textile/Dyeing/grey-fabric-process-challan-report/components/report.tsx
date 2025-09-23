@@ -7,8 +7,10 @@ import { GreyFabricProcessChallanReportType } from "../grey-fabric-process-chall
 
 function Report({
   data,
+  challanType
 }: {
   data: GreyFabricProcessChallanReportType[];
+  challanType: string;
 }) {
 
 
@@ -136,10 +138,11 @@ function Report({
                 key={key}
                 data={groupedByDate[key].items}
                 firstHeader={firstHeader}
+                challanType={challanType}
               ></ReportTable>
             ))}
-            <tr style={{ fontSize: "12px" }}>
-              <td colSpan={9} className="border border-gray-950 font-bold p-0.5">Total</td>
+            <tr style={{ fontSize: "13px" }}>
+              <td colSpan={9} className="border border-gray-950 font-bold p-0.5 text-right">Total</td>
               <td className="border border-gray-950 p-0.5 font-bold">{totalRollQty}</td>
               <td className="border border-gray-950 p-0.5 font-bold">{totalQuantiy}</td>
               <td className="border border-gray-950 p-0.5 font-bold">{ }</td>

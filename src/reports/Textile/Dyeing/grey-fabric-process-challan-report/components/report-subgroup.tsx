@@ -11,7 +11,7 @@ function ReportSubgroup({
 
   return (
     <>
-      <tr className="text-[11px] font-semibold">
+      <tr className="text-[12px] font-semibold">
         <td className="border border-gray-950 p-1">{data[0]?.YARN_LOT}</td>
         <td className="border border-gray-950 p-1" style={{ width: "100px" }}>{data[0]?.YARN_BRAND}</td>
         <td className="border border-gray-950 p-1" style={{ width: "300px" }}>

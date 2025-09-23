@@ -54,7 +54,7 @@ function Reportgroup({
 
   return (
     <>
-      <tr style={{ fontSize: "12px" }}>
+      <tr style={{ fontSize: "13px" }}>
         <td colSpan={12} className="border border-gray-950 font-bold p-0.5">Fabric: {data[0]?.FABRIC}</td>
       </tr>
       {uniqueKeysArray?.map((key) => (

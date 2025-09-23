@@ -4,9 +4,11 @@ import ReportGroup from "./report-group";
 
 function ReportTable({
   data,
+  challanType
 }: {
   data: GreyFabricProcessChallanReportType[];
   firstHeader: string[] | null;
+  challanType: string;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
@@ -49,7 +51,9 @@ function ReportTable({
   return (
     <>
       <tr style={{ fontSize: "12px" }}>
-        <td colSpan={12} className="border border-gray-950 font-bold p-0.5">Buyer: {data[0]?.BUYER_NAME} Job: {data[0].JOB_NUMBER}</td>
+        {
+          challanType === "Outside" ? <td colSpan={12} className="border border-gray-950 font-bold p-0.5"><span>Buyer: {data[0]?.SYMBOLIC_NAME}, Job: {data[0]?.JOB_NUMBER}</span></td> : <td colSpan={12} className="border border-gray-950 font-bold p-0.5">Buyer: {data[0]?.BUYER_NAME}, Style: {data[0]?.STYLENO},  Job: {data[0]?.JOB_NUMBER},  PO: {data[0]?.PONO}</td>
+        }
       </tr>
       {uniqueKeysArray?.map((key) => (
         <ReportGroup
@@ -57,8 +61,8 @@ function ReportTable({
           data={groupedByDate[key].items}
         ></ReportGroup>
       ))}
-      <tr style={{ fontSize: "12px" }}>
-        <td colSpan={9} className="border border-gray-950 font-bold p-0.5">Sub Total</td>
+      <tr style={{ fontSize: "13px" }}>
+        <td colSpan={9} className="border border-gray-950 font-bold p-0.5 text-right">Sub Total</td>
         <td className="border border-gray-950 p-0.5 font-bold">{totalRollQty}</td>
         <td className="border border-gray-950 p-0.5 font-bold">{totalQuantiy}</td>
         <td className="border border-gray-950 p-0.5 font-bold">{ }</td>
