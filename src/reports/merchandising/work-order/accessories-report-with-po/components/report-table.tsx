@@ -6,11 +6,13 @@ function ReportTable({
   firstHeader,
   sizeHeader,
   secondHeader,
+  isShipDateShow,
 }: {
   data: IAccessoriesReportWithPo[];
   firstHeader: string[] | null;
   sizeHeader: string[] | null;
   secondHeader: string[] | null;
+  isShipDateShow: boolean;
 }) {
   let header;
   if (sizeHeader && secondHeader) {
@@ -79,6 +81,7 @@ function ReportTable({
             <ReportGroup
               key={key}
               data={groupedByDate[key].items}
+              isShipDateShow={isShipDateShow}
             ></ReportGroup>
           ))}
           <tr className="text-xs font-bold">
@@ -96,6 +99,9 @@ function ReportTable({
             <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center"></td>
+            {
+              isShipDateShow && <td className="border border-gray-900 p-1 text-center"></td>
+            }
           </tr>
         </tbody>
       </table>
