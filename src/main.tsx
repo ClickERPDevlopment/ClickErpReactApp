@@ -198,6 +198,7 @@ import EmbellishmentSendReceiveReport from "./reports/embellishment/embellishmen
 import GreyFabricStockReportIndex from "./reports/store/grey-store/grey-stock-report/grey-stock-report-index.tsx";
 import DateWiseShiplentSummaryReport from "./reports/merchandising/report/date-wise-shiplent-summary-report/date-wise-shiplent-summary-report-index.tsx";
 import GreyFabricReceiveStatusReportIndex from "./reports/store/grey-store/grey-fabric-rcv-status-report/grey-fabric-rcv-status-report-index.tsx";
+import GreyFabricProcessChallanReport from "./reports/Textile/Dyeing/grey-fabric-process-challan-report/grey-fabric-process-challan-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -802,6 +803,10 @@ createRoot(document.getElementById("root")!).render(
                         />
                       </Route>
                       <Route path="dyeing">
+                        <Route
+                          path="grey-fabric-process-challan-report"
+                          element={<GreyFabricProcessChallanReport />}
+                        />
                         <Route
                           path="grey-batch-status-report"
                           element={<GreyBatchStatusReport />}

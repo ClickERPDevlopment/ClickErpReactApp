@@ -18,6 +18,7 @@ export default function FFATable({
     { name: "ITEM NAME", classes: "min-w-[200px]" },
     { name: "MATERIAL COLOR", classes: "" },
     { name: "WO QTY", classes: "" },
+    { name: "AGEING", classes: "" },
     { name: "RCV QTY", classes: "" },
     { name: "RET QTY", classes: "" },
     { name: "RCV BAL", classes: "" },
@@ -57,7 +58,7 @@ export default function FFATable({
           <th colSpan={2} className="text-left px-2 text-sm">
             {/* Style: {masterData.STYLENO} */}
           </th>
-          <th colSpan={9} className="text-left"></th>
+          <th colSpan={10} className="text-left"></th>
           <th colSpan={3} className="text-center border text-sm rounded-tr">
             ALLOCATION DETAILS
           </th>
@@ -89,6 +90,9 @@ export default function FFATable({
             {masterData.GMT_COLOR_ID} {masterData.MTL_COLOR}
           </td>
           <td className="border text-center text-xs">{masterData.WO_QTY}</td>
+          <td className="border text-center text-xs">
+            {masterData.AGEING}
+          </td>
           <td className="border text-center text-xs">
             {masterData.RECEIVE_QTY}
           </td>
@@ -158,6 +162,7 @@ export default function FFATable({
               <td className="border text-center"></td>
               <td className="border text-center"></td>
               <td className="border text-center"></td>
+              <td className="border text-center"></td>
               <td className="border text-center text-xs">{dtls?.STYLENO}</td>
               <td className="border text-center text-xs">{dtls?.PONO}</td>
               {/* <td className="border text-center text-xs">
@@ -176,7 +181,7 @@ export default function FFATable({
 
         {/* total allocation qty */}
         <tr key={Math.random()}>
-          <td className="border text-right font-bold text-xs" colSpan={15}>
+          <td className="border text-right font-bold text-xs" colSpan={16}>
             TOTAL
           </td>
           {/* <td className="border text-center text-xs">{totalReqQty?.toFixed(2)}</td> */}
