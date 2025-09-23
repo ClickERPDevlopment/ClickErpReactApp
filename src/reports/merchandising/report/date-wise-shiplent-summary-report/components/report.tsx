@@ -21,7 +21,6 @@ function Report({
     "ORDER QTY",
     "PREV. SHIP QTY",
     "REM. SHIP QTY",
-    "FOB",
     "SHIP QTY",
     "SHIP VALUE",
   ];
@@ -100,7 +99,6 @@ function Report({
             <tr className="text-center bg-emerald-100 font-bold">
               <td colSpan={5} className="border border-gray-300 p-1 text-right">Grand Total</td>
               <td className="border border-gray-300 p-1 text-right">{totalOrderQty}</td>
-              <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1 text-right">{totalShipmentQty}</td>
