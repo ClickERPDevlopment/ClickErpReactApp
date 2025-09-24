@@ -27,7 +27,9 @@ function JobBreakdownReport({ jobId, isShowReportHeader = true }: { jobId?: stri
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Report";
+    if (isShowReportHeader) {
+      document.title = "Report";
+    }
   }, []);
 
   useEffect(() => {
