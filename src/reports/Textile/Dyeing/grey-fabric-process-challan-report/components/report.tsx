@@ -96,6 +96,10 @@ function Report({
                 <td className="align-top">Driver Mobile</td>
                 <td className="align-top">: {data[0]?.DRIVER_MOBILE}</td>
               </tr>
+              <tr>
+                <td className="align-top">Vehicle No</td>
+                <td className="align-top">: {data[0]?.VEHICLE_NO}</td>
+              </tr>
             </tbody>
           </table>
 

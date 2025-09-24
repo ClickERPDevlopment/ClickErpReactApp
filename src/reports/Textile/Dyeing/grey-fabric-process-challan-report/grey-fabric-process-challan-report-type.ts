@@ -33,4 +33,5 @@ export type GreyFabricProcessChallanReportType = {
   FIN_REQ_SHAPE?: string;
   SYMBOLIC_NAME?: string;
   DTL_REMARKS?: string;
+  VEHICLE_NO?: string;
 };

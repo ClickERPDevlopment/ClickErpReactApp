@@ -52,7 +52,7 @@ function ReportTable({
     <>
       <tr style={{ fontSize: "12px" }}>
         {
-          challanType === "Outside" ? <td colSpan={12} className="border border-gray-950 font-bold p-0.5"><span>Buyer: {data[0]?.SYMBOLIC_NAME}, Job: {data[0]?.JOB_NUMBER}</span></td> : <td colSpan={12} className="border border-gray-950 font-bold p-0.5">Buyer: {data[0]?.BUYER_NAME}, Style: {data[0]?.STYLENO},  Job: {data[0]?.JOB_NUMBER},  PO: {data[0]?.PONO}</td>
+          challanType === "Outside" ? <td colSpan={12} className="border border-gray-950 font-bold p-0.5"><span>Buyer: {data[0]?.SYMBOLIC_NAME}, <span className="px-2"></span>Job: {data[0]?.JOB_NUMBER}</span></td> : <td colSpan={12} className="border border-gray-950 font-bold p-0.5">Buyer: {data[0]?.BUYER_NAME}, <span className="px-2"></span> Style: {data[0]?.STYLENO}, <span className="px-2"></span> Job: {data[0]?.JOB_NUMBER},<span className="px-2"></span>  PO: {data[0]?.PONO}</td>
         }
       </tr>
       {uniqueKeysArray?.map((key) => (
