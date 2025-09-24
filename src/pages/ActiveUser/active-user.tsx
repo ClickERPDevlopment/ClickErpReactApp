@@ -60,7 +60,7 @@ export default function ActiveUsers() {
                   Desktop User
                 </p>
                 <p className="text-muted-foreground text-sm">
-                  Total: {reactUser?.filter(user => user.App !== 'Desktop').length}
+                  Total: {reactUser?.filter(user => user.App === 'Desktop').length}
                 </p>
               </div>
             </Label>
