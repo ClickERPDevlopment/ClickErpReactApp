@@ -9,6 +9,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 export default function ActiveUsers() {
   const { reactUser } = useNotifications();
   const [data, setData] = React.useState<ConnectedUser[]>([]);
+  const [isAll, setIsAll] = React.useState(true);
+  const [isWeb, setIsWeb] = React.useState(false);
+  const [isDesktop, setIsDesktop] = React.useState(false);
 
   React.useEffect(() => {
     handleFilterUserNew()
@@ -17,16 +20,14 @@ export default function ActiveUsers() {
   const handleFilterUserNew = () => {
     const value = isAll ? 'All' : isWeb ? 'Web' : 'Desktop';
     if (value === 'All') {
-      setData(reactUser);
+      setData(pre => [...pre, ...reactUser]);
       return;
     }
 
     const fUsers = reactUser.filter((user) => user.App?.toLowerCase() === value?.toLowerCase());
-    setData(fUsers);
+    setData(pre => [...pre, ...fUsers])
   }
-  const [isAll, setIsAll] = React.useState(true);
-  const [isWeb, setIsWeb] = React.useState(false);
-  const [isDesktop, setIsDesktop] = React.useState(false);
+
 
   return (
     <div className="w-full h-full py-5">
