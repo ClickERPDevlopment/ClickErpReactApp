@@ -23,8 +23,8 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-1">{data[0]?.GREY_SHAPE}</td>
         <td className="border border-gray-950 p-1">{data[0]?.GSM}</td>
         <td className="border border-gray-950 p-1">{data[0]?.STITCH_LENGTH}</td>
-        <td className="border border-gray-950 p-1">{totalQuantiy}</td>
         <td className="border border-gray-950 p-1">{totalRollQty}</td>
+        <td className="border border-gray-950 p-1">{totalQuantiy}</td>
         <td className="border border-gray-950 p-1">{data[0]?.DTL_REMARKS}</td>
       </tr>
 
