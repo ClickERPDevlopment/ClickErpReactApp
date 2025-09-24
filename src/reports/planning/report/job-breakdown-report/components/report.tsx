@@ -5,8 +5,10 @@ import { JobBreakdownReportType } from "../job-breakdown-report-type";
 
 function Report({
   data,
+  isShowReportHeader = true,
 }: {
-  data: JobBreakdownReportType[];
+  data?: JobBreakdownReportType[];
+  isShowReportHeader?: boolean;
 }) {
 
   const grandTotal: {
@@ -23,7 +25,7 @@ function Report({
     data: JobBreakdownReportType[],
     keys: string[]
   ) {
-    return data.reduce((result: any, item: any) => {
+    return data?.reduce((result: any, item: any) => {
       const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
       if (!result[key]) {
@@ -71,15 +73,20 @@ function Report({
     <div style={{ fontFamily: "Times New Roman, serif" }}
       className="px-12 text-gray-950 w-full">
       <div className="p-2">
-        <ReportHeader
+        {isShowReportHeader && (
+          <ReportHeader
+            data={data}
+          />
+        )}
+        {/* <ReportHeader
           data={data}
-        />
+        /> */}
 
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
           <thead className="sticky top-0 print:static">
             <tr style={{ fontSize: "14px" }} className="bg-indigo-200 text-center">
               {header?.map((item) =>
-                <th className="border border-gray-950 p-0.5">{item}</th>
+                <th className="border border-gray-950 p-0.5" key={item}>{item}</th>
               )}
               <th className="border border-gray-950 p-0.5">Total</th>
             </tr>
@@ -104,7 +111,7 @@ function Report({
             </tr>
           </tbody>
         </table>
-        <div className="mt-[144px]"></div>
+        {/* <div className="mt-[144px]"></div> */}
         <div>
           {/* <ReportFooter></ReportFooter> */}
         </div>

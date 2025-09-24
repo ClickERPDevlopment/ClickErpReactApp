@@ -68,7 +68,9 @@ export default function FabricBookingReportIndex() {
                     <ReportSkeleton />
                 </div>
             ) :
-                (client.currentClient == client.FAME ? <FabricBookingReportFame data={data} /> : <FabricBookingReport data={data} />)
+                (client.currentClient == client.FAME ?
+                    <FabricBookingReportFame data={data} isPoWise={isPoWise?.toLowerCase() === "true" ? true : false} /> :
+                    <FabricBookingReport data={data} />)
             }
         </>
     );

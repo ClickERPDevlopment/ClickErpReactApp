@@ -5,10 +5,10 @@ import { JobBreakdownReportType } from "../job-breakdown-report-type";
 function ReportHeader({
   data,
 }: {
-  data: JobBreakdownReportType[];
+  data?: JobBreakdownReportType[];
 }) {
 
-  return (
+  return data && (
     <div className="w-[100%]">
 
       <p className="font-bold text-left w-[100%] text-xs">
