@@ -82,7 +82,7 @@ function Report({
           }}
         />
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
-          <thead className="sticky top-0 print:static bg-white print:bg-transparent">
+          <thead className="sticky top-0 print:static">
             <tr className="bg-lime-200 text-center">
               {firstHeader?.map((item) => (
                 <th className="border border-gray-300 p-1">{item}</th>
