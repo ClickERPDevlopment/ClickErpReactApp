@@ -10653,7 +10653,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  @apply w-[15px] h-[20px] bg-white;
+  @apply w-[5px] h-[20px] bg-white;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -10661,11 +10661,11 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar {
-  @apply w-[10px] h-[30px] bg-gray-100;
+  @apply w-[5px] h-[30px] bg-gray-100;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  @apply w-[10px] h-[30px] bg-gray-300;
+  @apply w-[5px] h-[30px] bg-gray-300;
 }
 
 .dark ::-webkit-scrollbar {

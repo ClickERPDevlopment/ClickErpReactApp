@@ -34,7 +34,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  @apply w-[10px] h-[20px] bg-gray-100;
+  @apply w-[5px] h-[20px] bg-gray-100;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -42,11 +42,11 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar {
-  @apply w-[10px] h-[30px] bg-gray-100;
+  @apply w-[5px] h-[30px] bg-gray-100;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  @apply w-[10px] h-[0px] bg-gray-300;
+  @apply w-[5px] h-[0px] bg-gray-300;
 }
 
 .dark {
