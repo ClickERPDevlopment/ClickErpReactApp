@@ -11,11 +11,12 @@ export default function ActiveUsers() {
   const [data, setData] = React.useState<ConnectedUser[]>([]);
 
   React.useEffect(() => {
-    handleFilterUserNew('All')
+    handleFilterUserNew()
   }, [reactUser])
 
-  const handleFilterUserNew = (value: '' | 'All' | 'Web' | 'Desktop') => {
-    if (value === 'All' || value === '') {
+  const handleFilterUserNew = () => {
+    const value = isAll ? 'All' : isWeb ? 'Web' : 'Desktop';
+    if (value === 'All') {
       setData(reactUser);
       return;
     }
@@ -37,7 +38,7 @@ export default function ActiveUsers() {
                 setIsWeb(e)
                 setIsDesktop(false)
                 setIsAll(false)
-                handleFilterUserNew('Web')
+                handleFilterUserNew()
               }} checked={isWeb} />
               <div className="grid gap-1.5 font-normal">
                 <p className="text-sm leading-none font-medium">
@@ -54,7 +55,7 @@ export default function ActiveUsers() {
                 setIsDesktop(e)
                 setIsWeb(false)
                 setIsAll(false)
-                handleFilterUserNew('Desktop')
+                handleFilterUserNew()
               }} checked={isDesktop} />
               <div className="grid gap-1.5 font-normal">
                 <p className="text-sm leading-none font-medium">
@@ -71,7 +72,7 @@ export default function ActiveUsers() {
                 setIsAll(e)
                 setIsWeb(false)
                 setIsDesktop(false)
-                handleFilterUserNew('All')
+                handleFilterUserNew()
               }} checked={isAll} />
               <div className="grid gap-1.5 font-normal">
                 <p className="text-sm leading-none font-medium">
