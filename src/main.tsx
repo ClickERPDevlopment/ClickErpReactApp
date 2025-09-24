@@ -199,6 +199,7 @@ import GreyFabricStockReportIndex from "./reports/store/grey-store/grey-stock-re
 import DateWiseShiplentSummaryReport from "./reports/merchandising/report/date-wise-shiplent-summary-report/date-wise-shiplent-summary-report-index.tsx";
 import GreyFabricReceiveStatusReportIndex from "./reports/store/grey-store/grey-fabric-rcv-status-report/grey-fabric-rcv-status-report-index.tsx";
 import GreyFabricProcessChallanReport from "./reports/Textile/Dyeing/grey-fabric-process-challan-report/grey-fabric-process-challan-report-index.tsx";
+import SupervisorWiseCuttingKPIReport from "./reports/production/cuttting/supervisor-wise-cutting-kpi-report/supervisor-wise-cutting-kpi-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -555,6 +556,10 @@ createRoot(document.getElementById("root")!).render(
                         <Route
                           path="fabric-quality-problem-report"
                           element={<FabricQualityProblemReport />}
+                        />
+                        <Route
+                          path="supervisor-wise-cutting-kpi-report"
+                          element={<SupervisorWiseCuttingKPIReport />}
                         />
                       </Route>
                       <Route path="finishing">
