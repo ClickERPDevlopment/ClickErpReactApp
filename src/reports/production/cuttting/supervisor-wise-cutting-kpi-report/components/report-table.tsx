@@ -30,7 +30,7 @@ function ReportTable({
 
         return (
           <tr className="text-center">
-            <td className="border border-gray-300 p-1">
+            <td className="border border-gray-300 p-1 text-start">
               {moment(item.TARGETDATE).format("dddd, DD-MMMM-YYYY")}
             </td>
             <td className="border border-gray-300 p-1 text-left">
