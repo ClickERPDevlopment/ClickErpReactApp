@@ -18,14 +18,15 @@ export default function ActiveUsers() {
   }, [reactUser])
 
   const handleFilterUserNew = () => {
+    setData([]);
     const value = isAll ? 'All' : isWeb ? 'Web' : 'Desktop';
     if (value === 'All') {
-      setData(pre => [...pre, ...reactUser]);
+      setData(reactUser);
       return;
     }
 
     const fUsers = reactUser.filter((user) => user.App?.toLowerCase() === value?.toLowerCase());
-    setData(pre => [...pre, ...fUsers])
+    setData(fUsers);
   }
 
 
