@@ -10657,7 +10657,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply w-[0px] h-[20px] bg-gray-500;
+  @apply w-[0px] h-[20px] bg-gray-500 rounded-full;
 }
 
 .custom-scroll::-webkit-scrollbar {
@@ -10665,7 +10665,7 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  @apply w-[5px] h-[30px] bg-gray-300;
+  @apply w-[5px] h-[30px] bg-gray-300 rounded-full;
 }
 
 .dark ::-webkit-scrollbar {
