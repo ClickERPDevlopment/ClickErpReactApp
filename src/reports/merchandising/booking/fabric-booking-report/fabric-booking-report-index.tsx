@@ -25,8 +25,8 @@ export default function FabricBookingReportIndex() {
     if (searchParams.get("styleId")) {
         styleId = searchParams.get("styleId");
     }
-    if (searchParams.get("ispowise")) {
-        isPoWise = searchParams.get("ispowise");
+    if (searchParams.get("isPoWise")) {
+        isPoWise = searchParams.get("isPoWise");
     }
 
     useEffect(() => {
@@ -59,7 +59,6 @@ export default function FabricBookingReportIndex() {
         }
         getData();
     }, [api.ProductionUrl, isPoWise, poId, styleId]);
-
     const client = useAppClient();
     return (
         <>

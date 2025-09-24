@@ -34,6 +34,7 @@ export default function FabricBookingReportFame({ data, isPoWise }: { data?: Fab
                     </h1>
                 }
             </MasterInfo>
+
             {isPoWise ?
                 <div className="mt-5">
                     <h4 className="text-center m-0 p-0 text-lg font-bold">Order Qty</h4>
@@ -53,7 +54,7 @@ export default function FabricBookingReportFame({ data, isPoWise }: { data?: Fab
             <Comments lstComments={data?.lstComments} />
             <VarificationStatus lstVerificationStatus={data?.lstVerificationStatus} />
             <div className="flex text-center p-3 w-full">
-                <h1 className="text-center font-bold text-xl w-full">Bulk yarn count should be fixed by knitting department.</h1>
+                <h1 className="text-center font-bold text-xl w-full">Bulk yarn count should be fixed by knitting department</h1>
             </div>
             <Signature masterData={data?.MaterData} signatureData={signatureData} />
         </div>
