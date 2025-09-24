@@ -31,7 +31,7 @@ export default function ActiveUsers() {
     <div className="w-full h-full py-5">
       <div className="w-full min-h-full p-5 bg-white rounded-md shadow-sm flex flex-col gap-2">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Label className="border-violet-700 text-violet-700 w-36 flex items-start gap-3 rounded-md border p-2">
               <Checkbox onCheckedChange={(e: boolean) => {
                 setIsWeb(e)
