@@ -8,8 +8,9 @@ import YarnRequirementSummary from "../shared-components/yarn-requirement-summar
 import { FabricBookingReportDto } from "../fabric-booking-type";
 import Details_Fame from "./components/details-fame";
 import JobBreakdownReport from "@/reports/planning/report/job-breakdown-report/job-breakdown-report-index";
+import OrderQty from "../shared-components/order-qty";
 
-export default function FabricBookingReportFame({ data }: { data?: FabricBookingReportDto, isPoWise?: boolean }) {
+export default function FabricBookingReportFame({ data, isPoWise }: { data?: FabricBookingReportDto, isPoWise?: boolean }) {
     const signatureData = [
         { title: "Prepared By", access_key: "CREATED_BY" },
         { title: "Checked By", access_key: "" },
@@ -33,11 +34,13 @@ export default function FabricBookingReportFame({ data }: { data?: FabricBooking
                     </h1>
                 }
             </MasterInfo>
-            <div className="mt-5">
-                <h4 className="text-center m-0 p-0 text-lg font-bold">Order Qty</h4>
-                <JobBreakdownReport jobId={data?.MaterData?.PO_ID} isShowReportHeader={false} />
-            </div>
-            {/* <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} /> */}
+            {isPoWise ?
+                <div className="mt-5">
+                    <h4 className="text-center m-0 p-0 text-lg font-bold">Order Qty</h4>
+                    <JobBreakdownReport jobId={data?.MaterData?.PO_ID} isShowReportHeader={false} />
+                </div> :
+                <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
+            }
             <Details_Fame
                 lstFabricQtyDetails={data?.lstFabricQtyDetails}
                 lstWastagePercentage={data?.lstWastagePercentage}
