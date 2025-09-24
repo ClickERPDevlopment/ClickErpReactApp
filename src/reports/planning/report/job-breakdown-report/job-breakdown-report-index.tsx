@@ -32,11 +32,15 @@ function JobBreakdownReport({ jobId, isShowReportHeader = true }: { jobId?: stri
 
   useEffect(() => {
     async function getData() {
+      setIsLoading(true)
       return await GetData(api, jobId ?? "0");
     }
     getData().then((res) => {
       setData(res);
+      setIsLoading(false)
+
     });
+    setIsLoading(false)
 
   }, []);
 
