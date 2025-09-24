@@ -14,7 +14,7 @@ export default function Chats({ selectedUser, setSelectedUser }: { selectedUser:
 
     //filter user by inputed value
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const users = reactUser?.filter(user => user.UserName.toLowerCase().includes(e.target.value.toLowerCase()))
+        const users = reactUser?.filter(user => user.FullName.toLowerCase().includes(e.target.value.toLowerCase()))
         setUsers(users)
     }
 
@@ -34,7 +34,7 @@ export default function Chats({ selectedUser, setSelectedUser }: { selectedUser:
                     <div className="flex flex-col flex-1 items-center rounded-bl-md w-full gap-1">
                         <UserCard userName="All" lastMsg="" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                         {users?.map((item, index) =>
-                            <UserCard key={index} userName={item.UserName} lastMsg="" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+                            <UserCard key={index} userName={item.FullName} lastMsg={item.UserName} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                         )}
                     </div>
                 </ScrollArea>
