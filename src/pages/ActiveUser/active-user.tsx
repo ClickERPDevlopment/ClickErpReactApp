@@ -13,22 +13,18 @@ export default function ActiveUsers() {
   const [isWeb, setIsWeb] = React.useState(false);
   const [isDesktop, setIsDesktop] = React.useState(false);
 
-  React.useEffect(() => {
-    handleFilterUserNew()
-  }, [reactUser])
+  type AppType = "All" | "Web" | "Desktop";
+  const [app, setApp] = React.useState<AppType>('All');
 
-  const handleFilterUserNew = () => {
-    setData([]);
-    const value = isAll ? 'All' : isWeb ? 'Web' : 'Desktop';
-    if (value === 'All') {
+  React.useEffect(() => {
+    if (app === 'All') {
       setData(reactUser);
       return;
     }
 
-    const fUsers = reactUser.filter((user) => user.App?.toLowerCase() === value?.toLowerCase());
+    const fUsers = reactUser.filter((user) => user.App?.toLowerCase() === app?.toLowerCase());
     setData(fUsers);
-  }
-
+  }, [reactUser, app])
 
   return (
     <div className="w-full h-full py-5">
@@ -40,7 +36,7 @@ export default function ActiveUsers() {
                 setIsWeb(e)
                 setIsDesktop(false)
                 setIsAll(false)
-                handleFilterUserNew()
+                setApp('Web')
               }} checked={isWeb} />
               <div className="grid gap-1.5 font-normal">
                 <p className="text-sm leading-none font-medium">
@@ -57,7 +53,7 @@ export default function ActiveUsers() {
                 setIsDesktop(e)
                 setIsWeb(false)
                 setIsAll(false)
-                handleFilterUserNew()
+                setApp('Desktop')
               }} checked={isDesktop} />
               <div className="grid gap-1.5 font-normal">
                 <p className="text-sm leading-none font-medium">
@@ -74,7 +70,7 @@ export default function ActiveUsers() {
                 setIsAll(e)
                 setIsWeb(false)
                 setIsDesktop(false)
-                handleFilterUserNew()
+                setApp('All')
               }} checked={isAll} />
               <div className="grid gap-1.5 font-normal">
                 <p className="text-sm leading-none font-medium">
