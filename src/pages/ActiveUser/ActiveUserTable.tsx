@@ -72,9 +72,9 @@ export function ActiveUserTable({ data }: { data: ConnectedUser[] }) {
 
     return (
         <>
-            <div className="h-[calc(100vh-200px)] rounded-md border bg-white shadow-sm border-green m-0 p-0 overflow-auto">
+            <div className="h-[calc(100vh-200px)] rounded-md border bg-white shadow-sm border-green m-0 p-0 overflow-auto relative">
                 <Table className="min-w-full">
-                    <TableHeader>
+                    <TableHeader className="sticky top-0">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
