@@ -26,6 +26,9 @@ export default function ReportTableRow({
         <td className="border text-center text-xs">
           {masterData?.GMT_COLOR_ID} {masterData?.MTL_COLOR}
         </td>
+        <td className="border text-center text-xs">
+          {masterData?.AGEING}
+        </td>
         <td className="border text-center text-xs">{masterData?.WO_QTY}</td>
         <td className="border text-center text-xs">
           {masterData?.RECEIVE_QTY}

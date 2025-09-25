@@ -18,6 +18,7 @@ export default function ReportTable({
     { name: "ORDER REF", classes: "min-w-[100px]" },
     { name: "ITEM NAME", classes: "min-w-[200px]" },
     { name: "MATERIAL COLOR", classes: "" },
+    { name: "AGEING", classes: "" },
     { name: "WO QTY", classes: "" },
     { name: "RCV QTY", classes: "" },
     { name: "RET QTY", classes: "" },
@@ -118,7 +119,7 @@ export default function ReportTable({
           <tr>
             <td
               className="border text-center text-xs font-semibold"
-              colSpan={5}
+              colSpan={6}
             >
               Total
             </td>

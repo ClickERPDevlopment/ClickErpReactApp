@@ -23,6 +23,7 @@ export type FinishFabricAllocationSummaryReportMasterType = {
   UOM: string;
   RET_QTY: number;
   SUPPLIER_RATE_PER_PCS: number;
+  AGEING: number;
 };
 
 export type FinishFabricAllocationSummaryReportDetailsType = {
