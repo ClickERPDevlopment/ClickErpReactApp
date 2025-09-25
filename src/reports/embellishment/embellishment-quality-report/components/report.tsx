@@ -132,7 +132,10 @@ function Report({
               {firstHeader?.map((item) =>
                 <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
               )}
-              <th colSpan={defectHeader.length} className="border border-gray-950 p-0.5">{data[0]?.EmbType} Defect Points</th>
+              {
+                defectHeader.length > 0 && <th colSpan={defectHeader.length} className="border border-gray-950 p-0.5">{data[0]?.EmbType} Defect Points</th>
+              }
+
               {secondHeader?.map((item) =>
                 <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
               )}
