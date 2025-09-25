@@ -197,16 +197,16 @@ function Report({
               </td>
 
               {defectHeader.map((defect) => (
-                <td key={defect} className="border border-black px-2 py-1">
+                <td key={defect} className="border border-black px-2 py-1 text-right">
                   {defectGrandTotals[defect] ?? 0}
                 </td>
               ))}
 
-              <td className="border border-black px-2 py-1">{totalCheckQty}</td>
-              <td className="border border-black px-2 py-1">{totalDefectQty}</td>
-              <td className="border border-black px-2 py-1">{totalAlterQty}</td>
-              <td className="border border-black px-2 py-1">{totalOkQty}</td>
-              <td className="border border-black px-2 py-1"></td>
+              <td className="border border-black px-2 py-1 text-right">{totalCheckQty}</td>
+              <td className="border border-black px-2 py-1 text-right">{totalDefectQty}</td>
+              <td className="border border-black px-2 py-1 text-right">{totalAlterQty}</td>
+              <td className="border border-black px-2 py-1 text-right">{totalOkQty}</td>
+              <td className="border border-black px-2 py-1 text-right"></td>
             </tr>
           </tbody>
         </table>
