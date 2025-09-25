@@ -39,7 +39,7 @@ export default function PoStyleWiseRows({ data_fabric, data_gmt, poStyleIndex }:
                             <td className="border border-gray-500 text-center p-1 text-nowrap" rowSpan={maxLength}>
                                 <span className="hidden">{f?.PO_ID}</span>
                                 <a
-                                    href={`${api.BaseUrl}:60/planning/show-report-summery?job_no=${f?.PONO}`} // your target route
+                                    href={`${api.PhpBaseUrl}:60/planning/show-report-summery?job_no=${f?.PONO}`} // your target route
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-sky-600 hover:underline cursor-pointer"
