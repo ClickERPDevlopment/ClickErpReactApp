@@ -11,57 +11,49 @@ function ReportHeader({
 }: {
   data: PrintEmbellishmentQualityReportMasterType[];
 }) {
-
   const [companyData, setCompanyData] = useState<ICompany>();
   const api = useApiUrl();
-
 
   useEffect(() => {
     async function getData() {
       try {
-        await axios
-          .get(
-            `${api.ProductionUrl}/production/Company/3`, {
-          }
-          )
-          .then((res) => {
-            if (res.data) {
-              setCompanyData(res.data);
-            } else {
-            }
-          })
-          .catch((m) => console.log(m));
-
-      } catch {
+        const res = await axios.get(`${api.ProductionUrl}/production/Company/3`);
+        if (res.data) {
+          setCompanyData(res.data);
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
     getData();
   }, []);
 
   return (
-    <div className="w-[100%]">
+    <div className="w-full pb-3 mb-4">
+      {/* Date */}
+      <div className="flex justify-between text-xs text-gray-600 mb-2">
+        <span>{moment().format("DD-MMM-YYYY")}</span>
+        <span className="italic">"CLICK"</span>
+      </div>
 
-      <p className="font-bold text-left w-[100%] text-xs">
-        {moment().format("DD-MMM-YYYY")}
-      </p>
-
-      {
-        companyData?.NAME && <>
-          <h1 className="font-bold text-xl text-center">
-            {
-              companyData?.NAME
-            }
+      {/* Company Info */}
+      {companyData?.NAME && (
+        <div className="text-center">
+          <h1 className="font-extrabold text-2xl text-gray-900 tracking-wide">
+            {companyData?.NAME}
           </h1>
-          <h4 className="font-bold text-sm text-center mb-2">
-            {
-              companyData?.ADDRESS
-            }
-          </h4>
-        </>
-      }
-      <h3 className="font-bold text-xl text-center uppercase ">
-        {data[0]?.EmbType} Quality Check Report
-      </h3>
+          <p className="text-sm text-gray-700">{companyData?.ADDRESS}</p>
+        </div>
+      )}
+
+      {/* Report Title */}
+      <div className="mt-3">
+        <h2 className="font-bold text-lg text-center uppercase tracking-wide">
+          <span className="px-4 py-1 bg-gray-100">
+            {data[0]?.EmbType} Quality Check Report
+          </span>
+        </h2>
+      </div>
     </div>
   );
 }

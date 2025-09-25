@@ -13,34 +13,58 @@ const ReportTable: React.FC<ReportTableProps> = ({ data, defectHeader }) => {
     <>
       {data.map((item, index) =>
         item.Details.map((detail, detailIndex) => (
-          <tr key={`${index}-${detailIndex}`} style={{ fontSize: "12px" }}>
+          <tr
+            key={`${index}-${detailIndex}`}
+            className="text-sm font-medium odd:bg-gray-50 hover:bg-gray-100 transition-colors"
+          >
             {/* First header columns */}
-            <td className="border border-gray-950 p-0.5 font-bold">
+            <td className="border border-black px-2 py-1">
               {item.EntryDate ? moment(item.EntryDate).format("DD-MMM-YY") : ""}
             </td>
-            <td className="border border-gray-950 p-0.5 font-bold">{item.Party}</td>
-            <td className="border border-gray-950 p-0.5 font-bold">{item.WorkStation}</td>
-            <td className="border border-gray-950 p-0.5 font-bold">{detail.Buyer || detail.OsBuyer}</td>
-            <td className="border border-gray-950 p-0.5 font-bold">{detail.Style || detail.OsStyle}</td>
-            <td className="border border-gray-950 p-0.5 font-bold">{detail.Po || detail.OsPo}</td>
-            <td className="border border-gray-950 p-0.5 font-bold">{detail.Color}</td>
+            <td className="border border-black px-2 py-1">{item.Party}</td>
+            <td className="border border-black px-2 py-1">{item.WorkStation}</td>
+            <td className="border border-black px-2 py-1">
+              {detail.Buyer || detail.OsBuyer}
+            </td>
+            <td className="border border-black px-2 py-1">
+              {detail.Style || detail.OsStyle}
+            </td>
+            <td className="border border-black px-2 py-1">
+              {detail.Po || detail.OsPo}
+            </td>
+            <td className="border border-black px-2 py-1">{detail.Color}</td>
 
             {/* Defect columns dynamically */}
             {defectHeader.map((defectName, defectIndex) => {
-              const defect = detail.Defects.find(d => d.DefectName === defectName);
+              const defect = detail.Defects.find(
+                (d) => d.DefectName === defectName
+              );
               return (
-                <td key={defectIndex} className="border border-gray-950 p-0.5 font-bold text-center">
+                <td
+                  key={defectIndex}
+                  className="border border-black px-2 py-1 text-right"
+                >
                   {defect ? defect.Qty : 0}
                 </td>
               );
             })}
 
             {/* Second header columns */}
-            <td className="border border-gray-950 p-0.5 font-bold text-center">{detail.CheckQty || 0}</td>
-            <td className="border border-gray-950 p-0.5 font-bold text-center">{detail.DefectQty || 0}</td>
-            <td className="border border-gray-950 p-0.5 font-bold text-center">{detail.RectifyQty || 0}</td>
-            <td className="border border-gray-950 p-0.5 font-bold text-center">{detail.QcPassedQty || 0}</td>
-            <td className="border border-gray-950 p-0.5 font-bold text-center">{item.Remarks || ""}</td>
+            <td className="border border-black px-2 py-1 text-right">
+              {detail.CheckQty || 0}
+            </td>
+            <td className="border border-black px-2 py-1 text-right">
+              {detail.DefectQty || 0}
+            </td>
+            <td className="border border-black px-2 py-1 text-right">
+              {detail.RectifyQty || 0}
+            </td>
+            <td className="border border-black px-2 py-1 text-right">
+              {detail.QcPassedQty || 0}
+            </td>
+            <td className="border border-black px-2 py-1 italic text-gray-700">
+              {item.Remarks || ""}
+            </td>
           </tr>
         ))
       )}

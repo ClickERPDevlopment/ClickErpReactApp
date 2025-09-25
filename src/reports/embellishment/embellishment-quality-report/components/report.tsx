@@ -8,9 +8,6 @@ function Report({
 }: {
   data: PrintEmbellishmentQualityReportMasterType[];
 }) {
-
-
-
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
@@ -26,7 +23,6 @@ function Report({
         };
       }
       result[key].items.push(item);
-
       return result;
     }, {});
   }
@@ -38,15 +34,12 @@ function Report({
   }
 
   let groupedByDate: GroupedByDate = {};
-
   if (data) {
-    groupedByDate = groupBy(data, [""]);
+    groupedByDate = groupBy(data, [""]); // currently grouping by nothing, can adjust if needed
   }
-
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-
-  //set table header
+  // Table headers
   const firstHeader = [
     "Date",
     "Party Name",
@@ -56,7 +49,6 @@ function Report({
     "Order No.",
     "Color",
   ];
-
 
   const secondHeader = [
     "Check Qty",
@@ -70,25 +62,22 @@ function Report({
     masters: PrintEmbellishmentQualityReportMasterType[]
   ): string[] {
     const defectSet = new Set<string>();
-
-    masters.forEach(master => {
-      master.Details.forEach(detail => {
-        detail.Defects.forEach(defect => {
+    masters.forEach((master) => {
+      master.Details.forEach((detail) => {
+        detail.Defects.forEach((defect) => {
           defectSet.add(defect.DefectName);
         });
       });
     });
-
     return Array.from(defectSet);
   }
-
 
   function getDefectGrandTotalsByKey(
     masters: PrintEmbellishmentQualityReportMasterType[]
   ): Record<string, number> {
     return masters.reduce((acc, master) => {
-      master.Details.forEach(detail => {
-        detail.Defects.forEach(defect => {
+      master.Details.forEach((detail) => {
+        detail.Defects.forEach((defect) => {
           acc[defect.DefectName] = (acc[defect.DefectName] || 0) + defect.Qty;
         });
       });
@@ -99,80 +88,128 @@ function Report({
   const defectHeader = getUniqueDefectHeaders(data);
   const defectGrandTotals = getDefectGrandTotalsByKey(data);
 
-
   const totalCheckQty = data.reduce((sum, master) => {
-    return sum + master.Details.reduce((detailSum, detail) => detailSum + (detail.CheckQty || 0), 0);
+    return (
+      sum +
+      master.Details.reduce(
+        (detailSum, detail) => detailSum + (detail.CheckQty || 0),
+        0
+      )
+    );
   }, 0);
 
   const totalDefectQty = data.reduce((sum, master) => {
-    return sum + master.Details.reduce((detailSum, detail) => detailSum + (detail.DefectQty || 0), 0);
+    return (
+      sum +
+      master.Details.reduce(
+        (detailSum, detail) => detailSum + (detail.DefectQty || 0),
+        0
+      )
+    );
   }, 0);
+
   const totalAlterQty = data.reduce((sum, master) => {
-    return sum + master.Details.reduce((detailSum, detail) => detailSum + (detail.RectifyQty || 0), 0);
-  }
-    , 0);
+    return (
+      sum +
+      master.Details.reduce(
+        (detailSum, detail) => detailSum + (detail.RectifyQty || 0),
+        0
+      )
+    );
+  }, 0);
 
   const totalOkQty = data.reduce((sum, master) => {
-    return sum + master.Details.reduce((detailSum, detail) => detailSum + (detail.QcPassedQty || 0), 0);
+    return (
+      sum +
+      master.Details.reduce(
+        (detailSum, detail) => detailSum + (detail.QcPassedQty || 0),
+        0
+      )
+    );
   }, 0);
 
-
-
   return (
-    <div style={{ fontFamily: "Times New Roman, serif" }}
-      className="px-12 text-gray-950">
-      <div className="p-2">
-        <ReportHeader
-          data={data}
-        />
+    <div
+      style={{ fontFamily: "Times New Roman, serif" }}
+      className="px-12 text-gray-950 print:px-4"
+    >
+      <div className="p-4">
+        {/* Report Header */}
+        <ReportHeader data={data} />
 
-        <table className="border-collapse border border-gray-300  w-[100%] mt-3">
+        {/* Table */}
+        <table className="border-collapse border border-black w-full mt-4 text-sm">
           <thead className="sticky top-0 print:static">
-            <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
-              {firstHeader?.map((item) =>
-                <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
-              )}
-              {
-                defectHeader.length > 0 && <th colSpan={defectHeader.length} className="border border-gray-950 p-0.5">{data[0]?.EmbType} Defect Points</th>
-              }
+            <tr className="text-center font-semibold text-[13px]">
+              {firstHeader.map((item, idx) => (
+                <th
+                  key={idx}
+                  rowSpan={2}
+                  className="border border-black px-2 py-1"
+                >
+                  {item}
+                </th>
+              ))}
 
-              {secondHeader?.map((item) =>
-                <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
+              {defectHeader.length > 0 && (
+                <th
+                  colSpan={defectHeader.length}
+                  className="border border-black px-2 py-1"
+                >
+                  {data[0]?.EmbType} Defect Points
+                </th>
               )}
+
+              {secondHeader.map((item, idx) => (
+                <th
+                  key={idx}
+                  rowSpan={2}
+                  className="border border-black px-2 py-1"
+                >
+                  {item}
+                </th>
+              ))}
             </tr>
-            <tr>
-              {defectHeader?.map((item) =>
-                <th className="border border-gray-950 p-0.5">{item}</th>
-              )}
+            <tr className=" text-center text-[12px]">
+              {defectHeader.map((item, idx) => (
+                <th key={idx} className="border border-black px-2 py-1">
+                  {item}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {uniqueKeysArray?.map((key) => (
+            {uniqueKeysArray.map((key) => (
               <ReportTable
                 key={key}
                 data={groupedByDate[key].items}
                 defectHeader={defectHeader}
-              ></ReportTable>
+              />
             ))}
-            <tr className="font-bold bg-indigo-200 text-center" style={{ fontSize: "12px" }}>
-              <td colSpan={firstHeader.length} className="text-right font-bold border border-gray-950 p-0.5">Grand Total</td>
-              {
 
-                defectHeader.map(defect => (
-                  <td key={defect} className="border border-gray-950 p-0.5">{defectGrandTotals[defect] ?? 0}</td>
-                ))
+            {/* Grand Total Row */}
+            <tr className="font-bold bg-gray-300 text-center text-[12px]">
+              <td
+                colSpan={firstHeader.length}
+                className="text-right border border-black px-2 py-1"
+              >
+                Grand Total
+              </td>
 
-              }
-              <td className="border border-gray-950 p-0.5">{totalCheckQty}</td>
-              <td className="border border-gray-950 p-0.5">{totalDefectQty}</td>
-              <td className="border border-gray-950 p-0.5">{totalAlterQty}</td>
-              <td className="border border-gray-950 p-0.5">{totalOkQty}</td>
-              <td className="border border-gray-950 p-0.5"></td>
+              {defectHeader.map((defect) => (
+                <td key={defect} className="border border-black px-2 py-1">
+                  {defectGrandTotals[defect] ?? 0}
+                </td>
+              ))}
+
+              <td className="border border-black px-2 py-1">{totalCheckQty}</td>
+              <td className="border border-black px-2 py-1">{totalDefectQty}</td>
+              <td className="border border-black px-2 py-1">{totalAlterQty}</td>
+              <td className="border border-black px-2 py-1">{totalOkQty}</td>
+              <td className="border border-black px-2 py-1"></td>
             </tr>
-
           </tbody>
         </table>
-
       </div>
     </div>
   );
