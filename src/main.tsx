@@ -200,6 +200,7 @@ import DateWiseShiplentSummaryReport from "./reports/merchandising/report/date-w
 import GreyFabricReceiveStatusReportIndex from "./reports/store/grey-store/grey-fabric-rcv-status-report/grey-fabric-rcv-status-report-index.tsx";
 import GreyFabricProcessChallanReport from "./reports/Textile/Dyeing/grey-fabric-process-challan-report/grey-fabric-process-challan-report-index.tsx";
 import SupervisorWiseCuttingKPIReport from "./reports/production/cuttting/supervisor-wise-cutting-kpi-report/supervisor-wise-cutting-kpi-report-index.tsx";
+import EmbellishmentQualityReport from "./reports/embellishment/embellishment-quality-report/embellishment-quality-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -1015,6 +1016,10 @@ createRoot(document.getElementById("root")!).render(
                     </Route>
 
                     <Route path="embellishment">
+                      <Route
+                        path="embellishment-quality-report"
+                        element={<EmbellishmentQualityReport />}
+                      />
                       <Route
                         path="embellishment-send-receive-report"
                         element={<EmbellishmentSendReceiveReport />}
