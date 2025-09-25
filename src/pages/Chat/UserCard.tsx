@@ -3,9 +3,9 @@ import { cn } from '@/lib/utils'
 import { Bot } from 'lucide-react'
 import React from 'react'
 
-type props = { userName: string, lastMsg: string, selectedUser: string, setSelectedUser: React.Dispatch<React.SetStateAction<string>> }
+type props = { userName: string, fullName: string, lastMsg: string, selectedUser: string, setSelectedUser: React.Dispatch<React.SetStateAction<string>> }
 
-export default function UserCard({ userName, lastMsg, selectedUser, setSelectedUser }: props) {
+export default function UserCard({ userName, fullName, lastMsg, selectedUser, setSelectedUser }: props) {
     return (
         <div className={cn("flex items-center space-x-3  hover:bg-gray-300 w-full p-2 rounded-md", (selectedUser == userName ? 'bg-gray-400' : ''))}
             onClick={() => setSelectedUser(userName)}>
@@ -16,7 +16,7 @@ export default function UserCard({ userName, lastMsg, selectedUser, setSelectedU
                 </AvatarFallback>
             </Avatar>
             <div>
-                <h2 className="font-semibold text-base hover:cursor-default">{userName}</h2>
+                <h2 className="font-semibold text-base hover:cursor-default">{fullName}</h2>
                 <p className="text-sm text-gray-600">{lastMsg}</p>
             </div>
         </div>

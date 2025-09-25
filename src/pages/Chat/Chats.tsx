@@ -32,9 +32,9 @@ export default function Chats({ selectedUser, setSelectedUser }: { selectedUser:
             <div className="h-[calc(100vh-210px)] px-1">
                 <ScrollArea className="h-full w-full">
                     <div className="flex flex-col flex-1 items-center rounded-bl-md w-full gap-1">
-                        <UserCard userName="All" lastMsg="" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+                        <UserCard userName="All" fullName="All" lastMsg="All User" selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                         {users?.map((item, index) =>
-                            <UserCard key={index} userName={item.FullName} lastMsg={item.UserName} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+                            <UserCard key={index} userName={item.UserName} fullName={item.FullName} lastMsg={item.UserName} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                         )}
                     </div>
                 </ScrollArea>
