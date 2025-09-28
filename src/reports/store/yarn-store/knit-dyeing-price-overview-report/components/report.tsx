@@ -59,8 +59,8 @@ function Report({
 
             <tr className="font-bold">
               <td colSpan={12} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
-              <td className="border border-gray-950 p-0.5 text-center">{data?.reduce((p, c) => p + c.KNITTING_AMOUNT, 0).toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5 text-center">{data?.reduce((p, c) => p + c.DYEING_AMOUNT, 0).toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{(data?.reduce((p, c) => p + Number(c?.KNITTING_AMOUNT ?? 0), 0))?.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{data?.reduce((p, c) => p + Number(c.DYEING_AMOUNT ?? 0), 0)?.toFixed(2)}</td>
             </tr>
           </tbody>
         </table>
