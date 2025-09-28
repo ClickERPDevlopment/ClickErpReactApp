@@ -121,8 +121,7 @@ function Report({
     }, {} as Record<string, PartyWiseKnittingProgramType[]>);
   }
 
-  console.log("Fabric Parts: ", fabricParts);
-  console.log("Data: ", data);
+  console.log("Fabric Parts: ", fabricPartWiseData);
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "14px" }}
