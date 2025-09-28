@@ -201,6 +201,7 @@ import GreyFabricReceiveStatusReportIndex from "./reports/store/grey-store/grey-
 import GreyFabricProcessChallanReport from "./reports/Textile/Dyeing/grey-fabric-process-challan-report/grey-fabric-process-challan-report-index.tsx";
 import SupervisorWiseCuttingKPIReport from "./reports/production/cuttting/supervisor-wise-cutting-kpi-report/supervisor-wise-cutting-kpi-report-index.tsx";
 import EmbellishmentQualityReport from "./reports/embellishment/embellishment-quality-report/embellishment-quality-report-index.tsx";
+import KnittingDyeingPriceOverviewReport from "./reports/store/yarn-store/knit-dyeing-price-overview-report/knit-dyeing-price-overview-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -882,6 +883,10 @@ createRoot(document.getElementById("root")!).render(
                         />
                       </Route>
                       <Route path="yarn-store">
+                        <Route
+                          path="knit-dyeing-price-overview-report"
+                          element={<KnittingDyeingPriceOverviewReport />}
+                        />
                         <Route
                           path="yarn-rcv-issue-register-report"
                           element={<YarnRcvIssueRegisterReport />}
