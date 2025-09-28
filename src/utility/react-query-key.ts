@@ -39,4 +39,5 @@ export const ReactQueryKey = {
   FinishGoodValuation: "FinishGoodValuation",
   PrintEmbPI: "PrintEmbPI",
   PrintEmbQuality: "PrintEmbQuality",
+  PrintEmbBill: "PrintEmbBill",
 };
