@@ -6,17 +6,21 @@ import { GetPrintEmbBillById, PrintEmbBillMasterType } from "@/actions/PrintingE
 import PrintEmbBillForm from "./print-emb-bill-form";
 
 export default function PrintEmbBillCrud() {
-  const { pageAction, id } = useParams();
 
+  const { pageAction, id } = useParams<{ pageAction: string; id: string }>();
   const [searchParams] = useSearchParams();
 
-  const companyId = searchParams.get("companyId") || "0";
+  // const pageIndex = searchParams.get("pageIndex") || "0";
+  const CompanyId = searchParams.get("CompanyId") || "0";
 
   const {
     data: printEmbBillData,
     isError,
     error,
-  } = GetPrintEmbBillById<PrintEmbBillMasterType>(Number(id), Number(companyId));
+  } = GetPrintEmbBillById<PrintEmbBillMasterType>(
+    Number(id),
+    Number(CompanyId)
+  );
 
 
   if (!pageAction) {
@@ -59,7 +63,7 @@ export default function PrintEmbBillCrud() {
         <PrintEmbBillForm
           data={printEmbBillData}
           pageAction={PageAction.view}
-          companyId={Number(companyId)}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -72,7 +76,7 @@ export default function PrintEmbBillCrud() {
         <PrintEmbBillForm
           data={undefined}
           pageAction={PageAction.add}
-          companyId={Number(companyId)}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -85,7 +89,7 @@ export default function PrintEmbBillCrud() {
         <PrintEmbBillForm
           data={printEmbBillData}
           pageAction={PageAction.edit}
-          companyId={Number(companyId)}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -98,7 +102,7 @@ export default function PrintEmbBillCrud() {
         <PrintEmbBillForm
           data={printEmbBillData}
           pageAction={PageAction.delete}
-          companyId={Number(companyId)}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );

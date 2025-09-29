@@ -92,7 +92,7 @@ export function GetPrintEmbBill<T>(companyId: number) {
     return query;
 }
 
-export function GetPrintEmbBillById<T>(companyId: number, id: number) {
+export function GetPrintEmbBillById<T>(id: number, companyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
@@ -117,7 +117,7 @@ export async function SavePrintEmbBill(data: any, axios: AxiosInstance, companyI
 }
 
 export async function UpdatePrintEmbBill(data: any, axios: AxiosInstance, companyId: number) {
-    const response = await axios.put(`/production/${companyId}/PrintEmbBill/${data.id}`, data);
+    const response = await axios.put(`/production/${companyId}/PrintEmbBill/${data.Id}`, data);
 
     if (!response) {
         throw new Error("This bill already exists.");

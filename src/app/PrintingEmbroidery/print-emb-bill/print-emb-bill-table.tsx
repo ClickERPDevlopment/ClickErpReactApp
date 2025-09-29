@@ -133,10 +133,10 @@ export function PrintEmbBillTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-bill/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}&companyId=${CompanyId}`
+                      `/win/printing-embroidery/print-emb-bill/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-bill/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}&companyId=${CompanyId}`
+                      `/dashboard/printing-embroidery/print-emb-bill/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
 
@@ -147,10 +147,10 @@ export function PrintEmbBillTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-bill/${PageAction.edit}/${item.Id}?pageIndex=${pageIndex}&companyId=${CompanyId}`
+                      `/win/printing-embroidery/print-emb-bill/${PageAction.edit}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-bill/${PageAction.edit}/${item.Id}?pageIndex=${pageIndex}&companyId=${CompanyId}`
+                      `/dashboard/printing-embroidery/print-emb-bill/${PageAction.edit}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -160,10 +160,10 @@ export function PrintEmbBillTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-bill/${PageAction.delete}/${item.Id}&companyId=${CompanyId}`
+                      `/win/printing-embroidery/print-emb-bill/${PageAction.delete}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-bill/${PageAction.delete}/${item.Id}&companyId=${CompanyId}`
+                      `/dashboard/printing-embroidery/print-emb-bill/${PageAction.delete}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >

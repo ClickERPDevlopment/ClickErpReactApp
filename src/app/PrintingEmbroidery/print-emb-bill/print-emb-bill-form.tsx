@@ -42,6 +42,7 @@ import useApiUrl from "@/hooks/use-ApiUrl";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { DeletePrintEmbBill, PrintEmbBillDetaiiType, PrintEmbBillMasterType, SavePrintEmbBill, UpdatePrintEmbBill } from "@/actions/PrintingEmbroidery/print-emb-bill-action";
+import { Trash2Icon } from "lucide-react";
 
 const masterFormSchema = z.object({
 
@@ -86,11 +87,11 @@ interface ISearchData {
 export default function PrintEmbBillForm({
   data,
   pageAction,
-  companyId
+  CompanyId
 }: {
   data: PrintEmbBillMasterType | undefined | null;
   pageAction: string;
-  companyId: number;
+  CompanyId: number;
 }): React.JSX.Element {
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -100,11 +101,11 @@ export default function PrintEmbBillForm({
   const mutation = useMutation({
     mutationFn: (tag: any) => {
       if (pageAction === PageAction.add) {
-        return SavePrintEmbBill(tag, axios, companyId);
+        return SavePrintEmbBill(tag, axios, CompanyId);
       } else if (pageAction === PageAction.edit) {
-        return UpdatePrintEmbBill(tag, axios, companyId);
+        return UpdatePrintEmbBill(tag, axios, CompanyId);
       } else if (pageAction === PageAction.delete) {
-        return DeletePrintEmbBill(tag.ID, axios, companyId);
+        return DeletePrintEmbBill(tag.Id, axios, CompanyId);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -148,22 +149,18 @@ export default function PrintEmbBillForm({
   }
 
   const getNextBillNumber = async () => {
-    const response = await axios.get(api.ProductionUrl + `/production/${companyId}/PrintEmbBill/NextBillNumber`);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbBill/NextBillNumber`);
     setMasterData(prev => ({ ...prev, BillNo: response?.data.BillNo }));
     masterForm.setValue("BillNo", response?.data.BillNo);
   }
 
-  // const getWorkOrderRcvInfo = async (woId: Number) => {
+  const getWorkOrderRcvInfo = async (woId: Number) => {
 
-  //   const response = await axios.get(api.ProductionUrl + `/production/${companyId}/PrintEmbBill/EmbWorkOrderRcvInfo?woId=${woId}`);
+    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbDelivery/EmbWorkOrderRcvInfo?woId=" + woId);
+    searchForm.setValue("MerEmbWorkOrder", response?.data.EMBELLISHMENT_WO);
 
-  //   setdetailsData(response?.data);
+  }
 
-  //   searchForm.setValue("MerEmbWorkOrder", response?.data.WorkOrder);
-
-  //   console.log(response?.data);
-
-  // }
 
   useEffect(() => {
     getWorkOrder(0);
@@ -217,6 +214,10 @@ export default function PrintEmbBillForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    console.log(masterData);
+
+    masterData.CompanyId = CompanyId
 
 
     if (pageAction === PageAction.delete) {
@@ -304,18 +305,39 @@ export default function PrintEmbBillForm({
 
 
   const handleAdd = async () => {
+    try {
+      const response = await axios.get(
+        `${api.ProductionUrl}/production/${CompanyId}/PrintEmbBill/EmbWorkOrderRcvInfo?woId=${searchData.WorkOrderId}`
+      );
 
-    const response = await axios.get(api.ProductionUrl + `/production/${companyId}/PrintEmbBill/EmbWorkOrderRcvInfo?woId=${searchData.WorkOrderId}`);
+      const data = response?.data ?? [];
 
-    setdetailsData(prev => [
-      ...(prev ?? []),
-      ...(response?.data ?? [])
-    ]);
+      if (!data || data.length === 0) {
+        window.alert("Bill already done with this Work Order.");
+        return;
+      }
 
-    // searchForm.setValue("MerEmbWorkOrder", response?.data.WorkOrder);
+      setdetailsData(prev => [...(prev ?? []), ...data]);
+    } catch (error) {
+      console.error("Error fetching Work Order data:", error);
+      window.alert("Failed to fetch Work Order data. Please try again.");
+    }
+  };
 
-    console.log(response?.data);
+
+  function handleRemove(workOrderId: number): void {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete all details for Work Order?`
+    );
+
+    if (confirmDelete) {
+      setdetailsData(prev =>
+        prev ? prev.filter(item => item.WorkOrderId !== workOrderId) : prev
+      );
+
+    }
   }
+
 
   return (
     <AppPageContainer>
@@ -537,7 +559,7 @@ export default function PrintEmbBillForm({
                                                       WorkOrder: wo.WORK_ORDER_NO,
                                                     }));
                                                     setOpenWorkOrder(false);
-                                                    //getWorkOrderRcvInfo(wo.ID);
+                                                    getWorkOrderRcvInfo(wo.ID);
 
                                                   }}
                                                 >
@@ -641,6 +663,9 @@ export default function PrintEmbBillForm({
                           <TableHead className="border border-gray-300 text-center px-4">
                             Currency
                           </TableHead>
+                          <TableHead className="border border-gray-300 text-center px-4">
+                            Action
+                          </TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -700,6 +725,16 @@ export default function PrintEmbBillForm({
                             <TableCell className="border border-gray-300 px-4 text-center ">
                               {item.Currency}
                             </TableCell>
+                            <TableCell className="border border-gray-300 p-0 m-0 hover:cursor-pointer">
+                              <div className="w-full h-full p-0 m-0 flex justify-center">
+                                <Trash2Icon
+                                  size={15}
+                                  className=" hover:text-red-500 ms-2"
+                                  onClick={() => handleRemove(item.WorkOrderId)}
+                                  style={{ color: "red" }}
+                                />
+                              </div>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -726,7 +761,7 @@ export default function PrintEmbBillForm({
                       </Button>
                     </div>
 
-                    {pageAction !== PageAction.add && (
+                    {pageAction == "rr" && (
                       <Button
                         type="button"
                         disabled={mutation.isPending}

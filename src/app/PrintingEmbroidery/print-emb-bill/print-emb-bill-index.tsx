@@ -35,7 +35,7 @@ import { GetPrintEmbBill, PrintEmbBillMasterType } from "@/actions/PrintingEmbro
 import { PrintEmbBillTable } from "./print-emb-bill-table";
 
 
-const companyId = Number(localStorage.getItem("CompanyId") || "0");
+const CompanyId = Number(localStorage.getItem("CompanyId") || "3");
 
 
 function PrintEmbBillIndex() {
@@ -44,7 +44,7 @@ function PrintEmbBillIndex() {
     data: printEmbDeliveryData,
     isError,
     error
-  } = GetPrintEmbBill<PrintEmbBillMasterType>(companyId);
+  } = GetPrintEmbBill<PrintEmbBillMasterType>(CompanyId);
 
   if (isError) {
     return (
@@ -176,8 +176,21 @@ function PrintEmbBillIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/" + companyId + "/production/PrintEmbBill?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
-    setMasterData(response?.data);
+    const url = `${api.ProductionUrl}/production/${CompanyId}/PrintEmbBill` +
+      `?fromDate=${fromDateFormatted}` +
+      `&toDate=${toDateFormatted}` +
+      `&typeId=${searchData.TYPE_ID}` +
+      `&woId=${searchData.WORK_ORDER_ID}` +
+      `&buyerId=${searchData.BUYER_ID}` +
+      `&styleId=${searchData.STYLE_ID}` +
+      `&poId=${searchData.PO_ID}`;
+
+    try {
+      const response = await axios.get(url);
+      setMasterData(response?.data);
+    } catch (error) {
+      console.error("Error fetching PrintEmbBill data:", error);
+    }
   }
 
   const [openBuyer, setOpenBuyer] = useState(false);
@@ -190,11 +203,11 @@ function PrintEmbBillIndex() {
   return (
     <div className="pt-5">
       <div className="flex items-center justify-between border-b pb-0">
-        <div className="font-bold text-2xl">Print Emb Delivery</div>
+        <div className="font-bold text-2xl">Print Emb Bill</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=` + CompanyId}>
             <Button className="mb-2" role="button">
-              New Print Emb Delivery
+              New Print Emb Bill
             </Button>
           </Link>
         </div>
@@ -576,7 +589,7 @@ function PrintEmbBillIndex() {
         </div>
         <div className="mt-3">
           {printEmbDeliveryData ? (
-            <PrintEmbBillTable data={masterData || printEmbDeliveryData || []} CompanyId={companyId} />
+            <PrintEmbBillTable data={masterData || printEmbDeliveryData || []} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}
