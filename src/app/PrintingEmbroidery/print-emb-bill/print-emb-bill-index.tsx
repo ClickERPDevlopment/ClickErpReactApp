@@ -34,11 +34,10 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { GetPrintEmbBill, PrintEmbBillMasterType } from "@/actions/PrintingEmbroidery/print-emb-bill-action";
 import { PrintEmbBillTable } from "./print-emb-bill-table";
 
-const [searchParams] = useSearchParams();
-const CompanyId = Number(searchParams.get("CompanyId")) || 3;
-
-
 function PrintEmbBillIndex() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
 
   const {
     data: printEmbDeliveryData,
