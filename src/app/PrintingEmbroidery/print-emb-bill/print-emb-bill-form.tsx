@@ -163,10 +163,13 @@ export default function PrintEmbBillForm({
 
 
   useEffect(() => {
-    getWorkOrder(0);
-    getSupplier();
 
+    getSupplier();
     if (pageAction === PageAction.add) { getNextBillNumber() }
+
+    if (data && data.PartyId) {
+      getWorkOrder(data.PartyId);
+    }
 
   }, []);
 
