@@ -9,8 +9,9 @@ import VarificationStatus from "../shared-components/varification-status";
 import YarnRequirementSummary from "../shared-components/yarn-requirement-summary";
 import { FabricBookingReportDto } from "../fabric-booking-type";
 import Revise from "../shared-components/revise";
+import JobBreakdownReport from "@/reports/planning/report/job-breakdown-report/job-breakdown-report-index";
 
-export default function FabricBookingReport({ data }: { data?: FabricBookingReportDto }) {
+export default function FabricBookingReport({ data, isPoWise }: { data?: FabricBookingReportDto, isPoWise?: boolean }) {
     const signatureData = [
         { title: "Prepared By", access_key: "CREATED_BY" },
         { title: "Approve By", access_key: "APPROVED_BY" },
@@ -22,6 +23,15 @@ export default function FabricBookingReport({ data }: { data?: FabricBookingRepo
     return (
         <div className="px-10 w-auto print:max-w-none print:px-0 mt-10">
             <MasterInfo masterData={data?.MaterData} />
+
+            {isPoWise ?
+                <div className="mt-5">
+                    <h4 className="text-center m-0 p-0 text-lg font-bold">Order Qty</h4>
+                    <JobBreakdownReport jobId={data?.MaterData?.PO_ID} isShowReportHeader={false} />
+                </div> :
+                <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
+            }
+
             <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
             <Details lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} />
             <CollarCuffSummary lstFabricQtyDetails={data?.lstFabricQtyDetails} lstSize={data?.lstSize} />
