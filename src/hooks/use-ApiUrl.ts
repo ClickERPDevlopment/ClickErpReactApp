@@ -37,11 +37,15 @@ export default function useApiUrl() {
 
 
 
-  const agUrl = "http://10.10.101.6:6307/api";
-  const agRootUrl = "http://10.10.101.6:6307";
-  const agBaseUrl = "http://10.10.101.6";
-  const agPhpBaseUrl = "http://10.10.101.6";
+  // const agUrl = "http://10.10.101.6:6307/api";
+  // const agRootUrl = "http://10.10.101.6:6307";
+  // const agBaseUrl = "http://10.10.101.6";
+  // const agPhpBaseUrl = "http://10.10.101.6";
 
+  const agUrl = "https://www.ag.clickerp.com.bd/api";
+  const agRootUrl = "https://www.ag.clickerp.com.bd";
+  const agBaseUrl = "https://www.ag.clickerp.com.bd";
+  const agPhpBaseUrl = "http://10.10.101.6";
 
   // const agUrl = "http://103.95.98.115:6307/api";
   // const agRootUrl = "http://103.95.98.115:6307";
