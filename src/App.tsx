@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Fragment, useEffect } from "react";
@@ -19,6 +20,8 @@ import Tabtotop from "./components/common/tabtotop/tabtotop";
 import "react-toastify/dist/ReactToastify.css";
 // import { Outlet } from "react-router-dom";
 // import Tabtotop from "../components/common/tabtotop/tabtotop";
+import OneSignal from 'react-onesignal';
+import useAppClient from "./hooks/use-AppClient";
 
 function App() {
   // const [MyclassName, setMyClass] = useState("");
@@ -34,10 +37,22 @@ function App() {
   //     }
   //   }
   // };
+  const client = useAppClient();
 
   useEffect(() => {
     import("preline");
   }, []);
+
+  useEffect(() => {
+    if (client.currentClient === client.AG) {
+      if (typeof window !== 'undefined') {
+        OneSignal.init({
+          appId: "636e1ca4-99a7-47a6-bbb7-0eb60c85b697",
+        });
+      }
+    }
+  }, []);
+
   return (
     <Fragment>
       <Loader />
