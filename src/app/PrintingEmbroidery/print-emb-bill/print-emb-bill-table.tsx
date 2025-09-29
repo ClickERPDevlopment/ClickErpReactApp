@@ -39,7 +39,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import moment from "moment";
 import { usePrintEmbDeliveryStore } from "@/store/app-store";
-import { PrintEmbBillMasterType } from "@/actions/PrintingEmbroidery/print-emb-bill-action";
+import { PrintEmbBillDetaiiType, PrintEmbBillMasterType } from "@/actions/PrintingEmbroidery/print-emb-bill-action";
 
 export function PrintEmbBillTable({
   data,
@@ -103,6 +103,26 @@ export function PrintEmbBillTable({
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue("Party")}</div>
       ),
+    },
+    {
+      accessorKey: "Details",
+      header: "Work Order (Amount)",
+      cell: ({ row }) => {
+        const details: PrintEmbBillDetaiiType[] = row.getValue("Details") || [];
+
+        const workOrderMap: Record<string, number> = {};
+        details.forEach(d => {
+          if (d.WorkOrder) {
+            workOrderMap[d.WorkOrder] = (workOrderMap[d.WorkOrder] || 0) + (d.Amount ?? 0);
+          }
+        });
+
+        const result = Object.entries(workOrderMap)
+          .map(([wo, amt]) => `${wo} (${amt.toFixed(2)})`)
+          .join(", ");
+
+        return <div className="capitalize">{result}</div>;
+      },
     },
     {
       id: "actions",
