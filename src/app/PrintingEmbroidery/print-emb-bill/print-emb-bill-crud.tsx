@@ -8,10 +8,9 @@ import PrintEmbBillForm from "./print-emb-bill-form";
 export default function PrintEmbBillCrud() {
 
   const { pageAction, id } = useParams<{ pageAction: string; id: string }>();
-  const [searchParams] = useSearchParams();
 
-  // const pageIndex = searchParams.get("pageIndex") || "0";
-  const CompanyId = searchParams.get("CompanyId") || "0";
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
 
   const {
     data: printEmbBillData,

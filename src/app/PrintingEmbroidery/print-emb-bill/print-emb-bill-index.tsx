@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -34,8 +34,8 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { GetPrintEmbBill, PrintEmbBillMasterType } from "@/actions/PrintingEmbroidery/print-emb-bill-action";
 import { PrintEmbBillTable } from "./print-emb-bill-table";
 
-
-const CompanyId = Number(localStorage.getItem("CompanyId") || "3");
+const [searchParams] = useSearchParams();
+const CompanyId = Number(searchParams.get("CompanyId")) || 3;
 
 
 function PrintEmbBillIndex() {
