@@ -503,6 +503,13 @@ createRoot(document.getElementById("root")!).render(
                               element={<PrintEmbQualityCrud />}
                             />
                           </Route>
+                          <Route path="print-emb-bill">
+                            <Route index element={<PrintEmbBillIndex />} />
+                            <Route
+                              path=":pageAction/:id"
+                              element={<PrintEmbBillCrud />}
+                            />
+                          </Route>
                         </Route>
                         <Route path="merchandising">
                           <Route index element={<MerchandisingDashboard />} />
