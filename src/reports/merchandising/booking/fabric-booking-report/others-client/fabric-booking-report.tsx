@@ -32,7 +32,7 @@ export default function FabricBookingReport({ data, isPoWise }: { data?: FabricB
                 <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
             }
 
-            <OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} />
+            {/* OrderQty lstColorSizeWiseOrderQty={data?.lstColorSizeWiseOrderQty} lstSize={data?.lstSize} /> */}
             <Details lstFabricQtyDetails={data?.lstFabricQtyDetails} lstWastagePercentage={data?.lstWastagePercentage} />
             <CollarCuffSummary lstFabricQtyDetails={data?.lstFabricQtyDetails} lstSize={data?.lstSize} />
             <YarnRequirementSummary lstYarnSummary={data?.lstYarnSummary} />
