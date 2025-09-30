@@ -271,6 +271,16 @@ function PoStyleGroupSection({
             {sum(gmtProcessData(fp_item), "TOTAL_PRICE").toFixed(2)}
           </th>
         )}
+        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+          <div className="flex flex-col">
+            <span className="hidden">TOTAL_FOB: {data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.TOTAL_FOB}</span>
+            <span className="hidden">BALANCE_VALUE: {data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.BALANCE_VALUE}</span>
+            <span>
+              {(data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.TOTAL_FOB -
+                data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.BALANCE_VALUE)?.toFixed(2)}
+            </span>
+          </div>
+        </th>
         {commissionType?.map((fp_item, i) =>
           <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length} key={i}>
             {getCommissionCost({
