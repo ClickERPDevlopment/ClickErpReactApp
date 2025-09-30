@@ -15,7 +15,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                         <th className='p-0.5text-center border border-gray-600'>Yarn</th>
                         <th className='p-0.5text-center border border-gray-600'>{client.currentClient === client.FAME ? 'Location' : 'Brand'}</th>
                         {
-                            client.currentClient == client.FAME && "Supplier"
+                            client.currentClient == client.FAME && <th className='p-0.5text-center border border-gray-600'>Supplier</th>
                         }
                         <th className='p-0.5text-center border border-gray-600'>Lot</th>
                         <th className='p-0.5text-center border border-gray-600'>Yarn Color</th>
@@ -36,7 +36,6 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                             {
                                 client.currentClient == client.FAME && <td className='p-0.5text-center border border-gray-600'>{ele.SUPPLIER_CODE}</td>
                             }
-
                             <td className='p-0.5text-center border border-gray-600'>{ele.YARN_LOT_NUMBER}</td>
                             <td className='p-0.5text-center border border-gray-600'>{ele.YARN_DYEING_COLOR}</td>
                             <td className='p-0.5text-center border border-gray-600'>{ele.QUANTITY}</td>
@@ -48,7 +47,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                 </tbody>
                 <tfoot style={{ fontSize: "14px" }}>
                     <tr>
-                        <th className='p-0.5text-center border border-gray-600' colSpan={8 + client.currentClient == client.FAME ? 1 : 0}>Total</th>
+                        <th className='p-0.5text-center border border-gray-600' colSpan={8 + (client.currentClient === client.FAME ? 1 : 0)}>Total</th>
                         <th className='p-0.5text-center border border-gray-600'>
                             {
                                 data?.reduce((p, c) => p + Number(c.QUANTITY), 0)
