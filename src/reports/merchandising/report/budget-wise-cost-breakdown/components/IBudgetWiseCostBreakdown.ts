@@ -48,6 +48,8 @@ export type IBudgetWiseCostBreakdownDto_MainFabric = {
   UOM: string;
   FABRIC_ITEM_PRICE_PER_UNIT_KG_BUDGET: number;
   TOTAL_MAIN_FABRIC_VALUE: number;
+  TOTAL_FOB: number;
+  BALANCE_VALUE: number;
 }
 
 export type IBudgetWiseCostBreakdownDto_OtherFabric = {

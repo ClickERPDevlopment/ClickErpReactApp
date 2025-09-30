@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo } from "react";
 import { ICommission } from "../budget-wise-cost-breakdown-index";
 import { IBudgetWiseCostBreakdown } from "./IBudgetWiseCostBreakdown";
 import { cn } from "@/lib/utils";
+import { UniquePoStyleCommissions } from "./action";
 
 type Props = {
   data: IBudgetWiseCostBreakdown;
@@ -100,7 +102,12 @@ export default function Summary({
       }
     });
 
-
+    //comission data
+    rows.push({
+      particular: 'Buying Commission',
+      amount: UniquePoStyleCommissions(data)?.reduce((p, c) => p + Number(c.COMMISSION), 0) ?? 0,
+      isBBLCash: false,
+    });
 
     commissionType?.forEach((element) => {
       rows.push({
@@ -112,6 +119,8 @@ export default function Summary({
         isBBLCash: false,
       });
     });
+    //end-comission data
+
 
     // add percentage once
     return rows.map((r) => ({
@@ -132,7 +141,7 @@ export default function Summary({
   ]);
 
   const rowspan =
-    3 +
+    3 + 1 +
     (fabricProcessType?.length ?? 0) +
     (gmtProcessType?.length ?? 0) +
     (commissionType?.length ?? 0);

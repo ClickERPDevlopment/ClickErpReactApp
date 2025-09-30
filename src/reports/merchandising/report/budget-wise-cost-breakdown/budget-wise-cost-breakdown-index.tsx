@@ -170,7 +170,7 @@ export default function BudgetWiseCostBreakdownIndex() {
 
         !data ?
           <div className="print:m-0 overflow-hidden  bg-sky-100 border-t border-b border-sky-500 text-sky-700 px-4 py-3 mt-16" role="alert">
-            <p className="font-bold text-xl">Informational message</p>
+            <p className="font-bold text-xl">Message</p>
             <p className="text-base">No Data Found. Please check"Style Wise Cost Breakdown" Entry.</p>
           </div>
           :
@@ -209,6 +209,7 @@ export default function BudgetWiseCostBreakdownIndex() {
                       {gmtProcessType.map((item, i) =>
                         <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
                       )}
+                      <th className="text-balance text-center p-1 border-r border-gray-500">BUYING COMMISSION </th>
                       {commissionType.map((item, i) =>
                         <th className="text-balance text-center p-1 border-r border-gray-500" key={i}>{item}</th>
                       )}

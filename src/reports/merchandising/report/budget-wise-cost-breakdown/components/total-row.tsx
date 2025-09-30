@@ -1,4 +1,5 @@
 import { ICommission, IGrossCostLocalStorage, IProfitLossLocalStorage } from "../budget-wise-cost-breakdown-index";
+import { UniquePoStyleCommissions } from "./action";
 import { IBudgetWiseCostBreakdown } from "./IBudgetWiseCostBreakdown";
 
 type props = {
@@ -47,7 +48,9 @@ export default function TotalRow({ data, title, gmtProcessType, commissionType, 
         </th>
       )}
       {/* <th className="text-balance text-center p-1 border-r border-t border-gray-500" >Total CM Achieve</th> */}
-
+      <th className="text-balance text-center p-1 border-r border-t border-gray-500" >
+        {UniquePoStyleCommissions(data)?.reduce((p, c) => p + Number(c.COMMISSION), 0)?.toFixed(2)}
+      </th>
       {commissionType?.map((fp_item, i) =>
         <th className="text-balance text-center p-1 border-r border-t border-gray-500" key={i}>
           {comission?.filter(f => f.commissinType === fp_item)?.reduce((p, c) => p + Number(c.amount), 0)?.toFixed(2)}
