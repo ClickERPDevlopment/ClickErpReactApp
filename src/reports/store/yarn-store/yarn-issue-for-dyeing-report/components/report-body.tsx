@@ -1,6 +1,8 @@
+import useAppClient from '@/hooks/use-AppClient'
 import { YarnIssueStatusReportType } from '../yarn-issue-for-dyeing-report-type'
 
 export default function ReportBody({ data }: { data: YarnIssueStatusReportType[] | null }) {
+    const client = useAppClient();
     return (
         <div className='min-w-full mt-5 font-bold'>
             <table className='min-w-full'>
@@ -11,7 +13,7 @@ export default function ReportBody({ data }: { data: YarnIssueStatusReportType[]
                         <th className='p-0.5text-center border border-gray-600'>Style</th>
                         <th className='p-0.5text-center border border-gray-600'>BB LC NO/WO NO</th>
                         <th className='p-0.5text-center border border-gray-600'>Yarn</th>
-                        <th className='p-0.5text-center border border-gray-600'>Brand</th>
+                        <th className='p-0.5text-center border border-gray-600'>{client.currentClient === client.FAME ? 'Location' : 'Brand'}</th>
                         <th className='p-0.5text-center border border-gray-600'>Lot</th>
                         <th className='p-0.5text-center border border-gray-600'>Yarn Color</th>
                         <th className='p-0.5text-center border border-gray-600'>Issue Qty (KG)</th>
