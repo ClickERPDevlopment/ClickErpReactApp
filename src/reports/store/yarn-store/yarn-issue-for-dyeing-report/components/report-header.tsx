@@ -1,7 +1,11 @@
 import moment from 'moment'
 import { YarnIssueStatusReportType } from '../yarn-issue-for-dyeing-report-type'
+import useAppClient from '@/hooks/use-AppClient';
 
 export default function ReportHeader({ data }: { data: YarnIssueStatusReportType[] | null }) {
+
+    const client = useAppClient();
+
     if (data)
         return (
             <div className='min-w-full text-center font-bold'>
@@ -9,7 +13,10 @@ export default function ReportHeader({ data }: { data: YarnIssueStatusReportType
                 <h1 className='text-xl font-bold'>{data[0]?.GROUP_COMPANY_NAME}</h1>
                 <h1 className='text-sm'>{data[0]?.GROUP_COMPANY_ADDRESS}</h1>
 
-                <h1 className='text-sm font-bold mt-5'>{data[0]?.COMPANY_NAME}</h1>
+                {
+                    client.currentClient != client.FAME && <h1 className='text-sm font-bold mt-5'>{data[0]?.COMPANY_NAME}</h1>
+                }
+
                 <h1 className='text-lg font-bold'>Yarn Issue For Dyeing Challan/Gate Pass</h1>
                 <div className='flex justify-between mt-5' style={{ fontSize: "15px" }}>
                     <ul>

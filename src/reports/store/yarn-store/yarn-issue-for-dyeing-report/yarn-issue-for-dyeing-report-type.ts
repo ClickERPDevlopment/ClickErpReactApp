@@ -34,4 +34,5 @@ export type YarnIssueStatusReportType = {
     CONE_QTY: number;
     PONO: string;
     STYLE_NO: string;
+    SUPPLIER_CODE: string;
 }

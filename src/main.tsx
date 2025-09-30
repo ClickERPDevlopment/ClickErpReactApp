@@ -204,6 +204,7 @@ import EmbellishmentQualityReport from "./reports/embellishment/embellishment-qu
 import KnittingDyeingPriceOverviewReport from "./reports/store/yarn-store/knit-dyeing-price-overview-report/knit-dyeing-price-overview-report-index.tsx";
 import PrintEmbBillIndex from "./app/PrintingEmbroidery/print-emb-bill/print-emb-bill-index.tsx";
 import PrintEmbBillCrud from "./app/PrintingEmbroidery/print-emb-bill/print-emb-bill-crud.tsx";
+import SewingSummaryReport from "./reports/production/sewing/sewing-summary-report/sewing-summary-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -611,6 +612,10 @@ createRoot(document.getElementById("root")!).render(
                         />
                       </Route>
                       <Route path="sewing">
+                        <Route
+                          path="sewing-summary-report"
+                          element={<SewingSummaryReport />}
+                        />
                         <Route
                           path="sewing-input-challan-report"
                           element={<SewingInputChallanReport />}
