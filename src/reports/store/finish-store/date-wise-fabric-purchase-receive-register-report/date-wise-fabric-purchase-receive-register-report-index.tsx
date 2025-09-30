@@ -29,7 +29,7 @@ function DateWiseFabricPurchaseReceiveRegisterReport() {
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Report";
+    document.title = "Date Wise Fabric Purchase Receive Register Report";
   }, []);
 
   useEffect(() => {
