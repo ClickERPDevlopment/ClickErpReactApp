@@ -67,7 +67,7 @@ function ReportGroup({
   );
 
   const totalDelQty = data.reduce(
-    (acc, item) => acc + (item.DEL_QTY || 0),
+    (acc, item) => acc + (item.DELIVERY_QTY || 0),
     0
   );
 
