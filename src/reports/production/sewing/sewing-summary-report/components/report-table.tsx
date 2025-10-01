@@ -604,7 +604,7 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  ${Math.round(companyTotal)} $
+                  ${Math.round(companyTotal)} 
                 </td>
               );
               return cells;
