@@ -2,7 +2,7 @@ import { EmbellishmentPIReportType } from "../embellishment-pi-report-type";
 
 export default function ReportFooter({ }: { data: EmbellishmentPIReportType[] }) {
   return (
-    <div className="w-full mt-8">
+    <div className="w-full mt-8" style={{ fontSize: "14px" }}>
       <table className="w-full text-center border-collapse">
         <tfoot>
           <tr>

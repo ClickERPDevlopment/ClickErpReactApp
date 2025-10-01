@@ -36,7 +36,7 @@ function ReportTable({
   });
 
   return (
-    <div className="text-sm mt-5">
+    <div className="text-sm mt-5" style={{ fontSize: "14px" }}>
       <table className="border-collapse border border-gray-400 w-full shadow-sm">
         <thead>
           <tr className="bg-gray-200 text-gray-900">
@@ -50,7 +50,7 @@ function ReportTable({
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {data?.map((item, index) => {
             const totalRowAmount = (item.PRICE || 0) * (item.QTY || 0);
 
@@ -102,8 +102,8 @@ function ReportTable({
         </tbody>
       </table>
 
-      <div className="mt-4">
-        <p className="text-sm">
+      <div className="mt-4" style={{ fontSize: "14px" }}>
+        <p>
           <span className="font-semibold">Amount in Words:</span>{" "}
           {totalAmount && toWords.convert(totalAmount)}
         </p>

@@ -25,7 +25,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
       <div className="p-4 border border-gray-300 rounded-md bg-white flex-1 flex flex-col">
         <ReportHeader data={data} />
 
-        <div className="flex justify-between mb-6 mt-4 text-sm">
+        <div className="flex justify-between mb-6 mt-4 text-sm" style={{ fontSize: "14px" }}>
           <table className="font-semibold border border-gray-300 rounded-md p-2 shadow-sm bg-gray-50">
             <tbody>
               <tr>
@@ -80,7 +80,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
             <h3 className="font-bold underline text-gray-800 mb-2">
               Terms & Conditions:
             </h3>
-            <p className="whitespace-pre-line text-gray-700 leading-5 text-sm">
+            <p className="whitespace-pre-line text-gray-700 leading-5 text-sm" style={{ fontSize: "14px" }}>
               {data[0]?.TERM_CONDITIONS}
             </p>
           </div>
@@ -90,14 +90,14 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
           <ReportFooter data={data} />
         </div>
 
-        <div className="w-full border-t border-gray-950 p-1 mt-auto">
-          <p className="text-sm text-left">
+        <div className="w-full border-t border-gray-950 p-1 mt-auto" style={{ fontSize: "14px" }}>
+          <p className="text-left">
             <span className="font-bold">Head Office:</span> House 73, Road 17/A ,
             Block -E, Banani, Dhaka - 1213, Bangladesh.
             <span className="font-bold"> Tel:</span> ‪+880 2 222280840‬ , ‪+880 2
             222280826‬ , ‪+880 2 222262720‬
           </p>
-          <p className="text-sm text-left">
+          <p className="text-left">
             <span className="font-bold">Factory: </span> Vill - Naojur,
             P.O.-Kodda Bazar, P.S.-Joydebpur, Dist-Gazipur.
             <span className="font-bold"> Tel: </span>9262356-7 , 9262368-9, Fax :
