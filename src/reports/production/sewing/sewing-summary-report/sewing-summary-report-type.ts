@@ -30,4 +30,5 @@ export type SewingSummaryReportType = {
     FIRST_HOUR_ACHIEVE?: number;
     DEFECTQTY?: number;
     CHECKQTY?: number;
+    TARGETHOURS?: number;
 };

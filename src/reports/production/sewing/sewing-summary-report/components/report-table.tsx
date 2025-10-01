@@ -41,6 +41,7 @@ function ReportTable({
       DEFECTQTY: 0,
       CHECKQTY: 0,
       SMV_QTY: 0,
+      TARGETHOURS: 0,
     };
 
     data.forEach((item) => {
@@ -63,6 +64,7 @@ function ReportTable({
       const earnedFOB = Number(item.TOTALFOB);
       const smv = Number(item.SMVSEWING);
       const workingHour = Number(item.ACTUALHOURS);
+      const targetHour = Number(item.TARGETHOURS);
       const firstHourAchv = Number(item.FIRST_HOUR_ACHIEVE);
       const defectQty = Number(item.DEFECTQTY);
       const checkQty = Number(item.CHECKQTY);
@@ -96,7 +98,8 @@ function ReportTable({
           ROW_COUNT: 0,
           OP: 0,
           HP: 0,
-          SMV_QTY: 0
+          SMV_QTY: 0,
+          TARGETHOURS: 0
         };
       }
 
@@ -115,6 +118,7 @@ function ReportTable({
       floorData.EARNED_FOB += earnedFOB;
       floorData.SMV += smv;
       floorData.WORKING_HOUR += workingHour;
+      floorData.TARGETHOURS += targetHour;
       floorData.FIRST_HOUR_ACHV += firstHourAchv;
       floorData.DEFECTQTY += defectQty;
       floorData.CHECKQTY += checkQty;
@@ -137,6 +141,7 @@ function ReportTable({
       finalData.EARNED_FOB += earnedFOB;
       finalData.SMV += smv;
       finalData.WORKING_HOUR += workingHour;
+      finalData.TARGETHOURS += targetHour;
       finalData.FIRST_HOUR_ACHV += firstHourAchv;
       finalData.DEFECTQTY += defectQty;
       finalData.CHECKQTY += checkQty;
@@ -180,6 +185,7 @@ function ReportTable({
     DEFECTQTY: number;
     CHECKQTY: number;
     SMV_QTY: number;
+    TARGETHOURS: number;
   }
 
   const { grouped, finalData } = groupBy(data);
@@ -604,7 +610,7 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  ${Math.round(companyTotal)} 
+                  ${Math.round(companyTotal)}
                 </td>
               );
               return cells;
@@ -662,7 +668,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.EARNED_FOB / floorData.SEWING_OUTPUT).toFixed(2)}
+                    ${(floorData.EARNED_FOB / floorData.SEWING_OUTPUT).toFixed(2)}
                   </td>
                 );
               });
@@ -680,12 +686,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotalFOB / companyTotalAchv).toFixed(2)}
+                  ${(companyTotalFOB / companyTotalAchv).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARNED_FOB / finalData.SEWING_OUTPUT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">${(finalData.EARNED_FOB / finalData.SEWING_OUTPUT).toFixed(2)}</td>
           </tr>
 
 
@@ -733,22 +739,22 @@ function ReportTable({
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Hourly Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
-
               const cells = floors.map(floor => {
 
                 const floorData = grouped[company][floor];
+
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.TARGET / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT)).toFixed(2)}
+                    {(floorData.TARGET / Math.round(floorData.TARGETHOURS / floorData.ROW_COUNT)).toFixed(2)}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / Math.round(grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].TARGET / Math.round(grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
               }, 0);
 
               cells.push(
@@ -762,7 +768,7 @@ function ReportTable({
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TARGET / Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT)).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TARGET / Math.round(finalData.TARGETHOURS / finalData.ROW_COUNT)).toFixed(2)}</td>
           </tr>
 
 
@@ -822,7 +828,7 @@ function ReportTable({
 
                 const floorData = grouped[company][floor];
 
-                const tgtHourly = floorData.TARGET / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT);
+                const tgtHourly = floorData.TARGET / Math.round(floorData.TARGETHOURS / floorData.ROW_COUNT);
                 const achvHourly = floorData.SEWING_OUTPUT / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT);
 
                 return (
@@ -836,15 +842,24 @@ function ReportTable({
                 );
               });
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                const tgtHourly = grouped[company][floor].TARGET;
-                const achvHourly = grouped[company][floor].SEWING_OUTPUT;
-                return sum + (achvHourly - tgtHourly);
+
+              const companyTotalTarget = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].TARGET);
               }, 0);
 
-              const hourTotal = floors.reduce((sum, floor) => {
+              const companyTotalAchv = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].SEWING_OUTPUT);
+              }, 0);
+
+              const hour = floors.reduce((sum, floor) => {
                 return sum + (Math.round(grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
               }, 0);
+
+
+              const tHour = floors.reduce((sum, floor) => {
+                return sum + (Math.round(grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
+              }, 0);
+
 
               cells.push(
                 <td
@@ -852,14 +867,14 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / Math.round(hourTotal / floorCount)).toFixed(2)}
+                  {((companyTotalAchv / (hour / floorCount)) - (companyTotalTarget / (tHour / floorCount))).toFixed(2)}
                 </td>
               );
               return cells;
             })}
 
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {(((finalData.SEWING_OUTPUT - finalData.TARGET) / Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT))).toFixed(2)}
+              {(((finalData.SEWING_OUTPUT) / Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT)) - ((finalData.TARGET) / Math.round(finalData.TARGETHOURS / finalData.ROW_COUNT))).toFixed(2)}
             </td>
           </tr>
 
@@ -905,19 +920,24 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">1st Hour Achieve</td>
+            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">1st Hour Achieve%</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
 
+              let floorCount = 0;
+
               const cells = floors.map(floor => {
 
+                floorCount += 1;
                 const floorData = grouped[company][floor];
+                const tgtHourly = floorData.TARGET / Math.round(floorData.TARGETHOURS / floorData.ROW_COUNT);
+
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {floorData.FIRST_HOUR_ACHV}
+                    {(floorData.FIRST_HOUR_ACHV * 100 / tgtHourly).toFixed(2)} %
                   </td>
                 );
               });
@@ -926,18 +946,29 @@ function ReportTable({
                 return sum + grouped[company][floor].FIRST_HOUR_ACHV;
               }, 0);
 
+
+
+
+              const tHour = floors.reduce((sum, floor) => {
+                return sum + (Math.round(grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
+              }, 0);
+
+              const companyTotalTarget = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].TARGET / tHour);
+              }, 0);
+
               cells.push(
                 <td
                   style={{ backgroundColor: totalBg }}
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {(companyTotal / (companyTotalTarget)).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{finalData.FIRST_HOUR_ACHV}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.FIRST_HOUR_ACHV * 100 / ((finalData.TARGET) / Math.round(finalData.TARGETHOURS / finalData.ROW_COUNT))).toFixed(2)} %</td>
           </tr>
 
 
