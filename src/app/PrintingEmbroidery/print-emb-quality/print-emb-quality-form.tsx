@@ -182,7 +182,7 @@ export default function PrintEmbQualityForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.ID, axios);
+        return Delete(tag.Id, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -301,7 +301,16 @@ export default function PrintEmbQualityForm({
     getSupplier();
 
     if (pageAction === PageAction.add) {
-      masterForm.setValue("PartyId", 12);
+
+      const partyId = 12;
+      masterForm.setValue("PartyId", partyId);
+      masterForm.setValue("Party", "Dummy");
+      setMasterData(prev => ({
+        ...prev,
+        PartyId: partyId,
+        Party: "Dummy"
+      }));
+
     }
 
     if (data?.EmbTypeId) {
@@ -398,6 +407,13 @@ export default function PrintEmbQualityForm({
         Qty: def?.Qty ?? 0
       }))
     }));
+
+
+
+    if ((data?.Details?.length || 0) <= 0) {
+      return;
+    }
+
 
     mutation.mutate(data, {
       onSuccess: (_response) => {
@@ -508,17 +524,6 @@ export default function PrintEmbQualityForm({
     DefectQty: 0,
     Defects: []
   });
-
-  // const [defectDetails, setDefectDetails] = useState<PrintEmbQualityDefectDetail>({
-  //   Id: 0,
-  //   DetailId: 0,
-  //   DefectId: 0,
-  //   DefectName: "",
-  //   Qty: 0
-  // });
-
-
-
 
 
   const handleMasterInputChange = (

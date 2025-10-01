@@ -223,7 +223,13 @@ function ReportTable({
           }
         </p>
         <p className="text-sm font-bold text-gray-950">
-          Production Date: {moment(searchParam.fromDate).format("DD-MMM-YY")}
+
+          {
+            isMonthView
+              ? `Production Month: ${moment(searchParam.fromDate).format("MMM-YY")}`
+              : `Production Date: ${moment(searchParam.fromDate).format("DD-MMM-YY")}`
+          }
+
         </p>
       </div>
       <table className="border-collapse border border-gray-950 w-[100%]">
