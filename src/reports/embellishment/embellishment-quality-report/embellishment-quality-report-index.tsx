@@ -24,7 +24,7 @@ function EmbellishmentQualityReport() {
   const poId = searchParams.get("poId") || "0";
   const embType = searchParams.get("embType") || "0";
   const fromDate = searchParams.get("fromDate") || "01-Jan-22";
-  const toDate = searchParams.get("embType") || "01-Jan-26";
+  const toDate = searchParams.get("toDate") || "01-Jan-26";
   // const companyId = searchParams.get("companyId") || "0";
 
 
