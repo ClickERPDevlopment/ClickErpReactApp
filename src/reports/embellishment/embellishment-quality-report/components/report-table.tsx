@@ -54,7 +54,7 @@ const ReportTable: React.FC<ReportTableProps> = ({ data, defectHeader }) => {
               {detail.CheckQty || 0}
             </td>
             <td className="border border-black px-2 py-1 text-right">
-              {detail.DefectQty || 0}
+              {detail?.Defects?.reduce((acc, item) => acc + item.Qty, 0) || 0}
             </td>
             <td className="border border-black px-2 py-1 text-right">
               {detail.RectifyQty || 0}

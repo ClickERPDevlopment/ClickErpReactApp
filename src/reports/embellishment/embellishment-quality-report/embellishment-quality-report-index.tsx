@@ -23,7 +23,14 @@ function EmbellishmentQualityReport() {
   const styleId = searchParams.get("styleId") || "0";
   const poId = searchParams.get("poId") || "0";
   const embType = searchParams.get("embType") || "0";
+  const fromDate = searchParams.get("fromDate") || "01-Jan-22";
+  const toDate = searchParams.get("embType") || "01-Jan-26";
   // const companyId = searchParams.get("companyId") || "0";
+
+
+  const searchParamObj = {
+    fromDate, toDate
+  }
 
   const api = useApiUrl();
 
@@ -43,7 +50,9 @@ function EmbellishmentQualityReport() {
               buyerId,
               styleId,
               poId,
-              embType
+              embType,
+              fromDate,
+              toDate
             }
           }
           )
@@ -79,7 +88,7 @@ function EmbellishmentQualityReport() {
   ) : (
     <>
       <div>
-        <Report data={data}></Report>
+        <Report data={data} searchParamObj={searchParamObj}></Report>
       </div>
     </>
   );

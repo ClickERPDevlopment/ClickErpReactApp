@@ -8,8 +8,10 @@ import moment from "moment";
 
 function ReportHeader({
   data,
+  searchParamObj
 }: {
   data: PrintEmbellishmentQualityReportMasterType[];
+  searchParamObj: { fromDate: string, toDate: string }
 }) {
   const [companyData, setCompanyData] = useState<ICompany>();
   const api = useApiUrl();
@@ -53,6 +55,9 @@ function ReportHeader({
             {data[0]?.EmbType} Quality Check Report
           </span>
         </h2>
+      </div>
+      <div>
+        <p className="font-bold text-center text-lg">{moment(searchParamObj.fromDate).format("DD-MMM-YY")} to {moment(searchParamObj.toDate).format("DD-MMM-YY")}</p>
       </div>
     </div>
   );

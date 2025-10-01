@@ -5,8 +5,10 @@ import { PrintEmbellishmentQualityReportMasterType } from "../embellishment-qual
 
 function Report({
   data,
+  searchParamObj
 }: {
   data: PrintEmbellishmentQualityReportMasterType[];
+  searchParamObj: { fromDate: string, toDate: string }
 }) {
   const uniqueKeys: Set<string> = new Set();
 
@@ -98,15 +100,15 @@ function Report({
     );
   }, 0);
 
-  const totalDefectQty = data.reduce((sum, master) => {
-    return (
-      sum +
-      master.Details.reduce(
-        (detailSum, detail) => detailSum + (detail.DefectQty || 0),
-        0
-      )
-    );
-  }, 0);
+  // const totalDefectQty = data.reduce((sum, master) => {
+  //   return (
+  //     sum +
+  //     master.Details.reduce(
+  //       (detailSum, detail) => detailSum + (detail.DefectQty || 0),
+  //       0
+  //     )
+  //   );
+  // }, 0);
 
   const totalAlterQty = data.reduce((sum, master) => {
     return (
@@ -128,6 +130,17 @@ function Report({
     );
   }, 0);
 
+  const totalDefectQty = data.reduce((sum, master) => {
+    return (
+      sum +
+      master.Details.reduce(
+        (detailSum, detail) => detailSum + (detail?.Defects?.reduce((acc, item) => acc + item.Qty, 0) || 0),
+        0
+      )
+    );
+  }, 0);
+
+
   return (
     <div
       style={{ fontFamily: "Times New Roman, serif" }}
@@ -135,7 +148,7 @@ function Report({
     >
       <div className="p-4">
         {/* Report Header */}
-        <ReportHeader data={data} />
+        <ReportHeader data={data} searchParamObj={searchParamObj} />
 
         {/* Table */}
         <table className="border-collapse border border-black w-full mt-4 text-sm">
