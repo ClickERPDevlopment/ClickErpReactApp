@@ -942,20 +942,13 @@ function ReportTable({
                 );
               });
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].FIRST_HOUR_ACHV;
-              }, 0);
+              //const companyTotal = floors.reduce((sum, floor) => {
+              //   return sum + grouped[company][floor].FIRST_HOUR_ACHV;
+              // }, 0);
 
-
-
-
-              const tHour = floors.reduce((sum, floor) => {
-                return sum + (Math.round(grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
-              }, 0);
-
-              const companyTotalTarget = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / tHour);
-              }, 0);
+              // const companyTotalTarget = floors.reduce((sum, floor) => {
+              //   return sum + (grouped[company][floor].TARGET / grouped[company][floor].TARGETHOURS);
+              // }, 0);
 
               cells.push(
                 <td
@@ -963,7 +956,7 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / (companyTotalTarget)).toFixed(2)} %
+                  {/* {((companyTotal / (companyTotalTarget)) / floorCount).toFixed(2)} % */}
                 </td>
               );
               return cells;
@@ -1006,7 +999,7 @@ function ReportTable({
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.HP / finalData.OP).toFixed(2)} %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.HP * 100 / finalData.OP).toFixed(2)} %</td>
           </tr>
 
           <tr>
