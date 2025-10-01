@@ -300,6 +300,10 @@ export default function PrintEmbQualityForm({
     getDefectData();
     getSupplier();
 
+    if (pageAction === PageAction.add) {
+      masterForm.setValue("PartyId", 12);
+    }
+
     if (data?.EmbTypeId) {
       getFloor(data?.EmbTypeId);
       getWorkStation(data?.EmbTypeId);
@@ -423,38 +427,6 @@ export default function PrintEmbQualityForm({
     COLOR: "",
     SIZE: ""
   });
-
-  // const validateFields = (excludeFields: string[] = []): boolean => {
-  //   const requiredFields = [
-  //     "WORK_ORDER_NO",
-  //     "BUYER",
-  //     "STYLE",
-  //     "PO_NO",
-  //     "COLOR",
-  //     "SIZE"
-  //   ];
-
-  //   const errors: Record<string, string> = {};
-  //   let hasError = false;
-
-  //   requiredFields.forEach((field) => {
-  //     if (excludeFields.includes(field)) {
-  //       errors[field] = "";
-  //       return;
-  //     }
-
-  //     const value = (printEmbQualityDetails as any)[field];
-  //     if (!value || (typeof value === "string" && value.trim() === "")) {
-  //       errors[field] = `${field} is required`;
-  //       hasError = true;
-  //     } else {
-  //       errors[field] = "";
-  //     }
-  //   });
-
-  //   setprintEmbQualityDetailserror(errors as typeof printEmbProductionDetailserror);
-  //   return !hasError;
-  // };
 
   const handleAdd = async () => {
 

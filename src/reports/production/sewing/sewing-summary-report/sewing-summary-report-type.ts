@@ -28,5 +28,6 @@ export type SewingSummaryReportType = {
     PER_MACHINE_COST?: number;
 
     FIRST_HOUR_ACHIEVE?: number;
-    DHU?: number;
+    DEFECTQTY?: number;
+    CHECKQTY?: number;
 };

@@ -35,10 +35,12 @@ function ReportTable({
       SMV: 0,
       WORKING_HOUR: 0,
       FIRST_HOUR_ACHV: 0,
-      DHU: 0,
+      HP: 0,
       ROW_COUNT: 0,
       OP: 0,
-      HP: 0,
+      DEFECTQTY: 0,
+      CHECKQTY: 0,
+      SMV_QTY: 0,
     };
 
     data.forEach((item) => {
@@ -62,9 +64,11 @@ function ReportTable({
       const smv = Number(item.SMVSEWING);
       const workingHour = Number(item.ACTUALHOURS);
       const firstHourAchv = Number(item.FIRST_HOUR_ACHIEVE);
-      const dhu = Number(item.DHU);
+      const defectQty = Number(item.DEFECTQTY);
+      const checkQty = Number(item.CHECKQTY);
       const op = Number(item.OPERATOR);
       const hp = Number(item.HELPER);
+      const smvQty = Number(item.SEWINGOUTPUT) * Number(item.SMVSEWING);
 
       if (!grouped[companyKey]) {
         grouped[companyKey] = {};
@@ -87,10 +91,12 @@ function ReportTable({
           SMV: 0,
           WORKING_HOUR: 0,
           FIRST_HOUR_ACHV: 0,
-          DHU: 0,
+          DEFECTQTY: 0,
+          CHECKQTY: 0,
           ROW_COUNT: 0,
           OP: 0,
           HP: 0,
+          SMV_QTY: 0
         };
       }
 
@@ -110,11 +116,13 @@ function ReportTable({
       floorData.SMV += smv;
       floorData.WORKING_HOUR += workingHour;
       floorData.FIRST_HOUR_ACHV += firstHourAchv;
-      floorData.DHU += dhu;
+      floorData.DEFECTQTY += defectQty;
+      floorData.CHECKQTY += checkQty;
       floorData.UNIQUE_LINES.add(lineKey);
       floorData.ROW_COUNT += 1;
       floorData.OP += op;
       floorData.HP += hp;
+      floorData.SMV_QTY += smvQty;
 
       finalData.TARGET += target;
       finalData.SEWING_OUTPUT += sewingOutput;
@@ -130,11 +138,14 @@ function ReportTable({
       finalData.SMV += smv;
       finalData.WORKING_HOUR += workingHour;
       finalData.FIRST_HOUR_ACHV += firstHourAchv;
-      finalData.DHU += dhu;
+      finalData.DEFECTQTY += defectQty;
+      finalData.CHECKQTY += checkQty;
       finalData.ROW_COUNT += 1;
       finalData.OP += op;
       finalData.HP += hp;
       finalData.UNIQUE_LINES.add(lineKey);
+      finalData.SMV_QTY += smvQty;
+
 
     });
 
@@ -163,10 +174,12 @@ function ReportTable({
     SMV: number;
     WORKING_HOUR: number;
     FIRST_HOUR_ACHV: number;
-    DHU: number;
     ROW_COUNT: number;
     OP: number;
     HP: number;
+    DEFECTQTY: number;
+    CHECKQTY: number;
+    SMV_QTY: number;
   }
 
   const { grouped, finalData } = groupBy(data);
@@ -636,8 +649,6 @@ function ReportTable({
           <tr>
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">FOB Per Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
-
-
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
                 return (
@@ -645,13 +656,16 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.EARNED_FOB / floorData.TARGET).toFixed(2)}
+                    {(floorData.EARNED_FOB / floorData.SEWING_OUTPUT).toFixed(2)}
                   </td>
                 );
               });
+              const companyTotalFOB = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].EARNED_FOB);
+              }, 0);
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].EARNED_FOB / grouped[company][floor].TARGET);
+              const companyTotalAchv = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].SEWING_OUTPUT);
               }, 0);
 
               cells.push(
@@ -660,12 +674,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {(companyTotalFOB / companyTotalAchv).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARNED_FOB / finalData.TARGET).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARNED_FOB / finalData.SEWING_OUTPUT).toFixed(2)}</td>
           </tr>
 
 
@@ -673,23 +687,26 @@ function ReportTable({
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">SMV</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
-              let floorCount = 0;
               const cells = floors.map(floor => {
-                floorCount += 1;
                 const floorData = grouped[company][floor];
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.SMV / floorData.ROW_COUNT).toFixed(2)}
+                    {(floorData.SMV_QTY / floorData.SEWING_OUTPUT).toFixed(2)}
                   </td>
                 );
               });
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SMV / grouped[company][floor].ROW_COUNT);
+              const companyTotalSmvQty = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].SMV_QTY);
               }, 0);
+
+              const companyTotalAchvQty = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].SEWING_OUTPUT);
+              }, 0);
+
 
               cells.push(
                 <td
@@ -697,12 +714,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / floorCount).toFixed(2)}
+                  {(companyTotalSmvQty / companyTotalAchvQty).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SMV / finalData.ROW_COUNT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SMV_QTY / finalData.SEWING_OUTPUT).toFixed(2)}</td>
           </tr>
 
 
@@ -970,13 +987,17 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.DHU / floorData.ROW_COUNT).toFixed(2)} %
+                    {floorData.CHECKQTY > 0 && (floorData.DEFECTQTY * 100 / floorData.CHECKQTY).toFixed(2)} %
                   </td>
                 );
               });
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].DHU / grouped[company][floor].ROW_COUNT);
+              const companyTotalDefectQty = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].DEFECTQTY);
+              }, 0);
+
+              const companyTotalCheckQty = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].CHECKQTY);
               }, 0);
 
               cells.push(
@@ -985,13 +1006,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / floorCount).toFixed(2)} %
+                  {companyTotalCheckQty > 0 && (companyTotalDefectQty * 100 / companyTotalCheckQty).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {(finalData.DHU / finalData.ROW_COUNT).toFixed(2)} %
+              {finalData.CHECKQTY > 0 && (finalData.DEFECTQTY / finalData.CHECKQTY).toFixed(2)} %
             </td>
           </tr>
 
