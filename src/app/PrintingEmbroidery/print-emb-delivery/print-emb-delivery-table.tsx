@@ -95,6 +95,36 @@ export function PrintEmbDeliveryTable({
         <div className="capitalize">{row.getValue("DELIVERY_CHALLAN_NO")}</div>
       ),
     },
+
+    {
+      accessorKey: "PrintEmbDeliveryDetails",
+      header: "Buyer",
+      cell: ({ row }) => {
+        const details = row.getValue("PrintEmbDeliveryDetails") as Array<any> || [];
+        const buyers = [...new Set(details.map((d) => d.BUYER))];
+        return <div className="capitalize">{buyers.join(", ")}</div>;
+      },
+    },
+    {
+      accessorKey: "PrintEmbDeliveryDetails",
+      header: "Style",
+      cell: ({ row }) => {
+        const details = row.getValue("PrintEmbDeliveryDetails") as Array<any> || [];
+        const styles = [...new Set(details.map((d) => d.STYLE))];
+        return <div className="capitalize">{styles.join(", ")}</div>;
+      },
+    },
+    {
+      accessorKey: "PrintEmbDeliveryDetails",
+      header: "PO",
+      cell: ({ row }) => {
+        const details = row.getValue("PrintEmbDeliveryDetails") as Array<any> || [];
+        const pos = [...new Set(details.map((d) => d.PO_NO))];
+        return <div className="capitalize">{pos.join(", ")}</div>;
+      },
+    },
+
+
     {
       id: "actions",
       enableHiding: false,

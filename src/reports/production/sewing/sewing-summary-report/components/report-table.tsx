@@ -262,7 +262,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.TARGET.toFixed(2))}
+                    {Math.round(floorData.TARGET)}
                   </td>
                 );
               });
@@ -276,13 +276,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {Math.round(companyTotal)}
                 </td>
               );
 
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TARGET).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{Math.round(finalData.TARGET)}</td>
           </tr>
 
 
@@ -329,7 +329,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.SEWING_OUTPUT - floorData.TARGET).toFixed(2)}
+                    {Math.round(floorData.SEWING_OUTPUT - floorData.TARGET)}
                   </td>
                 );
               });
@@ -343,12 +343,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal).toFixed(2)}
+                  {Math.round(companyTotal)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT - finalData.TARGET).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{Math.round(finalData.SEWING_OUTPUT - finalData.TARGET)}</td>
           </tr>
 
           <tr>
@@ -363,7 +363,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.SEWING_OUTPUT * 100 / floorData.TARGET).toFixed(2)}
+                    {(floorData.SEWING_OUTPUT * 100 / floorData.TARGET).toFixed(2)} %
                   </td>
                 );
               });
@@ -376,13 +376,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)}
+                  {(companyTotal / uniqueLine).toFixed(2)} %
                 </td>
               );
 
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT * 100 / finalData.TARGET).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT * 100 / finalData.TARGET).toFixed(2)} %</td>
           </tr>
 
 
@@ -398,7 +398,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.TGT_EARN_MIN * 100 / floorData.AVL_MIN).toFixed(2)}
+                    {(floorData.TGT_EARN_MIN * 100 / floorData.AVL_MIN).toFixed(2)} %
                   </td>
                 );
               });
@@ -412,13 +412,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)}
+                  {(companyTotal / uniqueLine).toFixed(2)} %
                 </td>
               );
 
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TGT_EARN_MIN * 100 / finalData.AVL_MIN).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TGT_EARN_MIN * 100 / finalData.AVL_MIN).toFixed(2)} %</td>
           </tr>
 
           <tr>
@@ -433,7 +433,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.EARN_MIN * 100 / floorData.AVL_MIN).toFixed(2)}
+                    {(floorData.EARN_MIN * 100 / floorData.AVL_MIN).toFixed(2)} %
                   </td>
                 );
               });
@@ -448,22 +448,20 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)}
+                  {(companyTotal / uniqueLine).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARN_MIN * 100 / finalData.AVL_MIN).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARN_MIN * 100 / finalData.AVL_MIN).toFixed(2)} %</td>
           </tr>
 
 
           <tr>
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Output Line</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
-              let uniqueLine = 0;
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
-                uniqueLine++;
                 return (
                   <td
                     key={`${company}-${floor}`}
@@ -484,7 +482,7 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)}
+                  {companyTotal}
                 </td>
               );
               return cells;
@@ -538,13 +536,13 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.EARNED_CM / floorData.ROW_COUNT).toFixed(2)}
+                    {Math.round(floorData.EARNED_CM)} $
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].EARNED_CM / grouped[company][floor].ROW_COUNT);
+                return sum + (grouped[company][floor].EARNED_CM);
               }, 0);
 
               cells.push(
@@ -553,12 +551,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {Math.round(companyTotal)} $
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARNED_CM / finalData.ROW_COUNT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{Math.round(finalData.EARNED_CM)} $</td>
           </tr>
 
 
@@ -572,13 +570,13 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.EARNED_FOB / floorData.ROW_COUNT).toFixed(2)}
+                    {Math.round(floorData.EARNED_FOB)} $
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].EARNED_FOB / grouped[company][floor].ROW_COUNT);
+                return sum + (grouped[company][floor].EARNED_FOB);
               }, 0);
 
               cells.push(
@@ -587,12 +585,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {Math.round(companyTotal)} $
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARNED_FOB / finalData.ROW_COUNT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{Math.round(finalData.EARNED_FOB)} $</td>
           </tr>
 
 
@@ -721,13 +719,13 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.TARGET / floorData.WORKING_HOUR / floorData.UNIQUE_LINES.size).toFixed(2)}
+                    {(floorData.TARGET / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT)).toFixed(2)}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / grouped[company][floor].WORKING_HOUR / grouped[company][floor].UNIQUE_LINES.size);
+                return sum + (grouped[company][floor].TARGET / Math.round(grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
               }, 0);
 
               cells.push(
@@ -741,7 +739,7 @@ function ReportTable({
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TARGET / finalData.WORKING_HOUR / finalData.UNIQUE_LINES.size).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.TARGET / Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT)).toFixed(2)}</td>
           </tr>
 
 
@@ -749,8 +747,11 @@ function ReportTable({
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Hourly Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
+              let floorCount = 0;
 
               const cells = floors.map(floor => {
+
+                floorCount += 1;
 
                 const floorData = grouped[company][floor];
                 return (
@@ -758,14 +759,19 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.SEWING_OUTPUT / floorData.WORKING_HOUR / floorData.UNIQUE_LINES.size).toFixed(2)}
+                    {(floorData.SEWING_OUTPUT / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT)).toFixed(2)}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].WORKING_HOUR / grouped[company][floor].UNIQUE_LINES.size);
+                return sum + (grouped[company][floor].SEWING_OUTPUT);
               }, 0);
+
+              const hour = floors.reduce((sum, floor) => {
+                return sum + (Math.round(grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+              }, 0);
+
 
               cells.push(
                 <td
@@ -773,25 +779,28 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {(companyTotal / (hour / floorCount)).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT / finalData.WORKING_HOUR / finalData.UNIQUE_LINES.size).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT / Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT)).toFixed(2)}</td>
           </tr>
 
           <tr>
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Hourly Pcs Loss</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
+              let floorCount = 0;
 
               const cells = floors.map(floor => {
 
+                floorCount += 1;
+
                 const floorData = grouped[company][floor];
 
-                const tgtHourly = floorData.TARGET / floorData.WORKING_HOUR / floorData.UNIQUE_LINES.size;
-                const achvHourly = floorData.SEWING_OUTPUT / floorData.WORKING_HOUR / floorData.UNIQUE_LINES.size;
+                const tgtHourly = floorData.TARGET / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT);
+                const achvHourly = floorData.SEWING_OUTPUT / Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT);
 
                 return (
 
@@ -805,11 +814,14 @@ function ReportTable({
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                const tgtHourly = grouped[company][floor].TARGET / grouped[company][floor].WORKING_HOUR / grouped[company][floor].UNIQUE_LINES.size;
-                const achvHourly = grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].WORKING_HOUR / grouped[company][floor].UNIQUE_LINES.size;
+                const tgtHourly = grouped[company][floor].TARGET;
+                const achvHourly = grouped[company][floor].SEWING_OUTPUT;
                 return sum + (achvHourly - tgtHourly);
               }, 0);
 
+              const hourTotal = floors.reduce((sum, floor) => {
+                return sum + (Math.round(grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+              }, 0);
 
               cells.push(
                 <td
@@ -817,22 +829,26 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {(companyTotal / Math.round(hourTotal / floorCount)).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{((finalData.SEWING_OUTPUT / finalData.WORKING_HOUR / finalData.UNIQUE_LINES.size) - (finalData.TARGET / finalData.WORKING_HOUR / finalData.UNIQUE_LINES.size)).toFixed(2)}</td>
+
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {(((finalData.SEWING_OUTPUT - finalData.TARGET) / Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT))).toFixed(2)}
+            </td>
           </tr>
-
-
 
           <tr>
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Hour</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
+              let floorCount = 0;
 
               const cells = floors.map(floor => {
+
+                floorCount += 1;
 
                 const floorData = grouped[company][floor];
                 return (
@@ -840,13 +856,13 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {floorData.WORKING_HOUR}
+                    {Math.round(floorData.WORKING_HOUR / floorData.ROW_COUNT)}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].WORKING_HOUR;
+                return sum + Math.round(grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT);
               }, 0);
 
               cells.push(
@@ -855,12 +871,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal.toFixed(2)}
+                  {Math.round(companyTotal / floorCount)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{finalData.WORKING_HOUR}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{Math.round(finalData.WORKING_HOUR / finalData.ROW_COUNT)}</td>
           </tr>
 
 
@@ -916,7 +932,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.HP * 100 / floorData.OP).toFixed(2)}
+                    {(floorData.HP * 100 / floorData.OP).toFixed(2)} %
                   </td>
                 );
               });
@@ -931,12 +947,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / lineCount).toFixed(2)}
+                  {(companyTotal / lineCount).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.HP / finalData.OP).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.HP / finalData.OP).toFixed(2)} %</td>
           </tr>
 
           <tr>
@@ -954,7 +970,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.DHU / floorData.ROW_COUNT).toFixed(2)}
+                    {(floorData.DHU / floorData.ROW_COUNT).toFixed(2)} %
                   </td>
                 );
               });
@@ -969,12 +985,14 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / floorCount).toFixed(2)}
+                  {(companyTotal / floorCount).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.DHU / finalData.ROW_COUNT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {(finalData.DHU / finalData.ROW_COUNT).toFixed(2)} %
+            </td>
           </tr>
 
           {
