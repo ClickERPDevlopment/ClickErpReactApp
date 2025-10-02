@@ -1046,7 +1046,7 @@ function ReportTable({
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {finalData.CHECKQTY > 0 && (finalData.DEFECTQTY / finalData.CHECKQTY).toFixed(2)} %
+              {finalData.CHECKQTY > 0 && (finalData.DEFECTQTY * 100 / finalData.CHECKQTY).toFixed(2)} %
             </td>
           </tr>
 
