@@ -925,12 +925,14 @@ function ReportTable({
 
 
               let floorCount = 0;
-
+              let companyTotalAchv = 0;
               const cells = floors.map(floor => {
 
                 floorCount += 1;
                 const floorData = grouped[company][floor];
                 const tgtHourly = floorData.TARGET / Math.round(floorData.TARGETHOURS / floorData.ROW_COUNT);
+
+                companyTotalAchv += floorData.FIRST_HOUR_ACHV * 100 / tgtHourly;
 
                 return (
                   <td
@@ -956,12 +958,14 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {/* {((companyTotal / (companyTotalTarget)) / floorCount).toFixed(2)} % */}
+                  {(companyTotalAchv / floorCount).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.FIRST_HOUR_ACHV * 100 / ((finalData.TARGET) / Math.round(finalData.TARGETHOURS / finalData.ROW_COUNT))).toFixed(2)} %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {(finalData.FIRST_HOUR_ACHV * 100 / ((finalData.TARGET) / Math.round(finalData.TARGETHOURS / finalData.ROW_COUNT))).toFixed(2)}
+              %</td>
           </tr>
 
 
