@@ -18,7 +18,7 @@ const ReportTable: React.FC<ReportTableProps> = ({ data, defectHeader }) => {
             className="text-sm font-medium odd:bg-gray-50 hover:bg-gray-100 transition-colors"
           >
             {/* First header columns */}
-            <td className="border border-black px-2 py-1">
+            <td className="border border-black px-2 py-1 text-nowrap">
               {item.EntryDate ? moment(item.EntryDate).format("DD-MMM-YY") : ""}
             </td>
             <td className="border border-black px-2 py-1">{item.Party}</td>
