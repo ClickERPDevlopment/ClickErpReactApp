@@ -1,4 +1,4 @@
-import moment from "moment";
+import useAppClient from "@/hooks/use-AppClient";
 
 export interface ReportHeaderProps {
   companyName?: string;
@@ -6,23 +6,24 @@ export interface ReportHeaderProps {
   reportTitle?: string;
 }
 
+const clinet = useAppClient();
+
 const ReportHeader: React.FC<ReportHeaderProps> = ({
   companyName = "International Classic Composite Ltd.",
   companyAddress = "568 & 584, Naojour, Kodda, Jaydevpur, Gazipur.",
-  reportTitle = "Compensation",
 }) => {
   return (
     <header className="report-header">
       <div className="container">
         <p className="text-sm font-bold text-left w-full">
-          {moment().format("DD-MMM-YYYY")}
+          "CLICK"
         </p>
 
-        <h1 className="text-2xl font-bold text-center">{companyName}</h1>
+        <h1 className="text-2xl font-bold text-center">{clinet.currentClient == clinet.EURO ? "EUROTEX KNITWEAR LTD" : companyName}</h1>
 
-        <h4 className="text-base font-bold text-center">{companyAddress}</h4>
+        <h4 className="text-base font-bold text-center">{clinet.currentClient == clinet.EURO ? "Nayamati, Kutubpur, Fatullah, Narayanganj" : companyAddress}</h4>
 
-        <h3 className="text-xl font-bold text-center mt-2">{reportTitle}</h3>
+        {/* <h3 className="text-xl font-bold text-center mt-2">{reportTitle}</h3> */}
       </div>
     </header>
   );

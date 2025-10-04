@@ -4,162 +4,178 @@ import moment from "moment";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { ICompensationClaimMasterType } from "../compensation-claim-report-type";
+import { ToWords } from "to-words";
 
 function Report({
   data,
 }: {
   data: ICompensationClaimMasterType | undefined;
 }) {
-  //set table header
   const firstHeader = [
     "SL",
     "Material Name",
     "Damage Qty",
     "UOM",
+    "Claim Amount/Unit",
     "Claim Amount",
     "Damage Details",
     "Action Taken",
   ];
 
-  const secondHeader = [
-    "SL",
-    "Buyer",
-    "Style",
-    "PO",
-  ];
+  const secondHeader = ["SL", "Buyer", "Style", "PO"];
 
-  const totalDamageQty = data?.ClaimDetails?.reduce((acc, item) => acc + item.QUANTITY_DAMAGED, 0);
-  const totalClaimAmount = data?.ClaimDetails?.reduce((acc, item) => acc + item.CLAIM_AMOUNT, 0);
+  const totalDamageQty = data?.ClaimDetails?.reduce(
+    (acc, item) => acc + item.QUANTITY_DAMAGED,
+    0
+  );
+  const totalClaimAmount = data?.ClaimDetails?.reduce(
+    (acc, item) => acc + item.CLAIM_AMOUNT,
+    0
+  );
+
+  const toWords = new ToWords();
 
   return (
-    <div className="px-10 text-sm">
-      <div className="p-2">
-        <ReportHeader
-        />
-        <div className="flex justify-between gap-3">
-          <div>
-            <table>
+    <div className="px-12 py-6 text-[13px] font-sans text-gray-900 print:text-black">
+      <ReportHeader />
+
+      {/* Top Info Section */}
+      <div className="flex justify-between border-b border-gray-300 pb-2 mb-2">
+        <div>
+          <table className="text-sm leading-tight">
+            <tbody>
               <tr>
-                <td className="font-bold">Claim ID: </td>
-                <td>
-                  {data?.CLAIM_ID}
-                </td>
+                <td className="font-semibold pr-2">Date:</td>
+                <td>{moment(data?.CLAIM_DATE).format("DD-MMM-YY")}</td>
               </tr>
               <tr>
-                <td className="font-bold">To: </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td className="font-bold">Supplier Name: </td>
-                <td>
+                <td className="font-semibold pr-2">Managing Director<br></br>
                   {data?.RELATED_SUPPLIER_NAME}
                 </td>
+                <td> </td>
               </tr>
               <tr>
-                <td className="font-bold">Compensation Type: </td>
-                <td>
-                  {data?.COMPENSATION_TYPE}
+                <td className="font-semibold pr-2">{data?.SUPPLIER_ADDRESS}
                 </td>
+                <td> </td>
               </tr>
-            </table>
-          </div>
-          <div>
-            <table>
-              <tr>
-                <td className="font-bold">Reported By: </td>
-                <td>
-                  {data?.REPORTED_BY}
-                </td>
+              <tr className="font-bold">
+                <td className="pt-4">Subject:</td>
+                <td className="pt-4">Claim Letter</td>
               </tr>
-            </table>
-          </div>
-          <div>
-            <table>
-              <tr>
-                <td className="font-bold">Claim Date: </td>
-                <td>
-                  {moment(data?.CLAIM_DATE).format("DD-MMM-YY")}
-                </td>
-              </tr>
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
 
-        <table className="border-collapse border border-gray-300  w-[100%] mt-3">
-          <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-            <tr className="bg-lime-200 text-center">
-              {firstHeader?.map((item) => (
-                <th className="border border-gray-300 p-1">{item}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data?.ClaimDetails.map((item, index) => (
-              <tr className="text-center">
-                <td className="border border-gray-300">
-                  {index + 1}
-                </td>
-                <td className="border border-gray-300">
-                  {item.MATERIAL_NAME}
-                </td>
-                <td className="border border-gray-300">
-                  {item.QUANTITY_DAMAGED}
-                </td>
-                <td className="border border-gray-300">{item.UOM}</td>
-                <td className="border border-gray-300">{item.CLAIM_AMOUNT}</td>
-                <td className="border border-gray-300">{item.DAMAGE_DETAILS}</td>
-                <td className="border border-gray-300">
-                  {item.ACTION_TAKEN}
-                </td>
+        <div>
+          <table className="text-sm leading-tight font-bold">
+            <tbody>
+              <tr>
+                <td className="pr-2">SI NO:</td>
+                <td>{data?.CLAIM_ID}</td>
               </tr>
-            ))}
-            <tr className="font-bold text-center">
-              <td colSpan={2} className="border border-gray-300">
-                Total
-              </td>
-              <td className="border border-gray-300">{totalDamageQty}</td>
-              <td className="border border-gray-300"></td>
-              <td className="border border-gray-300">{totalClaimAmount}</td>
-              <td className="border border-gray-300"></td>
-              <td className="border border-gray-300"></td>
-            </tr>
-          </tbody>
-        </table>
+              {/* <tr>
+                <td className="font-semibold pr-2">Claim Date:</td>
+                <td>{moment(data?.CLAIM_DATE).format("DD-MMM-YY")}</td>
+              </tr> */}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        {/* order details */}
-        <table className="border-collapse border border-gray-300  w-[50%] mt-5">
-          <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-            <tr className="bg-lime-200 text-center">
-              {secondHeader?.map((item) => (
-                <th className="border border-gray-300 p-1">{item}</th>
+      {/* Remarks Section */}
+      <div className="mt-4 mb-2">
+        <p className="mb-1 font-bold">Dear Sir,</p>
+        <div className="whitespace-pre-wrap">{data?.REMARKS}</div>
+      </div>
+
+      {/* Claim Details Table */}
+      <table className="w-full border border-gray-300 border-collapse mt-4 text-center">
+        <thead>
+          <tr className="bg-gray-100">
+            {firstHeader.map((item, index) => (
+              <th key={index} className="border border-gray-300 px-2 py-1 font-semibold">
+                {item}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data?.ClaimDetails?.map((item, index) => (
+            <tr key={index} className="hover:bg-gray-50">
+              <td className="border border-gray-300 py-1">{index + 1}</td>
+              <td className="border border-gray-300 text-left px-2">{item.MATERIAL_NAME}</td>
+              <td className="border border-gray-300">{item.QUANTITY_DAMAGED}</td>
+              <td className="border border-gray-300">{item.UOM}</td>
+              <td className="border border-gray-300">{item.CLAIM_AMOUNT_PER_UNIT}</td>
+              <td className="border border-gray-300">{item.CLAIM_AMOUNT}</td>
+              <td className="border border-gray-300 text-left px-2">{item.DAMAGE_DETAILS}</td>
+              <td className="border border-gray-300 text-left px-2">{item.ACTION_TAKEN}</td>
+            </tr>
+          ))}
+
+          {/* Total Row */}
+          <tr className="font-semibold bg-gray-100">
+            <td colSpan={2} className="border border-gray-300">
+              Total
+            </td>
+            <td className="border border-gray-300">{totalDamageQty}</td>
+            <td className="border border-gray-300"></td>
+            <td className="border border-gray-300"></td>
+            <td className="border border-gray-300">{totalClaimAmount}</td>
+            <td className="border border-gray-300" colSpan={3}></td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Related Orders */}
+      {data?.RelatedOrders && data.RelatedOrders.length > 0 && (
+        <table className="border border-gray-300 border-collapse w-1/2 mt-5 text-center">
+          <thead>
+            <tr className="bg-gray-100">
+              {secondHeader.map((item, index) => (
+                <th key={index} className="border border-gray-300 px-2 py-1 font-semibold">
+                  {item}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {data?.RelatedOrders?.map((item, index) => (
-              <tr className="text-center">
-                <td className="border border-gray-300">
-                  {index + 1}
-                </td>
-                <td className="border border-gray-300">
-                  {item.BUYER_NAME}
-                </td>
-                <td className="border border-gray-300">
-                  {item.STYLE_NAME}
-                </td>
+            {data.RelatedOrders.map((item, index) => (
+              <tr key={index}>
+                <td className="border border-gray-300 py-1">{index + 1}</td>
+                <td className="border border-gray-300">{item.BUYER_NAME}</td>
+                <td className="border border-gray-300">{item.STYLE_NAME}</td>
                 <td className="border border-gray-300">{item.PO_NO}</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="mt-3">
-          <p>Additional Note: {data?.ADDITIONAL_NOTES}</p>
+      )}
+
+      {/* Additional Notes */}
+      {data?.ADDITIONAL_NOTES && (
+        <div className="mt-4">
+
+          <div className="whitespace-pre-wrap">  <p ><span className="font-bold">Additional Note:</span> {data.ADDITIONAL_NOTES}</p> </div>
         </div>
-        <div className="p-5"></div>
-        <div>
-          <ReportFooter data={data}></ReportFooter>
-        </div>
+      )}
+
+      <div>
+        <p>
+          We claimed a total amount of{" "}
+          <span className="font-bold">
+            {totalClaimAmount?.toLocaleString("en-BD")} (
+            {toWords.convert(totalClaimAmount || 0).toUpperCase()} TAKA ONLY)
+          </span>{" "}
+          against our claim. Please do the needful and oblige with your kind
+          cooperation.
+        </p>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-8">
+        <ReportFooter data={data} />
       </div>
     </div>
   );

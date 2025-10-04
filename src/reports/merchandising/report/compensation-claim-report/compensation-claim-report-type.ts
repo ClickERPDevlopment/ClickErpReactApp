@@ -8,11 +8,13 @@ export interface ICompensationClaimMasterType {
   SUPPLIER_NAME?: string;
   REPORTED_BY?: string;
   ADDITIONAL_NOTES?: string;
+  REMARKS?: string;
   CREATED_BY?: string;
   CREATED_BY_NAME?: string;
   CREATED_DATE: Date;
   UPDATED_BY?: string;
   UPDATED_DATE: Date;
+  SUPPLIER_ADDRESS: string;
   ClaimDetails: ICompensationClaimDetailsType[];
   RelatedOrders: ICompensationClaimOrderInfoType[];
 }
@@ -32,6 +34,7 @@ export interface ICompensationClaimDetailsType {
   UOM?: string;
   DAMAGE_DETAILS?: string;
   CLAIM_AMOUNT: number;
+  CLAIM_AMOUNT_PER_UNIT: number;
   ACTION_TAKEN?: string;
 }
 

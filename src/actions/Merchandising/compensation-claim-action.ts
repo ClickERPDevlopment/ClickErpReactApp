@@ -67,6 +67,7 @@ export type planningBoardConfigureType = {
 
 //compenstation claim
 export interface CompensationClaimMasterType {
+    REMARKS: string;
     ID: number;
     CLAIM_ID?: string;
     CLAIM_DATE?: Date;
@@ -94,11 +95,12 @@ export interface CompensationClaimDetailsType {
     MATERIAL_SUB_GROUP_ID?: number;
     MATERIAL_SUB_GROUP_NAME?: string;
     TYPE_ID: number;
-    TYPE_NAME?: string;
+    TYPE_NAME: string;
     QUANTITY_DAMAGED: number;
     UOM?: string;
     DAMAGE_DETAILS?: string;
     CLAIM_AMOUNT: number;
+    CLAIM_AMOUNT_PER_UNIT: number;
     ACTION_TAKEN?: string;
 }
 

@@ -73,6 +73,7 @@ const formSchema = z.object({
   UOM: z.string().optional(),
   DAMAGE_DETAILS: z.string().optional(),
   CLAIM_AMOUNT: z.number().min(0),
+  CLAIM_AMOUNT_PER_UNIT: z.number().min(0),
   ACTION_TAKEN: z.string().optional(),
 });
 
@@ -84,6 +85,7 @@ const masterFormSchema = z.object({
   RELATED_SUPPLIER_NAME: z.string().min(1, "Supplier name is required"),
   REPORTED_BY: z.string(),
   ADDITIONAL_NOTES: z.string(),
+  REMARKS: z.string(),
 });
 
 const orderFormSchema = z.object({
@@ -296,11 +298,12 @@ export default function CompensationClaimForm({
       MATERIAL_SUB_GROUP_NAME: "",
       MATERIAL_NAME: "",
       TYPE_ID: 0,
-      TYPE_NAME: "",
+      TYPE_NAME: "Test",
       QUANTITY_DAMAGED: 0,
       UOM: "",
       DAMAGE_DETAILS: "",
       CLAIM_AMOUNT: 0,
+      CLAIM_AMOUNT_PER_UNIT: 0,
       ACTION_TAKEN: ""
     });
     form.reset();
@@ -344,6 +347,7 @@ export default function CompensationClaimForm({
     RELATED_SUPPLIER_NAME: data ? data.RELATED_SUPPLIER_NAME : "",
     REPORTED_BY: data ? data.REPORTED_BY : "",
     ADDITIONAL_NOTES: data ? data.ADDITIONAL_NOTES : "",
+    REMARKS: data ? data.REMARKS : "",
     CREATED_BY: data ? data.CREATED_BY : "",
     CREATED_DATE: data?.CREATED_DATE ? new Date(data.CREATED_DATE) : new Date(),
     UPDATED_BY: data ? data.UPDATED_BY : "",
@@ -367,6 +371,7 @@ export default function CompensationClaimForm({
     UOM: "",
     DAMAGE_DETAILS: "",
     CLAIM_AMOUNT: 0,
+    CLAIM_AMOUNT_PER_UNIT: 0,
     ACTION_TAKEN: "",
   });
 
@@ -388,11 +393,45 @@ export default function CompensationClaimForm({
   ) => {
     const { name, value } = e.target;
 
-    setClaimDetails((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const toFixed6 = (num: number) => Number(num.toFixed(6));
+
+    if (name === "CLAIM_AMOUNT_PER_UNIT") {
+      const perUnit = Number(value) || 0;
+      const qtyDamage = Number(claimDetails.QUANTITY_DAMAGED) || 0;
+      const claimAmount = qtyDamage * perUnit;
+
+      setClaimDetails((prev) => ({
+        ...prev,
+        [name]: toFixed6(perUnit),
+        CLAIM_AMOUNT: toFixed6(claimAmount),
+      }));
+
+      form.setValue("CLAIM_AMOUNT", toFixed6(claimAmount))
+
+    }
+    else if (name === "CLAIM_AMOUNT") {
+      const claimAmount = Number(value) || 0;
+      const qtyDamage = Number(claimDetails.QUANTITY_DAMAGED) || 0;
+      const perUnit =
+        qtyDamage > 0 ? claimAmount / qtyDamage : 0;
+
+      setClaimDetails((prev) => ({
+        ...prev,
+        [name]: toFixed6(claimAmount),
+        CLAIM_AMOUNT_PER_UNIT: toFixed6(perUnit),
+      }));
+
+      form.setValue("CLAIM_AMOUNT_PER_UNIT", toFixed6(toFixed6(perUnit)))
+
+    }
+    else {
+      setClaimDetails((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
+
 
   const handleMasterInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -452,6 +491,7 @@ export default function CompensationClaimForm({
       RELATED_SUPPLIER_NAME: data?.RELATED_SUPPLIER_NAME || "",
       REPORTED_BY: data?.REPORTED_BY || "",
       ADDITIONAL_NOTES: data?.ADDITIONAL_NOTES || "",
+      REMARKS: data?.REMARKS || "",
     },
   });
 
@@ -486,19 +526,20 @@ export default function CompensationClaimForm({
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
               className=""
             >
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap items-start gap-3">
+                {/* ==================== Claim ID ==================== */}
                 <FormField
                   control={masterForm.control}
                   name="CLAIM_ID"
                   render={({ field }) => (
-                    <FormItem className="w-52" style={{ minWidth: "200px" }}>
+                    <FormItem className="flex-1 min-w-[200px]">
                       <FormLabel className="font-bold">Claim Id</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
                         <Input
-                          placeholder=""
                           {...field}
-                          className="form-control"
-                          disabled={true}
+                          placeholder=""
+                          className="form-control h-[40px]"
+                          disabled
                         />
                       </FormControl>
                       <FormMessage />
@@ -506,26 +547,21 @@ export default function CompensationClaimForm({
                   )}
                 />
 
+                {/* ==================== Claim Date ==================== */}
                 <FormField
                   control={masterForm.control}
                   name="CLAIM_DATE"
                   render={({ field }) => (
-                    <FormItem className="w-52" style={{ minWidth: "200px" }}>
+                    <FormItem className="flex-1 min-w-[200px]">
                       <FormLabel className="font-bold">Claim Date</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder=""
                           type="date"
-                          value={field.value ? field.value.toISOString().slice(0, 10) : ''}
+                          value={field.value ? field.value.toISOString().slice(0, 10) : ""}
                           onChange={(e) => {
-                            const newDate = e.target.value ? new Date(e.target.value) : null;
-                            field.onChange(newDate);
-                            setMasterData((prev) => ({
-                              ...prev,
-                              CLAIM_DATE: new Date(e.target.value),
-                            }));
+                            const newDate = e.target.value ? new Date(e.target.value) : null; field.onChange(newDate); setMasterData((prev) => ({ ...prev, CLAIM_DATE: new Date(e.target.value), }));
                           }}
-                          className="form-control"
+                          className="form-control h-[40px]"
                         />
                       </FormControl>
                       <FormMessage />
@@ -533,52 +569,45 @@ export default function CompensationClaimForm({
                   )}
                 />
 
+                {/* ==================== Compensation Type ==================== */}
                 <FormField
                   control={masterForm.control}
                   name="COMPENSATION_TYPE"
                   render={() => (
-                    <FormItem className="min-w-52">
-                      <FormLabel className="font-bold"> Compensation Type</FormLabel>
+                    <FormItem className="flex-1 min-w-[200px]">
+                      <FormLabel className="font-bold">Compensation Type</FormLabel>
                       <Select
                         value={masterData?.COMPENSATION_TYPE?.toString()}
-                        onValueChange={(value) => {
+                        onValueChange={(value) =>
                           setMasterData((prev) => ({
                             ...prev,
                             COMPENSATION_TYPE: value,
-                          }));
-                        }}
+                          }))
+                        }
                       >
-                        <SelectTrigger>
-                          <SelectValue placeholder="" />
+                        <SelectTrigger className="h-[40px]">
+                          <SelectValue placeholder="Select type" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem key="Knitting" value="Knitting">
-                            Knitting
-                          </SelectItem>
-                          <SelectItem key="Dyeing" value="Dyeing">
-                            Dyeing
-                          </SelectItem>
-                          <SelectItem key="Garments" value="Garments">
-                            Garments
-                          </SelectItem>
-                          <SelectItem key="Yarn" value="Yarn">
-                            Yarn
-                          </SelectItem>
-                          <SelectItem key="Accessories" value="Accessories">
-                            Accessories
-                          </SelectItem>
+                          <SelectItem value="Knitting">Knitting</SelectItem>
+                          <SelectItem value="Dyeing">Dyeing</SelectItem>
+                          <SelectItem value="Garments">Garments</SelectItem>
+                          <SelectItem value="Yarn">Yarn</SelectItem>
+                          <SelectItem value="Accessories">Accessories</SelectItem>
                         </SelectContent>
                       </Select>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
-                {/* ==================================Supplier======================================= */}
-                <div className="flex justify-between items-end">
+
+                {/* ==================== Supplier ==================== */}
+                <div className="flex flex-1 min-w-[250px] items-end gap-1">
                   <FormField
                     control={masterForm.control}
                     name="RELATED_SUPPLIER_ID"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col flex-1">
+                      <FormItem className="flex-1">
                         <FormLabel className="font-bold">Related Supplier</FormLabel>
                         <Popover open={openSupplier} onOpenChange={setOpenSupplier}>
                           <PopoverTrigger asChild>
@@ -588,14 +617,13 @@ export default function CompensationClaimForm({
                                 role="combobox"
                                 aria-expanded={openSupplier}
                                 className={cn(
-                                  "w-full justify-between",
+                                  "w-full justify-between h-[40px]",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
                                 {field.value
                                   ? supplierData?.find(
-                                    (supplier) =>
-                                      Number(supplier.Id) === field.value
+                                    (supplier) => Number(supplier.Id) === field.value
                                   )?.Name
                                   : "Select a supplier"}
                                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -610,8 +638,8 @@ export default function CompensationClaimForm({
                                 <CommandGroup>
                                   {supplierData?.map((supplier) => (
                                     <CommandItem
-                                      value={supplier.Name}
                                       key={supplier.Id}
+                                      value={supplier.Name}
                                       onSelect={() => {
                                         field.onChange(Number(supplier.Id));
                                         setMasterData((prev) => ({
@@ -644,56 +672,75 @@ export default function CompensationClaimForm({
                   />
                   <Button
                     onClick={() => masterForm.resetField("RELATED_SUPPLIER_ID")}
-                    variant={"outline"}
+                    variant="outline"
                     type="button"
-                    className="m-0 ml-1 px-[12px]"
+                    className="h-[40px] px-[12px]"
                   >
-                    <MdOutlineClear className="rounded text-slate-600 m-0" />
+                    <MdOutlineClear className="text-slate-600" />
                   </Button>
                 </div>
+
+                {/* ==================== Reported By ==================== */}
                 <FormField
                   control={masterForm.control}
                   name="REPORTED_BY"
                   render={({ field }) => (
-                    <FormItem className="w-52" style={{ minWidth: "200px" }}>
+                    <FormItem className="flex-1 min-w-[200px]">
                       <FormLabel className="font-bold">Reported By</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
-                        <Input
-                          placeholder=""
-                          {...field}
-                          className="form-control"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={masterForm.control}
-                  name="ADDITIONAL_NOTES"
-                  render={({ field }) => (
-                    <FormItem className="w-52" style={{ minWidth: "200px" }}>
-                      <FormLabel className="font-bold">Additional Note</FormLabel>
-                      <FormControl onChange={handleMasterInputChange}>
-                        <Input
-                          placeholder=""
-                          {...field}
-                          className="form-control"
-                        />
+                        <Input {...field} placeholder="" className="form-control h-[40px]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
+                {/* ==================== Additional Notes ==================== */}
+                <FormField
+                  control={masterForm.control}
+                  name="ADDITIONAL_NOTES"
+                  render={({ field }) => (
+                    <FormItem className="flex-1 min-w-[200px]">
+                      <FormLabel className="font-bold">Additional Note</FormLabel>
+                      <FormControl onChange={handleMasterInputChange}>
+                        <Input {...field} placeholder="" className="form-control h-[40px]" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* ====== line break before Remarks ====== */}
+                <div className="w-full" />
+
+                {/* ==================== Remarks ==================== */}
+                <FormField
+                  control={masterForm.control}
+                  name="REMARKS"
+                  render={({ field }) => (
+                    <FormItem className="flex-1 min-w-[300px] max-w-[500px]">
+                      <FormLabel className="font-bold">Remarks</FormLabel>
+                      <FormControl onChange={handleMasterInputChange}>
+                        <Textarea
+                          {...field}
+                          placeholder="Enter remarks..."
+                          className="form-control resize-y whitespace-pre-wrap min-h-[70px]"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
+
+
+
             </form>
           </Form>
         </div>
         <div className="mt-4"></div>
 
         <div className="flex gap-2">
-
           {/* ===================================Details data===================================== */}
           <div className="w-2/3 border p-1">
             <Form {...form} >
@@ -1106,6 +1153,25 @@ export default function CompensationClaimForm({
 
                   <FormField
                     control={form.control}
+                    name="CLAIM_AMOUNT_PER_UNIT"
+                    render={({ field }) => (
+                      <FormItem className="w-52" style={{ minWidth: "200px" }}>
+                        <FormLabel className="font-bold">Claim Amount/Unit</FormLabel>
+                        <FormControl onChange={handleInputChange}>
+                          <Input
+                            placeholder=""
+                            {...field}
+                            className="form-control"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+
+                  <FormField
+                    control={form.control}
                     name="CLAIM_AMOUNT"
                     render={({ field }) => (
                       <FormItem className="w-52" style={{ minWidth: "200px" }}>
@@ -1214,6 +1280,9 @@ export default function CompensationClaimForm({
                           UOM
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
+                          Claim Amount/Unit
+                        </TableHead>
+                        <TableHead className="border border-gray-300 text-center px-4">
                           Claim Amount
                         </TableHead>
                         <TableHead className="border border-gray-300 text-center px-4">
@@ -1239,6 +1308,9 @@ export default function CompensationClaimForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.UOM}
+                          </TableCell>
+                          <TableCell className="border border-gray-300 px-4 text-center ">
+                            {item.CLAIM_AMOUNT_PER_UNIT}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.CLAIM_AMOUNT}

@@ -62,11 +62,20 @@ function CompensationClaimReport() {
   }
 
   return (
-    <div>
-      <Report
-        data={data}
-      />
+    <div className="flex flex-col min-h-screen">
+      {/* Report content */}
+      <div className="flex-grow">
+        <Report data={data} />
+      </div>
+
+      {/* Footer text */}
+      <div className="mt-4">
+        <p className="text-center text-sm text-gray-950">
+          ***This is the ERP generated document***
+        </p>
+      </div>
     </div>
+
   );
 }
 
