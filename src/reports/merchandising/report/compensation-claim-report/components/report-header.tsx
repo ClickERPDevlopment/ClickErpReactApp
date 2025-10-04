@@ -21,9 +21,9 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
 
         <h1 className="text-2xl font-bold text-center">{clinet.currentClient == clinet.EURO ? "EUROTEX KNITWEAR LTD" : companyName}</h1>
 
-        <h4 className="text-base font-bold text-center">{clinet.currentClient == clinet.EURO ? "Nayamati, Kutubpur, Fatullah, Narayanganj" : companyAddress}</h4>
+        <h4 className="text-sm font-bold text-center">{clinet.currentClient == clinet.EURO ? "Nayamati, Kutubpur, Fatullah, Narayanganj" : companyAddress}</h4>
 
-        {/* <h3 className="text-xl font-bold text-center mt-2">{reportTitle}</h3> */}
+        <h3 className="text-xl font-bold text-center mt-2">CLAIM LETTER</h3>
       </div>
     </header>
   );

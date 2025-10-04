@@ -59,7 +59,7 @@ function Report({
                 </td>
                 <td> </td>
               </tr>
-              <tr className="font-bold">
+              <tr className="font-bold" style={{ fontSize: "14px" }}>
                 <td className="pt-4">Subject: Claim Letter</td>
                 <td className="pt-4"></td>
               </tr>
@@ -92,7 +92,7 @@ function Report({
       {/* Claim Details Table */}
       <table className="w-full border border-gray-300 border-collapse mt-4 text-center">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-gray-100" style={{ fontSize: "14px" }}>
             {firstHeader.map((item, index) => (
               <th key={index} className="border border-gray-300 px-2 py-1 font-semibold">
                 {item}
@@ -115,7 +115,7 @@ function Report({
           ))}
 
           {/* Total Row */}
-          <tr className="font-semibold bg-gray-100">
+          <tr className="font-semibold bg-gray-100" style={{ fontSize: "14px" }}>
             <td colSpan={2} className="border border-gray-300">
               Total
             </td>
