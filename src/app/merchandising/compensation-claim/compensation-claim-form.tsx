@@ -718,7 +718,7 @@ export default function CompensationClaimForm({
                   control={masterForm.control}
                   name="REMARKS"
                   render={({ field }) => (
-                    <FormItem className="flex-1 min-w-[300px] max-w-[500px]">
+                    <FormItem className="flex-1 min-w-[300px] max-w-[80%]">
                       <FormLabel className="font-bold">Remarks</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
                         <Textarea

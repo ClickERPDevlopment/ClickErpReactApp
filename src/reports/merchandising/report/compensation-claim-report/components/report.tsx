@@ -45,8 +45,8 @@ function Report({
           <table className="text-sm leading-tight">
             <tbody>
               <tr>
-                <td className="font-semibold pr-2">Date:</td>
-                <td>{moment(data?.CLAIM_DATE).format("DD-MMM-YY")}</td>
+                <td className="font-semibold pr-2">Date: {moment(data?.CLAIM_DATE).format("DD-MMM-YY")}</td>
+                <td></td>
               </tr>
               <tr>
                 <td className="font-semibold pr-2">Managing Director<br></br>
@@ -60,8 +60,8 @@ function Report({
                 <td> </td>
               </tr>
               <tr className="font-bold">
-                <td className="pt-4">Subject:</td>
-                <td className="pt-4">Claim Letter</td>
+                <td className="pt-4">Subject: Claim Letter</td>
+                <td className="pt-4"></td>
               </tr>
             </tbody>
           </table>
