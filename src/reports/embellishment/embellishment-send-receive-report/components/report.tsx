@@ -74,7 +74,7 @@ function Report({
   const lastHeader: string[] = [];
 
 
-  const pSend = data?.reduce((acc, item) => acc + item.PE_SENDQTY, 0)
+   const pSend = data?.reduce((acc, item) => acc + item.P_SENDQTY, 0)
   const eSend = data?.reduce((acc, item) => acc + item.E_SENDQTY, 0)
   const peSend = data?.reduce((acc, item) => acc + item.PE_SENDQTY, 0)
   const wSend = data?.reduce((acc, item) => acc + item.W_SENDQTY, 0)
