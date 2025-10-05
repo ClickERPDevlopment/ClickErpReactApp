@@ -29,6 +29,8 @@ export default function GreyFabricReceiveStatusReportIndex() {
   let buyerId: string | null = "";
   let poId: string | null = "";
   let styleId: string | null = "";
+  let colorId: string | null = "";
+  let fabricId: string | null = "";
 
   if (searchParams.get("isOPMWise")) {
     isOPMWise = searchParams.get("isOPMWise");
@@ -51,6 +53,12 @@ export default function GreyFabricReceiveStatusReportIndex() {
   if (searchParams.get("styleId")) {
     styleId = searchParams.get("styleId");
   }
+  if (searchParams.get("colorId")) {
+    colorId = searchParams.get("colorId");
+  }
+  if (searchParams.get("styleId")) {
+    fabricId = searchParams.get("fabricId");
+  }
   const api = useApiUrl();
 
   useEffect(() => {
@@ -71,7 +79,9 @@ export default function GreyFabricReceiveStatusReportIndex() {
             `factoryId=${factoryId}&` +
             `buyerId=${buyerId}&` +
             `poId=${poId}&` +
-            `styleId=${styleId}&`
+            `styleId=${styleId}&` +
+            `colorId=${colorId}&` +
+            `fabricId=${fabricId}`
           )
           .then((res) => {
             if (res.data) {
