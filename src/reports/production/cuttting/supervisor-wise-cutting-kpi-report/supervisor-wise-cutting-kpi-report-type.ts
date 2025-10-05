@@ -15,4 +15,5 @@ export type SupervisorWiseCuttingKPIReportType = {
   SMVCUTTING: number;
   TARGET_EARMN_MIN: number;
   AVAILABLE_EARMN_MIN: number;
+  PRODUCTION_MIN: number;
 };
