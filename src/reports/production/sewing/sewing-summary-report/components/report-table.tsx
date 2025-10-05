@@ -1057,6 +1057,45 @@ function ReportTable({
             isMonthView &&
             <>
               <tr style={{ backgroundColor: "" }}>
+                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Day</td>
+                {Object.entries(companyFloorsMap).map(([company, floors]) => {
+
+                  let floorCount = 0
+
+                  const cells = floors.map(floor => {
+
+                    const floorData = grouped[company][floor];
+                    floorCount += 1;
+                    return (
+                      <td
+                        key={`${company}-${floor}`}
+                        className="border text-center border-gray-950 p-0.1 text-nowrap"
+                      >
+                        {floorData.UNIQUE_SEWINGDATE.size}
+                      </td>
+                    );
+                  });
+
+                  const companyTotal = floors.reduce((sum, floor) => {
+                    return sum + (grouped[company][floor].UNIQUE_SEWINGDATE.size);
+                  }, 0);
+
+                  cells.push(
+                    <td
+                      style={{ backgroundColor: totalBg }}
+                      key={`${company}-total`}
+                      className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
+                    >
+                      {Math.round(companyTotal / floorCount)}
+                    </td>
+                  );
+                  return cells;
+                })}
+                <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+                  {finalData.UNIQUE_SEWINGDATE.size}
+                </td>
+              </tr>
+              <tr style={{ backgroundColor: "" }}>
                 <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
@@ -1071,7 +1110,7 @@ function ReportTable({
                         key={`${company}-${floor}`}
                         className="border text-center border-gray-950 p-0.1 text-nowrap"
                       >
-                        {(floorData.TARGET / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size)).toFixed(2)}
+                        {Math.round(floorData.TARGET / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size))}
                       </td>
                     );
                   });
@@ -1086,13 +1125,13 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {(companyTotal / floorCount).toFixed(2)}
+                      {Math.round(companyTotal / floorCount)}
                     </td>
                   );
                   return cells;
                 })}
                 <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-                  {(finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size)).toFixed(2)}
+                  {Math.round(finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size))}
                 </td>
               </tr>
               <tr>
@@ -1110,7 +1149,7 @@ function ReportTable({
                         key={`${company}-${floor}`}
                         className="border text-center border-gray-950 p-0.1 text-nowrap"
                       >
-                        {(floorData.SEWING_OUTPUT / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size)).toFixed(2)}
+                        {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size))}
                       </td>
                     );
                   });
@@ -1125,13 +1164,13 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {(companyTotal / floorCount).toFixed(2)}
+                      {Math.round(companyTotal / floorCount)}
                     </td>
                   );
                   return cells;
                 })}
                 <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-                  {((finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size) / (finalData.UNIQUE_SEWINGDATE.size)).toFixed(2)}
+                  {Math.round((finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size) / (finalData.UNIQUE_SEWINGDATE.size))}
                 </td>
               </tr>
               <tr>
@@ -1152,7 +1191,7 @@ function ReportTable({
                         key={`${company}-${floor}`}
                         className="border text-center border-gray-950 p-0.1 text-nowrap"
                       >
-                        {(avgAchieve - avgTarget).toFixed(2)}
+                        {Math.round(avgAchieve - avgTarget)}
                       </td>
                     );
                   });
@@ -1182,13 +1221,13 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {((totalAchieve / floorCount) - (totalTarget / floorCount)).toFixed(2)}
+                      {Math.round((totalAchieve / floorCount) - (totalTarget / floorCount))}
                     </td>
                   );
                   return cells;
                 })}
                 <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-                  {((finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size)) - (finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size))).toFixed(2)}
+                  {Math.round((finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size)) - (finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size)))}
                 </td>
               </tr>
 
