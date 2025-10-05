@@ -45,7 +45,7 @@ function CompensationClaimReport() {
 
   // Effects
   useEffect(() => {
-    document.title = "Report";
+    document.title = "";
     fetchData();
   }, []);
 

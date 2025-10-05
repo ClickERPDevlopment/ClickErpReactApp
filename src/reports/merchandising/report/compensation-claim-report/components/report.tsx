@@ -36,11 +36,11 @@ function Report({
   const toWords = new ToWords();
 
   return (
-    <div className="px-12 py-6 text-[13px] font-sans text-gray-900 print:text-black">
+    <div className="px-12 py-6 text-[13px] font-sans text-gray-950 print:text-black">
       <ReportHeader />
 
       {/* Top Info Section */}
-      <div className="flex justify-between border-b border-gray-300 pb-2 mb-2">
+      <div className="flex justify-between border-b border-gray-950 pb-2 mb-2">
         <div>
           <table className="text-sm leading-tight">
             <tbody>
@@ -90,11 +90,11 @@ function Report({
       </div>
 
       {/* Claim Details Table */}
-      <table className="w-full border border-gray-300 border-collapse mt-4 text-center">
+      <table className="w-full border border-gray-950 border-collapse mt-4 text-center">
         <thead>
           <tr className="bg-gray-100" style={{ fontSize: "14px" }}>
             {firstHeader.map((item, index) => (
-              <th key={index} className="border border-gray-300 px-2 py-1 font-semibold">
+              <th key={index} className="border border-gray-950 px-2 py-1 font-semibold">
                 {item}
               </th>
             ))}
@@ -103,38 +103,38 @@ function Report({
         <tbody>
           {data?.ClaimDetails?.map((item, index) => (
             <tr key={index} className="hover:bg-gray-50">
-              <td className="border border-gray-300 py-1">{index + 1}</td>
-              <td className="border border-gray-300 text-left px-2">{item.MATERIAL_NAME}</td>
-              <td className="border border-gray-300">{item.QUANTITY_DAMAGED}</td>
-              <td className="border border-gray-300">{item.UOM}</td>
-              <td className="border border-gray-300">{item.CLAIM_AMOUNT_PER_UNIT}</td>
-              <td className="border border-gray-300">{item.CLAIM_AMOUNT}</td>
-              <td className="border border-gray-300 text-left px-2">{item.DAMAGE_DETAILS}</td>
-              <td className="border border-gray-300 text-left px-2">{item.ACTION_TAKEN}</td>
+              <td className="border border-gray-950 py-1">{index + 1}</td>
+              <td className="border border-gray-950 text-left px-2">{item.MATERIAL_NAME}</td>
+              <td className="border border-gray-950">{item.QUANTITY_DAMAGED}</td>
+              <td className="border border-gray-950">{item.UOM}</td>
+              <td className="border border-gray-950">{item.CLAIM_AMOUNT_PER_UNIT}</td>
+              <td className="border border-gray-950">{item.CLAIM_AMOUNT}</td>
+              <td className="border border-gray-950 text-left px-2">{item.DAMAGE_DETAILS}</td>
+              <td className="border border-gray-950 text-left px-2">{item.ACTION_TAKEN}</td>
             </tr>
           ))}
 
           {/* Total Row */}
           <tr className="font-semibold bg-gray-100" style={{ fontSize: "14px" }}>
-            <td colSpan={2} className="border border-gray-300">
+            <td colSpan={2} className="border border-gray-950">
               Total
             </td>
-            <td className="border border-gray-300">{totalDamageQty}</td>
-            <td className="border border-gray-300"></td>
-            <td className="border border-gray-300"></td>
-            <td className="border border-gray-300">{totalClaimAmount}</td>
-            <td className="border border-gray-300" colSpan={3}></td>
+            <td className="border border-gray-950">{totalDamageQty}</td>
+            <td className="border border-gray-950"></td>
+            <td className="border border-gray-950"></td>
+            <td className="border border-gray-950">{totalClaimAmount}</td>
+            <td className="border border-gray-950" colSpan={3}></td>
           </tr>
         </tbody>
       </table>
 
       {/* Related Orders */}
       {data?.RelatedOrders && data.RelatedOrders.length > 0 && (
-        <table className="border border-gray-300 border-collapse w-1/2 mt-5 text-center">
+        <table className="border border-gray-950 border-collapse w-1/2 mt-5 text-center">
           <thead>
             <tr className="bg-gray-100">
               {secondHeader.map((item, index) => (
-                <th key={index} className="border border-gray-300 px-2 py-1 font-semibold">
+                <th key={index} className="border border-gray-950 px-2 py-1 font-semibold">
                   {item}
                 </th>
               ))}
@@ -143,10 +143,10 @@ function Report({
           <tbody>
             {data.RelatedOrders.map((item, index) => (
               <tr key={index}>
-                <td className="border border-gray-300 py-1">{index + 1}</td>
-                <td className="border border-gray-300">{item.BUYER_NAME}</td>
-                <td className="border border-gray-300">{item.STYLE_NAME}</td>
-                <td className="border border-gray-300">{item.PO_NO}</td>
+                <td className="border border-gray-950 py-1">{index + 1}</td>
+                <td className="border border-gray-950">{item.BUYER_NAME}</td>
+                <td className="border border-gray-950">{item.STYLE_NAME}</td>
+                <td className="border border-gray-950">{item.PO_NO}</td>
               </tr>
             ))}
           </tbody>

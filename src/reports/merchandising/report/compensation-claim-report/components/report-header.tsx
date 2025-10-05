@@ -14,8 +14,8 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
 }) => {
   return (
     <header className="report-header">
-      <div className="container">
-        <p className="text-sm font-bold text-left w-full">
+      <div>
+        <p className="text-sm font-bold text-start w-full">
           "CLICK"
         </p>
 

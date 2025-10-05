@@ -23,7 +23,7 @@ function ReportFooter({ data }: { data: ICompensationClaimMasterType | undefined
               <td key={idx} className="px-2 border-0">
                 <div className="min-w-[80px]">
                   <span className="block">{sig.name}</span>
-                  <span className="block border-t mt-2 pt-1 text-sm">{sig.label}</span>
+                  <span className="block border-t border-gray-950 mt-2 pt-1 text-sm">{sig.label}</span>
                 </div>
               </td>
             ))}
