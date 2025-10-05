@@ -144,8 +144,8 @@ export default function GreyFabricStockReportIndex() {
               }
             </div>
 
-            <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 m-1 overflow-hidden">
-              <table className="w-full">
+            <div className="border border-gray-500 rounded-md my-5 m-1">
+              <table className="w-full border-collapse">
                 <thead className="sticky top-0 z-10">
                   <TableHeader />
                 </thead>

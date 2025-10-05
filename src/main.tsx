@@ -1120,7 +1120,6 @@ createRoot(document.getElementById("root")!).render(
                     </Route>
                     <Route path="sweater">
                       <Route path="swt-planning">
-                        {/* <Route index element={<PlanningBoardConfigureIndex />} /> */}
                         <Route
                           path="line-loading-plan"
                           element={<LineLoadingPlanIndex />}

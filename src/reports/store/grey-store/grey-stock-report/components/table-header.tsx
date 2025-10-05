@@ -14,11 +14,11 @@ export default function TableHeader() {
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Receive Qty [B]</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Transfer In Qty [C]</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Total Rcvd Qty [D= B+C]</th>
-                <th className="text-balance text-center p-1 border-r border-gray-500 ">Receive Bal. Qty [E= A-D]</th>
+                <th className="text-balance text-center p-1 border-r border-gray-500 ">Receive Bal. Qty [E= D-A]</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Delivery Qty [F]</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Transfer Out Qty [G]</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Total Delivery Qty [H= F+G]</th>
-                <th className="text-balance text-center p-1 border-r border-gray-500 ">Delivery Bal. Qty [I= A-H]</th>
+                <th className="text-balance text-center p-1 border-r border-gray-500 ">Delivery Bal. Qty [I= H-A]</th>
                 <th className="text-balance text-center p-1 border-r border-gray-500 ">Stock Qty [J= D-H]</th>
             </tr>
         </>
