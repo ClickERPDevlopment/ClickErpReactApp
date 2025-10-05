@@ -5,6 +5,7 @@ export type SewingSummaryReportType = {
 
     SMVSEWING?: number;
     TOTALTARGET?: number;
+    RUNNNING_TOTALTARGET?: number;
     SEWINGOUTPUT?: number;
     ACTUALHOURS?: number;
     TARGET_EARN_MIN?: number;
