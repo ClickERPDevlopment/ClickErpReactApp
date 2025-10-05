@@ -31,4 +31,5 @@ export type SewingSummaryReportType = {
     DEFECTQTY?: number;
     CHECKQTY?: number;
     TARGETHOURS?: number;
+    SEWINGDATE?: string;
 };
