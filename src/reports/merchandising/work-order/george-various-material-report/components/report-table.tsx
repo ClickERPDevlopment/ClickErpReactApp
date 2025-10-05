@@ -41,7 +41,7 @@ function ReportTable({
 
       result[key].SIZES[item.GMT_SIZE_NAME] += item.WORK_ORDER_QTY;
       result[key].TOTAL_QTY += item.WORK_ORDER_QTY;
-      result[key].AMOUNT += item.TOTAL_SUP_AMOUNT;
+      result[key].AMOUNT += item.SUPPLIER_RATE_PER_PCS * item.WORK_ORDER_QTY;
 
       return result;
     }, {});
@@ -51,7 +51,7 @@ function ReportTable({
     return (acc += Number(item.WORK_ORDER_QTY));
   }, 0);
   const totalAmount = data.reduce((acc, item) => {
-    return (acc += Number(item?.TOTAL_SUP_AMOUNT));
+    return (acc += Number(item?.SUPPLIER_RATE_PER_PCS * item.WORK_ORDER_QTY));
   }, 0);
 
   // const getSizeWiseQty = (key:string, sizeName: string) =>{
