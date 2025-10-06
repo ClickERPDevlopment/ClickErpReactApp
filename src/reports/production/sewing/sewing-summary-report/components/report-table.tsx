@@ -767,13 +767,13 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.TARGET / floorData.UNIQUE_LINES.size / (floorData.TARGETHOURS / floorData.ROW_COUNT))}
+                    {Math.round(floorData.TARGET / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.TARGETHOURS / floorData.ROW_COUNT))}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
               }, 0);
 
               cells.push(
@@ -789,7 +789,7 @@ function ReportTable({
             })}
 
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.TARGETHOURS / finalData.ROW_COUNT))}
+              {Math.round(finalData.TARGET / finalData.UNIQUE_SEWINGDATE.size / finalData.UNIQUE_LINES.size / (finalData.TARGETHOURS / finalData.ROW_COUNT))}
             </td>
 
           </tr>
@@ -811,13 +811,13 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_LINES.size / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
+                    {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
               }, 0);
 
               cells.push(
@@ -832,7 +832,7 @@ function ReportTable({
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / (finalData.WORKING_HOUR / finalData.ROW_COUNT))}
+              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_SEWINGDATE.size / finalData.UNIQUE_LINES.size / (finalData.WORKING_HOUR / finalData.ROW_COUNT))}
             </td>
           </tr>
 
@@ -848,8 +848,8 @@ function ReportTable({
 
                 const floorData = grouped[company][floor];
 
-                const tgtHourly = floorData.TARGET / floorData.UNIQUE_LINES.size / (floorData.TARGETHOURS / floorData.ROW_COUNT);
-                const achvHourly = floorData.SEWING_OUTPUT / floorData.UNIQUE_LINES.size / (floorData.WORKING_HOUR / floorData.ROW_COUNT);
+                const tgtHourly = floorData.TARGET / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.TARGETHOURS / floorData.ROW_COUNT);
+                const achvHourly = floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.WORKING_HOUR / floorData.ROW_COUNT);
 
                 return (
 
@@ -863,11 +863,11 @@ function ReportTable({
               });
 
               const companyTotalTargetHourly = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
               }, 0);
 
               const companyTotalAchvHourly = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
               }, 0);
 
 
@@ -884,7 +884,7 @@ function ReportTable({
             })}
 
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / (finalData.WORKING_HOUR / finalData.ROW_COUNT)) - Math.round((finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.TARGETHOURS / finalData.ROW_COUNT)))}
+              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / finalData.UNIQUE_SEWINGDATE.size / (finalData.WORKING_HOUR / finalData.ROW_COUNT)) - Math.round((finalData.TARGET / finalData.UNIQUE_SEWINGDATE.size / finalData.UNIQUE_LINES.size / (finalData.TARGETHOURS / finalData.ROW_COUNT)))}
             </td>
           </tr>
 
@@ -939,7 +939,8 @@ function ReportTable({
 
                 floorCount += 1;
                 const floorData = grouped[company][floor];
-                const tgtHourly = floorData.TARGET / Math.round(floorData.TARGETHOURS / floorData.ROW_COUNT);
+
+                const tgtHourly = floorData.TARGET / (floorData.TARGETHOURS / floorData.ROW_COUNT);
 
                 companyTotalAchv += floorData.FIRST_HOUR_ACHV * 100 / tgtHourly;
 
@@ -1131,7 +1132,7 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {Math.round(companyTotal / floorCount)}
+                      {Math.round(companyTotal)}
                     </td>
                   );
                   return cells;
@@ -1170,7 +1171,7 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {Math.round(companyTotal / floorCount)}
+                      {Math.round(companyTotal)}
                     </td>
                   );
                   return cells;
@@ -1225,7 +1226,7 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {Math.round((totalAchieve / floorCount) - (totalTarget / floorCount))}
+                      {Math.round((totalAchieve) - (totalTarget))}
                     </td>
                   );
                   return cells;
