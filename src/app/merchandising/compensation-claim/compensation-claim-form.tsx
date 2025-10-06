@@ -688,7 +688,7 @@ export default function CompensationClaimForm({
                     <FormItem className="flex-1 min-w-[200px]">
                       <FormLabel className="font-bold">Reported By</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
-                        <Input {...field} placeholder="" className="form-control h-[40px]" />
+                        <Input style={{ backgroundColor: "#FFFFC0" }} {...field} placeholder="" className="form-control h-[40px]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -703,7 +703,7 @@ export default function CompensationClaimForm({
                     <FormItem className="flex-1 min-w-[200px]">
                       <FormLabel className="font-bold">Additional Note</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
-                        <Input {...field} placeholder="" className="form-control h-[40px]" />
+                        <Input style={{ backgroundColor: "#FFFFC0" }} {...field} placeholder="" className="form-control h-[40px]" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -718,10 +718,11 @@ export default function CompensationClaimForm({
                   control={masterForm.control}
                   name="REMARKS"
                   render={({ field }) => (
-                    <FormItem className="flex-1 min-w-[300px] max-w-[80%]">
+                    <FormItem className="flex-1 min-w-[300px] max-w-[100%]" >
                       <FormLabel className="font-bold">Remarks</FormLabel>
                       <FormControl onChange={handleMasterInputChange}>
                         <Textarea
+                          style={{ backgroundColor: "#FFFFC0" }}
                           {...field}
                           placeholder="Enter remarks..."
                           className="form-control resize-y whitespace-pre-wrap min-h-[70px]"
@@ -749,25 +750,6 @@ export default function CompensationClaimForm({
                 className=""
               >
                 <div className="flex flex-wrap gap-2">
-
-
-                  <FormField
-                    control={form.control}
-                    name="QUANTITY_DAMAGED"
-                    render={({ field }) => (
-                      <FormItem className="w-52" style={{ minWidth: "200px" }}>
-                        <FormLabel className="font-bold">Quantity Damaged</FormLabel>
-                        <FormControl onChange={handleInputChange}>
-                          <Input
-                            placeholder=""
-                            {...field}
-                            className="form-control"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
 
                   {/* =================================Material======================================= */}
                   <div className="flex">
@@ -1068,6 +1050,26 @@ export default function CompensationClaimForm({
                       </DialogContent>
                     </Dialog>
                   </div>
+
+                  <FormField
+                    control={form.control}
+                    name="QUANTITY_DAMAGED"
+                    render={({ field }) => (
+                      <FormItem className="w-52" style={{ minWidth: "200px" }}>
+                        <FormLabel className="font-bold">Quantity Damaged</FormLabel>
+                        <FormControl onChange={handleInputChange}>
+                          <Input
+                            style={{ backgroundColor: "#FFFFC0" }}
+                            placeholder=""
+                            {...field}
+                            className="form-control"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <FormField
                     control={form.control}
                     name="UOM"
@@ -1159,6 +1161,7 @@ export default function CompensationClaimForm({
                         <FormLabel className="font-bold">Claim Amount/Unit</FormLabel>
                         <FormControl onChange={handleInputChange}>
                           <Input
+                            style={{ backgroundColor: "#FFFFC0" }}
                             placeholder=""
                             {...field}
                             className="form-control"
@@ -1178,6 +1181,7 @@ export default function CompensationClaimForm({
                         <FormLabel className="font-bold">Claim Amount</FormLabel>
                         <FormControl onChange={handleInputChange}>
                           <Input
+                            style={{ backgroundColor: "#FFFFC0" }}
                             placeholder=""
                             {...field}
                             className="form-control"
