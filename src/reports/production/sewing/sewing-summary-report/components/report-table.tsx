@@ -35,6 +35,7 @@ function ReportTable({
       EARNED_CM: 0,
       EARNED_FOB: 0,
       SMV: 0,
+      F_SMV: 0,
       WORKING_HOUR: 0,
       FIRST_HOUR_ACHV: 0,
       HP: 0,
@@ -69,6 +70,7 @@ function ReportTable({
       const earnedCM = Number(item.TOTALCM);
       const earnedFOB = Number(item.TOTALFOB);
       const smv = Number(item.SMVSEWING);
+      const fSmv = Number(item.F_SMVSEWING);
       const workingHour = Number(item.ACTUALHOURS);
       const targetHour = Number(item.TARGETHOURS);
       const firstHourAchv = Number(item.FIRST_HOUR_ACHIEVE);
@@ -114,7 +116,8 @@ function ReportTable({
           SMV_QTY: 0,
           TARGETHOURS: 0,
           FIRST_HOUR_ACHV_PER: 0,
-          FIRST_HOUR_TGT: 0
+          FIRST_HOUR_TGT: 0,
+          F_SMV: 0
         };
       }
 
@@ -133,6 +136,7 @@ function ReportTable({
       floorData.EARNED_CM += earnedCM;
       floorData.EARNED_FOB += earnedFOB;
       floorData.SMV += smv;
+      floorData.F_SMV += fSmv;
       floorData.WORKING_HOUR += workingHour;
       floorData.TARGETHOURS += targetHour;
       floorData.FIRST_HOUR_ACHV += firstHourAchv;
@@ -160,6 +164,7 @@ function ReportTable({
       finalData.EARNED_CM += earnedCM;
       finalData.EARNED_FOB += earnedFOB;
       finalData.SMV += smv;
+      finalData.F_SMV += fSmv;
       finalData.WORKING_HOUR += workingHour;
       finalData.TARGETHOURS += targetHour;
       finalData.FIRST_HOUR_ACHV += firstHourAchv;
@@ -200,6 +205,7 @@ function ReportTable({
     EARNED_CM: number;
     EARNED_FOB: number;
     SMV: number;
+    F_SMV: number;
     WORKING_HOUR: number;
     FIRST_HOUR_ACHV: number;
     ROW_COUNT: number;
@@ -728,26 +734,24 @@ function ReportTable({
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">SMV</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
+              let floorCount = 0;
+
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
+                floorCount += 1;
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.SMV_QTY / floorData.SEWING_OUTPUT).toFixed(2)}
+                    {(floorData.SMV / floorData.ROW_COUNT).toFixed(2)}
                   </td>
                 );
               });
 
               const companyTotalSmvQty = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SMV_QTY);
+                return sum + (grouped[company][floor].F_SMV / grouped[company][floor].ROW_COUNT);
               }, 0);
-
-              const companyTotalAchvQty = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT);
-              }, 0);
-
 
               cells.push(
                 <td
@@ -755,12 +759,12 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotalSmvQty / companyTotalAchvQty).toFixed(2)}
+                  {(companyTotalSmvQty / floorCount).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SMV_QTY / finalData.SEWING_OUTPUT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SMV / finalData.ROW_COUNT).toFixed(2)}</td>
           </tr>
 
 
