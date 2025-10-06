@@ -81,7 +81,10 @@ export default function Summary({
     });
 
     gmtProcessType?.forEach((element) => {
-      if (element.toUpperCase().includes('WASHING') || element.toUpperCase().includes('OTHER COST')) {
+      if (element.toUpperCase().includes('WASHING') ||
+        element.toUpperCase().includes('PRINT') ||
+        element.toUpperCase().includes('EMBROIDERY') ||
+        element.toUpperCase().includes('OTHER COST')) {
         rows.push({
           particular: element,
           amount:
