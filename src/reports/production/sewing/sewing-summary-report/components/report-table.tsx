@@ -1116,13 +1116,13 @@ function ReportTable({
                         key={`${company}-${floor}`}
                         className="border text-center border-gray-950 p-0.1 text-nowrap"
                       >
-                        {Math.round(floorData.TARGET / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size))}
+                        {Math.round(floorData.TARGET / (floorData.UNIQUE_SEWINGDATE.size))}
                       </td>
                     );
                   });
 
                   const companyTotal = floors.reduce((sum, floor) => {
-                    return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].UNIQUE_SEWINGDATE.size));
+                    return sum + (grouped[company][floor].TARGET / (grouped[company][floor].UNIQUE_SEWINGDATE.size));
                   }, 0);
 
                   cells.push(
@@ -1137,7 +1137,7 @@ function ReportTable({
                   return cells;
                 })}
                 <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-                  {Math.round(finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size))}
+                  {Math.round(finalData.TARGET / (finalData.UNIQUE_SEWINGDATE.size))}
                 </td>
               </tr>
               <tr>
@@ -1155,13 +1155,13 @@ function ReportTable({
                         key={`${company}-${floor}`}
                         className="border text-center border-gray-950 p-0.1 text-nowrap"
                       >
-                        {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size))}
+                        {Math.round(floorData.SEWING_OUTPUT / (floorData.UNIQUE_SEWINGDATE.size))}
                       </td>
                     );
                   });
 
                   const companyTotal = floors.reduce((sum, floor) => {
-                    return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].UNIQUE_SEWINGDATE.size));
+                    return sum + (grouped[company][floor].SEWING_OUTPUT / (grouped[company][floor].UNIQUE_SEWINGDATE.size));
                   }, 0);
 
                   cells.push(
@@ -1176,7 +1176,7 @@ function ReportTable({
                   return cells;
                 })}
                 <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-                  {Math.round((finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size) / (finalData.UNIQUE_SEWINGDATE.size))}
+                  {Math.round((finalData.SEWING_OUTPUT) / (finalData.UNIQUE_SEWINGDATE.size))}
                 </td>
               </tr>
               <tr>
@@ -1189,8 +1189,8 @@ function ReportTable({
 
                     const floorData = grouped[company][floor];
                     floorCount += 1;
-                    const avgAchieve = floorData.SEWING_OUTPUT / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size);
-                    const avgTarget = floorData.TARGET / floorData.UNIQUE_LINES.size / (floorData.UNIQUE_SEWINGDATE.size);
+                    const avgAchieve = floorData.SEWING_OUTPUT / (floorData.UNIQUE_SEWINGDATE.size);
+                    const avgTarget = floorData.TARGET / (floorData.UNIQUE_SEWINGDATE.size);
 
                     return (
                       <td
@@ -1205,7 +1205,6 @@ function ReportTable({
                   const totalAchieve = floors.reduce((sum, floor) => {
                     const avgAchieve =
                       grouped[company][floor].SEWING_OUTPUT /
-                      grouped[company][floor].UNIQUE_LINES.size /
                       (grouped[company][floor].UNIQUE_SEWINGDATE.size);
 
                     return sum + avgAchieve;
@@ -1214,7 +1213,6 @@ function ReportTable({
                   const totalTarget = floors.reduce((sum, floor) => {
                     const avgTarget =
                       grouped[company][floor].TARGET /
-                      grouped[company][floor].UNIQUE_LINES.size /
                       (grouped[company][floor].UNIQUE_SEWINGDATE.size);
 
                     return sum + avgTarget;
@@ -1233,7 +1231,7 @@ function ReportTable({
                   return cells;
                 })}
                 <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-                  {Math.round((finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size)) - (finalData.TARGET / finalData.UNIQUE_LINES.size / (finalData.UNIQUE_SEWINGDATE.size)))}
+                  {Math.round((finalData.SEWING_OUTPUT / (finalData.UNIQUE_SEWINGDATE.size)) - (finalData.TARGET / (finalData.UNIQUE_SEWINGDATE.size)))}
                 </td>
               </tr>
 
@@ -1250,9 +1248,11 @@ function ReportTable({
                     const floorData = grouped[company][floor];
                     floorCount += 1;
                     totalMP += floorData.OP + floorData.HP;
-                    totalRunningMC = floorData.RUNNING_MC;
+                    totalRunningMC += floorData.RUNNING_MC;
 
                   });
+
+
 
                   const cells =
                     <td
@@ -1260,14 +1260,18 @@ function ReportTable({
                       key={`${company}-total`}
                       className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                     >
-                      {totalRunningMC > 0 && (totalMP / totalRunningMC).toFixed(2)}
+                      {totalRunningMC > 0 && ((totalMP / totalRunningMC)).toFixed(2)}
                     </td>
                     ;
 
                   return cells;
                 })}
-                <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{finalData.RUNNING_MC > 0 && (finalData.OP + finalData.HP / finalData.RUNNING_MC).toFixed(2)}</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+                  {finalData.RUNNING_MC > 0 && ((finalData.OP + finalData.HP) / finalData.RUNNING_MC).toFixed(2)}
+                </td>
               </tr>
+
+
             </>
           }
         </tbody>
