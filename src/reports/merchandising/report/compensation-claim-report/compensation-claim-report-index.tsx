@@ -6,6 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { ICompensationClaimMasterType } from "./compensation-claim-report-type";
+import ReportFooter from "./components/report-footer";
 
 
 function CompensationClaimReport() {
@@ -70,7 +71,8 @@ function CompensationClaimReport() {
 
       {/* Footer text */}
       <div className="mt-4">
-        <p className="text-center text-sm text-gray-950">
+        <ReportFooter data={data} />
+        <p className="text-center text-sm text-gray-950 mt-2">
           ***This is the ERP generated document***
         </p>
       </div>

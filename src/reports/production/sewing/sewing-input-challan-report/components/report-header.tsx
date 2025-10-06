@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import moment from "moment";
 import { SewingInputChallanReportType } from "../sewing-input-challan-report-type";
 
 function ReportHeader({
@@ -11,7 +12,8 @@ function ReportHeader({
 
   return (
     <div className="w-[100%]">
-      <h1 className="font-bold text-xl text-center">
+      <p className="text-sm font-bold">{moment().format("DD-MMM-YY hh:mm A")}</p>
+      <h1 className="font-bold text-sm text-center">
         {
           data[0]?.COMPANYNAME
         }

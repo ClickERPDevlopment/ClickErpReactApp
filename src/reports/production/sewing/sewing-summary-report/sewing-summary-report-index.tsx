@@ -61,7 +61,7 @@ function SewingSummaryReport() {
           {
             params: {
               fromDate: moment(fromDate).startOf("month").format("DD-MMM-YY"),
-              toDate: moment(fromDate).endOf("month").format("DD-MMM-YY"),
+              toDate: moment(fromDate).format("DD-MMM-YY"),
             },
           }
         );

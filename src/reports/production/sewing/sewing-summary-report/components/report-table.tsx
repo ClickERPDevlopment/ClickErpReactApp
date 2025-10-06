@@ -23,6 +23,7 @@ function ReportTable({
       UNIQUE_LINES: new Set<string>(),
       UNIQUE_SEWINGDATE: new Set<string>(),
       TARGET: 0,
+      RUNNNING_TOTALTARGET: 0,
       SEWING_OUTPUT: 0,
       PERFORMANCE: 0,
       TGT_EARN_MIN: 0,
@@ -52,6 +53,7 @@ function ReportTable({
       const sewingDateKey = item.SEWINGDATE || "Unknown Line";
 
       const target = Number(item.TOTALTARGET);
+      const runningTarget = Number(item.RUNNNING_TOTALTARGET);
       const sewingOutput = Number(item.SEWINGOUTPUT);
       const performance = sewingOutput > 0 ? (target * 100) / sewingOutput : 0;
 
@@ -83,6 +85,7 @@ function ReportTable({
           UNIQUE_LINES: new Set<string>(),
           UNIQUE_SEWINGDATE: new Set<string>(),
           TARGET: 0,
+          RUNNNING_TOTALTARGET: 0,
           SEWING_OUTPUT: 0,
           PERFORMANCE: 0,
           TGT_EARN_MIN: 0,
@@ -109,6 +112,7 @@ function ReportTable({
       const floorData = grouped[companyKey][floorKey];
 
       floorData.TARGET += target;
+      floorData.RUNNNING_TOTALTARGET += runningTarget;
       floorData.SEWING_OUTPUT += sewingOutput;
       floorData.PERFORMANCE += performance;
       floorData.TGT_EARN_MIN += tgtEarnMin;
@@ -133,6 +137,7 @@ function ReportTable({
       floorData.SMV_QTY += smvQty;
 
       finalData.TARGET += target;
+      finalData.RUNNNING_TOTALTARGET += runningTarget;
       finalData.SEWING_OUTPUT += sewingOutput;
       finalData.PERFORMANCE += performance;
       finalData.TGT_EARN_MIN += tgtEarnMin;
@@ -172,6 +177,7 @@ function ReportTable({
     UNIQUE_LINES: Set<string>;
     UNIQUE_SEWINGDATE: Set<string>;
     TARGET: number;
+    RUNNNING_TOTALTARGET: number;
     SEWING_OUTPUT: number;
     PERFORMANCE: number;
     TGT_EARN_MIN: number;
@@ -394,12 +400,12 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {(floorData.SEWING_OUTPUT * 100 / floorData.TARGET).toFixed(2)} %
+                    {(floorData.SEWING_OUTPUT * 100 / floorData.RUNNNING_TOTALTARGET).toFixed(2)} %
                   </td>
                 );
               });
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT * 100 / grouped[company][floor].TARGET);
+                return sum + (grouped[company][floor].SEWING_OUTPUT * 100 / grouped[company][floor].RUNNNING_TOTALTARGET);
               }, 0);
               cells.push(
                 <td
@@ -413,7 +419,7 @@ function ReportTable({
 
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT * 100 / finalData.TARGET).toFixed(2)} %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT * 100 / finalData.RUNNNING_TOTALTARGET).toFixed(2)} %</td>
           </tr>
 
 

@@ -68,7 +68,7 @@ function Report({
   const totalDeviationQty = totalAchiveQty - totaltargetQty;
 
   const totalTargetEfficiency = data.reduce((sum, item) => sum + ((item.TARGET_EARMN_MIN * 100) / item.AVAILABLE_EARMN_MIN), 0);
-  const totalAchieveEfficiency = data.reduce((sum, item) => sum + ((item.TOTAL_CUTTING_QTY * 100) / (item.HOURLYTARGET)), 0);
+  const totalAchieveEfficiency = data.reduce((sum, item) => sum + ((item.PRODUCTION_MIN * 100) / (item.AVAILABLE_EARMN_MIN)), 0);
   const totalDeviationEfficiency = totalAchieveEfficiency - totalTargetEfficiency;
 
   return (

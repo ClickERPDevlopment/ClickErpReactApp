@@ -706,7 +706,7 @@ function ReportTable({
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
                     const floorData = companyData?.FLOORS?.[floor];
                     const floorId = floorData?.FLOOR_ID ?? 0;
-                    // const actualHours = floorData?.ACTUALHOURS ?? 0;
+                    const actualHours = floorData?.ACTUALHOURS ?? 0;
                     const noOfLine = floorData?.NO_OF_LINE ?? 0;
                     const total = organizedData.byFloorTotal[floorId] ?? 0;
 
@@ -720,7 +720,7 @@ function ReportTable({
 
                     const hourly =
                       uniqueHourCount > 0 && noOfLine > 0
-                        ? total / uniqueHourCount / noOfLine
+                        ? (total / actualHours)
                         : 0;
 
                     totalHourly += hourly;

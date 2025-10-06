@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import ReportFooter from "./report-footer";
+// import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { ICompensationClaimMasterType } from "../compensation-claim-report-type";
 import { ToWords } from "to-words";
@@ -174,9 +174,9 @@ function Report({
       </div>
 
       {/* Footer */}
-      <div className="mt-8">
+      {/* <div className="mt-8">
         <ReportFooter data={data} />
-      </div>
+      </div> */}
     </div>
   );
 }
