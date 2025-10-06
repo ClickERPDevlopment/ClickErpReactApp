@@ -44,7 +44,8 @@ function ReportTable({
       CHECKQTY: 0,
       SMV_QTY: 0,
       TARGETHOURS: 0,
-      FIRST_HOUR_ACHV_PER: 0
+      FIRST_HOUR_ACHV_PER: 0,
+      FIRST_HOUR_TGT: 0
     };
 
     data.forEach((item) => {
@@ -78,7 +79,9 @@ function ReportTable({
       const smvQty = Number(item.SEWINGOUTPUT) * Number(item.SMVSEWING);
 
 
-      const firstHourAchvPer = firstHourAchv * 100 / (target / targetHour);
+      const firstHourAchvPer = (firstHourAchv * 100) / (target / targetHour);
+
+      const firstHourTarget = (target / targetHour);
 
       if (!grouped[companyKey]) {
         grouped[companyKey] = {};
@@ -110,7 +113,8 @@ function ReportTable({
           HP: 0,
           SMV_QTY: 0,
           TARGETHOURS: 0,
-          FIRST_HOUR_ACHV_PER: 0
+          FIRST_HOUR_ACHV_PER: 0,
+          FIRST_HOUR_TGT: 0
         };
       }
 
@@ -141,6 +145,7 @@ function ReportTable({
       floorData.HP += hp;
       floorData.SMV_QTY += smvQty;
       floorData.FIRST_HOUR_ACHV_PER += firstHourAchvPer;
+      floorData.FIRST_HOUR_TGT += firstHourTarget;
 
       finalData.TARGET += target;
       finalData.RUNNNING_TOTALTARGET += runningTarget;
@@ -167,6 +172,7 @@ function ReportTable({
       finalData.UNIQUE_SEWINGDATE.add(sewingDateKey);
       finalData.SMV_QTY += smvQty;
       finalData.FIRST_HOUR_ACHV_PER += firstHourAchvPer;
+      finalData.FIRST_HOUR_TGT += firstHourTarget;
     });
 
     return { grouped, finalData };
@@ -204,6 +210,7 @@ function ReportTable({
     SMV_QTY: number;
     TARGETHOURS: number;
     FIRST_HOUR_ACHV_PER: number;
+    FIRST_HOUR_TGT: number;
   }
 
   const { grouped, finalData } = groupBy(data);
@@ -940,20 +947,25 @@ function ReportTable({
 
 
               let floorCount = 0;
-              let companyTotalAchv = 0;
+              //let companyTotalAchv = 0;
+
+              let cmpFirstHourAchvPer = 0;
+
               const cells = floors.map(floor => {
 
                 floorCount += 1;
                 const floorData = grouped[company][floor];
 
-                companyTotalAchv += floorData.FIRST_HOUR_ACHV_PER / floorData.ROW_COUNT;
+                //companyTotalAchv += floorData.FIRST_HOUR_ACHV_PER / floorData.ROW_COUNT;
+
+                cmpFirstHourAchvPer += floorData.FIRST_HOUR_ACHV * 100 / floorData.FIRST_HOUR_TGT;
 
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.FIRST_HOUR_ACHV_PER / floorData.ROW_COUNT)} %
+                    {Math.round((floorData.FIRST_HOUR_ACHV * 100 / floorData.FIRST_HOUR_TGT))} %
                   </td>
                 );
               });
@@ -964,13 +976,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {Math.round(companyTotalAchv / floorCount)} %
+                  {Math.round(cmpFirstHourAchvPer / floorCount)} %
                 </td>
               );
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.FIRST_HOUR_ACHV_PER / finalData.ROW_COUNT)}
+              {Math.round(finalData.FIRST_HOUR_ACHV * 100 / finalData.FIRST_HOUR_TGT)}
               %</td>
           </tr>
 
