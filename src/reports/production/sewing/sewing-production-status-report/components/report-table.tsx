@@ -39,6 +39,7 @@ function ReportTable({
       const operator = Number(item.OPERATOR);
       const actualHours = Number(item.ACTUALHOURS);
       const targetHours = Number(item.TARGETHOUR);
+      const runningTarget = Number(item.RUNNING_HOURLYTARGET);
       const numberOfLine = Number(item.NO_OF_LINE);
       const avgSMV = Number(item.AVG_SMV);
 
@@ -51,6 +52,7 @@ function ReportTable({
           OPERATOR: 0,
           ACTUALHOURS: 0,
           TARGETHOUR: 0,
+          RUNNING_HOURLYTARGET: 0,
           AVAILMIN: 0,
           EARN_MIN: 0,
           NO_OF_LINE: 0,
@@ -72,6 +74,7 @@ function ReportTable({
           OPERATOR_TOTAL: 0,
           ACTUALHOURS_TOTAL: 0,
           TARGETHOUR_TOTAL: 0,
+          RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
         };
@@ -87,6 +90,7 @@ function ReportTable({
           OPERATOR: 0,
           ACTUALHOURS: 0,
           TARGETHOUR: 0,
+          RUNNING_HOURLYTARGET: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
@@ -104,6 +108,8 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].FLOOR_ID = item.FLOORID;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].NO_OF_LINE += numberOfLine;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].AVG_SMV = avgSMV;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].RUNNING_HOURLYTARGET += runningTarget;
+
 
       grouped[dateKey].COMPANY[companyKey].COMPANY_TOTAL += target;
       grouped[dateKey].COMPANY[companyKey].HOURLY_PER_UNIT_TOTAL += hourlyPerUnit;
@@ -117,6 +123,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].NO_OF_LINE += numberOfLine;
 
       grouped[dateKey].TARGET += target;
+      grouped[dateKey].RUNNING_HOURLYTARGET += runningTarget;
       grouped[dateKey].HOURLY_PER_UNIT += hourlyPerUnit;
       grouped[dateKey].HOURLY_PER_LINE += hourlyPerLine;
       grouped[dateKey].OPERATOR += operator;
@@ -138,6 +145,7 @@ function ReportTable({
           OPERATOR_TOTAL: 0,
           ACTUALHOURS_TOTAL: 0,
           TARGETHOUR_TOTAL: 0,
+          RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
         };
@@ -154,6 +162,7 @@ function ReportTable({
           OPERATOR: 0,
           ACTUALHOURS: 0,
           TARGETHOUR: 0,
+          RUNNING_HOURLYTARGET: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
@@ -179,6 +188,7 @@ function ReportTable({
     OPERATOR: number;
     ACTUALHOURS: number;
     TARGETHOUR: number;
+    RUNNING_HOURLYTARGET: number;
     AVAILMIN: number;
     EARN_MIN: number;
     FLOOR_ID: number;
@@ -195,6 +205,7 @@ function ReportTable({
     OPERATOR_TOTAL: number;
     ACTUALHOURS_TOTAL: number;
     TARGETHOUR_TOTAL: number;
+    RUNNING_HOURLYTARGET_TOTAL: number;
     AVAILMIN_TOTAL: number;
     EARN_MIN_TOTAL: number;
     NO_OF_LINE: number;
@@ -210,6 +221,7 @@ function ReportTable({
       OPERATOR: number;
       ACTUALHOURS: number;
       TARGETHOUR: number;
+      RUNNING_HOURLYTARGET: number;
       AVAILMIN: number;
       EARN_MIN: number;
       NO_OF_LINE: number;
@@ -333,7 +345,7 @@ function ReportTable({
     return `hsl(${h}, 80%, 90%)`;
   };
 
-  const firstColBg = "#e29a9a";
+  const firstColBg = "#A7F3D0";
 
   return (
     <div className="text-sm mt-3">
@@ -892,7 +904,7 @@ function ReportTable({
 
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
 
-                    const target = Math.floor(companyData?.FLOORS?.[floor]?.ACTUALHOURS * (companyData?.FLOORS?.[floor]?.TARGET / companyData?.FLOORS?.[floor]?.TARGETHOUR))
+                    const target = companyData?.FLOORS?.[floor]?.RUNNING_HOURLYTARGET; // Math.floor(companyData?.FLOORS?.[floor]?.RUNNING_HOURLYTARGET * (companyData?.FLOORS?.[floor]?.TARGET / companyData?.FLOORS?.[floor]?.TARGETHOUR))
 
                     const achv = organizedData.byFloorTotal[companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0] || 0;
 

@@ -12,6 +12,7 @@ export type SewingProductionStatusReportType = {
     QUALITY: number;
     PACKINGMAN: number;
     HOURLYTARGET: number;
+    RUNNING_HOURLYTARGET: number;
     AVAILMIN: number;
     EARN_MIN: number;
     TARGET_EFFI: number;
