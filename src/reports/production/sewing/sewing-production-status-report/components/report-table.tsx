@@ -629,7 +629,7 @@ function ReportTable({
 
               <tr key={dateKey}>
                 <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
-                  W/H
+                 ACTUAL W/H
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
