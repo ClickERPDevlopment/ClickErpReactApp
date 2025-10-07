@@ -42,7 +42,7 @@ function YarnAdditionalBookingReportPDF() {
     getData().then((data) => {
       if (data && data.length > 0) generateYarnAdditionalBookingPDF(data);
     });
-  }, [api, dtFrom, dtTo]);
+  }, []);
 
   function generateYarnAdditionalBookingPDF(data: YarnAdditionalBookingReportType[]) {
     const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
