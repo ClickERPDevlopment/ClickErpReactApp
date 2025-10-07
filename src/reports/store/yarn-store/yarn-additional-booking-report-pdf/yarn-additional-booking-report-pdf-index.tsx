@@ -143,7 +143,7 @@ function YarnAdditionalBookingReportPDF() {
       startY: 25,
       head: headers,
       body: allBody,
-      styles: { fontSize: 9, textColor: [20, 20, 20], cellPadding: 2.5, valign: "middle", lineWidth: 0.2, lineColor: [0, 0, 0] },
+      styles: { fontSize: 8, textColor: [20, 20, 20], cellPadding: 2.5, valign: "middle", lineWidth: 0.2, lineColor: [0, 0, 0] },
       headStyles: {
         fillColor: [200, 200, 200],
         textColor: [0, 0, 0],
@@ -260,7 +260,7 @@ function YarnAdditionalBookingReportPDF() {
       head: [["Name", "Quantity", "Percentage"]],
       body,
       theme: "grid",
-      styles: { fontSize: 9, halign: "center", valign: "middle", lineColor: [50, 50, 50], lineWidth: 0.4 },
+      styles: { fontSize: 8, halign: "center", valign: "middle", lineColor: [50, 50, 50], lineWidth: 0.4 },
       headStyles: {
         fillColor: [180, 180, 180],
         textColor: [0, 0, 0],
