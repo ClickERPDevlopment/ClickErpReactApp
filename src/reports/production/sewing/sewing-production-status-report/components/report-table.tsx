@@ -460,6 +460,38 @@ function ReportTable({
                 </td>
               </tr>
 
+
+
+              <tr key={dateKey}>
+                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                  HOURLY/LINE
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+                  return (
+                    <>
+                      {Object.keys(grandTotal[company].FLOORS).map((floor) => (
+                        <td
+                          key={`${dateKey}-${company}-${floor}`}
+                          className="border border-gray-950 p-1 text-center"
+                          style={{ backgroundColor: getFactoryColor(company) }}
+                        >
+                          {Math.round(companyData?.FLOORS?.[floor]?.HOURLY_PER_LINE) || "0.00"}
+                        </td>
+                      ))}
+                      <td className="border border-gray-950 p-1 text-center font-bold" style={{ backgroundColor: getFactoryColor(company) }}>
+                        {Math.round(companyData?.HOURLY_PER_LINE_TOTAL) || "0.00"}
+                      </td>
+                    </>
+                  );
+                })}
+
+                <td className="border border-gray-950 p-1 text-center font-bold">
+                  {Math.round(grouped[dateKey]?.HOURLY_PER_LINE) || "0.00"}
+                </td>
+              </tr>
+
               <tr key={dateKey}>
                 <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   TGT EFF.
@@ -530,6 +562,8 @@ function ReportTable({
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
                   let companyTotalSMV = 0;
                   const floors = Object.keys(grandTotal[company]?.FLOORS || {});
+
+                  totalFloor += floors.length;
 
                   const floorCells = floors.map((floor) => {
                     const smv = companyData?.FLOORS?.[floor]?.AVG_SMV ?? 0;
@@ -644,7 +678,7 @@ function ReportTable({
                               return <td
                                 key={`${dateKey}-${company}-${floor}`}
                                 className="border border-gray-950 p-1 text-center"
-                                style={{ backgroundColor: getFactoryColor(company) }}
+                                style={{}}
                               >
                                 {
 
@@ -772,10 +806,12 @@ function ReportTable({
                   HOURLY/LINE
                 </td>
 
+
+
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
-                  // const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
 
                   let totalHourly = 0;
 
@@ -820,7 +856,7 @@ function ReportTable({
                       className="border border-gray-950 p-1 text-center font-bold"
                       style={{ backgroundColor: getFactoryColor(company) }}
                     >
-                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly)}
+                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly / floorCount)}
                     </td>
                   );
 
@@ -830,7 +866,7 @@ function ReportTable({
                 <td className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
 
-                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly);
+                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly / totalFloor);
                   })()}
                 </td>
               </tr>
