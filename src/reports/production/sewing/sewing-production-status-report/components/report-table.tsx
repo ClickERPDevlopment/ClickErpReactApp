@@ -38,6 +38,7 @@ function ReportTable({
 
       const operator = Number(item.OPERATOR);
       const actualHours = Number(item.ACTUALHOURS);
+      const targetHours = Number(item.TARGETHOUR);
       const numberOfLine = Number(item.NO_OF_LINE);
       const avgSMV = Number(item.AVG_SMV);
 
@@ -83,6 +84,7 @@ function ReportTable({
           AVAILMIN: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
+          TARGETHOUR: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
@@ -96,6 +98,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].AVAILMIN += availableMin;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].EARN_MIN += earnMin;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].ACTUALHOURS += actualHours;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].TARGETHOUR += targetHours;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].FLOOR_ID = item.FLOORID;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].NO_OF_LINE += numberOfLine;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].AVG_SMV = avgSMV;
@@ -145,6 +148,7 @@ function ReportTable({
           EARN_MIN: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
+          TARGETHOUR: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
@@ -169,6 +173,7 @@ function ReportTable({
     HOURLY_PER_LINE: number;
     OPERATOR: number;
     ACTUALHOURS: number;
+    TARGETHOUR: number;
     AVAILMIN: number;
     EARN_MIN: number;
     FLOOR_ID: number;
@@ -737,14 +742,6 @@ function ReportTable({
                     );
                   });
 
-                  // const factoryId = companyData?.FACTORYID ?? 0;
-                  // const factoryTotal = organizedData.byFactoryTotal[factoryId] ?? 0;
-                  // const totalHours = companyData?.ACTUALHOURS_TOTAL ?? 0;
-                  // const totalLines = companyData?.NO_OF_LINE ?? 0;
-                  // const factoryHourly =
-                  //   totalHours > 0 && totalLines > 0
-                  //     ? factoryTotal / totalHours / totalLines
-                  //     : 0;
 
                   cells.push(
                     <td
@@ -761,14 +758,6 @@ function ReportTable({
 
                 <td className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
-                    // const grandTotal = organizedData.grandTotal ?? 0;
-                    // const totalHours = grouped[dateKey]?.ACTUALHOURS ?? 0;
-                    // const totalLines = grouped[dateKey]?.NO_OF_LINE ?? 0;
-
-                    // const result =
-                    //   totalHours > 0 && totalLines > 0
-                    //     ? grandTotal / totalHours / totalLines
-                    //     : 0;
 
                     return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly / totalFloor);
                   })()}
@@ -783,34 +772,19 @@ function ReportTable({
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
-                  let totalProduced = 0;
                   let totalTarget = 0;
 
+                  let totalAchv = 0;
+
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
-                    const floorId = companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0;
-                    const floorData = companyData?.FLOORS?.[floor];
 
-                    const noOfLine = floorData?.NO_OF_LINE ?? 0;
-                    const hourlyTarget = floorData?.HOURLY_PER_LINE ?? 0;
-                    const total = organizedData.byFloorTotal[floorId] ?? 0;
+                    const target = companyData?.FLOORS?.[floor]?.ACTUALHOURS * (companyData?.FLOORS?.[floor]?.TARGET / companyData?.FLOORS?.[floor]?.TARGETHOUR)
+                    const achv = organizedData.byFloorTotal[companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0] || 0;
 
-                    const uniqueHours = new Set(
-                      sewingHourlyProductionData
-                        .filter(item => item.FLOORID === floorId)
-                        .map(item => item.HOUR)
-                    );
-                    const uniqueHourCount = uniqueHours.size;
+                    totalAchv += achv;
+                    totalTarget += target;
 
-                    // Produced
-                    totalProduced += total;
-
-                    // Target
-                    totalTarget += uniqueHourCount * noOfLine * hourlyTarget;
-
-                    const achieve =
-                      uniqueHourCount > 0 && noOfLine > 0 && hourlyTarget > 0
-                        ? (total / (uniqueHourCount * noOfLine * hourlyTarget)) * 100
-                        : 0;
+                    const achieve = achv * 100 / target;
 
                     return (
                       <td
@@ -823,12 +797,10 @@ function ReportTable({
                     );
                   });
 
-                  // Weighted company achievement
                   const companyAchieve =
-                    totalTarget > 0 ? (totalProduced / totalTarget) * 100 : 0;
+                    totalTarget > 0 ? (totalAchv / totalTarget) * 100 : 0;
 
-                  // Add to grand totals
-                  grandTotalProduced += totalProduced;
+                  grandTotalProduced += totalAchv;
                   grandTotalTarget += totalTarget;
 
                   cells.push(
