@@ -461,38 +461,6 @@ function ReportTable({
               </tr>
 
               <tr key={dateKey}>
-                <td className="border text-center  border-gray-950 p-1 text-nowrap font-bold">
-                  HOURLY/LINE
-                </td>
-
-                {Object.keys(grandTotal).map((company) => {
-                  const companyData = grouped[dateKey]?.COMPANY?.[company];
-                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
-                  totalFloor += floorCount;
-                  return (
-                    <>
-                      {Object.keys(grandTotal[company].FLOORS).map((floor) => (
-                        <td
-                          key={`${dateKey}-${company}-${floor}`}
-                          className="border border-gray-950 p-1 text-center"
-                          style={{ backgroundColor: getFactoryColor(company) }}
-                        >
-                          {Math.round(companyData?.FLOORS?.[floor]?.HOURLY_PER_LINE) || "0.00"}
-                        </td>
-                      ))}
-                      <td className="border border-gray-950 p-1 text-center font-bold" style={{ backgroundColor: getFactoryColor(company) }}>
-                        {Math.round(companyData?.HOURLY_PER_LINE_TOTAL / floorCount) || "0"}
-                      </td>
-                    </>
-                  );
-                })}
-
-                <td className="border border-gray-950 p-1 text-center font-bold">
-                  {Math.round(grouped[dateKey]?.HOURLY_PER_LINE / totalFloor) || "0"}
-                </td>
-              </tr>
-
-              <tr key={dateKey}>
                 <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   TGT EFF.
                 </td>
@@ -629,7 +597,7 @@ function ReportTable({
 
               <tr key={dateKey}>
                 <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
-                 ACTUAL W/H
+                  ACTUAL W/H
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
@@ -731,16 +699,15 @@ function ReportTable({
                 </td>
               </tr>
 
-
               <tr key={dateKey}>
                 <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
-                  HOURLY
+                  HOURLY/UNIT
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
-                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+                  // const floorCount = Object.keys(grandTotal[company].FLOORS).length;
 
                   let totalHourly = 0;
 
@@ -785,7 +752,7 @@ function ReportTable({
                       className="border border-gray-950 p-1 text-center font-bold"
                       style={{ backgroundColor: getFactoryColor(company) }}
                     >
-                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly / floorCount)}
+                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly)}
                     </td>
                   );
 
@@ -795,7 +762,75 @@ function ReportTable({
                 <td className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
 
-                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly / totalFloor);
+                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly);
+                  })()}
+                </td>
+              </tr>
+
+              <tr key={dateKey}>
+                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                  HOURLY/LINE
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+
+                  // const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+
+                  let totalHourly = 0;
+
+                  const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
+                    const floorData = companyData?.FLOORS?.[floor];
+                    const floorId = floorData?.FLOOR_ID ?? 0;
+                    const actualHours = floorData?.ACTUALHOURS ?? 0;
+                    const noOfLine = floorData?.NO_OF_LINE ?? 0;
+                    const total = organizedData.byFloorTotal[floorId] ?? 0;
+
+                    const uniqueHours = new Set(
+                      sewingHourlyProductionData
+                        .filter(item => item.FLOORID === floorId)
+                        .map(item => item.HOUR)
+                    );
+
+                    const uniqueHourCount = uniqueHours.size;
+
+                    const hourly =
+                      uniqueHourCount > 0 && noOfLine > 0
+                        ? (total / noOfLine / actualHours)
+                        : 0;
+
+                    totalHourly += hourly;
+                    grandTotalHourly += hourly;
+
+                    return (
+                      <td
+                        key={`${dateKey}-${company}-${floor}`}
+                        className="border border-gray-950 p-1 text-center"
+                        style={{ backgroundColor: getFactoryColor(company) }}
+                      >
+                        {isNaN(hourly) ? "0" : Math.round(hourly)}
+                      </td>
+                    );
+                  });
+
+
+                  cells.push(
+                    <td
+                      key={`${dateKey}-${company}-factory`}
+                      className="border border-gray-950 p-1 text-center font-bold"
+                      style={{ backgroundColor: getFactoryColor(company) }}
+                    >
+                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly)}
+                    </td>
+                  );
+
+                  return cells;
+                })}
+
+                <td className="border border-gray-950 p-1 text-center font-bold">
+                  {(() => {
+
+                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly);
                   })()}
                 </td>
               </tr>
