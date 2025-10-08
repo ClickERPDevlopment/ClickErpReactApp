@@ -54,6 +54,7 @@ function Report({ styleData, embData }: ReportProps) {
     "STYLE NO",
     "ITEM TYPE",
     "PO NO",
+    "COLOR",
     "ORDER QTY (Pcs)",
     "SHIP DATE",
   ];
@@ -105,8 +106,7 @@ function Report({ styleData, embData }: ReportProps) {
                 <th rowSpan={2} className="border border-gray-950 p-0.5">{item}</th>
               )}
               <th colSpan={2} className="border border-gray-950 p-0.5">EMBELLISHMENT</th>
-              <th colSpan={3} className="border border-gray-950 p-0.5">Work Order</th>
-              <th rowSpan={2} className="border border-gray-950 p-0.5">Color</th>
+              <th colSpan={3} className="border border-gray-950 p-0.5">WORK ORDER</th>
             </tr>
 
             <tr>
@@ -128,7 +128,7 @@ function Report({ styleData, embData }: ReportProps) {
             ))}
 
             <tr className="bg-lime-50 font-bold">
-              <td colSpan={5} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
+              <td colSpan={6} className="border border-gray-950 p-0.5 text-center">Grand Total</td>
               <td className="border border-gray-950 p-0.5 text-center">{grantTotalQty}</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5">{ }</td>
@@ -136,7 +136,6 @@ function Report({ styleData, embData }: ReportProps) {
               <td className="border border-gray-950 p-0.5">{ }</td>
               <td className="border border-gray-950 p-0.5 text-center">{grandWoTotal}</td>
               <td className="border border-gray-950 p-0.5 text-center">{grantTotalQty - grandWoTotal}</td>
-              <td className="border border-gray-950 p-0.5">{ }</td>
             </tr>
 
           </tbody>
