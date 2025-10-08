@@ -41,6 +41,7 @@ function ReportTable({
       const targetHours = Number(item.TARGETHOUR);
       const runningTarget = Number(item.RUNNING_HOURLYTARGET);
       const numberOfLine = Number(item.NO_OF_LINE);
+      const totalLine = Number(item.TOTAL_LINE);
       const avgSMV = Number(item.AVG_SMV);
       const fAvgSMV = Number(item.FACTORY_AVG_SMV);
 
@@ -57,6 +58,7 @@ function ReportTable({
           AVAILMIN: 0,
           EARN_MIN: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
           COMPANY: {},
         };
@@ -77,6 +79,7 @@ function ReportTable({
           TARGETHOUR_TOTAL: 0,
           RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
           FACTORY_AVG_SMV: 0,
         };
@@ -95,6 +98,7 @@ function ReportTable({
           RUNNING_HOURLYTARGET: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
         };
       }
@@ -109,6 +113,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].TARGETHOUR += targetHours;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].FLOOR_ID = item.FLOORID;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].TOTAL_LINE += totalLine;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].AVG_SMV = avgSMV;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].RUNNING_HOURLYTARGET += runningTarget;
 
@@ -125,6 +130,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
       grouped[dateKey].COMPANY[companyKey].FACTORY_AVG_SMV = fAvgSMV;
       grouped[dateKey].COMPANY[companyKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].COMPANY[companyKey].TOTAL_LINE += totalLine;
 
       grouped[dateKey].TARGET += target;
       grouped[dateKey].RUNNING_HOURLYTARGET += runningTarget;
@@ -136,6 +142,7 @@ function ReportTable({
       grouped[dateKey].ACTUALHOURS += actualHours;
       grouped[dateKey].TARGETHOUR += targetHours;
       grouped[dateKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].TOTAL_LINE += totalLine;
 
 
       if (!grandTotal[companyKey]) {
@@ -152,6 +159,7 @@ function ReportTable({
           TARGETHOUR_TOTAL: 0,
           RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
           FACTORY_AVG_SMV: 0,
         };
@@ -171,6 +179,7 @@ function ReportTable({
           RUNNING_HOURLYTARGET: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
         };
       }
@@ -199,6 +208,7 @@ function ReportTable({
     EARN_MIN: number;
     FLOOR_ID: number;
     NO_OF_LINE: number;
+    TOTAL_LINE: number;
     AVG_SMV: number;
   }
 
@@ -215,6 +225,7 @@ function ReportTable({
     AVAILMIN_TOTAL: number;
     EARN_MIN_TOTAL: number;
     NO_OF_LINE: number;
+    TOTAL_LINE: number;
     AVG_SMV: number;
     FACTORY_AVG_SMV: number;
   }
@@ -232,6 +243,7 @@ function ReportTable({
       AVAILMIN: number;
       EARN_MIN: number;
       NO_OF_LINE: number;
+      TOTAL_LINE: number;
       AVG_SMV: number;
       COMPANY: Record<string, ICompanyData>;
     };
@@ -336,6 +348,7 @@ function ReportTable({
   };
 
   let totalLine = 0;
+  let grandTotalLine = 0;
   let totalFloor = 0;
   let grandTotalHourly = 0;
   let grandTotalHourlyLine = 0;
@@ -378,8 +391,10 @@ function ReportTable({
               const companyData = grouped[effectiveDateKey]?.COMPANY?.[company];
 
               const lineCount = companyData?.NO_OF_LINE || grandTotal[company]?.NO_OF_LINE || 0;
+              const totalLineCount = companyData?.TOTAL_LINE || grandTotal[company]?.TOTAL_LINE || 0;
 
               totalLine += lineCount;
+              grandTotalLine += totalLineCount;
 
               return (
                 <th
@@ -388,7 +403,7 @@ function ReportTable({
                   className="border border-gray-950 text-center font-bold"
                   style={{ backgroundColor: getFactoryColor(company) }}
                 >
-                  {company}({lineCount})
+                  {company}({lineCount}) ({totalLineCount})
                 </th>
               );
             })}
@@ -399,7 +414,7 @@ function ReportTable({
                 rowSpan={2}
                 className="border border-gray-950 p-1 text-center font-bold"
               >
-                {item}({totalLine})
+                {item}({totalLine}) ({grandTotalLine})
               </th>
             ))}
           </tr>
