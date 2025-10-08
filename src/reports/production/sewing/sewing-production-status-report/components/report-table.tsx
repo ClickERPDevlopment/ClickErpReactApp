@@ -403,7 +403,7 @@ function ReportTable({
                   className="border border-gray-950 text-center font-bold"
                   style={{ backgroundColor: getFactoryColor(company) }}
                 >
-                  {company}({lineCount}) ({totalLineCount})
+                  {company}({totalLineCount}) ({lineCount})
                 </th>
               );
             })}
@@ -414,7 +414,7 @@ function ReportTable({
                 rowSpan={2}
                 className="border border-gray-950 p-1 text-center font-bold"
               >
-                {item}({totalLine}) ({grandTotalLine})
+                {item}({grandTotalLine}) ({totalLine})
               </th>
             ))}
           </tr>
