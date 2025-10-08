@@ -150,6 +150,10 @@ function PoStyleGroupSection({
       }
     }
 
+    const bCommission = (data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === bookingData[0].PO_ID && f.STYLE_ID === bookingData[0].STYLE_ID)[0]?.TOTAL_FOB -
+      data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === bookingData[0].PO_ID && f.STYLE_ID === bookingData[0].STYLE_ID)[0]?.BALANCE_VALUE)
+    totalCost += bCommission;
+
     //set local storage data for grosscost
     const grossString = localStorage.getItem('grossCost');
     const gross: IGrossCostLocalStorage[] = grossString ? JSON.parse(grossString) : [];
@@ -232,99 +236,102 @@ function PoStyleGroupSection({
     [bookingData]
   );
 
+
   // Render
-  return bookingData?.map((item, i) =>
-    i === 0 ? (
-      <tr key={i}>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{index + i + 1}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.BUYER}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.STYLENO} </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.PONO}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.JOB_POS}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          <div className="w-full">
-            <StyleImage styleId={item.STYLE_ID} />
-          </div>
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{poQty}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.ITEMTYPE}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{bookingData[i]?.FABRIC}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{sum(mainFabricData(item.FABRIC_OR_MTL_ID), "FABRIC_ITEM_PRICE_PER_UNIT_KG_BUDGET")}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{mainFabricData(item.FABRIC_OR_MTL_ID)[0]?.UOM}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {data?.BudgetWiseCostBreakdownDto_PO?.find(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)?.FOB}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {masterLCValue}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">
-          {sum(mainFabricData(item.FABRIC_OR_MTL_ID), "TOTAL_MAIN_FABRIC_VALUE").toFixed(2)}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {sum(otherFabricData, "TOTAL_MAIN_FABRIC_VALUE").toFixed(2)}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {sum(accessoriesData, "TOTAL_COST").toFixed(2)}
-        </th>
-        {gmtProcessType?.map((fp_item, i) =>
-          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length} key={i}>
-            {sum(gmtProcessData(fp_item), "TOTAL_PRICE").toFixed(2)}
+  return bookingData?.map((item, i) => {
+    const bCommission = (data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.TOTAL_FOB -
+      data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.BALANCE_VALUE)
+
+    return (
+      i === 0 ? (
+        <tr key={i}>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{index + i + 1}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.BUYER}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.STYLENO} </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.PONO}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.JOB_POS}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            <div className="w-full">
+              <StyleImage styleId={item.STYLE_ID} />
+            </div>
           </th>
-        )}
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          <div className="flex flex-col">
-            <span className="hidden">TOTAL_FOB: {data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.TOTAL_FOB}</span>
-            <span className="hidden">BALANCE_VALUE: {data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.BALANCE_VALUE}</span>
-            <span>
-              {(data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.TOTAL_FOB -
-                data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.BALANCE_VALUE)?.toFixed(2)}
-            </span>
-          </div>
-        </th>
-        {commissionType?.map((fp_item, i) =>
-          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length} key={i}>
-            {getCommissionCost({
-              comPercentage: sum(commissionData(fp_item), "COMMISSION_PERCENTAGE_BUDGET"),
-              commissinType: fp_item,
-              comValueCost: sum(commissionData(fp_item), "COMMISSION_VALUE_BUDGET")
-            }).toFixed(2)}
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{poQty}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>{item.ITEMTYPE}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{bookingData[i]?.FABRIC}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{sum(mainFabricData(item.FABRIC_OR_MTL_ID), "FABRIC_ITEM_PRICE_PER_UNIT_KG_BUDGET")}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{mainFabricData(item.FABRIC_OR_MTL_ID)[0]?.UOM}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {data?.BudgetWiseCostBreakdownDto_PO?.find(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)?.FOB}
           </th>
-        )}
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {grossCost.toFixed(2)}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {shortExtra}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {cmPerDzn}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {smvSewing}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {targetCmPerDzn}
-        </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
-          {profitLoss}
-        </th>
-      </tr>
-    ) : (
-      <tr key={i}>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{i + 1}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{bookingData[i]?.FABRIC}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{sum(mainFabricData(item.FABRIC_OR_MTL_ID), "FABRIC_ITEM_PRICE_PER_UNIT_KG_BUDGET")}</th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">{mainFabricData(item.FABRIC_OR_MTL_ID)[0]?.UOM} </th>
-        <th className="text-balance text-center p-1 border-r border-t border-gray-500">
-          {sum(mainFabricData(item.FABRIC_OR_MTL_ID), "TOTAL_MAIN_FABRIC_VALUE").toFixed(2)}
-        </th>
-        {fabricProcessType?.map((fp_item, i) =>
-          <th className="text-balance text-center p-1 border-r border-t border-gray-500" key={i}>
-            {sum(fabricProcessData(item.FABRIC_OR_MTL_ID, fp_item), "TOTAL_PRICE").toFixed(2)}
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {masterLCValue}
           </th>
-        )}
-      </tr>
-    )
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">
+            {sum(mainFabricData(item.FABRIC_OR_MTL_ID), "TOTAL_MAIN_FABRIC_VALUE").toFixed(2)}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {sum(otherFabricData, "TOTAL_MAIN_FABRIC_VALUE").toFixed(2)}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {sum(accessoriesData, "TOTAL_COST").toFixed(2)}
+          </th>
+          {gmtProcessType?.map((fp_item, i) =>
+            <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length} key={i}>
+              {sum(gmtProcessData(fp_item), "TOTAL_PRICE").toFixed(2)}
+            </th>
+          )}
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            <div className="flex flex-col">
+              <span className="hidden">TOTAL_FOB: {data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.TOTAL_FOB}</span>
+              <span className="hidden">BALANCE_VALUE: {data?.BudgetWiseCostBreakdownDto_MainFabric?.filter(f => f.PO_ID === item.PO_ID && f.STYLE_ID === item.STYLE_ID)[0]?.BALANCE_VALUE}</span>
+              <span>{bCommission.toFixed(2)}</span>
+            </div>
+          </th>
+          {commissionType?.map((fp_item, i) =>
+            <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length} key={i}>
+              {getCommissionCost({
+                comPercentage: sum(commissionData(fp_item), "COMMISSION_PERCENTAGE_BUDGET"),
+                commissinType: fp_item,
+                comValueCost: sum(commissionData(fp_item), "COMMISSION_VALUE_BUDGET")
+              }).toFixed(2)}
+            </th>
+          )}
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {(grossCost).toFixed(2)}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {shortExtra}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {cmPerDzn}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {smvSewing}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {targetCmPerDzn}
+          </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500" rowSpan={bookingData?.length}>
+            {profitLoss}
+          </th>
+        </tr>
+      ) : (
+        <tr key={i}>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{i + 1}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{bookingData[i]?.FABRIC}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{sum(mainFabricData(item.FABRIC_OR_MTL_ID), "FABRIC_ITEM_PRICE_PER_UNIT_KG_BUDGET")}</th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">{mainFabricData(item.FABRIC_OR_MTL_ID)[0]?.UOM} </th>
+          <th className="text-balance text-center p-1 border-r border-t border-gray-500">
+            {sum(mainFabricData(item.FABRIC_OR_MTL_ID), "TOTAL_MAIN_FABRIC_VALUE").toFixed(2)}
+          </th>
+          {fabricProcessType?.map((fp_item, i) =>
+            <th className="text-balance text-center p-1 border-r border-t border-gray-500" key={i}>
+              {sum(fabricProcessData(item.FABRIC_OR_MTL_ID, fp_item), "TOTAL_PRICE").toFixed(2)}
+            </th>
+          )}
+        </tr>
+      ))
+  }
   );
 }
 

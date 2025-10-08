@@ -7,7 +7,7 @@ import useApiUrl from "../../../../hooks/use-ApiUrl";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import { IBudgetWiseCostBreakdown } from "./components/IBudgetWiseCostBreakdown";
-import PoStyleGroupSection from "./components/buyer-group-section";
+import PoStyleGroupSection from "./components/po-style-group-section";
 import TotalRow from "./components/total-row";
 import React from "react";
 import Summary from "./components/summary";
