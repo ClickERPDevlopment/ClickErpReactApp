@@ -19,4 +19,5 @@ export type SewingProductionStatusReportType = {
     UNITNAME?: string;
     PREFIX?: string;
     AVG_SMV: number;
+    FACTORY_AVG_SMV: number;
 };

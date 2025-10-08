@@ -42,6 +42,7 @@ function ReportTable({
       const runningTarget = Number(item.RUNNING_HOURLYTARGET);
       const numberOfLine = Number(item.NO_OF_LINE);
       const avgSMV = Number(item.AVG_SMV);
+      const fAvgSMV = Number(item.FACTORY_AVG_SMV);
 
       if (!grouped[dateKey]) {
         grouped[dateKey] = {
@@ -77,6 +78,7 @@ function ReportTable({
           RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
+          FACTORY_AVG_SMV: 0,
         };
       }
 
@@ -120,7 +122,8 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].ACTUALHOURS_TOTAL += actualHours;
       grouped[dateKey].COMPANY[companyKey].TARGETHOUR_TOTAL += targetHours;
       grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
-      grouped[dateKey].COMPANY[companyKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
+      grouped[dateKey].COMPANY[companyKey].FACTORY_AVG_SMV = fAvgSMV;
 
       grouped[dateKey].TARGET += target;
       grouped[dateKey].RUNNING_HOURLYTARGET += runningTarget;
@@ -148,6 +151,7 @@ function ReportTable({
           RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
           AVG_SMV: 0,
+          FACTORY_AVG_SMV: 0,
         };
       }
 
@@ -210,6 +214,7 @@ function ReportTable({
     EARN_MIN_TOTAL: number;
     NO_OF_LINE: number;
     AVG_SMV: number;
+    FACTORY_AVG_SMV: number;
   }
 
   interface IGroupedData {
@@ -347,6 +352,8 @@ function ReportTable({
 
   const firstColBg = "#A7F3D0";
 
+  let factoryCount = 0;
+
   return (
     <div className="text-sm mt-3">
       <table className="border-collapse border border-gray-950 w-[100%]">
@@ -421,6 +428,9 @@ function ReportTable({
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
+
+                  factoryCount += 1;
+
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
                   return (
                     <>
@@ -579,16 +589,19 @@ function ReportTable({
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
+
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
                   let companyTotalSMV = 0;
                   const floors = Object.keys(grandTotal[company]?.FLOORS || {});
 
-
+                  grandTotalSMV += companyData.FACTORY_AVG_SMV;
 
                   const floorCells = floors.map((floor) => {
                     const smv = companyData?.FLOORS?.[floor]?.AVG_SMV ?? 0;
                     companyTotalSMV += smv;
-                    grandTotalSMV += smv;
+
+
+
                     return (
                       <td
                         key={`${dateKey}-${company}-${floor}`}
@@ -606,7 +619,7 @@ function ReportTable({
                       className="border border-gray-950 p-1 text-center font-bold"
                       style={{ backgroundColor: getFactoryColor(company) }}
                     >
-                      {floors.length > 0 ? (companyTotalSMV / floors.length).toFixed(2) : "0.00"}
+                      {(companyData?.FACTORY_AVG_SMV).toFixed(2)}
                     </td>
                   );
 
@@ -614,7 +627,7 @@ function ReportTable({
                 })}
 
                 <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
-                  {totalFloor > 0 ? (grandTotalSMV / totalFloor).toFixed(2) : "0.00"}
+                  {(grandTotalSMV / factoryCount).toFixed(2)}
                 </td>
               </tr>
               <tr key={dateKey}>
