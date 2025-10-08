@@ -124,6 +124,7 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
       grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
       grouped[dateKey].COMPANY[companyKey].FACTORY_AVG_SMV = fAvgSMV;
+      grouped[dateKey].COMPANY[companyKey].NO_OF_LINE += numberOfLine;
 
       grouped[dateKey].TARGET += target;
       grouped[dateKey].RUNNING_HOURLYTARGET += runningTarget;
@@ -135,6 +136,7 @@ function ReportTable({
       grouped[dateKey].ACTUALHOURS += actualHours;
       grouped[dateKey].TARGETHOUR += targetHours;
       grouped[dateKey].NO_OF_LINE += numberOfLine;
+
 
       if (!grandTotal[companyKey]) {
         grandTotal[companyKey] = {
@@ -370,8 +372,11 @@ function ReportTable({
             </th>
 
             {Object.keys(grandTotal).map((company) => {
+
               const effectiveDateKey = Object.keys(grouped)[0] || '';
+
               const companyData = grouped[effectiveDateKey]?.COMPANY?.[company];
+
               const lineCount = companyData?.NO_OF_LINE || grandTotal[company]?.NO_OF_LINE || 0;
 
               totalLine += lineCount;
