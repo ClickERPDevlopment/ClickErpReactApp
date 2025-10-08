@@ -82,6 +82,9 @@ function ReportTable({ styleData, embData }: ReportProps) {
                 <td className="border border-gray-950 p-0.5">
                   {item.PONO}
                 </td>
+                <td className="border border-gray-950 p-0.5">
+                  {item.COLORNAME}
+                </td>
                 <td className="border border-gray-950 p-0.5 text-center">
                   {item.QTY}
                 </td>
@@ -94,9 +97,9 @@ function ReportTable({ styleData, embData }: ReportProps) {
               <td className="border border-gray-950 p-0.5">{filteredEmbData[0]?.EMBELLISHMENT_ORDERNO}</td>
               <td className="border border-gray-950 p-0.5 text-center">{filteredEmbData[0]?.WO_QTY}</td>
               <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
-              <td className="border border-gray-950 p-0.5 max-w-md">
+              {/* <td className="border border-gray-950 p-0.5 max-w-md">
                 {item.COLORNAME}
-              </td>
+              </td> */}
             </tr>
 
             {filteredEmbData.slice(1).map((embItem, embIndex) => {
@@ -112,6 +115,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                   <td className="border border-gray-950 p-0.5">{item.STYLENO}</td>
                   <td className="border border-gray-950 p-0.5">{item.ITEMTYPE}</td>
                   <td className="border border-gray-950 p-0.5">{item.PONO}</td>
+                  <td className="border border-gray-950 p-0.5">{item.COLORNAME}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{item.QTY}</td>
                   <td className="border border-gray-950 p-0.5 text-nowrap">
                     {moment(item.DELIVERYDATE).format("DD-MMM-YY")}
@@ -121,7 +125,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
                   <td className="border border-gray-950 p-0.5">{embItem.EMBELLISHMENT_ORDERNO}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{embItem.WO_QTY}</td>
                   <td className="border border-gray-950 p-0.5 text-center">{balance}</td>
-                  <td className="border border-gray-950 p-0.5 max-w-md">{item.COLORNAME}</td>
+                  {/* <td className="border border-gray-950 p-0.5 max-w-md">{item.COLORNAME}</td> */}
                 </tr>
               );
             })}
@@ -132,7 +136,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
       })}
       {
         <tr className="bg-lime-50 font-bold">
-          <td colSpan={5} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER} Total</td>
+          <td colSpan={6} className="border border-gray-950 p-0.5 text-center">{styleData[0]?.BUYER} Total</td>
           <td className="border border-gray-950 p-0.5 text-center">{buyerTotalQty}</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5">{ }</td>
@@ -140,7 +144,6 @@ function ReportTable({ styleData, embData }: ReportProps) {
           <td className="border border-gray-950 p-0.5">{ }</td>
           <td className="border border-gray-950 p-0.5 text-center">{buyerTotalWoQty}</td>
           <td className="border border-gray-950 p-0.5 text-center">{buyerTotalQty - buyerTotalWoQty}</td>
-          <td className="border border-gray-950 p-0.5">{ }</td>
         </tr>
       }
 

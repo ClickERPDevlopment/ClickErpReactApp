@@ -47,7 +47,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
             <tbody>
               <tr>
                 <td className="p-1 pr-4 text-gray-700">Buyer</td>
-                <td className="p-1 text-gray-900">: {data[0]?.BUYER || "N/A"}</td>
+                <td className="p-1 text-gray-900">: {data[0]?.BUYER || data[0]?.OS_BUYER || "N/A"}</td>
               </tr>
               <tr>
                 <td className="p-1 pr-4 text-gray-700">Party Order</td>

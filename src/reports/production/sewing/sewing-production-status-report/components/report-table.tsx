@@ -38,8 +38,12 @@ function ReportTable({
 
       const operator = Number(item.OPERATOR);
       const actualHours = Number(item.ACTUALHOURS);
+      const targetHours = Number(item.TARGETHOUR);
+      const runningTarget = Number(item.RUNNING_HOURLYTARGET);
       const numberOfLine = Number(item.NO_OF_LINE);
+      const totalLine = Number(item.TOTAL_LINE);
       const avgSMV = Number(item.AVG_SMV);
+      const fAvgSMV = Number(item.FACTORY_AVG_SMV);
 
       if (!grouped[dateKey]) {
         grouped[dateKey] = {
@@ -49,9 +53,12 @@ function ReportTable({
           HOURLY_PER_LINE: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
+          TARGETHOUR: 0,
+          RUNNING_HOURLYTARGET: 0,
           AVAILMIN: 0,
           EARN_MIN: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
           COMPANY: {},
         };
@@ -69,8 +76,12 @@ function ReportTable({
           EARN_MIN_TOTAL: 0,
           OPERATOR_TOTAL: 0,
           ACTUALHOURS_TOTAL: 0,
+          TARGETHOUR_TOTAL: 0,
+          RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
+          FACTORY_AVG_SMV: 0,
         };
       }
 
@@ -83,8 +94,11 @@ function ReportTable({
           AVAILMIN: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
+          TARGETHOUR: 0,
+          RUNNING_HOURLYTARGET: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
         };
       }
@@ -96,9 +110,13 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].AVAILMIN += availableMin;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].EARN_MIN += earnMin;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].ACTUALHOURS += actualHours;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].TARGETHOUR += targetHours;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].FLOOR_ID = item.FLOORID;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].TOTAL_LINE += totalLine;
       grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].AVG_SMV = avgSMV;
+      grouped[dateKey].COMPANY[companyKey].FLOORS[floorKey].RUNNING_HOURLYTARGET += runningTarget;
+
 
       grouped[dateKey].COMPANY[companyKey].COMPANY_TOTAL += target;
       grouped[dateKey].COMPANY[companyKey].HOURLY_PER_UNIT_TOTAL += hourlyPerUnit;
@@ -107,17 +125,25 @@ function ReportTable({
       grouped[dateKey].COMPANY[companyKey].AVAILMIN_TOTAL += availableMin;
       grouped[dateKey].COMPANY[companyKey].EARN_MIN_TOTAL += earnMin;
       grouped[dateKey].COMPANY[companyKey].ACTUALHOURS_TOTAL += actualHours;
+      grouped[dateKey].COMPANY[companyKey].TARGETHOUR_TOTAL += targetHours;
       grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
+      grouped[dateKey].COMPANY[companyKey].FACTORYID = item.FACTORYID;
+      grouped[dateKey].COMPANY[companyKey].FACTORY_AVG_SMV = fAvgSMV;
       grouped[dateKey].COMPANY[companyKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].COMPANY[companyKey].TOTAL_LINE += totalLine;
 
       grouped[dateKey].TARGET += target;
+      grouped[dateKey].RUNNING_HOURLYTARGET += runningTarget;
       grouped[dateKey].HOURLY_PER_UNIT += hourlyPerUnit;
       grouped[dateKey].HOURLY_PER_LINE += hourlyPerLine;
       grouped[dateKey].OPERATOR += operator;
       grouped[dateKey].AVAILMIN += availableMin;
       grouped[dateKey].EARN_MIN += earnMin;
       grouped[dateKey].ACTUALHOURS += actualHours;
+      grouped[dateKey].TARGETHOUR += targetHours;
       grouped[dateKey].NO_OF_LINE += numberOfLine;
+      grouped[dateKey].TOTAL_LINE += totalLine;
+
 
       if (!grandTotal[companyKey]) {
         grandTotal[companyKey] = {
@@ -130,8 +156,12 @@ function ReportTable({
           AVAILMIN_TOTAL: 0,
           OPERATOR_TOTAL: 0,
           ACTUALHOURS_TOTAL: 0,
+          TARGETHOUR_TOTAL: 0,
+          RUNNING_HOURLYTARGET_TOTAL: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
+          FACTORY_AVG_SMV: 0,
         };
       }
 
@@ -145,8 +175,11 @@ function ReportTable({
           EARN_MIN: 0,
           OPERATOR: 0,
           ACTUALHOURS: 0,
+          TARGETHOUR: 0,
+          RUNNING_HOURLYTARGET: 0,
           FLOOR_ID: 0,
           NO_OF_LINE: 0,
+          TOTAL_LINE: 0,
           AVG_SMV: 0,
         };
       }
@@ -169,10 +202,13 @@ function ReportTable({
     HOURLY_PER_LINE: number;
     OPERATOR: number;
     ACTUALHOURS: number;
+    TARGETHOUR: number;
+    RUNNING_HOURLYTARGET: number;
     AVAILMIN: number;
     EARN_MIN: number;
     FLOOR_ID: number;
     NO_OF_LINE: number;
+    TOTAL_LINE: number;
     AVG_SMV: number;
   }
 
@@ -184,10 +220,14 @@ function ReportTable({
     HOURLY_PER_LINE_TOTAL: number;
     OPERATOR_TOTAL: number;
     ACTUALHOURS_TOTAL: number;
+    TARGETHOUR_TOTAL: number;
+    RUNNING_HOURLYTARGET_TOTAL: number;
     AVAILMIN_TOTAL: number;
     EARN_MIN_TOTAL: number;
     NO_OF_LINE: number;
+    TOTAL_LINE: number;
     AVG_SMV: number;
+    FACTORY_AVG_SMV: number;
   }
 
   interface IGroupedData {
@@ -198,9 +238,12 @@ function ReportTable({
       HOURLY_PER_LINE: number;
       OPERATOR: number;
       ACTUALHOURS: number;
+      TARGETHOUR: number;
+      RUNNING_HOURLYTARGET: number;
       AVAILMIN: number;
       EARN_MIN: number;
       NO_OF_LINE: number;
+      TOTAL_LINE: number;
       AVG_SMV: number;
       COMPANY: Record<string, ICompanyData>;
     };
@@ -305,8 +348,10 @@ function ReportTable({
   };
 
   let totalLine = 0;
+  let grandTotalLine = 0;
   let totalFloor = 0;
   let grandTotalHourly = 0;
+  let grandTotalHourlyLine = 0;
   let grandTotalSMV = 0;
   let grandTotalProduced = 0;
   let grandTotalTarget = 0;
@@ -319,6 +364,10 @@ function ReportTable({
     const h = Math.abs(hash) % 360;
     return `hsl(${h}, 80%, 90%)`;
   };
+
+  const firstColBg = "#A7F3D0";
+
+  let factoryCount = 0;
 
   return (
     <div className="text-sm mt-3">
@@ -336,11 +385,16 @@ function ReportTable({
             </th>
 
             {Object.keys(grandTotal).map((company) => {
+
               const effectiveDateKey = Object.keys(grouped)[0] || '';
+
               const companyData = grouped[effectiveDateKey]?.COMPANY?.[company];
+
               const lineCount = companyData?.NO_OF_LINE || grandTotal[company]?.NO_OF_LINE || 0;
+              const totalLineCount = companyData?.TOTAL_LINE || grandTotal[company]?.TOTAL_LINE || 0;
 
               totalLine += lineCount;
+              grandTotalLine += totalLineCount;
 
               return (
                 <th
@@ -349,7 +403,7 @@ function ReportTable({
                   className="border border-gray-950 text-center font-bold"
                   style={{ backgroundColor: getFactoryColor(company) }}
                 >
-                  {company}({lineCount})
+                  {company}({totalLineCount}) ({lineCount})
                 </th>
               );
             })}
@@ -360,7 +414,7 @@ function ReportTable({
                 rowSpan={2}
                 className="border border-gray-950 p-1 text-center font-bold"
               >
-                {item}({totalLine})
+                {item}({grandTotalLine}) ({totalLine})
               </th>
             ))}
           </tr>
@@ -389,11 +443,14 @@ function ReportTable({
           {uniqueKeysArray.map((dateKey) => (
             <>
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   TARGET
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
+
+                  factoryCount += 1;
+
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
                   return (
                     <>
@@ -413,13 +470,13 @@ function ReportTable({
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold" >
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold" >
                   {Math.round(grouped[dateKey]?.TARGET) || "0.00"}
                 </td>
               </tr>
 
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   HOURLY/UNIT
                 </td>
 
@@ -443,20 +500,25 @@ function ReportTable({
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {Math.round(grouped[dateKey]?.HOURLY_PER_UNIT) || "0.00"}
                 </td>
               </tr>
 
+
+
               <tr key={dateKey}>
-                <td className="border text-center  border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   HOURLY/LINE
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
+
                   const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+
                   totalFloor += floorCount;
+
                   return (
                     <>
                       {Object.keys(grandTotal[company].FLOORS).map((floor) => (
@@ -469,19 +531,19 @@ function ReportTable({
                         </td>
                       ))}
                       <td className="border border-gray-950 p-1 text-center font-bold" style={{ backgroundColor: getFactoryColor(company) }}>
-                        {Math.round(companyData?.HOURLY_PER_LINE_TOTAL / floorCount) || "0"}
+                        {Math.round(companyData?.HOURLY_PER_LINE_TOTAL / floorCount) || "0.00"}
                       </td>
                     </>
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
-                  {Math.round(grouped[dateKey]?.HOURLY_PER_LINE / totalFloor) || "0"}
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
+                  {Math.round(grouped[dateKey]?.HOURLY_PER_LINE / totalFloor) || "0.00"}
                 </td>
               </tr>
 
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   TGT EFF.
                 </td>
 
@@ -505,14 +567,14 @@ function ReportTable({
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {Math.round(grouped[dateKey]?.EARN_MIN * 100 / grouped[dateKey].AVAILMIN) || "0.00"} %
                 </td>
               </tr>
 
 
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   RUN MACHINE
                 </td>
 
@@ -536,25 +598,30 @@ function ReportTable({
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {Math.round(grouped[dateKey]?.OPERATOR) || "0"}
                 </td>
               </tr>
 
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   SMV
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
+
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
                   let companyTotalSMV = 0;
                   const floors = Object.keys(grandTotal[company]?.FLOORS || {});
 
+                  grandTotalSMV += companyData.FACTORY_AVG_SMV;
+
                   const floorCells = floors.map((floor) => {
                     const smv = companyData?.FLOORS?.[floor]?.AVG_SMV ?? 0;
                     companyTotalSMV += smv;
-                    grandTotalSMV += smv;
+
+
+
                     return (
                       <td
                         key={`${dateKey}-${company}-${floor}`}
@@ -572,23 +639,52 @@ function ReportTable({
                       className="border border-gray-950 p-1 text-center font-bold"
                       style={{ backgroundColor: getFactoryColor(company) }}
                     >
-                      {floors.length > 0 ? (companyTotalSMV / floors.length).toFixed(2) : "0.00"}
+                      {(companyData?.FACTORY_AVG_SMV).toFixed(2)}
                     </td>
                   );
 
                   return [...floorCells, avgCell];
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
-                  {totalFloor > 0 ? (grandTotalSMV / totalFloor).toFixed(2) : "0.00"}
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
+                  {(grandTotalSMV / factoryCount).toFixed(2)}
+                </td>
+              </tr>
+              <tr key={dateKey}>
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                  PLAN W/H
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+                  return (
+                    <>
+                      {Object.keys(grandTotal[company].FLOORS).map((floor) => (
+                        <td
+                          key={`${dateKey}-${company}-${floor}`}
+                          className="border border-gray-950 p-1 text-center"
+                          style={{ backgroundColor: getFactoryColor(company) }}
+                        >
+                          {(companyData?.FLOORS?.[floor]?.TARGETHOUR).toFixed(2) || "0"}
+                        </td>
+                      ))}
+                      <td className="border border-gray-950 p-1 text-center font-bold" style={{ backgroundColor: getFactoryColor(company) }}>
+                        {(companyData?.TARGETHOUR_TOTAL / floorCount).toFixed(2) || "0"}
+                      </td>
+                    </>
+                  );
+                })}
+
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
+                  {(grouped[dateKey]?.TARGETHOUR / totalFloor).toFixed(2) || "0"}
                 </td>
               </tr>
 
 
-
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
-                  W/H
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                  ACTUAL W/H
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
@@ -612,7 +708,7 @@ function ReportTable({
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {(grouped[dateKey]?.ACTUALHOURS / totalFloor).toFixed(2) || "0"}
                 </td>
               </tr>
@@ -623,7 +719,7 @@ function ReportTable({
                   return <>
                     <tr key={dateKey}>
 
-                      <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                      <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                         {getOrdinal(item)}
                       </td>
 
@@ -635,7 +731,7 @@ function ReportTable({
                               return <td
                                 key={`${dateKey}-${company}-${floor}`}
                                 className="border border-gray-950 p-1 text-center"
-                                style={{ backgroundColor: getFactoryColor(company) }}
+                                style={{}}
                               >
                                 {
 
@@ -650,7 +746,7 @@ function ReportTable({
                         );
                       })}
 
-                      <td className="border border-gray-950 p-1 text-center font-bold">
+                      <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                         {organizedData.byHour[Number(item)] || 0}
                       </td>
                     </tr>
@@ -661,7 +757,7 @@ function ReportTable({
 
               <tr key={dateKey}>
 
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   PRODUCTION
                 </td>
 
@@ -685,21 +781,20 @@ function ReportTable({
                   );
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {organizedData.grandTotal}
                 </td>
               </tr>
 
-
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
-                  HOURLY
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                  HOURLY/UNIT
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
-                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+                  // const floorCount = Object.keys(grandTotal[company].FLOORS).length;
 
                   let totalHourly = 0;
 
@@ -737,14 +832,75 @@ function ReportTable({
                     );
                   });
 
-                  // const factoryId = companyData?.FACTORYID ?? 0;
-                  // const factoryTotal = organizedData.byFactoryTotal[factoryId] ?? 0;
-                  // const totalHours = companyData?.ACTUALHOURS_TOTAL ?? 0;
-                  // const totalLines = companyData?.NO_OF_LINE ?? 0;
-                  // const factoryHourly =
-                  //   totalHours > 0 && totalLines > 0
-                  //     ? factoryTotal / totalHours / totalLines
-                  //     : 0;
+
+                  cells.push(
+                    <td
+                      key={`${dateKey}-${company}-factory`}
+                      className="border border-gray-950 p-1 text-center font-bold"
+                      style={{ backgroundColor: getFactoryColor(company) }}
+                    >
+                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly)}
+                    </td>
+                  );
+
+                  return cells;
+                })}
+
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
+                  {(() => {
+
+                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly);
+                  })()}
+                </td>
+              </tr>
+
+              <tr key={dateKey}>
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                  HOURLY/LINE
+                </td>
+
+                {Object.keys(grandTotal).map((company) => {
+
+                  const companyData = grouped[dateKey]?.COMPANY?.[company];
+
+                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+
+                  let totalHourly = 0;
+
+                  const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
+                    const floorData = companyData?.FLOORS?.[floor];
+                    const floorId = floorData?.FLOOR_ID ?? 0;
+                    const actualHours = floorData?.ACTUALHOURS ?? 0;
+                    const noOfLine = floorData?.NO_OF_LINE ?? 0;
+                    const total = organizedData.byFloorTotal[floorId] ?? 0;
+
+                    const uniqueHours = new Set(
+                      sewingHourlyProductionData
+                        .filter(item => item.FLOORID === floorId)
+                        .map(item => item.HOUR)
+                    );
+
+                    const uniqueHourCount = uniqueHours.size;
+
+                    const hourly =
+                      uniqueHourCount > 0 && noOfLine > 0
+                        ? (total / noOfLine / actualHours)
+                        : 0;
+
+                    totalHourly += hourly;
+                    grandTotalHourlyLine += hourly;
+
+                    return (
+                      <td
+                        key={`${dateKey}-${company}-${floor}`}
+                        className="border border-gray-950 p-1 text-center"
+                        style={{ backgroundColor: getFactoryColor(company) }}
+                      >
+                        {isNaN(hourly) ? "0" : Math.round(hourly)}
+                      </td>
+                    );
+                  });
+
 
                   cells.push(
                     <td
@@ -759,58 +915,36 @@ function ReportTable({
                   return cells;
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
-                    // const grandTotal = organizedData.grandTotal ?? 0;
-                    // const totalHours = grouped[dateKey]?.ACTUALHOURS ?? 0;
-                    // const totalLines = grouped[dateKey]?.NO_OF_LINE ?? 0;
 
-                    // const result =
-                    //   totalHours > 0 && totalLines > 0
-                    //     ? grandTotal / totalHours / totalLines
-                    //     : 0;
-
-                    return isNaN(grandTotalHourly) ? "0" : Math.round(grandTotalHourly / totalFloor);
+                    return isNaN(grandTotalHourlyLine) ? "0" : Math.round(grandTotalHourlyLine / totalFloor);
                   })()}
                 </td>
               </tr>
 
               <tr key={dateKey}>
-                <td className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
                   ACHIEVE %
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
-                  let totalProduced = 0;
                   let totalTarget = 0;
 
+                  let totalAchv = 0;
+
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
-                    const floorId = companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0;
-                    const floorData = companyData?.FLOORS?.[floor];
 
-                    const noOfLine = floorData?.NO_OF_LINE ?? 0;
-                    const hourlyTarget = floorData?.HOURLY_PER_LINE ?? 0;
-                    const total = organizedData.byFloorTotal[floorId] ?? 0;
+                    const target = companyData?.FLOORS?.[floor]?.RUNNING_HOURLYTARGET; // Math.floor(companyData?.FLOORS?.[floor]?.RUNNING_HOURLYTARGET * (companyData?.FLOORS?.[floor]?.TARGET / companyData?.FLOORS?.[floor]?.TARGETHOUR))
 
-                    const uniqueHours = new Set(
-                      sewingHourlyProductionData
-                        .filter(item => item.FLOORID === floorId)
-                        .map(item => item.HOUR)
-                    );
-                    const uniqueHourCount = uniqueHours.size;
+                    const achv = organizedData.byFloorTotal[companyData?.FLOORS?.[floor]?.FLOOR_ID ?? 0] || 0;
 
-                    // Produced
-                    totalProduced += total;
+                    totalAchv += achv;
+                    totalTarget += target;
 
-                    // Target
-                    totalTarget += uniqueHourCount * noOfLine * hourlyTarget;
-
-                    const achieve =
-                      uniqueHourCount > 0 && noOfLine > 0 && hourlyTarget > 0
-                        ? (total / (uniqueHourCount * noOfLine * hourlyTarget)) * 100
-                        : 0;
+                    const achieve = achv * 100 / target;
 
                     return (
                       <td
@@ -823,12 +957,10 @@ function ReportTable({
                     );
                   });
 
-                  // Weighted company achievement
                   const companyAchieve =
-                    totalTarget > 0 ? (totalProduced / totalTarget) * 100 : 0;
+                    totalTarget > 0 ? (totalAchv / totalTarget) * 100 : 0;
 
-                  // Add to grand totals
-                  grandTotalProduced += totalProduced;
+                  grandTotalProduced += totalAchv;
                   grandTotalTarget += totalTarget;
 
                   cells.push(
@@ -844,7 +976,7 @@ function ReportTable({
                   return cells;
                 })}
 
-                <td className="border border-gray-950 p-1 text-center font-bold">
+                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
                     const grandAchieve =
                       grandTotalTarget > 0

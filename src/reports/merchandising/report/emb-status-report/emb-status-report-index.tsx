@@ -25,6 +25,7 @@ function EmbStatusReport() {
   const buyerId = searchParams.get("buyerId") || "0";
   const poId = searchParams.get("poId") || "0";
   const styleId = searchParams.get("styleId") || "0";
+  const embTypeId = searchParams.get("embTypeId") || "0";
   const isEmbDone = searchParams.get("isEmbDone") === "True";
   const isEmbNotDone = searchParams.get("isEmbNotDone") === "True";
   const isOpmDate = searchParams.get("isOpmDate") === "True";
@@ -52,7 +53,8 @@ function EmbStatusReport() {
             poId,
             styleId,
             isOpmDate,
-            isShipDate
+            isShipDate,
+            embTypeId
           },
         });
         if (res.data) setStyleData(res.data);

@@ -12,10 +12,13 @@ export type SewingProductionStatusReportType = {
     QUALITY: number;
     PACKINGMAN: number;
     HOURLYTARGET: number;
+    RUNNING_HOURLYTARGET: number;
     AVAILMIN: number;
     EARN_MIN: number;
     TARGET_EFFI: number;
     UNITNAME?: string;
     PREFIX?: string;
     AVG_SMV: number;
+    FACTORY_AVG_SMV: number;
+    TOTAL_LINE: number;
 };

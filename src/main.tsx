@@ -205,6 +205,7 @@ import KnittingDyeingPriceOverviewReport from "./reports/store/yarn-store/knit-d
 import PrintEmbBillIndex from "./app/PrintingEmbroidery/print-emb-bill/print-emb-bill-index.tsx";
 import PrintEmbBillCrud from "./app/PrintingEmbroidery/print-emb-bill/print-emb-bill-crud.tsx";
 import SewingSummaryReport from "./reports/production/sewing/sewing-summary-report/sewing-summary-report-index.tsx";
+import YarnAdditionalBookingReportPDF from "./reports/store/yarn-store/yarn-additional-booking-report-pdf/yarn-additional-booking-report-pdf-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -904,6 +905,10 @@ createRoot(document.getElementById("root")!).render(
                         />
                       </Route>
                       <Route path="yarn-store">
+                        <Route
+                          path="yarn-additional-booking-report-pdf"
+                          element={<YarnAdditionalBookingReportPDF />}
+                        />
                         <Route
                           path="knit-dyeing-price-overview-report"
                           element={<KnittingDyeingPriceOverviewReport />}
