@@ -1,4 +1,4 @@
-export type DateWiseShiplentSummaryReportType = {
+export type DateColorWiseShiplentSummaryReportType = {
   FACTORYID?: string;
   CHALLANDATE: string;
   BUYERID?: number;
@@ -11,6 +11,7 @@ export type DateWiseShiplentSummaryReportType = {
   BUYER?: string;
   STYLENAME?: string;
   STYLENO?: string;
+  COLORNAME?: string;
   ITEMUOM?: string;
   SHIPMENTQTY: number;
   PREV_SHIPMENTQTY: number;
