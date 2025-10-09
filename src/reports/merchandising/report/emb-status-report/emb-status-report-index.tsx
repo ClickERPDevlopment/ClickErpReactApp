@@ -79,6 +79,7 @@ function EmbStatusReport() {
       embData.some(
         emb =>
           emb.STYLEID === item.STYLEID &&
+          emb.GMT_COLORID === item.COLORID &&
           emb.PONO == item.PONO &&
           emb.EMBELLISHMENT_ORDERNO != null &&
           emb.EMBELLISHMENT_ORDERNO !== ""
@@ -91,6 +92,7 @@ function EmbStatusReport() {
       !embData.some(
         emb =>
           emb.STYLEID === item.STYLEID &&
+          emb.GMT_COLORID === item.COLORID &&
           emb.PONO == item.PONO &&
           emb.EMBELLISHMENT_ORDERNO != null &&
           emb.EMBELLISHMENT_ORDERNO !== ""
@@ -112,6 +114,7 @@ function EmbStatusReport() {
         filteredStyleData.some(
           style =>
             style.STYLEID === emb.STYLEID &&
+            style.COLORID === emb.GMT_COLORID &&
             style.PONO == emb.PONO
         )
     );
@@ -127,6 +130,7 @@ function EmbStatusReport() {
         filteredStyleData.some(
           style =>
             style.STYLEID === emb.STYLEID &&
+            style.COLORID === emb.GMT_COLORID &&
             style.PONO == emb.PONO
         )
     );
