@@ -11,9 +11,13 @@ function ReportHeader({
   return (
     <div className="w-[100%]">
 
-      <p className="font-bold text-left w-[100%] text-xs">
-        {moment().format("DD-MMM-YYYY")}
-      </p>
+      <div className="flex justify-between items-center font-bold text-right text-xs">
+        <p>"CLICK"</p>
+        <p>
+          {moment().format("DD-MMM-YYYY hh:mm A")}
+        </p>
+      </div>
+
 
       {
         data[0]?.COMPANY_NAME && <>

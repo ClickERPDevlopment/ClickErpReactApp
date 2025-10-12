@@ -63,7 +63,7 @@ function CompensationClaimReport() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen px-5">
       {/* Report content */}
       <div className="flex-grow">
         <Report data={data} />
@@ -72,7 +72,7 @@ function CompensationClaimReport() {
       {/* Footer text */}
       <div className="mt-4">
         <ReportFooter data={data} />
-        <p className="text-center text-sm text-gray-950 mt-2" style={{ marginBottom: "97px" }}>
+        <p className="text-center text-sm text-gray-950 mt-2" style={{ marginBottom: "95px" }}>
           ***This is the ERP generated document***
         </p>
       </div>
