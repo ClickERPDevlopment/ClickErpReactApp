@@ -36,7 +36,7 @@ function Report({
   const toWords = new ToWords();
 
   return (
-    <div className="px-12 py-6 text-[13px] font-sans text-gray-950 print:text-black">
+    <div className="text-[13px] font-sans text-gray-950 print:text-black">
       <ReportHeader />
 
       {/* Top Info Section */}

@@ -17,7 +17,7 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({
           "CLICK"
         </p>
 
-        <h1 className="text-2xl font-bold text-center p-5">{ }</h1>
+        <h1 className="text-2xl font-bold text-center p-6">{ }</h1>
 
         {/* <h4 className="text-sm font-bold text-center">{clinet.currentClient == clinet.EURO ? "Nayamati, Kutubpur, Fatullah, Narayanganj" : companyAddress}</h4> */}
 
