@@ -55,6 +55,7 @@ function Report({ data, isShipDateShow }: { data: IAccessoriesReport[], isShipDa
         ></ReportTable>
         <div className="mt-3">
           <p><span className="font-bold">Note:</span> Please mention the Work Order Number in the Delivery Challan and PI.</p>
+          <p><span className="font-bold">Remarks:</span> {data[0]?.REMARKS}</p>
         </div>
         <div>
           <ReportFooter masterData={data[0]}></ReportFooter>

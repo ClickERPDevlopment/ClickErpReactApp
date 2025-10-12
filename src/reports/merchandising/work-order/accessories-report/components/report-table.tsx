@@ -64,7 +64,8 @@ function ReportTable({
 
   return (
     <div className="mt-3">
-      <div className="flex items-center font-semibold text-xs">
+      <div className=" font-semibold text-xs">
+        <p>SUB: {data[0]?.WO_SUBJECT}</p>
         <p>BUYER: {data[0]?.BUYER_NAME}</p>
       </div>
       <table className="border-collapse border border-gray-900  w-[100%]">

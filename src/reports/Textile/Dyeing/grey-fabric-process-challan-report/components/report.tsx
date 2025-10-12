@@ -156,8 +156,7 @@ function Report({
         <div className="mt-3">
           <p className="font-bold">Remarks: {data[0]?.REMARKS}</p>
         </div>
-        <div style={{ marginTop: "82px" }}></div>
-        <div>
+        <div style={{ marginTop: "90px" }}>
           <ReportFooter data={data}></ReportFooter>
         </div>
       </div>

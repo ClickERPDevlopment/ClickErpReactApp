@@ -75,9 +75,19 @@ function GreyFabricProcessChallanReport() {
     </>
   ) : (
     <>
-      <div>
-        <Report data={data} challanType={challanType}></Report>
+
+      <div className="flex flex-col min-h-screen px-5">
+        {/* Report content */}
+        <div className="flex-grow">
+          <Report data={data} challanType={challanType} />
+        </div>
+
+        {/* Footer text */}
+        <p className="text-center text-sm text-gray-950 mt-auto print-footer">
+          ***This is the ERP generated document***
+        </p>
       </div>
+
     </>
   );
 }
