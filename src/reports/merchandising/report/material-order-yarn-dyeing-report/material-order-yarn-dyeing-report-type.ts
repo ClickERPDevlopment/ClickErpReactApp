@@ -52,6 +52,7 @@ export type IMaterialOrderYarnDyeingReport = {
     SUPPLIER_RATE_PER_PCS: number;
     TOTAL_SUP_AMOUNT: number;
     WORK_ORDER_QTY: number;
+    ISSUE_QTY: number;
 
     GMT_COLOR_NAME: string;
     GMT_COLOR_CODE: string;

@@ -8,6 +8,8 @@ import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { IMaterialOrderYarnDyeingReport } from "./material-order-yarn-dyeing-report-type";
+import YarnDyeingWOReportFame from "./fame";
+import useAppClient from "@/hooks/use-AppClient";
 
 function MaterialOrderYarnDyeingReport() {
   const [data, setData] = useState<IMaterialOrderYarnDyeingReport[]>(
@@ -32,6 +34,9 @@ function MaterialOrderYarnDyeingReport() {
   useEffect(() => {
     document.title = "Report";
   }, []);
+
+
+  const client = useAppClient();
 
   useEffect(() => {
     async function getData() {
@@ -73,7 +78,11 @@ function MaterialOrderYarnDyeingReport() {
   ) : (
     <>
       <div>
-        <Report data={data}></Report>
+        {
+          client.currentClient == client.FAME
+            ? <YarnDyeingWOReportFame data={data} />
+            : <Report data={data} />
+        }
       </div>
     </>
   );
