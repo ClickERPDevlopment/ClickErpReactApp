@@ -1,15 +1,20 @@
+import { ICompany } from "@/reports/production/finishing/finish-fabric-return-cutting-floor-to-store-report/company-info-type";
 import ReportSubGroup from './components/report-sub-group';
 import { YarnIssueStatusReportType } from './yarn-issue-status-report-type'
+import moment from "moment";
 
-export default function YarnIssueStatusReport({ data }: { data: YarnIssueStatusReportType[] }) {
+export default function YarnIssueStatusReport({ company, data, fromDate, toDate }:
+    { company?: ICompany, data: YarnIssueStatusReportType[], fromDate?: string, toDate?: string }) {
 
     const unique = [...new Set(data?.map(item => item.DATA_SOURCE))]; // [ 'A', 'B']
 
     return (
         <div className="p-5">
             <div className='static'>
-                {/* <h1 className='text-center font-bold text-2xl'>{data[0]?.COMPANY_NAME}</h1> */}
-                <h1 className='text-center font-bold text-xl'>Yarn Issue Status</h1>
+                <h1 className='text-center font-bold text-2xl'>{company?.NAME}</h1>
+                <h1 className='text-center font-bold text-sm'>{company?.ADDRESS}</h1>
+                <h1 className='text-center font-bold text-xl mt-5'>Yarn Issue Status</h1>
+                <h1 className='text-center font-bold text-base'>{moment(fromDate).format("DD-MMM-YY")} to {moment(toDate).format("DD-MMM-YY")}</h1>
             </div>
             <table className='border border-gray-600 rounded-md'>
                 <thead className='sticky top-0 print:static'>
