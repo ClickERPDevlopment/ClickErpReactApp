@@ -6,44 +6,38 @@ import TableSkeleton from "@/components/table-skeleton";
 import axios from "axios";
 import useApiUrl from "@/hooks/use-ApiUrl";
 import { YarnIssueStatusReportType } from "./yarn-issue-status-report-type";
+import { ICompany } from "@/reports/production/finishing/finish-fabric-return-cutting-floor-to-store-report/company-info-type";
 
 export default function YarnIssueStatusReportIndex() {
   const [searchParams] = useSearchParams();
   const [data, setData] = useState<YarnIssueStatusReportType[]>(
     []
   );
+  const [company, setCompany] = useState<ICompany>();
   const [isLoading, setIsLoading] = useState(false);
   const api = useApiUrl();
 
-  let fromDate: string | null = "";
-  let toDate: string | null = "";
-  let buyerId: string | null = "";
-  let styleId: string | null = "";
-  let poId: string | null = "";
-  let knittingHouseId: string | null = "";
-  let companyId: string | null = "";
+  let fromDate: string | undefined = "";
+  let toDate: string | undefined = "";
+  let buyerId: string | undefined = "";
+  let styleId: string | undefined = "";
+  let poId: string | undefined = "";
+  let knittingHouseId: string | undefined = "";
+  let companyId: string | undefined = "";
 
-  if (searchParams.get("fromDate")) {
-    fromDate = searchParams.get("fromDate");
-  }
-  if (searchParams.get("toDate")) {
-    toDate = searchParams.get("toDate");
-  }
-  if (searchParams.get("buyerId")) {
-    buyerId = searchParams.get("buyerId");
-  }
-  if (searchParams.get("styleId")) {
-    styleId = searchParams.get("styleId");
-  }
-  if (searchParams.get("poId")) {
-    poId = searchParams.get("poId");
-  }
-  if (searchParams.get("knittingHouseId")) {
-    knittingHouseId = searchParams.get("knittingHouseId");
-  }
-  if (searchParams.get("companyId")) {
-    companyId = searchParams.get("companyId");
-  }
+  fromDate = searchParams.get("fromDate") ?? undefined;
+
+  toDate = searchParams.get("toDate") ?? undefined;
+
+  buyerId = searchParams.get("buyerId") ?? undefined;
+
+  styleId = searchParams.get("styleId") ?? undefined;
+
+  poId = searchParams.get("poId") ?? undefined;
+
+  knittingHouseId = searchParams.get("knittingHouseId") ?? undefined;
+
+  companyId = searchParams.get("companyId") ?? undefined;
 
   useEffect(() => {
     document.title = "Yarn issue status.";
@@ -51,6 +45,8 @@ export default function YarnIssueStatusReportIndex() {
     async function getData() {
       try {
         setIsLoading(true);
+        // Ensure all parameters are treated as strings for the URL,
+        // even if they are undefined, to avoid issues with `null` in URL.
         await axios
           .get(
             `${api.ProductionUrl}/production/YarnStoreReport/YarnIssueStatusReport?` +
@@ -64,7 +60,8 @@ export default function YarnIssueStatusReportIndex() {
           )
           .then((res) => {
             if (res.data) {
-              setData(res.data);
+              setCompany(res.data.company);
+              setData(res.data.data);
             } else {
               //console.log(res);
             }
@@ -89,7 +86,7 @@ export default function YarnIssueStatusReportIndex() {
       </div>
     </>
   ) : (
-    <YarnIssueStatusReport data={data} />
+    <YarnIssueStatusReport company={company} data={data} fromDate={fromDate} toDate={toDate} />
   );
 
 }
