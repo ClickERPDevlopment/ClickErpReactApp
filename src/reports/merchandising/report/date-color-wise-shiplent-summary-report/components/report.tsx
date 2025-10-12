@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
-import { DateWiseShiplentSummaryReportType } from "../date-wise-shiplent-summary-report-type";
 import ReportDateGroup from "./report-date-group";
+import { DateColorWiseShiplentSummaryReportType } from "../date-color-wise-shiplent-summary-report-type";
 
 function Report({
   data,
   searchParams,
 }: {
-  data: DateWiseShiplentSummaryReportType[];
+  data: DateColorWiseShiplentSummaryReportType[];
   searchParams: { toDate: any; fromDate: any };
 }) {
-  
   //set table header
   const firstHeader = [
     "CHALLAN DATE",
@@ -19,6 +18,7 @@ function Report({
     "STYLE NO",
     "STYLE NAME",
     "PO NO",
+    "COLOR",
     "ORDER QTY",
     "PREV. SHIP QTY",
     "REM. SHIP QTY",
@@ -31,7 +31,7 @@ function Report({
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
-    data: DateWiseShiplentSummaryReportType[],
+    data: DateColorWiseShiplentSummaryReportType[],
     keys: string[]
   ) {
     return data.reduce((result: any, item: any) => {
@@ -50,7 +50,7 @@ function Report({
 
   interface GroupedByDate {
     [key: string]: {
-      items: DateWiseShiplentSummaryReportType[];
+      items: DateColorWiseShiplentSummaryReportType[];
     };
   }
 
@@ -88,7 +88,6 @@ function Report({
             </tr>
           </thead>
           <tbody>
-
             {
               uniqueKeysArray.map((key) => {
                 const group = groupedByDate[key];
@@ -100,7 +99,7 @@ function Report({
             }
 
             <tr className="text-center bg-emerald-100 font-bold">
-              <td colSpan={5} className="border border-gray-300 p-1 text-right">Grand Total</td>
+              <td colSpan={6} className="border border-gray-300 p-1 text-right">Grand Total</td>
               <td className="border border-gray-300 p-1 text-right">{totalOrderQty}</td>
               <td className="border border-gray-300 p-1">{ }</td>
               <td className="border border-gray-300 p-1">{ }</td>

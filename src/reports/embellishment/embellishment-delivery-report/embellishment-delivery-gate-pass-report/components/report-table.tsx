@@ -29,7 +29,7 @@ function ReportTable({
 
       result[key].TOTAL_DELIVERY_QTY += Number(item.DELIVERY_QTY);
 
-      grandTotal.TOTAL_QTY += Number(item.WORK_ORDER_QTY);
+      grandTotal.TOTAL_QTY += Number(item.DELIVERY_QTY);
 
       return result;
     }, {});

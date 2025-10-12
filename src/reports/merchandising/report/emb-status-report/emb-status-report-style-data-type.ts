@@ -1,6 +1,7 @@
 export type EmbStatusReportStyleDataType = {
     PONO?: string;
     STYLEID: number;
+    COLORID: number;
     STYLENO?: string;
     ITEMTYPE?: string;
     COLORNAME?: string;

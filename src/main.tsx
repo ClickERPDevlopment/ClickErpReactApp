@@ -206,6 +206,7 @@ import PrintEmbBillIndex from "./app/PrintingEmbroidery/print-emb-bill/print-emb
 import PrintEmbBillCrud from "./app/PrintingEmbroidery/print-emb-bill/print-emb-bill-crud.tsx";
 import SewingSummaryReport from "./reports/production/sewing/sewing-summary-report/sewing-summary-report-index.tsx";
 import YarnAdditionalBookingReportPDF from "./reports/store/yarn-store/yarn-additional-booking-report-pdf/yarn-additional-booking-report-pdf-index.tsx";
+import DateColorWiseShiplentSummaryReport from "./reports/merchandising/report/date-color-wise-shiplent-summary-report/date-color-wise-shiplent-summary-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -801,6 +802,10 @@ createRoot(document.getElementById("root")!).render(
                       <Route
                         path="date-wise-shiplent-summary-report"
                         element={<DateWiseShiplentSummaryReport />}
+                      ></Route>
+                      <Route
+                        path="date-color-wise-shiplent-summary-report"
+                        element={<DateColorWiseShiplentSummaryReport />}
                       ></Route>
                     </Route>
 

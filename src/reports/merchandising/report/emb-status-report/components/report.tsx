@@ -62,7 +62,7 @@ function Report({ styleData, embData }: ReportProps) {
 
   let grandWoTotal = styleData.reduce((acc, item) => {
     const sameStyleEmbData = embData.filter((emb) => {
-      const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
+      const sameStylePo = emb.STYLEID === item.STYLEID && emb.GMT_COLORID === item.COLORID && emb.PONO == item.PONO;
 
       // const activeCategoryId =
       //   item.PRINT_CATEGORY_ID ||

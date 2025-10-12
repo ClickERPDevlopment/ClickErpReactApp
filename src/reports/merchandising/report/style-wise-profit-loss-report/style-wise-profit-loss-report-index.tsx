@@ -91,7 +91,7 @@ export default function StyleWiseProfitLossReportIndex() {
               <h5 className="text-center font-bold text-base">Month: {moment(month).format("MMM-YYYY")}</h5>
             </div>
 
-            <div className="border border-gray-500 rounded-md my-5 max-h-screen/20 overflow-auto">
+            <div className="border border-gray-500 rounded-md my-5">
               <table className="w-full">
                 <thead className="sticky top-0 z-10">
                   <tr>

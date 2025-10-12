@@ -57,7 +57,7 @@ function Report({
               </tr>
               <tr>
                 <td className="p-0.5 align-top">Address</td>
-                <td className="p-0.5 align-top">568 &amp; 584, Naojour, Kodda, Jaydebpur, Gazipur.</td>
+                <td className="p-0.5 align-top">: {data[0]?.SUPPLIER_ADDRESS}</td>
               </tr>
               <tr>
                 <td className="p-0.5 align-top">Buyer</td>

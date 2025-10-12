@@ -33,7 +33,7 @@ function ReportTable({ styleData, embData }: ReportProps) {
 
         let filteredEmbData = embData.filter((emb) => {
 
-          const sameStylePo = emb.STYLEID === item.STYLEID && emb.PONO == item.PONO;
+          const sameStylePo = emb.STYLEID === item.STYLEID && emb.GMT_COLORID === item.COLORID && emb.PONO == item.PONO;
 
           // const activeCategoryId =
           //   item.PRINT_CATEGORY_ID ||
