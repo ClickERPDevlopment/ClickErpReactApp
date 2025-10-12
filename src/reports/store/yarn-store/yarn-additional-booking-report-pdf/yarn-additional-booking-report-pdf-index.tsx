@@ -150,7 +150,7 @@ function YarnAdditionalBookingReportPDF() {
         halign: "center",
         valign: "middle",
         fontStyle: "bold",
-        lineWidth: 0.3,
+        lineWidth: 0.2,
         lineColor: [0, 0, 0],
         overflow: "hidden"
       },
@@ -186,11 +186,14 @@ function YarnAdditionalBookingReportPDF() {
     const finalY = (doc as any).lastAutoTable.finalY + 10;
     const summaries = calculateSummaries(data);
 
-    addSummaryTable(doc, "Factory Wise Summary", summaries.factory, finalY);
-    addSummaryTable(doc, "Buyer Wise Summary", summaries.buyer, (doc as any).lastAutoTable.finalY + 10);
-    addSummaryTable(doc, "Category Wise Summary", summaries.category, (doc as any).lastAutoTable.finalY + 10);
+    let currentX = 15;
+    const startY = finalY;
 
-    // Add footer on every page
+    currentX = addSummaryTable(doc, "Factory Wise Summary", summaries.factory, startY, currentX);
+    currentX = addSummaryTable(doc, "Buyer Wise Summary", summaries.buyer, startY, currentX);
+    addSummaryTable(doc, "Category Wise Summary", summaries.category, startY, currentX);
+
+
     footer(doc);
 
     doc.save("Yarn_Additional_Booking_Report.pdf");
@@ -218,7 +221,7 @@ function YarnAdditionalBookingReportPDF() {
 
     const formatSummary = (map: Record<string, number>) =>
       Object.entries(map)
-        .filter(([_, qty]) => qty > 0) // skip zero qty
+        .filter(([_, qty]) => qty > 0)
         .map(([name, qty]) => ({
           name,
           qty: qty.toFixed(1),
@@ -238,44 +241,68 @@ function YarnAdditionalBookingReportPDF() {
     title: string,
     rows: { name: string; qty: string; percent: string }[],
     startY: number,
-    startX = 15 // added a fixed horizontal position
-  ) {
-    if (!rows || rows.length === 0) return;
+    startX = 15
+  ): number {
+    if (!rows || rows.length === 0) return 0;
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
+    doc.setFontSize(9);
     doc.text(title, startX, startY);
 
-    // Filter out empty rows
     const filteredRows = rows.filter((r) => r.name && parseFloat(r.qty) > 0);
-
     const body = filteredRows.map((r) => [r.name, r.qty, r.percent]);
 
-    // Add total row
     const totalQty = filteredRows.reduce((sum, r) => sum + parseFloat(r.qty), 0).toFixed(1);
     body.push(["Total", totalQty, ""]);
 
+    const colWidths = [0, 0, 0];
+    const allRows = [["Name", "Quantity", "Percentage"], ...body];
+    allRows.forEach((row) => {
+      row.forEach((cell, i) => {
+        const textWidth = doc.getTextWidth(cell.toString()) + 8;
+        if (textWidth > colWidths[i]) colWidths[i] = textWidth;
+      });
+    });
+    const totalTableWidth = colWidths.reduce((a, b) => a + b, 0) + 6;
+
     doc.autoTable({
-      startY: startY + 4,
+      startY: startY + 2,
       head: [["Name", "Quantity", "Percentage"]],
       body,
       theme: "grid",
-      styles: { fontSize: 8, halign: "center", valign: "middle", lineColor: [50, 50, 50], lineWidth: 0.4 },
+      styles: {
+        fontSize: 8,
+        halign: "center",
+        valign: "middle",
+        lineColor: [50, 50, 50],
+        lineWidth: 0.2,
+      },
       headStyles: {
-        fillColor: [180, 180, 180],
+        fillColor: [200, 200, 200],
         textColor: [0, 0, 0],
         fontStyle: "bold",
-        lineWidth: 0.5,
+        lineWidth: 0.2,
         lineColor: [50, 50, 50],
       },
       margin: { left: startX },
+      tableWidth: totalTableWidth,
       columnStyles: {
-        0: { halign: "left", cellWidth: 60 },
-        1: { halign: "right", cellWidth: 30 },
-        2: { halign: "right", cellWidth: 25 },
+        0: { halign: "left", cellWidth: colWidths[0] },
+        1: { halign: "right", cellWidth: colWidths[1] },
+        2: { halign: "right", cellWidth: colWidths[2] },
+      },
+      didParseCell: function (data: any) {
+        if (data.row.index === body.length - 1) {
+          data.cell.styles.fontStyle = "bold";
+        }
       },
     });
+
+    return startX + totalTableWidth;
   }
+
+
+
 
 
   return isLoading ? (
