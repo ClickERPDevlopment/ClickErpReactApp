@@ -3,6 +3,7 @@ import ReportTable from "./report-table";
 // import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { LotWiseYarnStockReportType } from "../yarn-stock-after-allocation-report-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 
 function Report({
@@ -49,7 +50,7 @@ function Report({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-
+  const client = useAppClient();
   //set table header
   const firstHeader = [
     "SL NO.",
@@ -58,7 +59,7 @@ function Report({
     "FIRST RCV",
     "LAST RCV",
     "TYPE",
-    "BRAND",
+    client.isFame ? "LOCATION" : "BRAND",
     "YARN LOT",
     "Y. RCVD QTY",
     "Y. ALLO QTY",
@@ -119,7 +120,7 @@ function Report({
           </thead>
           <tbody>
             {uniqueKeysArray?.map((key) => {
-              let prevLength = groupLength;
+              const prevLength = groupLength;
               groupLength += groupedByDate[key].items.length;
               return <ReportTable
                 key={key}
