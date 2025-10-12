@@ -62,7 +62,7 @@ function Report({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["PO_NO", "MTL_NAME"]);
+    groupedByDate = groupBy(data, [""]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
@@ -73,12 +73,12 @@ function Report({
     "Style",
     "PO",
     "MTL Name",
-    "MTL Color",
     "GMT Color",
+    "MTL Color",
     "UOM",
     "WO Qty",
-    "Issue Qty",
-    "Balance",
+    // "Issue Qty",
+    // "Balance",
     "Price",
     "Amount",
   ];
@@ -88,10 +88,10 @@ function Report({
     0
   );
 
-  const totalIsseQty = data?.reduce(
-    (acc, item) => acc + Number(item.ISSUE_QTY),
-    0
-  );
+  // const totalIsseQty = data?.reduce(
+  //   (acc, item) => acc + Number(item.ISSUE_QTY),
+  //   0
+  // );
 
 
   const totalAmount = data?.reduce(
@@ -185,8 +185,8 @@ function Report({
             <tr style={{ fontSize: "11px" }} className="font-bold">
               <td colSpan={6} className="border border-gray-950 p-0.5 text-center">Total</td>
               <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{totalIsseQty.toFixed(2)}</td>
-              <td className="border border-gray-950 p-0.5">{(totalQuantiy - totalIsseQty).toFixed(2)}</td>
+              {/* <td className="border border-gray-950 p-0.5">{totalIsseQty.toFixed(2)}</td> */}
+              {/* <td className="border border-gray-950 p-0.5">{(totalQuantiy - totalIsseQty).toFixed(2)}</td> */}
               <td className="border border-gray-950 p-0.5"></td>
               <td className="border border-gray-950 p-0.5">{totalAmount.toFixed(2)}</td>
             </tr>

@@ -44,26 +44,26 @@ function ReportTable({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-  const totalQuantiy = data?.reduce(
-    (acc, item) => acc + Number(item.WORK_ORDER_QTY),
-    0
-  );
+  // const totalQuantiy = data?.reduce(
+  //   (acc, item) => acc + Number(item.WORK_ORDER_QTY),
+  //   0
+  // );
 
-  const totalIsseQty = data?.reduce(
-    (acc, item) => acc + Number(item.ISSUE_QTY),
-    0
-  );
+  // const totalIsseQty = data?.reduce(
+  //   (acc, item) => acc + Number(item.ISSUE_QTY),
+  //   0
+  // );
 
-  const totalAmount = data?.reduce(
-    (acc, item) => acc + Number(item.WORK_ORDER_QTY * item.SUPPLIER_RATE_PER_PCS),
-    0
-  );
+  // const totalAmount = data?.reduce(
+  //   (acc, item) => acc + Number(item.WORK_ORDER_QTY * item.SUPPLIER_RATE_PER_PCS),
+  //   0
+  // );
 
   return (
     <>
-      <tr style={{ fontSize: "11px" }} className="font-bold">
-        <td colSpan={11} className="border border-gray-950 p-0.5">PO: {data[0]?.PO_NO} | MTL NAME: {data[0]?.MTL_NAME}</td>
-      </tr>
+      {/* <tr style={{ fontSize: "11px" }} className="font-bold">
+        <td colSpan={9} className="border border-gray-950 p-0.5">PO: {data[0]?.PO_NO} | MTL NAME: {data[0]?.MTL_NAME}</td>
+      </tr> */}
       {uniqueKeysArray?.map((key) => (
         <ReportSubgroup
           key={key}
@@ -72,14 +72,14 @@ function ReportTable({
         ></ReportSubgroup>
       ))}
 
-      <tr style={{ fontSize: "11px" }} className="font-bold">
+      {/* <tr style={{ fontSize: "11px" }} className="font-bold">
         <td colSpan={6} className="border border-gray-950 p-0.5 text-center">Sub Total</td>
-        <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.5">{totalIsseQty.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.5">{(totalQuantiy - totalIsseQty).toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.5"></td>
+        <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(2)}</td> */}
+      {/* <td className="border border-gray-950 p-0.5">{totalIsseQty.toFixed(2)}</td> */}
+      {/* <td className="border border-gray-950 p-0.5">{(totalQuantiy - totalIsseQty).toFixed(2)}</td> */}
+      {/* <td className="border border-gray-950 p-0.5"></td>
         <td className="border border-gray-950 p-0.5">{totalAmount.toFixed(2)}</td>
-      </tr>
+      </tr> */}
     </>
   );
 }

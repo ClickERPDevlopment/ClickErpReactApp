@@ -77,7 +77,8 @@ function MaterialOrderYarnDyeingReport() {
     </>
   ) : (
     <>
-      <div>
+      <div className="min-w-[90%]">
+        {/* <YarnDyeingWOReportFame data={data} /> */}
         {
           client.currentClient == client.FAME
             ? <YarnDyeingWOReportFame data={data} />
