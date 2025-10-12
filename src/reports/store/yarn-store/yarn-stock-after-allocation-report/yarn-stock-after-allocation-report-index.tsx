@@ -18,17 +18,17 @@ function YarnStockAfterAlloctionReport() {
 
   const [searchParams] = useSearchParams();
 
-  let companyId = searchParams.get("companyId") || "0";
-  let dtDate = searchParams.get("dtDate") || new Date().toISOString();
-  let txtBBLCId = searchParams.get("txtBBLCId") || "0";
-  let txtWOId = searchParams.get("txtWOId") || "0";
-  let txtYarnBrandId = searchParams.get("txtYarnBrandId") || "0";
-  let txtYarnLotId = searchParams.get("txtYarnLotId") || "0";
-  let txtYarnNameId = searchParams.get("txtYarnNameId") || "0";
-  let txtYarnCountId = searchParams.get("txtYarnCountId") || "0";
-  let chOnlyWhiteLot = searchParams.get("chOnlyWhiteLot") == "True";
-  let isYarnDyed = searchParams.get("isYarnDyed") == "True";
-  let isNormalYarn = searchParams.get("isNormalYarn") == "True";
+  const companyId = searchParams.get("companyId") || "0";
+  const dtDate = searchParams.get("dtDate") || new Date().toISOString();
+  const txtBBLCId = searchParams.get("txtBBLCId") || "0";
+  const txtWOId = searchParams.get("txtWOId") || "0";
+  const txtYarnBrandId = searchParams.get("txtYarnBrandId") || "0";
+  const txtYarnLotId = searchParams.get("txtYarnLotId") || "0";
+  const txtYarnNameId = searchParams.get("txtYarnNameId") || "0";
+  const txtYarnCountId = searchParams.get("txtYarnCountId") || "0";
+  const chOnlyWhiteLot = searchParams.get("chOnlyWhiteLot") == "True";
+  const isYarnDyed = searchParams.get("isYarnDyed") == "True";
+  const isNormalYarn = searchParams.get("isNormalYarn") == "True";
 
   const api = useApiUrl();
 

@@ -9,5 +9,29 @@ export default function useAppClient() {
   const PRESENTATION = "PRESENTATION";
   const FAME = "FAME";
 
-  return { currentClient, NUR, ICCL, VERSATILE, AG, EURO, FAME, PRESENTATION };
+  const isFame = currentClient === FAME;
+  const isPresentation = currentClient === PRESENTATION;
+  const isEuro = currentClient === EURO;
+  const isAg = currentClient === AG;
+  const isVersatile = currentClient === VERSATILE;
+  const isIccl = currentClient === ICCL;
+  const isNur = currentClient === NUR;
+
+  return {
+    currentClient,
+    NUR,
+    ICCL,
+    VERSATILE,
+    AG,
+    EURO,
+    FAME,
+    PRESENTATION,
+    isFame,
+    isPresentation,
+    isEuro,
+    isAg,
+    isVersatile,
+    isIccl,
+    isNur
+  };
 }
