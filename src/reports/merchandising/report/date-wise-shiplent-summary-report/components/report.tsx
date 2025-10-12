@@ -11,6 +11,7 @@ function Report({
   data: DateWiseShiplentSummaryReportType[];
   searchParams: { toDate: any; fromDate: any };
 }) {
+  
   //set table header
   const firstHeader = [
     "CHALLAN DATE",
@@ -87,6 +88,7 @@ function Report({
             </tr>
           </thead>
           <tbody>
+
             {
               uniqueKeysArray.map((key) => {
                 const group = groupedByDate[key];

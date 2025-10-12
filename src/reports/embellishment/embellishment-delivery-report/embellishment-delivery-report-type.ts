@@ -1,6 +1,7 @@
 export type EmbellishmentDeliveryReportType = {
   DELIVERY_CHALLAN_NO?: string;
   SUPPLIER?: string;
+  SUPPLIER_ADDRESS?: string;
   DELIVERY_DATE: Date;
   WORK_ORDER_NO?: string;
   EMBELLISHMENT_ORDERNO?: string;

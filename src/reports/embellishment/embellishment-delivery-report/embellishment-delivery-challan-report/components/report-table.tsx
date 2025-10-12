@@ -46,7 +46,7 @@ function ReportTable({
       result[key].SIZES[item.SIZE_NAME] += Number(item.DELIVERY_QTY);
       result[key].TOTAL_DELIVERY_QTY += Number(item.DELIVERY_QTY) || 0;
 
-      grandTotal.TOTAL_QTY += Number(item.WORK_ORDER_QTY) || 0;
+      grandTotal.TOTAL_QTY += Number(item.DELIVERY_QTY) || 0;
 
       return result;
     }, {});
