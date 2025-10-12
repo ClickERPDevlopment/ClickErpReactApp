@@ -50,12 +50,12 @@ function Report({
               </tr>
               <tr>
                 <td className="font-semibold pr-2">Managing Director<br></br>
-                  {data?.RELATED_SUPPLIER_NAME}
+                  <span style={{ fontSize: "14px" }}>{data?.RELATED_SUPPLIER_NAME}</span>
                 </td>
                 <td> </td>
               </tr>
               <tr>
-                <td className="font-semibold pr-2">{data?.SUPPLIER_ADDRESS}
+                <td style={{ fontSize: "12px" }} className="font-semibold pr-2">{data?.SUPPLIER_ADDRESS}
                 </td>
                 <td> </td>
               </tr>
@@ -88,6 +88,33 @@ function Report({
         <p className="mb-1 font-bold">Dear Sir,</p>
         <div className="whitespace-pre-wrap">{data?.REMARKS}</div>
       </div>
+
+
+      {/* Related Orders */}
+      {data?.RelatedOrders && data.RelatedOrders.length > 0 && (
+        <table className="border border-gray-950 border-collapse w-1/2 mt-5 text-center">
+          <thead>
+            <tr className="bg-gray-100">
+              {secondHeader.map((item, index) => (
+                <th key={index} className="border border-gray-950 px-2 py-1 font-semibold">
+                  {item}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.RelatedOrders.map((item, index) => (
+              <tr key={index}>
+                <td className="border border-gray-950 py-1">{index + 1}</td>
+                <td className="border border-gray-950">{item.BUYER_NAME}</td>
+                <td className="border border-gray-950">{item.STYLE_NAME}</td>
+                <td className="border border-gray-950">{item.PO_NO}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
 
       {/* Claim Details Table */}
       <table className="w-full border border-gray-950 border-collapse mt-4 text-center">
@@ -128,30 +155,6 @@ function Report({
         </tbody>
       </table>
 
-      {/* Related Orders */}
-      {data?.RelatedOrders && data.RelatedOrders.length > 0 && (
-        <table className="border border-gray-950 border-collapse w-1/2 mt-5 text-center">
-          <thead>
-            <tr className="bg-gray-100">
-              {secondHeader.map((item, index) => (
-                <th key={index} className="border border-gray-950 px-2 py-1 font-semibold">
-                  {item}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.RelatedOrders.map((item, index) => (
-              <tr key={index}>
-                <td className="border border-gray-950 py-1">{index + 1}</td>
-                <td className="border border-gray-950">{item.BUYER_NAME}</td>
-                <td className="border border-gray-950">{item.STYLE_NAME}</td>
-                <td className="border border-gray-950">{item.PO_NO}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
 
       {/* Additional Notes */}
       {data?.ADDITIONAL_NOTES && (
@@ -161,14 +164,14 @@ function Report({
         </div>
       )}
 
-      <div>
+      <div className="mt-2">
         <p>
           We claimed a total amount of{" "}
           <span className="font-bold">
             {totalClaimAmount?.toLocaleString("en-BD")} (
             {toWords.convert(totalClaimAmount || 0).toUpperCase()} TAKA ONLY)
           </span>{" "}
-          against our claim. Please do the needful and oblige with your kind
+          against our claim. Please do the needful and oblige with your supreme
           cooperation.
         </p>
       </div>

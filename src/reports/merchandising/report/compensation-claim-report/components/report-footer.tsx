@@ -3,9 +3,8 @@ import { ICompensationClaimMasterType } from "../compensation-claim-report-type"
 function ReportFooter({ data }: { data: ICompensationClaimMasterType | undefined }) {
   // Signature labels
   const signatures = [
-    { name: data?.CREATED_BY_NAME || "", label: "Prepared By" },
     { name: "", label: "Received By" },
-    { name: "", label: "Quality In Charge" },
+    { name: data?.CREATED_BY_NAME || "", label: "Prepared By" },
     { name: "", label: "In Charge" },
     { name: "", label: "Quality Manager" },
     { name: "", label: "Knitting Manager" },
@@ -16,7 +15,7 @@ function ReportFooter({ data }: { data: ICompensationClaimMasterType | undefined
 
   return (
     <div>
-      <table className="w-full text-center border-0">
+      <table style={{ fontSize: "11px" }} className="w-full text-center border-0">
         <tbody>
           <tr>
             {signatures.map((sig, idx) => (
@@ -28,7 +27,7 @@ function ReportFooter({ data }: { data: ICompensationClaimMasterType | undefined
           <tr>
             {signatures.map((sig, idx) => (
               <td key={idx} className="px-2 border-0">
-                <span className="block border-t border-gray-950 text-sm">{sig.label}</span>
+                <span className="block border-t border-gray-950">{sig.label}</span>
               </td>
             ))}
           </tr>

@@ -72,7 +72,7 @@ function CompensationClaimReport() {
       {/* Footer text */}
       <div className="mt-4">
         <ReportFooter data={data} />
-        <p className="text-center text-sm text-gray-950 mt-2">
+        <p className="text-center text-sm text-gray-950 mt-2" style={{ marginBottom: "97px" }}>
           ***This is the ERP generated document***
         </p>
       </div>
