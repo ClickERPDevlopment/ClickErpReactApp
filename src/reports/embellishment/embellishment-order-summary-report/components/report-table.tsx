@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-details-report-type";
+import { EmbellishmentOrderSummaryReportType } from "../embellishment-order-summary-report-type";
 import ReportGroup from "./report-group";
 
 function ReportTable({
   data,
   firstHeader,
 }: {
-  data: EmbellishmentOrderDetailsReportType[];
+  data: EmbellishmentOrderSummaryReportType[];
   firstHeader: string[] | null;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
-    data: EmbellishmentOrderDetailsReportType[],
+    data: EmbellishmentOrderSummaryReportType[],
     keys: string[]
   ) {
     return data.reduce((result: any, item: any) => {
@@ -32,7 +32,7 @@ function ReportTable({
 
   interface GroupedByDate {
     [key: string]: {
-      items: EmbellishmentOrderDetailsReportType[];
+      items: EmbellishmentOrderSummaryReportType[];
     };
   }
 
@@ -56,7 +56,7 @@ function ReportTable({
         ></ReportGroup>
       ))}
 
-      
+
     </>
   );
 }

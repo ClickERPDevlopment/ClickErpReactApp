@@ -1,10 +1,10 @@
 import moment from "moment";
-import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-details-report-type";
+import { EmbellishmentOrderSummaryReportType } from "../embellishment-order-summary-report-type";
 
 function ReportSubgroup({
   data
 }: {
-  data: EmbellishmentOrderDetailsReportType[];
+  data: EmbellishmentOrderSummaryReportType[];
   firstHeader: string[] | null;
   index: number;
 }) {
@@ -35,6 +35,11 @@ function ReportSubgroup({
     0
   );
 
+  const totalRejectQty = data.reduce(
+    (acc, item) => acc + (item.REJECT_QTY || 0),
+    0
+  );
+
   return (
     <>
       <tr style={{ fontSize: "14px" }}>
@@ -56,6 +61,7 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5 text-center">{totalProdQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalDelQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalProdQty - totalDelQty}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{totalRejectQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{data[0]?.BUDGET_STATUS}</td>
       </tr>
     </>
