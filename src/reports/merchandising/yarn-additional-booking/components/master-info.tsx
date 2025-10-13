@@ -5,8 +5,7 @@ export default function MasterIfo({ masterInfo }: { masterInfo?: YarnAdditionalB
     return (
         <div className='w-full'>
             <h1 className='text-center text-2xl font-bold'>{masterInfo?.COMPANY_NAME}</h1>
-            <h1 className=' text-center text-lg font-bold'>SHORT FABRIC BOOKING</h1>
-            <h1 className=' text-center text-lg font-bold mt-3'>{masterInfo?.ISSUE_TYPE}</h1>
+            <h1 className=' text-center text-lg font-bold'>{masterInfo?.ISSUE_TYPE}</h1>
             <div className='flex justify-between gap-2 mt-5'>
                 <ul className='basis-4/12 print:basis-6/12'>
                     <li>
