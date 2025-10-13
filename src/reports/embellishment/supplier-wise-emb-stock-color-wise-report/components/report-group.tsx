@@ -50,10 +50,10 @@ function ReportGroup({
   const peRcv = data?.reduce((acc, item) => acc + item.PE_RECEIVEQTY, 0)
   const wRcv = data?.reduce((acc, item) => acc + item.W_RECEIVEQTY, 0)
 
-  const pProcess = data?.reduce((acc, item) => acc + item.P_PROCESS_QTY, 0)
-  const eProcess = data?.reduce((acc, item) => acc + item.E_PROCESS_QTY, 0)
-  const peProcess = data?.reduce((acc, item) => acc + item.PE_PROCESS_QTY, 0)
-  const wProcess = data?.reduce((acc, item) => acc + item.W_PROCESS_QTY, 0)
+  const pProcess = data?.reduce((acc, item) => acc + item.P_SENDQTY, 0)
+  const eProcess = data?.reduce((acc, item) => acc + item.E_SENDQTY, 0)
+  const peProcess = data?.reduce((acc, item) => acc + item.PE_SENDQTY, 0)
+  const wProcess = data?.reduce((acc, item) => acc + item.W_SENDQTY, 0)
 
   const pStock = data?.reduce((acc, item) => acc + item.P_STOCK, 0)
   const eStock = data?.reduce((acc, item) => acc + item.E_STOCK, 0)
@@ -78,19 +78,19 @@ function ReportGroup({
       })}
       <tr style={{ fontSize: "12px" }} className="font-bold">
         <td colSpan={5} className="border border-gray-950 p-0.1 text-center">Buyer Total</td>
-        <td className="border border-gray-950 p-0.1 text-center">{orderQty.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{pRcv.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{eRcv.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{peRcv.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{wRcv.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{pProcess.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{eProcess.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{peProcess.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{wProcess.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{pStock.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{eStock.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{peStock.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.1 text-center">{wStock.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{orderQty}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{pRcv}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{eRcv}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{peRcv}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{wRcv}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{pProcess}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{eProcess}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{peProcess}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{wProcess}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{pStock}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{eStock}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{peStock}</td>
+        <td className="border border-gray-950 p-0.1 text-center">{wStock}</td>
         <td className="border border-gray-950 p-0.1">{ }</td>
       </tr>
     </>

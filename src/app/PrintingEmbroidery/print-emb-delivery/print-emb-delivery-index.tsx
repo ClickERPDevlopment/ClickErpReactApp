@@ -43,6 +43,11 @@ function PrintEmbDeliveryIndex() {
     error
   } = GetPrintEmbDelivery<PrintEmbDeliveryMasterType>();
 
+
+  console.log(printEmbDeliveryData);
+
+
+
   if (isError) {
     return (
       <Alert variant="destructive">

@@ -362,6 +362,11 @@ export default function PrintEmbDeliveryForm({
 
     data.PrintEmbDeliveryDetails = (detailsData || []).filter(item => item.DELIVERY_QTY || 0 > 0);
 
+    if (data.PrintEmbDeliveryDetails.length <= 0) {
+      toast.info("Details data cannot be empty");
+      return;
+    }
+
     mutation.mutate(data, {
       onSuccess: (_response) => {
         console.log("Mutation successful:", _response);

@@ -97,33 +97,32 @@ export function PrintEmbDeliveryTable({
     },
 
     {
-      accessorKey: "PrintEmbDeliveryDetails",
+      id: "BUYER",
       header: "Buyer",
       cell: ({ row }) => {
-        const details = row.getValue("PrintEmbDeliveryDetails") as Array<any> || [];
+        const details = row.original.PrintEmbDeliveryDetails || [];
         const buyers = [...new Set(details.map((d) => d.BUYER))];
-        return <div className="capitalize">{buyers.join(", ")}</div>;
+        return <div>{buyers.join(", ")}</div>;
       },
     },
     {
-      accessorKey: "PrintEmbDeliveryDetails",
+      id: "STYLE",
       header: "Style",
       cell: ({ row }) => {
-        const details = row.getValue("PrintEmbDeliveryDetails") as Array<any> || [];
+        const details = row.original.PrintEmbDeliveryDetails || [];
         const styles = [...new Set(details.map((d) => d.STYLE))];
-        return <div className="capitalize">{styles.join(", ")}</div>;
+        return <div>{styles.join(", ")}</div>;
       },
     },
     {
-      accessorKey: "PrintEmbDeliveryDetails",
+      id: "PO_NO",
       header: "PO",
       cell: ({ row }) => {
-        const details = row.getValue("PrintEmbDeliveryDetails") as Array<any> || [];
+        const details = row.original.PrintEmbDeliveryDetails || [];
         const pos = [...new Set(details.map((d) => d.PO_NO))];
-        return <div className="capitalize">{pos.join(", ")}</div>;
+        return <div>{pos.join(", ")}</div>;
       },
     },
-
 
     {
       id: "actions",

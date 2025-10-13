@@ -30,16 +30,16 @@ function ReportSummary({
             {data[0].BUYER_NAME}
           </td>
           <td className="border border-gray-300 p-1">
-            {totalRequired && totalRequired.toFixed(2)}
+            {totalRequired && totalRequired}
           </td>
           <td className="border border-gray-300 p-1">
-            {totalDayReceive && totalDayReceive.toFixed(2)}
+            {totalDayReceive && totalDayReceive}
           </td>
           <td className="border border-gray-300 p-1">
-            {totalReceive && totalReceive.toFixed(2)}
+            {totalReceive && totalReceive}
           </td>
           <td className="border border-gray-300 p-1">
-            {totalBalance && totalBalance.toFixed(2)}
+            {totalBalance && totalBalance}
           </td>
         </tr>
       }
