@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportTable from "./report-table";
 import ReportHeader from "./report-header";
-import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-details-report-type";
+import { EmbellishmentOrderSummaryReportType } from "../embellishment-order-summary-report-type";
 
 function Report({
   data,
   searchParamsObj
 }: {
-  data: EmbellishmentOrderDetailsReportType[];
+  data: EmbellishmentOrderSummaryReportType[];
   searchParamsObj: { fromDate: string; toDate: string; buyerId: string; styleId: string; poId: string; typeId: string; };
 }) {
 
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
-    data: EmbellishmentOrderDetailsReportType[],
+    data: EmbellishmentOrderSummaryReportType[],
     keys: string[]
   ) {
     return data.reduce((result: any, item: any) => {
@@ -33,7 +33,7 @@ function Report({
 
   interface IGroupedData {
     [key: string]: {
-      items: EmbellishmentOrderDetailsReportType[];
+      items: EmbellishmentOrderSummaryReportType[];
     };
   }
 
@@ -66,6 +66,7 @@ function Report({
     "Prod Qty",
     "Del Qty",
     "Del Bal",
+    "Reject Qty",
     "Budget Status",
   ];
 
@@ -94,6 +95,12 @@ function Report({
     0
   );
 
+  const totalRejectQty = data.reduce(
+    (acc, item) => acc + (item.REJECT_QTY || 0),
+    0
+  );
+
+
   return (
     <div style={{ fontFamily: "Times New Roman, serif" }}
       className="px-12 text-gray-950">
@@ -114,7 +121,7 @@ function Report({
           <tbody>
             {uniqueKeysArray?.map((key) => (<>
               <tr style={{ fontSize: "14px" }} className="font-bold">
-                <td colSpan={19} className="border border-gray-950 p-0.5">Emb Type: {groupedData[key]?.items[0]?.EMBELLISHMENT_TYPE}</td>
+                <td colSpan={20} className="border border-gray-950 p-0.5">Emb Type: {groupedData[key]?.items[0]?.EMBELLISHMENT_TYPE}</td>
               </tr>
               <ReportTable
                 key={key}
@@ -132,6 +139,7 @@ function Report({
               <td className="border border-gray-950 p-0.5 text-center">{totalProdQty}</td>
               <td className="border border-gray-950 p-0.5 text-center">{totalDelQty}</td>
               <td className="border border-gray-950 p-0.5 text-center">{totalProdQty - totalDelQty}</td>
+              <td className="border border-gray-950 p-0.5 text-center">{totalRejectQty}</td>
               <td className="border border-gray-950 p-0.5 text-center">{ }</td>
             </tr>
           </tbody>

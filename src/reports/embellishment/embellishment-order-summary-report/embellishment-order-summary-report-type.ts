@@ -1,5 +1,5 @@
-export type EmbellishmentOrderDetailsReportType = {
-  IEMBELLISHMENT_ORDERNO: string;
+export type EmbellishmentOrderSummaryReportType = {
+  EMBELLISHMENT_ORDERNO: string;
   WO_ID: number;
   BUYER_ID: number;
   STYLE_ID: number;
@@ -8,7 +8,6 @@ export type EmbellishmentOrderDetailsReportType = {
   OS_STYLE_ID: number;
   OS_PO_ID: number;
   COLOR_ID: number;
-  SIZE_ID: number;
   EMBELLISHMENT_TYPE_ID: number;
   SUPPLIER: string;
   WORK_ORDER_NO: string;
@@ -20,17 +19,17 @@ export type EmbellishmentOrderDetailsReportType = {
   OS_BUYER: string;
   OS_STYLE: string;
   OS_PO_NO: string;
-  WORK_ORDER_DATE: Date;
-  ASKING_DELIVERY_DATE: Date;
+  WORK_ORDER_DATE: string;
+  ASKING_DELIVERY_DATE: string;
   RECEIVE_TYPE: string;
-  SIZE_NAME: string;
   EMBELLISHMENT_TYPE: string;
   EMBELLISHMENT_CATEGORY: string;
   PARTS: string;
   WO_QTY: number;
   RATE: number;
+  BUDGET_STATUS: string;
   RCV_QTY: number;
   PRO_QTY: number;
   DELIVERY_QTY: number;
-  BUDGET_STATUS: string;
+  REJECT_QTY: number;
 };

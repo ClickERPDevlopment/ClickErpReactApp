@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportSubgroup from "./report-subgroup";
-import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-details-report-type";
+import { EmbellishmentOrderSummaryReportType } from "../embellishment-order-summary-report-type";
 
 function ReportGroup({
   data,
   firstHeader,
 }: {
-  data: EmbellishmentOrderDetailsReportType[];
+  data: EmbellishmentOrderSummaryReportType[];
   firstHeader: string[] | null;
 }) {
 
   const uniqueKeys: Set<string> = new Set();
 
   function groupBy(
-    data: EmbellishmentOrderDetailsReportType[],
+    data: EmbellishmentOrderSummaryReportType[],
     keys: string[]
   ) {
     return data.reduce((result: any, item: any) => {
@@ -32,7 +32,7 @@ function ReportGroup({
 
   interface GroupedByDate {
     [key: string]: {
-      items: EmbellishmentOrderDetailsReportType[];
+      items: EmbellishmentOrderSummaryReportType[];
     };
   }
 
@@ -71,6 +71,11 @@ function ReportGroup({
     0
   );
 
+  const totalRejectQty = data.reduce(
+    (acc, item) => acc + (item.REJECT_QTY || 0),
+    0
+  );
+
   return (
     <>
       {uniqueKeysArray?.map((key, index) => (
@@ -91,7 +96,8 @@ function ReportGroup({
         <td className="border border-gray-950 p-0.5 text-center">{totalProdQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalDelQty}</td>
         <td className="border border-gray-950 p-0.5 text-center">{totalProdQty - totalDelQty}</td>
-        <td className="border border-gray-950 p-0.5 text-center">{}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{totalRejectQty}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{ }</td>
       </tr>
     </>
   );

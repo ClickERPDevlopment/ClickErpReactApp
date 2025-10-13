@@ -7,10 +7,10 @@ import Report from "./components/report";
 import Skeleton from "react-loading-skeleton";
 import TableSkeleton from "@/components/table-skeleton";
 import useApiUrl from "@/hooks/use-ApiUrl";
-import { EmbellishmentOrderDetailsReportType } from "./embellishment-order-details-report-type";
+import { EmbellishmentOrderSummaryReportType } from "./embellishment-order-summary-report-type";
 
 function EmbellishmentOrderSummaryReport() {
-  const [data, setData] = useState<EmbellishmentOrderDetailsReportType[]>(
+  const [data, setData] = useState<EmbellishmentOrderSummaryReportType[]>(
     []
   );
 
@@ -50,7 +50,7 @@ function EmbellishmentOrderSummaryReport() {
   useEffect(() => {
     async function getData() {
 
-      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentOrderDetailsReport?fromDate=${fromDate}&toDate=${toDate}&supplierId=${supplierId}&woId=${woId}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&typeId=${typeId}&budgetDone=${budgetDone}&budgetNotDone=${budgetNotDone}`;
+      const url = `${api.ProductionUrl}/production/EmbReport/EmbellishmentOrderSummaryReport?fromDate=${fromDate}&toDate=${toDate}&supplierId=${supplierId}&woId=${woId}&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}&typeId=${typeId}&budgetDone=${budgetDone}&budgetNotDone=${budgetNotDone}`;
 
       try {
         setIsLoading(true);

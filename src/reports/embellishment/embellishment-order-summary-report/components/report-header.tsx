@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-details-report-type";
+import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-summary-report-type";
 
 function ReportHeader({
   searchParamsObj,
