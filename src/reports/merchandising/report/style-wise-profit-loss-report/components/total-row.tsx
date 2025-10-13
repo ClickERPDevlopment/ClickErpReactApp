@@ -10,8 +10,13 @@ export default function TotalRow({ data, title }: props) {
 
   return (
     <tr className={cn("border-t border-gray-500 font-bold bg-violet-100")} >
-      <td className="text-balance  text-center p-1" colSpan={4}>
+      <td className="text-balance  text-center p-1" colSpan={3}>
         {title ?? 'Total'}
+      </td>
+      <td className=" text-balance  text-center p-1">
+        {
+          data.reduce((p, c) => p + c.ORDER_QTY, 0).toFixed(2)
+        }
       </td>
       <td className=" text-balance  text-center p-1">
         {
