@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
 import { SewingInputChallanReportType } from "../sewing-input-challan-report-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 function ReportHeader({
   data,
@@ -10,9 +11,15 @@ function ReportHeader({
   reportName: string
 }) {
 
+
+  const client = useAppClient();
+
   return (
     <div className="w-[100%]">
-      <p className="text-sm font-bold">{moment().format("DD-MMM-YY hh:mm A")}</p>
+      {
+        client.currentClient == client.FAME ? <p className="text-sm font-bold">{moment().format("DD-MMM-YY")}</p> : <p className="text-sm font-bold">{moment().format("DD-MMM-YY hh:mm A")}</p>
+      }
+
       <h1 className="font-bold text-sm text-center">
         {
           data[0]?.COMPANYNAME
