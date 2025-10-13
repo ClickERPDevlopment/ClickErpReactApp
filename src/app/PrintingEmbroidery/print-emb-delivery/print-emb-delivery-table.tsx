@@ -101,8 +101,15 @@ export function PrintEmbDeliveryTable({
       header: "Buyer",
       cell: ({ row }) => {
         const details = row.original.PrintEmbDeliveryDetails || [];
-        const buyers = [...new Set(details.map((d) => d.BUYER))];
-        return <div>{buyers.join(", ")}</div>;
+
+        const allBuyers = [
+          ...details.map((d) => d.BUYER),
+          ...details.map((d) => d.OS_BUYER),
+        ].filter(Boolean);
+
+        const uniqueBuyers = [...new Set(allBuyers)];
+
+        return <div>{uniqueBuyers.join(", ")}</div>;
       },
     },
     {
@@ -110,8 +117,15 @@ export function PrintEmbDeliveryTable({
       header: "Style",
       cell: ({ row }) => {
         const details = row.original.PrintEmbDeliveryDetails || [];
-        const styles = [...new Set(details.map((d) => d.STYLE))];
-        return <div>{styles.join(", ")}</div>;
+
+        const allStyles = [
+          ...details.map((d) => d.STYLE),
+          ...details.map((d) => d.OS_STYLE),
+        ].filter(Boolean);
+
+        const uniqueStyles = [...new Set(allStyles)];
+
+        return <div>{uniqueStyles.join(", ")}</div>;
       },
     },
     {
@@ -119,8 +133,15 @@ export function PrintEmbDeliveryTable({
       header: "PO",
       cell: ({ row }) => {
         const details = row.original.PrintEmbDeliveryDetails || [];
-        const pos = [...new Set(details.map((d) => d.PO_NO))];
-        return <div>{pos.join(", ")}</div>;
+
+        const allPos = [
+          ...details.map((d) => d.PO_NO),
+          ...details.map((d) => d.OS_PO_NO),
+        ].filter(Boolean);
+
+        const uniquePos = [...new Set(allPos)];
+
+        return <div>{uniquePos.join(", ")}</div>;
       },
     },
 
