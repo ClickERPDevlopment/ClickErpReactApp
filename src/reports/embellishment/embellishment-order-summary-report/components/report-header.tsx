@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
-import { EmbellishmentOrderDetailsReportType } from "../embellishment-order-summary-report-type";
+import { EmbellishmentOrderSummaryReportType } from "../embellishment-order-summary-report-type";
 
 function ReportHeader({
   searchParamsObj,
 }: {
-  data: EmbellishmentOrderDetailsReportType[];
+  data: EmbellishmentOrderSummaryReportType[];
   searchParamsObj: { fromDate: string; toDate: string; buyerId: string; styleId: string; poId: string; typeId: string; }
 }) {
 
