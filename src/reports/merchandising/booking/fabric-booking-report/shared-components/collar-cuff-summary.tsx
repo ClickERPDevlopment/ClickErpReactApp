@@ -13,22 +13,6 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
         ).values()
     );
 
-    // let uniqueSizeCombos = Array.from(
-    //     new Map(
-    //         data?.filter(item => item.GMT_SIZE && item.FINISHDIA)
-    //             .map(item => [
-    //                 `${item.GMT_SIZE}__${item.FINISHDIA}`, // composite key
-    //                 { GMT_SIZE: item?.GMT_SIZE, FINISHDIA: item?.FINISHDIA, SORTING_NO: 0 }
-    //             ])
-    //     ).values()
-    // );
-
-    // uniqueSizeCombos?.forEach(element => {
-    //     element.SORTING_NO = lstSize?.filter(s => s?.SIZENAME == element?.GMT_SIZE)[0]?.SORTINGNO ?? 0;
-    // });
-
-    // uniqueSizeCombos = uniqueSizeCombos?.sort((a, b) => a.SORTING_NO - b.SORTING_NO);
-
     function getUniqueSizeCombosByFabricNPart(fabric?: string, part?: string) {
         let uniqueSizeCombos = Array.from(
             new Map(
@@ -97,25 +81,6 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
         return lst ? lst.reduce((p, c) => p + Number(c.TOTALFINISHFABRICS), 0).toFixed(0) : 0;
     }
 
-    // function get_RowYarnName({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
-    //     const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
-    //     const yarns = Array.from(
-    //         new Set(lst?.map(item => item.YARNCOUNT).filter((s): s is string => !!s))
-    //     );
-    //     return yarns;
-    // }
-
-
-    // function get_RowYarnQty({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
-    //     const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
-    //     return lst ? lst.reduce((p, c) => p + Number(c.TOTALYARN), 0).toFixed(0) : 0;
-    // }
-
-    // function get_TotalYarnQty({ FABRICATION, PARTS }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
-    //     const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS);
-    //     return lst ? lst.reduce((p, c) => p + Number(c.TOTALYARN), 0).toFixed(0) : 0;
-    // }
-
     function get_RowGsm({ FABRICATION, PARTS, GMTCOLOR, FABRICCOLOR }: { FABRICATION?: string, PARTS?: string, GMTCOLOR?: string, FABRICCOLOR?: string }) {
         const lst = data?.filter(f => f.FABRICATION == FABRICATION && f.PARTS == PARTS && f.GMTCOLOR == GMTCOLOR && f.FABRICCOLOR == FABRICCOLOR);
         const yarns = Array.from(
@@ -127,8 +92,8 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
 
         <div>
             {
-                uniqueFabricCombos?.map(fabric_part =>
-                    <table>
+                uniqueFabricCombos?.map((fabric_part, mindex) =>
+                    <table key={mindex}>
                         <thead>
                             <tr>
                                 <th colSpan={5 + getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS)?.length} className='border border-gray-600'>{fabric_part.FABRICATION} - Color Size Breakdown in Pcs</th>
@@ -153,12 +118,12 @@ export default function CollarCuffSummary({ lstFabricQtyDetails, lstSize }: { ls
                             </tr>
                         </thead>
                         <tbody>
-                            {getUniqueGmtAndFabricColorByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((color, i) =>
-                                <tr key={i}>
+                            {getUniqueGmtAndFabricColorByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((color, index) =>
+                                <tr key={index}>
                                     <td className='border border-gray-600 p-1 text-xs text-center'>{color.GMTCOLOR}</td>
                                     <td className='border border-gray-600 p-1 text-xs text-center'>{color.FABRICCOLOR}</td>
                                     {getUniqueSizeCombosByFabricNPart(fabric_part.FABRICATION, fabric_part.PARTS).map((s, i) =>
-                                        <td className='border border-gray-600 min-w-16 text-xs text-center' key={i}>
+                                        <td className='border border-gray-600 min-w-16 text-xs text-center' key={i + index}>
                                             {
                                                 get_SizeQy({ FABRICATION: fabric_part.FABRICATION, PARTS: fabric_part.PARTS, GMTCOLOR: color.GMTCOLOR, FABRICCOLOR: color.FABRICCOLOR, GMT_SIZE: s.GMT_SIZE, FINISHDIA: s.FINISHDIA })
                                             }

@@ -16,7 +16,7 @@ export default function YarnRequirementSummary({ lstYarnSummary }: { lstYarnSumm
                 </thead>
                 <tbody>
                     {lstYarnSummary?.map((ele, i) =>
-                        <tr>
+                        <tr key={i}>
                             <td className='border border-gray-600 text-center text-xs'>{i + 1}</td>
                             <td className='border border-gray-600 text-center text-xs'>{ele.YARN}</td>
                             <td className='border border-gray-600 text-center text-xs'>{ele.BOOKING_QTY}</td>

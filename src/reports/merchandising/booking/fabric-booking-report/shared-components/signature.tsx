@@ -6,8 +6,8 @@ export default function Signature({ masterData, signatureData }: {
 }) {
     return (
         <div className="flex justify-around items-center my-5 flex-wrap">
-            {signatureData.map(({ title, access_key }) => (
-                <div key={access_key} className="w-32 flex flex-col">
+            {signatureData.map(({ title, access_key }, index) => (
+                <div key={access_key + index} className="w-32 flex flex-col">
                     <div className="text-center min-h-[24px]">
                         <span>{masterData?.[access_key as keyof FabricBookingReportDto_MasterData]}</span>
                     </div>
