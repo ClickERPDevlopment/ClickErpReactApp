@@ -1,3 +1,4 @@
+import useAppCalculation from "@/hooks/use-app-calculation";
 import { FabricBookingReportDto_FabricQtyDetails, FabricBookingReportDto_WastagePercentage } from "../../fabric-booking-type";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +14,8 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
     const collarCuffData = lstFabricQtyDetails?.filter(e => e.IS_CONSIDER_AS_RIB_FOR_REPORT == "1");
     collarCuffData?.forEach(element => { element.PO = (element.PO ?? 'NA') });
 
+    const calculation = useAppCalculation();
+
     // console.log('collarCuffData', collarCuffData);
     const uniqueCollarCuff = Array.from(
         new Map(
@@ -21,7 +24,7 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                 .map(item => [
                     `${(item?.PO)}__${item?.ARTSTYLE}__${item?.PARTS}__${item?.FABRICATION}__${item?.YARNCOUNT}__${item?.GMTCOLOR}__${item?.FABRICCOLOR}__${item?.UOM}`, // composite key
                     {
-                        PO: (item?.PO == 'NA' ? '' : item?.PO),
+                        PO: item?.PO,
                         ARTSTYLE: item?.ARTSTYLE,
                         PARTS: item?.PARTS,
                         FABRICATION: item?.FABRICATION,
@@ -136,6 +139,35 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
 
         const avg = count > 0 ? totalQty / count : 0;
         return avg.toFixed(2);
+    }
+
+
+    function getAvgWastagePercentage(
+        item: {
+            PO: string | undefined;
+            ARTSTYLE: string | undefined;
+            PARTS: string | undefined;
+            FABRICATION: string | undefined;
+            YARNCOUNT: string | undefined;
+            GMTCOLOR: string | undefined;
+            FABRICCOLOR: string | undefined;
+            UOM: string | undefined;
+        },
+        fieldName: keyof FabricBookingReportDto_WastagePercentage
+    ) {
+        try {
+            const wastage = lstWastagePercentage?.filter(_ =>
+                _.FABRIC == item.FABRICATION &&
+                _.GMT_PART == item.PARTS &&
+                _.GMT_COLOR == item.GMTCOLOR &&
+                _.FABRIC_COLOR == item.FABRICCOLOR
+            );
+
+            return calculation.CalculateAverage(fieldName, wastage);
+
+        } catch (error) {
+            console.log("Error calculating average quantity:", error);
+        }
     }
 
     const Row = ({ ele }: { ele: FabricBookingReportDto_FabricQtyDetails }) => {
@@ -272,8 +304,8 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
                             <td className='border border-gray-600 text-sm text-center'></td>
                             <td className='border border-gray-600 text-sm text-center'></td>
                             <td className='border border-gray-600 text-sm text-center'></td>
-                            <td className='border border-gray-600 text-sm text-center'></td>
-                            <td className='border border-gray-600 text-sm text-center'></td>
+                            <td className='border border-gray-600 text-sm text-center'>{getAvgWastagePercentage(ele, "FABRIC_WASTAGE_PERCENTAGE_BUGET")}</td>
+                            <td className='border border-gray-600 text-sm text-center'>{getAvgWastagePercentage(ele, "GMT_WASTAGE_PERCENTAGE_BUDGET")}</td>
                             <td className='border border-gray-600 text-sm text-center'>{getAvgQty(ele, "FACTORY_TOTAL_GREY_BOOKING_CON_PERPCS_GMT")}</td>
                             <td className='border border-gray-600 text-sm text-center'>{getAvgQty(ele, "TOTALFINISHCONJDZN")}</td>
                             <td className='border border-gray-600 text-sm text-center'>{getCollarCuffQty(ele, "TOTALFINISHFABRICS")}</td>
