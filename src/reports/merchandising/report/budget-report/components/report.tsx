@@ -141,7 +141,7 @@ function Report({
 
   return (
     <div style={{ fontFamily: "Times New Roman, serif", fontSize: "12px" }}
-      className="px-12 text-gray-950">
+      className="px-12 text-gray-950 mt-10">
       <div className="p-2">
 
         <div className="print:hidden text-right mb-2">
@@ -152,7 +152,7 @@ function Report({
           data={data}
         />
 
-        <div className="flex justify-between mt-3 align-top gap-3 border border-gray-950 p-0.5">
+        <div className="flex justify-between align-top gap-3 border border-gray-950 p-0.5 mt-10">
           <div className="w-[40%]">
             <table className="font-bold align-top w-full">
               <tbody>
