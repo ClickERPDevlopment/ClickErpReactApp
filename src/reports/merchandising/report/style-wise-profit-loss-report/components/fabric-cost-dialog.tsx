@@ -16,15 +16,16 @@ import useApiUrl from "@/hooks/use-ApiUrl"
 import useAxiosInstance from "@/lib/axios-instance"
 import React from "react"
 
-type IStyleWiseCostBreakdown_FabricCosting = {
-    PO_ID: number,
-    STYLE_ID: number,
-    CUTTING_ISSUE_QTY: number,
-    TOTAL_FABRIC_COST_BUDGET: number,
-    FABRIC_COST: number,
-    PONO: string,
-    STYLENO: string,
-    FABRIC: string,
+type IStyleWiseProfitLossReportFabricCosting = {
+    PO_ID: number;
+    PONO: string;
+    STYLE_ID: number;
+    STYLENO: string;
+    FABRIC_ID: number;
+    FABRIC: string;
+    FABRIC_QUANTITY: number;
+    FABRIC_COST: number;
+    FABRIC_RATE: number;
 }
 
 type props = {
@@ -38,14 +39,14 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
     const [open, setOpen] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
 
-    const [data, setData] = React.useState<IStyleWiseCostBreakdown_FabricCosting[]>()
+    const [data, setData] = React.useState<IStyleWiseProfitLossReportFabricCosting[]>()
 
     React.useEffect(() => {
         if (open) {
             setLoading(true)
 
             const getData = async () =>
-                await axios.get(`${api.ProductionUrl}/production/StyleWiseCostBreakdown/GetStyleWiseCostBreakdown_FabricCost?poId=${poId}&styleId=${styleId}`);
+                await axios.get(`${api.ProductionUrl}/production/MerchReport/StyleWiseProfitLossReport_FabricCost?poId=${poId}&styleId=${styleId}`);
 
             getData().then((res) => {
                 setData(res.data)
@@ -116,14 +117,14 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                                             return (
                                                 <TableRow key={i}>
                                                     <TableCell className="text-wrap">{x.FABRIC}</TableCell>
-                                                    <TableCell>{x.TOTAL_FABRIC_COST_BUDGET.toFixed(3)}</TableCell>
-                                                    <TableCell>{x.CUTTING_ISSUE_QTY}</TableCell>
+                                                    <TableCell>{x.FABRIC_RATE.toFixed(3)}</TableCell>
+                                                    <TableCell>{x.FABRIC_QUANTITY}</TableCell>
                                                     <TableCell>{x.FABRIC_COST.toFixed(2)}</TableCell>
                                                 </TableRow>)
                                         })}
                                         <TableRow>
                                             <TableCell className="text-wrap" colSpan={2}>Total</TableCell>
-                                            <TableCell>{data?.reduce((p, c) => p + c.CUTTING_ISSUE_QTY, 0)}</TableCell>
+                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_QUANTITY, 0).toFixed(2)}</TableCell>
                                             <TableCell>{data?.reduce((p, c) => p + c.FABRIC_COST, 0)?.toFixed(2)}</TableCell>
                                         </TableRow>
                                     </>
