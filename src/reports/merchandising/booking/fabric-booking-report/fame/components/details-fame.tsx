@@ -17,11 +17,11 @@ export default function Details_Fame({ lstFabricQtyDetails, lstWastagePercentage
     const uniqueCollarCuff = Array.from(
         new Map(
             collarCuffData
-                ?.filter(item => (item?.PO ?? '') && item?.ARTSTYLE && item?.PARTS && item?.FABRICATION && item?.YARNCOUNT && item?.GMTCOLOR && item?.FABRICCOLOR && item?.UOM)
+                ?.filter(item => (item?.PO) && item?.ARTSTYLE && item?.PARTS && item?.FABRICATION && item?.YARNCOUNT && item?.GMTCOLOR && item?.FABRICCOLOR && item?.UOM)
                 .map(item => [
-                    `${(item?.PO ?? '')}__${item?.ARTSTYLE}__${item?.PARTS}__${item?.FABRICATION}__${item?.YARNCOUNT}__${item?.GMTCOLOR}__${item?.FABRICCOLOR}__${item?.UOM}`, // composite key
+                    `${(item?.PO)}__${item?.ARTSTYLE}__${item?.PARTS}__${item?.FABRICATION}__${item?.YARNCOUNT}__${item?.GMTCOLOR}__${item?.FABRICCOLOR}__${item?.UOM}`, // composite key
                     {
-                        PO: (item?.PO ?? ''),
+                        PO: (item?.PO == 'NA' ? '' : item?.PO),
                         ARTSTYLE: item?.ARTSTYLE,
                         PARTS: item?.PARTS,
                         FABRICATION: item?.FABRICATION,
