@@ -24,7 +24,7 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                     {lstStripeDetails?.map((ele, ele_i) =>
                         ele.lstDtls?.map((dtls, dtls_i) =>
                             dtls_i == 0 ?
-                                <tr>
+                                <tr key={ele_i + dtls_i}>
                                     <td className='border border-gray-600 text-center text-xs' rowSpan={ele.lstDtls?.length}>{ele_i + 1}</td>
                                     <td className='border border-gray-600 text-center text-xs' rowSpan={ele.lstDtls?.length}>{ele.FABRIC_PART} </td>
                                     <td className='border border-gray-600 text-center text-xs whitespace-normal' rowSpan={ele.lstDtls?.length}>{ele.GMT_COLOR} </td>
@@ -38,7 +38,7 @@ export default function StripeDetails({ lstStripeDetails }: { lstStripeDetails?:
                                     <td className='border border-gray-600 text-center text-xs'>yes </td>
                                 </tr>
                                 :
-                                <tr>
+                                <tr key={ele_i + dtls_i}>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.YARN_DYEING_COLOR} </td>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.STRIPE_MEASUREMENT} </td>
                                     <td className='border border-gray-600 text-center text-xs'>{dtls?.GREY_YARN_BOOKING_QUANTITY} </td>

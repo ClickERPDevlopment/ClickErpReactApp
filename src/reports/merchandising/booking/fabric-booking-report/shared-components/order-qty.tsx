@@ -43,19 +43,19 @@ export default function OrderQty({ lstColorSizeWiseOrderQty, lstSize }:
                         <th className="px-[5px] py-[3px] min-w-[150px] border border-gray-600 whitespace-nowrap">Style</th>
                         <th className="px-[5px] py-[3px] min-w-[150px] border border-gray-600 whitespace-nowrap">Colors</th>
 
-                        {sizes.map(ele =>
-                            <th className="px-[5px] py-[3px] min-w-[70px] border border-gray-600">{ele}</th>
+                        {sizes.map((ele, i) =>
+                            <th key={i} className="px-[5px] py-[3px] min-w-[70px] border border-gray-600">{ele}</th>
                         )}
                         <th className="px-[5px] py-[3px] min-w-[100px] border border-gray-600">Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {uniqueColorCombos.map((style) =>
-                        <tr>
+                    {uniqueColorCombos.map((style, i) =>
+                        <tr key={i}>
                             <td className="px-[5px] py-[3px] text-center border border-gray-600">{style.style}</td>
                             <td className="px-[5px] py-[3px] text-center border border-gray-600">{style.color}</td>
-                            {sizes.map(size =>
-                                <td className="px-[5px] py-[3px] min-w-[70px] text-center border border-gray-600">{getQtyByStyleColorSize({ style: style.style, color: style.color, size })}</td>
+                            {sizes.map((size, si) =>
+                                <td key={si} className="px-[5px] py-[3px] min-w-[70px] text-center border border-gray-600">{getQtyByStyleColorSize({ style: style.style, color: style.color, size })}</td>
                             )}
                             <td className="px-[5px] py-[3px] text-center font-bold border border-gray-600">{getQtyByStyleColor({ style: style.style, color: style.color })}</td>
                         </tr>
@@ -64,8 +64,8 @@ export default function OrderQty({ lstColorSizeWiseOrderQty, lstSize }:
                 <tfoot>
                     <tr>
                         <th className="px-[5px] py-[3px] border border-gray-600" colSpan={2}>Total</th>
-                        {sizes.map(size =>
-                            <th className="px-[5px] py-[3px] min-w-[70px] text-center border border-gray-600">{getQtyBySize({ size })}</th>
+                        {sizes.map((size, i) =>
+                            <th key={i} className="px-[5px] py-[3px] min-w-[70px] text-center border border-gray-600">{getQtyBySize({ size })}</th>
                         )}
                         <th className="px-[5px] py-[3px] min-w-[70px] text-center border border-gray-600">{lstColorSizeWiseOrderQty?.reduce((p, c) => p + c.qty, 0).toFixed(0)}</th>
                     </tr>
