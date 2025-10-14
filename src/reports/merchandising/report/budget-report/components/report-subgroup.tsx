@@ -1,3 +1,4 @@
+import useAppClient from "@/hooks/use-AppClient";
 import { BudgetReportType } from "../budget-report-type";
 
 function ReportSubgroup({
@@ -20,6 +21,7 @@ function ReportSubgroup({
     0);
   console.log(totalFob)
   console.log(poQty)
+  const client = useAppClient();
   return (
     <>
       {data[0].DS.includes('COST CENTER') ?
@@ -37,7 +39,13 @@ function ReportSubgroup({
           {
             index == 0 && <td rowSpan={gorupLength} className="border border-gray-950 p-0.1 font-bold">{data[0]?.DS}</td>
           }
-          <td className="border border-gray-950 p-0.1">{data[0]?.MTL}</td>
+          <td className="border border-gray-950 p-0.1">
+            {
+              client.currentClient === client.EURO ?
+                `${data[0]?.MTL} ${(data[0]?.SUPPLIER_NAME ? `[${data[0]?.SUPPLIER_NAME}]` : '')}` :
+                `${data[0]?.MTL}`
+            }
+          </td>
           <td className="border border-gray-950 p-0.1 text-center">{totalQuantiy}</td>
           <td className="border border-gray-950 p-0.1 text-center">{data[0]?.UOM}</td>
           <td className="border border-gray-950 p-0.1 text-center">{data[0]?.BUDGET_PRICE.toFixed(3)}</td>

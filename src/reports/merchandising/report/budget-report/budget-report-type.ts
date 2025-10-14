@@ -39,4 +39,5 @@ export type BudgetReportType = {
     COMBINE_PONO: string;
     FACTORY_ID: number;
     SCNO: string;
+    SUPPLIER_NAME: string;
 };
