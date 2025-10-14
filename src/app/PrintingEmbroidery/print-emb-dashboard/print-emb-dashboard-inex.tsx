@@ -1,4 +1,4 @@
-import AppPageContainer from "@/components/app-page-container";
+// import AppPageContainer from "@/components/app-page-container";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -13,9 +13,9 @@ function PrintEmbDashboardIndex() {
 
   return (
     <div className="p-5">
-      <AppPageContainer>
-        <MonthlyOrderSummaryChartView />
-      </AppPageContainer>
+      {/* <AppPageContainer> */}
+      <MonthlyOrderSummaryChartView />
+      {/* </AppPageContainer> */}
     </div>
   );
 }
