@@ -117,15 +117,15 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                                             return (
                                                 <TableRow key={i}>
                                                     <TableCell className="text-wrap">{x.FABRIC}</TableCell>
-                                                    <TableCell>{x.FABRIC_RATE.toFixed(3)}</TableCell>
+                                                    <TableCell>{x.FABRIC_RATE.toFixed(6)}</TableCell>
                                                     <TableCell>{x.FABRIC_QUANTITY}</TableCell>
                                                     <TableCell>{x.FABRIC_COST.toFixed(2)}</TableCell>
                                                 </TableRow>)
                                         })}
                                         <TableRow>
                                             <TableCell className="text-wrap" colSpan={2}>Total</TableCell>
-                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_QUANTITY, 0).toFixed(2)}</TableCell>
-                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_COST, 0)?.toFixed(2)}</TableCell>
+                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_QUANTITY, 0).toFixed(6)}</TableCell>
+                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_COST, 0)?.toFixed(6)}</TableCell>
                                         </TableRow>
                                     </>
                                 }
