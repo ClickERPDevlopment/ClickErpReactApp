@@ -124,7 +124,7 @@ export function FabricCostDialog({ text, poId, styleId }: props) {
                                         })}
                                         <TableRow>
                                             <TableCell className="text-wrap" colSpan={2}>Total</TableCell>
-                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_QUANTITY, 0)}</TableCell>
+                                            <TableCell>{data?.reduce((p, c) => p + c.FABRIC_QUANTITY, 0).toFixed(2)}</TableCell>
                                             <TableCell>{data?.reduce((p, c) => p + c.FABRIC_COST, 0)?.toFixed(2)}</TableCell>
                                         </TableRow>
                                     </>
