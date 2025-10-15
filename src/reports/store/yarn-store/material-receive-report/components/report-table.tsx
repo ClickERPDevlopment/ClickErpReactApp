@@ -59,7 +59,7 @@ function ReportTable({
           firstHeader={firstHeader}
         ></ReportSubgroup>
       ))}
-      <tr style={{ fontSize: "12px" }}>
+      <tr style={{ fontSize: "14px" }}>
         <td colSpan={7} className="border border-gray-950 font-bold p-0.5">Total</td>
         <td className="border border-gray-950 p-0.5 font-bold">{totalRcvQty}</td>
         <td className="border border-gray-950 p-0.5 font-bold">{totalAdditionalQty}</td>
