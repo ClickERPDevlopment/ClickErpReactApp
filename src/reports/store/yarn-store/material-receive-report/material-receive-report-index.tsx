@@ -28,7 +28,7 @@ function MaterialReceiveReport() {
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Yarn Delivery Challan Gate Pass Report";
+    document.title = "Material Receive Report";
   }, []);
 
   useEffect(() => {

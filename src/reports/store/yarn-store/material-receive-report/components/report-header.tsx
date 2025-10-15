@@ -17,12 +17,12 @@ function ReportHeader({
 
       {
         data[0]?.COMPANY_NAME && <>
-          <h1 className="font-bold text-xl text-center">
+          <h1 className="font-bold text-2xl text-center">
             {
               data[0]?.COMPANY_NAME
             }
           </h1>
-          <h4 className="font-bold text-sm text-center mb-3">
+          <h4 className="text-sm text-center mb-3">
             {
               data[0]?.COMPANY_ADDRESS
             }
@@ -32,7 +32,7 @@ function ReportHeader({
       <h3 className="font-bold text-lg text-center">
         Material Receive Report
       </h3>
-      <p className="font-bold text-end "><span className="border-b border-dotted border-gray-950">Store Copy</span></p>
+      <p className="font-bold text-end"><span className="border-b border-dotted border-gray-950">Store Copy</span></p>
     </div>
   );
 }
