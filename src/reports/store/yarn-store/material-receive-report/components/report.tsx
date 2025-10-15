@@ -129,7 +129,9 @@ function Report({
                 </tr>
                 <tr>
                   <td className="align-top">Challan Date</td>
-                  <td className="align-top">: {moment(data[0]?.CHALLAN_DATE).format("DD-MM-YY")}</td>
+                  <td className="align-top">
+                    : {data[0]?.CHALLAN_DATE ? moment(data[0].CHALLAN_DATE).format("DD-MM-YY") : ""}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -145,7 +147,7 @@ function Report({
                 </tr>
                 <tr>
                   <td className="align-top">Currecny</td>
-                  <td className="align-top">: { }</td>
+                  <td className="align-top">: {data[0]?.CURRENCYCODE}</td>
                 </tr>
                 <tr>
                   <td className="align-top">Gate Entry No</td>

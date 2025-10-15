@@ -32,7 +32,7 @@ function ReportHeader({
       <h3 className="font-bold text-lg text-center">
         Material Receive Report
       </h3>
-      <p className="font-bold text-center">(Store Copy)</p>
+      <p className="font-bold text-end "><span className="border-b border-dotted border-gray-950">Store Copy</span></p>
     </div>
   );
 }

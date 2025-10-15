@@ -33,4 +33,5 @@ export type MaterialReceiveReportType = {
   CHALLAN_DATE?: string | null;
   STORE_NAME?: string;
   PO_NO?: string;
+  CURRENCYCODE?: string;
 };
