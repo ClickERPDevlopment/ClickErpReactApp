@@ -57,7 +57,7 @@ function ReportTable({
 
   const gorupLength = data.length || 0;
 
-  const particulars = ['YARN', 'Knitting', 'FABRIC DYEING']
+  const particulars = ['IMPORTED FABRIC', 'YARN', 'Knitting', 'FABRIC DYEING']
 
   return (
     <>
