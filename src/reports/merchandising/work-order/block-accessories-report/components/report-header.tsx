@@ -23,82 +23,82 @@ function ReportHeader({
           Accessories Workorder With PO
         </h4>
       </div>
-      <table style={{ fontSize: "12px" }} className="border border-gray-900 w-[100%] mt-2">
+      <table style={{ fontSize: "12px" }} className="border border-gray-950 w-[100%] mt-2">
         <tr className="text-left">
-          <th className="border border-gray-900 px-1 font-bold">Company</th>
-          <th className="border border-gray-900 px-1 font-bold">Supplier</th>
+          <th className="border border-gray-950 px-1 font-bold">Company</th>
+          <th className="border border-gray-950 px-1 font-bold">Supplier</th>
         </tr>
         <tr className="">
-          <td className="border border-gray-900 p-0">
+          <td className="border border-gray-950 p-0">
             <table className="w-[100%] m-0">
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Name: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Name: </td>
                 <td className="px-1 ">{masterData?.COMPANY_NAME}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">
                   Factory Address:{" "}
                 </td>
                 <td className="px-1 "> {masterData?.COMPANY_ADDRESS}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Work Order: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Work Order: </td>
                 <td className="px-1 "> {masterData?.WORK_ORDER_NO}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">
                   Contact Person Name:{" "}
                 </td>
                 <td className="px-1">{masterData?.STORE_PERSONNEL}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Mobile: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Mobile: </td>
                 <td className="px-1"> {masterData?.MOBILE_NO}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Email: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Email: </td>
                 <td className="px-1"> {masterData?.COMPANY_EMAIL}</td>
               </tr>
               <tr>
-                <td className="px-1 border-r border-gray-900 font-bold">Workorder Date: </td>
+                <td className="px-1 border-r border-gray-950 font-bold">Workorder Date: </td>
                 <td className="px-1"> {moment(masterData?.ISSUE_DATE).format("DD-MMM-YY")}</td>
               </tr>
             </table>
           </td>
-          <td className="border border-gray-900 p-0">
+          <td className="border border-gray-950 p-0">
             <table className="w-[100%] m-0">
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Name: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Name: </td>
                 <td className="px-1">{masterData?.SUPPLIER_NAME}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Address: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Address: </td>
                 <td className="px-1"> {masterData?.SUPPLIER_ADDRESS}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">
                   Delivery Store:
                 </td>
                 <td className="px-1">
                   {masterData?.RCV_STORE}
                 </td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">
                   Contact Person Name:{" "}
                 </td>
                 <td className="px-1">{masterData?.ATTENTION}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Mobile: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Mobile: </td>
                 <td className="px-1"> {masterData?.SUPPLIER_MOBILE_NO}</td>
               </tr>
-              <tr className="border-b border-gray-900">
-                <td className="px-1 border-r border-gray-900 font-bold">Email: </td>
+              <tr className="border-b border-gray-950">
+                <td className="px-1 border-r border-gray-950 font-bold">Email: </td>
                 <td className="px-1">{masterData?.SUPPLIER_EMAIL}</td>
               </tr>
               <tr>
-                <td className="px-1 border-r border-gray-900 font-bold">Delivery Date:</td>
+                <td className="px-1 border-r border-gray-950 font-bold">Delivery Date:</td>
                 <td className="px-1">{masterData?.DELIVERY_DATE
                   ? moment(masterData?.DELIVERY_DATE).format("D MMM YY")
                   : ""}</td>

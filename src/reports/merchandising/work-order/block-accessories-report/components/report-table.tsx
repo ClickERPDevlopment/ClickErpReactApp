@@ -126,13 +126,13 @@ function ReportTable({
         <tbody>
           {uniqueKeysArray?.map((key) => (
             <tr key={key}>
-              <td className="border text-center border-gray-300 p-1">
+              <td className="border text-center border-gray-950 p-1">
                 {groupedData[key].STYLE}
               </td>
-              <td className="border text-center border-gray-300 p-1">
+              <td className="border text-center border-gray-950 p-1">
                 {groupedData[key].JOB}
               </td>
-              <td className="border text-center border-gray-300 p-1">
+              <td className="border text-center border-gray-950 p-1">
                 {groupedData[key].PO}
               </td>
               <td className="border border-gray-950 p-1">
@@ -173,7 +173,7 @@ function ReportTable({
         </tbody>
         <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
           <td
-            className="border text-center border-gray-300 p-1 font-bold"
+            className="border text-center border-gray-950 p-1 font-bold"
             colSpan={firstHeader?.length}
           >
             Grand Total
