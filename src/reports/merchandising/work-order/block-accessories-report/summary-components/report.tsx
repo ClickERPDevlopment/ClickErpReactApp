@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReportTable from "./report-table";
-import ReportFooter from "./report-footer";
-import ReportHeader from "./report-header";
 import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
-import SummaryReport from "../summary-components/report";
 
-function Report({
+function SummaryReport({
   data,
-  searchParams,
 }: {
   data: IAccessoriesReportWithPo[];
-  searchParams: { currency: string };
 }) {
   const uniqueKeys: Set<string> = new Set();
 
@@ -64,12 +59,7 @@ function Report({
 
   return (
     <div style={{ fontFamily: "" }}>
-      <div className="p-2">
-        <ReportHeader
-          searchParams={{ currency: searchParams.currency }}
-          masterData={data[0]}
-        />
-
+      <div>
         {uniqueKeysArray?.map((key) => (
           <ReportTable
             key={key}
@@ -79,27 +69,9 @@ function Report({
             secondHeader={secondHeader}
           ></ReportTable>
         ))}
-        <div className="mt-3">
-          <p><span className="font-bold">Note:</span> Please mention the Work Order Number in the Delivery Challan and PI.</p>
-        </div>
-        <div className="mt-1">
-          <p><span className="font-bold">Remarks:</span> {data[0]?.REMARKS}</p>
-        </div>
-        <div className="mt-1">
-          <p><span className="font-bold">Sub:</span> {data[0]?.WO_SUBJECT}</p>
-        </div>
-        <div>
-          <div>
-            <p className="text-center font-bold mb-0 p-0 mt-2" style={{ fontSize: "15px" }}>Color Wise Summary</p>
-          </div>
-          <SummaryReport data={data}></SummaryReport>
-        </div>
-        <div>
-          <ReportFooter masterData={data[0]}></ReportFooter>
-        </div>
       </div>
     </div>
   );
 }
 
-export default Report;
+export default SummaryReport;

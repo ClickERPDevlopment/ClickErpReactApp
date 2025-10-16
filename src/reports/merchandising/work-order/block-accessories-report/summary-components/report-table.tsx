@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
 
 function ReportTable({
@@ -20,6 +19,7 @@ function ReportTable({
     TOTAL_QTY: 0,
   };
 
+  const grandSizeTotals: Record<string, number> = {};
 
   function groupBy(data: IAccessoriesReportWithPo[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
@@ -29,7 +29,7 @@ function ReportTable({
         result[key] = {
           STYLE: item.STYLENO,
           JOB: item.PO_NO,
-          PO: item.SUB_PO,
+          PO: new Set(),
           ORDER: item.PO_NO,
           COLOR: item.GMT_COLOR_NAME,
           MTL_COLOR: item.MTL_COLOR_NAME,
@@ -49,12 +49,21 @@ function ReportTable({
         result[key].SIZES[item.GMT_SIZE_NAME] = 0;
       }
 
-      result[key].SIZES[item.GMT_SIZE_NAME] += Number(item.WORK_ORDER_QTY);
-      result[key].TOTAL_QTY += Number(item.WORK_ORDER_QTY);
-      result[key].AMOUNT += Number(item.SUPPLIER_RATE_PER_PCS * item.WORK_ORDER_QTY);
+      const qty = Number(item.WORK_ORDER_QTY);
+      const amt = Number(item.SUPPLIER_RATE_PER_PCS * qty);
 
-      grandTotal.AMOUNT += Number(item.SUPPLIER_RATE_PER_PCS * item.WORK_ORDER_QTY);
-      grandTotal.TOTAL_QTY += Number(item.WORK_ORDER_QTY);
+      result[key].SIZES[item.GMT_SIZE_NAME] += qty;
+      result[key].TOTAL_QTY += qty;
+      result[key].AMOUNT += amt;
+      result[key].PO.add(item.SUB_PO);
+
+      grandTotal.AMOUNT += amt;
+      grandTotal.TOTAL_QTY += qty;
+
+      if (item.GMT_SIZE_NAME) {
+        grandSizeTotals[item.GMT_SIZE_NAME] =
+          (grandSizeTotals[item.GMT_SIZE_NAME] || 0) + qty;
+      }
 
       return result;
     }, {});
@@ -64,7 +73,7 @@ function ReportTable({
     [key: string]: {
       STYLE: string;
       JOB: string;
-      PO: string;
+      PO: Set<string>;
       ORDER: string;
       COLOR: string;
       MTL_COLOR: string;
@@ -91,7 +100,6 @@ function ReportTable({
     groupedData = groupBy(data, [
       "STYLENO",
       "PO_NO",
-      "SUB_PO",
       "GMT_COLOR_NAME",
       "MTL_COLOR_NAME",
       "REF_SWATCH",
@@ -105,22 +113,20 @@ function ReportTable({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-  let header;
+  let header: string[] = [];
   if (sizeHeader && secondHeader) {
-    header = firstHeader?.concat(sizeHeader).concat(secondHeader);
+    header = firstHeader?.concat(sizeHeader).concat(secondHeader) ?? [];
   }
 
   return (
-    <div className="text-sm mt-3">
-      <div className="flex items-center font-semibold justify-between">
-        <p>BUYER: {data[0]?.BUYER_NAME}</p>
-        <p className="text-right"><span className="font-bold">Currency:</span> {data[0]?.CURRENCY}</p>
-      </div>
-      <table className="border-collapse border border-gray-950  w-[100%]">
+    <div className="text-sm mt-1">
+      <table className="border-collapse border border-gray-950 w-[100%]">
         <thead>
           <tr>
             {header?.map((item) => (
-              <th className="border border-gray-950 p-1">{item}</th>
+              <th key={item} className="border border-gray-950 p-1">
+                {item}
+              </th>
             ))}
           </tr>
         </thead>
@@ -134,7 +140,7 @@ function ReportTable({
                 {groupedData[key].JOB}
               </td>
               <td className="border text-center border-gray-950 p-1">
-                {groupedData[key].PO}
+                {[...groupedData[key].PO].join(", ")}
               </td>
               <td className="border border-gray-950 p-1">
                 {groupedData[key].COLOR}
@@ -146,13 +152,15 @@ function ReportTable({
                 {groupedData[key].ITEM_NAME}
               </td>
 
-              {sizeHeader?.map((size) => {
-                return (
-                  <td className="border border-gray-950 p-1 text-center">
-                    {groupedData[key].SIZES[size]}
-                  </td>
-                );
-              })}
+              {sizeHeader?.map((size) => (
+                <td
+                  key={size}
+                  className="border border-gray-950 p-1 text-center"
+                >
+                  {groupedData[key].SIZES[size] || ""}
+                </td>
+              ))}
+
               <td className="border border-gray-950 p-1 text-center">
                 {groupedData[key].TOTAL_QTY}
               </td>
@@ -168,26 +176,35 @@ function ReportTable({
             </tr>
           ))}
         </tbody>
-        <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
-          <td
-            className="border text-center border-gray-950 p-1 font-bold"
-            colSpan={firstHeader?.length}
-          >
-            Grand Total
-          </td>
-          {sizeHeader?.map(() => {
-            return <td className="border border-gray-950 p-1 text-center"></td>;
-          })}
 
-          <td className="border border-gray-950 p-1 text-center">
-            {grandTotal.TOTAL_QTY}
-          </td>
-          <td className="border border-gray-950 p-1 text-center"></td>
-          <td className="border border-gray-950 p-1 text-center"></td>
-          <td className="border border-gray-950 p-1 text-center">
-            {grandTotal.AMOUNT.toFixed(4)}
-          </td>
-        </tr>
+        <tfoot>
+          <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
+            <td
+              className="border text-center border-gray-950 p-1 font-bold"
+              colSpan={firstHeader?.length ?? 0}
+            >
+              Grand Total
+            </td>
+
+            {sizeHeader?.map((size) => (
+              <td
+                key={size}
+                className="border border-gray-950 p-1 text-center font-bold"
+              >
+                {grandSizeTotals[size] || ""}
+              </td>
+            ))}
+
+            <td className="border border-gray-950 p-1 text-center font-bold">
+              {grandTotal.TOTAL_QTY}
+            </td>
+            <td className="border border-gray-950 p-1 text-center"></td>
+            <td className="border border-gray-950 p-1 text-center"></td>
+            <td className="border border-gray-950 p-1 text-center font-bold">
+              {grandTotal.AMOUNT.toFixed(4)}
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
