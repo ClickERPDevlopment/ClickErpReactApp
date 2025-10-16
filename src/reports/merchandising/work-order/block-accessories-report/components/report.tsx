@@ -2,18 +2,18 @@
 import ReportTable from "./report-table";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
-import { iaccWorkOrder } from "../../components/iaccWorkOrder";
+import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
 
 function Report({
   data,
   searchParams,
 }: {
-  data: iaccWorkOrder[];
+  data: IAccessoriesReportWithPo[];
   searchParams: { currency: string };
 }) {
   const uniqueKeys: Set<string> = new Set();
 
-  function groupBy(data: iaccWorkOrder[], keys: string[]) {
+  function groupBy(data: IAccessoriesReportWithPo[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
       const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
@@ -30,7 +30,7 @@ function Report({
 
   interface GroupedByBuyer {
     [key: string]: {
-      items: iaccWorkOrder[];
+      items: IAccessoriesReportWithPo[];
     };
   }
 
@@ -45,15 +45,14 @@ function Report({
   //set table header
   const firstHeader = [
     "STYLE NO.",
+    "JOB",
+    "PO",
     "COLOR",
     "MTL COLOR",
-    "REF/SWATCH",
-    "MTL SIZE",
     "ITEM NAME",
-    "UOM",
     "ITEM REF.",
   ];
-  const secondHeader = ["TTL QTY", "RATE", "AMOUNT"];
+  const secondHeader = ["TTL QTY", "UOM", "RATE", "AMOUNT"];
 
   const uniqueSizes: Set<string> = new Set();
 
@@ -64,7 +63,7 @@ function Report({
   const sizeHeader = Array.from(uniqueSizes);
 
   return (
-    <div className="container">
+    <div style={{ fontFamily: "" }}>
       <div className="p-2">
         <ReportHeader
           searchParams={{ currency: searchParams.currency }}

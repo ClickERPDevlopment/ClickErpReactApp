@@ -1,55 +1,99 @@
-import { iaccWorkOrder } from "../../components/iaccWorkOrder";
+import useAppClient from "@/hooks/use-AppClient";
+import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
 
-function ReportFooter({ masterData }: { masterData: iaccWorkOrder | null }) {
+function ReportFooter({
+  masterData,
+}: {
+  masterData: IAccessoriesReportWithPo | null;
+}) {
+
+  const client = useAppClient();
+
   return (
-    <div className="flex">
-      <div className="border flex flex-col my-3 p-2 w-[50%]">
-        <label htmlFor="" className="font-bold text-sm mb-2">
+    <div className="flex flex-col text-xs">
+      <div className="border flex flex-col my-3 p-2 w-[500px]">
+        <label htmlFor="" className="font-bold text-xs mb-2">
           PREPARED BY
         </label>
         <div className="flex flex-row mb-2">
           <label
             htmlFor=""
-            className="font-bold text-sm w-[150px] text-right pr-2 "
+            className="font-bold text-xs w-[150px] text-right pr-2 "
           >
             SIGNATURE:
           </label>
           <div className="border-b flex-1">
-            <span>{}</span>
+            <span>{ }</span>
           </div>
         </div>
         <div className="flex flex-row mb-2 ">
           <label
             htmlFor=""
-            className="font-bold text-sm w-[150px] text-right pr-2"
+            className="font-bold text-xs w-[150px] text-right pr-2"
           >
             NAME:
           </label>
           <div className="border-b flex-1">
-            <span className="text-sm">{masterData?.PREPARED_BY}</span>
+            <span className="text-xs">{masterData?.PREPARED_BY}</span>
           </div>
         </div>
         <div className="flex flex-row">
           <label
             htmlFor=""
-            className="font-bold text-sm w-[150px] text-right pr-2"
+            className="font-bold text-xs w-[150px] text-right pr-2"
           >
             DESIGNATION:
           </label>
           <div className="border-b flex-1">
-            <span className="text-sm">{masterData?.PREPARED_BY_DESG}</span>
+            <span className="text-xs">{masterData?.PREPARED_BY_DESG}</span>
           </div>
         </div>
       </div>
-      <div className="border flex flex-col my-3 p-2 w-[50%] ml-2">
-        <label htmlFor="" className="font-bold text-sm mb-2">
-          REMARKS: <span className="font-light">{masterData?.REMARKS}</span>
-        </label>
-        <label htmlFor="" className="font-bold text-sm mb-2">
-          SPECIAL INSTRUCTION:{" "}
-          <span className="font-light">{masterData?.SPECIAL_INSTRUCTION}</span>
-        </label>
-      </div>
+      {
+        (client.currentClient == client.FAME || client.currentClient == client.EURO) &&
+        <div className="mt-10 mb-5">
+          <table className="w-full mt-5">
+            <thead>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    Sr. Merchandiser
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    Mer. Manager
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    AGM. Mer & Marketing
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    ED
+                  </span>
+                </td>
+                <td className="text-center">
+                  <span className="border-t border-gray-950 px-2">
+                    COO
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      }
     </div>
   );
 }

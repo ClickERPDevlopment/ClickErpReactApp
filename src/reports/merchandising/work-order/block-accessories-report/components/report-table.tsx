@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { iaccWorkOrder } from "../../components/iaccWorkOrder";
+
+import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
 
 function ReportTable({
   data,
@@ -7,7 +8,7 @@ function ReportTable({
   sizeHeader,
   secondHeader,
 }: {
-  data: iaccWorkOrder[];
+  data: IAccessoriesReportWithPo[];
   firstHeader: string[] | null;
   sizeHeader: string[] | null;
   secondHeader: string[] | null;
@@ -19,13 +20,16 @@ function ReportTable({
     TOTAL_QTY: 0,
   };
 
-  function groupBy(data: iaccWorkOrder[], keys: string[]) {
+
+  function groupBy(data: IAccessoriesReportWithPo[], keys: string[]) {
     return data.reduce((result: any, item: any) => {
       const key = keys.map((k) => item[k]).join("_");
       uniqueKeys.add(key);
       if (!result[key]) {
         result[key] = {
           STYLE: item.STYLENO,
+          JOB: item.PO_NO,
+          PO: item.SUB_PO,
           ORDER: item.PO_NO,
           COLOR: item.GMT_COLOR_NAME,
           MTL_COLOR: item.MTL_COLOR_NAME,
@@ -59,6 +63,8 @@ function ReportTable({
   interface GroupedData {
     [key: string]: {
       STYLE: string;
+      JOB: string;
+      PO: string;
       ORDER: string;
       COLOR: string;
       MTL_COLOR: string;
@@ -105,14 +111,15 @@ function ReportTable({
 
   return (
     <div className="text-sm mt-3">
-      <div className="flex items-center font-semibold">
+      <div className="flex items-center font-semibold justify-between">
         <p>BUYER: {data[0]?.BUYER_NAME}</p>
+        <p className="text-right"><span className="font-bold">Currency:</span> {data[0]?.CURRENCY}</p>
       </div>
-      <table className="border-collapse border border-gray-300  w-[100%]">
+      <table className="border-collapse border border-gray-950  w-[100%]">
         <thead>
           <tr>
             {header?.map((item) => (
-              <th className="border border-gray-300 p-1">{item}</th>
+              <th className="border border-gray-950 p-1">{item}</th>
             ))}
           </tr>
         </thead>
@@ -122,49 +129,49 @@ function ReportTable({
               <td className="border text-center border-gray-300 p-1">
                 {groupedData[key].STYLE}
               </td>
-              <td className="border border-gray-300 p-1">
+              <td className="border text-center border-gray-300 p-1">
+                {groupedData[key].JOB}
+              </td>
+              <td className="border text-center border-gray-300 p-1">
+                {groupedData[key].PO}
+              </td>
+              <td className="border border-gray-950 p-1">
                 {groupedData[key].COLOR}
               </td>
-              <td className="border border-gray-300 p-1">
+              <td className="border border-gray-950 p-1">
                 {groupedData[key].MTL_COLOR}
               </td>
-              <td className="border border-gray-300 p-1">
-                {groupedData[key].REF_SWATCH}
-              </td>
-              <td className="border border-gray-300 p-1">
-                {groupedData[key].MTL_SIZE}
-              </td>
-              <td className="border border-gray-300 p-1">
+              <td className="border border-gray-950 p-1">
                 {groupedData[key].ITEM_NAME}
               </td>
-              <td className="border border-gray-300 p-1">
-                {groupedData[key].UOM}
-              </td>
-              <td className="border border-gray-300 p-1">
+
+              <td className="border border-gray-950 p-1">
                 {groupedData[key].ITEM_REF}
               </td>
 
               {sizeHeader?.map((size) => {
                 return (
-                  <td className="border border-gray-300 p-1 text-center">
+                  <td className="border border-gray-950 p-1 text-center">
                     {groupedData[key].SIZES[size]}
                   </td>
                 );
               })}
-
-              <td className="border border-gray-300 p-1 text-center">
+              <td className="border border-gray-950 p-1 text-center">
                 {groupedData[key].TOTAL_QTY}
               </td>
-              <td className="border border-gray-300 p-1 text-center">
+              <td className="border border-gray-950 p-1">
+                {groupedData[key].UOM}
+              </td>
+              <td className="border border-gray-950 p-1 text-center">
                 {groupedData[key].RATE.toFixed(4)}
               </td>
-              <td className="border border-gray-300 p-1 text-center">
+              <td className="border border-gray-950 p-1 text-center">
                 {Number(groupedData[key].AMOUNT).toFixed(2)}
               </td>
             </tr>
           ))}
         </tbody>
-        <tr>
+        <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
           <td
             className="border text-center border-gray-300 p-1 font-bold"
             colSpan={firstHeader?.length}
@@ -172,14 +179,15 @@ function ReportTable({
             Grand Total
           </td>
           {sizeHeader?.map(() => {
-            return <td className="border border-gray-300 p-1 text-center"></td>;
+            return <td className="border border-gray-950 p-1 text-center"></td>;
           })}
 
-          <td className="border border-gray-300 p-1 text-center">
-            {grandTotal.TOTAL_QTY.toFixed(2)}
+          <td className="border border-gray-950 p-1 text-center">
+            {grandTotal.TOTAL_QTY}
           </td>
-          <td className="border border-gray-300 p-1 text-center"></td>
-          <td className="border border-gray-300 p-1 text-center">
+          <td className="border border-gray-950 p-1 text-center"></td>
+          <td className="border border-gray-950 p-1 text-center"></td>
+          <td className="border border-gray-950 p-1 text-center">
             {grandTotal.AMOUNT.toFixed(2)}
           </td>
         </tr>
