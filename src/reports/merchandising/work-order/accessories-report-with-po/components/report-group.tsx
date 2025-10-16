@@ -31,13 +31,13 @@ function ReportGroup({
           <td className="border border-gray-900 p-0.5 text-center text-nowrap">
             {item.SUB_PO}
           </td>
-          <td className="border border-gray-900 p-0.5 text-center text-nowrap">
+          <td className="border border-gray-900 p-0.5 text-left text-nowrap">
             {item.MTL_NAME}
           </td>
-          <td className="border border-gray-900 p-0.5 text-center">
+          <td className="border border-gray-900 p-0.5 text-left">
             {item.GMT_COLOR_NAME}
           </td>
-          <td className="border border-gray-900 p-.5 text-center">
+          <td className="border border-gray-900 p-.5 text-left">
             {item.MTL_COLOR_NAME}
           </td>
           <td className="border border-gray-900 p-.5 text-center">
