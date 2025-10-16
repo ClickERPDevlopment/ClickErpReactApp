@@ -51,9 +51,9 @@ function ReportTable({
 
       result[key].SIZES[item.GMT_SIZE_NAME] += Number(item.WORK_ORDER_QTY);
       result[key].TOTAL_QTY += Number(item.WORK_ORDER_QTY);
-      result[key].AMOUNT += Number(item.TOTAL_SUP_AMOUNT);
+      result[key].AMOUNT += Number(item.SUPPLIER_RATE_PER_PCS * item.WORK_ORDER_QTY);
 
-      grandTotal.AMOUNT += Number(item.TOTAL_SUP_AMOUNT);
+      grandTotal.AMOUNT += Number(item.SUPPLIER_RATE_PER_PCS * item.WORK_ORDER_QTY);
       grandTotal.TOTAL_QTY += Number(item.WORK_ORDER_QTY);
 
       return result;
@@ -91,6 +91,7 @@ function ReportTable({
     groupedData = groupBy(data, [
       "STYLENO",
       "PO_NO",
+      "SUB_PO",
       "GMT_COLOR_NAME",
       "MTL_COLOR_NAME",
       "REF_SWATCH",
@@ -163,10 +164,10 @@ function ReportTable({
                 {groupedData[key].UOM}
               </td>
               <td className="border border-gray-950 p-1 text-center">
-                {groupedData[key].RATE.toFixed(4)}
+                {groupedData[key].RATE.toFixed(6)}
               </td>
               <td className="border border-gray-950 p-1 text-center">
-                {Number(groupedData[key].AMOUNT).toFixed(2)}
+                {Number(groupedData[key].AMOUNT).toFixed(4)}
               </td>
             </tr>
           ))}
@@ -188,7 +189,7 @@ function ReportTable({
           <td className="border border-gray-950 p-1 text-center"></td>
           <td className="border border-gray-950 p-1 text-center"></td>
           <td className="border border-gray-950 p-1 text-center">
-            {grandTotal.AMOUNT.toFixed(2)}
+            {grandTotal.AMOUNT.toFixed(4)}
           </td>
         </tr>
       </table>
