@@ -4,6 +4,7 @@ import ReportHeader from "./report-header";
 import { EmbellishmentDeliveryReportType } from "../../embellishment-delivery-report-type";
 import moment from "moment";
 import ReportFooter from "./report-footer";
+import EmbellishmentDeliveryRejectReportIndex from "../../embellishment-delivery-reject-report/embellishment-delivery-reject-report-index";
 
 
 function Report({
@@ -35,6 +36,13 @@ function Report({
     sizeHeader.push(size);
   });
 
+
+  const reason: Set<string> = new Set<string>();
+
+  data.forEach(item => {
+    if (item.REASON)
+      reason.add(item.REASON || "")
+  })
 
 
   return (
@@ -113,6 +121,14 @@ function Report({
           secondHeader={secondHeader}
           sizeHeader={sizeHeader}
         ></ReportTable>
+
+        <div>
+          <EmbellishmentDeliveryRejectReportIndex data={data}></EmbellishmentDeliveryRejectReportIndex>
+        </div>
+
+        <div className="mt-2">
+          <p><span className="font-bold">Reason:</span> {Array.from(reason).join(",")}</p>
+        </div>
 
         <div style={{ marginTop: "80px" }}>
           <ReportFooter data={data}></ReportFooter>
