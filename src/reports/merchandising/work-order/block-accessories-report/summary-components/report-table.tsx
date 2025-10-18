@@ -99,15 +99,11 @@ function ReportTable({
   if (data) {
     groupedData = groupBy(data, [
       "STYLENO",
-      "PO_NO",
       "GMT_COLOR_NAME",
       "MTL_COLOR_NAME",
-      "REF_SWATCH",
       "MTL_SIZE_NAME",
       "MTL_NAME",
       "UOM",
-      "DESCRIPTION",
-      "SUPPLIER_RATE_PER_PCS",
     ]);
   }
 
@@ -136,12 +132,6 @@ function ReportTable({
               <td className="border text-center border-gray-950 p-1">
                 {groupedData[key].STYLE}
               </td>
-              <td className="border text-center border-gray-950 p-1">
-                {groupedData[key].JOB}
-              </td>
-              <td className="border text-center border-gray-950 p-1">
-                {[...groupedData[key].PO].join(", ")}
-              </td>
               <td className="border border-gray-950 p-1">
                 {groupedData[key].COLOR}
               </td>
@@ -166,12 +156,6 @@ function ReportTable({
               </td>
               <td className="border border-gray-950 p-1">
                 {groupedData[key].UOM}
-              </td>
-              <td className="border border-gray-950 p-1 text-center">
-                {groupedData[key].RATE.toFixed(6)}
-              </td>
-              <td className="border border-gray-950 p-1 text-center">
-                {Number(groupedData[key].AMOUNT).toFixed(4)}
               </td>
             </tr>
           ))}
@@ -199,10 +183,6 @@ function ReportTable({
               {grandTotal.TOTAL_QTY}
             </td>
             <td className="border border-gray-950 p-1 text-center"></td>
-            <td className="border border-gray-950 p-1 text-center"></td>
-            <td className="border border-gray-950 p-1 text-center font-bold">
-              {grandTotal.AMOUNT.toFixed(4)}
-            </td>
           </tr>
         </tfoot>
       </table>

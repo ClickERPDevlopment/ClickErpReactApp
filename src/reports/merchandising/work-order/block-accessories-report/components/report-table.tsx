@@ -6,7 +6,6 @@ function ReportTable({
   data,
   firstHeader,
   sizeHeader,
-  secondHeader,
 }: {
   data: IAccessoriesReportWithPo[];
   firstHeader: string[] | null;
@@ -105,91 +104,73 @@ function ReportTable({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-  let header;
-  if (sizeHeader && secondHeader) {
-    header = firstHeader?.concat(sizeHeader).concat(secondHeader);
-  }
+
 
   return (
-    <div className="text-sm mt-3">
-      <div className="flex items-center font-semibold justify-between">
-        <p>BUYER: {data[0]?.BUYER_NAME}</p>
-        <p className="text-right"><span className="font-bold">Currency:</span> {data[0]?.CURRENCY}</p>
-      </div>
-      <table className="border-collapse border border-gray-950  w-[100%]">
-        <thead>
-          <tr>
-            {header?.map((item) => (
-              <th className="border border-gray-950 p-1">{item}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {uniqueKeysArray?.map((key) => (
-            <tr key={key}>
-              <td className="border text-center border-gray-950 p-1">
-                {groupedData[key].STYLE}
-              </td>
-              <td className="border text-center border-gray-950 p-1">
-                {groupedData[key].JOB}
-              </td>
-              <td className="border text-center border-gray-950 p-1">
-                {groupedData[key].PO}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].COLOR}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].MTL_COLOR}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].ITEM_NAME}
-              </td>
-
-              {sizeHeader?.map((size) => {
-                return (
-                  <td className="border border-gray-950 p-1 text-center">
-                    {groupedData[key].SIZES[size]}
-                  </td>
-                );
-              })}
-              <td className="border border-gray-950 p-1 text-center">
-                {groupedData[key].TOTAL_QTY}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].UOM}
-              </td>
-              <td className="border border-gray-950 p-1 text-center">
-                {groupedData[key].RATE.toFixed(6)}
-              </td>
-              <td className="border border-gray-950 p-1 text-center">
-                {Number(groupedData[key].AMOUNT).toFixed(4)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
-          <td
-            className="border text-center border-gray-950 p-1 font-bold"
-            colSpan={firstHeader?.length}
-          >
-            Grand Total
+    <>
+      {uniqueKeysArray?.map((key) => (
+        <tr key={key}>
+          <td className="border text-center border-gray-950 p-1">
+            {groupedData[key].STYLE}
           </td>
-          {sizeHeader?.map(() => {
-            return <td className="border border-gray-950 p-1 text-center"></td>;
+          <td className="border text-center border-gray-950 p-1">
+            {groupedData[key].JOB}
+          </td>
+          <td className="border text-center border-gray-950 p-1">
+            {groupedData[key].PO}
+          </td>
+          <td className="border border-gray-950 p-1">
+            {groupedData[key].COLOR}
+          </td>
+          <td className="border border-gray-950 p-1">
+            {groupedData[key].MTL_COLOR}
+          </td>
+          <td className="border border-gray-950 p-1">
+            {groupedData[key].ITEM_NAME}
+          </td>
+
+          {sizeHeader?.map((size) => {
+            return (
+              <td className="border border-gray-950 p-1 text-center">
+                {groupedData[key].SIZES[size]}
+              </td>
+            );
           })}
-
           <td className="border border-gray-950 p-1 text-center">
-            {grandTotal.TOTAL_QTY}
+            {groupedData[key].TOTAL_QTY}
           </td>
-          <td className="border border-gray-950 p-1 text-center"></td>
-          <td className="border border-gray-950 p-1 text-center"></td>
+          <td className="border border-gray-950 p-1">
+            {groupedData[key].UOM}
+          </td>
           <td className="border border-gray-950 p-1 text-center">
-            {grandTotal.AMOUNT.toFixed(4)}
+            {groupedData[key].RATE.toFixed(6)}
+          </td>
+          <td className="border border-gray-950 p-1 text-center">
+            {Number(groupedData[key].AMOUNT).toFixed(4)}
           </td>
         </tr>
-      </table>
-    </div>
+      ))}
+      <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
+        <td
+          className="border text-center border-gray-950 p-1 font-bold"
+          colSpan={firstHeader?.length}
+        >
+          Sub Total
+        </td>
+        {sizeHeader?.map(() => {
+          return <td className="border border-gray-950 p-1 text-center"></td>;
+        })}
+
+        <td className="border border-gray-950 p-1 text-center">
+          {grandTotal.TOTAL_QTY}
+        </td>
+        <td className="border border-gray-950 p-1 text-center"></td>
+        <td className="border border-gray-950 p-1 text-center"></td>
+        <td className="border border-gray-950 p-1 text-center">
+          {grandTotal.AMOUNT.toFixed(4)}
+        </td>
+      </tr>
+    </>
   );
 }
 

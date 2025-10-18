@@ -41,13 +41,11 @@ function SummaryReport({
   //set table header
   const firstHeader = [
     "STYLE NO.",
-    "JOB",
-    "PO",
     "COLOR",
     "MTL COLOR",
     "ITEM NAME",
   ];
-  const secondHeader = ["TTL QTY", "UOM", "RATE", "AMOUNT"];
+  const secondHeader = ["TTL QTY", "UOM"];
 
   const uniqueSizes: Set<string> = new Set();
 
