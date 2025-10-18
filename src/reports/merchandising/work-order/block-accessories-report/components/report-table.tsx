@@ -104,7 +104,13 @@ function ReportTable({
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
-
+  const sizeGrandTotals: Record<string, number> = {};
+  data.forEach((item) => {
+    if (item.GMT_SIZE_NAME) {
+      sizeGrandTotals[item.GMT_SIZE_NAME] =
+        (sizeGrandTotals[item.GMT_SIZE_NAME] || 0) + item.WORK_ORDER_QTY;
+    }
+  });
 
   return (
     <>
@@ -150,25 +156,21 @@ function ReportTable({
           </td>
         </tr>
       ))}
-      <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
-        <td
-          className="border text-center border-gray-950 p-1 font-bold"
-          colSpan={firstHeader?.length}
-        >
-          Sub Total
+      <tr className="font-bold bg-yellow-100" style={{ backgroundColor: "#fbffdd" }}>
+        <td colSpan={firstHeader?.length} className="border text-center border-gray-950 p-1 font-bold">
+          PO Wise Sub Total
         </td>
-        {sizeHeader?.map(() => {
-          return <td className="border border-gray-950 p-1 text-center"></td>;
-        })}
 
-        <td className="border border-gray-950 p-1 text-center">
-          {grandTotal.TOTAL_QTY}
-        </td>
-        <td className="border border-gray-950 p-1 text-center"></td>
-        <td className="border border-gray-950 p-1 text-center"></td>
-        <td className="border border-gray-950 p-1 text-center">
-          {grandTotal.AMOUNT.toFixed(4)}
-        </td>
+        {sizeHeader?.map((size) => (
+          <td key={`grand-${size}`} className="border border-gray-950 p-1 text-center font-bold">
+            {sizeGrandTotals[size] || 0}
+          </td>
+        ))}
+
+        <td className="border border-gray-950 p-1 text-center font-bold">{grandTotal?.TOTAL_QTY}</td>
+        <td className="border border-gray-950 p-1 text-center font-bold"></td>
+        <td className="border border-gray-950 p-1 text-center font-bold"></td>
+        <td className="border border-gray-950 p-1 text-center font-bold">{grandTotal?.AMOUNT.toFixed(4)}</td>
       </tr>
     </>
   );

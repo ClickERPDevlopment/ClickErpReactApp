@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
+import ReportSubGroup from "./report-sub-group";
 
 function ReportTable({
   data,
@@ -107,7 +108,17 @@ function ReportTable({
     ]);
   }
 
-  const uniqueKeysArray: string[] = Array.from(uniqueKeys);
+  const subGroupByMtl: Record<string, GroupedData> = {};
+
+  Object.keys(groupedData).forEach((key) => {
+    const item = groupedData[key];
+    if (!subGroupByMtl[item.ITEM_NAME]) {
+      subGroupByMtl[item.ITEM_NAME] = {};
+    }
+    subGroupByMtl[item.ITEM_NAME][key] = item;
+  });
+
+  const mtlNames = Object.keys(subGroupByMtl);
 
   let header: string[] = [];
   if (sizeHeader && secondHeader) {
@@ -127,41 +138,19 @@ function ReportTable({
           </tr>
         </thead>
         <tbody>
-          {uniqueKeysArray?.map((key) => (
-            <tr key={key}>
-              <td className="border text-center border-gray-950 p-1">
-                {groupedData[key].STYLE}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].COLOR}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].MTL_COLOR}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].ITEM_NAME}
-              </td>
 
-              {sizeHeader?.map((size) => (
-                <td
-                  key={size}
-                  className="border border-gray-950 p-1 text-center"
-                >
-                  {groupedData[key].SIZES[size] || ""}
-                </td>
-              ))}
+          {mtlNames.map((mtlName) => {
+            const rows = Object.values(subGroupByMtl[mtlName]);
+            return (
+              <ReportSubGroup
+                key={mtlName}
+                data={rows}
+                sizeHeader={sizeHeader}
+                mtlName={mtlName}
+              />
+            );
+          })}
 
-              <td className="border border-gray-950 p-1 text-center">
-                {groupedData[key].TOTAL_QTY}
-              </td>
-              <td className="border border-gray-950 p-1">
-                {groupedData[key].UOM}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-
-        <tfoot>
           <tr className="font-bold" style={{ backgroundColor: "#fbffdd" }}>
             <td
               className="border text-center border-gray-950 p-1 font-bold"
@@ -184,7 +173,7 @@ function ReportTable({
             </td>
             <td className="border border-gray-950 p-1 text-center"></td>
           </tr>
-        </tfoot>
+        </tbody>
       </table>
     </div>
   );
