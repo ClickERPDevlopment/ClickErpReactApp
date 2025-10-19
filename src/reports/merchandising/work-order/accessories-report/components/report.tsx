@@ -4,6 +4,7 @@ import ReportTable from "./report-table";
 import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { IAccessoriesReport } from "../accessories-report-type";
+import moment from "moment";
 
 function Report({ data, isShipDateShow }: { data: IAccessoriesReport[], isShipDateShow: boolean }) {
   //set table header
@@ -46,6 +47,10 @@ function Report({ data, isShipDateShow }: { data: IAccessoriesReport[], isShipDa
     <div>
       <div className="p-2">
         <ReportHeader masterData={data[0]} />
+        <div className="mt-2">
+          <p style={{ fontSize: "12px" }}><span className="font-bold">Revision No#</span>{data[0]?.REVICE_NO} <span className="font-bold ms-2">Revision Date:</span> {data[0]?.REVICE_DATE && moment(data[0]?.REVICE_DATE).format("DD-MMM-YY")}<span className="font-bold ms-2">Revision Reason:</span> {data[0]?.REVICE_REASON}</p>
+        </div>
+        <div></div>
         <ReportTable
           data={data}
           firstHeader={firstHeader}

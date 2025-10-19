@@ -6,6 +6,8 @@ import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
 import { IAccessoriesReportWithPo } from "../accessories-report-with-po/accessories-with-po-type";
+import BlockAccessoriesReportFormat2 from "../block-accessories-report-format-2/block-accessories-report-format-2-index";
+import useAppClient from "@/hooks/use-AppClient";
 
 function BlockAccessoriesReport() {
   const [data, setData] = useState<IAccessoriesReportWithPo[]>([]);
@@ -27,9 +29,7 @@ function BlockAccessoriesReport() {
     cmbReportFormat = String(searchParams.get("cmbReportFormat"));
   }
 
-  // console.log("id: ", id);
-  // console.log("orderRef: ", currency);
-  // console.log("fabricId: ", cmbReportFormat);
+  const client = useAppClient();
 
   const api = useApiUrl();
 
@@ -79,7 +79,11 @@ function BlockAccessoriesReport() {
   ) : (
     <>
       <div>
-        <Report searchParams={{ currency }} data={data}></Report>
+        {
+          client.currentClient == client.ICCL
+            ? <BlockAccessoriesReportFormat2 searchParams={{ currency }} data={data}></BlockAccessoriesReportFormat2>
+            : <Report searchParams={{ currency }} data={data}></Report>
+        }
       </div>
     </>
   );

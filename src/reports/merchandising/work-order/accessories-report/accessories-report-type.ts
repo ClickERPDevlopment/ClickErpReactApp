@@ -88,4 +88,7 @@ export type IAccessoriesReport = {
   BODY_PER_PCS: string;
   SHIP_DATE: Date;
   CONSUMPTION_PER_UNIT: number
+  REVICE_NO: number
+  REVICE_REASON: string
+  REVICE_DATE: string
 };
