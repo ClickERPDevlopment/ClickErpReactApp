@@ -37,7 +37,7 @@ export default function BuyerGroupSection({ data }: props) {
           <td className=" text-balance  text-center p-1">{x.CM_COST.toFixed(2)}</td>
           <td className=" text-balance  text-center p-1">{x.TOTAL_COST.toFixed(2)}</td>
           <td className=" text-balance  text-center p-1">{x.SHIP_VALUE.toFixed(2)}</td>
-          <td className=" text-balance  text-center p-1">{x.PROFIT_LOSS.toFixed(2)}</td>
+          <td className={cn(" text-balance  text-center p-1", x.PROFIT_LOSS < 0 ? 'text-red' : '')}>{x.PROFIT_LOSS.toFixed(2)}</td>
         </tr>
       ))}
       <TotalRow data={data} title="Buyer-wise Sub-Total" />
