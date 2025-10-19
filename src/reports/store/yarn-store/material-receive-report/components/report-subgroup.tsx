@@ -14,7 +14,7 @@ function ReportSubgroup({
 
   return (
     <>
-      <tr style={{ fontSize: "11px" }} className="font-bold">
+      <tr style={{ fontSize: "14px" }}>
         <td className="border border-gray-950 p-0.5">{index + 1}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.PURCHASE_ORDER_NO}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.ITEM_NAME}</td>

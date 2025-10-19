@@ -10,6 +10,7 @@ function ReportFooter({ data }: { data: ICompensationClaimMasterType | undefined
     { name: "", label: "Knitting Manager" },
     { name: "", label: "Manager (Yarn)" },
     { name: "", label: "DGM Knitting" },
+    { name: "", label: "ED (Textile)" },
     { name: "", label: "Approved By" },
   ];
 

@@ -57,7 +57,7 @@ function ReportFooter({
             </thead>
             <tbody>
               <tr>
-                <td className="text-center">{masterData?.PREPARED_BY}</td>
+                <td>{masterData?.PREPARED_BY}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -66,32 +66,32 @@ function ReportFooter({
               </tr>
               <tr>
                 <td className="text-center">
-                  <span className="border-t border-gray-950 px-2 font-bold">
+                  <span className="border-t border-gray-950 px-2">
                     Prepared By
                   </span>
                 </td>
                 <td className="text-center">
-                  <span className="border-t border-gray-950 px-2 font-bold">
+                  <span className="border-t border-gray-950 px-2">
                     Sr. Merchandiser
                   </span>
                 </td>
                 <td className="text-center">
-                  <span className="border-t border-gray-950 px-2 font-bold">
+                  <span className="border-t border-gray-950 px-2">
                     Mer. Manager
                   </span>
                 </td>
                 <td className="text-center">
-                  <span className="border-t border-gray-950 px-2 font-bold">
+                  <span className="border-t border-gray-950 px-2">
                     AGM. Mer & Marketing
                   </span>
                 </td>
                 <td className="text-center">
-                  <span className="border-t border-gray-950 px-2 font-bold">
+                  <span className="border-t border-gray-950 px-2">
                     ED
                   </span>
                 </td>
                 <td className="text-center">
-                  <span className="border-t border-gray-950 px-2 font-bold">
+                  <span className="border-t border-gray-950 px-2">
                     COO
                   </span>
                 </td>

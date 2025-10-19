@@ -21,14 +21,14 @@ function MaterialReceiveReport() {
   const [searchParams] = useSearchParams();
 
   const autoID = searchParams.get("autoID") || 1;
-  const POID = searchParams.get("POID") || 112;
+  const POID = searchParams.get("POID") || 12;
   const company_no = searchParams.get("company_no") || 1;
 
 
   const api = useApiUrl();
 
   useEffect(() => {
-    document.title = "Yarn Delivery Challan Gate Pass Report";
+    document.title = "Material Receive Report";
   }, []);
 
   useEffect(() => {

@@ -5,10 +5,10 @@ import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { iaccWorkOrder } from "../components/iaccWorkOrder";
+import { IAccessoriesReportWithPo } from "../accessories-report-with-po/accessories-with-po-type";
 
 function BlockAccessoriesReport() {
-  const [data, setData] = useState<iaccWorkOrder[]>([]);
+  const [data, setData] = useState<IAccessoriesReportWithPo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();

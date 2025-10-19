@@ -89,66 +89,68 @@ function Report({
 
 
   return (
-    <div style={{ fontFamily: "Times New Roman, serif" }}
+    <div style={{ fontFamily: "Calibri, sans-serif" }}
       className="px-12 text-gray-950">
       <div className="p-2">
         <ReportHeader
           data={data}
         />
-        <div className="flex justify-between mt-3">
+        <div className="flex justify-between mt-3" style={{ fontSize: "14px" }}>
           <div>
-            <table className="font-bold align-top">
+            <table className="align-top">
               <thead></thead>
               <tbody>
                 <tr>
-                  <td className="align-top">MRR No</td>
+                  <td className="align-top font-bold">MRR No</td>
                   <td className="align-top">: {data[0]?.MRR_NO}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Received Store</td>
+                  <td className="align-top font-bold">Received Store</td>
                   <td className="align-top">: {data[0]?.STORE_NAME}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Challan No</td>
+                  <td className="align-top font-bold">Challan No</td>
                   <td className="align-top">: {data[0]?.BILL_NUMBER}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div>
-            <table className="font-bold">
+            <table className="">
               <thead></thead>
               <tbody>
                 <tr>
-                  <td className="align-top">LC No</td>
+                  <td className="align-top font-bold">LC No</td>
                   <td className="align-top">: {data[0]?.LC_NO}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Supplier</td>
+                  <td className="align-top font-bold">Supplier</td>
                   <td className="align-top">: {data[0]?.SUPPLIER_NAME}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Challan Date</td>
-                  <td className="align-top">: {moment(data[0]?.CHALLAN_DATE).format("DD-MM-YY")}</td>
+                  <td className="align-top font-bold">Challan Date</td>
+                  <td className="align-top">
+                    : {data[0]?.CHALLAN_DATE ? moment(data[0].CHALLAN_DATE).format("DD-MM-YY") : ""}
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div>
-            <table className="font-bold">
+            <table className="">
               <thead></thead>
               <tbody>
                 <tr>
-                  <td className="align-top">Receive Date</td>
+                  <td className="align-top font-bold">Receive Date</td>
                   <td className="align-top">: {moment(data[0]?.RECEIVE_DATE).format("DD-MM-YY")}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Currecny</td>
-                  <td className="align-top">: { }</td>
+                  <td className="align-top font-bold">Currecny</td>
+                  <td className="align-top">: {data[0]?.CURRENCYCODE}</td>
                 </tr>
                 <tr>
-                  <td className="align-top">Gate Entry No</td>
+                  <td className="align-top font-bold">Gate Entry No</td>
                   <td className="align-top">: {data[0]?.GATE_ENTRY_NO}</td>
                 </tr>
               </tbody>
@@ -157,7 +159,7 @@ function Report({
         </div>
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
           <thead className="sticky top-0 print:static bg-white print:bg-transparent">
-            <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
+            <tr style={{ fontSize: "14px" }} className="bg-indigo-200 text-center">
               {firstHeader?.map((item) =>
                 <th className="border border-gray-950 p-0.5">{item}</th>
               )}
@@ -175,8 +177,8 @@ function Report({
         </table>
 
         <div>
-          <p style={{ fontSize: "12px" }} className="font-bold mt-2">In Words: {toWords.convert(totalAmount)}</p>
-          <p style={{ fontSize: "12px" }} className="font-bold mt-2">Remarks: {data[0]?.REMARKS}</p>
+          <p style={{ fontSize: "14px" }} className="mt-2"><span className="font-bold">In Words:</span> {toWords.convert(totalAmount)}</p>
+          <p style={{ fontSize: "14px" }} className="mt-2"><span className="font-bold">Remarks:</span> {data[0]?.REMARKS}</p>
         </div>
 
         <div className="mt-[144px]"></div>
