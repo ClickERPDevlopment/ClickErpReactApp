@@ -690,7 +690,7 @@ function ReportTable({
                 })}
 
                 <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
-                  {(grandTotalPlanHour / totalLine).toFixed(2) || "0"}
+                  {(grandTotalPlanHour / totalLine).toFixed(3) || "0"}
                 </td>
               </tr>
 
@@ -747,7 +747,7 @@ function ReportTable({
                         style={{ backgroundColor: firstColBg }}
                         className="border border-gray-950 p-1 text-center font-bold"
                       >
-                        {((grandTotalWorkingHour / (totalLine || 1)) || 0).toFixed(2)}
+                        {((grandTotalWorkingHour / (totalLine || 1)) || 0).toFixed(3)}
                       </td>
                     </>
                   );
