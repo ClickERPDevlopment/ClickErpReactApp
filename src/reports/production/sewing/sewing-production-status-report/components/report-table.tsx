@@ -1,6 +1,7 @@
 import moment from "moment";
 import { SewingProductionStatusReportType } from "../sewing-production-status-report-type";
 import { SewingHourlyProductionStatusReportType } from "../sewing-hourly-production-status-report-type";
+import React from "react";
 
 function ReportTable({
   data,
@@ -356,6 +357,11 @@ function ReportTable({
   let grandTotalProduced = 0;
   let grandTotalTarget = 0;
 
+
+  let grandTotalPlanHour = 0;
+  let grandTotalProductionHourly = 0;
+  let grandTotalAchvHourly = 0;
+
   const getFactoryColor = (factoryName: string): string => {
     let hash = 0;
     for (let i = 0; i < factoryName.length; i++) {
@@ -517,6 +523,8 @@ function ReportTable({
 
                   const floorCount = Object.keys(grandTotal[company].FLOORS).length;
 
+                  grandTotalProductionHourly += (companyData?.HOURLY_PER_LINE_TOTAL / floorCount) * companyData.NO_OF_LINE;
+
                   totalFloor += floorCount;
 
                   return (
@@ -538,7 +546,7 @@ function ReportTable({
                 })}
 
                 <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
-                  {Math.round(grouped[dateKey]?.HOURLY_PER_LINE / totalFloor) || "0.00"}
+                  {Math.round(grandTotalProductionHourly / totalLine) || "0.00"}
                 </td>
               </tr>
 
@@ -620,8 +628,6 @@ function ReportTable({
                     const smv = companyData?.FLOORS?.[floor]?.AVG_SMV ?? 0;
                     companyTotalSMV += smv;
 
-
-
                     return (
                       <td
                         key={`${dateKey}-${company}-${floor}`}
@@ -656,8 +662,15 @@ function ReportTable({
                 </td>
 
                 {Object.keys(grandTotal).map((company) => {
+
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
                   const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+
+                  grandTotalPlanHour +=
+                    (((companyData?.TARGETHOUR_TOTAL || 0) / (floorCount || 1)) *
+                      (companyData?.NO_OF_LINE || 0));
+
+
                   return (
                     <>
                       {Object.keys(grandTotal[company].FLOORS).map((floor) => (
@@ -677,41 +690,70 @@ function ReportTable({
                 })}
 
                 <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
-                  {(grouped[dateKey]?.TARGETHOUR / totalFloor).toFixed(2) || "0"}
+                  {(grandTotalPlanHour / totalLine).toFixed(2) || "0"}
                 </td>
               </tr>
 
 
               <tr key={dateKey}>
-                <td style={{ backgroundColor: firstColBg }} className="border text-center border-gray-950 p-1 text-nowrap font-bold">
+                <td
+                  style={{ backgroundColor: firstColBg }}
+                  className="border text-center border-gray-950 p-1 text-nowrap font-bold"
+                >
                   ACTUAL W/H
                 </td>
 
-                {Object.keys(grandTotal).map((company) => {
-                  const companyData = grouped[dateKey]?.COMPANY?.[company];
-                  const floorCount = Object.keys(grandTotal[company].FLOORS).length;
-                  return (
-                    <>
-                      {Object.keys(grandTotal[company].FLOORS).map((floor) => (
+                {(() => {
+                  let grandTotalWorkingHour = 0;
+
+                  const companyCells = Object.keys(grandTotal).map((company) => {
+                    const companyData = grouped[dateKey]?.COMPANY?.[company];
+                    const floorCount = Object.keys(grandTotal[company].FLOORS).length || 1;
+
+                    const companyWorkingHour =
+                      ((companyData?.ACTUALHOURS_TOTAL || 0) / floorCount) *
+                      (companyData?.NO_OF_LINE || 0);
+
+                    grandTotalWorkingHour += companyWorkingHour;
+
+                    return (
+                      <React.Fragment key={company}>
+                        {Object.keys(grandTotal[company].FLOORS).map((floor) => {
+                          const actual = companyData?.FLOORS?.[floor]?.ACTUALHOURS ?? 0;
+                          return (
+                            <td
+                              key={`${dateKey}-${company}-${floor}`}
+                              className="border border-gray-950 p-1 text-center"
+                              style={{ backgroundColor: getFactoryColor(company) }}
+                            >
+                              {actual.toFixed(2)}
+                            </td>
+                          );
+                        })}
                         <td
-                          key={`${dateKey}-${company}-${floor}`}
-                          className="border border-gray-950 p-1 text-center"
+                          className="border border-gray-950 p-1 text-center font-bold"
                           style={{ backgroundColor: getFactoryColor(company) }}
                         >
-                          {(companyData?.FLOORS?.[floor]?.ACTUALHOURS).toFixed(2) || "0"}
+                          {((companyData?.ACTUALHOURS_TOTAL || 0) / floorCount).toFixed(2)}
                         </td>
-                      ))}
-                      <td className="border border-gray-950 p-1 text-center font-bold" style={{ backgroundColor: getFactoryColor(company) }}>
-                        {(companyData?.ACTUALHOURS_TOTAL / floorCount).toFixed(2) || "0"}
+                      </React.Fragment>
+                    );
+                  });
+
+                  return (
+                    <>
+                      {companyCells}
+                      <td
+                        style={{ backgroundColor: firstColBg }}
+                        className="border border-gray-950 p-1 text-center font-bold"
+                      >
+                        {((grandTotalWorkingHour / (totalLine || 1)) || 0).toFixed(2)}
                       </td>
                     </>
                   );
-                })}
-
-                <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
-                  {(grouped[dateKey]?.ACTUALHOURS / totalFloor).toFixed(2) || "0"}
-                </td>
+                })()}
               </tr>
+
 
 
               {
@@ -867,6 +909,7 @@ function ReportTable({
 
                   let totalHourly = 0;
 
+
                   const cells = Object.keys(grandTotal[company].FLOORS).map((floor) => {
                     const floorData = companyData?.FLOORS?.[floor];
                     const floorId = floorData?.FLOOR_ID ?? 0;
@@ -890,6 +933,9 @@ function ReportTable({
                     totalHourly += hourly;
                     grandTotalHourlyLine += hourly;
 
+
+
+
                     return (
                       <td
                         key={`${dateKey}-${company}-${floor}`}
@@ -901,6 +947,7 @@ function ReportTable({
                     );
                   });
 
+                  grandTotalAchvHourly += (totalHourly / floorCount) * companyData.NO_OF_LINE;
 
                   cells.push(
                     <td
@@ -918,7 +965,7 @@ function ReportTable({
                 <td style={{ backgroundColor: firstColBg }} className="border border-gray-950 p-1 text-center font-bold">
                   {(() => {
 
-                    return isNaN(grandTotalHourlyLine) ? "0" : Math.round(grandTotalHourlyLine / totalFloor);
+                    return isNaN(grandTotalHourlyLine) ? "0" : Math.round(grandTotalAchvHourly / totalLine);
                   })()}
                 </td>
               </tr>

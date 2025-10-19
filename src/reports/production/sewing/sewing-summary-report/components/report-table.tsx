@@ -764,7 +764,9 @@ function ReportTable({
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SMV / finalData.ROW_COUNT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {(finalData.SMV / finalData.ROW_COUNT).toFixed(2)}
+            </td>
           </tr>
 
 
