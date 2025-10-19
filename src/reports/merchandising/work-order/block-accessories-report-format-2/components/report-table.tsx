@@ -24,9 +24,11 @@ function ReportTable({
       if (!result[key]) {
         result[key] = {
           STYLE: item.STYLENO,
-          ORDER: item.PO_NO,
           COLOR: item.GMT_COLOR_NAME,
+          MTL_COLOR: item.MTL_COLOR_NAME,
+          MTL_SIZE: item.MTL_SIZE_NAME,
           ITEM_NAME: item.MTL_NAME,
+          REF_SWATCH: item.REF_SWATCH,
           UOM: item.UOM,
           ITEM_REF: item.DESCRIPTION,
           TOTAL_QTY: 0,
@@ -56,12 +58,15 @@ function ReportTable({
   }, 0);
 
 
+
   interface GroupedData {
     [key: string]: {
       STYLE: string;
-      ORDER: string;
       COLOR: string;
+      MTL_COLOR: string;
+      MTL_SIZE: string;
       ITEM_NAME: string;
+      REF_SWATCH: string;
       UOM: string;
       ITEM_REF: string;
       TOTAL_QTY: number;
@@ -73,12 +78,15 @@ function ReportTable({
 
   let groupedData: GroupedData = {};
 
+
+  data[0]?.MTL_SIZE_NAME
+
   if (data) {
     groupedData = groupBy(data, [
       "STYLENO",
-      "PO_NO",
       "GMT_COLOR_NAME",
-      "MTL_NAME",
+      "MTL_COLOR_NAME",
+      "MTL_SIZE_NAME",
       "UOM",
       "DESCRIPTION",
       "SUPPLIER_RATE_PER_PCS",
@@ -94,8 +102,11 @@ function ReportTable({
 
   return (
     <div className="text-sm mt-3">
-      <div className="flex items-center font-semibold">
+      <div className="flex items-center font-semibold justify-between">
         <p>BUYER: {data[0]?.BUYER_NAME}</p>
+        <p className="text-right">
+          <span className="font-bold">Currency:</span> {data[0]?.CURRENCY}
+        </p>
       </div>
       <table className="border-collapse border border-gray-300  w-[100%]">
         <thead>
@@ -112,10 +123,16 @@ function ReportTable({
                 {groupedData[key].STYLE}
               </td>
               <td className="border border-gray-300 p-1">
-                {groupedData[key].ORDER}
+                {groupedData[key].COLOR}
               </td>
               <td className="border border-gray-300 p-1">
-                {groupedData[key].COLOR}
+                {groupedData[key].MTL_COLOR}
+              </td>
+              <td className="border border-gray-300 p-1">
+                {groupedData[key].REF_SWATCH}
+              </td>
+              <td className="border border-gray-300 p-1">
+                {groupedData[key].MTL_SIZE}
               </td>
               <td className="border border-gray-300 p-1">
                 {groupedData[key].ITEM_NAME}
@@ -148,7 +165,7 @@ function ReportTable({
           ))}
           <tr className="font-bold">
             <td
-              colSpan={6 + Number(sizeHeader?.length)}
+              colSpan={8 + Number(sizeHeader?.length)}
               className="border border-gray-300 p-1 text-center font-bold"
             >
               Total

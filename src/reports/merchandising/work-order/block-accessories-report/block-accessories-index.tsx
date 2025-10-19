@@ -79,6 +79,7 @@ function BlockAccessoriesReport() {
   ) : (
     <>
       <div>
+        {/* <BlockAccessoriesReportFormat2 searchParams={{ currency }} data={data}></BlockAccessoriesReportFormat2> */}
         {
           client.currentClient == client.ICCL
             ? <BlockAccessoriesReportFormat2 searchParams={{ currency }} data={data}></BlockAccessoriesReportFormat2>

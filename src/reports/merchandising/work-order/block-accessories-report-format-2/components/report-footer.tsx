@@ -1,9 +1,9 @@
 import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
 
-function ReportFooter({ }: { masterData: IAccessoriesReportWithPo | null }) {
+function ReportFooter({ masterData }: { masterData: IAccessoriesReportWithPo | null }) {
   return (
     <div className="flex">
-      {/* <div className="border flex flex-col my-3 p-2 w-[50%]">
+      <div className="border flex flex-col my-3 p-2 w-[50%]">
         <label htmlFor="" className="font-bold text-sm mb-2">
           PREPARED BY
         </label>
@@ -15,7 +15,7 @@ function ReportFooter({ }: { masterData: IAccessoriesReportWithPo | null }) {
             SIGNATURE:
           </label>
           <div className="border-b flex-1">
-            <span>{}</span>
+            <span>{ }</span>
           </div>
         </div>
         <div className="flex flex-row mb-2 ">
@@ -49,7 +49,7 @@ function ReportFooter({ }: { masterData: IAccessoriesReportWithPo | null }) {
           SPECIAL INSTRUCTION:{" "}
           <span className="font-light">{masterData?.SPECIAL_INSTRUCTION}</span>
         </label>
-      </div> */}
+      </div>
     </div>
   );
 }

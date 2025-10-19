@@ -44,13 +44,16 @@ function Report({
 
   //set table header
   const firstHeader = [
-    "STYLE",
-    "ORDER",
+    "STYLE NO.",
     "COLOR",
+    "MTL COLOR",
+    "REF/SWATCH",
+    "MTL SIZE",
     "ITEM NAME",
     "UOM",
     "ITEM REF.",
   ];
+
   const secondHeader = ["TTL QTY", "RATE", "AMOUNT"];
 
   const uniqueSizes: Set<string> = new Set();
