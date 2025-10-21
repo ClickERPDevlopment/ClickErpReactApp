@@ -1,6 +1,6 @@
-import { SewingHourlyProductionStatusReportType } from "../sewing-hourly-production-status-report-type";
+import { DateWiseSewingProductionReportDto } from "../date-wise-sewing-production-report-type";
 
-function ReportFooter({ }: { masterData: SewingHourlyProductionStatusReportType | null }) {
+function ReportFooter({ }: { masterData: DateWiseSewingProductionReportDto | null }) {
   return (
     <div className="flex">
       <div className="border flex flex-col my-3 p-2 w-[50%]">
