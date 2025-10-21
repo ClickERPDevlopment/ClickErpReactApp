@@ -209,6 +209,7 @@ import YarnAdditionalBookingReportPDF from "./reports/store/yarn-store/yarn-addi
 import DateColorWiseShiplentSummaryReport from "./reports/merchandising/report/date-color-wise-shiplent-summary-report/date-color-wise-shiplent-summary-report-index.tsx";
 import EmbellishmentWIPReport from "./reports/embellishment/embellishment-wip-report/embellishment-wip-report-index.tsx";
 import MaterialReceiveReport from "./reports/store/yarn-store/material-receive-report/material-receive-report-index.tsx";
+import DateWiseSewingProductionReport from "./reports/production/sewing/date-wise-sewing-production-status-report/date-wise-sewing-production-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -616,6 +617,10 @@ createRoot(document.getElementById("root")!).render(
                         />
                       </Route>
                       <Route path="sewing">
+                        <Route
+                          path="date-wise-sewing-production-report"
+                          element={<DateWiseSewingProductionReport />}
+                        />
                         <Route
                           path="sewing-summary-report"
                           element={<SewingSummaryReport />}
