@@ -83,8 +83,8 @@ const masterFormSchema = z.object({
   COMPENSATION_TYPE: z.string().min(1, "Compensation type is required"),
   RELATED_SUPPLIER_ID: z.number().min(1, "Supplier is required"),
   RELATED_SUPPLIER_NAME: z.string().min(1, "Supplier name is required"),
-  REPORTED_BY: z.string(),
-  ADDITIONAL_NOTES: z.string(),
+  REPORTED_BY: z.string().optional().default(""),
+  ADDITIONAL_NOTES: z.string().optional().default(""),
   REMARKS: z.string(),
 });
 
@@ -1161,6 +1161,7 @@ export default function CompensationClaimForm({
                         <FormLabel className="font-bold">Claim Amount/Unit</FormLabel>
                         <FormControl onChange={handleInputChange}>
                           <Input
+                            disabled
                             style={{ backgroundColor: "#FFFFC0" }}
                             placeholder=""
                             {...field}
