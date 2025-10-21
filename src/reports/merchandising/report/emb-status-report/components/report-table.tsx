@@ -3,7 +3,8 @@ import { EmbStatusReportStyleDataType } from "../emb-status-report-style-data-ty
 import { EmbStatusReportEmbDataType } from "../emb-status-emb-data-type";
 import moment from "moment";
 import React, { useRef, useState } from "react";
-import useApiUrl from "@/hooks/use-ApiUrl";
+// import useApiUrl from "@/hooks/use-ApiUrl";
+import StyleImage from "@/components/style-image";
 
 type ReportProps = {
   styleData: EmbStatusReportStyleDataType[];
@@ -64,33 +65,37 @@ function ReportTable({ styleData, embData }: ReportProps) {
 
         let balance = totalQty - (filteredEmbData[0]?.WO_QTY || 0);
 
-        const api = useApiUrl();
-        const [styleImage, setStyleImage] = useState<string | null>(null);
+        //const api = useApiUrl();
+        //const [styleImage, setStyleImage] = useState<string | null>(null);
         const cellRef = useRef<HTMLTableCellElement | null>(null);
 
         const [hoveredStyleId, setHoveredStyleId] = useState<number | null>(null);
         const [imagePosition, setImagePosition] = useState<{ top: number; left: number } | null>(null);
 
 
-        const fetchImage = async (id: number) => {
-          try {
-            const response = await fetch(
-              `${api.ProductionUrl}/production/Style/GetStyleImage?styleId=${id}`
-            );
-            if (response.ok) {
-              const blob = await response.blob();
-              const url = URL.createObjectURL(blob);
-              if (styleImage) {
-                URL.revokeObjectURL(styleImage);
-              }
-              setStyleImage(url);
-            } else {
-              console.error("Failed to fetch image");
-            }
-          } catch (error) {
-            console.error("Error fetching image:", error);
-          }
-        };
+        // const fetchImage = async (id: number) => {
+
+
+        //   console.log("Fetching image for style ID:", id);
+
+        //   try {
+        //     const response = await fetch(
+        //       `${api.ProductionUrl}/production/Style/GetStyleImage?styleId=${id}`
+        //     );
+        //     if (response.ok) {
+        //       const blob = await response.blob();
+        //       const url = URL.createObjectURL(blob);
+        //       if (styleImage) {
+        //         URL.revokeObjectURL(styleImage);
+        //       }
+        //       setStyleImage(url);
+        //     } else {
+        //       console.error("Failed to fetch image");
+        //     }
+        //   } catch (error) {
+        //     console.error("Error fetching image:", error);
+        //   }
+        // };
 
 
         return (
@@ -104,11 +109,12 @@ function ReportTable({ styleData, embData }: ReportProps) {
                   left: `${imagePosition.left}px`,
                 }}
               >
-                <img
+                <StyleImage styleId={hoveredStyleId} />
+                {/* <img
                   src={styleImage || ""}
                   alt="Style Image"
                   className="w-32 h-auto object-cover"
-                />
+                /> */}
               </div>
             )}
 
@@ -120,7 +126,21 @@ function ReportTable({ styleData, embData }: ReportProps) {
                 <td className="border border-gray-950 p-0.5">
                   {item.BUYER}
                 </td>
-                <td className="border border-gray-950 p-0.5">
+                <td className="border border-gray-950 cursor-pointer hover:bg-lime-200"
+                  ref={cellRef}
+                  onMouseEnter={(e) => {
+                    const rect = (e.currentTarget as HTMLTableCellElement).getBoundingClientRect();
+                    setImagePosition({
+                      top: rect.bottom + window.scrollY,
+                      left: rect.left + window.scrollX,
+                    });
+                    setHoveredStyleId(item.STYLEID);
+                    //fetchImage(item.STYLEID);
+                  }}
+                  onMouseLeave={() => {
+                    setImagePosition(null);
+                  }}
+                >
                   {item.STYLENO}
                 </td>
                 <td className="border border-gray-950 p-0.5">
@@ -162,16 +182,16 @@ function ReportTable({ styleData, embData }: ReportProps) {
                   <td className="border border-gray-950 cursor-pointer hover:bg-lime-200"
                     ref={cellRef}
                     onMouseEnter={(e) => {
+                      console.log("Fetching image for style ID7777777777:", item.STYLEID);
                       const rect = (e.currentTarget as HTMLTableCellElement).getBoundingClientRect();
                       setImagePosition({
                         top: rect.bottom + window.scrollY,
                         left: rect.left + window.scrollX,
                       });
                       setHoveredStyleId(item.STYLEID);
-                      fetchImage(item.STYLEID);
+                      //fetchImage(item.STYLEID);
                     }}
                     onMouseLeave={() => {
-                      setHoveredStyleId(null);
                       setImagePosition(null);
                     }}
                   >
