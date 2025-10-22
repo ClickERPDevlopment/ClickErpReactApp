@@ -1161,7 +1161,6 @@ export default function CompensationClaimForm({
                         <FormLabel className="font-bold">Claim Amount/Unit</FormLabel>
                         <FormControl onChange={handleInputChange}>
                           <Input
-                            disabled
                             style={{ backgroundColor: "#FFFFC0" }}
                             placeholder=""
                             {...field}
@@ -1182,7 +1181,8 @@ export default function CompensationClaimForm({
                         <FormLabel className="font-bold">Claim Amount</FormLabel>
                         <FormControl onChange={handleInputChange}>
                           <Input
-                            style={{ backgroundColor: "#FFFFC0" }}
+                            disabled
+                            style={{ backgroundColor: "#eae8e8" }}
                             placeholder=""
                             {...field}
                             className="form-control"
