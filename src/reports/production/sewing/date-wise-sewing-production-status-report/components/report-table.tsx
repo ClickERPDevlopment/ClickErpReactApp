@@ -1,6 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { DateWiseSewingProductionReportDto } from "../date-wise-sewing-production-report-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 function ReportTable({
   data,
@@ -96,6 +97,19 @@ function ReportTable({
 
   });
 
+
+  let grandTotalTarget = 0;
+  let grandTotalSewingQty = 0;
+  let grandTotalWorkingHour = 0;
+  let grandTotalFob = 0;
+  let grandTotalCM = 0;
+
+  let grandTotalDataCount = 0;
+  let grandTotalPerformancePercent = 0;
+
+
+  const client = useAppClient();
+
   return (
     <div className="text-sm mt-3">
       <table className="border-collapse border border-gray-950 w-full">
@@ -109,6 +123,14 @@ function ReportTable({
                 {company}
               </th>
             ))}
+            <th colSpan={7} className="border border-gray-950 p-1 text-center ">
+              {
+                client.currentClient == client.FAME && "FAME GROUP"
+              }
+              {
+                client.currentClient == client.EURO && "EUROTEX GROUP"
+              }
+            </th>
           </tr>
           <tr>
             {companyHeader?.map((company) => (
@@ -122,17 +144,39 @@ function ReportTable({
                 <th className="border border-gray-950 p-1 text-center">Work Hour</th>
               </React.Fragment>
             ))}
+
+            <React.Fragment>
+              <th className="border border-gray-950 p-1 text-center">Target Qty</th>
+              <th className="border border-gray-950 p-1 text-center">Achi. Qty</th>
+              <th className="border border-gray-950 p-1 text-center">Deviation</th>
+              <th className="border border-gray-950 p-1 text-center">Per(%)</th>
+              <th className="border border-gray-950 p-1 text-center">CM $</th>
+              <th className="border border-gray-950 p-1 text-center">FOB $</th>
+              <th className="border border-gray-950 p-1 text-center">Work Hour</th>
+            </React.Fragment>
           </tr>
         </thead>
         <tbody>
-          {sortedDates.map((date) => (
-            <tr key={date}>
+          {sortedDates.map((date) => {
+
+
+            let totalTarget = 0;
+            let totalSewingQty = 0;
+            let totalWorkingHour = 0;
+            let totalFob = 0;
+            let totalCM = 0;
+
+            grandTotalDataCount += 1;
+
+            const tableRow = <tr key={date}>
               <td className="border border-gray-950 p-1 text-center font-medium  text-nowrap">
                 {moment(date).format("DD-MMM-YYYY")}
               </td>
 
               {companyHeader?.map((prefix) => {
                 const item = groupedData[date][prefix];
+
+
 
                 if (!item) {
                   return (
@@ -148,6 +192,19 @@ function ReportTable({
                 const percent =
                   item.TARGET > 0 ? ((item.SEWING_OUTPUT / item.TARGET) * 100).toFixed(2) : "0.00";
 
+
+                totalTarget += item.TARGET;
+                totalSewingQty += item.SEWING_OUTPUT;
+                totalWorkingHour += item.WORKING_HOUR;
+                totalFob += item.TOTAL_FOB;
+                totalCM += item.TOTAL_CM;
+
+                grandTotalTarget += item.TARGET;
+                grandTotalSewingQty += item.SEWING_OUTPUT;
+                grandTotalWorkingHour += item.WORKING_HOUR;
+                grandTotalFob += item.TOTAL_FOB;
+                grandTotalCM += item.TOTAL_CM;
+
                 return (
                   <React.Fragment key={prefix}>
                     <td className="border border-gray-950 p-1 text-center">{Math.round(item.TARGET)}</td>
@@ -160,8 +217,23 @@ function ReportTable({
                   </React.Fragment>
                 );
               })}
+
+              <React.Fragment>
+                <td className="border border-gray-950 p-1 text-center">{Math.round(totalTarget)}</td>
+                <td className="border border-gray-950 p-1 text-center">{Math.round(totalSewingQty)}</td>
+                <td className="border border-gray-950 p-1 text-center">{Math.round(totalSewingQty - totalTarget)}</td>
+                <td className="border border-gray-950 p-1 text-center">{(totalSewingQty * 100 / totalTarget).toFixed(2)}</td>
+                <td className="border border-gray-950 p-1 text-center">{Math.round(totalFob)}</td>
+                <td className="border border-gray-950 p-1 text-center">{Math.round(totalCM)}</td>
+                <td className="border border-gray-950 p-1 text-center">{(totalWorkingHour).toFixed(2)}</td>
+              </React.Fragment>
+
             </tr>
-          ))}
+
+            grandTotalPerformancePercent += (totalTarget > 0) ? (totalSewingQty * 100 / totalTarget) : 0;
+
+            return tableRow;
+          })}
 
 
 
@@ -200,6 +272,18 @@ function ReportTable({
                 </React.Fragment>
               );
             })}
+
+
+            <React.Fragment>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget / grandTotalDataCount)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty / grandTotalDataCount)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round((grandTotalSewingQty - grandTotalTarget) / grandTotalDataCount)}</td>
+              <td rowSpan={2} className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalFob / grandTotalDataCount).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalCM / grandTotalDataCount).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount).toFixed(2)}</td>
+            </React.Fragment>
+
           </tr>
 
           <tr className="bg-green-100 font-semibold">
@@ -229,6 +313,17 @@ function ReportTable({
                 </React.Fragment>
               );
             })}
+
+
+            <React.Fragment>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty - grandTotalTarget)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalFob)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalCM)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour).toFixed(2)}</td>
+            </React.Fragment>
+
           </tr>
 
         </tbody>
@@ -267,6 +362,25 @@ function ReportTable({
                 </tr>
               );
             })}
+
+
+            <tr>
+              <td className="border border-gray-950 p-1 text-center">
+                {
+                  client.currentClient == client.FAME && "FAME GROUP"
+                }
+                {
+                  client.currentClient == client.EURO && "EUROTEX GROUP"
+                }
+              </td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalFob)}</td>
+              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalCM)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour).toFixed(2)}</td>
+            </tr>
+
           </tbody>
         </table>
       </div>
