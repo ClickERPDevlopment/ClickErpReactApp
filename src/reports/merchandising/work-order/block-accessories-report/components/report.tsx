@@ -29,7 +29,7 @@ function Report({
   const uniqueKeysArray = Array.from(uniqueKeys);
 
   const firstHeader = ["STYLE NO.", "JOB", "PO", "COLOR", "MTL COLOR", "ITEM NAME"];
-  const secondHeader = ["TTL QTY", "UOM", "RATE", "AMOUNT"];
+  const secondHeader = ["TTL QTY", "EXT. (%)", "UOM", "RATE", "AMOUNT"];
 
   const uniqueSizes: Set<string> = new Set();
   data.forEach((item) => item.GMT_SIZE_NAME && uniqueSizes.add(item.GMT_SIZE_NAME));
@@ -103,6 +103,7 @@ function Report({
                 ))}
 
                 <td className="border border-gray-950 p-1 text-center font-bold">{totalQty}</td>
+                <td className="border border-gray-950 p-1 text-center font-bold"></td>
                 <td className="border border-gray-950 p-1 text-center font-bold"></td>
                 <td className="border border-gray-950 p-1 text-center font-bold"></td>
                 <td className="border border-gray-950 p-1 text-center font-bold">{totalAmount.toFixed(4)}</td>

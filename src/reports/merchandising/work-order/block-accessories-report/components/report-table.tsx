@@ -38,6 +38,7 @@ function ReportTable({
           UOM: item.UOM,
           ITEM_REF: item.DESCRIPTION,
           TOTAL_QTY: 0,
+          EXTRA_PERCENT: item.EXTRA_PERCENT,
           RATE: item.SUPPLIER_RATE_PER_DZN / 12,
           AMOUNT: 0,
           SIZES: {},
@@ -73,6 +74,7 @@ function ReportTable({
       UOM: string;
       ITEM_REF: string;
       TOTAL_QTY: number;
+      EXTRA_PERCENT: number;
       RATE: number;
       AMOUNT: number;
       SIZES: { [key: string]: number };
@@ -145,6 +147,9 @@ function ReportTable({
           <td className="border border-gray-950 p-1 text-center">
             {groupedData[key].TOTAL_QTY}
           </td>
+          <td className="border border-gray-950 p-1 text-center">
+            {groupedData[key].EXTRA_PERCENT}
+          </td>
           <td className="border border-gray-950 p-1">
             {groupedData[key].UOM}
           </td>
@@ -168,6 +173,7 @@ function ReportTable({
         ))}
 
         <td className="border border-gray-950 p-1 text-center font-bold">{grandTotal?.TOTAL_QTY}</td>
+        <td className="border border-gray-950 p-1 text-center font-bold"></td>
         <td className="border border-gray-950 p-1 text-center font-bold"></td>
         <td className="border border-gray-950 p-1 text-center font-bold"></td>
         <td className="border border-gray-950 p-1 text-center font-bold">{grandTotal?.AMOUNT.toFixed(4)}</td>
