@@ -4,6 +4,7 @@ import ReportFooter from "./report-footer";
 import ReportHeader from "./report-header";
 import { IAccessoriesReportWithPo } from "../../accessories-report-with-po/accessories-with-po-type";
 import SummaryReport from "../summary-components/report";
+import moment from "moment";
 
 function Report({
   data,
@@ -55,9 +56,10 @@ function Report({
       <div className="p-2">
         <ReportHeader searchParams={{ currency: searchParams.currency }} masterData={data[0]} />
         <div className="mt-2">
-          <p>
-            <span className="font-bold">Sub:</span> {data[0]?.WO_SUBJECT}
-          </p>
+          <p style={{ fontSize: "12px" }}><span className="font-bold">Revision No#</span>{data[0]?.REVICE_NO} <span className="font-bold ms-2">Revision Date:</span> {data[0]?.REVICE_DATE && moment(data[0]?.REVICE_DATE).format("DD-MMM-YY")}<span className="font-bold ms-2">Revision Reason:</span> {data[0]?.REVICE_REASON}</p>
+        </div>
+        <div className=" font-bold text-sm mt-1">
+          <p>SUB: {data[0]?.WO_SUBJECT}</p>
         </div>
         <div className="text-sm mt-1">
           <div className="flex items-center font-semibold justify-between">

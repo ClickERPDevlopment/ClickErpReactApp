@@ -210,6 +210,7 @@ import DateColorWiseShiplentSummaryReport from "./reports/merchandising/report/d
 import EmbellishmentWIPReport from "./reports/embellishment/embellishment-wip-report/embellishment-wip-report-index.tsx";
 import MaterialReceiveReport from "./reports/store/yarn-store/material-receive-report/material-receive-report-index.tsx";
 import DateWiseSewingProductionReport from "./reports/production/sewing/date-wise-sewing-production-status-report/date-wise-sewing-production-report-index.tsx";
+import DateWiseCuttingProoductionReport from "./reports/production/cuttting/date-wise-cutting-production-status-report/date-wise-cutting-production-report-index.tsx";
 
 //-------------------------------------------------------------
 const queryClient = new QueryClient();
@@ -577,6 +578,10 @@ createRoot(document.getElementById("root")!).render(
 
                     <Route path="production">
                       <Route path="cutting">
+                        <Route
+                          path="date-wise-cutting-prooduction-report"
+                          element={<DateWiseCuttingProoductionReport />}
+                        />
                         <Route
                           path="fabric-quality-problem-report"
                           element={<FabricQualityProblemReport />}

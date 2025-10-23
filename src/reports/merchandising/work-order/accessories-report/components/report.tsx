@@ -20,6 +20,7 @@ function Report({ data, isShipDateShow }: { data: IAccessoriesReport[], isShipDa
     "GMT SIZE",
     "MTL SIZE",
     "GMT QTY",
+    "EXT. (%)",
     "CONZ",
     "WO QTY",
     "UOM",
@@ -28,7 +29,6 @@ function Report({ data, isShipDateShow }: { data: IAccessoriesReport[], isShipDa
     "AMOUNT",
     "DESCRIPTION 1",
     "DESCRIPTION 2",
-    "MTL COLOR 2",
     isShipDateShow && "SHIP DATE",
   ].filter(Boolean) as string[];
 

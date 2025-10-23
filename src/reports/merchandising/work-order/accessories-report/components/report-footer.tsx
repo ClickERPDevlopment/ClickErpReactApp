@@ -41,7 +41,7 @@ function ReportFooter({
                   </td>
                   <td className="text-center">
                     <span className="border-t border-gray-950 px-2">
-                      Assst/Manager Mer.
+                      Asst./Manager Mer.
                     </span>
                   </td>
                   <td className="text-center">

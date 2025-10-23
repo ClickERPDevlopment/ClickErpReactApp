@@ -91,4 +91,5 @@ export type IAccessoriesReport = {
   REVICE_NO: number
   REVICE_REASON: string
   REVICE_DATE: string
+  EXTRA_PERCENT: number
 };

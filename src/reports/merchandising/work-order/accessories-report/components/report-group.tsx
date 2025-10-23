@@ -46,6 +46,9 @@ function ReportGroup({
             {item.GMT_QTY}
           </td>
           <td className="border border-gray-900 p-0.5 text-center">
+            {item.EXTRA_PERCENT}
+          </td>
+          <td className="border border-gray-900 p-0.5 text-center">
             {item.CONSUMPTION_PER_UNIT}
           </td>
           <td className="border border-gray-900 p-0.5 text-center">
@@ -69,9 +72,6 @@ function ReportGroup({
           <td className="border border-gray-900 p-0.5 text-center">
             {item.MTL_DESCRIPTION_2}
           </td>
-          <td className="border border-gray-900 p-0.5 text-center">
-            {item.MTL_COLOR_NAME_2}
-          </td>
           {
             isShipDateShow && <td className="border border-gray-900 p-0.5 text-center">
               {item.SHIP_DATE ? moment(new Date(item.SHIP_DATE)).format("DD-MMM-YY") : ''}
@@ -85,13 +85,13 @@ function ReportGroup({
 
         </td>
         <td className="border border-gray-900 p-1 text-center"></td>
+        <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">  {totalWoQty}</td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">
         </td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center">{totalAmount.toFixed(2)}</td>
-        <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center"></td>
         <td className="border border-gray-900 p-1 text-center"></td>
         {
