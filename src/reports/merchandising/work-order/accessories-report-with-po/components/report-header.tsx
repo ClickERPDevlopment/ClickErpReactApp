@@ -15,7 +15,7 @@ function ReportHeader({
         <h1 className="font-bold text-lg text-center">
           {masterData?.COMPANY_NAME}
         </h1>
-        <h4 className="font-bold text-base text-center">
+        <h4 className="text-sm text-center">
           {masterData?.COMPANY_ADDRESS}
         </h4>
         <h4 className="font-bold text-base text-center mt-2">
