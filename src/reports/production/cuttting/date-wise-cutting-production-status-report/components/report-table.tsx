@@ -321,7 +321,7 @@ function ReportTable({
               </td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalCuttingQty)}</td>
-              <td className="border border-gray-950 p-1 text-center">{(grandTotalCuttingQty * 100 / grandTotalTarget).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)}</td>
               <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour).toFixed(2)}</td>
             </tr>
           </tbody>
