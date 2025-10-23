@@ -579,7 +579,7 @@ createRoot(document.getElementById("root")!).render(
                     <Route path="production">
                       <Route path="cutting">
                         <Route
-                          path="date-wise-cutting-prooduction-report"
+                          path="date-wise-cutting-production-report"
                           element={<DateWiseCuttingProoductionReport />}
                         />
                         <Route
