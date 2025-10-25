@@ -17,4 +17,6 @@ export type EmbellishmentDeliveryReportType = {
   DELIVERY_QTY: number;
   PREPARED_BY?: string;
   EMB_TYPE?: string;
+  REASON?: string;
+  REJECT_QTY: number;
 };

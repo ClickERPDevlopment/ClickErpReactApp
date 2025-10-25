@@ -275,7 +275,9 @@ export default function PrintEmbQualityForm({
   }
 
   const [WorkOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
+
   const getWorkOrder = async (BuyerId: number, StyleId: number, poId: number, EmbTypeId: number) => {
+
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetEmbWorkOrderReceiveByBuyerStylePo?BuyerId=" + BuyerId + "&StyleId=" + StyleId + "&poId=" + poId + "&EmbTypeId=" + EmbTypeId);
 
     setWorkOrder(response?.data);
@@ -294,11 +296,88 @@ export default function PrintEmbQualityForm({
     }
   }
 
+  const getProductionInfo = async (buyerId: number, styleId: number, poId: number) => {
+    try {
+      const response = await axios.get(
+        `${api.ProductionUrl}/production/PrintEmbProduction?woId=0&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}`
+      );
+
+      const data = response?.data;
+
+      if (Array.isArray(data) && data.length > 0) {
+        const distinctData = data.filter(
+          (obj, index, self) =>
+            index ===
+            self.findIndex(
+              (t) =>
+                t.WORKSTATION_ID === obj.WORKSTATION_ID &&
+                t.FLOOR_ID === obj.FLOOR_ID
+            )
+        );
+
+        const formattedData = distinctData.map((item) => ({
+          WorkStationId: item.WORKSTATION_ID,
+          WorkStation: item.WORKSTATION,
+          FloorId: item.FLOOR_ID,
+          Floor: item.FLOOR,
+        }));
+
+        const floorList: IFloor[] = distinctData
+          .filter(
+            (obj, index, self) =>
+              index === self.findIndex((t) => t.FLOOR_ID === obj.FLOOR_ID)
+          )
+          .map((item) => ({
+            Id: item.FLOOR_ID,
+            Unitname: item.FLOOR,
+          }));
+
+        const workstationList: IWorkstation[] = distinctData
+          .filter(
+            (obj, index, self) =>
+              index === self.findIndex((t) => t.WORKSTATION_ID === obj.WORKSTATION_ID)
+          )
+          .map((item) => ({
+            ID: item.WORKSTATION_ID,
+            NAME: item.WORKSTATION,
+          }));
+
+        setFloor(floorList);
+        setWorkstation(workstationList);
+
+        if (formattedData.length === 1) {
+          const workOrder = formattedData[0];
+
+          setMasterData((prev) => ({
+            ...prev,
+            WorkStationId: workOrder.WorkStationId,
+            WorkStation: workOrder.WorkStation,
+            FloorId: workOrder.FloorId,
+            Floor: workOrder.Floor
+          }));
+
+          masterForm.setValue("WorkStationId", workOrder.WorkStationId);
+          masterForm.setValue("WorkStation", workOrder.WorkStation);
+          masterForm.setValue("FloorId", workOrder.FloorId);
+          masterForm.setValue("Floor", workOrder.Floor);
+        }
+
+        return formattedData;
+      }
+
+      return [];
+    } catch (error) {
+      console.error("Error fetching production info:", error);
+      return [];
+    }
+  };
+
 
   useEffect(() => {
     getProductionType();
     getDefectData();
     getSupplier();
+    getBuyerData(0);
 
     if (pageAction === PageAction.add) {
 
@@ -328,7 +407,11 @@ export default function PrintEmbQualityForm({
     defaultValues: {
       EntryDate: data?.EntryDate
         ? new Date(data.EntryDate).toISOString().split("T")[0]
-        : new Date().toISOString().split("T")[0],
+        : (() => {
+          const d = new Date();
+          d.setDate(d.getDate() - 1);
+          return d.toLocaleDateString("en-CA");
+        })(),
       PartyId: data?.PartyId || 0,
       Party: data?.Party || "",
       EmbTypeId: data?.EmbTypeId || 0,
@@ -791,14 +874,10 @@ export default function PrintEmbQualityForm({
                                         EmbTypeId: Number(typeData.ID),
                                         EmbType: typeData.NAME,
                                       }));
-                                      getFloor(typeData.ID);
-                                      getWorkStation(typeData.ID);
-                                      getWorkOrder(
-                                        0,
-                                        0,
-                                        0,
-                                        Number(typeData.ID)
-                                      );
+
+                                      // getFloor(typeData.ID);
+                                      // getWorkStation(typeData.ID);
+
                                       setOpenProductionType(false);
 
                                     }}
@@ -1256,6 +1335,17 @@ export default function PrintEmbQualityForm({
                                           PO_NO: p.Pono,
                                         }));
                                         GetColor(masterData.WorkOrderId, Number(p.Id));
+                                        getWorkOrder(
+                                          printEmbQualityDetails.BuyerId || 0,
+                                          printEmbQualityDetails.StyleId || 0,
+                                          Number(p.Id), 0
+                                        );
+
+                                        getProductionInfo(
+                                          printEmbQualityDetails.BuyerId || 0,
+                                          printEmbQualityDetails.StyleId || 0,
+                                          Number(p.Id),
+                                        );
 
                                         setOpenPO(false);
                                       }}

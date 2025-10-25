@@ -13,9 +13,13 @@ function ReportTable({
   const totalAchiveQty = data.reduce((sum, item) => sum + item.TOTAL_CUTTING_QTY, 0);
   const totalDeviationQty = totalAchiveQty - totaltargetQty;
 
-  const totalTargetEfficiency = data.reduce((sum, item) => sum + ((item.TARGET_EARMN_MIN * 100) / item.AVAILABLE_EARMN_MIN), 0);
-  const totalAchieveEfficiency = data.reduce((sum, item) => sum + ((item.PRODUCTION_MIN * 100) / (item.AVAILABLE_EARMN_MIN)), 0);
-  const totalDeviationEfficiency = totalAchieveEfficiency - totalTargetEfficiency;
+  // const totalTargetEfficiency = data.reduce((sum, item) => sum + ((item.TARGET_EARMN_MIN * 100) / item.AVAILABLE_EARMN_MIN), 0);
+  // const totalAchieveEfficiency = data.reduce((sum, item) => sum + ((item.PRODUCTION_MIN * 100) / (item.AVAILABLE_EARMN_MIN)), 0);
+  // const totalDeviationEfficiency = totalAchieveEfficiency - totalTargetEfficiency;
+
+  const totalEarnMin = data.reduce((sum, item) => sum + item.TARGET_EARMN_MIN, 0);
+  const totalAvlMin = data.reduce((sum, item) => sum + item.AVAILABLE_EARMN_MIN, 0);
+  const totalProMin = data.reduce((sum, item) => sum + item.PRODUCTION_MIN, 0);
 
 
   return (
@@ -65,11 +69,11 @@ function ReportTable({
         <td className="border border-gray-300 p-1">
           {totalDeviationQty}
         </td>
-        <td className="border border-gray-300 p-1">{(totalTargetEfficiency / data.length).toFixed(2)}</td>
+        <td className="border border-gray-300 p-1">{(totalEarnMin / totalAvlMin).toFixed(2)}</td>
         <td className="border border-gray-300 p-1">
-          {(totalAchieveEfficiency / data.length).toFixed(2)}
+          {(totalProMin / totalAvlMin).toFixed(2)}
         </td>
-        <td className="border border-gray-300 p-1">{(totalDeviationEfficiency / data.length).toFixed(2)}</td>
+        <td className="border border-gray-300 p-1">{((totalEarnMin / totalAvlMin) - (totalProMin / totalAvlMin)).toFixed(2)}</td>
       </tr>
 
     </>

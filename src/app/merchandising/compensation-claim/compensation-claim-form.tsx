@@ -83,8 +83,8 @@ const masterFormSchema = z.object({
   COMPENSATION_TYPE: z.string().min(1, "Compensation type is required"),
   RELATED_SUPPLIER_ID: z.number().min(1, "Supplier is required"),
   RELATED_SUPPLIER_NAME: z.string().min(1, "Supplier name is required"),
-  REPORTED_BY: z.string(),
-  ADDITIONAL_NOTES: z.string(),
+  REPORTED_BY: z.string().optional().default(""),
+  ADDITIONAL_NOTES: z.string().optional().default(""),
   REMARKS: z.string(),
 });
 
@@ -345,8 +345,8 @@ export default function CompensationClaimForm({
     COMPENSATION_TYPE: data ? data.COMPENSATION_TYPE : "",
     RELATED_SUPPLIER_ID: data ? data.RELATED_SUPPLIER_ID : 0,
     RELATED_SUPPLIER_NAME: data ? data.RELATED_SUPPLIER_NAME : "",
-    REPORTED_BY: data ? data.REPORTED_BY : "",
-    ADDITIONAL_NOTES: data ? data.ADDITIONAL_NOTES : "",
+    REPORTED_BY: data?.REPORTED_BY ? data.REPORTED_BY : "",
+    ADDITIONAL_NOTES: data?.ADDITIONAL_NOTES ? data.ADDITIONAL_NOTES : "",
     REMARKS: data ? data.REMARKS : "",
     CREATED_BY: data ? data.CREATED_BY : "",
     CREATED_DATE: data?.CREATED_DATE ? new Date(data.CREATED_DATE) : new Date(),
@@ -1181,7 +1181,8 @@ export default function CompensationClaimForm({
                         <FormLabel className="font-bold">Claim Amount</FormLabel>
                         <FormControl onChange={handleInputChange}>
                           <Input
-                            style={{ backgroundColor: "#FFFFC0" }}
+                            disabled
+                            style={{ backgroundColor: "#eae8e8" }}
                             placeholder=""
                             {...field}
                             className="form-control"

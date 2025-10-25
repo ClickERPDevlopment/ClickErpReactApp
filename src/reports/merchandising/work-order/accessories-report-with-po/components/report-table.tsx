@@ -64,8 +64,9 @@ function ReportTable({
 
 
   return (
-    <div className="mt-3">
-      <div className="flex items-center font-semibold text-xs">
+    <div className="mt-1">
+      <div className=" font-semibold text-xs">
+        <p>SUB: {data[0]?.WO_SUBJECT}</p>
         <p>BUYER: {data[0]?.BUYER_NAME}</p>
       </div>
       <table className="border-collapse border border-gray-900  w-[100%]">
@@ -90,13 +91,13 @@ function ReportTable({
 
             </td>
             <td className="border border-gray-900 p-1 text-center"></td>
+            <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center">{totalWoQty}</td>
             <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center">
             </td>
             <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center">{totalAmount.toFixed(2)}</td>
-            <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center"></td>
             <td className="border border-gray-900 p-1 text-center"></td>
             {

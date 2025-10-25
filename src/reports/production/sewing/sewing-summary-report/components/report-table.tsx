@@ -251,6 +251,9 @@ function ReportTable({
   const grandTotalBg = "#f4f4cb";
   const totalBg = "#b1e7ed";
 
+  let grandTotalSmv = 0;
+  let totalFloorCount = 0;
+
   return (
     <div className="text-sm mt-3 text-gray-950 font-semibold">
       <div className="flex items-center justify-between">
@@ -311,8 +314,12 @@ function ReportTable({
           <tr>
             <td className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
+
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
+
+                totalFloorCount++;
+
                 return (
                   <td
                     key={`${company}-${floor}`}
@@ -566,10 +573,6 @@ function ReportTable({
                 return sum + grouped[company][floor].RUNNING_MC / grouped[company][floor].UNIQUE_SEWINGDATE.size;
               }, 0);
 
-              // const totalSewigData = floors.reduce((sum, floor) => {
-              //   return sum + grouped[company][floor].UNIQUE_SEWINGDATE.size;
-              // }, 0);
-
               cells.push(
                 <td
                   style={{ backgroundColor: totalBg }}
@@ -652,47 +655,6 @@ function ReportTable({
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">${Math.round(finalData.EARNED_FOB)}</td>
           </tr>
-
-
-          {/* <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned CM %</td>
-            {Object.entries(companyFloorsMap).map(([company, floors]) => {
-
-              let uniqueLine = 0;
-
-              const cells = floors.map(floor => {
-                const floorData = grouped[company][floor];
-                uniqueLine++;
-                return (
-                  <td
-
-                    key={`${company}-${floor}`}
-                    className="border text-center border-gray-950 p-0.1 text-nowrap"
-                  >
-                    {(floorData.EARNED_CM * 100 / floorData.EARNED_FOB).toFixed(2)}
-                  </td>
-                );
-              });
-
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].EARNED_FOB * 100 / grouped[company][floor].EARNED_FOB);
-              }, 0);
-
-              cells.push(
-                <td
-                  style={{ backgroundColor: totalBg }}
-                  key={`${company}-total`}
-                  className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
-                >
-                  {companyTotal.toFixed(2)}
-                </td>
-              );
-              return cells;
-            })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.EARNED_FOB * 100 / finalData.EARNED_CM).toFixed(2)}</td>
-          </tr> */}
-
-
           <tr>
             <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">FOB Per Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
@@ -739,6 +701,10 @@ function ReportTable({
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
                 floorCount += 1;
+
+
+                grandTotalSmv += (floorData.SMV / floorData.ROW_COUNT);
+
                 return (
                   <td
                     key={`${company}-${floor}`}
@@ -753,6 +719,8 @@ function ReportTable({
                 return sum + (grouped[company][floor].F_SMV / grouped[company][floor].ROW_COUNT);
               }, 0);
 
+
+
               cells.push(
                 <td
                   style={{ backgroundColor: totalBg }}
@@ -762,9 +730,15 @@ function ReportTable({
                   {(companyTotalSmvQty / floorCount).toFixed(2)}
                 </td>
               );
+
+
+
+
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SMV / finalData.ROW_COUNT).toFixed(2)}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {(grandTotalSmv / totalFloorCount).toFixed(3)}
+            </td>
           </tr>
 
 

@@ -42,6 +42,13 @@ interface ISearchData {
   WORK_ORDER_NO: string;
   WORK_ORDER_RECEIVE_ID: number;
   WORK_ORDER_RECEIVE_NO: string;
+  BUYER_ID: number;
+  BUYER: string;
+  STYLE_ID: number;
+  STYLE: string;
+  PO_ID: number;
+  PO_NO: string;
+
 };
 
 
@@ -67,6 +74,23 @@ function PrintEmbMaterialReceiveIndex() {
     WORK_ORDER_NO: string;
   };
 
+  interface IStyle {
+    Id: string;
+    Styleno: string;
+  };
+
+
+  interface IBuyer {
+    Id: string;
+    NAME: string;
+    DISPLAY_NAME: string;
+  };
+
+  interface IPO {
+    Id: string;
+    Pono: string;
+  };
+
 
   const formSchema = z.object({
     FROM_DATE: z.date(),
@@ -75,6 +99,12 @@ function PrintEmbMaterialReceiveIndex() {
     WORK_ORDER_NO: z.string().optional(),
     WORK_ORDER_RECEIVE_ID: z.number().optional(),
     WORK_ORDER_RECEIVE_NO: z.string().optional(),
+    BUYER_ID: z.number().optional(),
+    BUYER: z.string().optional(),
+    STYLE_ID: z.number().optional(),
+    STYLE: z.string().optional(),
+    PO_ID: z.number().default(0),
+    PO_NO: z.string().optional(),
   });
 
   const today = new Date();
@@ -90,6 +120,12 @@ function PrintEmbMaterialReceiveIndex() {
       WORK_ORDER_NO: "",
       WORK_ORDER_RECEIVE_ID: 0,
       WORK_ORDER_RECEIVE_NO: "",
+      BUYER_ID: 0,
+      BUYER: "",
+      STYLE_ID: 0,
+      STYLE: "",
+      PO_ID: 0,
+      PO_NO: "",
     },
   });
 
@@ -100,6 +136,12 @@ function PrintEmbMaterialReceiveIndex() {
     WORK_ORDER_NO: "",
     WORK_ORDER_RECEIVE_ID: 0,
     WORK_ORDER_RECEIVE_NO: "",
+    BUYER_ID: 0,
+    BUYER: "",
+    STYLE_ID: 0,
+    STYLE: "",
+    PO_ID: 0,
+    PO_NO: "",
   });
 
 
@@ -119,9 +161,28 @@ function PrintEmbMaterialReceiveIndex() {
     setEmbMaterialReceive(response?.data);
   }
 
+  const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
+  const getBuyerData = async (woId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
+    setBuyerData(response?.data);
+  }
+
+  const [style, setStyle] = useState<IStyle[]>([]);
+  const getStyleByBuyer = async (woId: number, buyerId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
+    setStyle(response?.data);
+  }
+
+  const [PO, setPO] = useState<IPO[]>([]);
+  const getPOByStyle = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setPO(response?.data);
+  }
+
   useEffect(() => {
     getWorkOrder();
     getEmbMtlRcv();
+    getBuyerData(0);
   }, []);
 
 
@@ -131,13 +192,24 @@ function PrintEmbMaterialReceiveIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&woId=" + searchData.WORK_ORDER_ID + "&woReceiveId=" + searchData.WORK_ORDER_RECEIVE_ID);
+    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive?fromDate=" + fromDateFormatted
+      + "&toDate=" + toDateFormatted
+      + "&woId=" + searchData.WORK_ORDER_ID
+      + "&woReceiveId=" + searchData.WORK_ORDER_RECEIVE_ID
+      + "&buyerId=" + searchData.BUYER_ID
+      + "&styleId=" + searchData.STYLE_ID
+      + "&poId=" + searchData.PO_ID
+    );
     setMasterData(response?.data);
   }
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
   const [openMaterialReceive, setOpenMaterialReceive] = useState(false);
 
   const [masterData, setMasterData] = useState<EmbMaterialReceiveMasterType[] | null>(null);
+
+  const [openBuyer, setOpenBuyer] = useState(false);
+  const [openStyle, setOpenStyle] = useState(false);
+  const [openPO, setOpenPO] = useState(false);
 
   return (
     <div className="pt-5">
@@ -217,6 +289,224 @@ function PrintEmbMaterialReceiveIndex() {
                                 className="form-control w-full h-9"
                               />
                             </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+
+                    <div className="flex justify-between items-end">
+                      <FormField
+                        control={form.control}
+                        name="BUYER_ID"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col flex-1">
+                            <FormLabel className="font-bold">Buyer</FormLabel>
+                            <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openBuyer}
+                                    className={cn(
+                                      "w-full justify-between bg-emerald-100",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                  >
+                                    {field.value
+                                      ? buyerData?.find(
+                                        (buyer) =>
+                                          Number(buyer.Id) === field.value
+                                      )?.NAME
+                                      : "Select a buyer"}
+                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-full p-0">
+                                <Command>
+                                  <CommandInput placeholder="Search supplier..." className="h-9" />
+                                  <CommandList>
+                                    <CommandEmpty>No buyer found.</CommandEmpty>
+                                    <CommandGroup>
+                                      {buyerData?.map((buyer) => (
+                                        <CommandItem
+                                          value={buyer?.NAME}
+                                          key={Number(buyer?.Id)}
+                                          onSelect={() => {
+                                            field.onChange(Number(buyer?.Id));
+                                            setSearchData((prev) => ({
+                                              ...prev,
+                                              BUYER_ID: Number(buyer?.Id),
+                                              BUYER: buyer?.NAME,
+                                            }));
+                                            getStyleByBuyer(Number(searchData.WORK_ORDER_ID), Number(buyer?.Id));
+
+                                            setOpenBuyer(false);
+                                          }}
+                                        >
+
+                                          {buyer?.NAME}
+                                          <CheckIcon
+                                            className={cn(
+                                              "ml-auto h-4 w-4",
+                                              Number(buyer?.Id) === field.value
+                                                ? "opacity-100"
+                                                : "opacity-0"
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-end">
+                      <FormField
+                        control={form.control}
+                        name="STYLE_ID"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col flex-1">
+                            <FormLabel className="font-bold">Style</FormLabel>
+                            <Popover open={openStyle} onOpenChange={setOpenStyle}>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openStyle}
+                                    className={cn(
+                                      "w-full justify-between bg-emerald-100",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                  >
+                                    {field.value
+                                      ? style?.find(
+                                        (style) =>
+                                          Number(style.Id) === field.value
+                                      )?.Styleno
+                                      : "Select a style"}
+                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-full p-0">
+                                <Command>
+                                  <CommandInput placeholder="Search style..." className="h-9" />
+                                  <CommandList>
+                                    <CommandEmpty>No style found.</CommandEmpty>
+                                    <CommandGroup>
+                                      {style?.map((item) => (
+                                        <CommandItem
+                                          value={item.Styleno}
+                                          key={item.Id}
+                                          onSelect={() => {
+                                            field.onChange(Number(item.Id));
+                                            setSearchData((prev) => ({
+                                              ...prev,
+                                              STYLE_ID: Number(item.Id),
+                                              STYLE: item.Styleno,
+                                            }));
+                                            setOpenStyle(false);
+                                            getPOByStyle(Number(searchData.WORK_ORDER_ID), Number(item?.Id));
+                                          }}
+                                        >
+                                          {item.Styleno}
+                                          <CheckIcon
+                                            className={cn(
+                                              "ml-auto h-4 w-4",
+                                              Number(item.Id) === field.value
+                                                ? "opacity-100"
+                                                : "opacity-0"
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-end">
+                      <FormField
+                        control={form.control}
+                        name="PO_ID"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col flex-1">
+                            <FormLabel className="font-bold">PO</FormLabel>
+                            <Popover open={openPO} onOpenChange={setOpenPO}>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openPO}
+                                    className={cn(
+                                      "w-full justify-between bg-emerald-100",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                  >
+                                    {field.value
+                                      ? PO?.find(
+                                        (po) =>
+                                          Number(po.Id) === field.value
+                                      )?.Pono
+                                      : "Select a PO"}
+                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-full p-0">
+                                <Command>
+                                  <CommandInput placeholder="Search PO..." className="h-9" />
+                                  <CommandList>
+                                    <CommandEmpty>No PO found.</CommandEmpty>
+                                    <CommandGroup>
+                                      {PO?.map((item) => (
+                                        <CommandItem
+                                          value={item.Pono}
+                                          key={item.Id}
+                                          onSelect={() => {
+                                            field.onChange(Number(item.Id));
+                                            setSearchData((prev) => ({
+                                              ...prev,
+                                              PO_ID: Number(item.Id),
+                                              PO_NO: item.Pono,
+                                            }));
+                                            setOpenPO(false);
+                                          }}
+                                        >
+                                          {item.Pono}
+                                          <CheckIcon
+                                            className={cn(
+                                              "ml-auto h-4 w-4",
+                                              Number(item.Id) === field.value
+                                                ? "opacity-100"
+                                                : "opacity-0"
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
                             <FormMessage />
                           </FormItem>
                         )}

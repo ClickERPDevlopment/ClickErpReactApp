@@ -4,6 +4,7 @@ import ReportHeader from "./report-header";
 import { EmbellishmentDeliveryReportType } from "../../embellishment-delivery-report-type";
 import moment from "moment";
 import ReportFooter from "./report-footer";
+import EmbellishmentDeliveryGatePassRejectReportIndex from "../../embellishment-delivery-gate-pass-reject-report/embellishment-delivery-gate-pass-reject-report-index";
 
 function Report({
   data,
@@ -93,6 +94,10 @@ function Report({
           data={data}
           firstHeader={firstHeader}
         ></ReportTable>
+
+        <div>
+          <EmbellishmentDeliveryGatePassRejectReportIndex data={data}></EmbellishmentDeliveryGatePassRejectReportIndex>
+        </div>
 
         <div style={{ marginTop: "80px" }}>
           <ReportFooter data={data}></ReportFooter>

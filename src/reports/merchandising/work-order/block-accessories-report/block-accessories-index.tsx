@@ -5,10 +5,12 @@ import { useSearchParams } from "react-router";
 import Report from "./components/report";
 import TableSkeleton from "../../../../components/table-skeleton";
 import Skeleton from "react-loading-skeleton";
-import { iaccWorkOrder } from "../components/iaccWorkOrder";
+import { IAccessoriesReportWithPo } from "../accessories-report-with-po/accessories-with-po-type";
+import BlockAccessoriesReportFormat2 from "../block-accessories-report-format-2/block-accessories-report-format-2-index";
+import useAppClient from "@/hooks/use-AppClient";
 
 function BlockAccessoriesReport() {
-  const [data, setData] = useState<iaccWorkOrder[]>([]);
+  const [data, setData] = useState<IAccessoriesReportWithPo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
@@ -27,9 +29,7 @@ function BlockAccessoriesReport() {
     cmbReportFormat = String(searchParams.get("cmbReportFormat"));
   }
 
-  // console.log("id: ", id);
-  // console.log("orderRef: ", currency);
-  // console.log("fabricId: ", cmbReportFormat);
+  const client = useAppClient();
 
   const api = useApiUrl();
 
@@ -79,7 +79,12 @@ function BlockAccessoriesReport() {
   ) : (
     <>
       <div>
-        <Report searchParams={{ currency }} data={data}></Report>
+        {/* <BlockAccessoriesReportFormat2 searchParams={{ currency }} data={data}></BlockAccessoriesReportFormat2> */}
+        {
+          client.currentClient == client.ICCL
+            ? <BlockAccessoriesReportFormat2 searchParams={{ currency }} data={data}></BlockAccessoriesReportFormat2>
+            : <Report searchParams={{ currency }} data={data}></Report>
+        }
       </div>
     </>
   );
