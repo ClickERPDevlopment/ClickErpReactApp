@@ -228,8 +228,8 @@ function ReportTable({
                 <td className="border border-gray-950 p-1 text-center">{Math.round(totalSewingQty)}</td>
                 <td className="border border-gray-950 p-1 text-center">{Math.round(totalSewingQty - totalTarget)}</td>
                 <td className="border border-gray-950 p-1 text-center">{(totalSewingQty * 100 / totalTarget).toFixed(2)}</td>
-                <td className="border border-gray-950 p-1 text-center">{Math.round(totalFob)}</td>
                 <td className="border border-gray-950 p-1 text-center">{Math.round(totalCM)}</td>
+                <td className="border border-gray-950 p-1 text-center">{Math.round(totalFob)}</td>
                 <td className="border border-gray-950 p-1 text-center">{(totalWorkingHour / companyCount).toFixed(2)}</td>
               </React.Fragment>
 
