@@ -331,10 +331,12 @@ function ReportTable({
         </tbody>
       </table>
 
-      <div className="mt-5">
-        <h3 className="font-semibold text-base mb-2">Company Summary</h3>
-        <table className="border-collapse border border-gray-950 w-[60%]">
+      <div className="mt-10 text-center">
+        <table className="border-collapse border border-gray-950 w-[60%] ms-auto me-auto" style={{ fontSize: "14px" }}>
           <thead>
+            <tr>
+              <th className="border border-gray-950 p-1 text-center" colSpan={7} style={{ fontSize: "20px" }}>Company Summary</th>
+            </tr>
             <tr className="">
               <th className="border border-gray-950 p-1 text-center">Company</th>
               <th className="border border-gray-950 p-1 text-center">Target Qty</th>
