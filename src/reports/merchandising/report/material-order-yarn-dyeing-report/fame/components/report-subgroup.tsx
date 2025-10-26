@@ -31,11 +31,11 @@ function ReportSubgroup({
         <td className="border border-gray-950 p-0.5">{data[0]?.GMT_COLOR_NAME}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.MTL_COLOR_NAME}</td>
         <td className="border border-gray-950 p-0.5">{data[0]?.UOM}</td>
-        <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{totalQuantiy.toFixed(2)}</td>
         {/* <td className="border border-gray-950 p-0.5">{totalIsseQty.toFixed(2)}</td> */}
         {/* <td className="border border-gray-950 p-0.5">{(totalQuantiy - totalIsseQty).toFixed(2)}</td> */}
-        <td className="border border-gray-950 p-0.5">{data[0].SUPPLIER_RATE_PER_PCS.toFixed(2)}</td>
-        <td className="border border-gray-950 p-0.5">{(totalAmount).toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{data[0].SUPPLIER_RATE_PER_PCS.toFixed(2)}</td>
+        <td className="border border-gray-950 p-0.5 text-center">{(totalAmount).toFixed(2)}</td>
       </tr>
     </>
   );
