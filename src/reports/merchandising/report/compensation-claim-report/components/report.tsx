@@ -14,20 +14,21 @@ function Report({
   const firstHeader = [
     "SL",
     "Material Name",
-    "Damage Qty",
+    "Claim Qty",
     "UOM",
     "Claim Amount/Unit",
     "Claim Amount",
-    "Damage Details",
+    "Claim Details",
     "Action Taken",
   ];
 
   const secondHeader = ["SL", "Buyer", "Style", "PO"];
 
-  const totalDamageQty = data?.ClaimDetails?.reduce(
-    (acc, item) => acc + item.QUANTITY_DAMAGED,
-    0
-  );
+  // const totalDamageQty = data?.ClaimDetails?.reduce(
+  //   (acc, item) => acc + item.QUANTITY_DAMAGED,
+  //   0
+  // );
+
   const totalClaimAmount = data?.ClaimDetails?.reduce(
     (acc, item) => acc + item.CLAIM_AMOUNT,
     0
@@ -146,7 +147,7 @@ function Report({
             <td colSpan={2} className="border border-gray-950">
               Total
             </td>
-            <td className="border border-gray-950">{totalDamageQty}</td>
+            <td className="border border-gray-950">{ }</td>
             <td className="border border-gray-950"></td>
             <td className="border border-gray-950"></td>
             <td className="border border-gray-950">{totalClaimAmount}</td>

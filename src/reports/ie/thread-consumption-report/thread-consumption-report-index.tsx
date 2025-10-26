@@ -12,6 +12,7 @@ import ReportFooter from "./components/report-footer";
 import moment from "moment";
 import { ThreadConsumptionReportType } from "./thread-consumption-report-type";
 import { ThreadConsumptionSummaryReportType } from "./thread-consumption-summary-report-type";
+import { ThreadConsumptionMaterialTypeReportType } from "./ThreadConsumptionMaterialTypeReportType";
 
 function ThreadConsumptionReport() {
 
@@ -20,6 +21,10 @@ function ThreadConsumptionReport() {
   );
 
   const [threadConsumptionSummaryData, setThreadConsumptionSummaryData] = useState<ThreadConsumptionSummaryReportType[]>(
+    []
+  );
+
+  const [threadConsumptionMaterialType, setThreadConsumptionMaterialType] = useState<ThreadConsumptionMaterialTypeReportType[]>(
     []
   );
 
@@ -70,6 +75,25 @@ function ThreadConsumptionReport() {
             }
           })
           .catch((m) => console.log(m));
+
+
+        await axios
+          .get(
+            `${api.ProductionUrl}/production/IEReport/ThreadConsumptionMaterialTypeReport?threadConsumptionNo=${threadConsumptionNo}`
+          )
+          .then((res) => {
+            //console.log(res);
+            if (res.data) {
+              //console.log("My Data", res.data);
+              setThreadConsumptionMaterialType(res.data);
+            } else {
+              //console.log(res);
+            }
+          })
+          .catch((m) => console.log(m));
+
+
+
         //   .catch((m) => console.log(m));
         setIsLoading(false);
       } catch {
@@ -226,6 +250,43 @@ function ThreadConsumptionReport() {
                 </tr>
               </tbody>
             </table>
+
+
+            <table className="border-collapse border border-gray-300 w-full mt-3">
+              <thead className=" bg-white print:bg-transparent">
+                <th className="border border-gray-950 p-0.1 bg-emerald-200">Material Type</th>
+                <th className="border border-gray-950 p-0.1  bg-emerald-200">Body Part</th>
+                <th className="border border-gray-950 p-0.1 bg-emerald-200">
+                  Consumption
+                </th>
+                <th className="border border-gray-950 p-0.1 bg-emerald-200">
+                  WT %
+                </th>
+                <th className="border border-gray-950 p-0.1 bg-emerald-200">
+                  UOM
+                </th>
+              </thead>
+              <tbody>
+
+                {
+                  threadConsumptionMaterialType.map((item, index) => <tr key={index} className="text-center">
+                    <td className="border border-gray-950 p-0.1 ">{item.MATERIALTYPE}</td>
+                    <td className="border border-gray-950 p-0.1 ">{item.BODYPART}</td>
+                    <td className="border border-gray-950 p-0.1">
+                      {item.CONSUMPTION}
+                    </td>
+                    <td className="border border-gray-950 p-0.1">
+                      {item.WTPERCENT}
+                    </td>
+                    <td className="border border-gray-950 p-0.1">
+                      {item.UOM}
+                    </td>
+                  </tr>
+                  )
+                }
+              </tbody>
+            </table>
+
           </div>
         </div>
 

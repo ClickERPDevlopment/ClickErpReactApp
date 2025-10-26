@@ -1,4 +1,8 @@
 export type IAccessoriesReportWithPo = {
+  EXTRA_PERCENT: string;
+  REVICE_REASON: string;
+  REVICE_DATE: string;
+  REVICE_NO: number;
   ID: number;
   WORK_ORDER_NO: string;
   MST_ID: string;

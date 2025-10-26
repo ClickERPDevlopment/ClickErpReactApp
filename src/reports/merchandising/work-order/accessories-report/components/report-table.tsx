@@ -63,7 +63,7 @@ function ReportTable({
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 
   return (
-    <div className="mt-3">
+    <div className="mt-1">
       <div className=" font-semibold text-xs">
         <p>SUB: {data[0]?.WO_SUBJECT}</p>
         <p>BUYER: {data[0]?.BUYER_NAME}</p>
@@ -91,6 +91,7 @@ function ReportTable({
 
           </td>
           <td className="border border-gray-900 p-1 text-center"></td>
+          <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center"> {totalWoQty}</td>
           <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center">
@@ -98,7 +99,6 @@ function ReportTable({
           <td className="border border-gray-900 p-1 text-center"></td>
 
           <td className="border border-gray-900 p-1 text-center">{totalAmount.toFixed(2)}</td>
-          <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center"></td>
           <td className="border border-gray-900 p-1 text-center"></td>
           {

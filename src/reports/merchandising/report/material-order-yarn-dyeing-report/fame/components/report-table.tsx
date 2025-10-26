@@ -39,7 +39,7 @@ function ReportTable({
   let groupedByDate: GroupedByDate = {};
 
   if (data) {
-    groupedByDate = groupBy(data, ["STYLENAME", "PO_NO", "MTL_COLOR_NAME", "GMT_COLOR_NAME", "UOM", "SUPPLIER_RATE_PER_PCS"]);
+    groupedByDate = groupBy(data, ["STYLENAME", "PO_NO", "MTL_NAME", "MTL_COLOR_NAME", "GMT_COLOR_NAME", "UOM", "SUPPLIER_RATE_PER_PCS"]);
   }
 
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);

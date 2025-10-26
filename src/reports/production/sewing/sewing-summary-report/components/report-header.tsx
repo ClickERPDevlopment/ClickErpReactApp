@@ -1,3 +1,4 @@
+import useAppClient from "@/hooks/use-AppClient";
 import { SewingSummaryReportType } from "../sewing-summary-report-type";
 
 function ReportHeader({
@@ -5,6 +6,9 @@ function ReportHeader({
   masterData: SewingSummaryReportType | null;
   searchParam: { fromDate: string, toDate: string };
 }) {
+
+  const client = useAppClient();
+
   return (
     <div>
       <div className="">
@@ -12,7 +16,9 @@ function ReportHeader({
           {moment().format("DD-MMM-YYYY")}
         </p> */}
         <h2 className="font-bold text-3xl text-center mt-1">
-          Fame Group
+          {
+            client.currentClient == client.FAME ? " Fame Group" : " Eurotex Group"
+          }
         </h2>
         <h4 className="font-bold text-lg text-center mt-1">
           Sewing Summary Report (Daily & Monthly)
