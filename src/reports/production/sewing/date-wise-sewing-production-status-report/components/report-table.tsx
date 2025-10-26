@@ -283,7 +283,6 @@ function ReportTable({
               <td className="border border-gray-950 p-1 text-center">{(grandTotalCM / grandTotalDataCount).toFixed(2)}</td>
               <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount).toFixed(2)}</td>
             </React.Fragment>
-
           </tr>
 
           <tr className="bg-green-100 font-semibold">

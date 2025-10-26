@@ -260,6 +260,9 @@ function ThreadConsumptionReport() {
                   Consumption
                 </th>
                 <th className="border border-gray-950 p-0.1 bg-emerald-200">
+                  WT %
+                </th>
+                <th className="border border-gray-950 p-0.1 bg-emerald-200">
                   UOM
                 </th>
               </thead>
@@ -271,6 +274,9 @@ function ThreadConsumptionReport() {
                     <td className="border border-gray-950 p-0.1 ">{item.BODYPART}</td>
                     <td className="border border-gray-950 p-0.1">
                       {item.CONSUMPTION}
+                    </td>
+                    <td className="border border-gray-950 p-0.1">
+                      {item.WTPERCENT}
                     </td>
                     <td className="border border-gray-950 p-0.1">
                       {item.UOM}
