@@ -209,7 +209,7 @@ function ReportTable({
               if (!summary) {
                 return (
                   <React.Fragment key={prefix}>
-                    {Array.from({ length: 7 }).map((_, i) => (
+                    {Array.from({ length: 5 }).map((_, i) => (
                       <td key={i} className="border border-gray-950 p-1 text-center">-</td>
                     ))}
                   </React.Fragment>
@@ -250,7 +250,7 @@ function ReportTable({
               if (!summary) {
                 return (
                   <React.Fragment key={prefix}>
-                    {Array.from({ length: 8 }).map((_, i) => (
+                    {Array.from({ length: 5 }).map((_, i) => (
                       <td key={i} className="border border-gray-950 p-1 text-center">-</td>
                     ))}
                   </React.Fragment>
