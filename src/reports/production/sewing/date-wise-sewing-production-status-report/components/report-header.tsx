@@ -1,21 +1,31 @@
 import moment from "moment";
 import { DateWiseSewingProductionReportDto } from "../date-wise-sewing-production-report-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 function ReportHeader({
-  masterData,
   searchParam,
 }: {
   masterData: DateWiseSewingProductionReportDto | null;
   searchParam: {
     fromDate: string;
-    toDate: string; 
+    toDate: string;
   };
 }) {
+
+
+  const client = useAppClient();
+
+
   return (
     <div>
       <div className="">
         <h1 className="font-bold text-2xl text-center">
-          {masterData?.COMPANY_NAME}
+          {
+            client.currentClient == client.FAME && "FAME GROUP"
+          }
+          {
+            client.currentClient == client.EURO && "EUROTEX GROUP"
+          }
         </h1>
         <h4 className="font-bold text-base text-center">
           Sewing Production Report
