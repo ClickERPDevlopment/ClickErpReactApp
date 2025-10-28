@@ -312,7 +312,7 @@ function ReportTable({
 
         <tbody>
           <tr>
-            <td className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               const cells = floors.map(floor => {
@@ -350,7 +350,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Achievement Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Achievement Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -383,7 +383,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Loss Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Loss Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -415,7 +415,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Performance %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Performance %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               let uniqueLine = 0;
               const cells = floors.map(floor => {
@@ -450,7 +450,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Efficiency %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Efficiency %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               let uniqueLine = 0;
               const cells = floors.map(floor => {
@@ -485,7 +485,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Efficiency %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Efficiency %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               let uniqueLine = 0;
               const cells = floors.map(floor => {
@@ -521,7 +521,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Output Line</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Output Line</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -555,7 +555,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Running MC</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Running MC</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -590,7 +590,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned CM</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned CM</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -624,7 +624,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned FOB</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned FOB</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -656,7 +656,7 @@ function ReportTable({
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">${Math.round(finalData.EARNED_FOB)}</td>
           </tr>
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">FOB Per Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">FOB Per Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -693,7 +693,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">SMV</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">SMV</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -743,7 +743,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Hourly Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Hourly Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -787,7 +787,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Hourly Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Hourly Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -828,7 +828,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Hourly Pcs Loss</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Hourly Pcs Loss</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -880,7 +880,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Hour</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Hour</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -920,7 +920,7 @@ function ReportTable({
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">1st Hour Achieve%</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">1st Hour Achieve%</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
 
@@ -966,7 +966,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Helper %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Helper %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let lineCount = 0;
@@ -1003,7 +1003,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">DHU %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">DHU %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0
@@ -1050,7 +1050,7 @@ function ReportTable({
             isMonthView &&
             <>
               <tr style={{ backgroundColor: "" }}>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1089,7 +1089,7 @@ function ReportTable({
                 </td>
               </tr>
               <tr style={{ backgroundColor: "" }}>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Per Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1128,7 +1128,7 @@ function ReportTable({
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Achieved Per Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Achieved Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1167,7 +1167,7 @@ function ReportTable({
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Loss Per Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Loss Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1223,7 +1223,7 @@ function ReportTable({
               </tr>
 
               <tr style={{ backgroundColor: "" }}>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">MMR</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">MMR</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let totalMP = 0;
@@ -1257,8 +1257,6 @@ function ReportTable({
                   {finalData.RUNNING_MC > 0 && ((finalData.OP + finalData.HP) / finalData.RUNNING_MC).toFixed(2)}
                 </td>
               </tr>
-
-
             </>
           }
         </tbody>
