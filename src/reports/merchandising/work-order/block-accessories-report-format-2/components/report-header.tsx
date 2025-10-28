@@ -57,7 +57,7 @@ function ReportHeader({
               </tr>
               <tr>
                 <td className="px-1 border-r border-gray-300">Email: </td>
-                <td className="px-1"> {masterData?.COMPANY_EMAIL}</td>
+                <td className="px-1"> { }</td>
               </tr>
             </table>
           </td>
