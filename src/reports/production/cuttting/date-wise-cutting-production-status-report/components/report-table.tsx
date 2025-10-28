@@ -285,7 +285,7 @@ function ReportTable({
       </table>
 
       <div className="mt-10 text-center font-bold">
-        <table className="border-collapse border border-gray-950 w-[60%] ms-auto me-auto" style={{ fontSize: "14px" }}>
+        <table className="border-collapse border border-gray-950 w-[60%] ms-auto me-auto" style={{ fontSize: "18px" }}>
           <thead>
             <tr>
               <th className="border border-gray-950 p-1 text-center" colSpan={5} style={{ fontSize: "20px" }}>
@@ -318,13 +318,13 @@ function ReportTable({
                   <td className="border border-gray-950 p-1 text-center">{prefix}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TARGET)}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(summary.CUTTING_QTY)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{(percent).toFixed(2)}</td>
+                  <td className="border border-gray-950 p-1 text-center">{(percent).toFixed(2)} %</td>
                   <td className="border border-gray-950 p-1 text-center">{(workingHour).toFixed(2)}</td>
                 </tr>
               );
             })}
 
-            <tr>
+            <tr style={{ backgroundColor: "#fbffdd" }}>
               <td className="border border-gray-950 p-1 text-center">
                 {
                   client.currentClient == client.FAME && "FAME GROUP"
@@ -335,7 +335,7 @@ function ReportTable({
               </td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalCuttingQty)}</td>
-              <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)} %</td>
               <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount / grandTotalCompanyCount).toFixed(2)}</td>
             </tr>
           </tbody>

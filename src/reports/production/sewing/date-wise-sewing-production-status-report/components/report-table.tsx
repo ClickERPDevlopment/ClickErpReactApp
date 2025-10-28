@@ -332,7 +332,7 @@ function ReportTable({
       </table>
 
       <div className="mt-10 text-center font-bold">
-        <table className="border-collapse border border-gray-950 w-[60%] ms-auto me-auto" style={{ fontSize: "14px" }}>
+        <table className="border-collapse border border-gray-950 w-[60%] ms-auto me-auto" style={{ fontSize: "18px" }}>
           <thead>
             <tr>
               <th className="border border-gray-950 p-1 text-center" colSpan={7} style={{ fontSize: "20px" }}>
@@ -376,7 +376,7 @@ function ReportTable({
             })}
 
 
-            <tr>
+            <tr style={{ backgroundColor: "#fbffdd" }}>
               <td className="border border-gray-950 p-1 text-center">
                 {
                   client.currentClient == client.FAME && "FAME GROUP"
