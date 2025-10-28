@@ -139,9 +139,9 @@ function ReportTable({
                 <th className="border border-gray-950 p-1 text-center">Target Qty</th>
                 <th className="border border-gray-950 p-1 text-center">Achi. Qty</th>
                 <th className="border border-gray-950 p-1 text-center">Deviation</th>
-                <th className="border border-gray-950 p-1 text-center">Per(%)</th>
-                <th className="border border-gray-950 p-1 text-center">CM $</th>
-                <th className="border border-gray-950 p-1 text-center">FOB $</th>
+                <th className="border border-gray-950 p-1 text-center">Per (%)</th>
+                <th className="border border-gray-950 p-1 text-center">CM ($)</th>
+                <th className="border border-gray-950 p-1 text-center">FOB ($)</th>
                 <th className="border border-gray-950 p-1 text-center">Work Hour</th>
               </React.Fragment>
             ))}
@@ -215,9 +215,9 @@ function ReportTable({
                     <td className="border border-gray-950 p-1 text-center">{Math.round(item.TARGET)}</td>
                     <td className="border border-gray-950 p-1 text-center">{Math.round(item.SEWING_OUTPUT)}</td>
                     <td className="border border-gray-950 p-1 text-center">{Math.round(deviation)}</td>
-                    <td className="border border-gray-950 p-1 text-center">{percent}</td>
-                    <td className="border border-gray-950 p-1 text-center">{Math.round(item.TOTAL_CM)}</td>
-                    <td className="border border-gray-950 p-1 text-center">{Math.round(item.TOTAL_FOB)}</td>
+                    <td className="border border-gray-950 p-1 text-center text-nowrap">{percent} %</td>
+                    <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(item.TOTAL_CM)}</td>
+                    <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(item.TOTAL_FOB)}</td>
                     <td style={{ backgroundColor: "#d5e6ef" }} className="border border-gray-950 p-1 text-center">{item.WORKING_HOUR.toFixed(2)}</td>
                   </React.Fragment>
                 );
@@ -227,9 +227,9 @@ function ReportTable({
                 <td className="border border-gray-950 p-1 text-center">{Math.round(totalTarget)}</td>
                 <td className="border border-gray-950 p-1 text-center">{Math.round(totalSewingQty)}</td>
                 <td className="border border-gray-950 p-1 text-center">{Math.round(totalSewingQty - totalTarget)}</td>
-                <td className="border border-gray-950 p-1 text-center">{(totalSewingQty * 100 / totalTarget).toFixed(2)}</td>
-                <td className="border border-gray-950 p-1 text-center">{Math.round(totalCM)}</td>
-                <td className="border border-gray-950 p-1 text-center">{Math.round(totalFob)}</td>
+                <td className="border border-gray-950 p-1 text-center text-nowrap">{(totalSewingQty * 100 / totalTarget).toFixed(2)} %</td>
+                <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(totalCM)}</td>
+                <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(totalFob)}</td>
                 <td className="border border-gray-950 p-1 text-center" style={{ backgroundColor: "#d5e6ef" }}>{(totalWorkingHour / companyCount).toFixed(2)}</td>
               </React.Fragment>
 
@@ -270,9 +270,9 @@ function ReportTable({
                   <td className="border border-gray-950 p-1 text-center">{Math.round(target)}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(sewingOutput)}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(deviation)}</td>
-                  <td rowSpan={2} className="border border-gray-950 p-1 text-center">{percent.toFixed(2)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{Math.round(cm)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{Math.round(fob)}</td>
+                  <td rowSpan={2} className="border border-gray-950 p-1 text-center text-nowrap">{percent.toFixed(2)} %</td>
+                  <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(cm)}</td>
+                  <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(fob)}</td>
                   <td style={{ backgroundColor: "#d5e6ef" }} rowSpan={2} className="border border-gray-950 p-1 text-center">{(workHour).toFixed(2)}</td>
                 </React.Fragment>
               );
@@ -283,9 +283,9 @@ function ReportTable({
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget / grandTotalDataCount)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty / grandTotalDataCount)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round((grandTotalSewingQty - grandTotalTarget) / grandTotalDataCount)}</td>
-              <td rowSpan={2} className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)}</td>
-              <td className="border border-gray-950 p-1 text-center">{(grandTotalFob / grandTotalDataCount).toFixed(2)}</td>
-              <td className="border border-gray-950 p-1 text-center">{(grandTotalCM / grandTotalDataCount).toFixed(2)}</td>
+              <td rowSpan={2} className="border border-gray-950 p-1 text-center text-nowrap">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(grandTotalFob / grandTotalDataCount)}</td>
+              <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(grandTotalCM / grandTotalDataCount)}</td>
               <td rowSpan={2} style={{ backgroundColor: "#d5e6ef" }} className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount / grandTotalCompanyCount).toFixed(2)}</td>
             </React.Fragment>
           </tr>
@@ -311,8 +311,8 @@ function ReportTable({
                   <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TARGET)}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(summary.SEWING_OUTPUT)}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(deviation)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TOTAL_CM)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TOTAL_FOB)}</td>
+                  <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(summary.TOTAL_CM)}</td>
+                  <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(summary.TOTAL_FOB)}</td>
                 </React.Fragment>
               );
             })}
@@ -322,8 +322,8 @@ function ReportTable({
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty - grandTotalTarget)}</td>
-              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalCM)}</td>
-              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalFob)}</td>
+              <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(grandTotalCM)}</td>
+              <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(grandTotalFob)}</td>
             </React.Fragment>
 
           </tr>
@@ -331,19 +331,26 @@ function ReportTable({
         </tbody>
       </table>
 
-      <div className="mt-10 text-center">
+      <div className="mt-10 text-center font-bold">
         <table className="border-collapse border border-gray-950 w-[60%] ms-auto me-auto" style={{ fontSize: "14px" }}>
           <thead>
             <tr>
-              <th className="border border-gray-950 p-1 text-center" colSpan={7} style={{ fontSize: "20px" }}>Company Summary</th>
+              <th className="border border-gray-950 p-1 text-center" colSpan={7} style={{ fontSize: "20px" }}>
+                {
+                  client.currentClient == client.FAME && "FAME GROUP"
+                }
+                {
+                  client.currentClient == client.EURO && "EUROTEX GROUP"
+                }
+              </th>
             </tr>
-            <tr className="">
+            <tr className="uppercase">
               <th className="border border-gray-950 p-1 text-center">Company</th>
               <th className="border border-gray-950 p-1 text-center">Target Qty</th>
               <th className="border border-gray-950 p-1 text-center">Achi. Qty</th>
-              <th className="border border-gray-950 p-1 text-center">PER</th>
-              <th className="border border-gray-950 p-1 text-center">CM $</th>
-              <th className="border border-gray-950 p-1 text-center">FOB $</th>
+              <th className="border border-gray-950 p-1 text-center">PER (%)</th>
+              <th className="border border-gray-950 p-1 text-center">CM ($)</th>
+              <th className="border border-gray-950 p-1 text-center">FOB ($)</th>
               <th className="border border-gray-950 p-1 text-center">Work Hour</th>
             </tr>
           </thead>
@@ -360,9 +367,9 @@ function ReportTable({
                   <td className="border border-gray-950 p-1 text-center">{prefix}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TARGET)}</td>
                   <td className="border border-gray-950 p-1 text-center">{Math.round(summary.SEWING_OUTPUT)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{(percent).toFixed(2)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TOTAL_CM)}</td>
-                  <td className="border border-gray-950 p-1 text-center">{Math.round(summary.TOTAL_FOB)}</td>
+                  <td className="border border-gray-950 p-1 text-center">{(percent).toFixed(2)} %</td>
+                  <td className="border border-gray-950 p-1 text-center">${Math.round(summary.TOTAL_CM)}</td>
+                  <td className="border border-gray-950 p-1 text-center">${Math.round(summary.TOTAL_FOB)}</td>
                   <td className="border border-gray-950 p-1 text-center">{(workingHour).toFixed(2)}</td>
                 </tr>
               );
@@ -381,9 +388,9 @@ function ReportTable({
               </td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalTarget)}</td>
               <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalSewingQty)}</td>
-              <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)}</td>
-              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalCM)}</td>
-              <td className="border border-gray-950 p-1 text-center">{Math.round(grandTotalFob)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)} %</td>
+              <td className="border border-gray-950 p-1 text-center">${Math.round(grandTotalCM)}</td>
+              <td className="border border-gray-950 p-1 text-center">${Math.round(grandTotalFob)}</td>
               <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount / grandTotalCompanyCount).toFixed(2)}</td>
             </tr>
           </tbody>
