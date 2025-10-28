@@ -310,7 +310,7 @@ function ReportTable({
           </tr>
         </thead>
 
-        <tbody style={{ backgroundColor: isMonthView ? "#d5f2da" : "#f2eaea" }}>
+        <tbody>
           <tr>
             <td className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
@@ -943,7 +943,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round((floorData.FIRST_HOUR_ACHV * 100 / floorData.FIRST_HOUR_TGT))} %
+                    {(floorData.FIRST_HOUR_ACHV * 100 / floorData.FIRST_HOUR_TGT).toFixed(2)} %
                   </td>
                 );
               });
@@ -954,13 +954,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {Math.round(cmpFirstHourAchvPer / floorCount)} %
+                  {(cmpFirstHourAchvPer / floorCount).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.FIRST_HOUR_ACHV * 100 / finalData.FIRST_HOUR_TGT)}
+              {(finalData.FIRST_HOUR_ACHV * 100 / finalData.FIRST_HOUR_TGT).toFixed(2)}
               %</td>
           </tr>
 
