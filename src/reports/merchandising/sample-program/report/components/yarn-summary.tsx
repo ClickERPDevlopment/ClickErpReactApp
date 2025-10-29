@@ -1,13 +1,8 @@
-import { SampleProgramReportDto_DetailsType } from '../sample-program-report.-type'
+import { SampleProgramReportDto_YarnDetails } from '../sample-program-report.-type'
 
-export default function YarnSummary({ lstDetails }: { lstDetails?: SampleProgramReportDto_DetailsType[] }) {
-    const unique = [...new Set(lstDetails?.map(item => item.YARN_COUNT))];
-
-    const getYarnQty = (yarn: string) =>
-        lstDetails?.filter(_ => _.YARN_COUNT === yarn)?.reduce((p, c) => p + Number(c.TOTAL_YARN), 0);
-
+export default function YarnSummary({ lstDetails }: { lstDetails?: SampleProgramReportDto_YarnDetails[] }) {
     const getTotalQty = () =>
-        lstDetails?.reduce((p, c) => p + Number(c.TOTAL_YARN), 0);
+        lstDetails?.reduce((p, c) => p + Number(c.REQUIRED_QTY), 0);
 
     return (
         <div className='mt-5 flex'>
@@ -22,10 +17,10 @@ export default function YarnSummary({ lstDetails }: { lstDetails?: SampleProgram
                     </tr>
                 </thead>
                 <tbody>
-                    {unique?.map((ele) =>
+                    {lstDetails?.map((ele) =>
                         <tr>
-                            <td className='p-1 border border-gray-600 text-center'>{ele}</td>
-                            <td className='p-1 border border-gray-600 text-center'>{getYarnQty(ele)?.toFixed(2)}</td>
+                            <td className='p-1 border border-gray-600 text-center'>{ele.YARN}</td>
+                            <td className='p-1 border border-gray-600 text-center'>{ele.REQUIRED_QTY}</td>
                         </tr>
                     )}
                 </tbody>

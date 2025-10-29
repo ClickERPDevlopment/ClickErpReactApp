@@ -4,7 +4,8 @@ export type SampleProgramReportDtoType = {
     lstSpecialTreatment: SampleProgramReportDto_SpecialTreatmentType[],
     lstCollarCuff: SampleProgramReportDto_CollarCuffType[],
     lstComments: SampleProgramReportDto_CommentsType[],
-    lstYarnDyeingDetails: SampleProgramReportDto_YarnDyeingDetails[]
+    lstYarnDyeingDetails: SampleProgramReportDto_YarnDyeingDetails[],
+    lstYarnDetails: SampleProgramReportDto_YarnDetails[],
 };
 
 export type SampleProgramReportDto_MasterType = {
@@ -74,4 +75,9 @@ export type SampleProgramReportDto_YarnDyeingDetails = {
     FABRIC_QTY_KG: number,
     YD_COLOR: string
     YARN_QTY_KG: number
+};
+
+export type SampleProgramReportDto_YarnDetails = {
+    YARN: string
+    REQUIRED_QTY: number
 };

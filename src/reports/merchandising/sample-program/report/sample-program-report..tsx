@@ -20,7 +20,7 @@ export default function SampleProgramReport({ data }: { data?: SampleProgramRepo
                 <CollarCuff lstCollarCuff={data?.lstCollarCuff} />
                 <SpecialTreatment lstSpecialTreatment={data?.lstSpecialTreatment} />
                 <YarnDyeingDetails lstYarnDyeingDetails={data?.lstYarnDyeingDetails} />
-                <YarnSummary lstDetails={data?.lstDetails} />
+                <YarnSummary lstDetails={data?.lstYarnDetails} />
                 <Comments lstComments={data?.lstComments} />
             </div>
             <Signature masterInfo={data?.masterInfo} />
