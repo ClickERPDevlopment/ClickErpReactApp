@@ -837,6 +837,7 @@ function ReportTable({
                   const companyData = grouped[dateKey]?.COMPANY?.[company];
 
                   // const floorCount = Object.keys(grandTotal[company].FLOORS).length;
+                  const floorCount = Object.keys(grandTotal[company].FLOORS).length || 1;
 
                   let totalHourly = 0;
 
@@ -861,7 +862,7 @@ function ReportTable({
                         : 0;
 
                     totalHourly += hourly;
-                    grandTotalHourly += hourly;
+                    // grandTotalHourly += hourly;
 
                     return (
                       <td
@@ -875,13 +876,17 @@ function ReportTable({
                   });
 
 
+                  grandTotalHourly += Math.round((organizedData.byFactoryTotal[companyData?.FACTORYID ?? 0] || 0) / Number((((companyData?.ACTUALHOURS_TOTAL || 0) / floorCount).toFixed(2))));
+
                   cells.push(
                     <td
                       key={`${dateKey}-${company}-factory`}
                       className="border border-gray-950 p-1 text-center font-bold"
                       style={{ backgroundColor: getFactoryColor(company) }}
                     >
-                      {isNaN(totalHourly) ? "0" : Math.round(totalHourly)}
+                      {
+                        isNaN(totalHourly) ? "0" : Math.round((organizedData.byFactoryTotal[companyData?.FACTORYID ?? 0] || 0) / Number((((companyData?.ACTUALHOURS_TOTAL || 0) / floorCount).toFixed(2))))
+                      }
                     </td>
                   );
 
