@@ -34,4 +34,5 @@ export type SewingSummaryReportType = {
     TARGETHOURS?: number;
     SEWINGDATE?: string;
     F_SMVSEWING?: number;
+    NO_OF_LINE?: number;
 };
