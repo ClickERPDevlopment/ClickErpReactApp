@@ -155,7 +155,7 @@ function ReportTable({
       floorData.SMV_QTY += smvQty;
       floorData.FIRST_HOUR_ACHV_PER += firstHourAchvPer;
       floorData.FIRST_HOUR_TGT += firstHourTarget;
-      floorData.NO_OF_LINE = numOfLine;
+      floorData.NO_OF_LINE += numOfLine;
 
 
 
@@ -342,6 +342,7 @@ function ReportTable({
                   </td>
                 );
               });
+
               const companyTotal = floors.reduce((sum, floor) => {
                 return sum + grouped[company][floor].TARGET;
               }, 0);
@@ -443,22 +444,32 @@ function ReportTable({
                   </td>
                 );
               });
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT * 100 / grouped[company][floor].RUNNNING_TOTALTARGET);
+
+              const companyTotalAchv = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].SEWING_OUTPUT;
               }, 0);
+
+
+              const companyTotalTarget = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].RUNNNING_TOTALTARGET;
+              }, 0);
+
               cells.push(
                 <td
                   style={{ backgroundColor: totalBg }}
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)} %
+                  {(companyTotalAchv * 100 / companyTotalTarget).toFixed(2)} %
                 </td>
               );
 
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT * 100 / finalData.RUNNNING_TOTALTARGET).toFixed(2)} %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {
+                (finalData.SEWING_OUTPUT * 100 / finalData.RUNNNING_TOTALTARGET).toFixed(2)
+              } %</td>
           </tr>
 
 
@@ -547,22 +558,20 @@ function ReportTable({
             <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Output Line</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
-
-
               let noOfCLine = 0;
               const cells = floors.map(floor => {
 
                 const floorData = grouped[company][floor];
 
-                noOfCLine += floorData.NO_OF_LINE;
-                noOfGroupLine += floorData.NO_OF_LINE;
+                noOfCLine += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
+                noOfGroupLine += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
 
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {floorData.NO_OF_LINE}
+                    {(floorData.NO_OF_LINE / floorData.ROW_COUNT).toFixed(2)}
                   </td>
                 );
               });
@@ -575,13 +584,13 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal}
+                  {(companyTotal).toFixed(2)}
                 </td>
               );
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {noOfGroupLine}
+              {(noOfGroupLine.toFixed(2))}
             </td>
           </tr>
 
@@ -786,14 +795,14 @@ function ReportTable({
                 floorCount++;
                 const floorData = grouped[company][floor];
 
-                lineCount += floorData.NO_OF_LINE;
+                lineCount += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
 
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.TARGET / floorData.UNIQUE_SEWINGDATE.size / floorData.NO_OF_LINE / (floorData.TARGETHOURS / floorData.ROW_COUNT))}
+                    {Math.round(floorData.TARGET / (floorData.NO_OF_LINE) / (floorData.TARGETHOURS / floorData.ROW_COUNT))}
                   </td>
                 );
               });
@@ -840,14 +849,14 @@ function ReportTable({
 
                 const floorData = grouped[company][floor];
 
-                lineCount += floorData.NO_OF_LINE;
+                lineCount += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
 
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
+                    {Math.round(floorData.SEWING_OUTPUT / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
                   </td>
                 );
               });
@@ -891,11 +900,11 @@ function ReportTable({
 
                 const floorData = grouped[company][floor];
 
-                lineCount += floorData.NO_OF_LINE;
+                lineCount += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
 
-                const tgtHourly = floorData.TARGET / floorData.UNIQUE_SEWINGDATE.size / floorData.NO_OF_LINE / (floorData.TARGETHOURS / floorData.ROW_COUNT);
+                const tgtHourly = floorData.TARGET / floorData.NO_OF_LINE / (floorData.TARGETHOURS / floorData.ROW_COUNT);
 
-                const achvHourly = floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT);
+                const achvHourly = floorData.SEWING_OUTPUT / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT);
 
                 return (
 
