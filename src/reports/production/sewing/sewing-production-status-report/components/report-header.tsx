@@ -13,7 +13,7 @@ function ReportHeader({
         {/* <h1 className="font-bold text-2xl text-center">
           {searchParam.factoryId == 0 ? "Anowara Group" : masterData?.COMPANY_NAME}
         </h1> */}
-        <h4 className="font-bold text-base text-center mt-2">
+        <h4 className="font-bold text-xl text-center mt-2">
           Hourly Factory Wise Production Status
         </h4>
         {/* <h1 className="font-bold text-base text-center">
