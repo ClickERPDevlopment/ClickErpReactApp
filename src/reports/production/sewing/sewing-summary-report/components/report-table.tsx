@@ -799,7 +799,7 @@ function ReportTable({
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].TARGET;
+                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size);
               }, 0);
 
               const companyTotalHour = floors.reduce((sum, floor) => {
@@ -847,18 +847,19 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.NO_OF_LINE / floorData.WORKING_HOUR)}
+                    {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].SEWING_OUTPUT;
+                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size);
               }, 0);
 
               const companyTotalHour = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT;
+                return sum + (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT);
               }, 0);
+
 
               cells.push(
                 <td
@@ -908,7 +909,7 @@ function ReportTable({
               });
 
               const companyTotalOutput = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].SEWING_OUTPUT;
+                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size);
               }, 0);
 
               const companyTotalHour = floors.reduce((sum, floor) => {
@@ -921,7 +922,7 @@ function ReportTable({
 
 
               const companyTotalTgt = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].TARGET;
+                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size);
               }, 0);
 
 
