@@ -114,11 +114,11 @@ function Report({
               <td className="border border-gray-300 p-1">
                 {totalDeviationQty}
               </td>
-              <td className="border border-gray-300 p-1">{(totalEarnMin / totalAvlMin).toFixed(2)}</td>
+              <td className="border border-gray-300 p-1">{(totalEarnMin * 100 / totalAvlMin).toFixed(2)}</td>
               <td className="border border-gray-300 p-1">
-                {(totalProMin / totalAvlMin).toFixed(2)}
+                {(totalProMin * 100 / totalAvlMin).toFixed(2)}
               </td>
-              <td className="border border-gray-300 p-1">{((totalEarnMin / totalAvlMin) - (totalProMin / totalAvlMin)).toFixed(2)}</td>
+              <td className="border border-gray-300 p-1">{((totalEarnMin * 100 / totalAvlMin) - (totalProMin * 100 / totalAvlMin)).toFixed(2)}</td>
             </tr>
 
           </tbody>
