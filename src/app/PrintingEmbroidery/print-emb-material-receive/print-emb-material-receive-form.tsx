@@ -1019,7 +1019,7 @@ export default function PrintEmbMaterialReceiveForm({
                   <div className="flex justify-between gap-2 items-end">
                     <div>
                       <div className="flex justify-between items-end">
-                        <FormField
+                        {/* <FormField
                           control={searchForm.control}
                           name="BUYER_ID"
                           render={({ field }) => (
@@ -1088,7 +1088,81 @@ export default function PrintEmbMaterialReceiveForm({
                               <FormMessage />
                             </FormItem>
                           )}
+                        /> */}
+
+
+
+                        <FormField
+                          control={searchForm.control}
+                          name="BUYER_ID"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col flex-1">
+                              <FormLabel className="font-bold">Buyer</FormLabel>
+                              <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      aria-expanded={openBuyer}
+                                      className={cn(
+                                        "w-full justify-between bg-emerald-100",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {searchData.BUYER
+                                        ? searchData.BUYER
+                                        : "Select a buyer"}
+                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full p-0">
+                                  <Command>
+                                    <CommandInput placeholder="Search buyer..." className="h-9" />
+                                    <CommandList>
+                                      <CommandEmpty>No buyer found.</CommandEmpty>
+                                      <CommandGroup>
+                                        {[...new Map(buyerData?.map(b => [b.NAME, b])).values()].map(
+                                          (buyer) => (
+                                            <CommandItem
+                                              value={buyer?.NAME}
+                                              key={buyer?.NAME}
+                                              onSelect={() => {
+                                                field.onChange(buyer?.NAME);
+                                                setSearchData((prev) => ({
+                                                  ...prev,
+                                                  BUYER_ID: Number(buyer?.Id),
+                                                  BUYER: buyer?.NAME,
+                                                }));
+                                                getStyleByBuyer(Number(0), Number(buyer?.Id));
+                                                setOpenBuyer(false);
+                                              }}
+                                            >
+                                              {buyer?.NAME}
+                                              <CheckIcon
+                                                className={cn(
+                                                  "ml-auto h-4 w-4",
+                                                  searchData.BUYER === buyer?.NAME
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          )
+                                        )}
+                                      </CommandGroup>
+                                    </CommandList>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
+
+
+
                         {/* <Button
                         onClick={() => orderForm.resetField("BUYER_ID")}
                         variant={"outline"}
