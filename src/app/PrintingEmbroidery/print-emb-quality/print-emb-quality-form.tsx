@@ -551,9 +551,6 @@ export default function PrintEmbQualityForm({
         })),
       }))),
     ]);
-
-
-
   };
 
   const handleRemove = (index: number) => {
@@ -565,7 +562,11 @@ export default function PrintEmbQualityForm({
     Id: data ? data.Id : 0,
     EntryDate: data?.EntryDate
       ? new Date(data.EntryDate).toLocaleDateString("en-CA")
-      : new Date().toLocaleDateString("en-CA"),
+      : (() => {
+        const d = new Date();
+        d.setDate(d.getDate() - 1);
+        return d.toLocaleDateString("en-CA");
+      })(),
     PartyId: data ? data.PartyId : 0,
     Party: data ? data.Party : "",
     EmbTypeId: data ? data.EmbTypeId : 0,
