@@ -63,10 +63,10 @@ function ReportTable({
                   {item.PARTS}
                 </td>
                 <td className="border border-gray-300 px-2 py-1 text-left">
-                  {item.STYLE}
+                  {item.STYLE || item.OS_STYLE}
                 </td>
                 <td className="border border-gray-300 px-2 py-1 text-left">
-                  {item.EMB_WORK_ORDER_NO}
+                  {item.PO_NO || item.OS_PO_NO}
                 </td>
                 <td className="border border-gray-300 px-2 py-1 text-left">
                   {item.PRINT_TYPE}
