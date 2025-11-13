@@ -18,6 +18,7 @@ export type PrintEmbPIMasterType = {
 export type PrintEmbPIDetailsType = {
     COLOR_ID: any;
     STYLE_ID: number;
+    PO_ID: number;
     BUYER_ID: number;
     ID: number;
     MASTER_ID: number;

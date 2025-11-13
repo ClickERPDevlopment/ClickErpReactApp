@@ -285,7 +285,7 @@ export default function PrintEmbPIForm({
 
     if (!printEmbPIDetails.WORK_ORDER_ID) return
 
-    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbPI/EmbWorkOrderRcvDetails?woId=${printEmbPIDetails.WORK_ORDER_ID}&colorId=${printEmbPIDetails.COLOR_ID}`);
+    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbPI/EmbWorkOrderRcvDetails?woId=${printEmbPIDetails.WORK_ORDER_ID}&buyerId=${printEmbPIDetails.BUYER_ID}&poId=${printEmbPIDetails.PO_ID}&styleId=${printEmbPIDetails.STYLE_ID}&colorId=${printEmbPIDetails.COLOR_ID}`);
     setdetailsData(prev => [
       ...(prev || []),
       ...((response?.data || []))
@@ -311,6 +311,7 @@ export default function PrintEmbPIForm({
 
   const [printEmbPIDetails, setPrintEmbPIDetails] = useState<PrintEmbPIDetailsType>({
     COLOR_ID: 0,
+    PO_ID: 0,
     STYLE_ID: 0,
     BUYER_ID: 0,
     ID: 0,
