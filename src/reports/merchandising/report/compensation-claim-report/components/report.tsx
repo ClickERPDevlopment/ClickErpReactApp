@@ -86,7 +86,7 @@ function Report({
 
       {/* Remarks Section */}
       <div className="mt-4 mb-2">
-        <p className="mb-1 font-bold">Dear Sir,</p>
+        <p className="mb-1 font-bold">Dear concern,</p>
         <div className="whitespace-pre-wrap">{data?.REMARKS}</div>
       </div>
 
