@@ -19,4 +19,7 @@ export type EmbellishmentDeliveryReportType = {
   EMB_TYPE?: string;
   REASON?: string;
   REJECT_QTY: number;
+  COMPANY_NAME?: string;
+  COMPANY_ADDRESS?: string;
+
 };
