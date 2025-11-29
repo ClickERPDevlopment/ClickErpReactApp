@@ -33,6 +33,8 @@ export interface EmbMaterialRequirementReportType {
   BUYER: string;
   STYLE: string;
   PO: string;
+  COMPANY_NAME: string;
+  COMPANY_ADDRESS: string;
 }
 
 
