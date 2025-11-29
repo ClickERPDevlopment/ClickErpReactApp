@@ -5,7 +5,7 @@ import { EmbMaterialRequirementReportType } from "../embellishment-budget-sheet-
 function ReportHeader({ embMaterialReqData }: { embMaterialReqData: EmbMaterialRequirementReportType[] }) {
   return (
     <div className="w-[100%]">
-      <p className="font-bold text-lg text-left w-[100%] text-sm">
+      <p className="font-bold text-lg text-left w-[100%]">
         {moment().format("DD-MMM-YYYY")}
       </p>
       <h1 className="font-bold text-2xl text-center">

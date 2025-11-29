@@ -191,7 +191,7 @@ export async function Save(data: any, axios: AxiosInstance) {
 
 export async function Update(data: any, axios: AxiosInstance) {
     const response = await axios.put(
-        `/production/${data.COMPANY_ID}EmbMaterialReceive/` + data.ID,
+        `/production/${data.COMPANY_ID}/EmbMaterialReceive/` + data.ID,
         data
     );
 
