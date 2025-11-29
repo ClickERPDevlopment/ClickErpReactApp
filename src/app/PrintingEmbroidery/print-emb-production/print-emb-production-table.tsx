@@ -43,8 +43,10 @@ import { usePrintEmbProductionStore } from "@/store/app-store";
 
 export function PrintEmbProductionTable({
   data,
+  CompanyId
 }: {
   data: PrintEmbProductionMasterType[];
+  CompanyId: number
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -158,10 +160,10 @@ export function PrintEmbProductionTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/win/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -173,7 +175,7 @@ export function PrintEmbProductionTable({
                     ? "/win/printing-embroidery/print-emp-production"
                     : "/dashboard/printing-embroidery/print-emp-production";
 
-                  navigate(`${basePath}/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`);
+                  navigate(`${basePath}/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`);
                 }}
               >
                 Edit
@@ -182,10 +184,10 @@ export function PrintEmbProductionTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emp-production/${PageAction.delete}/${item.ID}`
+                      `/win/printing-embroidery/print-emp-production/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.delete}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emp-production/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >

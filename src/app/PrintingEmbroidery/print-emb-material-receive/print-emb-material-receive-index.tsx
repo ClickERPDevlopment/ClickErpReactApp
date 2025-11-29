@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -33,6 +33,7 @@ import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { PrintEmbMaterialReceiveTable } from "./print-emb-material-receive-table";
 import { EmbMaterialReceiveMasterType, GetPrintEmbMaterialReceive } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
+import { companyId } from "@/utility/local-storage-utils";
 
 
 interface ISearchData {
@@ -53,11 +54,15 @@ interface ISearchData {
 
 
 function PrintEmbMaterialReceiveIndex() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const {
     data: data,
     isError,
     error
-  } = GetPrintEmbMaterialReceive<EmbMaterialReceiveMasterType>();
+  } = GetPrintEmbMaterialReceive<EmbMaterialReceiveMasterType>(CompanyId);
 
   if (isError) {
     return (
@@ -157,7 +162,7 @@ function PrintEmbMaterialReceiveIndex() {
 
   const [embMaterialReceive, setEmbMaterialReceive] = useState<EmbMaterialReceiveMasterType[]>([]);
   const getEmbMtlRcv = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive");
+    const response = await axios.get(api.ProductionUrl + `/production/${companyId}/EmbMaterialReceive`);
     setEmbMaterialReceive(response?.data);
   }
 
@@ -192,7 +197,7 @@ function PrintEmbMaterialReceiveIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive?fromDate=" + fromDateFormatted
+    const response = await axios.get(api.ProductionUrl + `/production/${companyId}/EmbMaterialReceive?fromDate=` + fromDateFormatted
       + "&toDate=" + toDateFormatted
       + "&woId=" + searchData.WORK_ORDER_ID
       + "&woReceiveId=" + searchData.WORK_ORDER_RECEIVE_ID
@@ -216,7 +221,7 @@ function PrintEmbMaterialReceiveIndex() {
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Material Receive</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=` + CompanyId}>
             <Button className="mb-2" role="button">
               New Material Receive
             </Button>
@@ -671,7 +676,7 @@ function PrintEmbMaterialReceiveIndex() {
         </div>
         <div className="mt-3">
           {data ? (
-            <PrintEmbMaterialReceiveTable data={masterData || data} />
+            <PrintEmbMaterialReceiveTable data={masterData || data} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}

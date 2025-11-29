@@ -43,8 +43,10 @@ import { usePrintEmbDeliveryStore } from "@/store/app-store";
 
 export function PrintEmbDeliveryTable({
   data,
+  CompanyId
 }: {
   data: PrintEmbDeliveryMasterType[];
+  CompanyId: number
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -174,10 +176,10 @@ export function PrintEmbDeliveryTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/win/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
 
@@ -188,10 +190,10 @@ export function PrintEmbDeliveryTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`
+                      `/win/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`
+                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -201,10 +203,10 @@ export function PrintEmbDeliveryTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-delivery/${PageAction.delete}/${item.ID}`
+                      `/win/printing-embroidery/print-emb-delivery/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.delete}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emb-delivery/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >

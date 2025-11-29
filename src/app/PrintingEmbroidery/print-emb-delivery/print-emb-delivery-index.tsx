@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -37,15 +37,15 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 
 
 function PrintEmbDeliveryIndex() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const {
     data: printEmbDeliveryData,
     isError,
     error
-  } = GetPrintEmbDelivery<PrintEmbDeliveryMasterType>();
-
-
-  console.log(printEmbDeliveryData);
-
+  } = GetPrintEmbDelivery<PrintEmbDeliveryMasterType>(CompanyId);
 
 
   if (isError) {
@@ -168,12 +168,6 @@ function PrintEmbDeliveryIndex() {
     setPO(response?.data);
   }
 
-  // const [productionType, setProductionType] = useState<IType[]>([]);
-  // const getProductionType = async () => {
-  //   const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionType");
-  //   setProductionType(response?.data);
-  // }
-
 
   useEffect(() => {
     getWorkOrder();
@@ -190,7 +184,7 @@ function PrintEmbDeliveryIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbDelivery?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbDelivery?fromDate=` + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
     setMasterData(response?.data);
   }
 
@@ -199,7 +193,6 @@ function PrintEmbDeliveryIndex() {
   const [openPO, setOpenPO] = useState(false);
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
 
-  // const [openProductionType, setOpenProductionType] = useState(false);
 
   const [masterData, setMasterData] = useState<PrintEmbDeliveryMasterType[] | null>(null);
 
@@ -208,7 +201,7 @@ function PrintEmbDeliveryIndex() {
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Print Emb Delivery</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=${CompanyId}`}>
             <Button className="mb-2" role="button">
               New Print Emb Delivery
             </Button>
@@ -358,77 +351,6 @@ function PrintEmbDeliveryIndex() {
                         )}
                       />
                     </div>
-
-                    {/* <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="TYPE_ID"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Type</FormLabel>
-                            <Popover open={openProductionType} onOpenChange={setOpenProductionType}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openProductionType}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? productionType?.find(
-                                        (type) =>
-                                          Number(type.ID) === Number(field.value)
-                                      )?.NAME
-                                      : "Select a production type"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search production type..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No production type found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {productionType?.map((typeData) => (
-                                        <CommandItem
-                                          value={typeData.NAME}
-                                          key={typeData.ID}
-                                          onSelect={() => {
-                                            field.onChange(Number(typeData.ID));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              TYPE_ID: Number(typeData.ID),
-                                              TYPE: typeData.NAME,
-                                            }));
-                                            setOpenProductionType(false);
-                                          }}
-                                        >
-                                          {typeData.NAME}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(typeData.ID) === Number(field.value)
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div> */}
 
                     <div className="flex justify-between items-end">
                       <FormField
@@ -663,7 +585,7 @@ function PrintEmbDeliveryIndex() {
         </div>
         <div className="mt-3">
           {printEmbDeliveryData ? (
-            <PrintEmbDeliveryTable data={masterData || printEmbDeliveryData || []} />
+            <PrintEmbDeliveryTable data={masterData || printEmbDeliveryData || []} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}

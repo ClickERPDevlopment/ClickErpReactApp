@@ -181,9 +181,11 @@ interface ISize {
 export default function PrintEmbProductionForm({
   data,
   pageAction,
+  CompanyId
 }: {
   data: PrintEmbProductionMasterType | undefined | null;
   pageAction: string;
+  CompanyId: number
 }): React.JSX.Element {
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -197,7 +199,7 @@ export default function PrintEmbProductionForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.ID, axios);
+        return Delete(tag.ID, CompanyId, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -231,7 +233,7 @@ export default function PrintEmbProductionForm({
         : "/dashboard/printing-embroidery/print-emp-production";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
 
 
@@ -515,7 +517,7 @@ export default function PrintEmbProductionForm({
       if (type === "Add All Size") {
         if (!validateFields(["SIZE"])) return;
 
-        const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=0`);
+        const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=0`);
 
         setdetailsData(prev => [...(prev || []), ...(response?.data || [])]);
 
@@ -531,7 +533,7 @@ export default function PrintEmbProductionForm({
           return;
         }
 
-        const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${printEmbProductionDetails.SIZE_ID}`);
+        const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${printEmbProductionDetails.SIZE_ID}`);
 
 
         setdetailsData(prev => [
@@ -569,6 +571,7 @@ export default function PrintEmbProductionForm({
     PRODUCTION_HOUR_ID: data ? data.PRODUCTION_HOUR_ID : 0,
     PRODUCTION_HOUR: data ? data.PRODUCTION_HOUR : "",
     REMARKS: data ? data.REMARKS || "" : "",
+    COMPANY_ID: CompanyId,
     PrintEmbProductionDetails: data ? data.PrintEmbProductionDetails : []
   });
 
@@ -756,7 +759,7 @@ export default function PrintEmbProductionForm({
 
     console.log("Loading WIP for size ID:", printEmbProductionDetails);
 
-    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${sizeId}`);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbProduction/EmbWorkOrderRcvDetails?woId=${printEmbProductionDetails.WORK_ORDER_ID}&buyerId=${printEmbProductionDetails.BUYER_ID}&styleId=${printEmbProductionDetails.STYLE_ID}&poId=${printEmbProductionDetails.PO_ID}&colorId=${printEmbProductionDetails.COLOR_ID}&sizeId=${sizeId}`);
     setSizeWip(response?.data?.[0]?.WIP || null);
   }
 
@@ -2089,8 +2092,8 @@ export default function PrintEmbProductionForm({
                       const params = new URLSearchParams(location.search);
                       const index = params.get("pageIndex");
                       location.pathname.includes("win/")
-                        ? navigator("/win/printing-embroidery/print-emp-production?pageIndex=" + index)
-                        : navigator("/dashboard/printing-embroidery/print-emp-production?pageIndex=" + index)
+                        ? navigator("/win/printing-embroidery/print-emp-production?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                        : navigator("/dashboard/printing-embroidery/print-emp-production?pageIndex=" + index + "&CompanyId=" + CompanyId)
                     }}
                     variant={"outline"}
                     className={cn("w-24")}

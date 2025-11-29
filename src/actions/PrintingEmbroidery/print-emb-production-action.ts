@@ -21,6 +21,7 @@ export interface PrintEmbProductionMasterType {
     PRODUCTION_HOUR_ID: number;
     PRODUCTION_HOUR: string;
     REMARKS: string;
+    COMPANY_ID: number;
     PrintEmbProductionDetails: PrintEmbProductionDetailsType[];
 }
 
@@ -85,7 +86,7 @@ export interface PrintEmbProductionSearchType {
 }
 
 
-export function GetPrintEmbProduction<T>() {
+export function GetPrintEmbProduction<T>(CompanyId: number) {
     const axios = useAxiosInstance();
 
     const toDate = new Date();
@@ -94,7 +95,7 @@ export function GetPrintEmbProduction<T>() {
     fromDate.setDate(toDate.getDate() - 7);
 
     const getData = async (): Promise<T[]> =>
-        (await axios.get("/production/PrintEmbProduction?fromDate=" + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
+        (await axios.get(`/production/${CompanyId}/PrintEmbProduction?fromDate=` + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
 
     const query = useQuery({
         queryKey: ["PrintEmbProductionData"],
@@ -105,11 +106,11 @@ export function GetPrintEmbProduction<T>() {
 }
 
 
-export function GetPrintEmbProductionById<T>(id: number) {
+export function GetPrintEmbProductionById<T>(id: number, CompanyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
-        (await axios.get("/production/PrintEmbProduction/" + id)).data;
+        (await axios.get(`/production/${CompanyId}/PrintEmbProduction/` + id)).data;
 
     const query = useQuery({
         queryKey: [ReactQueryKey.PrintEmbProduction, id],
@@ -136,7 +137,7 @@ export function getClaimId<T>() {
 
 export async function Save(data: any, axios: AxiosInstance) {
 
-    const response = await axios.post("/production/PrintEmbProduction", data);
+    const response = await axios.post(`/production/${data.COMPANY_ID}/PrintEmbProduction`, data);
 
     if (!response) {
         throw new Error("This data already exist.");
@@ -147,7 +148,7 @@ export async function Save(data: any, axios: AxiosInstance) {
 
 export async function Update(data: any, axios: AxiosInstance) {
     const response = await axios.put(
-        "/production/PrintEmbProduction/" + data.ID,
+        `/production/${data.COMPANY_ID}/PrintEmbProduction/` + data.ID,
         data
     );
 
@@ -158,10 +159,10 @@ export async function Update(data: any, axios: AxiosInstance) {
     return response.data;
 }
 
-export async function Delete(id: number, axios: AxiosInstance) {
+export async function Delete(id: number, CompanyId: number, axios: AxiosInstance) {
     if (Number(id) <= 0) {
         throw new Error("Print Embroidery Production ID is not valid.");
     }
 
-    await axios.delete("production/PrintEmbProduction/" + id);
+    await axios.delete(`production/${CompanyId}/PrintEmbProduction/` + id);
 }

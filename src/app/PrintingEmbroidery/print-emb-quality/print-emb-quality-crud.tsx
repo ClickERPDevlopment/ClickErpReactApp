@@ -1,18 +1,22 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageAction } from "@/utility/page-actions";
 import { GetPrintEmbQualityById, PrintEmbQualityMaster } from "@/actions/PrintingEmbroidery/print-emb-quality-action";
 import PrintEmbQualityForm from "./print-emb-quality-form";
 
 export default function PrintEmbQualityCrud() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const { pageAction, id } = useParams();
 
   const {
     data: printEmbProductionData,
     isError,
     error,
-  } = GetPrintEmbQualityById<PrintEmbQualityMaster>(Number(id));
+  } = GetPrintEmbQualityById<PrintEmbQualityMaster>(Number(id), CompanyId);
 
 
   if (!pageAction) {
@@ -55,6 +59,7 @@ export default function PrintEmbQualityCrud() {
         <PrintEmbQualityForm
           data={printEmbProductionData}
           pageAction={PageAction.view}
+          CompanyId={CompanyId}
         />
       </div>
     );
@@ -67,6 +72,7 @@ export default function PrintEmbQualityCrud() {
         <PrintEmbQualityForm
           data={undefined}
           pageAction={PageAction.add}
+          CompanyId={CompanyId}
         />
       </div>
     );
@@ -79,6 +85,7 @@ export default function PrintEmbQualityCrud() {
         <PrintEmbQualityForm
           data={printEmbProductionData}
           pageAction={PageAction.edit}
+          CompanyId={CompanyId}
         />
       </div>
     );
@@ -91,6 +98,7 @@ export default function PrintEmbQualityCrud() {
         <PrintEmbQualityForm
           data={printEmbProductionData}
           pageAction={PageAction.delete}
+          CompanyId={CompanyId}
         />
       </div>
     );

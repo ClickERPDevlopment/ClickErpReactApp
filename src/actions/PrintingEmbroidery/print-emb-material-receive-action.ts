@@ -92,6 +92,7 @@ export type EmbMaterialReceiveMasterType = {
     OS_BUYER: string;
     OS_STYLE: string;
     OS_PO: string;
+    COMPANY_ID: number;
     MATERIAL_RECEIVE_SERIAL: number;
     EmbMaterialReceiveDetails: EmbMaterialReceiveDetailsType[];
 };
@@ -133,11 +134,11 @@ export type NextReceiveNumberType = {
     receiveNo: string;
 }
 
-export function GetPrintEmbMaterialReceive<T>() {
+export function GetPrintEmbMaterialReceive<T>(companyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T[]> =>
-        (await axios.get("/production/EmbMaterialReceive")).data;
+        (await axios.get(`/production/${companyId}/EmbMaterialReceive`)).data;
 
     const query = useQuery({
         queryKey: ["EmbMaterialReceive"],
@@ -148,11 +149,11 @@ export function GetPrintEmbMaterialReceive<T>() {
 }
 
 
-export function GetPrintEmbMaterialReceiveById<T>(id: number) {
+export function GetPrintEmbMaterialReceiveById<T>(id: number, companyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
-        (await axios.get("/production/EmbMaterialReceive/" + id)).data;
+        (await axios.get(`/production/${companyId}/EmbMaterialReceive/` + id)).data;
 
     const query = useQuery({
         queryKey: [ReactQueryKey.EmbMaterialReceive, id],
@@ -162,11 +163,11 @@ export function GetPrintEmbMaterialReceiveById<T>(id: number) {
     return query;
 }
 
-export function NextReceiveNumber<T>() {
+export function NextReceiveNumber<T>(companyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
-        (await axios.get("/production/EmbMaterialReceive/NextReceiveNumber")).data;
+        (await axios.get(`/production/${companyId}/EmbMaterialReceive/NextReceiveNumber`)).data;
 
     const query = useQuery({
         queryKey: ["ReceiveNo"],
@@ -179,7 +180,7 @@ export function NextReceiveNumber<T>() {
 
 export async function Save(data: any, axios: AxiosInstance) {
 
-    const response = await axios.post("/production/EmbMaterialReceive", data);
+    const response = await axios.post(`/production/${data.COMPANY_ID}/EmbMaterialReceive`, data);
 
     if (!response) {
         throw new Error("Action Failed");
@@ -190,7 +191,7 @@ export async function Save(data: any, axios: AxiosInstance) {
 
 export async function Update(data: any, axios: AxiosInstance) {
     const response = await axios.put(
-        "/production/EmbMaterialReceive/" + data.ID,
+        `/production/${data.COMPANY_ID}EmbMaterialReceive/` + data.ID,
         data
     );
 
@@ -201,10 +202,10 @@ export async function Update(data: any, axios: AxiosInstance) {
     return response.data;
 }
 
-export async function Delete(id: number, axios: AxiosInstance) {
+export async function Delete(id: number, CompanyId: number, axios: AxiosInstance) {
     if (Number(id) <= 0) {
         throw new Error("Action Failed");
     }
 
-    await axios.delete("production/EmbMaterialReceive/" + id);
+    await axios.delete(`/production/${CompanyId}/EmbMaterialReceive/` + id);
 }

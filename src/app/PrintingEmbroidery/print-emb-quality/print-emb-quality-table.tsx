@@ -43,8 +43,10 @@ import { PrintEmbQualityMaster } from "@/actions/PrintingEmbroidery/print-emb-qu
 
 export function PrintEmbQualityTable({
   data,
+  CompanyId
 }: {
   data: PrintEmbQualityMaster[];
+  CompanyId: number
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -144,10 +146,10 @@ export function PrintEmbQualityTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-quality/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}`
+                      `/win/printing-embroidery/print-emb-quality/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-quality/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}`
+                      `/dashboard/printing-embroidery/print-emb-quality/${PageAction.view}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -159,7 +161,7 @@ export function PrintEmbQualityTable({
                     ? "/win/printing-embroidery/print-emb-quality"
                     : "/dashboard/printing-embroidery/print-emb-quality";
 
-                  navigate(`${basePath}/${PageAction.edit}/${item.Id}?pageIndex=${pageIndex}`);
+                  navigate(`${basePath}/${PageAction.edit}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`);
                 }}
               >
                 Edit
@@ -168,10 +170,10 @@ export function PrintEmbQualityTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-quality/${PageAction.delete}/${item.Id}`
+                      `/win/printing-embroidery/print-emb-quality/${PageAction.delete}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-quality/${PageAction.delete}/${item.Id}`
+                      `/dashboard/printing-embroidery/print-emb-quality/${PageAction.delete}/${item.Id}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >

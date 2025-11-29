@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -37,11 +37,17 @@ import moment from "moment";
 
 
 function PrintEmbProductionIndex() {
+
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
+
   const {
     data: printEmbProductionData,
     isError,
     error
-  } = GetPrintEmbProduction<PrintEmbProductionMasterType>();
+  } = GetPrintEmbProduction<PrintEmbProductionMasterType>(CompanyId);
 
   if (isError) {
     return (
@@ -165,7 +171,7 @@ function PrintEmbProductionIndex() {
 
   const [productionType, setProductionType] = useState<IType[]>([]);
   const getProductionType = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionType");
+    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProductionType`);
     setProductionType(response?.data);
   }
 
@@ -182,7 +188,7 @@ function PrintEmbProductionIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProduction?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbProduction?fromDate=` + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
     setMasterData(response?.data);
   }
 
@@ -199,7 +205,7 @@ function PrintEmbProductionIndex() {
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Print Emb Production</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=` + CompanyId}>
             <Button className="mb-2" role="button">
               New Print Emb Production
             </Button>
@@ -654,7 +660,7 @@ function PrintEmbProductionIndex() {
                       />
                     </div>
 
-                    
+
                   </div>
                 </div>
                 <div className={cn("flex justify-between mt-4")}>
@@ -671,7 +677,7 @@ function PrintEmbProductionIndex() {
         </div>
         <div className="mt-3">
           {printEmbProductionData ? (
-            <PrintEmbProductionTable data={masterData || printEmbProductionData} />
+            <PrintEmbProductionTable data={masterData || printEmbProductionData} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}

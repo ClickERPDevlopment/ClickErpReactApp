@@ -159,9 +159,11 @@ interface ISearchData {
 export default function PrintEmbMaterialReceiveForm({
   data,
   pageAction,
+  CompanyId
 }: {
   data: EmbMaterialReceiveMasterType | undefined | null;
   pageAction: string;
+  CompanyId: number
 }): React.JSX.Element {
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -176,7 +178,7 @@ export default function PrintEmbMaterialReceiveForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.ID, axios);
+        return Delete(tag.ID, CompanyId, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -197,7 +199,7 @@ export default function PrintEmbMaterialReceiveForm({
         : "/dashboard/printing-embroidery/print-emb-material-receive";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
 
     },
@@ -301,13 +303,13 @@ export default function PrintEmbMaterialReceiveForm({
   }
 
   const getNextReceiveNumber = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/NextReceiveNumber");
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/NextReceiveNumber`);
     setMasterData(prev => ({ ...prev, MATERIAL_RECEIVE_NO: response?.data.ReceiveNo }));
     masterForm.setValue("MATERIAL_RECEIVE_NO", response?.data.ReceiveNo);
   }
 
   const getWorkOrderRcvInfo = async (woRcvId: number, poId: number) => {
-    let response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveMasterData?woRcvId=" + woRcvId);
+    let response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/WorkOrderReceiveMasterData?woRcvId=` + woRcvId);
 
     setMasterData(prev => ({ ...prev, SUPPLIER_ID: response?.data.SUPPLIER_ID, SUPPLIER: response?.data.SUPPLIER, EMB_CATEGORY_ID: response?.data.EMB_CATEGORY_ID, EMB_CATEGORY: response?.data.EMB_CATEGORY, WORKORDER_ID: response?.data.WORKORDER_ID, WORKORDER_NO: response?.data.WORKORDER_NO }));
 
@@ -327,18 +329,18 @@ export default function PrintEmbMaterialReceiveForm({
 
     getEmbSendNo(response?.data.WORKORDER_NO);
 
-    response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${poId}`);
+    response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${poId}`);
     setdetailsData(response?.data);
   }
 
   const getWorkOrderRcvInfoWithSendQty = async (woRcvId: number, sendNo: string) => {
-    let response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=${woRcvId}&embSendNo=${sendNo}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
+    let response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=${woRcvId}&embSendNo=${sendNo}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
     setdetailsData(response?.data);
   }
 
   const [embSendNo, setEmbSendNo] = useState<IEmbSendNo[]>([]);
   const getEmbSendNo = async (woNo: string) => {
-    const response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/EmbellishmentSendNo?woNo=${woNo || ""}&PO=${searchData.PO || ""}&buyerId=${searchData.BUYER_ID || 0}&styleId=${searchData.STYLE_ID || 0}`);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/EmbellishmentSendNo?woNo=${woNo || ""}&PO=${searchData.PO || ""}&buyerId=${searchData.BUYER_ID || 0}&styleId=${searchData.STYLE_ID || 0}`);
     setEmbSendNo(response?.data);
   }
 
@@ -516,6 +518,7 @@ export default function PrintEmbMaterialReceiveForm({
     OS_BUYER: data?.BUYER || "",
     OS_STYLE: data?.STYLE || "",
     OS_PO: data?.PO || "",
+    COMPANY_ID: CompanyId,
     EmbMaterialReceiveDetails: data?.EmbMaterialReceiveDetails || [],
   });
 
@@ -1658,8 +1661,8 @@ export default function PrintEmbMaterialReceiveForm({
                       const index = params.get("pageIndex");
 
                       location.pathname.includes("win/")
-                        ? navigator("/win/printing-embroidery/print-emb-material-receive?pageIndex=" + index)
-                        : navigator("/dashboard/printing-embroidery/print-emb-material-receive?pageIndex=" + index)
+                        ? navigator("/win/printing-embroidery/print-emb-material-receive?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                        : navigator("/dashboard/printing-embroidery/print-emb-material-receive?pageIndex=" + index + "&CompanyId=" + CompanyId)
                     }
                     }
                     variant={"outline"}
