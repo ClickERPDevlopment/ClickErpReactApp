@@ -101,12 +101,13 @@ function ReportTable({
   let grandTotalTarget = 0;
   let grandTotalSewingQty = 0;
   let grandTotalWorkingHour = 0;
+  let grandTotalAVGWorkingHour = 0;
   let grandTotalFob = 0;
   let grandTotalCM = 0;
 
   let grandTotalDataCount = 0;
   let grandTotalPerformancePercent = 0;
-  let grandTotalCompanyCount = companyHeader ? companyHeader.length : 0;
+  // let grandTotalCompanyCount = companyHeader ? companyHeader.length : 0;
 
 
   const client = useAppClient();
@@ -232,8 +233,9 @@ function ReportTable({
                 <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(totalFob)}</td>
                 <td className="border border-gray-950 p-1 text-center" style={{ backgroundColor: "#d5e6ef" }}>{(totalWorkingHour / companyCount).toFixed(2)}</td>
               </React.Fragment>
-
             </tr>
+
+            grandTotalAVGWorkingHour += Number((totalWorkingHour / companyCount).toFixed(2));
 
             grandTotalPerformancePercent += (totalTarget > 0) ? (totalSewingQty * 100 / totalTarget) : 0;
 
@@ -286,7 +288,7 @@ function ReportTable({
               <td rowSpan={2} className="border border-gray-950 p-1 text-center text-nowrap">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)} %</td>
               <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(grandTotalFob / grandTotalDataCount)}</td>
               <td className="border border-gray-950 p-1 text-center text-nowrap">${Math.round(grandTotalCM / grandTotalDataCount)}</td>
-              <td rowSpan={2} style={{ backgroundColor: "#d5e6ef" }} className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount / grandTotalCompanyCount).toFixed(2)}</td>
+              <td rowSpan={2} style={{ backgroundColor: "#d5e6ef" }} className="border border-gray-950 p-1 text-center">{(grandTotalAVGWorkingHour / grandTotalDataCount).toFixed(2)}</td>
             </React.Fragment>
           </tr>
 
@@ -391,7 +393,7 @@ function ReportTable({
               <td className="border border-gray-950 p-1 text-center">{(grandTotalPerformancePercent / grandTotalDataCount).toFixed(2)} %</td>
               <td className="border border-gray-950 p-1 text-center">${Math.round(grandTotalCM)}</td>
               <td className="border border-gray-950 p-1 text-center">${Math.round(grandTotalFob)}</td>
-              <td className="border border-gray-950 p-1 text-center">{(grandTotalWorkingHour / grandTotalDataCount / grandTotalCompanyCount).toFixed(2)}</td>
+              <td className="border border-gray-950 p-1 text-center">{(grandTotalAVGWorkingHour / grandTotalDataCount).toFixed(2)}</td>
             </tr>
           </tbody>
         </table>
