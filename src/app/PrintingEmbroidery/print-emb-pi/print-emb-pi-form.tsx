@@ -395,7 +395,7 @@ export default function PrintEmbPIForm({
 
 
   const [termsCondition, setTermsCondition] = useState(pageAction === PageAction.add ?
-    "1. By Confirmed & Irrevocable Letter of Credit 60/90 days sight from the date of Delivery Challan \n2. Delivery within 15 days of receiving the L/C.\n3. HS CODE:6217.10.00\n4. BIN No. 000414104-0103\n5. Advising Bank: Dhaka Bank Plc. Gulshan Branch, Plot: 7, Block: SE (D),24Gulshan Ave, Dhaka1212, Bangladesh." : masterData?.TERM_CONDITIONS
+    "1. By Confirmed & Irrevocable Letter of Credit 60/90 days sight from the date of Delivery Challan \n2. Delivery within 15 days of receiving the L/C.\n3. HS CODE:6217.10.00\n4. BIN No. 000414104-0103\n5. Advising Bank: Dhaka Bank PLC. Gulshan Branch, Plot: 7, Block: SE (D),24Gulshan Ave, Dhaka1212, Bangladesh." : masterData?.TERM_CONDITIONS
   );
 
 
