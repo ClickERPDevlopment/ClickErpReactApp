@@ -407,13 +407,7 @@ export default function PrintEmbQualityForm({
   const masterForm = useForm<z.infer<typeof masterFormSchema>>({
     resolver: zodResolver(masterFormSchema),
     defaultValues: {
-      EntryDate: data?.EntryDate
-        ? new Date(data.EntryDate).toISOString().split("T")[0]
-        : (() => {
-          const d = new Date();
-          d.setDate(d.getDate() - 1);
-          return d.toLocaleDateString("en-CA");
-        })(),
+      EntryDate: data?.EntryDate ? new Date(data.EntryDate).toLocaleDateString("en-CA") : new Date().toLocaleDateString("en-CA"),
       PartyId: data?.PartyId || 0,
       Party: data?.Party || "",
       EmbTypeId: data?.EmbTypeId || 0,
@@ -562,13 +556,7 @@ export default function PrintEmbQualityForm({
 
   const [masterData, setMasterData] = useState<PrintEmbQualityMaster>({
     Id: data ? data.Id : 0,
-    EntryDate: data?.EntryDate
-      ? new Date(data.EntryDate).toLocaleDateString("en-CA")
-      : (() => {
-        const d = new Date();
-        d.setDate(d.getDate() - 1);
-        return d.toLocaleDateString("en-CA");
-      })(),
+    EntryDate: data?.EntryDate ? new Date(data.EntryDate).toLocaleDateString('en-CA') : new Date().toLocaleDateString('en-CA'),
     PartyId: data ? data.PartyId : 0,
     Party: data ? data.Party : "",
     EmbTypeId: data ? data.EmbTypeId : 0,
