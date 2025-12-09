@@ -179,6 +179,9 @@ function PrintEmbProductionIndex() {
   useEffect(() => {
     getWorkOrder();
     getProductionType();
+    getBuyerData(0);
+    getStyleByBuyer(0, 0);
+    getPOByStyle(0, 0);
   }, []);
 
 
