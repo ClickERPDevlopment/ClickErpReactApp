@@ -449,6 +449,7 @@ function PrintEmbProductionIndex() {
                                           value={typeData.NAME}
                                           key={typeData.ID}
                                           onSelect={() => {
+                                            field.onChange(Number(typeData.ID));
                                             setField("TYPE_ID", Number(typeData.ID));
                                             setField("TYPE", typeData.NAME);
                                             setOpenProductionType(false);
