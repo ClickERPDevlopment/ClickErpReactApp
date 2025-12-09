@@ -40,6 +40,7 @@ import { useLocation } from "react-router";
 import moment from "moment";
 import { PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
 import { usePrintEmbProductionStore } from "@/store/app-store";
+import { ISearchData, usePrintEmbProductionSearchStore } from "./print-emb-production-store";
 
 export function PrintEmbProductionTable({
   data,
@@ -62,16 +63,29 @@ export function PrintEmbProductionTable({
   const params = new URLSearchParams(location.search);
   const index = params.get("pageIndex");
 
+  const { searchData } = usePrintEmbProductionSearchStore();
+
+  const isSearchValid = (data: ISearchData) => {
+    return (
+      data.FROM_DATE ||
+      data.TO_DATE ||
+      data.WORK_ORDER_ID > 0 ||
+      data.TYPE_ID > 0 ||
+      data.BUYER_ID > 0 ||
+      data.STYLE_ID > 0 ||
+      data.PO_ID > 0
+    );
+  };
+
   React.useEffect(() => {
-
-    if (index && Number(index) > 0) {
-      table.setPageIndex(Number(index));
+    if (!isSearchValid(searchData)) {
+      if (index && Number(index) > 0) {
+        table.setPageIndex(Number(index));
+      }
     }
-
   }, []);
 
   React.useEffect(() => {
-
     setTimeout(() => {
       if (index && Number(index) > 0) {
         table.setPageIndex(Number(index));
@@ -79,8 +93,6 @@ export function PrintEmbProductionTable({
     }, 2000);
 
   }, [data]);
-
-
 
   const columns: ColumnDef<PrintEmbProductionMasterType>[] = [
     {
