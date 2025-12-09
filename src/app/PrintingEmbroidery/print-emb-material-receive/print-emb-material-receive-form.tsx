@@ -1022,79 +1022,6 @@ export default function PrintEmbMaterialReceiveForm({
                   <div className="flex justify-between gap-2 items-end">
                     <div>
                       <div className="flex justify-between items-end">
-                        {/* <FormField
-                          control={searchForm.control}
-                          name="BUYER_ID"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-col flex-1">
-                              <FormLabel className="font-bold">Buyer</FormLabel>
-                              <Popover open={openBuyer} onOpenChange={setOpenBuyer}>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      variant="outline"
-                                      role="combobox"
-                                      aria-expanded={openBuyer}
-                                      className={cn(
-                                        "w-full justify-between bg-emerald-100",
-                                        !field.value && "text-muted-foreground"
-                                      )}
-                                    >
-                                      {field.value
-                                        ? buyerData?.find(
-                                          (buyer) =>
-                                            Number(buyer.Id) === field.value
-                                        )?.NAME
-                                        : "Select a buyer"}
-                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-full p-0">
-                                  <Command>
-                                    <CommandInput placeholder="Search supplier..." className="h-9" />
-                                    <CommandList>
-                                      <CommandEmpty>No buyer found.</CommandEmpty>
-                                      <CommandGroup>
-                                        {buyerData?.map((buyer) => (
-                                          <CommandItem
-                                            value={buyer?.NAME}
-                                            key={Number(buyer?.Id)}
-                                            onSelect={() => {
-                                              field.onChange(Number(buyer?.Id));
-                                              setSearchData((prev) => ({
-                                                ...prev,
-                                                BUYER_ID: Number(buyer?.Id),
-                                                BUYER: buyer?.NAME,
-                                              }));
-                                              getStyleByBuyer(Number(0), Number(buyer?.Id));
-                                              setOpenBuyer(false);
-                                            }}
-                                          >
-
-                                            {buyer?.NAME}
-                                            <CheckIcon
-                                              className={cn(
-                                                "ml-auto h-4 w-4",
-                                                Number(buyer?.Id) === field.value
-                                                  ? "opacity-100"
-                                                  : "opacity-0"
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
-                                    </CommandList>
-                                  </Command>
-                                </PopoverContent>
-                              </Popover>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        /> */}
-
-
-
                         <FormField
                           control={searchForm.control}
                           name="BUYER_ID"
@@ -1163,17 +1090,6 @@ export default function PrintEmbMaterialReceiveForm({
                             </FormItem>
                           )}
                         />
-
-
-
-                        {/* <Button
-                        onClick={() => orderForm.resetField("BUYER_ID")}
-                        variant={"outline"}
-                        type="button"
-                        className="m-0 ml-1 px-[12px]"
-                      >
-                        <MdOutlineClear className="rounded text-slate-600 m-0" />
-                      </Button> */}
                       </div>
                     </div>
 
@@ -1248,14 +1164,6 @@ export default function PrintEmbMaterialReceiveForm({
                             </FormItem>
                           )}
                         />
-                        {/* <Button
-                        onClick={() => orderForm.resetField("STYLE_ID")}
-                        variant={"outline"}
-                        type="button"
-                        className="m-0 ml-1 px-[12px]"
-                      >
-                        <MdOutlineClear className="rounded text-slate-600 m-0" />
-                      </Button> */}
                       </div>
                     </div>
 
@@ -1555,27 +1463,6 @@ export default function PrintEmbMaterialReceiveForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.PARTS}
-                            {/* <div className="flex align-middle justify-center gap-1 p-1">
-                              <span>
-                                {
-                                  item?.EmbMaterialReceiveParts?.length > 0
-                                    ? item?.EmbMaterialReceiveParts?.map((parts) => parts.PARTS).join(", ")
-                                    : "No Parts"
-                                }
-                              </span>
-                              <Button
-                                type="button"
-                                onClick={() => {
-                                  setPartsModalData(item?.EmbMaterialReceiveParts);
-                                  setOpenPartsModal(true)
-                                  setSelectedDetailsIndex(index);
-                                }}
-                                variant="outline"
-                                className="h-5 w-5 flex border-0 items-center justify-center mt-auto shadow-none"
-                              >
-                                <SquarePlus className="w-5 h-5" />
-                              </Button>
-                            </div> */}
                           </TableCell>
 
                           <TableCell className="border border-gray-300 px-4 text-center ">
@@ -1635,22 +1522,6 @@ export default function PrintEmbMaterialReceiveForm({
                           ? "Update"
                           : "Delete"}
                     </Button>
-                    {/* <Button
-                      type="reset"
-                      disabled={mutation.isPending}
-                      onClick={() => {
-                        form.reset();
-                        form.clearErrors();
-                      }}
-                      variant={"destructive"}
-                      className={cn(
-                        "w-24",
-                        pageAction === PageAction.view ? "hidden" : "",
-                        pageAction === PageAction.delete ? "hidden" : ""
-                      )}
-                    >
-                      Cancel
-                    </Button> */}
                   </div>
                   <Button
                     type="reset"
@@ -1675,19 +1546,7 @@ export default function PrintEmbMaterialReceiveForm({
             </Form>
           </div>
         </div>
-        {/* <div className="p-2 mt-5">
-          {
-            pageAction != PageAction.add &&
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`/report/merchandising/compensation-claim-report?id=${masterData.ID}`}
-              className="px-4 py-2 bg-blue font-semibold text-white rounded-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Show Report
-            </a>
-          }
-        </div> */}
+
       </div>
       <div>
 
