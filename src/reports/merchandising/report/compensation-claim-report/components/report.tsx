@@ -30,7 +30,7 @@ function Report({
   // );
 
   const totalClaimAmount = data?.ClaimDetails?.reduce(
-    (acc, item) => acc + item.CLAIM_AMOUNT,
+    (acc, item) => acc + (item.CLAIM_AMOUNT_PER_UNIT * item.QUANTITY_DAMAGED),
     0
   );
 
@@ -136,7 +136,7 @@ function Report({
               <td className="border border-gray-950">{item.QUANTITY_DAMAGED}</td>
               <td className="border border-gray-950">{item.UOM}</td>
               <td className="border border-gray-950">{item.CLAIM_AMOUNT_PER_UNIT}</td>
-              <td className="border border-gray-950">{item.CLAIM_AMOUNT}</td>
+              <td className="border border-gray-950">{(item.CLAIM_AMOUNT_PER_UNIT * item.QUANTITY_DAMAGED).toFixed(2)}</td>
               <td className="border border-gray-950 text-left px-2">{item.DAMAGE_DETAILS}</td>
               <td className="border border-gray-950 text-left px-2">{item.ACTION_TAKEN}</td>
             </tr>
@@ -150,7 +150,7 @@ function Report({
             <td className="border border-gray-950">{ }</td>
             <td className="border border-gray-950"></td>
             <td className="border border-gray-950"></td>
-            <td className="border border-gray-950">{totalClaimAmount}</td>
+            <td className="border border-gray-950">{totalClaimAmount?.toFixed(2)}</td>
             <td className="border border-gray-950" colSpan={3}></td>
           </tr>
         </tbody>
