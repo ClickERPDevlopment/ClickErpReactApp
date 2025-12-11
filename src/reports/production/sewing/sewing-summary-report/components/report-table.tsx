@@ -46,7 +46,8 @@ function ReportTable({
       SMV_QTY: 0,
       TARGETHOURS: 0,
       FIRST_HOUR_ACHV_PER: 0,
-      FIRST_HOUR_TGT: 0
+      FIRST_HOUR_TGT: 0,
+      NO_OF_LINE: 0
     };
 
     data.forEach((item) => {
@@ -64,7 +65,7 @@ function ReportTable({
       const tgtEarnMin = Number(item.TARGET_EARN_MIN);
       const avlMin = Number(item.AVAILABLEMIN);
       const achvEff = avlMin > 0 ? (earnMin * 100) / avlMin : 0;
-      const tgtEff = target > 0 ? (sewingOutput * 100) / target : 0;
+      const tgtEff = target > 0 ? (tgtEarnMin * 100) / avlMin : 0;
 
       const runningMC = Number(item.RUNNINGMC);
       const earnedCM = Number(item.TOTALCM);
@@ -88,6 +89,9 @@ function ReportTable({
       if (!grouped[companyKey]) {
         grouped[companyKey] = {};
       }
+
+      const numOfLine = Number(item.NO_OF_LINE);
+
 
       if (!grouped[companyKey][floorKey]) {
         grouped[companyKey][floorKey] = {
@@ -117,7 +121,8 @@ function ReportTable({
           TARGETHOURS: 0,
           FIRST_HOUR_ACHV_PER: 0,
           FIRST_HOUR_TGT: 0,
-          F_SMV: 0
+          F_SMV: 0,
+          NO_OF_LINE: 0
         };
       }
 
@@ -131,7 +136,7 @@ function ReportTable({
       floorData.EARN_MIN += earnMin;
       floorData.AVL_MIN += avlMin;
       floorData.ACHV_EFF += achvEff;
-      floorData.TGT_EFF += tgtEff;
+      floorData.TGT_EFF = tgtEff;
       floorData.RUNNING_MC += runningMC;
       floorData.EARNED_CM += earnedCM;
       floorData.EARNED_FOB += earnedFOB;
@@ -150,6 +155,9 @@ function ReportTable({
       floorData.SMV_QTY += smvQty;
       floorData.FIRST_HOUR_ACHV_PER += firstHourAchvPer;
       floorData.FIRST_HOUR_TGT += firstHourTarget;
+      floorData.NO_OF_LINE += numOfLine;
+
+
 
       finalData.TARGET += target;
       finalData.RUNNNING_TOTALTARGET += runningTarget;
@@ -178,6 +186,8 @@ function ReportTable({
       finalData.SMV_QTY += smvQty;
       finalData.FIRST_HOUR_ACHV_PER += firstHourAchvPer;
       finalData.FIRST_HOUR_TGT += firstHourTarget;
+      finalData.NO_OF_LINE += numOfLine;
+
     });
 
     return { grouped, finalData };
@@ -217,6 +227,7 @@ function ReportTable({
     TARGETHOURS: number;
     FIRST_HOUR_ACHV_PER: number;
     FIRST_HOUR_TGT: number;
+    NO_OF_LINE: number;
   }
 
   const { grouped, finalData } = groupBy(data);
@@ -253,6 +264,8 @@ function ReportTable({
 
   let grandTotalSmv = 0;
   let totalFloorCount = 0;
+
+  let noOfGroupLine = 0;
 
   return (
     <div className="text-sm mt-3 text-gray-950 font-semibold">
@@ -310,9 +323,9 @@ function ReportTable({
           </tr>
         </thead>
 
-        <tbody style={{ backgroundColor: isMonthView ? "#d5f2da" : "#f2eaea" }}>
+        <tbody>
           <tr>
-            <td className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               const cells = floors.map(floor => {
@@ -329,6 +342,7 @@ function ReportTable({
                   </td>
                 );
               });
+
               const companyTotal = floors.reduce((sum, floor) => {
                 return sum + grouped[company][floor].TARGET;
               }, 0);
@@ -350,7 +364,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Achievement Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border  border-gray-950 p-0.1 text-nowrap text-start font-bold">Achievement Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -383,7 +397,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Loss Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Loss Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -415,7 +429,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Performance %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Performance %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               let uniqueLine = 0;
               const cells = floors.map(floor => {
@@ -430,27 +444,37 @@ function ReportTable({
                   </td>
                 );
               });
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT * 100 / grouped[company][floor].RUNNNING_TOTALTARGET);
+
+              const companyTotalAchv = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].SEWING_OUTPUT;
               }, 0);
+
+
+              const companyTotalTarget = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].RUNNNING_TOTALTARGET;
+              }, 0);
+
               cells.push(
                 <td
                   style={{ backgroundColor: totalBg }}
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)} %
+                  {(companyTotalAchv * 100 / companyTotalTarget).toFixed(2)} %
                 </td>
               );
 
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{(finalData.SEWING_OUTPUT * 100 / finalData.RUNNNING_TOTALTARGET).toFixed(2)} %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {
+                (finalData.SEWING_OUTPUT * 100 / finalData.RUNNNING_TOTALTARGET).toFixed(2)
+              } %</td>
           </tr>
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Efficiency %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Efficiency %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               let uniqueLine = 0;
               const cells = floors.map(floor => {
@@ -465,8 +489,14 @@ function ReportTable({
                   </td>
                 );
               });
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TGT_EARN_MIN * 100 / grouped[company][floor].AVL_MIN);
+
+              const companyTotalEarn = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].TGT_EARN_MIN;
+              }, 0);
+
+
+              const companyTotalAvl = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].AVL_MIN;
               }, 0);
 
               cells.push(
@@ -475,7 +505,7 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)} %
+                  {(companyTotalEarn * 100 / companyTotalAvl).toFixed(2)} %
                 </td>
               );
 
@@ -485,7 +515,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Efficiency %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Efficiency %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               let uniqueLine = 0;
               const cells = floors.map(floor => {
@@ -501,8 +531,12 @@ function ReportTable({
                 );
               });
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].EARN_MIN * 100 / grouped[company][floor].AVL_MIN);
+              const companyTotalEarn = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].EARN_MIN;
+              }, 0);
+
+              const companyTotalAchv = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].AVL_MIN;
               }, 0);
 
               cells.push(
@@ -511,7 +545,7 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {(companyTotal / uniqueLine).toFixed(2)} %
+                  {(companyTotalEarn * 100 / companyTotalAchv).toFixed(2)} %
                 </td>
               );
               return cells;
@@ -521,23 +555,28 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Output Line</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Output Line</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
+
+              let noOfCLine = 0;
               const cells = floors.map(floor => {
+
                 const floorData = grouped[company][floor];
+
+                noOfCLine += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
+                noOfGroupLine += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
+
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {floorData.UNIQUE_LINES.size}
+                    {(floorData.NO_OF_LINE / floorData.ROW_COUNT).toFixed(2)}
                   </td>
                 );
               });
 
-              const companyTotal = floors.reduce((sum, floor) => {
-                return sum + grouped[company][floor].UNIQUE_LINES.size;
-              }, 0);
+              const companyTotal = noOfCLine;
 
               cells.push(
                 <td
@@ -545,17 +584,19 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {companyTotal}
+                  {(companyTotal).toFixed(2)}
                 </td>
               );
               return cells;
             })}
-            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">{finalData.UNIQUE_LINES.size}</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
+              {(noOfGroupLine.toFixed(2))}
+            </td>
           </tr>
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Running MC</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Running MC</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -590,7 +631,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned CM</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned CM</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -624,7 +665,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned FOB</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Earned FOB</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -656,7 +697,7 @@ function ReportTable({
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">${Math.round(finalData.EARNED_FOB)}</td>
           </tr>
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">FOB Per Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">FOB Per Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
               const cells = floors.map(floor => {
                 const floorData = grouped[company][floor];
@@ -693,7 +734,7 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">SMV</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">SMV</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -743,28 +784,35 @@ function ReportTable({
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Hourly Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Target Hourly Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
+              let lineCount = 0;
 
               const cells = floors.map(floor => {
 
                 floorCount++;
                 const floorData = grouped[company][floor];
 
+                lineCount += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
+
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.TARGET / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.TARGETHOURS / floorData.ROW_COUNT))}
+                    {Math.round(floorData.TARGET / (floorData.NO_OF_LINE) / (floorData.TARGETHOURS / floorData.ROW_COUNT))}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size);
+              }, 0);
+
+              const companyTotalHour = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT;
               }, 0);
 
               cells.push(
@@ -773,43 +821,54 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {Math.round(companyTotal / floorCount)}
+                  {Math.round(companyTotal / lineCount / (companyTotalHour / floorCount))}
                 </td>
               );
               return cells;
             })}
 
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.TARGET / finalData.UNIQUE_SEWINGDATE.size / finalData.UNIQUE_LINES.size / (finalData.TARGETHOURS / finalData.ROW_COUNT))}
+              {
+                Math.round(finalData.TARGET / finalData.UNIQUE_SEWINGDATE.size / noOfGroupLine / (finalData.TARGETHOURS / finalData.ROW_COUNT))
+              }
             </td>
 
           </tr>
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Hourly Pcs</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Achieved Hourly Pcs</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
+              let lineCount = 0;
 
               const cells = floors.map(floor => {
 
                 floorCount += 1;
 
                 const floorData = grouped[company][floor];
+
+                lineCount += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
+
                 return (
                   <td
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round(floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
+                    {Math.round(floorData.SEWING_OUTPUT / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT))}
                   </td>
                 );
               });
 
               const companyTotal = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size);
               }, 0);
+
+              const companyTotalHour = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT);
+              }, 0);
+
 
               cells.push(
                 <td
@@ -817,30 +876,35 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {Math.round(companyTotal / floorCount)}
+                  {Math.round(companyTotal / lineCount / (companyTotalHour / floorCount))}
                 </td>
               );
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_SEWINGDATE.size / finalData.UNIQUE_LINES.size / (finalData.WORKING_HOUR / finalData.ROW_COUNT))}
+              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_SEWINGDATE.size / noOfGroupLine / (finalData.WORKING_HOUR / finalData.ROW_COUNT))}
             </td>
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Hourly Pcs Loss</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Hourly Pcs Loss</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
+              let lineCount = 0;
 
               const cells = floors.map(floor => {
 
                 floorCount += 1;
 
+
                 const floorData = grouped[company][floor];
 
-                const tgtHourly = floorData.TARGET / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.TARGETHOURS / floorData.ROW_COUNT);
-                const achvHourly = floorData.SEWING_OUTPUT / floorData.UNIQUE_SEWINGDATE.size / floorData.UNIQUE_LINES.size / (floorData.WORKING_HOUR / floorData.ROW_COUNT);
+                lineCount += (floorData.NO_OF_LINE / floorData.ROW_COUNT);
+
+                const tgtHourly = floorData.TARGET / floorData.NO_OF_LINE / (floorData.TARGETHOURS / floorData.ROW_COUNT);
+
+                const achvHourly = floorData.SEWING_OUTPUT / floorData.NO_OF_LINE / (floorData.WORKING_HOUR / floorData.ROW_COUNT);
 
                 return (
 
@@ -853,13 +917,25 @@ function ReportTable({
                 );
               });
 
-              const companyTotalTargetHourly = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].TARGETHOURS / grouped[company][floor].ROW_COUNT));
+              const companyTotalOutput = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size);
               }, 0);
 
-              const companyTotalAchvHourly = floors.reduce((sum, floor) => {
-                return sum + (grouped[company][floor].SEWING_OUTPUT / grouped[company][floor].UNIQUE_SEWINGDATE.size / grouped[company][floor].UNIQUE_LINES.size / (grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT));
+              const companyTotalHour = floors.reduce((sum, floor) => {
+                return sum + grouped[company][floor].WORKING_HOUR / grouped[company][floor].ROW_COUNT;
               }, 0);
+
+
+              let achv = Math.round(companyTotalOutput / lineCount / (companyTotalHour / floorCount))
+
+
+
+              const companyTotalTgt = floors.reduce((sum, floor) => {
+                return sum + (grouped[company][floor].TARGET / grouped[company][floor].UNIQUE_SEWINGDATE.size);
+              }, 0);
+
+
+              let tgt = Math.round(companyTotalTgt / lineCount / (companyTotalHour / floorCount))
 
 
               cells.push(
@@ -868,19 +944,21 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {Math.round((companyTotalAchvHourly / floorCount) - (companyTotalTargetHourly / floorCount))}
+                  {achv - tgt}
                 </td>
               );
               return cells;
             })}
 
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_LINES.size / finalData.UNIQUE_SEWINGDATE.size / (finalData.WORKING_HOUR / finalData.ROW_COUNT)) - Math.round((finalData.TARGET / finalData.UNIQUE_SEWINGDATE.size / finalData.UNIQUE_LINES.size / (finalData.TARGETHOURS / finalData.ROW_COUNT)))}
+              {
+                Math.round(finalData.SEWING_OUTPUT / finalData.UNIQUE_SEWINGDATE.size / noOfGroupLine / (finalData.WORKING_HOUR / finalData.ROW_COUNT)) - Math.round(finalData.TARGET / finalData.UNIQUE_SEWINGDATE.size / noOfGroupLine / (finalData.TARGETHOURS / finalData.ROW_COUNT))
+              }
             </td>
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Hour</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Hour</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0;
@@ -920,7 +998,7 @@ function ReportTable({
             </td>
           </tr>
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">1st Hour Achieve%</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">1st Hour Achieve%</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
 
@@ -943,7 +1021,7 @@ function ReportTable({
                     key={`${company}-${floor}`}
                     className="border text-center border-gray-950 p-0.1 text-nowrap"
                   >
-                    {Math.round((floorData.FIRST_HOUR_ACHV * 100 / floorData.FIRST_HOUR_TGT))} %
+                    {(floorData.FIRST_HOUR_ACHV * 100 / floorData.FIRST_HOUR_TGT).toFixed(2)} %
                   </td>
                 );
               });
@@ -954,19 +1032,19 @@ function ReportTable({
                   key={`${company}-total`}
                   className="border text-center border-gray-950 p-0.1 text-nowrap font-bold"
                 >
-                  {Math.round(cmpFirstHourAchvPer / floorCount)} %
+                  {(cmpFirstHourAchvPer / floorCount).toFixed(2)} %
                 </td>
               );
               return cells;
             })}
             <td style={{ backgroundColor: grandTotalBg }} className="border text-center border-gray-950 p-0.1 text-nowrap">
-              {Math.round(finalData.FIRST_HOUR_ACHV * 100 / finalData.FIRST_HOUR_TGT)}
+              {(finalData.FIRST_HOUR_ACHV * 100 / finalData.FIRST_HOUR_TGT).toFixed(2)}
               %</td>
           </tr>
 
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Helper %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Helper %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let lineCount = 0;
@@ -1003,7 +1081,7 @@ function ReportTable({
           </tr>
 
           <tr>
-            <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">DHU %</td>
+            <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">DHU %</td>
             {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
               let floorCount = 0
@@ -1050,7 +1128,7 @@ function ReportTable({
             isMonthView &&
             <>
               <tr style={{ backgroundColor: "" }}>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Working Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1089,7 +1167,7 @@ function ReportTable({
                 </td>
               </tr>
               <tr style={{ backgroundColor: "" }}>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Per Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1128,7 +1206,7 @@ function ReportTable({
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Achieved Per Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Achieved Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1167,7 +1245,7 @@ function ReportTable({
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Loss Per Day</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">Avg. Target Loss Per Day</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let floorCount = 0
@@ -1223,7 +1301,7 @@ function ReportTable({
               </tr>
 
               <tr style={{ backgroundColor: "" }}>
-                <td className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">MMR</td>
+                <td style={{ backgroundColor: grandTotalBg }} className="border border-gray-950 p-0.1 text-nowrap text-start font-bold">MMR</td>
                 {Object.entries(companyFloorsMap).map(([company, floors]) => {
 
                   let totalMP = 0;
@@ -1257,8 +1335,6 @@ function ReportTable({
                   {finalData.RUNNING_MC > 0 && ((finalData.OP + finalData.HP) / finalData.RUNNING_MC).toFixed(2)}
                 </td>
               </tr>
-
-
             </>
           }
         </tbody>

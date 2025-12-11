@@ -43,8 +43,10 @@ import { PrintEmbPIMasterType } from "@/actions/PrintingEmbroidery/print-emb-pi-
 
 export function PrintEmbPITable({
   data,
+  CompanyId
 }: {
   data: PrintEmbPIMasterType[];
+  CompanyId: number
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -130,10 +132,10 @@ export function PrintEmbPITable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-pi/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/win/printing-embroidery/print-emb-pi/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-pi/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/dashboard/printing-embroidery/print-emb-pi/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -145,7 +147,7 @@ export function PrintEmbPITable({
                     ? "/win/printing-embroidery/print-emb-pi"
                     : "/dashboard/printing-embroidery/print-emb-pi";
 
-                  navigate(`${basePath}/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`);
+                  navigate(`${basePath}/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`);
                 }}
               >
                 Edit
@@ -154,10 +156,10 @@ export function PrintEmbPITable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-pi/${PageAction.delete}/${item.ID}`
+                      `/win/printing-embroidery/print-emb-pi/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-pi/${PageAction.delete}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emb-pi/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >

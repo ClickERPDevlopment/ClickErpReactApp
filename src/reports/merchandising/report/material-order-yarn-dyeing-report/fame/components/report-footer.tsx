@@ -3,7 +3,7 @@ import { IMaterialOrderYarnDyeingReport } from "../../material-order-yarn-dyeing
 function ReportFooter({ data }: { data: IMaterialOrderYarnDyeingReport[] }) {
   return (
     <div className="flex flex-col">
-      <div className="border flex flex-col my-3 p-2 w-[500px]">
+      {/* <div className="border flex flex-col my-3 p-2 w-[500px]">
         <label htmlFor="" className="font-bold text-sm mb-2">
           PREPARED BY
         </label>
@@ -40,7 +40,7 @@ function ReportFooter({ data }: { data: IMaterialOrderYarnDyeingReport[] }) {
             <span className="text-sm">{data[0]?.PREPARED_BY_DESG}</span>
           </div>
         </div>
-      </div>
+      </div> */}
       <div>
         <span className="text-xs font-bold">
           NOTE: THIS IS A COMPUTER GENERATED DOCUMENT AND DOES NOT NEED ANY
@@ -54,6 +54,7 @@ function ReportFooter({ data }: { data: IMaterialOrderYarnDyeingReport[] }) {
           </thead>
           <tbody>
             <tr>
+              <td className="text-center">{data[0]?.PREPARED_BY}</td>
               <td></td>
               <td></td>
               <td></td>
@@ -61,6 +62,11 @@ function ReportFooter({ data }: { data: IMaterialOrderYarnDyeingReport[] }) {
               <td></td>
             </tr>
             <tr>
+              <td className=" px-10 text-center">
+                <span className="text-center border-t border-gray-950 w-full block">
+                  Prepared By
+                </span>
+              </td>
               <td className="text-center">
                 <span className="border-t border-gray-950 px-2">
                   Sr. Merchandiser

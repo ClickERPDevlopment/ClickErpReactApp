@@ -79,7 +79,7 @@ function Report({
     "WO Qty",
     // "Issue Qty",
     // "Balance",
-    "Price",
+    "Price ($)",
     "Amount",
   ];
 
@@ -100,7 +100,7 @@ function Report({
   );
 
   return (
-    <div style={{ fontFamily: "Times New Roman, serif" }}
+    <div style={{ fontFamily: "Calibri, serif" }}
       className="px-12 text-gray-950">
       <div className="p-2">
         <ReportHeader
@@ -166,6 +166,9 @@ function Report({
             </table>
           </div>
         </div>
+        <div className="mt-1">
+          <label htmlFor="" className="font-bold">Subject: {data[0]?.WO_SUBJECT}</label>
+        </div>
         <table className="border-collapse border border-gray-300  w-[100%] mt-3">
           <thead className="sticky top-0 print:static bg-white print:bg-transparent">
             <tr style={{ fontSize: "12px" }} className="bg-indigo-200 text-center">
@@ -184,11 +187,11 @@ function Report({
             ))}
             <tr style={{ fontSize: "11px" }} className="font-bold">
               <td colSpan={6} className="border border-gray-950 p-0.5 text-center">Total</td>
-              <td className="border border-gray-950 p-0.5">{totalQuantiy.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5  text-center">{totalQuantiy.toFixed(2)}</td>
               {/* <td className="border border-gray-950 p-0.5">{totalIsseQty.toFixed(2)}</td> */}
               {/* <td className="border border-gray-950 p-0.5">{(totalQuantiy - totalIsseQty).toFixed(2)}</td> */}
               <td className="border border-gray-950 p-0.5"></td>
-              <td className="border border-gray-950 p-0.5">{totalAmount.toFixed(2)}</td>
+              <td className="border border-gray-950 p-0.5  text-center">{totalAmount.toFixed(2)}</td>
             </tr>
           </tbody>
         </table>

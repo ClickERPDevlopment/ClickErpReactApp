@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageAction } from "@/utility/page-actions";
 import { GetPrintEmbPIById, PrintEmbPIMasterType } from "@/actions/PrintingEmbroidery/print-emb-pi-action";
@@ -7,12 +7,13 @@ import PrintEmbPIForm from "./print-emb-pi-form";
 
 export default function PrintEmbPICrud() {
   const { pageAction, id } = useParams();
-
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
   const {
     data: printEmbPIData,
     isError,
     error,
-  } = GetPrintEmbPIById<PrintEmbPIMasterType>(Number(id));
+  } = GetPrintEmbPIById<PrintEmbPIMasterType>(Number(id), CompanyId);
 
 
   if (!pageAction) {
@@ -55,6 +56,7 @@ export default function PrintEmbPICrud() {
         <PrintEmbPIForm
           data={printEmbPIData}
           pageAction={PageAction.view}
+          CompanyId={CompanyId}
         />
       </div>
     );
@@ -67,6 +69,7 @@ export default function PrintEmbPICrud() {
         <PrintEmbPIForm
           data={undefined}
           pageAction={PageAction.add}
+          CompanyId={CompanyId}
         />
       </div>
     );
@@ -79,6 +82,7 @@ export default function PrintEmbPICrud() {
         <PrintEmbPIForm
           data={printEmbPIData}
           pageAction={PageAction.edit}
+          CompanyId={CompanyId}
         />
       </div>
     );
@@ -91,6 +95,7 @@ export default function PrintEmbPICrud() {
         <PrintEmbPIForm
           data={printEmbPIData}
           pageAction={PageAction.delete}
+          CompanyId={CompanyId}
         />
       </div>
     );

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -38,11 +38,15 @@ import { PrintEmbQualityTable } from "./print-emb-quality-table";
 
 
 function PrintEmbQualityIndex() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const {
     data: printEmbQualityData,
     isError,
     error
-  } = GetPrintEmbQuality<PrintEmbQualityMaster>();
+  } = GetPrintEmbQuality<PrintEmbQualityMaster>(CompanyId);
 
   if (isError) {
     return (
@@ -183,7 +187,7 @@ function PrintEmbQualityIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbQuality?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbQuality?fromDate=` + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
     setMasterData(response?.data);
   }
 
@@ -200,7 +204,7 @@ function PrintEmbQualityIndex() {
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Print Emb Quality</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=${CompanyId}`}>
             <Button className="mb-2" role="button">
               New Print Emb Quality
             </Button>
@@ -654,7 +658,7 @@ function PrintEmbQualityIndex() {
         </div>
         <div className="mt-3">
           {printEmbQualityData ? (
-            <PrintEmbQualityTable data={masterData || printEmbQualityData} />
+            <PrintEmbQualityTable data={masterData || printEmbQualityData} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}

@@ -21,6 +21,7 @@ export interface PrintEmbDeliveryMasterType {
     RECEIVE_TYPE?: string;
     EMBELLISHMENT_CATEGORY?: string;
     EMBELLISHMENT_WO?: string;
+    COMPANY_ID?: number;
     PrintEmbDeliveryDetails: PrintEmbDeliveryDetailsType[];
 }
 
@@ -51,7 +52,7 @@ export interface PrintEmbDeliveryDetailsType {
     PATRS?: string;
 }
 
-export function GetPrintEmbDelivery<T>() {
+export function GetPrintEmbDelivery<T>(CompanyId: number) {
     const axios = useAxiosInstance();
 
     const toDate = new Date();
@@ -60,7 +61,7 @@ export function GetPrintEmbDelivery<T>() {
     fromDate.setDate(toDate.getDate() - 7);
 
     const getData = async (): Promise<T[]> =>
-        (await axios.get("/production/PrintEmbDelivery?fromDate=" + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
+        (await axios.get(`/production/${CompanyId}/PrintEmbDelivery?fromDate=` + fromDate.toLocaleDateString("en-CA") + "&toDate=" + toDate.toLocaleDateString("en-CA"))).data;
 
     const query = useQuery({
         queryKey: ["PrintEmbDelivery"],
@@ -71,11 +72,11 @@ export function GetPrintEmbDelivery<T>() {
 }
 
 
-export function GetPrintEmbDeliveryById<T>(id: number) {
+export function GetPrintEmbDeliveryById<T>(id: number, CompanyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
-        (await axios.get("/production/PrintEmbDelivery/" + id)).data;
+        (await axios.get(`/production/${CompanyId}/PrintEmbDelivery/` + id)).data;
 
     const query = useQuery({
         queryKey: [ReactQueryKey.PrintEmbProduction, id],
@@ -85,11 +86,11 @@ export function GetPrintEmbDeliveryById<T>(id: number) {
     return query;
 }
 
-export function NextDeliveryNumber<T>() {
+export function NextDeliveryNumber<T>(CompanyId: number) {
     const axios = useAxiosInstance();
 
     const getData = async (): Promise<T> =>
-        (await axios.get("/production/PrintEmbDelivery/NextDeliveryNumber")).data;
+        (await axios.get(`/production/${CompanyId}/PrintEmbDelivery/NextDeliveryNumber`)).data;
 
     const query = useQuery({
         queryKey: ["DeliveryNo"],
@@ -102,7 +103,7 @@ export function NextDeliveryNumber<T>() {
 
 export async function Save(data: any, axios: AxiosInstance) {
 
-    const response = await axios.post("/production/PrintEmbDelivery", data);
+    const response = await axios.post(`/production/${data.COMPANY_ID}/PrintEmbDelivery`, data);
 
     if (!response) {
         throw new Error("This data already exist.");
@@ -113,7 +114,7 @@ export async function Save(data: any, axios: AxiosInstance) {
 
 export async function Update(data: any, axios: AxiosInstance) {
     const response = await axios.put(
-        "/production/PrintEmbDelivery/" + data.ID,
+        `/production/${data.COMPANY_ID}/PrintEmbDelivery/` + data.ID,
         data
     );
 
@@ -124,10 +125,10 @@ export async function Update(data: any, axios: AxiosInstance) {
     return response.data;
 }
 
-export async function Delete(id: number, axios: AxiosInstance) {
+export async function Delete(id: number, CompanyId: number, axios: AxiosInstance) {
     if (Number(id) <= 0) {
         throw new Error("Print Embroidery Delivery ID is not valid.");
     }
 
-    await axios.delete("production/PrintEmbDelivery/" + id);
+    await axios.delete(`production/${CompanyId}/PrintEmbDelivery/` + id);
 }

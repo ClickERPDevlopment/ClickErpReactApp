@@ -3,6 +3,7 @@ import moment from "moment";
 import { EmbellishmentDailyProductionReportType } from "../embellishment-daily-production-report-type";
 
 function ReportHeader({
+  data,
   searchParamsObj,
 }: {
   data: EmbellishmentDailyProductionReportType[];
@@ -16,9 +17,15 @@ function ReportHeader({
         {moment().format("DD-MMM-YYYY")}
       </p>
       <h1 className="font-bold text-3xl text-center">
-        Magnum Bd Pvt Ltd
+        {
+          data[0]?.COMPANY_NAME
+        }
       </h1>
-      <h4 className="text-center text-lg">568 & 584, Naojour, Kodda, Jaydebpur, Gazipur.</h4>
+      <h4 className="text-center text-lg">
+        {
+          data[0]?.COMPANY_ADDRESS
+        }
+      </h4>
       <h3 className="font-bold text-xl text-center">
         Embellishment Daily Production Report
       </h3>

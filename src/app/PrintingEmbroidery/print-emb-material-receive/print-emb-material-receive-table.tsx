@@ -40,11 +40,15 @@ import { useLocation } from "react-router";
 import moment from "moment";
 import { EmbMaterialReceiveMasterType } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
 import { usePrintEmbMaterialReceiveStore } from "@/store/app-store";
+import { ISearchData, usePrintEmbMaterialSearchStore } from "./print-emb-material-receive-store";
+
 
 export function PrintEmbMaterialReceiveTable({
   data,
+  CompanyId
 }: {
   data: EmbMaterialReceiveMasterType[];
+  CompanyId: number
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -59,18 +63,29 @@ export function PrintEmbMaterialReceiveTable({
   const params = new URLSearchParams(location.search);
   const index = params.get("pageIndex");
 
+  const { searchData } = usePrintEmbMaterialSearchStore();
 
+  const isSearchValid = (data: ISearchData) => {
+    return (
+      data.FROM_DATE ||
+      data.TO_DATE ||
+      data.WORK_ORDER_ID > 0 ||
+      data.WORK_ORDER_RECEIVE_ID > 0 ||
+      data.BUYER_ID > 0 ||
+      data.STYLE_ID > 0 ||
+      data.PO_ID > 0
+    );
+  };
 
   React.useEffect(() => {
-
-    if (index && Number(index) > 0) {
-      table.setPageIndex(Number(index));
+    if (!isSearchValid(searchData)) {
+      if (index && Number(index) > 0) {
+        table.setPageIndex(Number(index));
+      }
     }
-
   }, []);
 
   React.useEffect(() => {
-
     setTimeout(() => {
       if (index && Number(index) > 0) {
         table.setPageIndex(Number(index));
@@ -78,7 +93,6 @@ export function PrintEmbMaterialReceiveTable({
     }, 2000);
 
   }, [data]);
-
 
   const columns: ColumnDef<EmbMaterialReceiveMasterType>[] = [
     {
@@ -154,10 +168,10 @@ export function PrintEmbMaterialReceiveTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}`
+                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.view}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -169,8 +183,8 @@ export function PrintEmbMaterialReceiveTable({
                   localStorage.setItem("pageIndex", String(table.getState().pagination?.pageIndex));
 
                   const targetUrl = location.pathname.includes("win/")
-                    ? `/win/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`
-                    : `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}`;
+                    ? `/win/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
+                    : `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.edit}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`;
 
                   navigate(targetUrl);
                 }
@@ -182,10 +196,10 @@ export function PrintEmbMaterialReceiveTable({
                 onClick={() =>
                   location.pathname.includes("win/")
                     ? navigate(
-                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.delete}/${item.ID}`
+                      `/win/printing-embroidery/print-emb-material-receive/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                     : navigate(
-                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.delete}/${item.ID}`
+                      `/dashboard/printing-embroidery/print-emb-material-receive/${PageAction.delete}/${item.ID}?pageIndex=${pageIndex}&CompanyId=${CompanyId}`
                     )
                 }
               >
@@ -234,12 +248,12 @@ export function PrintEmbMaterialReceiveTable({
           placeholder="Filter operation..."
           value={
             (table
-              .getColumn("OPERATION")
+              .getColumn("BUYER")
               ?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
             table
-              .getColumn("OPERATION")
+              .getColumn("BUYER")
               ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"

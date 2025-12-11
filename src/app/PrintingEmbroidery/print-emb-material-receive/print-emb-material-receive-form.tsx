@@ -159,9 +159,11 @@ interface ISearchData {
 export default function PrintEmbMaterialReceiveForm({
   data,
   pageAction,
+  CompanyId
 }: {
   data: EmbMaterialReceiveMasterType | undefined | null;
   pageAction: string;
+  CompanyId: number
 }): React.JSX.Element {
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -176,7 +178,7 @@ export default function PrintEmbMaterialReceiveForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.ID, axios);
+        return Delete(tag.ID, CompanyId, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -197,7 +199,7 @@ export default function PrintEmbMaterialReceiveForm({
         : "/dashboard/printing-embroidery/print-emb-material-receive";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
 
     },
@@ -301,13 +303,13 @@ export default function PrintEmbMaterialReceiveForm({
   }
 
   const getNextReceiveNumber = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/NextReceiveNumber");
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/NextReceiveNumber`);
     setMasterData(prev => ({ ...prev, MATERIAL_RECEIVE_NO: response?.data.ReceiveNo }));
     masterForm.setValue("MATERIAL_RECEIVE_NO", response?.data.ReceiveNo);
   }
 
   const getWorkOrderRcvInfo = async (woRcvId: number, poId: number) => {
-    let response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive/WorkOrderReceiveMasterData?woRcvId=" + woRcvId);
+    let response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/WorkOrderReceiveMasterData?woRcvId=` + woRcvId);
 
     setMasterData(prev => ({ ...prev, SUPPLIER_ID: response?.data.SUPPLIER_ID, SUPPLIER: response?.data.SUPPLIER, EMB_CATEGORY_ID: response?.data.EMB_CATEGORY_ID, EMB_CATEGORY: response?.data.EMB_CATEGORY, WORKORDER_ID: response?.data.WORKORDER_ID, WORKORDER_NO: response?.data.WORKORDER_NO }));
 
@@ -327,18 +329,18 @@ export default function PrintEmbMaterialReceiveForm({
 
     getEmbSendNo(response?.data.WORKORDER_NO);
 
-    response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${poId}`);
+    response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/WorkOrderReceiveDetailsData?woRcvId=${woRcvId}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${poId}`);
     setdetailsData(response?.data);
   }
 
   const getWorkOrderRcvInfoWithSendQty = async (woRcvId: number, sendNo: string) => {
-    let response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=${woRcvId}&embSendNo=${sendNo}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
+    let response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/WorkOrderReceiveDetailsDataWithEnbSendQty?woRcvId=${woRcvId}&embSendNo=${sendNo}&buyerId=${searchData.BUYER_ID}&styleId=${searchData.STYLE_ID}&poId=${searchData.PO_ID}`);
     setdetailsData(response?.data);
   }
 
   const [embSendNo, setEmbSendNo] = useState<IEmbSendNo[]>([]);
   const getEmbSendNo = async (woNo: string) => {
-    const response = await axios.get(api.ProductionUrl + `/production/EmbMaterialReceive/EmbellishmentSendNo?woNo=${woNo || ""}&PO=${searchData.PO || ""}&buyerId=${searchData.BUYER_ID || 0}&styleId=${searchData.STYLE_ID || 0}`);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/EmbMaterialReceive/EmbellishmentSendNo?woNo=${woNo || ""}&PO=${searchData.PO || ""}&buyerId=${searchData.BUYER_ID || 0}&styleId=${searchData.STYLE_ID || 0}`);
     setEmbSendNo(response?.data);
   }
 
@@ -516,6 +518,7 @@ export default function PrintEmbMaterialReceiveForm({
     OS_BUYER: data?.BUYER || "",
     OS_STYLE: data?.STYLE || "",
     OS_PO: data?.PO || "",
+    COMPANY_ID: CompanyId,
     EmbMaterialReceiveDetails: data?.EmbMaterialReceiveDetails || [],
   });
 
@@ -1037,11 +1040,8 @@ export default function PrintEmbMaterialReceiveForm({
                                         !field.value && "text-muted-foreground"
                                       )}
                                     >
-                                      {field.value
-                                        ? buyerData?.find(
-                                          (buyer) =>
-                                            Number(buyer.Id) === field.value
-                                        )?.NAME
+                                      {searchData.BUYER
+                                        ? searchData.BUYER
                                         : "Select a buyer"}
                                       <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                     </Button>
@@ -1049,37 +1049,38 @@ export default function PrintEmbMaterialReceiveForm({
                                 </PopoverTrigger>
                                 <PopoverContent className="w-full p-0">
                                   <Command>
-                                    <CommandInput placeholder="Search supplier..." className="h-9" />
+                                    <CommandInput placeholder="Search buyer..." className="h-9" />
                                     <CommandList>
                                       <CommandEmpty>No buyer found.</CommandEmpty>
                                       <CommandGroup>
-                                        {buyerData?.map((buyer) => (
-                                          <CommandItem
-                                            value={buyer?.NAME}
-                                            key={Number(buyer?.Id)}
-                                            onSelect={() => {
-                                              field.onChange(Number(buyer?.Id));
-                                              setSearchData((prev) => ({
-                                                ...prev,
-                                                BUYER_ID: Number(buyer?.Id),
-                                                BUYER: buyer?.NAME,
-                                              }));
-                                              getStyleByBuyer(Number(0), Number(buyer?.Id));
-                                              setOpenBuyer(false);
-                                            }}
-                                          >
-
-                                            {buyer?.NAME}
-                                            <CheckIcon
-                                              className={cn(
-                                                "ml-auto h-4 w-4",
-                                                Number(buyer?.Id) === field.value
-                                                  ? "opacity-100"
-                                                  : "opacity-0"
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
+                                        {[...new Map(buyerData?.map(b => [b.NAME, b])).values()].map(
+                                          (buyer) => (
+                                            <CommandItem
+                                              value={buyer?.NAME}
+                                              key={buyer?.NAME}
+                                              onSelect={() => {
+                                                field.onChange(buyer?.NAME);
+                                                setSearchData((prev) => ({
+                                                  ...prev,
+                                                  BUYER_ID: Number(buyer?.Id),
+                                                  BUYER: buyer?.NAME,
+                                                }));
+                                                getStyleByBuyer(Number(0), Number(buyer?.Id));
+                                                setOpenBuyer(false);
+                                              }}
+                                            >
+                                              {buyer?.NAME}
+                                              <CheckIcon
+                                                className={cn(
+                                                  "ml-auto h-4 w-4",
+                                                  searchData.BUYER === buyer?.NAME
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          )
+                                        )}
                                       </CommandGroup>
                                     </CommandList>
                                   </Command>
@@ -1089,14 +1090,6 @@ export default function PrintEmbMaterialReceiveForm({
                             </FormItem>
                           )}
                         />
-                        {/* <Button
-                        onClick={() => orderForm.resetField("BUYER_ID")}
-                        variant={"outline"}
-                        type="button"
-                        className="m-0 ml-1 px-[12px]"
-                      >
-                        <MdOutlineClear className="rounded text-slate-600 m-0" />
-                      </Button> */}
                       </div>
                     </div>
 
@@ -1171,14 +1164,6 @@ export default function PrintEmbMaterialReceiveForm({
                             </FormItem>
                           )}
                         />
-                        {/* <Button
-                        onClick={() => orderForm.resetField("STYLE_ID")}
-                        variant={"outline"}
-                        type="button"
-                        className="m-0 ml-1 px-[12px]"
-                      >
-                        <MdOutlineClear className="rounded text-slate-600 m-0" />
-                      </Button> */}
                       </div>
                     </div>
 
@@ -1478,27 +1463,6 @@ export default function PrintEmbMaterialReceiveForm({
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.PARTS}
-                            {/* <div className="flex align-middle justify-center gap-1 p-1">
-                              <span>
-                                {
-                                  item?.EmbMaterialReceiveParts?.length > 0
-                                    ? item?.EmbMaterialReceiveParts?.map((parts) => parts.PARTS).join(", ")
-                                    : "No Parts"
-                                }
-                              </span>
-                              <Button
-                                type="button"
-                                onClick={() => {
-                                  setPartsModalData(item?.EmbMaterialReceiveParts);
-                                  setOpenPartsModal(true)
-                                  setSelectedDetailsIndex(index);
-                                }}
-                                variant="outline"
-                                className="h-5 w-5 flex border-0 items-center justify-center mt-auto shadow-none"
-                              >
-                                <SquarePlus className="w-5 h-5" />
-                              </Button>
-                            </div> */}
                           </TableCell>
 
                           <TableCell className="border border-gray-300 px-4 text-center ">
@@ -1558,22 +1522,6 @@ export default function PrintEmbMaterialReceiveForm({
                           ? "Update"
                           : "Delete"}
                     </Button>
-                    {/* <Button
-                      type="reset"
-                      disabled={mutation.isPending}
-                      onClick={() => {
-                        form.reset();
-                        form.clearErrors();
-                      }}
-                      variant={"destructive"}
-                      className={cn(
-                        "w-24",
-                        pageAction === PageAction.view ? "hidden" : "",
-                        pageAction === PageAction.delete ? "hidden" : ""
-                      )}
-                    >
-                      Cancel
-                    </Button> */}
                   </div>
                   <Button
                     type="reset"
@@ -1584,8 +1532,8 @@ export default function PrintEmbMaterialReceiveForm({
                       const index = params.get("pageIndex");
 
                       location.pathname.includes("win/")
-                        ? navigator("/win/printing-embroidery/print-emb-material-receive?pageIndex=" + index)
-                        : navigator("/dashboard/printing-embroidery/print-emb-material-receive?pageIndex=" + index)
+                        ? navigator("/win/printing-embroidery/print-emb-material-receive?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                        : navigator("/dashboard/printing-embroidery/print-emb-material-receive?pageIndex=" + index + "&CompanyId=" + CompanyId)
                     }
                     }
                     variant={"outline"}
@@ -1598,19 +1546,7 @@ export default function PrintEmbMaterialReceiveForm({
             </Form>
           </div>
         </div>
-        {/* <div className="p-2 mt-5">
-          {
-            pageAction != PageAction.add &&
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`/report/merchandising/compensation-claim-report?id=${masterData.ID}`}
-              className="px-4 py-2 bg-blue font-semibold text-white rounded-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Show Report
-            </a>
-          }
-        </div> */}
+
       </div>
       <div>
 

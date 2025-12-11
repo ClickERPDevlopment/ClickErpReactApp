@@ -1,18 +1,22 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageAction } from "@/utility/page-actions";
 import PrintEmbProductionForm from "./print-emb-production-form";
 import { GetPrintEmbProductionById, PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
 
 export default function PrintEmbProductionCrud() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const { pageAction, id } = useParams();
 
   const {
     data: printEmbProductionData,
     isError,
     error,
-  } = GetPrintEmbProductionById<PrintEmbProductionMasterType>(Number(id));
+  } = GetPrintEmbProductionById<PrintEmbProductionMasterType>(Number(id), CompanyId);
 
 
   if (!pageAction) {
@@ -55,6 +59,7 @@ export default function PrintEmbProductionCrud() {
         <PrintEmbProductionForm
           data={printEmbProductionData}
           pageAction={PageAction.view}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -67,6 +72,7 @@ export default function PrintEmbProductionCrud() {
         <PrintEmbProductionForm
           data={undefined}
           pageAction={PageAction.add}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -79,6 +85,7 @@ export default function PrintEmbProductionCrud() {
         <PrintEmbProductionForm
           data={printEmbProductionData}
           pageAction={PageAction.edit}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -91,6 +98,7 @@ export default function PrintEmbProductionCrud() {
         <PrintEmbProductionForm
           data={printEmbProductionData}
           pageAction={PageAction.delete}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );

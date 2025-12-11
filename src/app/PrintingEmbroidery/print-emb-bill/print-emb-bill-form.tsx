@@ -126,7 +126,7 @@ export default function PrintEmbBillForm({
         : "/dashboard/printing-embroidery/print-emb-bill";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
     },
     onError: (err: AxiosError) => {
@@ -789,8 +789,8 @@ export default function PrintEmbBillForm({
                         const index = params.get("pageIndex");
 
                         location.pathname.includes("win/")
-                          ? navigator("/win/printing-embroidery/print-emb-bill?pageIndex=" + index)
-                          : navigator("/dashboard/printing-embroidery/print-emb-bill?pageIndex=" + index)
+                          ? navigator("/win/printing-embroidery/print-emb-bill?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                          : navigator("/dashboard/printing-embroidery/print-emb-bill?pageIndex=" + index + "&CompanyId=" + CompanyId)
                       }}
 
                       variant={"outline"}

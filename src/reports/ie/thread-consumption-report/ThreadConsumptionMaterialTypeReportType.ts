@@ -1,4 +1,5 @@
 export type ThreadConsumptionMaterialTypeReportType = {
+  WTPERCENT: string;
   ID: number;
   THREADCONSUMPTIONNO?: string;
   MATERIALTYPE?: string;

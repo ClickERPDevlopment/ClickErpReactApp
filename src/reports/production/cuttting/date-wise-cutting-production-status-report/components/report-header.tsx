@@ -1,8 +1,8 @@
 import moment from "moment";
 import { DateWiseCuttingProoductionReportType } from "../date-wise-cutting-production-report-type";
+import useAppClient from "@/hooks/use-AppClient";
 
 function ReportHeader({
-  masterData,
   searchParam,
 }: {
   masterData: DateWiseCuttingProoductionReportType | null;
@@ -11,11 +11,20 @@ function ReportHeader({
     toDate: string;
   };
 }) {
+
+
+  const client = useAppClient();
+
   return (
     <div>
       <div className="">
         <h1 className="font-bold text-2xl text-center">
-          {masterData?.COMPANY_NAME}
+          {
+            client.currentClient == client.FAME && "FAME GROUP"
+          }
+          {
+            client.currentClient == client.EURO && "EUROTEX GROUP"
+          }
         </h1>
         <h4 className="font-bold text-base text-center">
           Cutting Production Report

@@ -122,9 +122,11 @@ interface ISupplier {
 export default function PrintEmbPIForm({
   data,
   pageAction,
+  CompanyId
 }: {
   data: PrintEmbPIMasterType | undefined | null;
   pageAction: string;
+  CompanyId: number
 }): React.JSX.Element {
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -138,7 +140,7 @@ export default function PrintEmbPIForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.ID, axios);
+        return Delete(tag.ID, CompanyId, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -158,7 +160,7 @@ export default function PrintEmbPIForm({
         : "/dashboard/printing-embroidery/print-emb-pi";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
 
 
@@ -285,7 +287,7 @@ export default function PrintEmbPIForm({
 
     if (!printEmbPIDetails.WORK_ORDER_ID) return
 
-    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbPI/EmbWorkOrderRcvDetails?woId=${printEmbPIDetails.WORK_ORDER_ID}&colorId=${printEmbPIDetails.COLOR_ID}`);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbPI/EmbWorkOrderRcvDetails?woId=${printEmbPIDetails.WORK_ORDER_ID}&buyerId=${printEmbPIDetails.BUYER_ID}&poId=${printEmbPIDetails.PO_ID}&styleId=${printEmbPIDetails.STYLE_ID}&colorId=${printEmbPIDetails.COLOR_ID}`);
     setdetailsData(prev => [
       ...(prev || []),
       ...((response?.data || []))
@@ -306,11 +308,13 @@ export default function PrintEmbPIForm({
     ADDRESS: data ? data.ADDRESS : "",
     PI_NO: data ? data.PI_NO : "",
     TERM_CONDITIONS: data ? data.TERM_CONDITIONS : "",
+    COMPANY_ID: CompanyId,
     PrintEmbPIDetails: data ? data.PrintEmbPIDetails : []
   });
 
   const [printEmbPIDetails, setPrintEmbPIDetails] = useState<PrintEmbPIDetailsType>({
     COLOR_ID: 0,
+    PO_ID: 0,
     STYLE_ID: 0,
     BUYER_ID: 0,
     ID: 0,
@@ -391,7 +395,7 @@ export default function PrintEmbPIForm({
 
 
   const [termsCondition, setTermsCondition] = useState(pageAction === PageAction.add ?
-    "1. By Confirmed & Irrevocable Letter of Credit 60/90 days sight from the date of Delivery Challan \n2. Delivery within 15 days of receiving the L/C.\n3. HS CODE:6217.10.00\n4. BIN No. 000414104-0103\n5. Advising Bank: Dhaka Bank Plc. Gulshan Branch, Plot: 7, Block: SE (D),24Gulshan Ave, Dhaka1212, Bangladesh." : masterData?.TERM_CONDITIONS
+    "1. By Confirmed & Irrevocable Letter of Credit 60/90 days sight from the date of Delivery Challan \n2. Delivery within 15 days of receiving the L/C.\n3. HS CODE:6217.10.00\n4. BIN No. 000414104-0103\n5. Advising Bank: Dhaka Bank PLC. Gulshan Branch, Plot: 7, Block: SE (D),24Gulshan Ave, Dhaka1212, Bangladesh." : masterData?.TERM_CONDITIONS
   );
 
 
@@ -1169,8 +1173,8 @@ export default function PrintEmbPIForm({
                       const params = new URLSearchParams(location.search);
                       const index = params.get("pageIndex");
                       location.pathname.includes("win/")
-                        ? navigator("/win/printing-embroidery/print-emb-pi?pageIndex=" + index)
-                        : navigator("/dashboard/printing-embroidery/print-emb-pi?pageIndex=" + index)
+                        ? navigator("/win/printing-embroidery/print-emb-pi?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                        : navigator("/dashboard/printing-embroidery/print-emb-pi?pageIndex=" + index + "&CompanyId=" + CompanyId)
                     }}
                     variant={"outline"}
                     className={cn("w-24")}

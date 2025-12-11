@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageAction } from "@/utility/page-actions";
 import PrintEmbMaterialReceiveForm from "./print-emb-material-receive-form";
@@ -8,11 +8,14 @@ import { EmbMaterialReceiveMasterType, GetPrintEmbMaterialReceiveById } from "@/
 export default function PrintEmbMaterialReceiveCrud() {
   const { pageAction, id } = useParams();
 
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const {
     data: prinEmbMtlRcvData,
     isError,
     error,
-  } = GetPrintEmbMaterialReceiveById<EmbMaterialReceiveMasterType>(Number(id));
+  } = GetPrintEmbMaterialReceiveById<EmbMaterialReceiveMasterType>(Number(id), CompanyId);
 
   if (!pageAction) {
     return (
@@ -54,6 +57,7 @@ export default function PrintEmbMaterialReceiveCrud() {
         <PrintEmbMaterialReceiveForm
           data={prinEmbMtlRcvData}
           pageAction={PageAction.view}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -66,6 +70,7 @@ export default function PrintEmbMaterialReceiveCrud() {
         <PrintEmbMaterialReceiveForm
           data={undefined}
           pageAction={PageAction.add}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -78,6 +83,7 @@ export default function PrintEmbMaterialReceiveCrud() {
         <PrintEmbMaterialReceiveForm
           data={prinEmbMtlRcvData}
           pageAction={PageAction.edit}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );
@@ -90,6 +96,7 @@ export default function PrintEmbMaterialReceiveCrud() {
         <PrintEmbMaterialReceiveForm
           data={prinEmbMtlRcvData}
           pageAction={PageAction.delete}
+          CompanyId={Number(CompanyId)}
         />
       </div>
     );

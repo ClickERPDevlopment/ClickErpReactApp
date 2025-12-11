@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -33,11 +33,15 @@ import { PrintEmbPITable } from "./print-emb-pi-table";
 
 
 function PrintEmbPIndex() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const {
     data: printEmbPIData,
     isError,
     error
-  } = GetPrintEmbPI<PrintEmbPIMasterType>();
+  } = GetPrintEmbPI<PrintEmbPIMasterType>(CompanyId);
 
   if (isError) {
     return (
@@ -83,7 +87,7 @@ function PrintEmbPIndex() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbPI?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbPI?fromDate=` + fromDateFormatted + "&toDate=" + toDateFormatted);
     setMasterData(response?.data);
   }
 
@@ -93,9 +97,9 @@ function PrintEmbPIndex() {
   return (
     <div className="pt-5">
       <div className="flex items-center justify-between border-b pb-0">
-        <div className="font-bold text-2xl">Print Emb Production</div>
+        <div className="font-bold text-2xl">Print Emb PI</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=${CompanyId}`}>
             <Button className="mb-2" role="button">
               New Print Emb PI
             </Button>
@@ -189,7 +193,7 @@ function PrintEmbPIndex() {
         </div>
         <div className="mt-3">
           {printEmbPIData ? (
-            <PrintEmbPITable data={masterData || printEmbPIData} />
+            <PrintEmbPITable data={masterData || printEmbPIData} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}

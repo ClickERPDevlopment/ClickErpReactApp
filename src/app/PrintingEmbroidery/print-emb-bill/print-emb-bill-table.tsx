@@ -121,7 +121,7 @@ export function PrintEmbBillTable({
           .map(([wo, amt]) => `${wo} (${amt.toFixed(2)})`)
           .join(", ");
 
-        return <div className="capitalize">{result}</div>;
+        return <div className="capitalize break-words whitespace-normal">{result}</div>;
       },
     },
     {

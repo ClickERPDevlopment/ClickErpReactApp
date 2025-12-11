@@ -1,4 +1,5 @@
 export type DateWiseSewingProductionReportDto = {
+    COUNT: number;
     FACTORYID: number;
     SEWINGDATE: string;
     TARGET: number;

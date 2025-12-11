@@ -30,4 +30,6 @@ export type EmbellishmentDailyProductionReportType = {
   PREPARED_BY?: string;
 
   SUPPLIER_CODE?: string;
+  COMPANY_NAME?: string;
+  COMPANY_ADDRESS?: string;
 };

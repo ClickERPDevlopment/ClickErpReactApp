@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -33,31 +33,18 @@ import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { PrintEmbMaterialReceiveTable } from "./print-emb-material-receive-table";
 import { EmbMaterialReceiveMasterType, GetPrintEmbMaterialReceive } from "@/actions/PrintingEmbroidery/print-emb-material-receive-action";
-
-
-interface ISearchData {
-  FROM_DATE: Date;
-  TO_DATE: Date;
-  WORK_ORDER_ID: number;
-  WORK_ORDER_NO: string;
-  WORK_ORDER_RECEIVE_ID: number;
-  WORK_ORDER_RECEIVE_NO: string;
-  BUYER_ID: number;
-  BUYER: string;
-  STYLE_ID: number;
-  STYLE: string;
-  PO_ID: number;
-  PO_NO: string;
-
-};
-
+import { ISearchData, usePrintEmbMaterialSearchStore } from "./print-emb-material-receive-store";
 
 function PrintEmbMaterialReceiveIndex() {
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
   const {
     data: data,
     isError,
     error
-  } = GetPrintEmbMaterialReceive<EmbMaterialReceiveMasterType>();
+  } = GetPrintEmbMaterialReceive<EmbMaterialReceiveMasterType>(CompanyId);
 
   if (isError) {
     return (
@@ -78,8 +65,6 @@ function PrintEmbMaterialReceiveIndex() {
     Id: string;
     Styleno: string;
   };
-
-
   interface IBuyer {
     Id: string;
     NAME: string;
@@ -91,6 +76,84 @@ function PrintEmbMaterialReceiveIndex() {
     Pono: string;
   };
 
+  const { searchData, setField } = usePrintEmbMaterialSearchStore();
+
+  const axios = useAxiosInstance();
+  const api = useApiUrl();
+
+  const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>(
+    searchData?.WORK_ORDER_ID
+      ? [
+        {
+          ID: searchData.WORK_ORDER_ID,
+          WORK_ORDER_NO: searchData.WORK_ORDER_NO
+        },
+      ]
+      : []
+  );
+
+  const getWorkOrder = async () => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
+    setWorkOrder(response?.data);
+  }
+
+  const [buyerData, setBuyerData] = useState<IBuyer[]>(
+    searchData?.BUYER_ID
+      ? [
+        {
+          Id: searchData.BUYER_ID.toString(),
+          NAME: searchData.BUYER,
+          DISPLAY_NAME: "",
+        },
+      ]
+      : []
+  );
+
+  const getBuyerData = async (woId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
+    setBuyerData(response?.data);
+  }
+
+  const [style, setStyle] = useState<IStyle[]>(
+    searchData?.STYLE_ID
+      ? [
+        {
+          Id: searchData.STYLE_ID.toString(),
+          Styleno: searchData.STYLE,
+        },
+      ]
+      : []
+  );
+  const getStyleByBuyer = async (woId: number, buyerId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
+    setStyle(response?.data);
+  }
+
+  const [PO, setPO] = useState<IPO[]>(
+    searchData?.PO_ID
+      ? [
+        {
+          Id: searchData.PO_ID.toString(),
+          Pono: searchData.PO_NO,
+        },
+      ]
+      : []
+  );
+  const getPOByStyle = async (woId: number, styleId: number) => {
+    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
+    setPO(response?.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    getWorkOrder();
+    getBuyerData(0);
+    getStyleByBuyer(0, 0);
+    getPOByStyle(0, 0);
+  }, []);
 
   const formSchema = z.object({
     FROM_DATE: z.date(),
@@ -107,103 +170,77 @@ function PrintEmbMaterialReceiveIndex() {
     PO_NO: z.string().optional(),
   });
 
-  const today = new Date();
-  const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      FROM_DATE: firstOfMonth,
-      TO_DATE: today,
-      WORK_ORDER_ID: 0,
-      WORK_ORDER_NO: "",
-      WORK_ORDER_RECEIVE_ID: 0,
-      WORK_ORDER_RECEIVE_NO: "",
-      BUYER_ID: 0,
-      BUYER: "",
-      STYLE_ID: 0,
-      STYLE: "",
-      PO_ID: 0,
-      PO_NO: "",
+      FROM_DATE: searchData.FROM_DATE,
+      TO_DATE: searchData.TO_DATE,
+      WORK_ORDER_ID: searchData.WORK_ORDER_ID,
+      WORK_ORDER_NO: searchData.WORK_ORDER_NO,
+      WORK_ORDER_RECEIVE_ID: searchData.WORK_ORDER_RECEIVE_ID,
+      WORK_ORDER_RECEIVE_NO: searchData.WORK_ORDER_NO,
+      BUYER_ID: searchData.BUYER_ID,
+      BUYER: searchData.BUYER,
+      STYLE_ID: searchData.STYLE_ID,
+      STYLE: searchData.STYLE,
+      PO_ID: searchData.PO_ID,
+      PO_NO: searchData.PO_NO,
     },
   });
 
-  const [searchData, setSearchData] = useState<ISearchData>({
-    FROM_DATE: firstOfMonth,
-    TO_DATE: today,
-    WORK_ORDER_ID: 0,
-    WORK_ORDER_NO: "",
-    WORK_ORDER_RECEIVE_ID: 0,
-    WORK_ORDER_RECEIVE_NO: "",
-    BUYER_ID: 0,
-    BUYER: "",
-    STYLE_ID: 0,
-    STYLE: "",
-    PO_ID: 0,
-    PO_NO: "",
-  });
-
-
-
-  const axios = useAxiosInstance();
-  const api = useApiUrl();
-
-  const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
-  const getWorkOrder = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
-    setWorkOrder(response?.data);
-  }
-
-  const [embMaterialReceive, setEmbMaterialReceive] = useState<EmbMaterialReceiveMasterType[]>([]);
-  const getEmbMtlRcv = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive");
-    setEmbMaterialReceive(response?.data);
-  }
-
-  const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
-  const getBuyerData = async (woId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
-    setBuyerData(response?.data);
-  }
-
-  const [style, setStyle] = useState<IStyle[]>([]);
-  const getStyleByBuyer = async (woId: number, buyerId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
-    setStyle(response?.data);
-  }
-
-  const [PO, setPO] = useState<IPO[]>([]);
-  const getPOByStyle = async (woId: number, styleId: number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
-    setPO(response?.data);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    fetchData();
   }
 
   useEffect(() => {
-    getWorkOrder();
-    getEmbMtlRcv();
-    getBuyerData(0);
-  }, []);
+    if (isSearchValid(searchData)) {
+      fetchData();
+    }
+  }, [searchData]);
+
+  const isSearchValid = (data: ISearchData) => {
+    return (
+      data.FROM_DATE ||
+      data.TO_DATE ||
+      data.WORK_ORDER_ID > 0 ||
+      data.WORK_ORDER_RECEIVE_ID > 0 ||
+      data.BUYER_ID > 0 ||
+      data.STYLE_ID > 0 ||
+      data.PO_ID > 0
+    );
+  };
 
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  async function fetchData() {
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/EmbMaterialReceive?fromDate=" + fromDateFormatted
-      + "&toDate=" + toDateFormatted
-      + "&woId=" + searchData.WORK_ORDER_ID
-      + "&woReceiveId=" + searchData.WORK_ORDER_RECEIVE_ID
-      + "&buyerId=" + searchData.BUYER_ID
-      + "&styleId=" + searchData.STYLE_ID
-      + "&poId=" + searchData.PO_ID
+    const response = await axios.get(
+      api.ProductionUrl +
+      `/production/${CompanyId}/EmbMaterialReceive?fromDate=` +
+      fromDateFormatted +
+      "&toDate=" +
+      toDateFormatted +
+      "&woId=" +
+      searchData.WORK_ORDER_ID +
+      "&woReceiveId=" +
+      searchData.WORK_ORDER_RECEIVE_ID +
+      "&buyerId=" +
+      searchData.BUYER_ID +
+      "&styleId=" +
+      searchData.STYLE_ID +
+      "&poId=" +
+      searchData.PO_ID
     );
-    setMasterData(response?.data);
+
+    setMasterData(response.data);
   }
+
+
+
   const [openWorkOrder, setOpenWorkOrder] = useState(false);
-  const [openMaterialReceive, setOpenMaterialReceive] = useState(false);
 
   const [masterData, setMasterData] = useState<EmbMaterialReceiveMasterType[] | null>(null);
 
@@ -216,7 +253,7 @@ function PrintEmbMaterialReceiveIndex() {
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Material Receive</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=` + CompanyId}>
             <Button className="mb-2" role="button">
               New Material Receive
             </Button>
@@ -250,10 +287,9 @@ function PrintEmbMaterialReceiveIndex() {
                                 onChange={(e) => {
                                   const newDate = e.target.value ? new Date(e.target.value) : null;
                                   field.onChange(newDate);
-                                  setSearchData((prev) => ({
-                                    ...prev,
-                                    FROM_DATE: new Date(e.target.value),
-                                  }));
+
+                                  setField("FROM_DATE", new Date(e.target.value));
+
                                 }}
                                 className="form-control w-full h-9"
                               />
@@ -281,10 +317,9 @@ function PrintEmbMaterialReceiveIndex() {
                                 onChange={(e) => {
                                   const newDate = e.target.value ? new Date(e.target.value) : null;
                                   field.onChange(newDate);
-                                  setSearchData((prev) => ({
-                                    ...prev,
-                                    TO_DATE: new Date(e.target.value),
-                                  }));
+
+                                  setField("TO_DATE", new Date(e.target.value));
+
                                 }}
                                 className="form-control w-full h-9"
                               />
@@ -337,11 +372,11 @@ function PrintEmbMaterialReceiveIndex() {
                                           key={Number(buyer?.Id)}
                                           onSelect={() => {
                                             field.onChange(Number(buyer?.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              BUYER_ID: Number(buyer?.Id),
-                                              BUYER: buyer?.NAME,
-                                            }));
+
+
+                                            setField("BUYER_ID", Number(buyer.Id));
+                                            setField("BUYER", buyer.NAME);
+
                                             getStyleByBuyer(Number(searchData.WORK_ORDER_ID), Number(buyer?.Id));
 
                                             setOpenBuyer(false);
@@ -411,11 +446,10 @@ function PrintEmbMaterialReceiveIndex() {
                                           key={item.Id}
                                           onSelect={() => {
                                             field.onChange(Number(item.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              STYLE_ID: Number(item.Id),
-                                              STYLE: item.Styleno,
-                                            }));
+
+                                            setField("STYLE_ID", Number(item.Id));
+                                            setField("STYLE", item.Styleno);
+
                                             setOpenStyle(false);
                                             getPOByStyle(Number(searchData.WORK_ORDER_ID), Number(item?.Id));
                                           }}
@@ -483,11 +517,10 @@ function PrintEmbMaterialReceiveIndex() {
                                           key={item.Id}
                                           onSelect={() => {
                                             field.onChange(Number(item.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              PO_ID: Number(item.Id),
-                                              PO_NO: item.Pono,
-                                            }));
+
+                                            setField("PO_ID", Number(item.Id));
+                                            setField("PO_NO", item.Pono);
+
                                             setOpenPO(false);
                                           }}
                                         >
@@ -554,11 +587,10 @@ function PrintEmbMaterialReceiveIndex() {
                                           key={workOrderData.ID}
                                           onSelect={() => {
                                             field.onChange(Number(workOrderData.ID));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              WORK_ORDER_RECEIVE_ID: Number(workOrderData.ID),
-                                              WORK_ORDER_RECEIVE_NO: workOrderData.WORK_ORDER_NO,
-                                            }));
+
+                                            setField("WORK_ORDER_ID", Number(workOrderData.ID));
+                                            setField("WORK_ORDER_NO", workOrderData.WORK_ORDER_NO);
+
                                             setOpenWorkOrder(false);
                                           }}
                                         >
@@ -583,78 +615,6 @@ function PrintEmbMaterialReceiveIndex() {
                         )}
                       />
                     </div>
-
-                    <div className="flex justify-between items-end">
-                      <FormField
-                        control={form.control}
-                        name="WORK_ORDER_NO"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col flex-1">
-                            <FormLabel className="font-bold">Material Receive No</FormLabel>
-                            <Popover open={openMaterialReceive} onOpenChange={setOpenMaterialReceive}>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openMaterialReceive}
-                                    className={cn(
-                                      "w-full justify-between bg-emerald-100",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value
-                                      ? embMaterialReceive?.find(
-                                        (workOrderData) =>
-                                          Number(workOrderData.ID) === Number(field.value)
-                                      )?.MATERIAL_RECEIVE_NO
-                                      : "Select a order"}
-                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-full p-0">
-                                <Command>
-                                  <CommandInput placeholder="Search receive no..." className="h-9" />
-                                  <CommandList>
-                                    <CommandEmpty>No receive found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {embMaterialReceive?.map((workOrderData) => (
-                                        <CommandItem
-                                          value={workOrderData.MATERIAL_RECEIVE_NO}
-                                          key={workOrderData.ID}
-                                          onSelect={() => {
-                                            field.onChange(Number(workOrderData.ID));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              WORK_ORDER_ID: Number(workOrderData.ID),
-                                              WORK_ORDER_NO: workOrderData.MATERIAL_RECEIVE_NO,
-                                            }));
-                                            setOpenMaterialReceive(false);
-                                          }}
-                                        >
-                                          {workOrderData.MATERIAL_RECEIVE_NO}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              Number(workOrderData.ID) === Number(field.value)
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
                   </div>
                 </div>
                 <div className={cn("flex justify-between mt-4")}>
@@ -671,7 +631,7 @@ function PrintEmbMaterialReceiveIndex() {
         </div>
         <div className="mt-3">
           {data ? (
-            <PrintEmbMaterialReceiveTable data={masterData || data} />
+            <PrintEmbMaterialReceiveTable data={masterData ?? []} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}

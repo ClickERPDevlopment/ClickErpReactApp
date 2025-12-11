@@ -121,9 +121,11 @@ interface ISearchData {
 export default function PrintEmbDeliveryForm({
   data,
   pageAction,
+  CompanyId
 }: {
   data: PrintEmbDeliveryMasterType | undefined | null;
   pageAction: string;
+  CompanyId: number
 }): React.JSX.Element {
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -137,7 +139,7 @@ export default function PrintEmbDeliveryForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.ID, axios);
+        return Delete(tag.ID, CompanyId, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -158,7 +160,7 @@ export default function PrintEmbDeliveryForm({
         : "/dashboard/printing-embroidery/print-emb-delivery";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
     },
     onError: (err: AxiosError) => {
@@ -208,7 +210,7 @@ export default function PrintEmbDeliveryForm({
   }
 
   const getNextDeliveryNumber = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbDelivery/NextDeliveryNumber");
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbDelivery/NextDeliveryNumber`);
     setMasterData(prev => ({ ...prev, MATERIAL_RECEIVE_NO: response?.data.DeliveryNo }));
     masterForm.setValue("DELIVERY_CHALLAN_NO", response?.data.DeliveryNo);
 
@@ -216,7 +218,7 @@ export default function PrintEmbDeliveryForm({
   }
 
   const getWorkOrderRcvInfo = async (woId: Number) => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbDelivery/EmbWorkOrderRcvInfo?woId=" + woId);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbDelivery/EmbWorkOrderRcvInfo?woId=` + woId);
 
     setMasterData(prev => ({ ...prev, SUPPLIER_ID: response?.data.SUPPLIER_ID, SUPPLIER: response?.data.SUPPLIER, WORKORDER_RECEIVE_ID: response?.data.WORKORDER_RECEIVE_ID, WORKORDER_RECEIVE_NO: response?.data.WORKORDER_RECEIVE_NO, PrintEmbDeliveryDetails: response?.data?.PrintEmbDeliveryDetails }));
 
@@ -411,6 +413,7 @@ export default function PrintEmbDeliveryForm({
     RECEIVE_TYPE: data?.RECEIVE_TYPE || "",
     EMBELLISHMENT_CATEGORY: data?.EMBELLISHMENT_CATEGORY || "",
     EMBELLISHMENT_WO: data?.EMBELLISHMENT_WO || "",
+    COMPANY_ID: CompanyId,
     PrintEmbDeliveryDetails: data?.PrintEmbDeliveryDetails || [],
   });
 
@@ -1269,8 +1272,8 @@ export default function PrintEmbDeliveryForm({
                         const index = params.get("pageIndex");
 
                         location.pathname.includes("win/")
-                          ? navigator("/win/printing-embroidery/print-emb-delivery?pageIndex=" + index)
-                          : navigator("/dashboard/printing-embroidery/print-emb-delivery?pageIndex=" + index)
+                          ? navigator("/win/printing-embroidery/print-emb-delivery?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                          : navigator("/dashboard/printing-embroidery/print-emb-delivery?pageIndex=" + index + "&CompanyId=" + CompanyId)
                       }}
 
                       variant={"outline"}

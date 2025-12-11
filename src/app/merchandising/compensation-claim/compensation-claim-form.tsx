@@ -1318,7 +1318,7 @@ export default function CompensationClaimForm({
                             {item.CLAIM_AMOUNT_PER_UNIT}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
-                            {item.CLAIM_AMOUNT}
+                            {(item.CLAIM_AMOUNT_PER_UNIT * item.QUANTITY_DAMAGED).toFixed(2)}
                           </TableCell>
                           <TableCell className="border border-gray-300 px-4 text-center ">
                             {item.ACTION_TAKEN}

@@ -37,7 +37,7 @@ function Report({
 
   let groupedByDate: GroupedByDate = {};
   if (data) {
-    groupedByDate = groupBy(data, [""]); // currently grouping by nothing, can adjust if needed
+    groupedByDate = groupBy(data, [""]); 
   }
   const uniqueKeysArray: string[] = Array.from(uniqueKeys);
 

@@ -41,7 +41,7 @@ function Report({
   return (
     <div className="px-10 text-sm">
       <div className="p-2">
-        <ReportHeader />
+        <ReportHeader embMaterialReqData={data.embMaterialReqData} />
         <div className="flex justify-between mt-2">
           <div>
             <table className="font-bold">

@@ -165,9 +165,11 @@ interface ISupplier {
 export default function PrintEmbQualityForm({
   data,
   pageAction,
+  CompanyId
 }: {
   data: PrintEmbQualityMaster | undefined | null;
   pageAction: string;
+  CompanyId: number
 }): React.JSX.Element {
 
   const location = useLocation();
@@ -182,7 +184,7 @@ export default function PrintEmbQualityForm({
       } else if (pageAction === PageAction.edit) {
         return Update(tag, axios);
       } else if (pageAction === PageAction.delete) {
-        return Delete(tag.Id, axios);
+        return Delete(tag.Id, CompanyId, axios);
       } else {
         throw new Error("Page Action no found.");
       }
@@ -202,7 +204,7 @@ export default function PrintEmbQualityForm({
         : "/dashboard/printing-embroidery/print-emb-quality";
 
       setTimeout(() => {
-        navigator(`${basePath}?pageIndex=${index || 0}`);
+        navigator(`${basePath}?pageIndex=${index || 0}&CompanyId=${CompanyId}`);
       }, 2000);
 
 
@@ -222,7 +224,7 @@ export default function PrintEmbQualityForm({
 
   const [defect, setDefect] = useState<IDefect[]>([]);
   const getDefectData = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbQuality/GetPrintEmbDefect");
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbQuality/GetPrintEmbDefect`);
     setDefect(response?.data);
   }
 
@@ -299,7 +301,7 @@ export default function PrintEmbQualityForm({
   const getProductionInfo = async (buyerId: number, styleId: number, poId: number) => {
     try {
       const response = await axios.get(
-        `${api.ProductionUrl}/production/PrintEmbProduction?woId=0&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}`
+        `${api.ProductionUrl}/production/${CompanyId}/PrintEmbProduction?woId=0&buyerId=${buyerId}&styleId=${styleId}&poId=${poId}`
       );
 
       const data = response?.data;
@@ -405,13 +407,7 @@ export default function PrintEmbQualityForm({
   const masterForm = useForm<z.infer<typeof masterFormSchema>>({
     resolver: zodResolver(masterFormSchema),
     defaultValues: {
-      EntryDate: data?.EntryDate
-        ? new Date(data.EntryDate).toISOString().split("T")[0]
-        : (() => {
-          const d = new Date();
-          d.setDate(d.getDate() - 1);
-          return d.toLocaleDateString("en-CA");
-        })(),
+      EntryDate: data?.EntryDate ? new Date(data.EntryDate).toLocaleDateString("en-CA") : new Date().toLocaleDateString("en-CA"),
       PartyId: data?.PartyId || 0,
       Party: data?.Party || "",
       EmbTypeId: data?.EmbTypeId || 0,
@@ -529,7 +525,7 @@ export default function PrintEmbQualityForm({
 
   const handleAdd = async () => {
 
-    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbQuality/EmbWorkOrderRcvInfo?woId=${masterData.WorkOrderId}&BuyerId=${printEmbQualityDetails.BuyerId}&StyleId=${printEmbQualityDetails.StyleId}&poId=${printEmbQualityDetails.PoId}&colorId=${printEmbQualityDetails.ColorId}`);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbQuality/EmbWorkOrderRcvInfo?woId=${masterData.WorkOrderId}&BuyerId=${printEmbQualityDetails.BuyerId}&StyleId=${printEmbQualityDetails.StyleId}&poId=${printEmbQualityDetails.PoId}&colorId=${printEmbQualityDetails.ColorId}`);
 
 
 
@@ -551,9 +547,6 @@ export default function PrintEmbQualityForm({
         })),
       }))),
     ]);
-
-
-
   };
 
   const handleRemove = (index: number) => {
@@ -563,9 +556,7 @@ export default function PrintEmbQualityForm({
 
   const [masterData, setMasterData] = useState<PrintEmbQualityMaster>({
     Id: data ? data.Id : 0,
-    EntryDate: data?.EntryDate
-      ? new Date(data.EntryDate).toLocaleDateString("en-CA")
-      : new Date().toLocaleDateString("en-CA"),
+    EntryDate: data?.EntryDate ? new Date(data.EntryDate).toLocaleDateString('en-CA') : new Date().toLocaleDateString('en-CA'),
     PartyId: data ? data.PartyId : 0,
     Party: data ? data.Party : "",
     EmbTypeId: data ? data.EmbTypeId : 0,
@@ -577,7 +568,8 @@ export default function PrintEmbQualityForm({
     WorkOrderId: data ? data.WorkOrderId : 0,
     WorkOrder: data ? data.WorkOrder : "",
     Remarks: data ? data.Remarks || "" : "",
-    Details: data ? data.Details : []
+    Details: data ? data.Details : [],
+    CompanyId: CompanyId
   });
 
 
@@ -1682,8 +1674,8 @@ export default function PrintEmbQualityForm({
                         const params = new URLSearchParams(location.search);
                         const index = params.get("pageIndex");
                         location.pathname.includes("win/")
-                          ? navigator("/win/printing-embroidery/print-emb-quality?pageIndex=" + index)
-                          : navigator("/dashboard/printing-embroidery/print-emb-quality?pageIndex=" + index)
+                          ? navigator("/win/printing-embroidery/print-emb-quality?pageIndex=" + index + "&CompanyId=" + CompanyId)
+                          : navigator("/dashboard/printing-embroidery/print-emb-quality?pageIndex=" + index + "&CompanyId=" + CompanyId)
                       }}
                       variant={"outline"}
                       className={cn("w-24")}

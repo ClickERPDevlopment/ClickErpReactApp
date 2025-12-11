@@ -1,11 +1,11 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import TableSkeleton from "@/components/table-skeleton";
 import { PageAction } from "@/utility/page-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import AppPageContainer from "@/components/app-page-container";
 import { PrintEmbProductionTable } from "./print-emb-production-table";
-import { GetPrintEmbProduction, PrintEmbProductionMasterType, PrintEmbProductionSearchType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
+import { GetPrintEmbProduction, PrintEmbProductionMasterType } from "@/actions/PrintingEmbroidery/print-emb-production-action";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -33,15 +33,21 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import moment from "moment";
-
-
+import { ISearchData, usePrintEmbProductionSearchStore } from "./print-emb-production-store";
 
 function PrintEmbProductionIndex() {
+
+  const { searchData, setField } = usePrintEmbProductionSearchStore();
+
+  const [searchParams] = useSearchParams();
+  const CompanyId = Number(searchParams.get("CompanyId")) || 3;
+
+
   const {
     data: printEmbProductionData,
     isError,
     error
-  } = GetPrintEmbProduction<PrintEmbProductionMasterType>();
+  } = GetPrintEmbProduction<PrintEmbProductionMasterType>(CompanyId);
 
   if (isError) {
     return (
@@ -106,85 +112,147 @@ function PrintEmbProductionIndex() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      FROM_DATE: fromDate.toLocaleDateString("en-CA"),
-      TO_DATE: toDate.toLocaleDateString("en-CA"),
-      WORK_ORDER_ID: 0,
-      WORK_ORDER_NO: "",
-      BUYER_ID: 0,
-      BUYER: "",
-      STYLE_ID: 0,
-      STYLE: "",
-      PO_ID: 0,
-      PO_NO: "",
-      TYPE_ID: 0,
-      TYPE: "",
+      FROM_DATE: searchData.FROM_DATE,
+      TO_DATE: searchData.TO_DATE,
+      WORK_ORDER_ID: searchData.WORK_ORDER_ID,
+      WORK_ORDER_NO: searchData.WORK_ORDER_NO,
+      BUYER_ID: searchData.BUYER_ID,
+      BUYER: searchData.BUYER,
+      STYLE_ID: searchData.STYLE_ID,
+      STYLE: searchData.STYLE,
+      PO_ID: searchData.PO_ID,
+      PO_NO: searchData.PO_NO,
+      TYPE_ID: searchData.TYPE_ID,
+      TYPE: searchData.TYPE,
     },
   });
 
-  const [searchData, setSearchData] = useState<PrintEmbProductionSearchType>({
-    FROM_DATE: fromDate.toLocaleDateString("en-CA"),
-    TO_DATE: toDate.toLocaleDateString("en-CA"),
-    WORK_ORDER_ID: 0,
-    WORK_ORDER_NO: "",
-    BUYER_ID: 0,
-    BUYER: "",
-    STYLE_ID: 0,
-    STYLE: "",
-    PO_ID: 0,
-    PO_NO: "",
-    TYPE_ID: 0,
-    TYPE: "",
-  });
 
   const axios = useAxiosInstance();
   const api = useApiUrl();
 
-  const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>([]);
+  const [workOrder, setWorkOrder] = useState<IRcvWorkOrder[]>(
+    searchData?.WORK_ORDER_ID
+      ? [
+        {
+          ID: searchData.WORK_ORDER_ID,
+          WORK_ORDER_NO: searchData.WORK_ORDER_NO,
+        },
+      ]
+      : []
+  );
   const getWorkOrder = async () => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive");
     setWorkOrder(response?.data);
   }
 
-  const [buyerData, setBuyerData] = useState<IBuyer[]>([]);
+  const [buyerData, setBuyerData] = useState<IBuyer[]>(
+    searchData?.BUYER_ID
+      ? [
+        {
+          Id: searchData.BUYER_ID.toString(),
+          NAME: searchData.BUYER,
+          DISPLAY_NAME: "",
+        },
+      ]
+      : []
+  );
   const getBuyerData = async (woId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllBuyerByEmbWorkOrderReceive?id=" + woId);
     setBuyerData(response?.data);
   }
 
-  const [style, setStyle] = useState<IStyle[]>([]);
+  const [style, setStyle] = useState<IStyle[]>(
+    searchData?.STYLE_ID
+      ? [
+        {
+          Id: searchData.STYLE_ID.toString(),
+          Styleno: searchData.STYLE,
+        },
+      ]
+      : []
+  );
   const getStyleByBuyer = async (woId: number, buyerId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllStyleByEmbWorkOrderReceiveAndBuyer?woId=" + woId + "&buyerId=" + buyerId);
     setStyle(response?.data);
   }
 
-  const [PO, setPO] = useState<IPO[]>([]);
+  const [PO, setPO] = useState<IPO[]>(
+    searchData?.PO_ID
+      ? [
+        {
+          Id: searchData.PO_ID.toString(),
+          Pono: searchData.PO_NO,
+        },
+      ]
+      : []
+  );
   const getPOByStyle = async (woId: number, styleId: number) => {
     const response = await axios.get(api.ProductionUrl + "/production/EmbWorkOrderReceive/GetAllPoByEmbWorkOrderReceiveAndStyle?woId=" + woId + "&styleId=" + styleId);
     setPO(response?.data);
   }
 
-  const [productionType, setProductionType] = useState<IType[]>([]);
+  const [productionType, setProductionType] = useState<IType[]>(
+    searchData?.TYPE_ID
+      ? [
+        {
+          ID: searchData.TYPE_ID,
+          NAME: searchData.TYPE,
+        },
+      ]
+      : []
+  );
   const getProductionType = async () => {
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProductionType");
+    const response = await axios.get(api.ProductionUrl + `/production/PrintEmbProductionType`);
     setProductionType(response?.data);
   }
-
 
   useEffect(() => {
     getWorkOrder();
     getProductionType();
+    getBuyerData(0);
+    getStyleByBuyer(0, 0);
+    getPOByStyle(0, 0);
   }, []);
 
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    fetchData();
+  }
+
+  useEffect(() => {
+    if (isSearchValid(searchData)) {
+      fetchData();
+    }
+  }, [searchData]);
+
+  const isSearchValid = (data: ISearchData) => {
+    return (
+      data.FROM_DATE ||
+      data.TO_DATE ||
+      data.WORK_ORDER_ID > 0 ||
+      data.TYPE_ID > 0 ||
+      data.BUYER_ID > 0 ||
+      data.STYLE_ID > 0 ||
+      data.PO_ID > 0
+    );
+  };
+
+  async function fetchData() {
 
     const fromDateFormatted = moment(searchData.FROM_DATE).format("DD-MMM-YY");
     const toDateFormatted = moment(searchData.TO_DATE).format("DD-MMM-YY");
 
-    const response = await axios.get(api.ProductionUrl + "/production/PrintEmbProduction?fromDate=" + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
+    const response = await axios.get(api.ProductionUrl + `/production/${CompanyId}/PrintEmbProduction?fromDate=` + fromDateFormatted + "&toDate=" + toDateFormatted + "&typeId=" + searchData.TYPE_ID + "&woId=" + searchData.WORK_ORDER_ID + "&buyerId=" + searchData.BUYER_ID + "&styleId=" + searchData.STYLE_ID + "&poId=" + searchData.PO_ID);
     setMasterData(response?.data);
+
   }
+
 
   const [openBuyer, setOpenBuyer] = useState(false);
   const [openStyle, setOpenStyle] = useState(false);
@@ -199,7 +267,7 @@ function PrintEmbProductionIndex() {
       <div className="flex items-center justify-between border-b pb-0">
         <div className="font-bold text-2xl">Print Emb Production</div>
         <div>
-          <Link to={`${PageAction.add}/0`}>
+          <Link to={`${PageAction.add}/0?CompanyId=` + CompanyId}>
             <Button className="mb-2" role="button">
               New Print Emb Production
             </Button>
@@ -233,10 +301,7 @@ function PrintEmbProductionIndex() {
                                 onChange={(e) => {
                                   const newDate = e.target.value ? new Date(e.target.value) : null;
                                   field.onChange(newDate);
-                                  setSearchData((prev) => ({
-                                    ...prev,
-                                    FROM_DATE: new Date(e.target.value).toLocaleDateString("en-CA"),
-                                  }));
+                                  setField("FROM_DATE", new Date(e.target.value).toLocaleDateString("en-CA"));
                                 }}
                                 className="form-control w-full h-9"
                               />
@@ -264,10 +329,7 @@ function PrintEmbProductionIndex() {
                                 onChange={(e) => {
                                   const newDate = e.target.value ? new Date(e.target.value) : null;
                                   field.onChange(newDate);
-                                  setSearchData((prev) => ({
-                                    ...prev,
-                                    TO_DATE: new Date(e.target.value).toLocaleDateString("en-CA"),
-                                  }));
+                                  setField("TO_DATE", new Date(e.target.value).toLocaleDateString("en-CA"));
                                 }}
                                 className="form-control w-full h-9"
                               />
@@ -319,11 +381,8 @@ function PrintEmbProductionIndex() {
                                           key={workOrderData.ID}
                                           onSelect={() => {
                                             field.onChange(Number(workOrderData.ID));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              WORK_ORDER_ID: Number(workOrderData.ID),
-                                              WORK_ORDER_NO: workOrderData.WORK_ORDER_NO,
-                                            }));
+                                            setField("WORK_ORDER_ID", Number(workOrderData.ID));
+                                            setField("WORK_ORDER_NO", workOrderData.WORK_ORDER_NO);
                                             setOpenWorkOrder(false);
                                             getBuyerData(workOrderData.ID)
                                           }}
@@ -391,11 +450,8 @@ function PrintEmbProductionIndex() {
                                           key={typeData.ID}
                                           onSelect={() => {
                                             field.onChange(Number(typeData.ID));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              TYPE_ID: Number(typeData.ID),
-                                              TYPE: typeData.NAME,
-                                            }));
+                                            setField("TYPE_ID", Number(typeData.ID));
+                                            setField("TYPE", typeData.NAME);
                                             setOpenProductionType(false);
                                           }}
                                         >
@@ -462,11 +518,8 @@ function PrintEmbProductionIndex() {
                                           key={Number(buyer?.Id)}
                                           onSelect={() => {
                                             field.onChange(Number(buyer?.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              BUYER_ID: Number(buyer?.Id),
-                                              BUYER: buyer?.NAME,
-                                            }));
+                                            setField("BUYER_ID", Number(buyer?.Id));
+                                            setField("BUYER", buyer?.NAME);
                                             getStyleByBuyer(Number(searchData.WORK_ORDER_ID), Number(buyer?.Id));
 
                                             setOpenBuyer(false);
@@ -493,14 +546,6 @@ function PrintEmbProductionIndex() {
                           </FormItem>
                         )}
                       />
-                      {/* <Button
-                                  onClick={() => orderForm.resetField("BUYER_ID")}
-                                  variant={"outline"}
-                                  type="button"
-                                  className="m-0 ml-1 px-[12px]"
-                                >
-                                  <MdOutlineClear className="rounded text-slate-600 m-0" />
-                                </Button> */}
                     </div>
 
                     <div className="flex justify-between items-end">
@@ -544,11 +589,8 @@ function PrintEmbProductionIndex() {
                                           key={item.Id}
                                           onSelect={() => {
                                             field.onChange(Number(item.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              STYLE_ID: Number(item.Id),
-                                              STYLE: item.Styleno,
-                                            }));
+                                            setField("STYLE_ID", Number(item.Id));
+                                            setField("STYLE", item.Styleno);
                                             setOpenStyle(false);
                                             getPOByStyle(Number(searchData.WORK_ORDER_ID), Number(item?.Id));
                                           }}
@@ -573,14 +615,6 @@ function PrintEmbProductionIndex() {
                           </FormItem>
                         )}
                       />
-                      {/* <Button
-                                  onClick={() => orderForm.resetField("STYLE_ID")}
-                                  variant={"outline"}
-                                  type="button"
-                                  className="m-0 ml-1 px-[12px]"
-                                >
-                                  <MdOutlineClear className="rounded text-slate-600 m-0" />
-                                </Button> */}
                     </div>
 
                     <div className="flex justify-between items-end">
@@ -624,11 +658,8 @@ function PrintEmbProductionIndex() {
                                           key={item.Id}
                                           onSelect={() => {
                                             field.onChange(Number(item.Id));
-                                            setSearchData((prev) => ({
-                                              ...prev,
-                                              PO_ID: Number(item.Id),
-                                              PO_NO: item.Pono,
-                                            }));
+                                            setField("PO_ID", Number(item.Id));
+                                            setField("PO_NO", item.Pono);
                                             setOpenPO(false);
                                           }}
                                         >
@@ -654,7 +685,7 @@ function PrintEmbProductionIndex() {
                       />
                     </div>
 
-                    
+
                   </div>
                 </div>
                 <div className={cn("flex justify-between mt-4")}>
@@ -671,7 +702,7 @@ function PrintEmbProductionIndex() {
         </div>
         <div className="mt-3">
           {printEmbProductionData ? (
-            <PrintEmbProductionTable data={masterData || printEmbProductionData} />
+            <PrintEmbProductionTable data={masterData ?? []} CompanyId={CompanyId} />
           ) : (
             <TableSkeleton />
           )}
