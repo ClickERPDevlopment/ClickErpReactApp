@@ -1,0 +1,95 @@
+pipeline {
+    agent any
+
+    environment {
+        CLIENT_NAME = 'AG'
+    }
+
+    stages {
+        stage('Start') {
+            steps {
+                echo 'Pipeline started.'
+            }
+        }
+
+        stage('Git Pull') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Write env file') {
+            steps {
+                script {
+                    def data = "VITE_APP_CLIENT_NAME=${CLIENT_NAME}"
+                    writeFile(file: '.env', text: data)
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy to /var/www/react_app') {
+            steps {
+                script {
+                    sh """
+                        sudo rm -rf /var/www/react_app/*
+                        sudo mkdir -p /var/www/react_app
+
+                        # For Vite: dist/
+                        # For React CRA: build/
+                        if [ -d "dist" ]; then
+                            sudo cp -r dist/* /var/www/react_app/
+                        elif [ -d "build" ]; then
+                            sudo cp -r build/* /var/www/react_app/
+                        else
+                            echo "❌ Build folder not found"
+                            exit 1
+                        fi
+                    """
+                }
+            }
+        }
+
+        stage('Reload Nginx (optional)') {
+            steps {
+                sh '''
+                    if command -v nginx >/dev/null 2>&1; then
+                        echo "Reloading Nginx..."
+                        sudo systemctl reload nginx
+                    else
+                        echo "Nginx not installed, skipping reload."
+                    fi
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment completed successfully!"
+        }
+        failure {
+            echo "Job failed! Triggering email notification job..."
+            
+            // Trigger the email job with parameters
+            build job: 'email', 
+                wait: false, 
+                parameters: [
+                    string(name: 'BUILD_URL', value: env.BUILD_URL),
+                    string(name: 'JOB_NAME', value: env.JOB_NAME),
+                    string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER)
+                ]
+        }
+    }
+}
