@@ -133,7 +133,7 @@ function Report({
             <tr key={index} className="hover:bg-gray-50">
               <td className="border border-gray-950 py-1">{index + 1}</td>
               <td className="border border-gray-950 text-left px-2">{item.MATERIAL_NAME}</td>
-              <td className="border border-gray-950">{item.QUANTITY_DAMAGED}</td>
+              <td className="border border-gray-950">{item.QUANTITY_DAMAGED.toFixed(2)}</td>
               <td className="border border-gray-950">{item.UOM}</td>
               <td className="border border-gray-950">{item.CLAIM_AMOUNT_PER_UNIT}</td>
               <td className="border border-gray-950">{(item.CLAIM_AMOUNT_PER_UNIT * item.QUANTITY_DAMAGED).toFixed(2)}</td>

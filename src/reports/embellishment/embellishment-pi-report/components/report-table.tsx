@@ -36,14 +36,14 @@ function ReportTable({
   });
 
   return (
-    <div className="text-sm mt-5" style={{ fontSize: "14px" }}>
+    <div className="text-sm mt-2" style={{ fontSize: "13px" }}>
       <table className="border-collapse border border-gray-400 w-full shadow-sm">
         <thead>
           <tr className="bg-gray-200 text-gray-900">
             {firstHeader?.map((item, idx) => (
               <th
                 key={idx}
-                className="border border-gray-400 px-2 py-1 text-center font-semibold"
+                className="border border-gray-400 px-1 py-1 text-center font-semibold"
               >
                 {item}
               </th>
@@ -56,28 +56,28 @@ function ReportTable({
 
             return (
               <tr key={index} className="hover:bg-gray-50">
-                <td className="border border-gray-300 px-2 py-1 text-center">
+                <td className="border border-gray-300 px-1 py-1 text-center">
                   {index + 1}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-left">
+                <td className="border border-gray-300 px-1 py-1 text-left">
                   {item.PARTS}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-left">
+                <td className="border border-gray-300 px-1 py-1 text-left">
                   {item.STYLE || item.OS_STYLE}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-left">
+                <td className="border border-gray-300 px-1 py-1 text-left whitespace-normal break-all">
                   {item.PO_NO || item.OS_PO_NO}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-left">
+                <td className="border border-gray-300 px-1 py-1 text-left">
                   {item.PRINT_TYPE}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
+                <td className="border border-gray-300 px-1 py-1 text-center">
                   {item.QTY}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
+                <td className="border border-gray-300 px-1 py-1 text-center">
                   {((item.PRICE || 0) * 12).toFixed(2)}
                 </td>
-                <td className="border border-gray-300 px-2 py-1 text-right">
+                <td className="border border-gray-300 px-1 py-1 text-right">
                   {totalRowAmount.toFixed(2)}
                 </td>
               </tr>
@@ -86,23 +86,23 @@ function ReportTable({
 
           <tr className="bg-gray-100 font-bold">
             <td
-              className="border border-gray-400 px-2 py-1 text-center"
+              className="border border-gray-400 px-1 py-1 text-center"
               colSpan={5}
             >
               Total
             </td>
-            <td className="border border-gray-400 px-2 py-1 text-center">
+            <td className="border border-gray-400 px-1 py-1 text-center">
               {totalQty}
             </td>
-            <td className="border border-gray-400 px-2 py-1 text-center">—</td>
-            <td className="border border-gray-400 px-2 py-1 text-right">
+            <td className="border border-gray-400 px-1 py-1 text-center">—</td>
+            <td className="border border-gray-400 px-1 py-1 text-right">
               {totalAmount.toFixed(2)}
             </td>
           </tr>
         </tbody>
       </table>
 
-      <div className="mt-4" style={{ fontSize: "14px" }}>
+      <div className="mt-2" style={{ fontSize: "14px" }}>
         <p>
           <span className="font-semibold">Amount in Words:</span>{" "}
           {totalAmount && toWords.convert(totalAmount)}

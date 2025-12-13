@@ -51,7 +51,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
               </tr>
               <tr>
                 <td className="p-1 pr-4 text-gray-700">Party Order</td>
-                <td className="p-1 text-gray-900">
+                <td className="p-1 text-gray-900 whitespace-normal break-words">
                   :{" "}
                   {Array.from(
                     new Set(data.map((item) => item.EMB_WORK_ORDER_NO))
@@ -60,7 +60,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
               </tr>
               <tr>
                 <td className="p-1 pr-4 text-gray-700">PI Date</td>
-                <td className="p-1 text-gray-900">
+                <td className="p-1 text-gray-900 ">
                   :{" "}
                   {data[0]?.PI_DATE
                     ? moment(data[0].PI_DATE).format("DD-MMM-YYYY")
@@ -76,7 +76,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
         </div>
 
         {data[0]?.TERM_CONDITIONS && (
-          <div className="mt-6 text-xs">
+          <div className="mt-3 text-xs">
             <h3 className="font-bold underline text-gray-800 mb-2">
               Terms & Conditions:
             </h3>
@@ -86,7 +86,7 @@ function Report({ data }: { data: EmbellishmentPIReportType[] }) {
           </div>
         )}
 
-        <div className="mt-10 mb-5">
+        <div className="mt-10 mb-3">
           <ReportFooter data={data} />
         </div>
 
